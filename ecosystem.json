@@ -1,0 +1,68 @@
+{
+  "apps": [
+    {
+      "name": "frontend",
+      "script": "frontend-server.js",
+      "env": {
+        "SOME_VARIABLE": "true"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_dev": {
+        "NODE_ENV": "dev"
+      }
+    },
+    {
+      "name": "backend",
+      "script": "backend-server.js",
+      "env": {
+        "SOME_VARIABLE": "false"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_dev": {
+        "NODE_ENV": "dev"
+      }
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "rb",
+      "host": "107.170.208.241",
+      "ref": "origin/master",
+      "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
+      "path": "/var/www/production",
+      "pre-deploy-local" : "echo 'Preparing to deploy to production...'",
+      "post-deploy": "npm install ; pm2 startOrRestart ecosystem.json --env production",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "staging": {
+      "user": "rb",
+      "host": "107.170.208.241",
+      "ref": "origin/staging",
+      "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
+      "path": "/var/www/staging",
+      "pre-deploy-local" : "echo 'Preparing to deploy to staging...'",
+      "post-deploy": "npm install ; pm2 startOrRestart ecosystem.json --env production",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "dev": {
+      "user": "rb",
+      "host": "107.170.208.241",
+      "ref": "origin/dev",
+      "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
+      "path": "/var/www/development",
+      "pre-deploy-local" : "echo 'Preparing to deploy to development...'",
+      "post-deploy": "npm install ; pm2 startOrRestart ecosystem.json --env dev",
+      "env": {
+        "NODE_ENV": "dev"
+      }
+    }
+  }
+}
