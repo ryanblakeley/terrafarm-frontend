@@ -1,0 +1,303 @@
+input AddResourceToGroupInput {
+  resourceId: ID!
+  groupId: ID!
+  clientMutationId: String!
+}
+
+type AddResourceToGroupPayload {
+  groupEdge: GroupEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  group: Group
+  clientMutationId: String!
+}
+
+type Group implements Node {
+  id: ID!
+  name: String
+  location: String
+  description: String
+  category: String
+  image: String
+  admins(after: String, first: Int, before: String, last: Int): UserConnection
+  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+}
+
+input groupAttributes {
+  name: String
+  location: String
+  description: String
+  category: String
+  image: String
+}
+
+type GroupConnection {
+  pageInfo: PageInfo!
+  edges: [GroupEdge]
+}
+
+type GroupEdge {
+  node: Group
+  cursor: String!
+}
+
+input LikeGroupInput {
+  userId: ID!
+  groupId: ID!
+  clientMutationId: String!
+}
+
+type LikeGroupPayload {
+  groupEdge: GroupEdge
+  userEdge: UserEdge
+  user: User
+  group: Group
+  clientMutationId: String!
+}
+
+input LikeResourceInput {
+  userId: ID!
+  resourceId: ID!
+  clientMutationId: String!
+}
+
+type LikeResourcePayload {
+  resourceEdge: ResourceEdge
+  userEdge: UserEdge
+  user: User
+  resource: Resource
+  clientMutationId: String!
+}
+
+type Master implements Node {
+  id: ID!
+  users(after: String, first: Int, before: String, last: Int): UserConnection
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  groups(after: String, first: Int, before: String, last: Int): GroupConnection
+}
+
+type Mutation {
+  addResourceToGroup(input: AddResourceToGroupInput!): AddResourceToGroupPayload
+  likeGroup(input: LikeGroupInput!): LikeGroupPayload
+  likeResource(input: LikeResourceInput!): LikeResourcePayload
+  newGroup(input: NewGroupInput!): NewGroupPayload
+  newResource(input: NewResourceInput!): NewResourcePayload
+  newUser(input: NewUserInput!): NewUserPayload
+  pendingResourceToGroup(input: PendingResourceToGroupInput!): PendingResourceToGroupPayload
+  removePendingResourceToGroup(input: RemovePendingResourceToGroupInput!): RemovePendingResourceToGroupPayload
+  removeResourceFromGroup(input: RemoveResourceFromGroupInput!): RemoveResourceFromGroupPayload
+  unlikeGroup(input: UnlikeGroupInput!): UnlikeGroupPayload
+  unlikeResource(input: UnlikeResourceInput!): UnlikeResourcePayload
+  updateGroup(input: UpdateGroupInput!): UpdateGroupPayload
+  updateResource(input: UpdateResourceInput!): UpdateResourcePayload
+}
+
+input NewGroupInput {
+  userId: ID!
+  name: String!
+  location: String!
+  description: String!
+  category: String!
+  image: String
+  clientMutationId: String!
+}
+
+type NewGroupPayload {
+  groupEdge: GroupEdge
+  user: User
+  master: Master
+  clientMutationId: String!
+}
+
+input NewResourceInput {
+  userId: ID!
+  name: String!
+  description: String!
+  category: String!
+  image: String
+  clientMutationId: String!
+}
+
+type NewResourcePayload {
+  resourceEdge: ResourceEdge
+  user: User
+  master: Master
+  clientMutationId: String!
+}
+
+input NewUserInput {
+  name: String!
+  email: String!
+  image: String
+  clientMutationId: String!
+}
+
+type NewUserPayload {
+  userEdge: UserEdge
+  master: Master
+  clientMutationId: String!
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+input PendingResourceToGroupInput {
+  resourceId: ID!
+  groupId: ID!
+  clientMutationId: String!
+}
+
+type PendingResourceToGroupPayload {
+  groupEdge: GroupEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  group: Group
+  clientMutationId: String!
+}
+
+input RemovePendingResourceToGroupInput {
+  resourceId: ID!
+  groupId: ID!
+  clientMutationId: String!
+}
+
+type RemovePendingResourceToGroupPayload {
+  removedResourceID: ID
+  removedGroupID: ID
+  resource: Resource
+  group: Group
+  clientMutationId: String!
+}
+
+input RemoveResourceFromGroupInput {
+  resourceId: ID!
+  groupId: ID!
+  clientMutationId: String!
+}
+
+type RemoveResourceFromGroupPayload {
+  removedGroupID: ID
+  removedResourceID: ID
+  resource: Resource
+  group: Group
+  clientMutationId: String!
+}
+
+type Resource implements Node {
+  id: ID!
+  name: String
+  description: String
+  category: String
+  image: String
+  users(after: String, first: Int, before: String, last: Int): UserConnection
+  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
+  groups(after: String, first: Int, before: String, last: Int): GroupConnection
+  groupsPending(after: String, first: Int, before: String, last: Int): GroupConnection
+}
+
+input resourceAttributes {
+  name: String
+  description: String
+  category: String
+  image: String
+}
+
+type ResourceConnection {
+  pageInfo: PageInfo!
+  edges: [ResourceEdge]
+}
+
+type ResourceEdge {
+  node: Resource
+  cursor: String!
+}
+
+type Root {
+  group(groupId: String): Group
+  master: Master
+  resource(resourceId: String): Resource
+  user(userId: String): User
+  viewer: User
+  node(id: ID!): Node
+}
+
+input UnlikeGroupInput {
+  userId: ID!
+  groupId: ID!
+  clientMutationId: String!
+}
+
+type UnlikeGroupPayload {
+  removedUserID: ID
+  removedGroupID: ID
+  user: User
+  group: Group
+  clientMutationId: String!
+}
+
+input UnlikeResourceInput {
+  userId: ID!
+  resourceId: ID!
+  clientMutationId: String!
+}
+
+type UnlikeResourcePayload {
+  removedUserID: ID
+  removedResourceID: ID
+  user: User
+  resource: Resource
+  clientMutationId: String!
+}
+
+input UpdateGroupInput {
+  id: ID!
+  attributes: groupAttributes
+  clientMutationId: String!
+}
+
+type UpdateGroupPayload {
+  group: Group
+  clientMutationId: String!
+}
+
+input UpdateResourceInput {
+  id: ID!
+  attributes: resourceAttributes
+  clientMutationId: String!
+}
+
+type UpdateResourcePayload {
+  resource: Resource
+  clientMutationId: String!
+}
+
+type User implements Node {
+  id: ID!
+  name: String
+  email: String
+  image: String
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  resourcesLiked(after: String, first: Int, before: String, last: Int): ResourceConnection
+  groupsAdmin(after: String, first: Int, before: String, last: Int): GroupConnection
+  groupsLiked(after: String, first: Int, before: String, last: Int): GroupConnection
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]
+}
+
+type UserEdge {
+  node: User
+  cursor: String!
+}

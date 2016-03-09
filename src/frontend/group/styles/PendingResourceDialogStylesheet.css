@@ -1,0 +1,4 @@
+.icon {
+  composes: secondary from '../../shared/styles/RelationshipIconStylesheet.css';
+  display: inline-block;
+}

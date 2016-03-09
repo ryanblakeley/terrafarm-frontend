@@ -1,0 +1,76 @@
+import Relay from 'react-relay';
+
+export default class NewGroupMutation extends Relay.Mutation {
+  static fragments = {
+    user: () => Relay.QL`
+      fragment on User {
+        id,
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        id,
+      }
+    `,
+  };
+  getMutation () {
+    return Relay.QL`mutation{newGroup}`;
+  }
+  getFatQuery () {
+    return Relay.QL`
+      fragment on NewGroupPayload {
+        groupEdge,
+        master {
+          groups,
+        },
+        user {
+          groupsAdmin,
+          groupsLiked,
+        },
+      }
+    `;
+  }
+  getConfigs () {
+    return [
+      {
+        type: 'RANGE_ADD',
+        parentName: 'master',
+        parentID: this.props.master.id,
+        connectionName: 'groups',
+        edgeName: 'groupEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
+      },
+      {
+        type: 'RANGE_ADD',
+        parentName: 'user',
+        parentID: this.props.user.id,
+        connectionName: 'groupsAdmin',
+        edgeName: 'groupEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
+      },
+      {
+        type: 'RANGE_ADD',
+        parentName: 'user',
+        parentID: this.props.user.id,
+        connectionName: 'groupsLiked',
+        edgeName: 'groupEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
+      },
+    ];
+  }
+  getVariables () {
+    return {
+      userId: this.props.user.id,
+      name: this.props.name,
+      description: this.props.description,
+      category: this.props.category,
+    };
+  }
+}
+

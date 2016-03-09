@@ -1,0 +1,18 @@
+.this {
+  box-sizing: border-box;
+  padding-top: 30px;
+  height: 40vh;
+  text-align: center;
+  border-top-width: 8px;
+  border-top-style: solid;
+}
+.appTitle {
+  composes: appTitle from '../../shared/styles/typography.css';
+  font-size: 1.2em;
+}
+.link {
+  composes: link from '../../shared/styles/typography.css';
+}
+.icon {
+  composes: icon from '../../shared/styles/typography.css';
+}

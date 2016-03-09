@@ -1,0 +1,6 @@
+.this {
+  display: inline-block;
+  margin-left: 0.67em;
+  width: 25px; height: 8px;
+  border-radius: 3px;
+}

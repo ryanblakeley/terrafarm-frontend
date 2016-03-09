@@ -1,0 +1,14 @@
+.this {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 15em;
+}
+.left,
+.right { flex-grow: 1; text-align: center; }
+.icon {
+  composes: icon from '../../../../shared/styles/typography.css';
+  font-size: 34px;
+}

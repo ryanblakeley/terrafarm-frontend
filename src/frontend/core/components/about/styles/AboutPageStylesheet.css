@@ -1,0 +1,36 @@
+.this {
+  composes: page from '../../../../shared/styles/layout.css';
+  composes: bodyText from '../../../../shared/styles/typography.css';
+  max-width: 500px;
+}
+.pageHeading {
+  composes: pageHeading from '../../../../shared/styles/typography.css';
+}
+.contentSubheading {
+  composes: contentSubheading from '../../../../shared/styles/typography.css';
+}
+.bulletList {
+  composes: bulletList from '../../../../shared/styles/typography.css';
+}
+.sourceItem {
+  list-style: none;
+  font-size: 0.85em;
+  font-style: italic;
+}
+.link {
+  composes: link from '../../../../shared/styles/typography.css';
+}
+.bodyLink {
+  composes: link from '../../../../shared/styles/typography.css';
+  text-decoration: underline;
+}
+.social {
+  margin: 1.5em 0;
+  text-align: center;
+}
+.button {
+  composes: button from '../../../../shared/styles/typography.css';
+}
+.icon {
+  composes: icon from '../../../../shared/styles/typography.css';
+}

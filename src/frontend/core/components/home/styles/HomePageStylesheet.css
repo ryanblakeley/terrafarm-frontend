@@ -1,0 +1,15 @@
+.this {
+  composes: page from '../../../../shared/styles/layout.css';
+  text-align: center;
+}
+.appTitle {
+  composes: appTitle from '../../../../shared/styles/typography.css';
+  margin-bottom: 25px;
+}
+.tagline {
+  composes: bodyText from '../../../../shared/styles/typography.css';
+  font-size: 1em;
+  letter-spacing: 0.023em;
+  margin-bottom: 25px;
+}
+.warning { font-size: 0.9em; margin: 25px 0; }

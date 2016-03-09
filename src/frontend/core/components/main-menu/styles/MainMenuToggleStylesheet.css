@@ -1,0 +1,8 @@
+.this {
+  height: 8vh;
+  text-align: center;
+}
+.this.disabled {}
+.icon {
+  composes: icon from '../../../../shared/styles/typography.css';
+}

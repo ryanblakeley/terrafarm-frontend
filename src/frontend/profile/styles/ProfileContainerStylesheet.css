@@ -1,0 +1,15 @@
+.this {
+  composes: page from '../../shared/styles/layout.css';
+}
+.pageHeading {
+  composes: pageHeading from '../../shared/styles/typography.css';
+}
+.actionsHeading {
+  composes: actionsHeading from '../../shared/styles/layout.css';
+}
+.contentHeading {
+  composes: contentHeading from '../../shared/styles/typography.css';
+}
+.relationships {
+  composes: relationships from '../../shared/styles/layout.css';
+}

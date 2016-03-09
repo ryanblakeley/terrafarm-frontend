@@ -1,0 +1,7 @@
+.this {
+  display: inline-block;
+  margin: 0 0.67em;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+

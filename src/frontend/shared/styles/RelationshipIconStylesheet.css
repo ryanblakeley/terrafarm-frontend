@@ -1,0 +1,17 @@
+.this {
+  position: relative;
+  display: inline-block;
+  top: -0.14em;
+  margin-right: 1em;
+}
+.primary {
+  composes: icon from './typography.css';
+  font-size: 16px;
+}
+.secondary {
+  composes: icon from './typography.css';
+  position: absolute;
+  left: -63%;
+  font-size: 36px;
+  opacity: 0.25;
+}

@@ -1,0 +1,6 @@
+.this {
+  composes: relationshipItem from './layout.css';
+}
+.name {
+  composes: relationshipItemName from './layout.css';
+}

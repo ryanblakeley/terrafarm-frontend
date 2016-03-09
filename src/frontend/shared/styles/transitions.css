@@ -1,0 +1,16 @@
+.appear,
+.enter {
+  opacity: 0.01;
+}
+.appear.appearActive,
+.enter.enterActive {
+  opacity: 1;
+  transition: opacity 350ms ease-in;
+}
+.leave {
+  opacity: 1;
+  transition: opacity 350ms ease-in;
+}
+.leave.leaveActive {
+  opacity: 0.01;
+}

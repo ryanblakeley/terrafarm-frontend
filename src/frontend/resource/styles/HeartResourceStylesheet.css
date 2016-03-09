@@ -1,0 +1,10 @@
+.this {
+  composes: actionsHeadingButton from '../../shared/styles/layout.css';
+  text-align: center;
+}
+.icon {
+  composes: icon from '../../shared/styles/typography.css';
+}
+.count {
+  composes: articleSubheading from '../../shared/styles/typography.css';
+}

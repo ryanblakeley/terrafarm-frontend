@@ -1,0 +1,89 @@
+.menu {
+  width: 300px;
+  height: 200px;
+  margin: 0 auto;
+  position: relative;
+  -webkit-filter: url('#goo');
+  filter: url('#goo');
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.menu-wrapper {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+}
+
+.menu-toggle-button,
+.menu-item-bounce,
+.menu-item-button {
+  background-color: #A5D6A7;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  padding: 0;
+  height: 80px;
+  color: #ECEFF1;
+  border: none;
+  outline: none;
+  position: relative;
+  transition: background-color 0.4s;
+}
+
+.menu-toggle-button {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-item-icon,
+.menu-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle-icon { font-size: 30px; }
+
+.menu-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.menu-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+
+.menu-item-bounce {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-item-button {
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #1B5E20;
+}
+
+.menu-item-button:hover {
+  color: #ECEFF1;
+}
+

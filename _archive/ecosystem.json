@@ -2,16 +2,28 @@
   "apps": [
     {
       "name": "frontend",
-      "script": "./build/dist/frontend-server.js",
+      "script": "frontend-server.js",
       "env": {
-        "FRONTEND_PORT": 3000
+        "SOME_VARIABLE": "true"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_dev": {
+        "NODE_ENV": "dev"
       }
     },
     {
-      "name": "graphql",
-      "script": "./build/dist/graphql-server.js",
+      "name": "backend",
+      "script": "backend-server.js",
       "env": {
-        "GRAPHQL_PORT": 8080
+        "SOME_VARIABLE": "false"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_dev": {
+        "NODE_ENV": "dev"
       }
     }
   ],
@@ -19,7 +31,7 @@
     "production": {
       "user": "git",
       "host": "107.170.208.241",
-      "ref" : "origin/master",
+      "ref": "origin/master",
       "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
       "path": "/srv/www/production",
       "pre-deploy-local" : "echo 'Preparing to deploy to production...'",
@@ -35,9 +47,9 @@
       "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
       "path": "/srv/www/staging",
       "pre-deploy-local" : "echo 'Preparing to deploy to staging...'",
-      "post-deploy": "npm install ; pm2 startOrRestart ecosystem.json --env staging",
+      "post-deploy": "npm install ; pm2 startOrRestart ecosystem.json --env production",
       "env": {
-        "NODE_ENV": "staging"
+        "NODE_ENV": "production"
       }
     },
     "dev": {
@@ -46,7 +58,7 @@
       "ref": "origin/dev",
       "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
       "path": "/srv/www/dev",
-      "pre-deploy-local" : "echo 'Preparing to deploy to dev...'",
+      "pre-deploy-local" : "echo 'Preparing to deploy to development...'",
       "post-deploy": "npm install ; pm2 startOrRestart ecosystem.json --env dev",
       "env": {
         "NODE_ENV": "dev"
