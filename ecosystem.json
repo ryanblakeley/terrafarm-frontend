@@ -23,7 +23,6 @@
       "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
       "path": "/srv/www/production",
       "pre-deploy-local" : "echo 'Preparing to deploy to production...'",
-      // "post-deploy": "npm install ; npm run build ; pm2 startOrRestart ecosystem.json --env production",
       "env": {
         "NODE_ENV": "production"
       }
