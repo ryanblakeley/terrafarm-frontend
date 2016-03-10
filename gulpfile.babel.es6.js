@@ -1,29 +1,21 @@
-'use strict';
+import gulp from 'gulp';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import nodemon from 'nodemon';
+import path from 'path';
+import schema from 'gulp-graphql';
+import env from 'gulp-env';
 
-var gulp = require('gulp');
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var nodemon = require('nodemon');
-var path = require('path');
-var schema = require('gulp-graphql');
-var env = require('gulp-env');
-
-var configs = require('./webpack.config');
-var prodConfigs = require('./webpack.production.config');
-var frontendConfig = configs.frontendConfig;
-var graphqlServerConfig = configs.graphqlServerConfig;
-var frontendProdConfig = prodConfigs.frontendProdConfig;
-var frontendServerProdConfig = prodConfigs.frontendServerProdConfig;
-var graphqlServerProdConfig = prodConfigs.graphqlServerProdConfig;
+import configs from './webpack.config';
+import prodConfigs from './webpack.production.config';
+const { frontendConfig, graphqlServerConfig } = configs;
+const { frontendProdConfig, frontendServerProdConfig, graphqlServerProdConfig } = prodConfigs;
 
 // Test for environment variables and load if undefined
 if (!process.env.FIELDBOOK_ID) {
   env({file: './.env', type: 'ini'});
 }
-var PUBLIC_IP = process.env.PUBLIC_IP;
-var PRIVATE_IP = process.env.PRIVATE_IP;
-var FRONTEND_PORT = process.env.FRONTEND_PORT;
-var GRAPHQL_PORT = process.env.GRAPHQL_PORT;
+let { PUBLIC_IP, PRIVATE_IP, FRONTEND_PORT, GRAPHQL_PORT } = process.env;
 FRONTEND_PORT = Number(FRONTEND_PORT);
 GRAPHQL_PORT = Number(GRAPHQL_PORT);
 
@@ -45,13 +37,13 @@ function recompile () {
   });
 }
 
-function onBuild (done, logLevel) {
+function onBuild (done) {
   return function (err, stats) {
     if (err) {
       console.log('Build threw error:', err);
     }
-    else if (logLevel === 'debug') {
-      console.log('[build stats]:', stats.toString());
+    else {
+      console.log(stats.toString());
     }
 
     if (done) {
