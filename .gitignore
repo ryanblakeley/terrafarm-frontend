@@ -1,0 +1,10 @@
+.DS_Store
+build/
+node_modules/
+src/graphql/data/schema.json
+src/graphql/data/schema.graphql
+build/dist/data/schema.json
+build/dist/data/schema.graphql
+*.log
+.env
+ecosystem.json
