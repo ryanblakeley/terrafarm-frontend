@@ -3,15 +3,27 @@
     {
       "name": "frontend",
       "script": "./build/dist/frontend-server.js",
-      "env": {
-        "FRONTEND_PORT": 3000
+      "env_dev": {
+        "FRONTEND_PORT": "3000"
+      },
+      "env_staging": {
+        "FRONTEND_PORT": "3010"
+      },
+      "env_production": {
+        "FRONTEND_PORT": "3020"
       }
     },
     {
       "name": "graphql",
       "script": "./build/dist/graphql-server.js",
-      "env": {
-        "GRAPHQL_PORT": 8080
+      "env_dev": {
+        "GRAPHQL_PORT": "8080"
+      },
+      "env_staging": {
+        "GRAPHQL_PORT": "8090"
+      },
+      "env_production": {
+        "GRAPHQL_PORT": "9000"
       }
     }
   ],
