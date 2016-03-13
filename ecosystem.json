@@ -2,29 +2,11 @@
   "apps": [
     {
       "name": "frontend",
-      "script": "./build/dist/frontend-server.js",
-      "env_dev": {
-        "FRONTEND_PORT": "3000"
-      },
-      "env_staging": {
-        "FRONTEND_PORT": "3010"
-      },
-      "env_production": {
-        "FRONTEND_PORT": "3020"
-      }
+      "script": "./build/dist/frontend-server.js"
     },
     {
       "name": "graphql",
-      "script": "./build/dist/graphql-server.js",
-      "env_dev": {
-        "GRAPHQL_PORT": "8080"
-      },
-      "env_staging": {
-        "GRAPHQL_PORT": "8090"
-      },
-      "env_production": {
-        "GRAPHQL_PORT": "9000"
-      }
+      "script": "./build/dist/graphql-server.js"
     }
   ],
   "deploy": {

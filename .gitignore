@@ -7,4 +7,3 @@ build/dist/data/schema.json
 build/dist/data/schema.graphql
 *.log
 .env
-ecosystem.json
