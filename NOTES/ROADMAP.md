@@ -2,18 +2,12 @@
 
 Below is a roadmap of potential Terrafarm features and releases.
 
-## 0.4
-
-- [ ] fix issue where bundle.js tries to load from /auth/
-- [ ] add build script
-- [ ] add production script
-
 
 ## 0.5
 
-- [ ] SSL
 - [ ] handle expired jwt
 - [ ] check `state` on auth callback
+- [ ] SSL
 
 
 ## 0.6
@@ -94,3 +88,4 @@ Low priority improvements and optimizations
 - [ ] page view counters
 - [ ] css transition composition when https://github.com/facebook/react/issues/2680 lands
 - [ ] new group category called research that maybe has reading lists
+- [ ] maybe add webpack-dev-server inside `if (isDeveloping)` in `frontend/server.js`
