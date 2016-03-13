@@ -35,6 +35,7 @@
       "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
       "path": "/srv/www/production",
       "pre-deploy-local" : "echo 'Preparing to deploy to production...'",
+      "post-deploy": "npm install ; npm run build ; pm2 startOrRestart ecosystem.json --env production",
       "env": {
         "NODE_ENV": "production"
       }
@@ -46,7 +47,7 @@
       "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
       "path": "/srv/www/staging",
       "pre-deploy-local" : "echo 'Preparing to deploy to staging...'",
-      "post-deploy": "npm install ; pm2 startOrRestart ecosystem.json --env staging",
+      "post-deploy": "npm install ; npm run build ; pm2 startOrRestart ecosystem.json --env staging",
       "env": {
         "NODE_ENV": "staging"
       }
@@ -58,7 +59,7 @@
       "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
       "path": "/srv/www/dev",
       "pre-deploy-local" : "echo 'Preparing to deploy to dev...'",
-      "post-deploy": "npm install ; pm2 startOrRestart ecosystem.json --env dev",
+      "post-deploy": "npm install ; npm run build ; pm2 startOrRestart ecosystem.json --env dev",
       "env": {
         "NODE_ENV": "dev"
       }
