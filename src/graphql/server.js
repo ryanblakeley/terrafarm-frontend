@@ -30,5 +30,5 @@ app.listen(GRAPHQL_PORT, (err) => {
   if (err) {
     return console.error(err);
   }
-  console.log(`GraphQL Server is now running on ${PRIVATE_IP}:${GRAPHQL_PORT}`);
+  console.log(`[graphql server]: listening on ${PRIVATE_IP}:${GRAPHQL_PORT}`);
 });

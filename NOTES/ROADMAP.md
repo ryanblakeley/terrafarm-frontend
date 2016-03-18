@@ -3,44 +3,32 @@
 Below is a roadmap of potential Terrafarm features and releases.
 
 
-## 0.5
-
-- [ ] handle expired jwt
-- [ ] check `state` on auth callback
-- [ ] SSL
-
-
-## 0.6
-
-- [ ] browse page content and style
-
-
-## 0.7
-
-- [ ] test coverage
-
-
 ## 1.0
 
-Alpha release targeted for 2015-03-05
+Alpha release
 
-- [ ] Home Page: shadows
-- [ ] Profile Page
+- [ ] Browse page content and style
+- [ ] Browse page filter and sort
+- [ ] Profile page
   - [ ] show alert next to group with pending resources
+  - [ ] edit name, description
+- [ ] Home page: shadows
 - [ ] better transition animations
 - [ ] better loading component
 - [ ] favicon
 - [ ] review material theme
 - [ ] review menu transition out
 - [ ] allow user to change profile image
-- [ ] browse page filter and sort
+- [ ] allow user to delete profile, resource, or group
+- [ ] Resource or Group page: location with map?
 
 
 ## 2.0
 
-Beta release targeted for 2015-03-25
+Beta release
 
 - [ ] Main Menu: alternative icon style if active page
+- [ ] multiple images for profile (2), resource (3), location (5)
 - [ ] swap modals for animated divs in the page
 - [ ] invent logo and add to`./package.json` as logo, icon, or image
 - [ ] chaos monkey in dev
@@ -50,6 +38,13 @@ Beta release targeted for 2015-03-25
 - [ ] analytics
 - [ ] add a production build flag that removes source maps and minifies js/html.
 
+
+## 2.2
+
+- [ ] handle expired jwt
+- [ ] check `state` on auth callback
+- [ ] SSL
+- [ ] test coverage
 
 
 ## 3.0
@@ -89,3 +84,4 @@ Low priority improvements and optimizations
 - [ ] css transition composition when https://github.com/facebook/react/issues/2680 lands
 - [ ] new group category called research that maybe has reading lists
 - [ ] maybe add webpack-dev-server inside `if (isDeveloping)` in `frontend/server.js`
+- [ ] goo menu
