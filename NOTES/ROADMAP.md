@@ -7,10 +7,13 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 Alpha release
 
-- [ ] Browse page content and style
-- [ ] Browse page filter and sort
+- [ ] Browse page
+  - [ ] content and style
+  - [ ] results per page
+  - [ ] sort
+  - [ ] maybe route query `?entity='resources',category='labor'` instead of path `/resources/labor`
 - [ ] Profile page
-  - [ ] show alert next to group with pending resources
+  - [ ] show alert next to location with pending resources
   - [ ] edit name, description
 - [ ] Home page: shadows
 - [ ] better transition animations
@@ -19,7 +22,7 @@ Alpha release
 - [ ] review material theme
 - [ ] review menu transition out
 - [ ] allow user to change profile image
-- [ ] allow user to delete profile, resource, or group
+- [ ] allow user to delete profile, resource, or location
 - [ ] Resource or Group page: location with map?
 
 
@@ -37,6 +40,12 @@ Beta release
 - [ ] load testing
 - [ ] analytics
 - [ ] add a production build flag that removes source maps and minifies js/html.
+- [ ] task management
+  - [ ] examples
+    - [ ] survey
+    - [ ] soil analysis
+    - [ ] harvest projections
+  - [ ] recurring
 
 
 ## 2.2
@@ -51,8 +60,8 @@ Beta release
 
 Monetization features
 
-- [ ] more groups
-- [ ] more group admins
+- [ ] more locations
+- [ ] more location admins
 - [ ] access to app source code
 - [ ] crowd funding campaign
 - [ ] vendor click-throughs for books, videos, and equipment
@@ -62,7 +71,7 @@ Monetization features
 
 Low priority improvements and optimizations
 
-- [ ] allow groups to post harvest schedule information
+- [ ] allow locations to share harvest schedule
 - [ ] parallel requests
 - [ ] fewer calls to `getEndpoint`
 - [ ] Browse Page: checkboxes and multiple selection
@@ -82,6 +91,6 @@ Low priority improvements and optimizations
   - [ ] likeCount
 - [ ] page view counters
 - [ ] css transition composition when https://github.com/facebook/react/issues/2680 lands
-- [ ] new group category called research that maybe has reading lists
+- [ ] new location category called research that maybe has reading lists
 - [ ] maybe add webpack-dev-server inside `if (isDeveloping)` in `frontend/server.js`
 - [ ] goo menu

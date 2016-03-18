@@ -15,8 +15,7 @@ export default class AboutPage extends React.Component {
       workforce: 'https://www.agclassroom.org/gan/timeline/farmers_land.htm',
       nature: 'http://www.cowspiracy.com/facts/',
       wwoof: 'http://www.wwoof.net/',
-      bugs: 'mailto:terrafarmapp+bug@gmail.com',
-      general: 'mailto:terrafarmapp@gmail.com',
+      feedback: 'mailto:terrafarmapp+feedback@gmail.com',
     },
   };
   render () {
@@ -87,14 +86,14 @@ export default class AboutPage extends React.Component {
             <li>Seeds</li>
           </ul>
           <p>
-            Favoriting a group enables you to offer your resources to that
-            group. If you offer a resource, the group admin reviews the offer
-            which includes your email address.
+            Favoriting a location enables you to offer your resources to that
+            location. If you offer a resource, the location admin reviews the
+            offer which includes your email address.
           </p>
           <h4 className={classNames.contentSubheading}>Feedback</h4>
           <p>
             If you encounter a problem with the app, have a question, or a comment,
-            please send us an <a href={linkUrls.bugs} className={classNames.bodyLink}>email</a>.
+            please send us an <a href={linkUrls.feedback} className={classNames.bodyLink}>email</a>.
           </p>
           <p>
             We look forward to hearing from you!
