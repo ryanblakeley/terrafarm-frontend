@@ -1,0 +1,6 @@
+.this {
+  composes: page from '../../shared/styles/layout.css';
+}
+.text {
+  composes: bodyText from '../../shared/styles/typography.css';
+}

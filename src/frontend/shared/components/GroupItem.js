@@ -37,7 +37,7 @@ class GroupItem extends React.Component {
         secondary={secondaryIcon}
       />
       <Link to={`/auth/group/${group.id}`} className={classNames.name} >
-        {group.name}
+        {group.name[0].toUpperCase() + group.name.slice(1)}
       </Link>
       {colorSwatch
         && <RelationshipColorDash color={colorSwatch} />
