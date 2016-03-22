@@ -28,7 +28,7 @@ export default class HomePage extends React.Component {
           className={classNames.warning}
           style={styles.warning}
         >
-          Pre-release
+          Prototype
         </p>
       </div>
     </CSSTransitionGroup>;
