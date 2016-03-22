@@ -42,18 +42,19 @@ export default class AboutPage extends React.Component {
 
           <h4 className={classNames.contentSubheading}>Motivations</h4>
           <p>
-            Small-scale farming with thoughtful stewardship, manual labor, and
-            natural ecologies is hard work. The payoff is healthy and resilient
-            living systems and premium flavor.
+            Farming at its best is an expression of thoughtful stewardship, 
+            manual labor, and natural ecologies. The importance of healthy and 
+            resilient living systems that provide nutrition and flavor should
+            be appreciated.
           </p>
           <p>
             Industrial agriculture is destroying life on this planet faster than
-            any other human activity. Food that is robbed of flavor and nutrition
-            is distributed all over the world and often ends up in landfills.
+            any other human activity. Industrial food is distributed all over 
+            the world only to be passively eaten or end up in landfills.
           </p>
           <p>
-            In the face of today's challenges: climate change, soil depletion,
-            and growing populations, a proliferation of sustainable farms is
+            In the face of climate change, soil depletion, coastal flooding,
+            and growing populations, a proliferation of sustainable farms is 
             hugely important.
           </p>
 
@@ -63,6 +64,9 @@ export default class AboutPage extends React.Component {
           </p>
           <p>
             Increase contact between resource owners and people interested in real food.
+          </p>
+          <p>
+            Provide software for community farm research, design, and operation.
           </p>
 
           <h4 className={classNames.contentSubheading}>User Interface</h4>
