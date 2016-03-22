@@ -81,6 +81,7 @@ class UserContainer extends React.Component {
         <h2 className={classNames.pageHeading}>User</h2>
         <h3 className={classNames.contentHeading}>{user.name}</h3>
         <HeroImage image={user.image} />
+        <h6 className={classNames.location}>{user.location}</h6>
 
         <div className={classNames.relationships} >
           {groupsAdmin.edges.map(edge => {
@@ -112,6 +113,8 @@ class UserContainer extends React.Component {
               })}
             />;
           })}
+
+          <p className={classNames.description}>{user.description}</p>
         </div>
       </div>
     </CSSTransitionGroup>;
@@ -125,6 +128,8 @@ export default Relay.createContainer(UserContainer, {
         id,
         name,
         image,
+        location,
+        description,
         resources(first: 18) {
           edges {
             node {

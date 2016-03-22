@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import NewResourceDialog from './components/NewResourceDialog';
 import NewGroupDialog from './components/NewGroupDialog';
+import EditProfileDialog from './components/EditProfileDialog';
 import ResourceItem from '../shared/components/ResourceItem';
 import GroupItem from '../shared/components/GroupItem';
 import HeroImage from '../shared/components/HeroImage';
@@ -84,10 +85,12 @@ class ProfileContainer extends React.Component {
         <h2 className={classNames.pageHeading}>Profile</h2>
         <div className={classNames.actionsHeading}>
           <NewGroupDialog user={viewer} master={master} />
+          <EditProfileDialog user={viewer} />
           <NewResourceDialog user={viewer} master={master} />
         </div>
         <h3 className={classNames.contentHeading}>{viewer.name}</h3>
         <HeroImage image={viewer.image} />
+        <h6 className={classNames.location}>{viewer.location}</h6>
 
         <div className={classNames.relationships} >
           {groupsAdmin.edges.map(edge => {
@@ -121,6 +124,8 @@ class ProfileContainer extends React.Component {
               enableEdit
             />;
           })}
+
+          <p className={classNames.description}>{viewer.description}</p>
         </div>
       </div>
     </CSSTransitionGroup>;
@@ -133,6 +138,8 @@ export default Relay.createContainer(ProfileContainer, {
       fragment on User {
         name,
         image,
+        location,
+        description,
         resources(first: 18) {
           edges {
             node {
@@ -162,6 +169,7 @@ export default Relay.createContainer(ProfileContainer, {
         },
         ${NewResourceDialog.getFragment('user')},
         ${NewGroupDialog.getFragment('user')},
+        ${EditProfileDialog.getFragment('user')},
       }
     `,
     master: () => Relay.QL`

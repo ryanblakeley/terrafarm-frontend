@@ -1,5 +1,17 @@
 ## HEAD
 
+- added browse components
+- updated relationship icons layout
+
+
+## 0.5
+
+- production build
+- remote deploy
+
+
+## 0.4
+
 - style composition
 - global footer
 - optimistic mutation responses
@@ -9,6 +21,7 @@
 - group location field
 - switched like buttons to hearts
 - bumped relay
+
 
 ## 0.3.0
 

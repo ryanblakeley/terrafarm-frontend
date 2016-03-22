@@ -31,6 +31,14 @@ export const UserType = registerType(new GraphQLObjectType({
       type: GraphQLString,
       description: 'A person\'s email address.',
     },
+    location: {
+      type: GraphQLString,
+      description: 'A person\'s physical location.',
+    },
+    description: {
+      type: GraphQLString,
+      description: 'A person\'s description of his or her intention.',
+    },
     image: {
       type: GraphQLString,
       description: 'A person\'s image url.',

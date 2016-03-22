@@ -30,6 +30,7 @@ import UnlikeGroupMutation from './mutations/UnlikeGroupMutation';
 import UnlikeResourceMutation from './mutations/UnlikeResourceMutation';
 import UpdateGroupMutation from './mutations/UpdateGroupMutation';
 import UpdateResourceMutation from './mutations/UpdateResourceMutation';
+import UpdateUserMutation from './mutations/UpdateUserMutation';
 
 const Root = new GraphQLObjectType({
   name: 'Root',
@@ -96,6 +97,7 @@ const Mutation = new GraphQLObjectType({
     unlikeResource: UnlikeResourceMutation,
     updateGroup: UpdateGroupMutation,
     updateResource: UpdateResourceMutation,
+    updateUser: UpdateUserMutation,
   }),
 });
 

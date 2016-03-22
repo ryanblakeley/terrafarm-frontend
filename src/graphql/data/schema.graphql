@@ -92,6 +92,7 @@ type Mutation {
   unlikeResource(input: UnlikeResourceInput!): UnlikeResourcePayload
   updateGroup(input: UpdateGroupInput!): UpdateGroupPayload
   updateResource(input: UpdateResourceInput!): UpdateResourcePayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
 }
 
 input NewGroupInput {
@@ -281,15 +282,35 @@ type UpdateResourcePayload {
   clientMutationId: String!
 }
 
+input UpdateUserInput {
+  id: ID!
+  attributes: userAttributes
+  clientMutationId: String!
+}
+
+type UpdateUserPayload {
+  user: User
+  clientMutationId: String!
+}
+
 type User implements Node {
   id: ID!
   name: String
   email: String
+  location: String
+  description: String
   image: String
   resources(after: String, first: Int, before: String, last: Int): ResourceConnection
   resourcesLiked(after: String, first: Int, before: String, last: Int): ResourceConnection
   groupsAdmin(after: String, first: Int, before: String, last: Int): GroupConnection
   groupsLiked(after: String, first: Int, before: String, last: Int): GroupConnection
+}
+
+input userAttributes {
+  name: String
+  location: String
+  description: String
+  image: String
 }
 
 type UserConnection {
