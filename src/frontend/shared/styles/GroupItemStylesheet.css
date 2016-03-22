@@ -1,6 +1,9 @@
 .this {
-  composes: relationshipItem from './layout.css';
+  composes: relationshipItem from './RelationshipItemStylesheet.css';
 }
 .name {
-  composes: relationshipItemName from './layout.css';
+  composes: relationshipItemName from './RelationshipItemStylesheet.css';
+}
+.colorsPlaceholder {
+  composes: colorsPlaceholder from './RelationshipItemStylesheet.css';
 }

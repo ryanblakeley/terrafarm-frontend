@@ -36,12 +36,13 @@ class GroupItem extends React.Component {
         primary={<FaGroup />}
         secondary={secondaryIcon}
       />
+      {colorSwatch
+        ? <RelationshipColorDash color={colorSwatch} />
+        : <div className={classNames.colorsPlaceholder} />
+      }
       <Link to={`/auth/group/${group.id}`} className={classNames.name} >
         {group.name[0].toUpperCase() + group.name.slice(1)}
       </Link>
-      {colorSwatch
-        && <RelationshipColorDash color={colorSwatch} />
-      }
     </div>;
   }
 }

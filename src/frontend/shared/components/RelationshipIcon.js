@@ -11,8 +11,11 @@ export default class RelationshipIcon extends React.Component {
     const {primary, secondary} = this.props;
 
     return <div className={classNames.this} >
+      {secondary
+        ? React.cloneElement(secondary, {className: classNames.secondary})
+        : <div className={classNames.secondaryPlaceholder} />
+      }
       {React.cloneElement(primary, {className: classNames.primary})}
-      {secondary && React.cloneElement(secondary, {className: classNames.secondary})}
     </div>;
   }
 }

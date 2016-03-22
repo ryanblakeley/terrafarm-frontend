@@ -2,16 +2,20 @@
   position: relative;
   display: inline-block;
   top: -0.14em;
-  margin-right: 1em;
 }
 .primary {
   composes: icon from './typography.css';
+  margin-right: 8px;
   font-size: 16px;
 }
 .secondary {
   composes: icon from './typography.css';
-  position: absolute;
   left: -63%;
-  font-size: 36px;
+  margin-right: 8px;
+  font-size: 16px;
   opacity: 0.25;
+}
+.secondaryPlaceholder {
+  display: inline-block;
+  width: 20px;
 }

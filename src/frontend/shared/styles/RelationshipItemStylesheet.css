@@ -1,0 +1,11 @@
+.relationshipItem {
+  line-height: 2.2em;
+}
+.relationshipItemName {
+  composes: bodyText from './typography.css';
+  font-size: 1.1em;
+}
+.colorsPlaceholder {
+  display: inline-block;
+  width: 40px;
+}

@@ -39,7 +39,7 @@ class RemoveResourceFromGroupDialog extends React.Component {
     ];
 
     return <div className={classNames.icon} >
-      <MdRemove onTouchTap={this.handleOpen} />
+      <MdRemove onTouchTap={this.handleOpen} className={classNames.pointer} />
       <Dialog
         title={'Remove Resource'}
         actions={actions}
@@ -47,11 +47,11 @@ class RemoveResourceFromGroupDialog extends React.Component {
         open={this.state.open}
       >
         <p>
-          <span>Please confirm that you would like to remove </span>
-          <Link to={`/auth/resource/${resource.id}`} style={{textDecoration: 'underline'}}>
+          <span>Please confirm that you would like to remove the resource </span>
+          <Link to={`/auth/resource/${resource.id}`} className={classNames.link}>
             {resource.name}
           </Link>
-          <span> from the group.</span>
+          <span> from the group <span className={classNames.link}>{group.name}</span>.</span>
         </p>
       </Dialog>
     </div>;
@@ -63,6 +63,7 @@ export default Relay.createContainer(RemoveResourceFromGroupDialog, {
     group: () => Relay.QL`
       fragment on Group {
         id,
+        name,
         ${RemoveResourceFromGroup.getFragment('group')},
       }
     `,

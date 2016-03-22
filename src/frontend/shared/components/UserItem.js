@@ -28,12 +28,13 @@ class UserItem extends React.Component {
 
     return <div className={classNames.this} style={styles.this} >
       <RelationshipIcon primary={<FaUser />} secondary={adminBadge ? <MdStar /> : null} />
+      {colorSwatch
+        ? <RelationshipColorDash color={colorSwatch} />
+        : <div className={classNames.colorsPlaceholder} />
+      }
       <Link to={`/auth/user/${user.id}`} className={classNames.name} >
         {user.name[0].toUpperCase() + user.name.slice(1)}
       </Link>
-      {colorSwatch
-        && <RelationshipColorDash color={colorSwatch} />
-      }
     </div>;
   }
 }

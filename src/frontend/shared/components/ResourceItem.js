@@ -27,12 +27,13 @@ class ResourceItem extends React.Component {
         primary={<FaTag />}
         secondary={action}
       />
+      {colorSwatches && colorSwatches.length
+        ? colorSwatches.map(color => <RelationshipColorDot key={color} color={color} />)
+        : <div className={classNames.colorsPlaceholder} />
+      }
       <Link to={`/auth/resource/${resource.id}`} className={classNames.name} >
         {resource.name[0].toUpperCase() + resource.name.slice(1)}
       </Link>
-      {colorSwatches
-        && colorSwatches.map(color => <RelationshipColorDot key={color} color={color} />)
-      }
     </div>;
   }
 }
