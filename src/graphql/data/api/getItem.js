@@ -9,7 +9,7 @@ export default async function getItem (endpoint, id, info) {
   try {
     response = await requestify.get(url, options);
   } catch (err) {
-    console.error('Error getting item:', err);
+    console.error('API error with getItem:', err);
   }
 
   return JSON.parse(response.body);
