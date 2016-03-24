@@ -9,6 +9,7 @@ import MdEdit from 'react-icons/lib/md/edit';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
 import UpdateGroup from './UpdateGroup';
+import DeleteGroup from './DeleteGroup';
 
 import classNames from '../styles/EditGroupDialogStylesheet.css';
 
@@ -78,9 +79,16 @@ class EditGroupDialog extends React.Component {
     }
   }
   render () {
-    const {group, categories} = this.props;
+    const {group, categories, master, user} = this.props;
     const {attributes, canSubmit, open, categoryIndex} = this.state;
     const actions = [
+      <DeleteGroup
+        group={group}
+        master={master}
+        user={user}
+        default
+        onComplete={this.handleClose}
+      />,
       <FlatButton
         label={'Cancel'}
         secondary
@@ -165,6 +173,19 @@ export default Relay.createContainer(EditGroupDialog, {
         category,
         image,
         ${UpdateGroup.getFragment('group')},
+        ${DeleteGroup.getFragment('group')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        id,
+        ${DeleteGroup.getFragment('master')},
+      }
+    `,
+    user: () => Relay.QL`
+      fragment on User {
+        id,
+        ${DeleteGroup.getFragment('user')},
       }
     `,
   },

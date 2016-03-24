@@ -12,6 +12,43 @@ type AddResourceToGroupPayload {
   clientMutationId: String!
 }
 
+input DeleteGroupInput {
+  groupId: ID!
+  userId: ID!
+  clientMutationId: String!
+}
+
+type DeleteGroupPayload {
+  removedGroupID: ID
+  master: Master
+  user: User
+  clientMutationId: String!
+}
+
+input DeleteResourceInput {
+  resourceId: ID!
+  userId: ID!
+  clientMutationId: String!
+}
+
+type DeleteResourcePayload {
+  removedResourceID: ID
+  master: Master
+  user: User
+  clientMutationId: String!
+}
+
+input DeleteUserInput {
+  userId: ID!
+  clientMutationId: String!
+}
+
+type DeleteUserPayload {
+  removedUserID: ID
+  master: Master
+  clientMutationId: String!
+}
+
 type Group implements Node {
   id: ID!
   name: String
@@ -80,6 +117,9 @@ type Master implements Node {
 
 type Mutation {
   addResourceToGroup(input: AddResourceToGroupInput!): AddResourceToGroupPayload
+  deleteGroup(input: DeleteGroupInput!): DeleteGroupPayload
+  deleteResource(input: DeleteResourceInput!): DeleteResourcePayload
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload
   likeGroup(input: LikeGroupInput!): LikeGroupPayload
   likeResource(input: LikeResourceInput!): LikeResourcePayload
   newGroup(input: NewGroupInput!): NewGroupPayload
@@ -98,7 +138,6 @@ type Mutation {
 input NewGroupInput {
   userId: ID!
   name: String!
-  location: String!
   description: String!
   category: String!
   image: String

@@ -85,7 +85,7 @@ class ProfileContainer extends React.Component {
         <h2 className={classNames.pageHeading}>Profile</h2>
         <div className={classNames.actionsHeading}>
           <NewGroupDialog user={viewer} master={master} />
-          <EditProfileDialog user={viewer} />
+          <EditProfileDialog user={viewer} master={master} />
           <NewResourceDialog user={viewer} master={master} />
         </div>
         <h3 className={classNames.contentHeading}>{viewer.name}</h3>
@@ -176,6 +176,7 @@ export default Relay.createContainer(ProfileContainer, {
       fragment on Master {
         ${NewResourceDialog.getFragment('master')},
         ${NewGroupDialog.getFragment('master')},
+        ${EditProfileDialog.getFragment('master')},
       }
     `,
   },

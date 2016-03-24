@@ -9,6 +9,7 @@ import MdEdit from 'react-icons/lib/md/edit';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
 import UpdateProfile from './UpdateProfile';
+import DeleteUser from './DeleteUser';
 
 import classNames from '../styles/EditProfileDialogStylesheet.css';
 
@@ -64,9 +65,15 @@ class EditProfileDialog extends React.Component {
     }
   }
   render () {
-    const {user} = this.props;
+    const {user, master} = this.props;
     const {attributes, canSubmit, open} = this.state;
     const actions = [
+      <DeleteUser
+        master={master}
+        user={user}
+        default
+        onComplete={this.handleClose}
+      />,
       <FlatButton
         label={'Cancel'}
         secondary
@@ -138,8 +145,14 @@ export default Relay.createContainer(EditProfileDialog, {
         description,
         image,
         ${UpdateProfile.getFragment('user')},
+        ${DeleteUser.getFragment('user')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        id,
+        ${DeleteUser.getFragment('master')},
       }
     `,
   },
 });
-

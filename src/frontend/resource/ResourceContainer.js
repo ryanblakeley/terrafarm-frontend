@@ -41,7 +41,7 @@ class ResourceContainer extends React.Component {
     this.setState({isOwner, doesLike});
   }
   render () {
-    const {resource, viewer} = this.props;
+    const {resource, viewer, master} = this.props;
     const {isOwner, doesLike} = this.state;
     const owner = resource.users.edges[0].node;
     const {likedBy} = resource;
@@ -63,7 +63,7 @@ class ResourceContainer extends React.Component {
             count={likedBy.edges.length}
           />
           {isOwner
-            && <EditResourceDialog resource={resource} />
+            && <EditResourceDialog resource={resource} master={master} user={viewer} />
           }
         </div>
         <h3 className={classNames.contentHeading}>{resource.name}</h3>
@@ -137,6 +137,13 @@ export default Relay.createContainer(ResourceContainer, {
       fragment on User {
         id,
         ${HeartResource.getFragment('user')},
+        ${EditResourceDialog.getFragment('user')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        id,
+        ${EditResourceDialog.getFragment('master')},
       }
     `,
   },

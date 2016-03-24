@@ -88,7 +88,7 @@ class GroupContainer extends React.Component {
     resourcesPending.scrollIntoView();
   }
   render () {
-    const {group, viewer} = this.props;
+    const {group, viewer, master} = this.props;
     const {resourceOwners, isAdmin, doesLike, colorChart} = this.state;
     const {admins, likedBy} = group;
 
@@ -109,7 +109,7 @@ class GroupContainer extends React.Component {
             count={likedBy.edges.length}
           />
           {isAdmin
-            && <EditGroupDialog group={group} />
+            && <EditGroupDialog group={group} master={master} user={viewer} />
           }
           {doesLike
             && <NewResourceOfferDialog group={group} user={viewer} />
@@ -253,6 +253,13 @@ export default Relay.createContainer(GroupContainer, {
         id,
         ${HeartGroup.getFragment('user')},
         ${NewResourceOfferDialog.getFragment('user')},
+        ${EditGroupDialog.getFragment('user')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        id,
+        ${EditGroupDialog.getFragment('master')},
       }
     `,
   },

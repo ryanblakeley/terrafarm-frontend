@@ -28,7 +28,6 @@ export default mutationWithClientMutationId({
   inputFields: {
     userId: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
-    location: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: new GraphQLNonNull(GraphQLString) },
     category: { type: new GraphQLNonNull(GraphQLString) },
     image: { type: GraphQLString },
@@ -41,7 +40,7 @@ export default mutationWithClientMutationId({
         const master = await getItem(masterEndpoint, 1);
         const groupPromises = master.groups.map(r => getItem(groupEndpoint, r.id));
         const groupResults = await* groupPromises;
-        const offset = groupResults.findIndex(g => g.id == localGroupId);
+        const offset = groupResults.findIndex(r => r.id == localGroupId);
         const cursor = offsetToCursor(offset);
         return {
           cursor: cursor,
@@ -58,12 +57,11 @@ export default mutationWithClientMutationId({
       resolve: async () => await getItem(masterEndpoint, 1),
     },
   },
-  mutateAndGetPayload: async ({userId, name, location, description, category, image}) => {
+  mutateAndGetPayload: async ({userId, name, description, category, image}) => {
     const localUserId = fromGlobalId(userId).id;
 
     return await createItem(groupEndpoint, {
       name,
-      location,
       description,
       category,
       image,

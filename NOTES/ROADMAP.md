@@ -7,7 +7,6 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 Prototype release
 
-- [x] allow user to change profile name, image, location, description
 - [ ] allow user to delete profile, resource, or location
 - [ ] favicon
 - [ ] review menu transition out

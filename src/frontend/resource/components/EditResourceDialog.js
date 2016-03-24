@@ -9,6 +9,7 @@ import MdEdit from 'react-icons/lib/md/edit';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
 import UpdateResource from './UpdateResource';
+import DeleteResource from './DeleteResource';
 
 import classNames from '../styles/EditResourceDialogStylesheet.css';
 
@@ -75,9 +76,16 @@ class EditResourceDialog extends React.Component {
     }
   }
   render () {
-    const {resource, categories} = this.props;
+    const {resource, categories, master, user} = this.props;
     const {attributes, canSubmit, open, categoryIndex} = this.state;
     const actions = [
+      <DeleteResource
+        resource={resource}
+        master={master}
+        user={user}
+        default
+        onComplete={this.handleClose}
+      />,
       <FlatButton
         label={'Cancel'}
         secondary
@@ -155,6 +163,19 @@ export default Relay.createContainer(EditResourceDialog, {
         category,
         image,
         ${UpdateResource.getFragment('resource')},
+        ${DeleteResource.getFragment('resource')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        id,
+        ${DeleteResource.getFragment('master')},
+      }
+    `,
+    user: () => Relay.QL`
+      fragment on User {
+        id,
+        ${DeleteResource.getFragment('user')},
       }
     `,
   },

@@ -18,6 +18,9 @@ import {ResourceType} from './types/ResourceType';
 import {nodeField} from './types/node';
 
 import AddResourceToGroupMutation from './mutations/AddResourceToGroupMutation';
+import DeleteGroupMutation from './mutations/DeleteGroupMutation';
+import DeleteResourceMutation from './mutations/DeleteResourceMutation';
+import DeleteUserMutation from './mutations/DeleteUserMutation';
 import LikeGroupMutation from './mutations/LikeGroupMutation';
 import LikeResourceMutation from './mutations/LikeResourceMutation';
 import NewGroupMutation from './mutations/NewGroupMutation';
@@ -85,6 +88,9 @@ const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     addResourceToGroup: AddResourceToGroupMutation,
+    deleteGroup: DeleteGroupMutation,
+    deleteResource: DeleteResourceMutation,
+    deleteUser: DeleteUserMutation,
     likeGroup: LikeGroupMutation,
     likeResource: LikeResourceMutation,
     newGroup: NewGroupMutation,
@@ -105,5 +111,3 @@ export const Schema = new GraphQLSchema({
   mutation: Mutation,
   query: Root,
 });
-
-

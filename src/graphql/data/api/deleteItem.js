@@ -4,8 +4,13 @@ import {baseUrl, options} from './config';
 /* eslint no-unused-vars:0 */
 export default async function deleteItem (endpoint, id, info) {
   const url = baseUrl + '/' + endpoint(id);
-  const response = await requestify.delete(url, options);
+
+  let response;
+  try {
+    response = await requestify.delete(url, options);
+  } catch (err) {
+    console.error('API error with deleteItem:', err);
+  }
 
   return response.getCode(); // No response body, returns HTTP 204
 }
-

@@ -15,6 +15,7 @@ class NewGroup extends React.Component {
     secondary: React.PropTypes.bool,
     attributes: React.PropTypes.shape({
       name: React.PropTypes.string,
+      location: React.PropTypes.string,
       description: React.PropTypes.string,
       category: React.PropTypes.string,
     }),
@@ -47,7 +48,6 @@ class NewGroup extends React.Component {
         location,
         description,
         category,
-        image,
       })
     );
 
@@ -82,5 +82,3 @@ export default Relay.createContainer(NewGroup, {
     `,
   },
 });
-
-
