@@ -24,12 +24,12 @@ export default class HomePage extends React.Component {
         <h1 className={classNames.appTitle}>Terrafarm</h1>
         <div className={classNames.tagline}>Cultivate good food close to home.</div>
         <HomeLinks />
-        <p
+        <h6
           className={classNames.warning}
           style={styles.warning}
         >
           Prototype
-        </p>
+        </h6>
       </div>
     </CSSTransitionGroup>;
   }
