@@ -36,17 +36,17 @@ export default class Perspective extends React.Component {
       menuShouldClose: true,
     };
   }
-  _scrollY () {
+  scrollY () {
     return window.pageYOffset || window.document.documentElement.scrollTop;
   }
   handleMenuClick = () => {
     if (this.state.menuShouldClose) {
-      this._handleShowMainMenu();
+      this.handleShowMainMenu();
     }
-    this._handleHideMainMenu();
+    this.handleHideMainMenu();
   }
-  _handleShowMainMenu = () => {
-    const scrollY = this._scrollY();
+  handleShowMainMenu = () => {
+    const scrollY = this.scrollY();
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
     this.setState({
@@ -61,7 +61,7 @@ export default class Perspective extends React.Component {
       });
     }, 25);
   }
-  _handleHideMainMenu = () => {
+  handleHideMainMenu = () => {
     const {transEndEventNames} = this.props;
     const {perspectiveWrapper, container} = this.refs;
 
@@ -90,7 +90,7 @@ export default class Perspective extends React.Component {
       this.setState({animate: false});
     }
   }
-  _handleNullTap = () => {
+  handleNullTap = () => {
     return false;
   }
   render () {
@@ -103,7 +103,7 @@ export default class Perspective extends React.Component {
           modalview: this.state.modalview,
           animate: this.state.animate,
         })}
-        onTouchTap={this._handleNullTap}
+        onTouchTap={this.handleNullTap}
       >
         <div
           ref={'container'}
@@ -111,7 +111,7 @@ export default class Perspective extends React.Component {
             container: true,
             transform: this.state.transform,
           })}
-          onTouchTap={this._handleHideMainMenu}
+          onTouchTap={this.handleHideMainMenu}
         >
           <MainMenuToggle onClick={this.handleMenuClick} />
 
@@ -135,7 +135,7 @@ export default class Perspective extends React.Component {
         >
           <MainMenu
             close={this.state.menuShouldClose}
-            onHide={this._handleHideMainMenu}
+            onHide={this.handleHideMainMenu}
           />
         </nav>
       </div>
@@ -146,7 +146,7 @@ export default class Perspective extends React.Component {
 import MenuGoo from './MenuGoo';
 <MenuGoo
   shouldClose={this.state.menuShouldClose}
-  onShow={this._handleShowMainMenu}
-  onHide={this._handleHideMainMenu}
+  onShow={this.handleShowMainMenu}
+  onHide={this.handleHideMainMenu}
 />
 */

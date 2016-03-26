@@ -24,7 +24,10 @@ export default class HomeLinks extends React.Component {
     refresh: React.PropTypes.func,
   };
   handleSignIn = () => {
-    const {lock} = this.context;
+    const {lock, router} = this.context;
+
+    router.replace('/home');
+
     lock.show({
       authParams: {
         scope: 'openid profile',

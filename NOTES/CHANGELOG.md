@@ -2,6 +2,9 @@
 
 - added browse components
 - updated relationship icons layout
+- added delete features for user, group, resource
+- renamed group -> location (presentation only)
+- fixed error message
 
 
 ## 0.5

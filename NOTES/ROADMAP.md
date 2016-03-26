@@ -7,10 +7,13 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 Prototype release
 
-- [ ] allow user to delete profile, resource, or location
-- [ ] favicon
-- [ ] review menu transition out
-- [ ] audit mutations
+- [ ] menu [top-expand](http://tympanus.net/Development/OffCanvasMenuEffects/topexpand.html)  
+
+
+## 1.2
+
+- [ ] type tests
+- [ ] mutation tests
 
 
 ## 2.0
@@ -102,3 +105,4 @@ Low priority improvements and optimizations
 - [ ] better transition animations
 - [ ] review material theme
 - [ ] mail server
+- [ ] menu for desktop [move-down](http://tympanus.net/Development/PerspectivePageViewNavigation/index4.html)
