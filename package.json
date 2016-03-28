@@ -1,7 +1,7 @@
 {
   "name": "terrafarm",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.6.0",
   "description": "Cultivate good food close to home.",
   "repository": "rblakeley/terrafarm",
   "author": "rblakeley",

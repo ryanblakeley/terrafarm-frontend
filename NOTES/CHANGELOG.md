@@ -1,10 +1,14 @@
 ## HEAD
 
+
+## 0.6
+
 - added browse components
 - updated relationship icons layout
 - added delete features for user, group, resource
-- renamed group -> location (presentation only)
-- fixed error message
+- renamed group -> location (frontend only)
+- fixed error messages
+- added favicon
 
 
 ## 0.5

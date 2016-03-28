@@ -3,11 +3,19 @@
 Below is a roadmap of potential Terrafarm features and releases.
 
 
+## 0.7
+
+- [ ] redesign menu
+  - [ ] inspiration [top-expand](http://tympanus.net/Development/OffCanvasMenuEffects/topexpand.html)  
+- [ ] redesign dialogs
+  - [ ] expandable form with all fields at top of item page
+- [ ] redesign browse line menu
+  - [ ] inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/)
+
+
 ## 1.0
 
 Prototype release
-
-- [ ] menu [top-expand](http://tympanus.net/Development/OffCanvasMenuEffects/topexpand.html)  
 
 
 ## 1.2
@@ -20,7 +28,6 @@ Prototype release
 
 Alpha release
 
-- [ ] swap modals for animated divs in the page
 - [ ] improve the "new location" module by asking questions that guide description-writing
   - [ ] What is the physical layout?
   - [ ] What are the climate patterns?
@@ -76,12 +83,10 @@ Low priority improvements and optimizations
   - [ ] results per page
   - [ ] sort
   - [ ] map
+  - [ ] multiple selection
 - [ ] Profile page
   - [ ] show alert next to location with pending resources
 - [ ] allow locations to share harvest schedule
-- [ ] parallel requests
-- [ ] fewer calls to `getEndpoint`
-- [ ] Browse Page: checkboxes and multiple selection
 - [ ] New Resource: name field predictive text
 - [ ] URL parameter values (query keys) should be descriptive
 - [ ] `peerDependencies` instead of shrinkwrap?
@@ -106,3 +111,7 @@ Low priority improvements and optimizations
 - [ ] review material theme
 - [ ] mail server
 - [ ] menu for desktop [move-down](http://tympanus.net/Development/PerspectivePageViewNavigation/index4.html)
+
+- [ ] review parallel requests
+- [ ] review calls to `getEndpoint`
+
