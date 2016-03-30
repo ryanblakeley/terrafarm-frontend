@@ -1,4 +1,5 @@
 .this { text-align: center; }
 .icon {
   composes: icon from '../../../../shared/styles/typography.css';
+  font-size: 32px;
 }

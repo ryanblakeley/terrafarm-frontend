@@ -31,9 +31,10 @@ export default class Perspective extends React.Component {
       docScroll: 0,
       contentScroll: 0,
       modalview: false,
+      modalnav: false,
       animate: false,
       transform: false,
-      menuShouldClose: true,
+      menuShouldClose: false,
     };
   }
   scrollY () {
@@ -41,9 +42,9 @@ export default class Perspective extends React.Component {
   }
   handleMenuClick = () => {
     if (this.state.menuShouldClose) {
-      this.handleShowMainMenu();
+      this.handleHideMainMenu();
     }
-    this.handleHideMainMenu();
+    this.handleShowMainMenu();
   }
   handleShowMainMenu = () => {
     const scrollY = this.scrollY();
@@ -53,7 +54,8 @@ export default class Perspective extends React.Component {
       docScroll: scrollY,
       contentScroll: scrollY * -1,
       modalview: true,
-      menuShouldClose: false,
+      modalnav: true,
+      menuShouldClose: true,
     });
     setTimeout(() => {
       this.setState({
@@ -65,7 +67,11 @@ export default class Perspective extends React.Component {
     const {transEndEventNames} = this.props;
     const {perspectiveWrapper, container} = this.refs;
 
-    this.setState({transform: true, menuShouldClose: true});
+    this.setState({
+      transform: true,
+      menuShouldClose: false,
+    });
+
     if (this.state.animate) {
       const onEndTransFn = (event) => {
         if (event.target !== container || event.propertyName.indexOf('transform') === -1) return;
@@ -77,6 +83,7 @@ export default class Perspective extends React.Component {
         this.setState({
           contentScroll: 0,
           modalview: false,
+          modalnav: false,
           transform: false,
         });
         // mac chrome issue
@@ -87,21 +94,34 @@ export default class Perspective extends React.Component {
         perspectiveWrapper.addEventListener(transEndEventNames[i], onEndTransFn);
       }
 
-      this.setState({animate: false});
+      this.setState({
+        animate: false,
+        modalnav: false,
+      });
     }
   }
   handleNullTap = () => {
     return false;
   }
   render () {
+    const {
+      modalview,
+      modalnav,
+      animate,
+      transform,
+      contentScroll,
+      menuShouldClose,
+    } = this.state;
+
     return (
       <div
         ref={'perspectiveWrapper'}
         className={cx({
           perspective: true,
           'effect-movedown': true,
-          modalview: this.state.modalview,
-          animate: this.state.animate,
+          modalview,
+          modalnav,
+          animate,
         })}
         onTouchTap={this.handleNullTap}
       >
@@ -109,7 +129,7 @@ export default class Perspective extends React.Component {
           ref={'container'}
           className={cx({
             container: true,
-            transform: this.state.transform,
+            transform,
           })}
           onTouchTap={this.handleHideMainMenu}
         >
@@ -118,7 +138,7 @@ export default class Perspective extends React.Component {
           <div
             ref={'contentWrapper'}
             className={cx({wrapper: true})}
-            style={{top: this.state.contentScroll}}
+            style={{top: contentScroll}}
           >
             {React.cloneElement(this.props.children, {
               key: this.context.router.pathname,
@@ -130,11 +150,11 @@ export default class Perspective extends React.Component {
         <nav
           className={cx({
             'outer-nav': true,
-            transform: this.state.transform,
+            transform,
           })}
         >
           <MainMenu
-            close={this.state.menuShouldClose}
+            close={!menuShouldClose}
             onHide={this.handleHideMainMenu}
           />
         </nav>

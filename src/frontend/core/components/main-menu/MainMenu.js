@@ -1,9 +1,9 @@
 import React from 'react';
-import IconButton from 'material-ui/lib/icon-button';
 import Colors from 'material-ui/lib/styles/colors';
 import FaUser from 'react-icons/lib/fa/user';
 import GoSignOut from 'react-icons/lib/go/sign-out';
 import MdSearch from 'react-icons/lib/md/search';
+import MainMenuItem from './components/MainMenuItem';
 
 import classNames from './styles/MainMenuStylesheet.css';
 const styles = {
@@ -53,30 +53,21 @@ export default class MainMenu extends React.Component {
   }
   render () {
     return <div className={classNames.this}>
-      <IconButton
-        tooltip={'Profile'}
-        onTouchTap={this.handleProfile}
-        iconStyle={styles.icon}
-        touch
-      >
-        <FaUser className={classNames.icon} />
-      </IconButton>
-      <IconButton
-        tooltip={'Browse'}
-        onTouchTap={this.handleBrowse}
-        iconStyle={styles.icon}
-        touch
-      >
-        <MdSearch className={classNames.icon} />
-      </IconButton>
-      <IconButton
-        tooltip={'Logout'}
-        onTouchTap={this.handleSignOut}
-        iconStyle={styles.icon}
-        touch
-      >
-        <GoSignOut className={classNames.icon} />
-      </IconButton>
+      <MainMenuItem
+        label={'Profile'}
+        onSelect={this.handleProfile}
+        icon={<FaUser className={classNames.icon} style={styles.icon} />}
+      />
+      <MainMenuItem
+        label={'Browse'}
+        onSelect={this.handleBrowse}
+        icon={<MdSearch className={classNames.icon} style={styles.icon} />}
+      />
+      <MainMenuItem
+        label={'Logout'}
+        onSelect={this.handleSignOut}
+        icon={<GoSignOut className={classNames.icon} style={styles.icon} />}
+      />
     </div>;
   }
 }

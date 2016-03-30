@@ -6,11 +6,15 @@ Below is a roadmap of potential Terrafarm features and releases.
 ## 0.7
 
 - [ ] redesign menu
-  - [ ] inspiration [top-expand](http://tympanus.net/Development/OffCanvasMenuEffects/topexpand.html)  
+  - [x] larger menu items
+  - [x] replace tooltip with label text
+  - [x] fix transition out timing
+  - [ ] menu item click feedback animation
 - [ ] redesign dialogs
   - [ ] expandable form with all fields at top of item page
 - [ ] redesign browse line menu
-  - [ ] inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/)
+  - [ ] inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/#Valentine)
+- [ ] responsive styles
 
 
 ## 1.0
