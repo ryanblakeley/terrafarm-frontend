@@ -9,7 +9,7 @@ export default async function createItem (endpoint, record) {
   try {
     response = await requestify.post(url, record, options);
   } catch (err) {
-    return console.error('API errror with createItem:', err);
+    console.error('[Error] with createItem API:', err);
   }
 
   return JSON.parse(response.body);

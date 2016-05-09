@@ -19,8 +19,12 @@ import UserContainer from './user/UserContainer';
 import UserQueries from './user/UserQueries';
 import ResourceContainer from './resource/ResourceContainer';
 import ResourceQueries from './resource/ResourceQueries';
-import GroupContainer from './group/GroupContainer';
-import GroupQueries from './group/GroupQueries';
+import LandContainer from './land/LandContainer';
+import LandQueries from './land/LandQueries';
+import ProjectContainer from './project/ProjectContainer';
+import ProjectQueries from './project/ProjectQueries';
+import TaskContainer from './task/TaskContainer';
+import TaskQueries from './task/TaskQueries';
 import Loading from './core/components/Loading';
 
 injectTapEventPlugin();
@@ -75,9 +79,21 @@ ReactDOM.render(
           renderLoading={renderLoading}
         />
         <Route
-          path={'group/:groupId'}
-          component={GroupContainer}
-          queries={GroupQueries}
+          path={'land/:landId'}
+          component={LandContainer}
+          queries={LandQueries}
+          renderLoading={renderLoading}
+        />
+        <Route
+          path={'project/:projectId'}
+          component={ProjectContainer}
+          queries={ProjectQueries}
+          renderLoading={renderLoading}
+        />
+        <Route
+          path={'task/:taskId'}
+          component={TaskContainer}
+          queries={TaskQueries}
           renderLoading={renderLoading}
         />
       </Route>

@@ -1,7 +1,11 @@
-## HEAD
+# Changelog
+
+## HEAD 2016 May
+
+- updated main menu design
 
 
-## 0.6
+## 0.6 2016 April
 
 - added browse components
 - updated relationship icons layout
@@ -11,13 +15,13 @@
 - added favicon
 
 
-## 0.5
+## 0.5 2016 March
 
 - production build
 - remote deploy
 
 
-## 0.4
+## 0.4 2016 February
 
 - style composition
 - global footer
@@ -30,7 +34,7 @@
 - bumped relay
 
 
-## 0.3.0
+## 0.3 2016 January
 
 #### Stories
 - user authentication
@@ -40,7 +44,7 @@
   - edit the group details
 - resource offer includes user email so admin can correspond
 
-#### Interface
+#### Frontend
 - added fields to users, resources, and groups forms and pages
   - email
   - categories
@@ -54,13 +58,13 @@
 - chaos monkey
 
 
-## 0.2.0
+## 0.2 2016 January
 
 #### Documentation
 - gh-pages
 - Heroku free hosting
 
-#### Interface
+#### Frontend
 - Home Page
 - About Page
 - Main Menu
@@ -81,7 +85,7 @@
 - added fields on types and mutations
 
 
-## 0.1.0
+## 0.1 2015 December
 
 #### Documentation
 - core [practices](https://github.com/linuxfoundation/cii-best-practices-badge) and standards.
@@ -94,7 +98,7 @@
 - roadmap
 - change log
 
-#### Interface
+#### Frontend
 - tech and architecture
 - basic user stories
 - typography

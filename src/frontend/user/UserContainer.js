@@ -2,7 +2,9 @@ import React from 'react';
 import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import ResourceItem from '../shared/components/ResourceItem';
-import GroupItem from '../shared/components/GroupItem';
+import LandItem from '../shared/components/LandItem';
+import ProjectItem from '../shared/components/ProjectItem';
+import TaskItem from '../shared/components/TaskItem';
 import HeroImage from '../shared/components/HeroImage';
 
 import createColorChart from '../shared/themes/create-color-chart';
@@ -14,61 +16,85 @@ class UserContainer extends React.Component {
     user: React.PropTypes.object,
   };
   state = {
-    colorChart: {},
-    groupsUsingResources: [],
+    landsUsingResources: [],
+    projectsUsingResources: [],
+    tasksUsingResources: [],
   };
   componentWillMount () {
     const {user} = this.props;
-    const {groupsAdmin, resources} = user;
+    const {landsAdmin, projectsAdmin, resources} = user;
 
-    this.updateColorChart(resources);
-    this.updateGroupList(groupsAdmin, resources);
+    this.updateLandList(landsAdmin, resources);
+    this.updateProjectList(projectsAdmin, resources);
+    this.updateTaskList(resources);
   }
   componentWillReceiveProps (nextProps) {
     const {user} = nextProps;
-    const {groupsAdmin, resources} = user;
+    const {landsAdmin, projectsAdmin, resources} = user;
 
-    this.updateColorChart(resources);
-    this.updateGroupList(groupsAdmin, resources);
+    this.updateLandList(landsAdmin, resources);
+    this.updateProjectList(projectsAdmin, resources);
+    this.updateTaskList(resources);
   }
-  updateColorChart (resources) {
-    const groupIds = [];
-    let groupsUsingResources = resources.edges.map(edge => {
-      return edge.node.groups.edges.map(groupEdge => groupEdge.node);
+  updateLandList (landsAdmin, resources) {
+    const landIds = landsAdmin.edges.map(edge => edge.node.id);
+
+    let landsUsingResources = resources.edges.map(edge => {
+      return edge.node.lands.edges.map(landEdge => landEdge.node);
     });
-    groupsUsingResources = [].concat.apply([], groupsUsingResources);
-    groupsUsingResources = groupsUsingResources.filter(group => {
-      if (groupIds.indexOf(group.id) > -1) {
+    landsUsingResources = [].concat.apply([], landsUsingResources);
+    landsUsingResources = landsUsingResources.filter(land => {
+      if (landIds.indexOf(land.id) > -1) {
         return false;
       }
-      groupIds.push(group.id);
+      landIds.push(land.id);
       return true;
     });
 
-    const colorChart = createColorChart(groupIds);
-
-    this.setState({colorChart});
+    this.setState({landsUsingResources});
   }
-  updateGroupList (groupsAdmin, resources) {
-    const groupIds = groupsAdmin.edges.map(edge => edge.node.id);
+  updateProjectList (projectsAdmin, resources) {
+    const projectIds = projectsAdmin.edges.map(edge => edge.node.id);
 
-    let groupsUsingResources = resources.edges.map(edge => {
-      return edge.node.groups.edges.map(groupEdge => groupEdge.node);
+    let projectsUsingResources = resources.edges.map(edge => {
+      return edge.node.projects.edges.map(projectEdge => projectEdge.node);
     });
-    groupsUsingResources = [].concat.apply([], groupsUsingResources);
-    groupsUsingResources = groupsUsingResources.filter(group => {
-      if (groupIds.indexOf(group.id) > -1) {
+    projectsUsingResources = [].concat.apply([], projectsUsingResources);
+    projectsUsingResources = projectsUsingResources.filter(project => {
+      if (projectIds.indexOf(project.id) > -1) {
         return false;
       }
-      groupIds.push(group.id);
+      projectIds.push(project.id);
       return true;
     });
 
-    this.setState({groupsUsingResources});
+    this.setState({projectsUsingResources});
+  }
+  updateTaskList (resources) {
+    const taskIds = [];
+
+    let tasksUsingResources = resources.edges.map(edge => {
+      return edge.node.tasks.edges.map(taskEdge => taskEdge.node);
+    });
+    tasksUsingResources = [].concat.apply([], tasksUsingResources);
+    tasksUsingResources = tasksUsingResources.filter(task => {
+      if (taskIds.indexOf(task.id) > -1) {
+        return false;
+      }
+      taskIds.push(task.id);
+      return true;
+    });
+
+    this.setState({tasksUsingResources});
   }
   render () {
     const {user} = this.props;
-    const {groupsAdmin} = user;
+    const {
+      landsUsingResources,
+      projectsUsingResources,
+      tasksUsingResources,
+    } = this.state;
+    const {landsAdmin, projectsAdmin, resources} = user;
 
     return <CSSTransitionGroup
       transitionName={transitionNames}
@@ -84,35 +110,64 @@ class UserContainer extends React.Component {
         <h6 className={classNames.location}>{user.location}</h6>
 
         <div className={classNames.relationships} >
-          {groupsAdmin.edges.map(edge => {
-            return <GroupItem
+          {landsAdmin.edges.map(edge => {
+            return <LandItem
               key={edge.node.id}
-              group={edge.node}
-              colorSwatch={this.state.colorChart[edge.node.id]}
+              land={edge.node}
               adminBadge
             />;
           })}
 
-          {this.state.groupsUsingResources
-            && this.state.groupsUsingResources.length > 0
-            && this.state.groupsUsingResources.map(group => {
-              return <GroupItem
-                key={group.id}
-                group={group}
-                colorSwatch={this.state.colorChart[group.id]}
+          {landsUsingResources
+            && landsUsingResources.length > 0
+            && landsUsingResources.map(land => {
+              return <LandItem
+                key={land.id}
+                land={land}
               />;
             })
           }
 
-          {user.resources.edges.map(edge => {
-            return <ResourceItem
-              key={edge.node.id}
-              resource={edge.node}
-              colorSwatches={edge.node.groups.edges.map(groupEdge => {
-                return this.state.colorChart[groupEdge.node.id];
-              })}
-            />;
-          })}
+          {projectsAdmin
+            && projectsAdmin.edges.length > 0
+            && projectsAdmin.edges.map(edge => {
+              return <ProjectItem
+                key={edge.node.id}
+                project={edge.node}
+                adminBadge
+              />;
+            })
+          }
+
+          {projectsUsingResources
+            && projectsUsingResources.length > 0
+            && projectsUsingResources.map(project => {
+              return <ProjectItem
+                key={project.id}
+                project={project}
+              />;
+            })
+          }
+
+          {tasksUsingResources
+            && tasksUsingResources.length > 0
+            && tasksUsingResources.map(task => {
+              return <TaskItem
+                key={task.id}
+                task={task}
+              />;
+            })
+          }
+
+          {resources
+            && resources.edges.length > 0
+            && resources.edges.map(edge => {
+              return <ResourceItem
+                key={edge.node.id}
+                resource={edge.node}
+              />;
+            })
+          }
 
           <p className={classNames.description}>{user.description}</p>
         </div>
@@ -135,12 +190,30 @@ export default Relay.createContainer(UserContainer, {
             node {
               id,
               name,
-              groups(first: 18) {
+              lands(first: 18) {
                 edges {
                   node {
                     name,
                     id,
-                    ${GroupItem.getFragment('group')},
+                    ${LandItem.getFragment('land')},
+                  }
+                }
+              },
+              projects(first: 18) {
+                edges {
+                  node {
+                    name,
+                    id,
+                    ${ProjectItem.getFragment('project')},
+                  }
+                }
+              },
+              tasks(first: 18) {
+                edges {
+                  node {
+                    name,
+                    id,
+                    ${TaskItem.getFragment('task')},
                   }
                 }
               },
@@ -148,12 +221,21 @@ export default Relay.createContainer(UserContainer, {
             }
           },
         },
-        groupsAdmin(first: 18) {
+        landsAdmin(first: 18) {
           edges {
             node {
               id,
               name,
-              ${GroupItem.getFragment('group')},
+              ${LandItem.getFragment('land')},
+            }
+          }
+        },
+        projectsAdmin(first: 18) {
+          edges {
+            node {
+              id,
+              name,
+              ${ProjectItem.getFragment('project')},
             }
           }
         },

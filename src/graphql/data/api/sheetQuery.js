@@ -9,7 +9,7 @@ export default async function sheetQuery (endpoint, query) {
   try {
     response = await requestify.get(url, options);
   } catch (err) {
-    console.error('Error getting item:', err);
+    console.error('[Error] with sheetQuery API:', err);
   }
 
   return JSON.parse(response.body);

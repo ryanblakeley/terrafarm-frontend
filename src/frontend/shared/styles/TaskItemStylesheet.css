@@ -1,0 +1,9 @@
+.this {
+  composes: relationshipItem from './RelationshipItemStylesheet.css';
+}
+.name {
+  composes: relationshipItemName from './RelationshipItemStylesheet.css';
+}
+.colorsPlaceholder {
+  composes: colorsPlaceholder from './RelationshipItemStylesheet.css';
+}

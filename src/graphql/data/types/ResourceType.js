@@ -16,7 +16,9 @@ import {nodeInterface} from './node';
 import getItem from '../api/getItem';
 
 import {UserType, UserConnection} from './UserType';
-import {GroupType, GroupConnection} from './GroupType';
+import {LandType, LandConnection} from './LandType';
+import {TaskType, TaskConnection} from './TaskType';
+import {ProjectType, ProjectConnection} from './ProjectType';
 
 export const ResourceType = registerType(new GraphQLObjectType({
   name: 'Resource',
@@ -65,28 +67,80 @@ export const ResourceType = registerType(new GraphQLObjectType({
         );
       },
     },
-    groups: {
-      type: GroupConnection,
-      description: 'An economic input\'s list of groups with access.',
+    lands: {
+      type: LandConnection,
+      description: 'An economic input\'s list of lands with access.',
       args: connectionArgs,
       resolve: async (_, args) => {
-        const groupPromises = _.groups.map(g => getItem(getEndpoint(GroupType), g.id));
-        const groupResults = await* groupPromises;
+        const landPromises = _.lands.map(g => getItem(getEndpoint(LandType), g.id));
+        const landResults = await* landPromises;
         return connectionFromArray(
-          groupResults,
+          landResults,
           args
         );
       },
     },
-    groupsPending: {
-      type: GroupConnection,
-      description: 'An economic input\'s list of pending group commitments.',
+    landsPending: {
+      type: LandConnection,
+      description: 'An economic input\'s list of pending land commitments.',
       args: connectionArgs,
       resolve: async (_, args) => {
-        const groupPromises = _.groups_pending.map(u => getItem(getEndpoint(GroupType), u.id));
-        const groupResults = await* groupPromises;
+        const landPromises = _.lands_pending.map(u => getItem(getEndpoint(LandType), u.id));
+        const landResults = await* landPromises;
         return connectionFromArray(
-          groupResults,
+          landResults,
+          args
+        );
+      },
+    },
+    tasks: {
+      type: TaskConnection,
+      description: 'An economic input\'s task commitment list.',
+      args: connectionArgs,
+      resolve: async (_, args) => {
+        const taskPromises = _.tasks.map(g => getItem(getEndpoint(TaskType), g.id));
+        const taskResults = await* taskPromises;
+        return connectionFromArray(
+          taskResults,
+          args
+        );
+      },
+    },
+    tasksPending: {
+      type: TaskConnection,
+      description: 'An economic input\'s list of pending task commitments.',
+      args: connectionArgs,
+      resolve: async (_, args) => {
+        const taskPromises = _.tasks_pending.map(t => getItem(getEndpoint(TaskType), t.id));
+        const taskResults = await* taskPromises;
+        return connectionFromArray(
+          taskResults,
+          args
+        );
+      },
+    },
+    projects: {
+      type: ProjectConnection,
+      description: 'An economic input\'s project commitment list.',
+      args: connectionArgs,
+      resolve: async (_, args) => {
+        const projectPromises = _.projects.map(g => getItem(getEndpoint(ProjectType), g.id));
+        const projectResults = await* projectPromises;
+        return connectionFromArray(
+          projectResults,
+          args
+        );
+      },
+    },
+    projectsPending: {
+      type: ProjectConnection,
+      description: 'An economic input\'s list of pending project commitments.',
+      args: connectionArgs,
+      resolve: async (_, args) => {
+        const projectPromises = _.projects_pending.map(t => getItem(getEndpoint(ProjectType), t.id));
+        const projectResults = await* projectPromises;
+        return connectionFromArray(
+          projectResults,
           args
         );
       },

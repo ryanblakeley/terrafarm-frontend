@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import Colors from 'material-ui/lib/styles/colors';
-import FaUser from 'react-icons/lib/fa/user';
+import IoPerson from 'react-icons/lib/io/person';
 import MdStar from 'react-icons/lib/md/star';
 import RelationshipIcon from './RelationshipIcon';
 import RelationshipColorDash from './RelationshipColorDash';
@@ -27,7 +27,7 @@ class UserItem extends React.Component {
     const {user, colorSwatch, adminBadge} = this.props;
 
     return <div className={classNames.this} style={styles.this} >
-      <RelationshipIcon primary={<FaUser />} secondary={adminBadge ? <MdStar /> : null} />
+      <RelationshipIcon primary={<IoPerson />} secondary={adminBadge ? <MdStar /> : null} />
       {colorSwatch
         ? <RelationshipColorDash color={colorSwatch} />
         : <div className={classNames.colorsPlaceholder} />

@@ -28,7 +28,7 @@ app.use('/', authenticate, graphQLHTTP(req => {
 }));
 app.listen(GRAPHQL_PORT, (err) => {
   if (err) {
-    return console.error(err);
+    return console.error(`[Error]: ${err}`);
   }
   console.log(`[graphql server]: listening on ${PRIVATE_IP}:${GRAPHQL_PORT}`);
 });

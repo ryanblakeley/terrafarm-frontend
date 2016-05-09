@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ResultsListUsers from './ResultsListUsers';
-import ResultsListLocations from './ResultsListLocations';
+import ResultsListLands from './ResultsListLands';
 import ResultsListResources from './ResultsListResources';
 
 import classNames from '../styles/ResultsListStylesheet.css';
@@ -38,8 +38,8 @@ class ResultsList extends React.Component {
     if (entities && entities.length) {
       if (entities.search('users') > -1) {
         return <ResultsListUsers master={master} />;
-      } else if (entities.search('locations') > -1) {
-        return <ResultsListLocations master={master} />;
+      } else if (entities.search('lands') > -1) {
+        return <ResultsListLands master={master} />;
       } else if (entities.search('resources') > -1) {
         return <ResultsListResources master={master} />;
       }
@@ -58,7 +58,7 @@ export default Relay.createContainer(ResultsList, {
       fragment on Master {
         id,
         ${ResultsListUsers.getFragment('master')},
-        ${ResultsListLocations.getFragment('master')},
+        ${ResultsListLands.getFragment('master')},
         ${ResultsListResources.getFragment('master')},
       }
     `,

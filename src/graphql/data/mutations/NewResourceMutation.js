@@ -66,7 +66,9 @@ export default mutationWithClientMutationId({
       category,
       image,
       users: [{id: localUserId}],
-      groups: [],
+      lands: [],
+      projects: [],
+      tasks: [],
       masters: [{id: 1}],
     }).then(result => {
       return {

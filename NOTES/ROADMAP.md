@@ -5,27 +5,93 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 ## 0.7
 
-- [ ] redesign menu
-  - [x] larger menu items
-  - [x] replace tooltip with label text
-  - [x] fix transition out timing
-  - [ ] menu item click feedback animation
+- [ ] new Project
+- [ ] new Task
+- edit task
+- edit project
+- edit land
+- edit resource
+- edit user
+
+- [ ] fix eslint
+- [ ] compatible test package
+- [ ] different icon for land:
+  - torii gate by freepik: http://www.flaticon.com/free-icon/torii-gate_68189#term=gate&page=1&position=15
+- [ ] cleanup styles
+- do tasks need priority?
+- move "Prototype" heading into a footer on Home page
+- sticky footer
+- get rid of /home as redirect
+- ion-log-in, ion-log-out
+- rewrite tagline
+- ion-person icon on main menu profile button
+- color relationships on task and project pages
+- rewrite copy on PendingResourceDialog and NewResourceOfferDialog
+
+- [x] Task page
+  - [x] show AddResource button if user likes project
+  - [x] if viewer isAdmin, show pending resource offers with actions
+  - [x] create resource list based on permissions and pass as prop to NewResourceOfferDialog
+  - [x] show remove Resource action if isProjectAdmin or user owns resource
+
+- [x] Resource page
+  - [x] add Projects list under Lands list item
+  - [x] add Tasks list under Projects list item
+
+- [x] User page
+  - [x] remove color relationship from Lands list
+  - [x] add Projects list under Lands list item
+  - [x] add Tasks list under Projects list item
+
+- [x] Project page
+  - [x] parent Land item
+  - [x] admins
+  - [x] tasks
+  - [x] resources
+  - [x] resources pending if isProjectAdmin
+  - [x] show AddResourceOffer in actionHeading if doesLike project
+  - [x] project admin or resource owner can remove resource
+
+- [x] Land page
+
+
+## 0.8
+
+- [ ] add Wish Lists
+  - wish list item page
+  - people will wish for resources, tasks, and projects
+  - lands will wish for resources, tasks, and projects
+  - tasks will wish for resources
+  - projects will wish for resources
+- [ ] add Crop Schedules
+- [ ] add Weather
+- [ ] update Resources
+  - [ ] add Availability
+  - [ ] add Storage Area
+  - [ ] add Last Seen
+
+
+## 0.9
+
 - [ ] redesign dialogs
-  - [ ] expandable form with all fields at top of item page
+  - [ ] layout
+    - title
+    - children
+    - actions
+  - [ ] testing on EditResourceDialog
 - [ ] redesign browse line menu
-  - [ ] inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/#Valentine)
+  - inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/#Valentine)
 - [ ] responsive styles
+- [ ] main menu item click feedback animation
 
 
 ## 1.0
 
 Prototype release
 
-
-## 1.2
-
-- [ ] type tests
-- [ ] mutation tests
+- [ ] tests
+  - [ ] types
+  - [ ] mutations
 
 
 ## 2.0
@@ -33,10 +99,10 @@ Prototype release
 Alpha release
 
 - [ ] improve the "new location" module by asking questions that guide description-writing
-  - [ ] What is the physical layout?
-  - [ ] What are the climate patterns?
-  - [ ] What are the incumbent lifeforms?
-  - [ ] What are your preferences?
+  - What is the physical layout?
+  - What are the climate patterns?
+  - What are the incumbent lifeforms?
+  - What are your preferences?
 - [ ] Main Menu: alternative icon style if active page
 - [ ] multiple images for profile (2), resource (3), location (5)
 - [ ] invent logo and add to`./package.json` as logo, icon, or image
@@ -48,9 +114,9 @@ Alpha release
 - [ ] add a production build flag that removes source maps and minifies js/html.
 - [ ] task management
   - [ ] examples
-    - [ ] survey
-    - [ ] soil analysis
-    - [ ] harvest projections
+    - survey
+    - soil analysis
+    - harvest projections
   - [ ] recurring
 - [ ] better loading component
 
@@ -96,7 +162,7 @@ Low priority improvements and optimizations
 - [ ] `peerDependencies` instead of shrinkwrap?
 - [ ] bump dependencies, maybe node
 - [ ] svg background-image as dataURI
-- [ ] funny 404 page
+- [ ] funny 404 page 'oh well arms ascii guy'
 - [ ] Getting Started page
 - [ ] Home Page photography
 - [ ] css feature detection, fallbacks, and browser warnings
@@ -115,7 +181,8 @@ Low priority improvements and optimizations
 - [ ] review material theme
 - [ ] mail server
 - [ ] menu for desktop [move-down](http://tympanus.net/Development/PerspectivePageViewNavigation/index4.html)
-
 - [ ] review parallel requests
 - [ ] review calls to `getEndpoint`
-
+- [ ] review formsy placeholders matching optimistic updates
+- [ ] maybe change User -> Person
+- [ ] priority and status indicators

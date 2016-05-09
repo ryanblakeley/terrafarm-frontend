@@ -1,0 +1,11 @@
+.icon {
+  composes: secondary from './RelationshipIconStylesheet.css';
+  display: inline-block;
+}
+.link {
+  composes: link from './typography.css';
+  font-weight: 700;
+}
+.pointer {
+  cursor: pointer;
+}

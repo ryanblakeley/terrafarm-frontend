@@ -11,41 +11,59 @@ import {getEndpoint} from './types/registry';
 import getItem from './api/getItem';
 import sheetQuery from './api/sheetQuery';
 
-import {GroupType} from './types/GroupType';
+import {LandType} from './types/LandType';
 import MasterType from './types/MasterType';
 import {UserType} from './types/UserType';
 import {ResourceType} from './types/ResourceType';
+import {ProjectType} from './types/ProjectType';
+import {TaskType} from './types/TaskType';
 import {nodeField} from './types/node';
 
-import AddResourceToGroupMutation from './mutations/AddResourceToGroupMutation';
-import DeleteGroupMutation from './mutations/DeleteGroupMutation';
+import AddResourceToLandMutation from './mutations/AddResourceToLandMutation';
+import AddResourceToProjectMutation from './mutations/AddResourceToProjectMutation';
+import AddResourceToTaskMutation from './mutations/AddResourceToTaskMutation';
+import DeleteLandMutation from './mutations/DeleteLandMutation';
+import DeleteProjectMutation from './mutations/DeleteProjectMutation';
 import DeleteResourceMutation from './mutations/DeleteResourceMutation';
+import DeleteTaskMutation from './mutations/DeleteTaskMutation';
 import DeleteUserMutation from './mutations/DeleteUserMutation';
-import LikeGroupMutation from './mutations/LikeGroupMutation';
+import LikeLandMutation from './mutations/LikeLandMutation';
+import LikeProjectMutation from './mutations/LikeProjectMutation';
 import LikeResourceMutation from './mutations/LikeResourceMutation';
-import NewGroupMutation from './mutations/NewGroupMutation';
+import NewLandMutation from './mutations/NewLandMutation';
+import NewProjectMutation from './mutations/NewProjectMutation';
+import NewTaskMutation from './mutations/NewTaskMutation';
 import NewResourceMutation from './mutations/NewResourceMutation';
 import NewUserMutation from './mutations/NewUserMutation';
-import PendingResourceToGroupMutation from './mutations/PendingResourceToGroupMutation';
-import RemovePendingResourceToGroupMutation from './mutations/RemovePendingResourceToGroupMutation';
-import RemoveResourceFromGroupMutation from './mutations/RemoveResourceFromGroupMutation';
-import UnlikeGroupMutation from './mutations/UnlikeGroupMutation';
+import PendingResourceToLandMutation from './mutations/PendingResourceToLandMutation';
+import PendingResourceToProjectMutation from './mutations/PendingResourceToProjectMutation';
+import PendingResourceToTaskMutation from './mutations/PendingResourceToTaskMutation';
+import RemovePendingResourceToLandMutation from './mutations/RemovePendingResourceToLandMutation';
+import RemovePendingResourceToProjectMutation from './mutations/RemovePendingResourceToProjectMutation';
+import RemovePendingResourceToTaskMutation from './mutations/RemovePendingResourceToTaskMutation';
+import RemoveResourceFromLandMutation from './mutations/RemoveResourceFromLandMutation';
+import RemoveResourceFromProjectMutation from './mutations/RemoveResourceFromProjectMutation';
+import RemoveResourceFromTaskMutation from './mutations/RemoveResourceFromTaskMutation';
+import UnlikeLandMutation from './mutations/UnlikeLandMutation';
+import UnlikeProjectMutation from './mutations/UnlikeProjectMutation';
 import UnlikeResourceMutation from './mutations/UnlikeResourceMutation';
-import UpdateGroupMutation from './mutations/UpdateGroupMutation';
+import UpdateLandMutation from './mutations/UpdateLandMutation';
+import UpdateProjectMutation from './mutations/UpdateProjectMutation';
 import UpdateResourceMutation from './mutations/UpdateResourceMutation';
+import UpdateTaskMutation from './mutations/UpdateTaskMutation';
 import UpdateUserMutation from './mutations/UpdateUserMutation';
 
 const Root = new GraphQLObjectType({
   name: 'Root',
   fields: {
-    group: {
-      type: GroupType,
+    land: {
+      type: LandType,
       args: {
-        groupId: { type: GraphQLString },
+        landId: { type: GraphQLString },
       },
-      resolve: async (_, {groupId}) => {
-        const id = fromGlobalId(groupId).id;
-        return await getItem(getEndpoint(GroupType), id);
+      resolve: async (_, {landId}) => {
+        const id = fromGlobalId(landId).id;
+        return await getItem(getEndpoint(LandType), id);
       },
     },
     master: {
@@ -80,6 +98,26 @@ const Root = new GraphQLObjectType({
         return result[0];
       },
     },
+    project: {
+      type: ProjectType,
+      args: {
+        projectId: { type: GraphQLString },
+      },
+      resolve: async (_, {projectId}) => {
+        const id = fromGlobalId(projectId).id;
+        return await getItem(getEndpoint(ProjectType), id);
+      },
+    },
+    task: {
+      type: TaskType,
+      args: {
+        taskId: { type: GraphQLString },
+      },
+      resolve: async (_, {taskId}) => {
+        const id = fromGlobalId(taskId).id;
+        return await getItem(getEndpoint(TaskType), id);
+      },
+    },
     node: nodeField,
   },
 });
@@ -87,22 +125,38 @@ const Root = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    addResourceToGroup: AddResourceToGroupMutation,
-    deleteGroup: DeleteGroupMutation,
+    addResourceToLand: AddResourceToLandMutation,
+    addResourceToProject: AddResourceToProjectMutation,
+    addResourceToTask: AddResourceToTaskMutation,
+    deleteLand: DeleteLandMutation,
+    deleteProject: DeleteProjectMutation,
     deleteResource: DeleteResourceMutation,
+    deleteTask: DeleteTaskMutation,
     deleteUser: DeleteUserMutation,
-    likeGroup: LikeGroupMutation,
+    likeLand: LikeLandMutation,
+    likeProject: LikeProjectMutation,
     likeResource: LikeResourceMutation,
-    newGroup: NewGroupMutation,
+    newLand: NewLandMutation,
+    newProject: NewProjectMutation,
+    //newTask: NewTaskMutation,
     newResource: NewResourceMutation,
     newUser: NewUserMutation,
-    pendingResourceToGroup: PendingResourceToGroupMutation,
-    removePendingResourceToGroup: RemovePendingResourceToGroupMutation,
-    removeResourceFromGroup: RemoveResourceFromGroupMutation,
-    unlikeGroup: UnlikeGroupMutation,
+    pendingResourceToLand: PendingResourceToLandMutation,
+    pendingResourceToProject: PendingResourceToProjectMutation,
+    pendingResourceToTask: PendingResourceToTaskMutation,
+    removePendingResourceToLand: RemovePendingResourceToLandMutation,
+    removePendingResourceToProject: RemovePendingResourceToProjectMutation,
+    removePendingResourceToTask: RemovePendingResourceToTaskMutation,
+    removeResourceFromLand: RemoveResourceFromLandMutation,
+    removeResourceFromProject: RemoveResourceFromProjectMutation,
+    removeResourceFromTask: RemoveResourceFromTaskMutation,
+    unlikeLand: UnlikeLandMutation,
+    unlikeProject: UnlikeProjectMutation,
     unlikeResource: UnlikeResourceMutation,
-    updateGroup: UpdateGroupMutation,
+    updateLand: UpdateLandMutation,
+    updateProject: UpdateProjectMutation,
     updateResource: UpdateResourceMutation,
+    updateTask: UpdateTaskMutation,
     updateUser: UpdateUserMutation,
   }),
 });

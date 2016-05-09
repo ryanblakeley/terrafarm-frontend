@@ -9,7 +9,7 @@ export default async function deleteItem (endpoint, id, info) {
   try {
     response = await requestify.delete(url, options);
   } catch (err) {
-    console.error('API error with deleteItem:', err);
+    console.error('[Error] with deleteItem API:', err);
   }
 
   return response.getCode(); // No response body, returns HTTP 204

@@ -4,9 +4,13 @@ import CSSTransitionGroup from 'react-addons-css-transition-group';
 import HeartResource from './components/HeartResource';
 import EditResourceDialog from './components/EditResourceDialog';
 import UserItem from '../shared/components/UserItem';
-import GroupItem from '../shared/components/GroupItem';
+import LandItem from '../shared/components/LandItem';
+import ProjectItem from '../shared/components/ProjectItem';
+import TaskItem from '../shared/components/TaskItem';
 import HeroImage from '../shared/components/HeroImage';
-import RemoveResourceFromGroupDialog from '../shared/components/RemoveResourceFromGroupDialog';
+import RemoveResourceFromLandDialog from '../shared/components/RemoveResourceFromLandDialog';
+import RemoveResourceFromProjectDialog from '../shared/components/RemoveResourceFromProjectDialog';
+import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFromTaskDialog';
 
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/ResourceContainerStylesheet.css';
@@ -44,7 +48,7 @@ class ResourceContainer extends React.Component {
     const {resource, viewer, master} = this.props;
     const {isOwner, doesLike} = this.state;
     const owner = resource.users.edges[0].node;
-    const {likedBy} = resource;
+    const {lands, projects, tasks, likedBy} = resource;
 
     return <CSSTransitionGroup
       transitionName={transitionNames}
@@ -72,14 +76,36 @@ class ResourceContainer extends React.Component {
 
         <div className={classNames.relationships}>
           <UserItem user={owner} adminBadge />
-          {resource.groups.edges.map(edge => {
+          {lands.edges.map(edge => {
             const action = isOwner
-              ? <RemoveResourceFromGroupDialog resource={resource} group={edge.node} />
+              ? <RemoveResourceFromLandDialog resource={resource} land={edge.node} />
               : null;
 
-            return <GroupItem
+            return <LandItem
               key={edge.node.id}
-              group={edge.node}
+              land={edge.node}
+              action={action}
+            />;
+          })}
+          {projects.edges.map(edge => {
+            const action = isOwner
+              ? <RemoveResourceFromProjectDialog resource={resource} project={edge.node} />
+              : null;
+
+            return <ProjectItem
+              key={edge.node.id}
+              project={edge.node}
+              action={action}
+            />;
+          })}
+          {tasks.edges.map(edge => {
+            const action = isOwner
+              ? <RemoveResourceFromTaskDialog resource={resource} task={edge.node} />
+              : null;
+
+            return <TaskItem
+              key={edge.node.id}
+              task={edge.node}
               action={action}
             />;
           })}
@@ -111,13 +137,33 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        groups(first: 5) {
+        lands(first: 5) {
           edges {
             node {
               id,
               name,
-              ${GroupItem.getFragment('group')},
-              ${RemoveResourceFromGroupDialog.getFragment('group')},
+              ${LandItem.getFragment('land')},
+              ${RemoveResourceFromLandDialog.getFragment('land')},
+            }
+          }
+        },
+        projects(first: 5) {
+          edges {
+            node {
+              id,
+              name,
+              ${ProjectItem.getFragment('project')},
+              ${RemoveResourceFromProjectDialog.getFragment('project')},
+            }
+          }
+        },
+        tasks(first: 5) {
+          edges {
+            node {
+              id,
+              name,
+              ${TaskItem.getFragment('task')},
+              ${RemoveResourceFromTaskDialog.getFragment('task')},
             }
           }
         },
@@ -130,7 +176,9 @@ export default Relay.createContainer(ResourceContainer, {
         },
         ${EditResourceDialog.getFragment('resource')},
         ${HeartResource.getFragment('resource')},
-        ${RemoveResourceFromGroupDialog.getFragment('resource')},
+        ${RemoveResourceFromLandDialog.getFragment('resource')},
+        ${RemoveResourceFromProjectDialog.getFragment('resource')},
+        ${RemoveResourceFromTaskDialog.getFragment('resource')},
       }
     `,
     viewer: () => Relay.QL`

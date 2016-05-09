@@ -1,27 +1,66 @@
-input AddResourceToGroupInput {
+input AddResourceToLandInput {
   resourceId: ID!
-  groupId: ID!
+  landId: ID!
   clientMutationId: String!
 }
 
-type AddResourceToGroupPayload {
-  groupEdge: GroupEdge
+type AddResourceToLandPayload {
+  landEdge: LandEdge
   resourceEdge: ResourceEdge
   resource: Resource
-  group: Group
+  land: Land
   clientMutationId: String!
 }
 
-input DeleteGroupInput {
-  groupId: ID!
+input AddResourceToProjectInput {
+  resourceId: ID!
+  projectId: ID!
+  clientMutationId: String!
+}
+
+type AddResourceToProjectPayload {
+  projectEdge: ProjectEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  project: Project
+  clientMutationId: String!
+}
+
+input AddResourceToTaskInput {
+  resourceId: ID!
+  taskId: ID!
+  clientMutationId: String!
+}
+
+type AddResourceToTaskPayload {
+  taskEdge: TaskEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  task: Task
+  clientMutationId: String!
+}
+
+input DeleteLandInput {
+  landId: ID!
   userId: ID!
   clientMutationId: String!
 }
 
-type DeleteGroupPayload {
-  removedGroupID: ID
+type DeleteLandPayload {
+  removedLandID: ID
   master: Master
   user: User
+  clientMutationId: String!
+}
+
+input DeleteProjectInput {
+  projectId: ID!
+  clientMutationId: String!
+}
+
+type DeleteProjectPayload {
+  removedProjectID: ID
+  master: Master
   clientMutationId: String!
 }
 
@@ -38,6 +77,17 @@ type DeleteResourcePayload {
   clientMutationId: String!
 }
 
+input DeleteTaskInput {
+  taskId: ID!
+  clientMutationId: String!
+}
+
+type DeleteTaskPayload {
+  removedTaskID: ID
+  master: Master
+  clientMutationId: String!
+}
+
 input DeleteUserInput {
   userId: ID!
   clientMutationId: String!
@@ -49,7 +99,7 @@ type DeleteUserPayload {
   clientMutationId: String!
 }
 
-type Group implements Node {
+type Land implements Node {
   id: ID!
   name: String
   location: String
@@ -60,9 +110,10 @@ type Group implements Node {
   likedBy(after: String, first: Int, before: String, last: Int): UserConnection
   resources(after: String, first: Int, before: String, last: Int): ResourceConnection
   resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
 }
 
-input groupAttributes {
+input landAttributes {
   name: String
   location: String
   description: String
@@ -70,27 +121,41 @@ input groupAttributes {
   image: String
 }
 
-type GroupConnection {
+type LandConnection {
   pageInfo: PageInfo!
-  edges: [GroupEdge]
+  edges: [LandEdge]
 }
 
-type GroupEdge {
-  node: Group
+type LandEdge {
+  node: Land
   cursor: String!
 }
 
-input LikeGroupInput {
+input LikeLandInput {
   userId: ID!
-  groupId: ID!
+  landId: ID!
   clientMutationId: String!
 }
 
-type LikeGroupPayload {
-  groupEdge: GroupEdge
+type LikeLandPayload {
+  landEdge: LandEdge
   userEdge: UserEdge
   user: User
-  group: Group
+  land: Land
+  clientMutationId: String!
+}
+
+input LikeProjectInput {
+  userId: ID!
+  projectId: ID!
+  clientMutationId: String!
+}
+
+type LikeProjectPayload {
+  projectEdge: ProjectEdge
+  userEdge: UserEdge
+  user: User
+  project: Project
   clientMutationId: String!
 }
 
@@ -112,30 +177,47 @@ type Master implements Node {
   id: ID!
   users(after: String, first: Int, before: String, last: Int): UserConnection
   resources(after: String, first: Int, before: String, last: Int): ResourceConnection
-  groups(after: String, first: Int, before: String, last: Int): GroupConnection
+  lands(after: String, first: Int, before: String, last: Int): LandConnection
+  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
 }
 
 type Mutation {
-  addResourceToGroup(input: AddResourceToGroupInput!): AddResourceToGroupPayload
-  deleteGroup(input: DeleteGroupInput!): DeleteGroupPayload
+  addResourceToLand(input: AddResourceToLandInput!): AddResourceToLandPayload
+  addResourceToProject(input: AddResourceToProjectInput!): AddResourceToProjectPayload
+  addResourceToTask(input: AddResourceToTaskInput!): AddResourceToTaskPayload
+  deleteLand(input: DeleteLandInput!): DeleteLandPayload
+  deleteProject(input: DeleteProjectInput!): DeleteProjectPayload
   deleteResource(input: DeleteResourceInput!): DeleteResourcePayload
+  deleteTask(input: DeleteTaskInput!): DeleteTaskPayload
   deleteUser(input: DeleteUserInput!): DeleteUserPayload
-  likeGroup(input: LikeGroupInput!): LikeGroupPayload
+  likeLand(input: LikeLandInput!): LikeLandPayload
+  likeProject(input: LikeProjectInput!): LikeProjectPayload
   likeResource(input: LikeResourceInput!): LikeResourcePayload
-  newGroup(input: NewGroupInput!): NewGroupPayload
+  newLand(input: NewLandInput!): NewLandPayload
+  newProject(input: NewProjectInput!): NewProjectPayload
   newResource(input: NewResourceInput!): NewResourcePayload
   newUser(input: NewUserInput!): NewUserPayload
-  pendingResourceToGroup(input: PendingResourceToGroupInput!): PendingResourceToGroupPayload
-  removePendingResourceToGroup(input: RemovePendingResourceToGroupInput!): RemovePendingResourceToGroupPayload
-  removeResourceFromGroup(input: RemoveResourceFromGroupInput!): RemoveResourceFromGroupPayload
-  unlikeGroup(input: UnlikeGroupInput!): UnlikeGroupPayload
+  pendingResourceToLand(input: PendingResourceToLandInput!): PendingResourceToLandPayload
+  pendingResourceToProject(input: PendingResourceToProjectInput!): PendingResourceToProjectPayload
+  pendingResourceToTask(input: PendingResourceToTaskInput!): PendingResourceToTaskPayload
+  removePendingResourceToLand(input: RemovePendingResourceToLandInput!): RemovePendingResourceToLandPayload
+  removePendingResourceToProject(input: RemovePendingResourceToProjectInput!): RemovePendingResourceToProjectPayload
+  removePendingResourceToTask(input: RemovePendingResourceToTaskInput!): RemovePendingResourceToTaskPayload
+  removeResourceFromLand(input: RemoveResourceFromLandInput!): RemoveResourceFromLandPayload
+  removeResourceFromProject(input: RemoveResourceFromProjectInput!): RemoveResourceFromProjectPayload
+  removeResourceFromTask(input: RemoveResourceFromTaskInput!): RemoveResourceFromTaskPayload
+  unlikeLand(input: UnlikeLandInput!): UnlikeLandPayload
+  unlikeProject(input: UnlikeProjectInput!): UnlikeProjectPayload
   unlikeResource(input: UnlikeResourceInput!): UnlikeResourcePayload
-  updateGroup(input: UpdateGroupInput!): UpdateGroupPayload
+  updateLand(input: UpdateLandInput!): UpdateLandPayload
+  updateProject(input: UpdateProjectInput!): UpdateProjectPayload
   updateResource(input: UpdateResourceInput!): UpdateResourcePayload
+  updateTask(input: UpdateTaskInput!): UpdateTaskPayload
   updateUser(input: UpdateUserInput!): UpdateUserPayload
 }
 
-input NewGroupInput {
+input NewLandInput {
   userId: ID!
   name: String!
   description: String!
@@ -144,8 +226,24 @@ input NewGroupInput {
   clientMutationId: String!
 }
 
-type NewGroupPayload {
-  groupEdge: GroupEdge
+type NewLandPayload {
+  landEdge: LandEdge
+  user: User
+  master: Master
+  clientMutationId: String!
+}
+
+input NewProjectInput {
+  userId: ID!
+  name: String!
+  description: String!
+  category: String!
+  image: String
+  clientMutationId: String!
+}
+
+type NewProjectPayload {
+  projectEdge: ProjectEdge
   user: User
   master: Master
   clientMutationId: String!
@@ -191,45 +289,158 @@ type PageInfo {
   endCursor: String
 }
 
-input PendingResourceToGroupInput {
+input PendingResourceToLandInput {
   resourceId: ID!
-  groupId: ID!
+  landId: ID!
   clientMutationId: String!
 }
 
-type PendingResourceToGroupPayload {
-  groupEdge: GroupEdge
+type PendingResourceToLandPayload {
+  landEdge: LandEdge
   resourceEdge: ResourceEdge
   resource: Resource
-  group: Group
+  land: Land
   clientMutationId: String!
 }
 
-input RemovePendingResourceToGroupInput {
+input PendingResourceToProjectInput {
   resourceId: ID!
-  groupId: ID!
+  projectId: ID!
   clientMutationId: String!
 }
 
-type RemovePendingResourceToGroupPayload {
-  removedResourceID: ID
-  removedGroupID: ID
+type PendingResourceToProjectPayload {
+  projectEdge: ProjectEdge
+  resourceEdge: ResourceEdge
   resource: Resource
-  group: Group
+  project: Project
   clientMutationId: String!
 }
 
-input RemoveResourceFromGroupInput {
+input PendingResourceToTaskInput {
   resourceId: ID!
-  groupId: ID!
+  taskId: ID!
   clientMutationId: String!
 }
 
-type RemoveResourceFromGroupPayload {
-  removedGroupID: ID
+type PendingResourceToTaskPayload {
+  taskEdge: TaskEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  task: Task
+  clientMutationId: String!
+}
+
+type Project implements Node {
+  id: ID!
+  name: String
+  description: String
+  category: String
+  lands(after: String, first: Int, before: String, last: Int): LandConnection
+  admins(after: String, first: Int, before: String, last: Int): UserConnection
+  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+}
+
+input projectAttributes {
+  name: String
+  category: String
+  description: String
+}
+
+type ProjectConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectEdge]
+}
+
+type ProjectEdge {
+  node: Project
+  cursor: String!
+}
+
+input RemovePendingResourceToLandInput {
+  resourceId: ID!
+  landId: ID!
+  clientMutationId: String!
+}
+
+type RemovePendingResourceToLandPayload {
+  removedResourceID: ID
+  removedLandID: ID
+  resource: Resource
+  land: Land
+  clientMutationId: String!
+}
+
+input RemovePendingResourceToProjectInput {
+  resourceId: ID!
+  projectId: ID!
+  clientMutationId: String!
+}
+
+type RemovePendingResourceToProjectPayload {
+  removedResourceID: ID
+  removedProjectID: ID
+  resource: Resource
+  project: Project
+  clientMutationId: String!
+}
+
+input RemovePendingResourceToTaskInput {
+  resourceId: ID!
+  taskId: ID!
+  clientMutationId: String!
+}
+
+type RemovePendingResourceToTaskPayload {
+  removedResourceID: ID
+  removedTaskID: ID
+  resource: Resource
+  task: Task
+  clientMutationId: String!
+}
+
+input RemoveResourceFromLandInput {
+  resourceId: ID!
+  landId: ID!
+  clientMutationId: String!
+}
+
+type RemoveResourceFromLandPayload {
+  removedLandID: ID
   removedResourceID: ID
   resource: Resource
-  group: Group
+  land: Land
+  clientMutationId: String!
+}
+
+input RemoveResourceFromProjectInput {
+  resourceId: ID!
+  projectId: ID!
+  clientMutationId: String!
+}
+
+type RemoveResourceFromProjectPayload {
+  removedProjectID: ID
+  removedResourceID: ID
+  resource: Resource
+  project: Project
+  clientMutationId: String!
+}
+
+input RemoveResourceFromTaskInput {
+  resourceId: ID!
+  taskId: ID!
+  clientMutationId: String!
+}
+
+type RemoveResourceFromTaskPayload {
+  removedTaskID: ID
+  removedResourceID: ID
+  resource: Resource
+  task: Task
   clientMutationId: String!
 }
 
@@ -241,8 +452,12 @@ type Resource implements Node {
   image: String
   users(after: String, first: Int, before: String, last: Int): UserConnection
   likedBy(after: String, first: Int, before: String, last: Int): UserConnection
-  groups(after: String, first: Int, before: String, last: Int): GroupConnection
-  groupsPending(after: String, first: Int, before: String, last: Int): GroupConnection
+  lands(after: String, first: Int, before: String, last: Int): LandConnection
+  landsPending(after: String, first: Int, before: String, last: Int): LandConnection
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+  tasksPending(after: String, first: Int, before: String, last: Int): TaskConnection
+  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+  projectsPending(after: String, first: Int, before: String, last: Int): ProjectConnection
 }
 
 input resourceAttributes {
@@ -263,25 +478,68 @@ type ResourceEdge {
 }
 
 type Root {
-  group(groupId: String): Group
+  land(landId: String): Land
   master: Master
   resource(resourceId: String): Resource
   user(userId: String): User
   viewer: User
+  project(projectId: String): Project
+  task(taskId: String): Task
   node(id: ID!): Node
 }
 
-input UnlikeGroupInput {
+type Task implements Node {
+  id: ID!
+  name: String
+  description: String
+  category: String
+  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+  users(after: String, first: Int, before: String, last: Int): UserConnection
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+}
+
+input taskAttributes {
+  name: String
+  category: String
+  description: String
+}
+
+type TaskConnection {
+  pageInfo: PageInfo!
+  edges: [TaskEdge]
+}
+
+type TaskEdge {
+  node: Task
+  cursor: String!
+}
+
+input UnlikeLandInput {
   userId: ID!
-  groupId: ID!
+  landId: ID!
   clientMutationId: String!
 }
 
-type UnlikeGroupPayload {
+type UnlikeLandPayload {
   removedUserID: ID
-  removedGroupID: ID
+  removedLandID: ID
   user: User
-  group: Group
+  land: Land
+  clientMutationId: String!
+}
+
+input UnlikeProjectInput {
+  userId: ID!
+  projectId: ID!
+  clientMutationId: String!
+}
+
+type UnlikeProjectPayload {
+  removedUserID: ID
+  removedProjectID: ID
+  user: User
+  project: Project
   clientMutationId: String!
 }
 
@@ -299,14 +557,25 @@ type UnlikeResourcePayload {
   clientMutationId: String!
 }
 
-input UpdateGroupInput {
+input UpdateLandInput {
   id: ID!
-  attributes: groupAttributes
+  attributes: landAttributes
   clientMutationId: String!
 }
 
-type UpdateGroupPayload {
-  group: Group
+type UpdateLandPayload {
+  land: Land
+  clientMutationId: String!
+}
+
+input UpdateProjectInput {
+  id: ID!
+  attributes: projectAttributes
+  clientMutationId: String!
+}
+
+type UpdateProjectPayload {
+  project: Project
   clientMutationId: String!
 }
 
@@ -318,6 +587,17 @@ input UpdateResourceInput {
 
 type UpdateResourcePayload {
   resource: Resource
+  clientMutationId: String!
+}
+
+input UpdateTaskInput {
+  id: ID!
+  attributes: taskAttributes
+  clientMutationId: String!
+}
+
+type UpdateTaskPayload {
+  task: Task
   clientMutationId: String!
 }
 
@@ -341,8 +621,11 @@ type User implements Node {
   image: String
   resources(after: String, first: Int, before: String, last: Int): ResourceConnection
   resourcesLiked(after: String, first: Int, before: String, last: Int): ResourceConnection
-  groupsAdmin(after: String, first: Int, before: String, last: Int): GroupConnection
-  groupsLiked(after: String, first: Int, before: String, last: Int): GroupConnection
+  landsAdmin(after: String, first: Int, before: String, last: Int): LandConnection
+  landsLiked(after: String, first: Int, before: String, last: Int): LandConnection
+  projectsAdmin(after: String, first: Int, before: String, last: Int): ProjectConnection
+  projectsLiked(after: String, first: Int, before: String, last: Int): ProjectConnection
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
 }
 
 input userAttributes {

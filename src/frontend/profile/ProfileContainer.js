@@ -1,11 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionLand from 'react-addons-css-transition-group';
 import NewResourceDialog from './components/NewResourceDialog';
-import NewGroupDialog from './components/NewGroupDialog';
+import NewLandDialog from './components/NewLandDialog';
 import EditProfileDialog from './components/EditProfileDialog';
 import ResourceItem from '../shared/components/ResourceItem';
-import GroupItem from '../shared/components/GroupItem';
+import LandItem from '../shared/components/LandItem';
 import HeroImage from '../shared/components/HeroImage';
 
 import createColorChart from '../shared/themes/create-color-chart';
@@ -19,62 +19,62 @@ class ProfileContainer extends React.Component {
   };
   state = {
     colorChart: {},
-    groupsUsingResources: [],
+    landsUsingResources: [],
   };
   componentWillMount () {
     const {viewer} = this.props;
-    const {groupsAdmin, resources} = viewer;
+    const {landsAdmin, resources} = viewer;
 
     this.updateColorChart(resources);
-    this.updateGroupList(groupsAdmin, resources);
+    this.updateLandList(landsAdmin, resources);
   }
   componentWillReceiveProps (nextProps) {
     const {viewer} = nextProps;
-    const {groupsAdmin, resources} = viewer;
+    const {landsAdmin, resources} = viewer;
 
     this.updateColorChart(resources);
-    this.updateGroupList(groupsAdmin, resources);
+    this.updateLandList(landsAdmin, resources);
   }
   updateColorChart (resources) {
-    const groupIds = [];
-    let groupsUsingResources = resources.edges.map(edge => {
-      return edge.node.groups.edges.map(groupEdge => groupEdge.node);
+    const landIds = [];
+    let landsUsingResources = resources.edges.map(edge => {
+      return edge.node.lands.edges.map(landEdge => landEdge.node);
     });
-    groupsUsingResources = [].concat.apply([], groupsUsingResources);
-    groupsUsingResources = groupsUsingResources.filter(group => {
-      if (groupIds.indexOf(group.id) > -1) {
+    landsUsingResources = [].concat.apply([], landsUsingResources);
+    landsUsingResources = landsUsingResources.filter(land => {
+      if (landIds.indexOf(land.id) > -1) {
         return false;
       }
-      groupIds.push(group.id);
+      landIds.push(land.id);
       return true;
     });
 
-    const colorChart = createColorChart(groupIds);
+    const colorChart = createColorChart(landIds);
 
     this.setState({colorChart});
   }
-  updateGroupList (groupsAdmin, resources) {
-    const groupIds = groupsAdmin.edges.map(edge => edge.node.id);
+  updateLandList (landsAdmin, resources) {
+    const landIds = landsAdmin.edges.map(edge => edge.node.id);
 
-    let groupsUsingResources = resources.edges.map(edge => {
-      return edge.node.groups.edges.map(groupEdge => groupEdge.node);
+    let landsUsingResources = resources.edges.map(edge => {
+      return edge.node.lands.edges.map(landEdge => landEdge.node);
     });
-    groupsUsingResources = [].concat.apply([], groupsUsingResources);
-    groupsUsingResources = groupsUsingResources.filter(group => {
-      if (groupIds.indexOf(group.id) > -1) {
+    landsUsingResources = [].concat.apply([], landsUsingResources);
+    landsUsingResources = landsUsingResources.filter(land => {
+      if (landIds.indexOf(land.id) > -1) {
         return false;
       }
-      groupIds.push(group.id);
+      landIds.push(land.id);
       return true;
     });
 
-    this.setState({groupsUsingResources});
+    this.setState({landsUsingResources});
   }
   render () {
     const {viewer, master} = this.props;
-    const {groupsAdmin} = viewer;
+    const {landsAdmin} = viewer;
 
-    return <CSSTransitionGroup
+    return <CSSTransitionLand
       transitionName={transitionNames}
       transitionAppear
       transitionAppearTimeout={350}
@@ -84,7 +84,7 @@ class ProfileContainer extends React.Component {
       <div className={classNames.this} >
         <h2 className={classNames.pageHeading}>Profile</h2>
         <div className={classNames.actionsHeading}>
-          <NewGroupDialog user={viewer} master={master} />
+          <NewLandDialog user={viewer} master={master} />
           <EditProfileDialog user={viewer} master={master} />
           <NewResourceDialog user={viewer} master={master} />
         </div>
@@ -93,23 +93,23 @@ class ProfileContainer extends React.Component {
         <h6 className={classNames.location}>{viewer.location}</h6>
 
         <div className={classNames.relationships} >
-          {groupsAdmin.edges.map(edge => {
-            return <GroupItem
+          {landsAdmin.edges.map(edge => {
+            return <LandItem
               key={edge.node.id}
-              group={edge.node}
+              land={edge.node}
               colorSwatch={this.state.colorChart[edge.node.id]}
               adminBadge
               enableEdit
             />;
           })}
 
-          {this.state.groupsUsingResources
-            && this.state.groupsUsingResources.length > 0
-            && this.state.groupsUsingResources.map(group => {
-              return <GroupItem
-                key={group.id}
-                group={group}
-                colorSwatch={this.state.colorChart[group.id]}
+          {this.state.landsUsingResources
+            && this.state.landsUsingResources.length > 0
+            && this.state.landsUsingResources.map(land => {
+              return <LandItem
+                key={land.id}
+                land={land}
+                colorSwatch={this.state.colorChart[land.id]}
               />;
             })
           }
@@ -118,8 +118,8 @@ class ProfileContainer extends React.Component {
             return <ResourceItem
               key={edge.node.id}
               resource={edge.node}
-              colorSwatches={edge.node.groups.edges.map(groupEdge => {
-                return this.state.colorChart[groupEdge.node.id];
+              colorSwatches={edge.node.lands.edges.map(landEdge => {
+                return this.state.colorChart[landEdge.node.id];
               })}
               enableEdit
             />;
@@ -128,7 +128,7 @@ class ProfileContainer extends React.Component {
           <p className={classNames.description}>{viewer.description}</p>
         </div>
       </div>
-    </CSSTransitionGroup>;
+    </CSSTransitionLand>;
   }
 }
 
@@ -145,12 +145,12 @@ export default Relay.createContainer(ProfileContainer, {
             node {
               id,
               name,
-              groups(first: 18) {
+              lands(first: 18) {
                 edges {
                   node {
                     id,
                     name,
-                    ${GroupItem.getFragment('group')}
+                    ${LandItem.getFragment('land')}
                   }
                 }
               },
@@ -158,24 +158,24 @@ export default Relay.createContainer(ProfileContainer, {
             }
           },
         },
-        groupsAdmin(first: 18) {
+        landsAdmin(first: 18) {
           edges {
             node {
               id,
               name,
-              ${GroupItem.getFragment('group')}
+              ${LandItem.getFragment('land')}
             }
           }
         },
         ${NewResourceDialog.getFragment('user')},
-        ${NewGroupDialog.getFragment('user')},
+        ${NewLandDialog.getFragment('user')},
         ${EditProfileDialog.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         ${NewResourceDialog.getFragment('master')},
-        ${NewGroupDialog.getFragment('master')},
+        ${NewLandDialog.getFragment('master')},
         ${EditProfileDialog.getFragment('master')},
       }
     `,

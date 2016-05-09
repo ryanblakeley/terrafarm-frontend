@@ -8,6 +8,7 @@ import classNames from './styles/HomePageStylesheet.css';
 const styles = {
   warning: {
     color: Colors.blueGrey500,
+    display: 'none',
   },
 };
 
@@ -22,7 +23,10 @@ export default class HomePage extends React.Component {
     >
       <div className={classNames.this} >
         <h1 className={classNames.appTitle}>Terrafarm</h1>
-        <div className={classNames.tagline}>Cultivate good food close to home.</div>
+        <div className={classNames.tagline}>
+          Strategize and collaborate<br />
+          around healthy farming.
+        </div>
         <HomeLinks />
         <h6
           className={classNames.warning}

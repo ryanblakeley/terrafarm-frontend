@@ -1,0 +1,6 @@
+.this {
+  composes: actionsHeadingButton from '../../shared/styles/layout.css';
+}
+.icon {
+  composes: icon from '../../shared/styles/typography.css';
+}

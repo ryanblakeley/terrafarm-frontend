@@ -36,7 +36,7 @@ app.get('*', function response(req, res) {
 });
 app.listen(FRONTEND_PORT, PRIVATE_IP, function onStart(err) {
   if (err) {
-    console.log(err);
+    console.log(`[Error]: ${err}`);
   }
   console.info(`[express server]: listening on ${PRIVATE_IP}:${FRONTEND_PORT}`);
 });

@@ -15,11 +15,13 @@ import getItem from '../api/getItem';
 
 import {UserType, UserConnection} from './UserType';
 import {ResourceType, ResourceConnection} from './ResourceType';
-import {GroupType, GroupConnection} from './GroupType';
+import {LandType, LandConnection} from './LandType';
+import {ProjectType, ProjectConnection} from './ProjectType';
+import {TaskType, TaskConnection} from './TaskType';
 
 // const userEndpoint = getEndpoint(UserType);
 // const resourceEndpoint = getEndpoint(ResourceType);
-// const groupEndpoint = getEndpoint(GroupType);
+// const landEndpoint = getEndpoint(LandType);
 
 export default registerType(new GraphQLObjectType({
   name: 'Master',
@@ -50,14 +52,38 @@ export default registerType(new GraphQLObjectType({
         );
       },
     },
-    groups: {
-      type: GroupConnection,
+    lands: {
+      type: LandConnection,
       args: connectionArgs,
       resolve: async (_, args) => {
-        const groupPromises = _.groups.map(g => getItem(getEndpoint(GroupType), g.id));
-        const groupResults = await* groupPromises;
+        const landPromises = _.lands.map(l => getItem(getEndpoint(LandType), l.id));
+        const landResults = await* landPromises;
         return connectionFromArray(
-          groupResults,
+          landResults,
+          args
+        );
+      },
+    },
+    projects: {
+      type: ProjectConnection,
+      args: connectionArgs,
+      resolve: async (_, args) => {
+        const projectPromises = _.projects.map(p => getItem(getEndpoint(ProjectType), p.id));
+        const projectResults = await* projectPromises;
+        return connectionFromArray(
+          projectResults,
+          args
+        );
+      },
+    },
+    tasks: {
+      type: TaskConnection,
+      args: connectionArgs,
+      resolve: async (_, args) => {
+        const taskPromises = _.tasks.map(p => getItem(getEndpoint(TaskType), p.id));
+        const taskResults = await* taskPromises;
+        return connectionFromArray(
+          taskResults,
           args
         );
       },

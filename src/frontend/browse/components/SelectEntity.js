@@ -32,7 +32,7 @@ export default class SelectEntity extends React.Component {
 */
     return <div className={classNames.this} >
       <EntityButton name={'users'} />
-      <EntityButton name={'locations'} />
+      <EntityButton name={'lands'} />
       <EntityButton name={'resources'} />
     </div>;
   }
