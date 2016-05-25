@@ -31,17 +31,17 @@ class LandContainer extends React.Component {
     const {land, viewer} = this.props;
     const {resources, admins, likedBy} = land;
 
-    //this.updateColorChart(resources);
+    this.updateColorChart(resources);
     this.updateViewerStatus(viewer, admins, likedBy);
-    //this.updateUserList(admins, resources);
+    this.updateUserList(admins, resources);
   }
   componentWillReceiveProps (nextProps) {
     const {land, viewer} = nextProps;
     const {resources, admins, likedBy} = land;
 
-    //this.updateColorChart(resources);
+    this.updateColorChart(resources);
     this.updateViewerStatus(viewer, admins, likedBy);
-    //this.updateUserList(admins, resources);
+    this.updateUserList(admins, resources);
   }
   updateColorChart (resources) {
     const userIds = [];

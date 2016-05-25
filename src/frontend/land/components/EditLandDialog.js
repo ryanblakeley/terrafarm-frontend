@@ -5,7 +5,7 @@ import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
-import MdEdit from 'react-icons/lib/md/edit';
+import IoEdit from 'react-icons/lib/io/edit';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
 import UpdateLand from './UpdateLand';
@@ -108,7 +108,7 @@ class EditLandDialog extends React.Component {
 
     return <div className={classNames.this}>
       <IconButton onTouchTap={this.handleOpen} >
-        <MdEdit className={classNames.icon} />
+        <IoEdit className={classNames.icon} />
       </IconButton>
       <Dialog
         title={'Edit Land'}

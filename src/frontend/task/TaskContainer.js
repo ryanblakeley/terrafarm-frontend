@@ -9,6 +9,7 @@ import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFro
 import ProjectItem from '../shared/components/ProjectItem';
 import UserItem from '../shared/components/UserItem';
 import ResourceItem from '../shared/components/ResourceItem';
+import LandItem from '../shared/components/LandItem';
 
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/TaskContainerStylesheet.css';
@@ -78,6 +79,8 @@ class TaskContainer extends React.Component {
       resources,
       resourcesPending,
     } = task;
+    const parentProject = projects.edges[0].node;
+    const parentLand = parentProject.lands.edges[0].node;
 
     return <CSSTransitionGroup
       transitionName={transitionNames}
@@ -108,12 +111,9 @@ class TaskContainer extends React.Component {
         <h4 className={classNames.contentSubheading}>| {task.category} |</h4>
 
         <div className={classNames.relationships} >
-          {projects.edges.map(edge => {
-            return <ProjectItem
-              key={edge.node.id}
-              project={edge.node}
-            />;
-          })}
+          <LandItem key={parentLand.id} land={parentLand} />
+          <ProjectItem key={parentProject.id} project={parentProject} />
+
           {resourceOwners
             && resourceOwners.length > 0
             && resourceOwners.map(owner => {
@@ -174,6 +174,14 @@ export default Relay.createContainer(TaskContainer, {
             node {
               id,
               name,
+              lands(first: 1) {
+                edges {
+                  node {
+                    id,
+                    ${LandItem.getFragment('land')},
+                  }
+                }
+              },
               likedBy(first: 18) {
                 edges {
                   node {id}
@@ -192,7 +200,7 @@ export default Relay.createContainer(TaskContainer, {
                     id,
                   }
                 }
-              }
+              },
               ${ProjectItem.getFragment('project')},
             }
           }

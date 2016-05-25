@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import Colors from 'material-ui/lib/styles/colors';
-import IoHome from 'react-icons/lib/io/home';
+import IoIosLocation from 'react-icons/lib/io/ios-location';
 import MdStar from 'react-icons/lib/md/star';
 import RelationshipIcon from './RelationshipIcon';
 import RelationshipColorDash from './RelationshipColorDash';
@@ -33,7 +33,7 @@ class LandItem extends React.Component {
 
     return <div className={classNames.this} style={styles.this} >
       <RelationshipIcon
-        primary={<IoHome />}
+        primary={<IoIosLocation />}
         secondary={secondaryIcon}
       />
       {colorSwatch

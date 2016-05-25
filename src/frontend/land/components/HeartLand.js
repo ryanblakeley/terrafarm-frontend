@@ -1,8 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 import IconButton from 'material-ui/lib/icon-button';
-import MdFavorite from 'react-icons/lib/md/favorite';
-import MdFavoriteOutline from 'react-icons/lib/md/favorite-outline';
+import IoIosHeart from 'react-icons/lib/io/ios-heart';
+import IoIosHeartOutline from 'react-icons/lib/io/ios-heart-outline';
 
 import LikeLandMutation from '../mutations/LikeLandMutation';
 import UnlikeLandMutation from '../mutations/UnlikeLandMutation';
@@ -49,8 +49,8 @@ class HeartLand extends React.Component {
     return <div className={classNames.this}>
       <IconButton onTouchTap={this.handleToggleHeart} >
         {doesLike
-          ? <MdFavorite className={classNames.icon} />
-          : <MdFavoriteOutline className={classNames.icon} />
+          ? <IoIosHeart className={classNames.icon} />
+          : <IoIosHeartOutline className={classNames.icon} />
         }
       </IconButton>
       <h6 className={classNames.count}>{count}</h6>
