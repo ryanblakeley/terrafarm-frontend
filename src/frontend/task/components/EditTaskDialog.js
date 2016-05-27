@@ -15,11 +15,12 @@ import classNames from '../styles/EditTaskDialogStylesheet.css';
 
 class EditTaskDialog extends React.Component {
   static propTypes = {
+    master: React.PropTypes.object,
     task: React.PropTypes.object,
-    category: React.PropTypes.array.isRequired,
+    categories: React.PropTypes.array.isRequired,
   };
   static defaultProps = {
-    category: ['Hold', 'Blocked', 'In Progress', 'Complete'],
+    categories: ['Hold', 'Ready', 'Blocked', 'Urgent', 'Done'],
   };
   state = {
     open: false,
@@ -32,8 +33,8 @@ class EditTaskDialog extends React.Component {
     categoryIndex: null,
   };
   componentWillMount () {
-    const {task, category} = this.props;
-    const categoryIndex = category.indexOf(task.category);
+    const {task, categories} = this.props;
+    const categoryIndex = categories.indexOf(task.category);
 
     this.setState({categoryIndex});
   }
@@ -50,7 +51,7 @@ class EditTaskDialog extends React.Component {
     this.setState({
       attributes: {
         name,
-        category: this.props.category[categoryIndex],
+        category: this.props.categories[categoryIndex],
         description,
       },
       canSubmit: true,
@@ -66,14 +67,14 @@ class EditTaskDialog extends React.Component {
       this.setState({
         attributes: {
           name,
-          category: this.props.category[categoryIndex],
+          category: this.props.categories[categoryIndex],
           description,
         },
       });
     }
   }
   render () {
-    const {task, category, master} = this.props;
+    const {task, categories, master} = this.props;
     const {attributes, canSubmit, open, categoryIndex} = this.state;
     const actions = [
       <DeleteTask
@@ -95,9 +96,11 @@ class EditTaskDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const taskStatus = category.map((item, index) => {
-      return <MenuItem key={item} value={index} primaryText={item} />;
-    });
+    const taskStatus = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
 
     return <div className={classNames.this}>
       <IconButton onTouchTap={this.handleOpen} >
@@ -117,13 +120,13 @@ class EditTaskDialog extends React.Component {
         >
           <TextInput
             name={'name'}
-            label={'Title'}
+            label={'Name'}
             initialValue={task.name}
             validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 50}}
           />
           <SelectInput
             name={'categoryIndex'}
-            label={'Status'}
+            label={'Category'}
             initialValue={categoryIndex}
             validations={'isNumeric,isExisty'}
             required
@@ -132,7 +135,7 @@ class EditTaskDialog extends React.Component {
           </SelectInput>
           <TextInput
             name={'description'}
-            label={'Specification'}
+            label={'Description'}
             initialValue={task.description}
             validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 500}}
           />

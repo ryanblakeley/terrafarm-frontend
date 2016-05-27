@@ -1,8 +1,8 @@
 import React from 'react';
 import IconButton from 'material-ui/lib/icon-button';
 import Colors from 'material-ui/lib/styles/colors';
-import GoSignIn from 'react-icons/lib/go/sign-in';
-import GoSignOut from 'react-icons/lib/go/sign-out';
+import IoLogIn from 'react-icons/lib/io/log-in';
+import IoLogOut from 'react-icons/lib/io/log-out';
 import TiInfo from 'react-icons/lib/ti/info-large';
 
 import classNames from '../styles/HomeLinksStylesheet.css';
@@ -62,7 +62,7 @@ export default class HomeLinks extends React.Component {
             onTouchTap={this.handleSignOut}
             touch
           >
-            <GoSignOut className={classNames.icon} />
+            <IoLogOut className={classNames.icon} />
           </IconButton>
         </div>
         <div className={classNames.right} >
@@ -89,7 +89,7 @@ export default class HomeLinks extends React.Component {
           onTouchTap={this.handleSignIn}
           touch
         >
-          <GoSignIn className={classNames.icon} />
+          <IoLogIn className={classNames.icon} />
         </IconButton>
       </div>
       <div className={classNames.right} >

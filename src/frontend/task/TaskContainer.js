@@ -11,11 +11,13 @@ import UserItem from '../shared/components/UserItem';
 import ResourceItem from '../shared/components/ResourceItem';
 import LandItem from '../shared/components/LandItem';
 
+import createColorChart from '../shared/themes/create-color-chart';
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/TaskContainerStylesheet.css';
 
 class TaskContainer extends React.Component {
   static propTypes = {
+    master: React.PropTypes.object,
     task: React.PropTypes.object,
     viewer: React.PropTypes.object,
   };
@@ -24,6 +26,7 @@ class TaskContainer extends React.Component {
     likedBy: [],
     resourceOwners: [],
     availableResources: [],
+    colorChart: {},
   };
   componentWillMount () {
     const {task, viewer} = this.props;
@@ -32,6 +35,7 @@ class TaskContainer extends React.Component {
 
     this.updateViewerStatus(viewer, admins, likedBy);
     this.updateUserList(resources);
+    this.updateColorChart(resources);
   }
   componentWillReceiveProps (nextProps) {
     const {task, viewer} = nextProps;
@@ -40,6 +44,7 @@ class TaskContainer extends React.Component {
 
     this.updateViewerStatus(viewer, admins, likedBy);
     this.updateUserList(resources);
+    this.updateColorChart(resources);
   }
   updateViewerStatus (user, admins, likedBy) {
     const isProjectAdmin = admins.edges.findIndex(edge => edge.node.id === user.id) > -1;
@@ -49,9 +54,9 @@ class TaskContainer extends React.Component {
   }
   updateUserList (resources) {
     const userIds = [];
-    let resourceOwners = resources.edges.map(edge => {
-      return edge.node.users.edges.map(userEdge => userEdge.node);
-    });
+    let resourceOwners = resources.edges.map(edge => (
+      edge.node.users.edges.map(userEdge => userEdge.node)
+    ));
     resourceOwners = [].concat.apply([], resourceOwners);
     resourceOwners = resourceOwners.filter(user => {
       if (userIds.indexOf(user.id) > -1) {
@@ -63,19 +68,39 @@ class TaskContainer extends React.Component {
 
     this.setState({resourceOwners});
   }
+  updateColorChart (resources) {
+    const userIds = [];
+    let resourceOwners = resources.edges.map(edge => edge.node.users.edges[0].node);
+    resourceOwners = [].concat.apply([], resourceOwners);
+    resourceOwners = resourceOwners.filter(user => {
+      if (userIds.indexOf(user.id) > -1) {
+        return false;
+      }
+      userIds.push(user.id);
+      return true;
+    });
+
+    const colorChart = createColorChart(userIds);
+
+    this.setState({colorChart});
+  }
   scrollToResourcesPending = () => {
     const {resourcesPending} = this.refs;
     resourcesPending.scrollIntoView();
   }
   render () {
     const {task, viewer, master} = this.props;
-    const {isProjectAdmin, doesLike, resourceOwners} = this.state;
+    const {
+      isProjectAdmin,
+      doesLike,
+      resourceOwners,
+      colorChart,
+    } = this.state;
     const {
       name,
       category,
       description,
       projects,
-      users,
       resources,
       resourcesPending,
     } = task;
@@ -92,10 +117,8 @@ class TaskContainer extends React.Component {
       <div className={classNames.this}>
         <h2 className={classNames.pageHeading}>Task</h2>
         <div className={classNames.actionsHeading}>
-          {isProjectAdmin
-            && <EditTaskDialog task={task} master={master} />
-          }
-          {doesLike
+          {(isProjectAdmin
+            || doesLike)
             && <NewResourceOfferDialog
               task={task}
               user={viewer}
@@ -103,12 +126,15 @@ class TaskContainer extends React.Component {
             />
           }
           {isProjectAdmin
+            && <EditTaskDialog task={task} master={master} />
+          }
+          {isProjectAdmin
             && !!resourcesPending.edges.length
             && <ResourcesPendingNotification onTouchTap={this.scrollToResourcesPending} />
           }
         </div>
-        <h3 className={classNames.contentHeading}>{task.name}</h3>
-        <h4 className={classNames.contentSubheading}>| {task.category} |</h4>
+        <h3 className={classNames.contentHeading}>{name}</h3>
+        <h4 className={classNames.contentSubheading}>| {category} |</h4>
 
         <div className={classNames.relationships} >
           <LandItem key={parentLand.id} land={parentLand} />
@@ -116,13 +142,13 @@ class TaskContainer extends React.Component {
 
           {resourceOwners
             && resourceOwners.length > 0
-            && resourceOwners.map(owner => {
-              return <UserItem
-                key={owner.id}
-                user={owner}
-              />;
-            })
+            && resourceOwners.map(owner => <UserItem
+              key={owner.id}
+              user={owner}
+              colorSwatch={colorChart[owner.id]}
+            />)
           }
+
           {resources.edges.map(edge => {
             const owner = edge.node.users.edges[0].node;
             const action = (isProjectAdmin || owner.id === viewer.id)
@@ -132,14 +158,15 @@ class TaskContainer extends React.Component {
             return <ResourceItem
               key={edge.node.id}
               resource={edge.node}
+              colorSwatches={[colorChart[owner.id]]}
               action={action}
             />;
           })}
-          {isProjectAdmin
-            && resourcesPending
-            && resourcesPending.edges.length > 0
-            && resourcesPending.edges.map(edge => {
-              return <div key={edge.node.id}>
+          <div ref={'resourcesPending'} >
+            {isProjectAdmin
+              && resourcesPending
+              && resourcesPending.edges.length > 0
+              && resourcesPending.edges.map(edge => <div key={edge.node.id}>
                 <ResourceItem
                   resource={edge.node}
                   action={<PendingResourceDialog
@@ -147,9 +174,9 @@ class TaskContainer extends React.Component {
                     task={task}
                   />}
                 />
-              </div>;
-            })
-          }
+              </div>)
+            }
+          </div>
         </div>
 
         <p className={classNames.description}>{description}</p>

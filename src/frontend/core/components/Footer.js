@@ -45,6 +45,7 @@ export default class Footer extends React.Component {
           <MdInfoOutline className={classNames.icon} />
         </IconButton>
       </div>
+      <h6 className={classNames.footerMessage}>Prototype</h6>
     </footer>;
   }
 }

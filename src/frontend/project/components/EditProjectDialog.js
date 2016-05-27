@@ -15,11 +15,12 @@ import classNames from '../styles/EditProjectDialogStylesheet.css';
 
 class EditProjectDialog extends React.Component {
   static propTypes = {
+    master: React.PropTypes.object,
     project: React.PropTypes.object,
-    priorities: React.PropTypes.array.isRequired,
+    categories: React.PropTypes.array.isRequired,
   };
   static defaultProps = {
-    priorities: ['Low', 'Mid', 'High', 'Urgent', 'Hold'],
+    categories: ['Hold', 'Ready', 'Urgent', 'Done'],
   };
   state = {
     open: false,
@@ -27,12 +28,13 @@ class EditProjectDialog extends React.Component {
     attributes: {
       name: '',
       category: '',
+      description: '',
     },
     categoryIndex: null,
   };
   componentWillMount () {
-    const {project, priorities} = this.props;
-    const categoryIndex = priorities.indexOf(project.category);
+    const {project, categories} = this.props;
+    const categoryIndex = categories.indexOf(project.category);
 
     this.setState({categoryIndex});
   }
@@ -44,12 +46,13 @@ class EditProjectDialog extends React.Component {
   }
   handleValid = () => {
     const currentValues = this.refs.form.getCurrentValues();
-    const {name, categoryIndex} = currentValues;
+    const {name, description, categoryIndex} = currentValues;
 
     this.setState({
       attributes: {
         name,
-        category: this.props.priorities[categoryIndex],
+        description,
+        category: this.props.categories[categoryIndex],
       },
       canSubmit: true,
     });
@@ -58,19 +61,20 @@ class EditProjectDialog extends React.Component {
     this.setState({canSubmit: false});
   }
   handleChange = (currentValues, isChanged) => {
-    const {name, categoryIndex} = currentValues;
+    const {name, description, categoryIndex} = currentValues;
 
     if (isChanged) {
       this.setState({
         attributes: {
           name,
-          category: this.props.priorities[categoryIndex],
+          description,
+          category: this.props.categories[categoryIndex],
         },
       });
     }
   }
   render () {
-    const {project, priorities, master} = this.props;
+    const {project, categories, master} = this.props;
     const {attributes, canSubmit, open, categoryIndex} = this.state;
     const actions = [
       <DeleteProject
@@ -92,9 +96,11 @@ class EditProjectDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const projectPriorities = priorities.map((item, index) => {
-      return <MenuItem key={item} value={index} primaryText={item} />;
-    });
+    const projectCategories = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
 
     return <div className={classNames.this}>
       <IconButton onTouchTap={this.handleOpen} >
@@ -114,19 +120,25 @@ class EditProjectDialog extends React.Component {
         >
           <TextInput
             name={'name'}
-            label={'Title'}
+            label={'Name'}
             initialValue={project.name}
             validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 500}}
           />
           <SelectInput
             name={'categoryIndex'}
-            label={'Priority'}
+            label={'Category'}
             initialValue={categoryIndex}
             validations={'isNumeric,isExisty'}
             required
           >
-            {projectPriorities}
+            {projectCategories}
           </SelectInput>
+          <TextInput
+            name={'description'}
+            label={'Description'}
+            initialValue={project.description}
+            validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 500}}
+          />
         </Formsy.Form>
       </Dialog>
     </div>;
@@ -140,6 +152,7 @@ export default Relay.createContainer(EditProjectDialog, {
         id,
         name,
         category,
+        description,
         ${UpdateProject.getFragment('project')},
         ${DeleteProject.getFragment('project')},
       }

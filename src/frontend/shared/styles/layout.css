@@ -3,9 +3,7 @@
 .actionsHeading,
 .actionsHeadingButton { float: right; }
 
-.relationships {
-  margin-top: 2.33em;
-}
+.relationships { margin-top: 2.33em; }
 
 @media only screen and (min-width: 320px) { .page { width: 300px; } }
 @media only screen and (min-width: 375px) { .page { width: 350px; } }

@@ -5,41 +5,32 @@ import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
-import IoEdit from 'react-icons/lib/io/edit';
+import IoLeaf from 'react-icons/lib/io/leaf';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
-import UpdateLand from './UpdateLand';
-import DeleteLand from './DeleteLand';
+import NewTask from './NewTask';
 
-import classNames from '../styles/EditLandDialogStylesheet.css';
+import classNames from '../styles/NewTaskDialogStylesheet.css';
 
-class EditLandDialog extends React.Component {
+class NewTaskDialog extends React.Component {
   static propTypes = {
+    project: React.PropTypes.object,
     master: React.PropTypes.object,
-    land: React.PropTypes.object,
     categories: React.PropTypes.array.isRequired,
   };
   static defaultProps = {
-    categories: ['Farm', 'Backyard', 'Urban lot', 'School', 'Building'],
+    categories: ['Hold', 'Ready', 'Blocked', 'Urgent', 'Done'],
   };
   state = {
     open: false,
     canSubmit: false,
     attributes: {
       name: '',
-      location: '',
       description: '',
       category: '',
-      image: '',
     },
     categoryIndex: null,
   };
-  componentWillMount () {
-    const {land, categories} = this.props;
-    const categoryIndex = categories.indexOf(land.category);
-
-    this.setState({categoryIndex});
-  }
   handleOpen = () => {
     this.setState({open: true});
   }
@@ -48,15 +39,13 @@ class EditLandDialog extends React.Component {
   }
   handleValid = () => {
     const currentValues = this.refs.form.getCurrentValues();
-    const {name, location, description, categoryIndex, image} = currentValues;
+    const {name, description, categoryIndex} = currentValues;
 
     this.setState({
       attributes: {
         name,
-        location,
         description,
         category: this.props.categories[categoryIndex],
-        image,
       },
       canSubmit: true,
     });
@@ -65,81 +54,67 @@ class EditLandDialog extends React.Component {
     this.setState({canSubmit: false});
   }
   handleChange = (currentValues, isChanged) => {
-    const {name, description, categoryIndex, image} = currentValues;
+    const {name, description, categoryIndex} = currentValues;
 
     if (isChanged) {
       this.setState({
         attributes: {
           name,
-          location,
           description,
           category: this.props.categories[categoryIndex],
-          image,
         },
       });
     }
   }
   render () {
-    const {land, categories, master, user} = this.props;
+    const {master, project, categories} = this.props;
     const {attributes, canSubmit, open, categoryIndex} = this.state;
     const actions = [
-      <DeleteLand
-        land={land}
-        master={master}
-        user={user}
-        default
-        onComplete={this.handleClose}
-      />,
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <UpdateLand
-        land={land}
+      <NewTask
+        project={project}
+        master={master}
         primary
-        attributes={attributes}
         onComplete={this.handleClose}
+        attributes={attributes}
         disabled={!canSubmit}
       />,
     ];
-    const landCategories = categories.map((item, index) => {
+    const taskCategories = categories.map((item, index) => {
       return <MenuItem key={item} value={index} primaryText={item} />;
     });
 
-    return <div className={classNames.this}>
+    return <div className={classNames.this} >
       <IconButton onTouchTap={this.handleOpen} >
-        <IoEdit className={classNames.icon} />
+        <IoLeaf className={classNames.icon} />
       </IconButton>
       <Dialog
-        title={'Edit Land'}
+        title={'New Task'}
         actions={actions}
-        onRequestClose={null}
+        onRequestClost={null}
         open={open}
       >
         <Formsy.Form
           ref={'form'}
-          onChange={this.handleChange}
           onValid={this.handleValid}
           onInvalid={this.handleInvalid}
         >
           <TextInput
             name={'name'}
             label={'Name'}
-            initialValue={land.name}
-            validations={{matchRegexp: /[A-Za-z,0-9]*/}}
-          />
-          <TextInput
-            name={'location'}
-            label={'Location'}
-            initialValue={land.location}
-            validations={{matchRegexp: /[A-Za-z,0-9]*/}}
+            validations={{matchRegexp: /[A-Za-z,\.0-9]*/}}
+            required
           />
           <TextInput
             name={'description'}
             label={'Description'}
-            initialValue={land.description}
-            validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 500}}
+            placeholder={'Overview of task specification.'}
+            validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+            required
           />
           <SelectInput
             name={'categoryIndex'}
@@ -148,45 +123,24 @@ class EditLandDialog extends React.Component {
             validations={'isNumeric,isExisty'}
             required
           >
-            {landCategories}
+            {taskCategories}
           </SelectInput>
-          <TextInput
-            name={'image'}
-            label={'Image'}
-            placeholder={'http://i.imgur.com/GI2cAh6.jpg'}
-            initialValue={land.image}
-            validations={'isUrl'}
-          />
         </Formsy.Form>
       </Dialog>
     </div>;
   }
 }
 
-export default Relay.createContainer(EditLandDialog, {
+export default Relay.createContainer(NewTaskDialog, {
   fragments: {
-    land: () => Relay.QL`
-      fragment on Land {
-        id,
-        name,
-        location,
-        description,
-        category,
-        image,
-        ${UpdateLand.getFragment('land')},
-        ${DeleteLand.getFragment('land')},
+    project: () => Relay.QL`
+      fragment on Project {
+        ${NewTask.getFragment('project')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
-        id,
-        ${DeleteLand.getFragment('master')},
-      }
-    `,
-    user: () => Relay.QL`
-      fragment on User {
-        id,
-        ${DeleteLand.getFragment('user')},
+        ${NewTask.getFragment('master')},
       }
     `,
   },

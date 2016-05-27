@@ -138,7 +138,7 @@ const Mutation = new GraphQLObjectType({
     likeResource: LikeResourceMutation,
     newLand: NewLandMutation,
     newProject: NewProjectMutation,
-    //newTask: NewTaskMutation,
+    newTask: NewTaskMutation,
     newResource: NewResourceMutation,
     newUser: NewUserMutation,
     pendingResourceToLand: PendingResourceToLandMutation,

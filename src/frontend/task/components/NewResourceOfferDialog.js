@@ -5,7 +5,7 @@ import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
-import MdAdd from 'react-icons/lib/md/add';
+import IoCube from 'react-icons/lib/io/cube';
 import SelectInput from '../../shared/components/SelectInput';
 import AddPendingResource from './AddPendingResource';
 
@@ -31,14 +31,14 @@ class NewResourceOfferDialog extends React.Component {
   }
   updateAvailableResources (user, project) {
     let availableResources = user.resources.edges;
-    let resourceIds = availableResources.map(edge => edge.node.id);
+    const resourceIds = availableResources.map(edge => edge.node.id);
 
     if (!project) {
       this.setState({availableResources});
       return;
     }
 
-    let projectResources = project.resources.edges.filter(edge => {
+    const projectResources = project.resources.edges.filter(edge => {
       if (resourceIds.indexOf(edge.node.id) > -1) {
         return false;
       }
@@ -72,7 +72,7 @@ class NewResourceOfferDialog extends React.Component {
     }
   }
   render () {
-    const {task, user, isProjectAdmin} = this.props;
+    const {task} = this.props;
     const {canSubmit, resourceIndex, availableResources} = this.state;
 
     let resource = null;
@@ -94,13 +94,15 @@ class NewResourceOfferDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const resourceItems = availableResources.map((edge, index) => {
-      return <MenuItem key={edge.node.id} value={index} primaryText={edge.node.name} />;
-    });
+    const resourceItems = availableResources.map((edge, index) => <MenuItem
+      key={edge.node.id}
+      value={index}
+      primaryText={edge.node.name}
+    />);
 
     return <div className={classNames.this} >
       <IconButton onTouchTap={this.handleOpen} >
-        <MdAdd className={classNames.icon} />
+        <IoCube className={classNames.icon} />
       </IconButton>
       <Dialog
         title={'New Resource Offer'}
@@ -125,7 +127,7 @@ class NewResourceOfferDialog extends React.Component {
           </SelectInput>
           <p>
             Your email address will be shared with the <strong>
-            {task.name}</strong> task admin.
+            {task.projects.edges[0].node.name}</strong> project admin.
           </p>
         </Formsy.Form>
       </Dialog>

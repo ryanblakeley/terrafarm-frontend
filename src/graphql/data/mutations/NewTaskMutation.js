@@ -15,22 +15,21 @@ import {getEndpoint} from '../types/registry';
 import getItem from '../api/getItem';
 import createItem from '../api/createItem';
 
-import {UserType} from '../types/UserType';
+import {ProjectType} from '../types/ProjectType';
 import {TaskType, TaskEdge} from '../types/TaskType';
 import MasterType from '../types/MasterType';
 
 const taskEndpoint = getEndpoint(TaskType);
 const masterEndpoint = getEndpoint(MasterType);
-const userEndpoint = getEndpoint(UserType);
+const projectEndpoint = getEndpoint(ProjectType);
 
 export default mutationWithClientMutationId({
   name: 'NewTask',
   inputFields: {
-    userId: { type: new GraphQLNonNull(GraphQLID) },
+    projectId: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: new GraphQLNonNull(GraphQLString) },
     category: { type: new GraphQLNonNull(GraphQLString) },
-    image: { type: GraphQLString },
   },
   /* eslint eqeqeq: 0 */
   outputFields: {
@@ -48,31 +47,30 @@ export default mutationWithClientMutationId({
         };
       },
     },
-    user: {
-      type: UserType,
-      resolve: async ({localUserId}) => await getItem(userEndpoint, localUserId),
+    project: {
+      type: ProjectType,
+      resolve: async ({localProjectId}) => await getItem(projectEndpoint, localProjectId),
     },
     master: {
       type: MasterType,
       resolve: async () => await getItem(masterEndpoint, 1),
     },
   },
-  mutateAndGetPayload: async ({userId, name, description, category, image}) => {
-    const localUserId = fromGlobalId(userId).id;
+  mutateAndGetPayload: async ({projectId, name, description, category}) => {
+    const localProjectId = fromGlobalId(projectId).id;
 
     return await createItem(taskEndpoint, {
       name,
       description,
       category,
-      image,
-      admins: [{id: localUserId}],
+      projects: [{id: localProjectId}],
       resources: [],
-      projects: [],
+      resources_pending: [],
       masters: [{id: 1}],
     }).then(result => {
       return {
         localTaskId: result.id,
-        localUserId,
+        localProjectId,
       };
     });
   },

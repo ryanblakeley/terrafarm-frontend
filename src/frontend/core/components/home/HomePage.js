@@ -24,8 +24,8 @@ export default class HomePage extends React.Component {
       <div className={classNames.this} >
         <h1 className={classNames.appTitle}>Terrafarm</h1>
         <div className={classNames.tagline}>
-          Strategize and collaborate<br />
-          around healthy farming.
+          Collaboration and strategy<br />
+          for human-scale farms.
         </div>
         <HomeLinks />
         <h6

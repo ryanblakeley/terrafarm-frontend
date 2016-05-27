@@ -50,19 +50,6 @@ export const TaskType = registerType(new GraphQLObjectType({
       },
 
     },
-    users: {
-      type: UserConnection,
-      description: 'A project subtask\'s roster.',
-      args: connectionArgs,
-      resolve: async (_, args) => {
-        const userPromises = _.users.map(u => getItem(getEndpoint(UserType), u.id));
-        const userResults = await* userPromises;
-        return connectionFromArray(
-          userResults,
-          args
-        );
-      },
-    },
     resources: {
       type: ResourceConnection,
       description: 'A project subtask\'s list of economic inputs.',

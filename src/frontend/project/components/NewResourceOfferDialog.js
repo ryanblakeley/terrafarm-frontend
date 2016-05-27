@@ -5,7 +5,7 @@ import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
-import MdAdd from 'react-icons/lib/md/add';
+import IoCube from 'react-icons/lib/io/cube';
 import SelectInput from '../../shared/components/SelectInput';
 import AddPendingResource from './AddPendingResource';
 
@@ -65,13 +65,15 @@ class NewResourceOfferDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const resourceItems = user.resources.edges.map((edge, index) => {
-      return <MenuItem key={edge.node.id} value={index} primaryText={edge.node.name} />;
-    });
+    const resourceItems = user.resources.edges.map((edge, index) => <MenuItem
+      key={edge.node.id}
+      value={index}
+      primaryText={edge.node.name}
+    />);
 
     return <div className={classNames.this} >
       <IconButton onTouchTap={this.handleOpen} >
-        <MdAdd className={classNames.icon} />
+        <IoCube className={classNames.icon} />
       </IconButton>
       <Dialog
         title={'New Resource Offer'}

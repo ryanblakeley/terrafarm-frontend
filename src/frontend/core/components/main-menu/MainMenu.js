@@ -1,7 +1,7 @@
 import React from 'react';
 import Colors from 'material-ui/lib/styles/colors';
-import FaUser from 'react-icons/lib/fa/user';
-import GoSignOut from 'react-icons/lib/go/sign-out';
+import IoPerson from 'react-icons/lib/io/person';
+import IoLogOut from 'react-icons/lib/io/log-out';
 import MdSearch from 'react-icons/lib/md/search';
 import MainMenuItem from './components/MainMenuItem';
 
@@ -56,7 +56,7 @@ export default class MainMenu extends React.Component {
       <MainMenuItem
         label={'Profile'}
         onSelect={this.handleProfile}
-        icon={<FaUser className={classNames.icon} style={styles.icon} />}
+        icon={<IoPerson className={classNames.icon} style={styles.icon} />}
       />
       <MainMenuItem
         label={'Browse'}
@@ -66,7 +66,7 @@ export default class MainMenu extends React.Component {
       <MainMenuItem
         label={'Logout'}
         onSelect={this.handleSignOut}
-        icon={<GoSignOut className={classNames.icon} style={styles.icon} />}
+        icon={<IoLogOut className={classNames.icon} style={styles.icon} />}
       />
     </div>;
   }

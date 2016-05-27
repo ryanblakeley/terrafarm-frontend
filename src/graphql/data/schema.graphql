@@ -196,6 +196,7 @@ type Mutation {
   likeResource(input: LikeResourceInput!): LikeResourcePayload
   newLand(input: NewLandInput!): NewLandPayload
   newProject(input: NewProjectInput!): NewProjectPayload
+  newTask(input: NewTaskInput!): NewTaskPayload
   newResource(input: NewResourceInput!): NewResourcePayload
   newUser(input: NewUserInput!): NewUserPayload
   pendingResourceToLand(input: PendingResourceToLandInput!): PendingResourceToLandPayload
@@ -235,10 +236,10 @@ type NewLandPayload {
 
 input NewProjectInput {
   userId: ID!
+  landId: ID!
   name: String!
   description: String!
   category: String!
-  image: String
   clientMutationId: String!
 }
 
@@ -246,6 +247,7 @@ type NewProjectPayload {
   projectEdge: ProjectEdge
   user: User
   master: Master
+  land: Land
   clientMutationId: String!
 }
 
@@ -261,6 +263,21 @@ input NewResourceInput {
 type NewResourcePayload {
   resourceEdge: ResourceEdge
   user: User
+  master: Master
+  clientMutationId: String!
+}
+
+input NewTaskInput {
+  projectId: ID!
+  name: String!
+  description: String!
+  category: String!
+  clientMutationId: String!
+}
+
+type NewTaskPayload {
+  taskEdge: TaskEdge
+  project: Project
   master: Master
   clientMutationId: String!
 }
@@ -494,7 +511,6 @@ type Task implements Node {
   description: String
   category: String
   projects(after: String, first: Int, before: String, last: Int): ProjectConnection
-  users(after: String, first: Int, before: String, last: Int): UserConnection
   resources(after: String, first: Int, before: String, last: Int): ResourceConnection
   resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
 }

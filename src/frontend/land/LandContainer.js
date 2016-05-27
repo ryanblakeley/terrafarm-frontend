@@ -4,6 +4,7 @@ import CSSTransitionGroup from 'react-addons-css-transition-group';
 import HeartLand from './components/HeartLand';
 import EditLandDialog from './components/EditLandDialog';
 import NewResourceOfferDialog from './components/NewResourceOfferDialog';
+import NewProjectDialog from './components/NewProjectDialog';
 import ResourcesPendingNotification from './components/ResourcesPendingNotification';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import ResourceItem from '../shared/components/ResourceItem';
@@ -18,6 +19,7 @@ import classNames from './styles/LandContainerStylesheet.css';
 
 class LandContainer extends React.Component {
   static propTypes = {
+    master: React.PropTypes.object,
     land: React.PropTypes.object,
     viewer: React.PropTypes.object,
   };
@@ -31,23 +33,23 @@ class LandContainer extends React.Component {
     const {land, viewer} = this.props;
     const {resources, admins, likedBy} = land;
 
-    this.updateColorChart(resources);
     this.updateViewerStatus(viewer, admins, likedBy);
     this.updateUserList(admins, resources);
+    this.updateColorChart(resources);
   }
   componentWillReceiveProps (nextProps) {
     const {land, viewer} = nextProps;
     const {resources, admins, likedBy} = land;
 
-    this.updateColorChart(resources);
     this.updateViewerStatus(viewer, admins, likedBy);
     this.updateUserList(admins, resources);
+    this.updateColorChart(resources);
   }
   updateColorChart (resources) {
     const userIds = [];
-    let resourceOwners = resources.edges.map(edge => {
-      return edge.node.users.edges.map(userEdge => userEdge.node);
-    });
+    let resourceOwners = resources.edges.map(edge => (
+      edge.node.users.edges.map(userEdge => userEdge.node)
+    ));
     resourceOwners = [].concat.apply([], resourceOwners);
     resourceOwners = resourceOwners.filter(user => {
       if (userIds.indexOf(user.id) > -1) {
@@ -70,9 +72,9 @@ class LandContainer extends React.Component {
   updateUserList (admins, resources) {
     const userIds = admins.edges.map(edge => edge.node.id);
 
-    let resourceOwners = resources.edges.map(edge => {
-      return edge.node.users.edges.map(userEdge => userEdge.node);
-    });
+    let resourceOwners = resources.edges.map(edge => (
+      edge.node.users.edges.map(userEdge => userEdge.node)
+    ));
     resourceOwners = [].concat.apply([], resourceOwners);
     resourceOwners = resourceOwners.filter(user => {
       if (userIds.indexOf(user.id) > -1) {
@@ -90,7 +92,7 @@ class LandContainer extends React.Component {
   }
   render () {
     const {land, viewer, master} = this.props;
-    const {isAdmin, doesLike, colorChart} = this.state;
+    const {isAdmin, doesLike, resourceOwners, colorChart} = this.state;
     const {
       admins,
       likedBy,
@@ -120,11 +122,14 @@ class LandContainer extends React.Component {
             doesLike={doesLike}
             count={likedBy.edges.length}
           />
-          {isAdmin
-            && <EditLandDialog land={land} master={master} user={viewer} />
-          }
           {doesLike
             && <NewResourceOfferDialog land={land} user={viewer} />
+          }
+          {isAdmin
+            && <NewProjectDialog land={land} master={master} user={viewer} />
+          }
+          {isAdmin
+            && <EditLandDialog land={land} master={master} user={viewer} />
           }
           {!!resourcesPending.edges.length
             && <ResourcesPendingNotification onTouchTap={this.scrollToResourcesPending} />
@@ -136,26 +141,31 @@ class LandContainer extends React.Component {
         <h6 className={classNames.location}>{location}</h6>
 
         <div className={classNames.relationships} >
-          {admins
-            && admins.edges.length > 0
-            && admins.edges.map(edge => {
-              return <UserItem
-                key={edge.node.id}
-                user={edge.node}
-                colorSwatch={colorChart[edge.node.id]}
-                adminBadge
-              />;
-            })
-          }
-
           {projects
             && projects.edges.length > 0
-            && projects.edges.map(edge => {
-              return <ProjectItem
-                key={edge.node.id}
-                project={edge.node}
-              />;
-            })
+            && projects.edges.map(edge => <ProjectItem
+              key={edge.node.id}
+              project={edge.node}
+            />)
+          }
+
+          {admins
+            && admins.edges.length > 0
+            && admins.edges.map(edge => <UserItem
+              key={edge.node.id}
+              user={edge.node}
+              colorSwatch={colorChart[edge.node.id]}
+              adminBadge
+            />)
+          }
+
+          {resourceOwners
+            && resourceOwners.length > 0
+            && resourceOwners.map(owner => <UserItem
+              key={owner.id}
+              user={owner}
+              colorSwatch={colorChart[owner.id]}
+            />)
           }
 
           {resources
@@ -181,17 +191,15 @@ class LandContainer extends React.Component {
             {isAdmin
               && resourcesPending
               && resourcesPending.length > 0
-              && resourcesPending.edges.map(edge => {
-                return <div key={edge.node.id}>
-                  <ResourceItem
+              && resourcesPending.edges.map(edge => <div key={edge.node.id}>
+                <ResourceItem
+                  resource={edge.node}
+                  action={<PendingResourceDialog
                     resource={edge.node}
-                    action={<PendingResourceDialog
-                      resource={edge.node}
-                      land={land}
-                    />}
-                  />
-                </div>;
-              })
+                    land={land}
+                  />}
+                />
+              </div>)
             }
           </div>
         </div>
@@ -274,6 +282,7 @@ export default Relay.createContainer(LandContainer, {
         ${NewResourceOfferDialog.getFragment('land')},
         ${PendingResourceDialog.getFragment('land')},
         ${RemoveResourceFromLandDialog.getFragment('land')},
+        ${NewProjectDialog.getFragment('land')},
       }
     `,
     viewer: () => Relay.QL`
@@ -282,12 +291,14 @@ export default Relay.createContainer(LandContainer, {
         ${HeartLand.getFragment('user')},
         ${NewResourceOfferDialog.getFragment('user')},
         ${EditLandDialog.getFragment('user')},
+        ${NewProjectDialog.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         id,
         ${EditLandDialog.getFragment('master')},
+        ${NewProjectDialog.getFragment('master')},
       }
     `,
   },

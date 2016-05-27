@@ -27,7 +27,7 @@ class DeleteProject extends React.Component {
     const {project, master} = this.props;
 
     Relay.Store.commitUpdate(
-      new DeleteLandMutation({
+      new DeleteProjectMutation({
         master,
         project,
       })
@@ -36,12 +36,14 @@ class DeleteProject extends React.Component {
     this.handleComplete();
   }
   handleComplete = () => {
+    const {project} = this.props;
     const {router} = this.context;
+    const parentLand = project.lands.edges[0].node;
 
     if (this.props.onComplete) {
       this.props.onComplete();
     }
-    router.push('/auth/profile');
+    router.push(`/auth/land/${parentLand.id}`);
   }
   render () {
     return (
@@ -59,6 +61,11 @@ export default Relay.createContainer(DeleteProject, {
     project: () => Relay.QL`
       fragment on Project {
         id,
+        lands(first: 1) {
+          edges {
+            node { id }
+          }
+        },
         ${DeleteProjectMutation.getFragment('project')},
       }
     `,

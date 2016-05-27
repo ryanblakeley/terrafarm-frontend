@@ -85,8 +85,8 @@ class ProfileContainer extends React.Component {
         <h2 className={classNames.pageHeading}>Profile</h2>
         <div className={classNames.actionsHeading}>
           <NewLandDialog user={viewer} master={master} />
-          <EditProfileDialog user={viewer} master={master} />
           <NewResourceDialog user={viewer} master={master} />
+          <EditProfileDialog user={viewer} master={master} />
         </div>
         <h3 className={classNames.contentHeading}>{viewer.name}</h3>
         <HeroImage image={viewer.image} />

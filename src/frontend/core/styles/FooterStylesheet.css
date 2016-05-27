@@ -16,3 +16,7 @@
 .icon {
   composes: icon from '../../shared/styles/typography.css';
 }
+.footerMessage {
+  composes: articleSubheading from '../../shared/styles/typography.css';
+  margin-top: 85px;
+}

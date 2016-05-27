@@ -5,7 +5,7 @@ import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
-import MdLandAdd from 'react-icons/lib/md/group-add';
+import IoIosLocation from 'react-icons/lib/io/ios-location';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
 import NewLand from './NewLand';
@@ -19,7 +19,7 @@ class NewLandDialog extends React.Component {
     categories: React.PropTypes.array.isRequired,
   };
   static defaultProps = {
-    categories: ['Yard', 'Vacant lot', 'Indoor', 'Rooftop'],
+    categories: ['Farm', 'Backyard', 'Urban lot', 'School', 'Building'],
   };
   state = {
     open: false,
@@ -96,7 +96,7 @@ class NewLandDialog extends React.Component {
 
     return <div className={classNames.this} >
       <IconButton onTouchTap={this.handleOpen} >
-        <MdLandAdd className={classNames.icon} />
+        <IoIosLocation className={classNames.icon} />
       </IconButton>
       <Dialog
         title={'New Land'}
