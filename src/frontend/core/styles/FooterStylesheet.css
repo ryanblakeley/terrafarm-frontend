@@ -13,11 +13,8 @@
 .link {
   composes: link from '../../shared/styles/typography.css';
 }
-.icon {
-  composes: icon from '../../shared/styles/typography.css';
-}
 .footerMessage {
   composes: articleSubheading from '../../shared/styles/typography.css';
-  margin-top: 85px;
+  margin-top: 157px;
   opacity: 0.44;
 }

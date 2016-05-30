@@ -32,6 +32,12 @@ npm start  # Launch the GraphQL server and the Webpack dev server.
 open http://localhost:3000
 ```
 
+## Deploying
+
+```
+pm2 deploy --ecosystem production
+```
+
 ## Directory Structure
 
 ```

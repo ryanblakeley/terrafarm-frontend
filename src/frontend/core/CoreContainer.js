@@ -7,7 +7,7 @@ import Perspective from './components/Perspective';
 
 import '../shared/styles/base.css';
 
-const { PUBLIC_IP, FRONTEND_PORT, AUTH0_CLIENT_ID, AUTH0_DOMAIN } = process.env;
+const { PUBLIC_IP, FRONTEND_PORT } = process.env;
 
 const networkAddress = PUBLIC_IP === 'localhost'
   ? `${PUBLIC_IP}:${FRONTEND_PORT}`
@@ -27,26 +27,41 @@ export default class CoreContainer extends React.Component {
     router: React.PropTypes.object,
     location: React.PropTypes.object,
     loggedIn: React.PropTypes.bool,
-    lock: React.PropTypes.object,
-    idToken: React.PropTypes.string,
+    setLoggedIn: React.PropTypes.func,
     refresh: React.PropTypes.func,
   };
   state ={
     loggedIn: false,
+    idToken: null,
   };
   getChildContext () {
     return {
       router: this.context.router,
       location: this.props.location,
       loggedIn: this.state.loggedIn,
-      lock: this.lock,
-      idToken: this.state.idToken,
+      setLoggedIn: (loggedIn) => this.setLoggedIn(loggedIn),
       refresh: this.forceRefresh,
     };
   }
   componentWillMount () {
-    this.lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
+    this.injectAuthToken();
+  }
+  componentWillUpdate (nextProps, nextState) {
+    const {idToken} = nextState;
 
+    if (idToken !== this.state.idToken) {
+      this.injectAuthToken();
+    }
+  }
+  getIdToken () {
+    const idToken = localStorage.getItem('id_token');
+
+    return idToken;
+  }
+  setLoggedIn (loggedIn) {
+    this.setState({loggedIn});
+  }
+  forceRefresh = () => {
     this.injectAuthToken();
   }
   injectAuthToken () {
@@ -58,7 +73,7 @@ export default class CoreContainer extends React.Component {
       Relay.injectNetworkLayer(
         new Relay.DefaultNetworkLayer(`http://${networkAddress}/graphql`, {
           headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: `Bearer ${token}`,
           },
         })
       );
@@ -67,26 +82,7 @@ export default class CoreContainer extends React.Component {
     }
     this.setState({idToken: token});
   }
-  getIdToken () {
-    let idToken = localStorage.getItem('id_token');
-    const authHash = this.lock.parseHash(window.location.hash);
 
-    if (!idToken && authHash) {
-      if (authHash.id_token) {
-        idToken = authHash.id_token;
-        localStorage.setItem('id_token', authHash.id_token);
-      }
-      if (authHash.error) {
-        console.log('Error signing in', authHash);
-        return null;
-      }
-    }
-
-    return idToken;
-  }
-  forceRefresh = () => {
-    this.injectAuthToken();
-  }
   render () {
     return <Perspective children={this.props.children} />;
   }

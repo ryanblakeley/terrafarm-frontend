@@ -16,7 +16,7 @@ class ResultsItemLand extends React.Component {
       <span className={classNames.number} >
         {index + 1}.
       </span>
-      <Link to={`/auth/land/${land.id}`} className={classNames.name} >
+      <Link to={`/land/${land.id}`} className={classNames.name} >
         {land.name[0].toUpperCase() + land.name.slice(1)}
       </Link>
     </div>;

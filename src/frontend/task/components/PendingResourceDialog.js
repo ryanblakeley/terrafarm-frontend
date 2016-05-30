@@ -56,11 +56,11 @@ class PendingResourceDialog extends React.Component {
         open={this.state.open}
       >
         <p>
-          <Link to={`/auth/user/${owner.id}`} style={{textDecoration: 'underline'}}>
+          <Link to={`/user/${owner.id}`} style={{textDecoration: 'underline'}}>
             {owner.name}
           </Link>
           <span> has offered </span>
-          <Link to={`/auth/resource/${resource.id}`}>
+          <Link to={`/resource/${resource.id}`}>
             {resource.name}
           </Link>
           <span> to the <strong>{task.name}</strong> task.</span>

@@ -1,4 +1,10 @@
 .this {
+  composes: page from '../../../../shared/styles/layout.css';
+}
+.pageHeading {
+  composes: pageHeading from '../../../../shared/styles/typography.css';
+}
+.centerContainer {
   display: flex;
   align-items: center;
   justify-content: center;

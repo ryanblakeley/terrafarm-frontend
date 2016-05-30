@@ -1,7 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionLand from 'react-addons-css-transition-group';
-import { Link } from 'react-router';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 import BrowsePanel from './components/BrowsePanel';
 import BrowseResults from './components/BrowseResults';
 
@@ -15,7 +14,7 @@ class BrowseContainer extends React.Component {
   render () {
     const {master} = this.props;
 
-    return <CSSTransitionLand
+    return <CSSTransitionGroup
       transitionName={transitionNames}
       transitionAppear
       transitionAppearTimeout={350}
@@ -27,7 +26,7 @@ class BrowseContainer extends React.Component {
         <BrowsePanel />
         <BrowseResults master={master} />
       </div>
-    </CSSTransitionLand>;
+    </CSSTransitionGroup>;
   }
 }
 

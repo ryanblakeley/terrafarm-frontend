@@ -34,7 +34,7 @@ class ProjectItem extends React.Component {
         secondary={secondaryIcon}
       />
       <div className={classNames.colorsPlaceholder} />
-      <Link to={`/auth/project/${project.id}`} className={classNames.name} >
+      <Link to={`/project/${project.id}`} className={classNames.name} >
         {project.name[0].toUpperCase() + project.name.slice(1)}
       </Link>
     </div>;

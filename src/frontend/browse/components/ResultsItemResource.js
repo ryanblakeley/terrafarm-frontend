@@ -16,7 +16,7 @@ class ResultsItemResource extends React.Component {
       <span className={classNames.number} >
         {index + 1}.
       </span>
-      <Link to={`/auth/resource/${resource.id}`} className={classNames.name} >
+      <Link to={`/resource/${resource.id}`} className={classNames.name} >
         {resource.name[0].toUpperCase() + resource.name.slice(1)}
       </Link>
     </div>;

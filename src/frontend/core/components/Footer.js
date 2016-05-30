@@ -10,22 +10,10 @@ const styles = {
     backgroundColor: Colors.brown100,
     borderColor: Colors.brown400,
   },
-  button: { fontSize: 'inherit' },
-  link: { color: Colors.brown900 },
-  icon: { color: Colors.brown600 },
 };
 
 export default class Footer extends React.Component {
-  static contextTypes = {
-    router: React.PropTypes.object,
-  }
-  handleClickAbout = () => {
-    this.context.router.push('/about');
-  }
   render () {
-    if (this.context.router.isActive('home')) {
-      return null;
-    }
     return <footer className={classNames.this} style={styles.this}>
       <div className={classNames.appTitle}>
         <Link
@@ -35,15 +23,6 @@ export default class Footer extends React.Component {
         >
           Terrafarm
         </Link>
-      </div>
-      <div>
-        <IconButton
-          style={styles.button}
-          iconStyle={styles.icon}
-          onTouchTap={this.handleClickAbout}
-        >
-          <MdInfoOutline className={classNames.icon} />
-        </IconButton>
       </div>
       <h6 className={classNames.footerMessage}>Prototype</h6>
     </footer>;

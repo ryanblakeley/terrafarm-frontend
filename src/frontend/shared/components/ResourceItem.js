@@ -31,7 +31,7 @@ class ResourceItem extends React.Component {
         ? colorSwatches.map(color => <RelationshipColorDot key={color} color={color} />)
         : <div className={classNames.colorsPlaceholder} />
       }
-      <Link to={`/auth/resource/${resource.id}`} className={classNames.name} >
+      <Link to={`/resource/${resource.id}`} className={classNames.name} >
         {resource.name[0].toUpperCase() + resource.name.slice(1)}
       </Link>
     </div>;

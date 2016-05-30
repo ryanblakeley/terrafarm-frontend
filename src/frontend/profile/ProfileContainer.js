@@ -140,12 +140,12 @@ export default Relay.createContainer(ProfileContainer, {
         image,
         location,
         description,
-        resources(first: 18) {
+        resources(first: 1) {
           edges {
             node {
               id,
               name,
-              lands(first: 18) {
+              lands(first: 1) {
                 edges {
                   node {
                     id,
@@ -158,7 +158,7 @@ export default Relay.createContainer(ProfileContainer, {
             }
           },
         },
-        landsAdmin(first: 18) {
+        landsAdmin(first: 1) {
           edges {
             node {
               id,

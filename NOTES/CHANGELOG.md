@@ -1,8 +1,14 @@
 # Changelog
 
-## HEAD 2016 May
+## 0.7 2016 May
 
-- updated main menu design
+- fixed login flow
+- added projects
+- added tasks
+- fixed main menu transition timing
+- renamed groups to lands
+- updated tagline
+- updated icons
 
 
 ## 0.6 2016 April

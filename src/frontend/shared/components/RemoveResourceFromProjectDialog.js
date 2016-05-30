@@ -48,7 +48,7 @@ class RemoveResourceFromProjectDialog extends React.Component {
       >
         <p>
           <span>Please confirm that you would like to remove the resource </span>
-          <Link to={`/auth/resource/${resource.id}`} className={classNames.link}>
+          <Link to={`/resource/${resource.id}`} className={classNames.link}>
             {resource.name}
           </Link>
           <span> from the project <span className={classNames.link}>{project.name}</span>.</span>

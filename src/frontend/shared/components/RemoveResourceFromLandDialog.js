@@ -48,7 +48,7 @@ class RemoveResourceFromLandDialog extends React.Component {
       >
         <p>
           <span>Please confirm that you would like to remove the resource </span>
-          <Link to={`/auth/resource/${resource.id}`} className={classNames.link}>
+          <Link to={`/resource/${resource.id}`} className={classNames.link}>
             {resource.name}
           </Link>
           <span> from the land <span className={classNames.link}>{land.name}</span>.</span>

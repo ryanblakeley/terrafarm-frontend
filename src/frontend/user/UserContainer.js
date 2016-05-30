@@ -185,12 +185,12 @@ export default Relay.createContainer(UserContainer, {
         image,
         location,
         description,
-        resources(first: 18) {
+        resources(first: 1) {
           edges {
             node {
               id,
               name,
-              lands(first: 18) {
+              lands(first: 1) {
                 edges {
                   node {
                     name,
@@ -199,7 +199,7 @@ export default Relay.createContainer(UserContainer, {
                   }
                 }
               },
-              projects(first: 18) {
+              projects(first: 1) {
                 edges {
                   node {
                     name,
@@ -208,7 +208,7 @@ export default Relay.createContainer(UserContainer, {
                   }
                 }
               },
-              tasks(first: 18) {
+              tasks(first: 1) {
                 edges {
                   node {
                     name,
@@ -221,7 +221,7 @@ export default Relay.createContainer(UserContainer, {
             }
           },
         },
-        landsAdmin(first: 18) {
+        landsAdmin(first: 1) {
           edges {
             node {
               id,
@@ -230,7 +230,7 @@ export default Relay.createContainer(UserContainer, {
             }
           }
         },
-        projectsAdmin(first: 18) {
+        projectsAdmin(first: 1) {
           edges {
             node {
               id,

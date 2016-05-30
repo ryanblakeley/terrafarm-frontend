@@ -5,7 +5,7 @@ import HomeLinks from './components/HomeLinks';
 import transitionNames from '../../../shared/styles/transitions.css';
 import classNames from './styles/HomePageStylesheet.css';
 
-const HomePage = () => <CSSTransitionGroup
+const HomePage = (props) => <CSSTransitionGroup
   transitionName={transitionNames}
   transitionAppear
   transitionAppearTimeout={350}
@@ -15,10 +15,10 @@ const HomePage = () => <CSSTransitionGroup
   <div className={classNames.this} >
     <h1 className={classNames.appTitle}>Terrafarm</h1>
     <div className={classNames.tagline}>
-      Collaborate, learn, and<br />
-      strategize around farming.
+      Collaborate and strategize for healthy farming.
     </div>
     <HomeLinks />
+    {props.children}
   </div>
 </CSSTransitionGroup>;
 

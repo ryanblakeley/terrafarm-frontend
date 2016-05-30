@@ -3,14 +3,18 @@
 Below is a roadmap of potential Terrafarm features and releases.
 
 
-## 0.7
+## 0.7.1
 
-- [ ] SHIP
+- [x] fix eslint
+- [x] api limits
 
 
 ## 0.8
 
 - update Home page layout
+- color relationships on User page
+  - land, project, task have dash
+  - resources have dots
 - add Wish lists
   - wish list item page
   - people will wish for resources, tasks, and projects
@@ -44,6 +48,7 @@ Below is a roadmap of potential Terrafarm features and releases.
 - redesign browse line menu
   - inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/#Valentine)
 - progressive enhancement styles
+- handle expired jwt
 
 
 ## 1.0
@@ -71,7 +76,6 @@ Alpha prototype
 - analytics
 - add a production build flag that removes source maps and minifies js/html
 - new loading component
-- handle expired jwt
 - check `state` on auth callback
 - SSL
 
@@ -136,3 +140,9 @@ Monetization release
 - sticky footer
 - represent ecological diversity
 - reading groups
+- landing bumper
+  - logo with full name animates into top left corner
+  - login button fades in to top right corner
+  - tagline fades in to center
+  - photos fade in
+- /login and /login/authenticate loading animations

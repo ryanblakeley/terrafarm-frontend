@@ -32,7 +32,7 @@ class UserItem extends React.Component {
         ? <RelationshipColorDash color={colorSwatch} />
         : <div className={classNames.colorsPlaceholder} />
       }
-      <Link to={`/auth/user/${user.id}`} className={classNames.name} >
+      <Link to={`/user/${user.id}`} className={classNames.name} >
         {user.name[0].toUpperCase() + user.name.slice(1)}
       </Link>
     </div>;

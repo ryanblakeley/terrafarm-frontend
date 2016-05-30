@@ -1,27 +1,49 @@
 import React from 'react';
 import Relay from 'react-relay';
-import NewUserMutation from './mutations/NewUserMutation';
+import NewUserMutation from '../mutations/NewUserMutation';
 
-export default class AuthContainer extends React.Component {
+import classNames from '../styles/AuthorizeContainerStylesheet.css';
+
+class AuthorizeContainer extends React.Component {
   static propTypes = {
     viewer: React.PropTypes.object,
     master: React.PropTypes.object,
-    children: React.PropTypes.object,
   };
   static contextTypes = {
-    loggedIn: React.PropTypes.bool,
+    router: React.PropTypes.object.isRequired,
     lock: React.PropTypes.object,
     idToken: React.PropTypes.string,
+    loggedIn: React.PropTypes.bool,
+    setLoggedIn: React.PropTypes.func,
+    refresh: React.PropTypes.func,
   };
   componentWillMount () {
+    const {router, idToken, setLoggedIn, refresh} = this.context;
     const {viewer} = this.props;
-    const {loggedIn} = this.context;
 
-    if (loggedIn && !viewer) {
-      console.log('not registered');
-      this.createNewUser();
+    if (idToken) {
+      if (!viewer) {
+        this.createNewUser();
+        refresh()
+      } else {
+        setLoggedIn(true);
+        router.replace('/profile');
+      }
+    } else {
+      setLoggedIn(false);
+      console.log('[Error] refresh and try loging in again.');
+      router.replace('/');
     }
   }
+  /*
+  componentWillUpdate () {
+    const {loggedIn, router} = this.context;
+
+    if (loggedIn) {
+      router.replace('/profile');
+    }
+  }
+  */
   createNewUser () {
     const {master} = this.props;
     const profile = this.getProfile();
@@ -54,13 +76,11 @@ export default class AuthContainer extends React.Component {
     return result;
   }
   render () {
-    return <div >
-      {this.props.children}
-    </div>;
+    return <div></div>;
   }
 }
 
-export default Relay.createContainer(AuthContainer, {
+export default Relay.createContainer(AuthorizeContainer, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on User {

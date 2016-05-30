@@ -28,7 +28,7 @@ export default class CategoryButton extends React.Component {
     }
 
     router.push({
-      pathname: '/auth/browse',
+      pathname: '/browse',
       query: {
         entities: activeEntity,
         category: name,

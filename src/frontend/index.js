@@ -7,10 +7,10 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import CoreContainer from './core/CoreContainer';
 import Home from './core/components/home/HomePage';
-import About from './core/components/about/AboutPage';
+import LoginPage from './core/components/login/LoginPage';
+import AuthorizeContainer from './core/components/login/components/AuthorizeContainer';
+import AuthorizeQueries from './core/components/login/components/AuthorizeQueries';
 import NotFound from './core/components/not-found/NotFoundPage';
-import AuthContainer from './auth/AuthContainer';
-import AuthQueries from './auth/AuthQueries';
 import ProfileContainer from './profile/ProfileContainer';
 import ProfileQueries from './profile/ProfileQueries';
 import BrowseContainer from './browse/BrowseContainer';
@@ -31,8 +31,9 @@ injectTapEventPlugin();
 
 function authBouncer (nextState, replace) {
   const idToken = localStorage.getItem('id_token');
+
   if (!idToken) {
-    replace('');
+    replace('/');
   }
 }
 
@@ -43,60 +44,63 @@ function renderLoading () {
 ReactDOM.render(
   <RelayRouter history={browserHistory}>
     <Route path={'/'} component={CoreContainer} >
-      <IndexRedirect to={'home'} />
-      <Route path={'home'} component={Home} />
-      <Route path={'about'} component={About} />
-      <Route
-        path={'auth'}
-        component={AuthContainer}
-        queries={AuthQueries}
-        onEnter={authBouncer}
-        renderLoading={renderLoading}
-      >
-        <IndexRoute component={Home} />
+      <IndexRoute component={Home} />
+      <Route path={'login'} component={LoginPage} >
         <Route
-          path={'profile'}
-          component={ProfileContainer}
-          queries={ProfileQueries}
-          renderLoading={renderLoading}
-        />
-        <Route
-          path={'browse'}
-          component={BrowseContainer}
-          queries={BrowseQueries}
-          renderLoading={renderLoading}
-        />
-        <Route
-          path={'user/:userId'}
-          component={UserContainer}
-          queries={UserQueries}
-          renderLoading={renderLoading}
-        />
-        <Route
-          path={'resource/:resourceId'}
-          component={ResourceContainer}
-          queries={ResourceQueries}
-          renderLoading={renderLoading}
-        />
-        <Route
-          path={'land/:landId'}
-          component={LandContainer}
-          queries={LandQueries}
-          renderLoading={renderLoading}
-        />
-        <Route
-          path={'project/:projectId'}
-          component={ProjectContainer}
-          queries={ProjectQueries}
-          renderLoading={renderLoading}
-        />
-        <Route
-          path={'task/:taskId'}
-          component={TaskContainer}
-          queries={TaskQueries}
-          renderLoading={renderLoading}
+          path={'authorize'}
+          component={AuthorizeContainer}
+          queries={AuthorizeQueries}
         />
       </Route>
+      <Route
+        path={'profile'}
+        component={ProfileContainer}
+        queries={ProfileQueries}
+        onEnter={authBouncer}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'browse'}
+        component={BrowseContainer}
+        queries={BrowseQueries}
+        onEnter={authBouncer}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'user/:userId'}
+        component={UserContainer}
+        queries={UserQueries}
+        onEnter={authBouncer}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'resource/:resourceId'}
+        component={ResourceContainer}
+        queries={ResourceQueries}
+        onEnter={authBouncer}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'land/:landId'}
+        component={LandContainer}
+        queries={LandQueries}
+        onEnter={authBouncer}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'project/:projectId'}
+        component={ProjectContainer}
+        queries={ProjectQueries}
+        onEnter={authBouncer}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'task/:taskId'}
+        component={TaskContainer}
+        queries={TaskQueries}
+        onEnter={authBouncer}
+        renderLoading={renderLoading}
+      />
       <Route path={'*'} component={NotFound} />
     </Route>
   </RelayRouter>,

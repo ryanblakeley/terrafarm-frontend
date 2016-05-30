@@ -33,7 +33,7 @@ class TaskItem extends React.Component {
         secondary={secondaryIcon}
       />
       <div className={classNames.colorsPlaceholder} />
-      <Link to={`/auth/task/${task.id}`} className={classNames.name} >
+      <Link to={`/task/${task.id}`} className={classNames.name} >
         {task.name[0].toUpperCase() + task.name.slice(1)}
       </Link>
     </div>;

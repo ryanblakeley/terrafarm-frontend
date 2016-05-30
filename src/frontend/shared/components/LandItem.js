@@ -40,7 +40,7 @@ class LandItem extends React.Component {
         ? <RelationshipColorDash color={colorSwatch} />
         : <div className={classNames.colorsPlaceholder} />
       }
-      <Link to={`/auth/land/${land.id}`} className={classNames.name} >
+      <Link to={`/land/${land.id}`} className={classNames.name} >
         {land.name[0].toUpperCase() + land.name.slice(1)}
       </Link>
     </div>;

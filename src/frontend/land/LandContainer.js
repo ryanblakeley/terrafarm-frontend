@@ -223,7 +223,7 @@ export default Relay.createContainer(LandContainer, {
         description,
         category,
         image,
-        resources(first: 18) {
+        resources(first: 1) {
           edges {
             node {
               id,
@@ -242,7 +242,7 @@ export default Relay.createContainer(LandContainer, {
             }
           }
         },
-        resourcesPending(first: 18) {
+        resourcesPending(first: 1) {
           edges {
             node {
               id,
@@ -252,7 +252,7 @@ export default Relay.createContainer(LandContainer, {
             }
           }
         },
-        admins(first: 18) {
+        admins(first: 1) {
           edges {
             node {
               id,
@@ -261,14 +261,14 @@ export default Relay.createContainer(LandContainer, {
             }
           }
         },
-        likedBy(first: 18) {
+        likedBy(first: 1) {
           edges {
             node {
               id,
             }
           }
         },
-        projects(first: 18) {
+        projects(first: 1) {
           edges {
             node {
               id,

@@ -209,19 +209,19 @@ export default Relay.createContainer(TaskContainer, {
                   }
                 }
               },
-              likedBy(first: 18) {
+              likedBy(first: 1) {
                 edges {
                   node {id}
                 }
               },
-              admins(first: 18) {
+              admins(first: 1) {
                 edges {
                   node {
                     id,
                   }
                 }
               },
-              resources(first: 18) {
+              resources(first: 1) {
                 edges {
                   node {
                     id,
@@ -232,12 +232,12 @@ export default Relay.createContainer(TaskContainer, {
             }
           }
         },
-        resources(first: 18) {
+        resources(first: 1) {
           edges {
             node {
               id,
               name,
-              users(first: 8) {
+              users(first: 1) {
                 edges {
                   node {
                     id,
@@ -250,7 +250,7 @@ export default Relay.createContainer(TaskContainer, {
             }
           }
         },
-        resourcesPending(first: 18) {
+        resourcesPending(first: 1) {
           edges {
             node {
               id,

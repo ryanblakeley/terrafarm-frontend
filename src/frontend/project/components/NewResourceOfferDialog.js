@@ -121,7 +121,7 @@ export default Relay.createContainer(NewResourceOfferDialog, {
     user: () => Relay.QL`
       fragment on User {
         name,
-        resources(first: 18) {
+        resources(first: 3) {
           edges {
             node {
               id,

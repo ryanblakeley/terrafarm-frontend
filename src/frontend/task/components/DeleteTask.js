@@ -43,7 +43,7 @@ class DeleteTask extends React.Component {
     if (this.props.onComplete) {
       this.props.onComplete();
     }
-    router.push(`/auth/project/${parentProject.id}`);
+    router.push(`/project/${parentProject.id}`);
   }
   render () {
     return (

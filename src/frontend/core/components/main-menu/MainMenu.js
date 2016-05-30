@@ -26,7 +26,7 @@ export default class MainMenu extends React.Component {
     const {router} = this.context;
 
     onHide();
-    router.push('/auth/profile');
+    router.push('/profile');
   }
   handleSignOut = () => {
     const {onHide} = this.props;
@@ -34,7 +34,7 @@ export default class MainMenu extends React.Component {
 
     localStorage.removeItem('id_token');
     onHide();
-    router.push('/');
+    router.push('');
     refresh();
   }
   handleBrowse = () => {
@@ -42,7 +42,7 @@ export default class MainMenu extends React.Component {
     const {router} = this.context;
 
     onHide();
-    router.push('/auth/browse');
+    router.push('/browse');
   }
   handleHome = () => {
     const {onHide} = this.props;

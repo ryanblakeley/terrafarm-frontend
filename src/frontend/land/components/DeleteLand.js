@@ -42,7 +42,7 @@ class DeleteLand extends React.Component {
     if (this.props.onComplete) {
       this.props.onComplete();
     }
-    router.push('/auth/profile');
+    router.push('/profile');
   }
   render () {
     return (

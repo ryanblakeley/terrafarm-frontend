@@ -43,7 +43,7 @@ class DeleteProject extends React.Component {
     if (this.props.onComplete) {
       this.props.onComplete();
     }
-    router.push(`/auth/land/${parentLand.id}`);
+    router.push(`/land/${parentLand.id}`);
   }
   render () {
     return (

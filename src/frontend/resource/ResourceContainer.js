@@ -137,7 +137,7 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        lands(first: 5) {
+        lands(first: 1) {
           edges {
             node {
               id,
@@ -147,7 +147,7 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        projects(first: 5) {
+        projects(first: 1) {
           edges {
             node {
               id,
@@ -157,7 +157,7 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        tasks(first: 5) {
+        tasks(first: 1) {
           edges {
             node {
               id,
@@ -167,7 +167,7 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        likedBy(first: 18) {
+        likedBy(first: 1) {
           edges {
             node {
               id,
