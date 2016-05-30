@@ -5,18 +5,19 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 ## 0.7
 
-- [x] color relationships on task and project pages
+- [ ] SHIP
 
 
 ## 0.8
 
-- unit test plugin
-- add Wish Lists
+- update Home page layout
+- add Wish lists
   - wish list item page
   - people will wish for resources, tasks, and projects
   - lands will wish for resources, tasks, and projects
   - tasks will wish for resources
   - projects will wish for resources
+- unit test plugin
 
 
 ## 0.9
@@ -84,7 +85,6 @@ Beta release
 
 - Getting Started page
 - css feature detection, fallbacks, and browser warnings
-- Home page: shadows
 - better transition animations
   - refactor CSSTransitionGroup usage into a separate component (TransitionContainer)
 

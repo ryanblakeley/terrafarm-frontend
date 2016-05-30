@@ -19,4 +19,5 @@
 .footerMessage {
   composes: articleSubheading from '../../shared/styles/typography.css';
   margin-top: 85px;
+  opacity: 0.44;
 }

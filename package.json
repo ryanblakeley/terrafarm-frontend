@@ -1,8 +1,8 @@
 {
   "name": "terrafarm",
   "private": true,
-  "version": "0.6.0",
-  "description": "Cultivate good food close to home.",
+  "version": "0.7.0",
+  "description": "Collaborate, learn, and strategize around healthy farming.",
   "repository": "rblakeley/terrafarm",
   "author": "rblakeley",
   "license": "Creative Commons BY-NC-ND 3.0",

@@ -12,8 +12,3 @@
   letter-spacing: 0.023em;
   margin-bottom: 25px;
 }
-.warning {
-  composes: articleSubheading from '../../../../shared/styles/typography.css';
-  margin: 25px 0;
-  font-size: 0.9em;
-}
