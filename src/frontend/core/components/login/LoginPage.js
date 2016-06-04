@@ -58,7 +58,7 @@ export default class LoginPage extends React.Component {
       this.lock.show({
         authParams: {
           scope: 'openid profile',
-          callbackURL: 'http://localhost:3000/login',
+          callbackURL: `http://${networkAddress}/login`,
         },
       });
     } else if (loggedIn) {
@@ -98,7 +98,7 @@ export default class LoginPage extends React.Component {
       this.lock.show({
         authParams: {
           scope: 'openid profile',
-          callbackURL: 'http://localhost:3000/login',
+          callbackURL: `http://${networkAddress}/login`,
         },
       });
     } else {

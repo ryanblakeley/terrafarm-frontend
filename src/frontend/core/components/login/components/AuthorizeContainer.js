@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import NewUserMutation from '../mutations/NewUserMutation';
 
-import classNames from '../styles/AuthorizeContainerStylesheet.css';
+// import classNames from '../styles/AuthorizeContainerStylesheet.css';
 
 class AuthorizeContainer extends React.Component {
   static propTypes = {
@@ -24,7 +24,7 @@ class AuthorizeContainer extends React.Component {
     if (idToken) {
       if (!viewer) {
         this.createNewUser();
-        refresh()
+        refresh();
       } else {
         setLoggedIn(true);
         router.replace('/profile');
@@ -35,15 +35,20 @@ class AuthorizeContainer extends React.Component {
       router.replace('/');
     }
   }
-  /*
-  componentWillUpdate () {
-    const {loggedIn, router} = this.context;
+  getProfile () {
+    const {lock, idToken} = this.context;
+    let result;
 
-    if (loggedIn) {
-      router.replace('/profile');
-    }
+    lock.getProfile(idToken, (err, profile) => {
+      if (err) {
+        console.log('Error loading the Profile', err);
+        return;
+      }
+      result = profile;
+    });
+
+    return result;
   }
-  */
   createNewUser () {
     const {master} = this.props;
     const profile = this.getProfile();
@@ -60,20 +65,6 @@ class AuthorizeContainer extends React.Component {
         image: picture,
       })
     );
-  }
-  getProfile () {
-    const {lock, idToken} = this.context;
-    let result;
-
-    lock.getProfile(idToken, (err, profile) => {
-      if (err) {
-        console.log('Error loading the Profile', err);
-        return;
-      }
-      result = profile;
-    });
-
-    return result;
   }
   render () {
     return <div></div>;
