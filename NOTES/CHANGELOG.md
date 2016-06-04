@@ -1,8 +1,14 @@
 # Changelog
 
-## 0.7 2016 May
+## HEAD
 
 - fixed login flow
+- added app header with dynamic page heading and nav
+- multiline inputs
+
+
+## 0.7 2016 May
+
 - added projects
 - added tasks
 - fixed main menu transition timing

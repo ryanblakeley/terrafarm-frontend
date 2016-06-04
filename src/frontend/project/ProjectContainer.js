@@ -1,11 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import GoRepo from 'react-icons/lib/go/repo';
+import IconButton from 'material-ui/lib/icon-button';
 import HeartProject from './components/HeartProject';
 import EditProjectDialog from './components/EditProjectDialog';
 import NewResourceOfferDialog from './components/NewResourceOfferDialog';
 import NewTaskDialog from './components/NewTaskDialog';
-import ResourcesPendingNotification from './components/ResourcesPendingNotification';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import RemoveResourceFromProjectDialog from '../shared/components/RemoveResourceFromProjectDialog';
 import UserItem from '../shared/components/UserItem';
@@ -91,27 +92,25 @@ class ProjectContainer extends React.Component {
       transitionLeave={false}
     >
       <div className={classNames.this}>
-        <h2 className={classNames.pageHeading}>Project</h2>
         <div className={classNames.actionsHeading}>
+          {isProjectAdmin
+            ? <EditProjectDialog project={project} master={master} />
+            : <IconButton disabled />
+          }
+          {isProjectAdmin
+            ? <NewTaskDialog project={project} master={master} />
+            : <IconButton disabled />
+          }
+          <div className={classNames.centerIconWrapper} >
+            <GoRepo className={classNames.centerIcon} />
+          </div>
+          <NewResourceOfferDialog project={project} user={viewer} disabled={!(isProjectAdmin || doesLike)} />
           <HeartProject
             project={project}
             user={viewer}
             doesLike={doesLike}
             count={likedBy.edges.length}
           />
-          {(isProjectAdmin
-            || doesLike)
-            && <NewResourceOfferDialog project={project} user={viewer} />
-          }
-          {isProjectAdmin
-            && <NewTaskDialog project={project} master={master} />
-          }
-          {isProjectAdmin
-            && <EditProjectDialog project={project} master={master} />
-          }
-          {!!resourcesPending.edges.length
-            && <ResourcesPendingNotification onTouchTap={this.scrollToResourcesPending} />
-          }
         </div>
         <h3 className={classNames.contentHeading}>{name}</h3>
         <h4 className={classNames.contentSubheading}>| {category} |</h4>
@@ -198,14 +197,14 @@ export default Relay.createContainer(ProjectContainer, {
             }
           }
         },
-        likedBy(first: 1) {
+        likedBy(first: 6) {
           edges {
             node {
               id,
             }
           }
         },
-        tasks(first: 1) {
+        tasks(first: 6) {
           edges {
             node {
               id,
@@ -214,7 +213,7 @@ export default Relay.createContainer(ProjectContainer, {
             }
           }
         },
-        resources(first: 1) {
+        resources(first: 3) {
           edges {
             node {
               id,
@@ -229,7 +228,7 @@ export default Relay.createContainer(ProjectContainer, {
             }
           }
         },
-        resourcesPending(first: 1) {
+        resourcesPending(first: 3) {
           edges {
             node {
               id,

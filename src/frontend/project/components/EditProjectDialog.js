@@ -138,6 +138,8 @@ class EditProjectDialog extends React.Component {
             label={'Description'}
             initialValue={project.description}
             validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 500}}
+            multiLine
+            rows={3}
           />
         </Formsy.Form>
       </Dialog>

@@ -2,12 +2,10 @@ import React from 'react';
 import Relay from 'react-relay';
 import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
-import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
 import IoEdit from 'react-icons/lib/io/edit';
 import TextInput from '../../shared/components/TextInput';
-import SelectInput from '../../shared/components/SelectInput';
 import UpdateProfile from './UpdateProfile';
 import DeleteUser from './DeleteUser';
 
@@ -15,6 +13,7 @@ import classNames from '../styles/EditProfileDialogStylesheet.css';
 
 class EditProfileDialog extends React.Component {
   static propTypes = {
+    master: React.PropTypes.object,
     user: React.PropTypes.object,
   };
   state = {
@@ -121,6 +120,8 @@ class EditProfileDialog extends React.Component {
             label={'Description'}
             initialValue={user.description}
             validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 500}}
+            multiLine
+            rows={3}
           />
           <TextInput
             name={'image'}

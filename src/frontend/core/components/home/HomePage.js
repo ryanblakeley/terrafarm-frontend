@@ -1,10 +1,10 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import HomeLinks from './components/HomeLinks';
+import HomeTagline from './components/HomeTagline';
 
 import transitionNames from '../../../shared/styles/transitions.css';
 import classNames from './styles/HomePageStylesheet.css';
-
+/* eslint react/prop-types: 0 */
 const HomePage = (props) => <CSSTransitionGroup
   transitionName={transitionNames}
   transitionAppear
@@ -13,11 +13,7 @@ const HomePage = (props) => <CSSTransitionGroup
   transitionLeave={false}
 >
   <div className={classNames.this} >
-    <h1 className={classNames.appTitle}>Terrafarm</h1>
-    <div className={classNames.tagline}>
-      Collaborate and strategize for healthy farming.
-    </div>
-    <HomeLinks />
+    <HomeTagline />
     {props.children}
   </div>
 </CSSTransitionGroup>;

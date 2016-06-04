@@ -25,15 +25,12 @@ export default class TextInput extends React.Component {
   render () {
     return (
       <FormsyText
-        name={this.props.name}
-        style={this.props.style}
+        {...this.props}
         floatingLabelStyle={{color: Colors.blueGrey900}}
         underlineFocusStyle={{borderColor: Colors.blueGrey900}}
         hintText={this.props.placeholder}
         floatingLabelText={this.props.label}
         value={this.props.initialValue}
-        validations={this.props.validations}
-        required={this.props.required}
       />
     );
   }

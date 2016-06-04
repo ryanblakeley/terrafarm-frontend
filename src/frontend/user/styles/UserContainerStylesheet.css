@@ -1,15 +1,24 @@
 .this {
   composes: page from '../../shared/styles/layout.css';
 }
-.pageHeading {
-  composes: pageHeading from '../../shared/styles/typography.css';
-}
 .contentHeading {
   composes: contentHeading from '../../shared/styles/typography.css';
 }
+.actionsHeading {
+  composes: actionsHeading from '../../shared/styles/layout.css';
+}
+.centerIcon {
+  composes: xlargeIcon from '../../shared/styles/typography.css';
+}
+.centerIconWrapper {
+  composes: centerIconWrapper from '../../shared/styles/layout.css';
+}
+.contentSubheading {
+  composes: contentSubheading from '../../shared/styles/typography.css';
+  font-size: 1.08em;
+}
 .location {
   composes: articleSubheading from '../../shared/styles/typography.css';
-  margin: 2.33em 0;
 }
 .relationships {
   composes: relationships from '../../shared/styles/layout.css';

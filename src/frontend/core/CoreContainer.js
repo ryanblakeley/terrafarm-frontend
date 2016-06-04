@@ -3,9 +3,11 @@ import Relay from 'react-relay';
 import TerrafarmRawTheme from '../shared/themes/terrafarm-raw-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
-import Perspective from './components/Perspective';
+import AppHeader from './components/AppHeader';
+import AppFooter from './components/AppFooter';
 
 import '../shared/styles/base.css';
+import classNames from './styles/CoreContainerStylesheet.css';
 
 const { PUBLIC_IP, FRONTEND_PORT } = process.env;
 
@@ -84,6 +86,12 @@ export default class CoreContainer extends React.Component {
   }
 
   render () {
-    return <Perspective children={this.props.children} />;
+    const {children} = this.props;
+
+    return <div className={classNames.this} >
+      <AppHeader />
+      {children}
+      <AppFooter />
+    </div>;
   }
 }

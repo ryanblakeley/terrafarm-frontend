@@ -19,7 +19,7 @@ class NewLandDialog extends React.Component {
     categories: React.PropTypes.array.isRequired,
   };
   static defaultProps = {
-    categories: ['Farm', 'Backyard', 'Urban lot', 'School', 'Building'],
+    categories: ['Farm', 'Private Yard', 'Shared Lot', 'School'],
   };
   state = {
     open: false,
@@ -90,9 +90,11 @@ class NewLandDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const landCategories = categories.map((item, index) => {
-      return <MenuItem key={item} value={index} primaryText={item} />;
-    });
+    const landCategories = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
 
     return <div className={classNames.this} >
       <IconButton onTouchTap={this.handleOpen} >
@@ -128,6 +130,8 @@ class NewLandDialog extends React.Component {
             placeholder={'Overview of plot size, resource needs, rules, etc.'}
             validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
             required
+            multiLine
+            rows={3}
           />
           <SelectInput
             name={'categoryIndex'}

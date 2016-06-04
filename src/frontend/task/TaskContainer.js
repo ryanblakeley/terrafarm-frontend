@@ -1,9 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import IoLeaf from 'react-icons/lib/io/leaf';
+import IconButton from 'material-ui/lib/icon-button';
 import EditTaskDialog from './components/EditTaskDialog';
 import NewResourceOfferDialog from './components/NewResourceOfferDialog';
-import ResourcesPendingNotification from './components/ResourcesPendingNotification';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFromTaskDialog';
 import ProjectItem from '../shared/components/ProjectItem';
@@ -115,23 +116,22 @@ class TaskContainer extends React.Component {
       transitionLeave={false}
     >
       <div className={classNames.this}>
-        <h2 className={classNames.pageHeading}>Task</h2>
         <div className={classNames.actionsHeading}>
-          {(isProjectAdmin
-            || doesLike)
-            && <NewResourceOfferDialog
-              task={task}
-              user={viewer}
-              isProjectAdmin={isProjectAdmin}
-            />
-          }
           {isProjectAdmin
-            && <EditTaskDialog task={task} master={master} />
+            ? <EditTaskDialog task={task} master={master} />
+            : <IconButton disabled />
           }
-          {isProjectAdmin
-            && !!resourcesPending.edges.length
-            && <ResourcesPendingNotification onTouchTap={this.scrollToResourcesPending} />
-          }
+          <IconButton disabled />
+          <div className={classNames.centerIconWrapper} >
+            <IoLeaf className={classNames.centerIcon} />
+          </div>
+          <NewResourceOfferDialog
+            task={task}
+            user={viewer}
+            isProjectAdmin={isProjectAdmin}
+            disabled={!(isProjectAdmin || doesLike)}
+          />
+          <IconButton disabled />
         </div>
         <h3 className={classNames.contentHeading}>{name}</h3>
         <h4 className={classNames.contentSubheading}>| {category} |</h4>
@@ -232,7 +232,7 @@ export default Relay.createContainer(TaskContainer, {
             }
           }
         },
-        resources(first: 1) {
+        resources(first: 6) {
           edges {
             node {
               id,

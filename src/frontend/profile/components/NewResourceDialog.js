@@ -87,9 +87,11 @@ class NewResourceDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const resourceCategories = categories.map((item, index) => {
-      return <MenuItem key={item} value={index} primaryText={item} />;
-    });
+    const resourceCategories = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
 
     return <div className={classNames.this} >
       <IconButton onTouchTap={this.handleOpen} >
@@ -119,6 +121,8 @@ class NewResourceDialog extends React.Component {
             placeholder={'Overview of capacity, quantity, availability, skill level, etc.'}
             validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
             required
+            multiLine
+            rows={3}
           />
           <SelectInput
             name={'categoryIndex'}

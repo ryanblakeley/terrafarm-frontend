@@ -100,9 +100,7 @@ export default class Perspective extends React.Component {
       });
     }
   }
-  handleNullTap = () => {
-    return false;
-  }
+  handleNullTap = () => false
   render () {
     const {
       modalview,

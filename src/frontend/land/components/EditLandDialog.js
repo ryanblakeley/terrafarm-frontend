@@ -17,10 +17,11 @@ class EditLandDialog extends React.Component {
   static propTypes = {
     master: React.PropTypes.object,
     land: React.PropTypes.object,
+    user: React.PropTypes.object,
     categories: React.PropTypes.array.isRequired,
   };
   static defaultProps = {
-    categories: ['Farm', 'Backyard', 'Urban lot', 'School', 'Building'],
+    categories: ['Farm', 'Private Yard', 'Shared Lot', 'School'],
   };
   state = {
     open: false,
@@ -103,9 +104,11 @@ class EditLandDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const landCategories = categories.map((item, index) => {
-      return <MenuItem key={item} value={index} primaryText={item} />;
-    });
+    const landCategories = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
 
     return <div className={classNames.this}>
       <IconButton onTouchTap={this.handleOpen} >
@@ -137,9 +140,11 @@ class EditLandDialog extends React.Component {
           />
           <TextInput
             name={'description'}
-            label={'Description'}
+            label={'Descriptions'}
             initialValue={land.description}
             validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 500}}
+            multiLine
+            rows={3}
           />
           <SelectInput
             name={'categoryIndex'}

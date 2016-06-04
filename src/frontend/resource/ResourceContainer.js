@@ -1,6 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import IconButton from 'material-ui/lib/icon-button';
+import IoCube from 'react-icons/lib/io/cube';
 import HeartResource from './components/HeartResource';
 import EditResourceDialog from './components/EditResourceDialog';
 import UserItem from '../shared/components/UserItem';
@@ -17,6 +19,7 @@ import classNames from './styles/ResourceContainerStylesheet.css';
 
 class ResourceContainer extends React.Component {
   static propTypes = {
+    master: React.PropTypes.object,
     resource: React.PropTypes.object,
     viewer: React.PropTypes.object,
   };
@@ -58,20 +61,27 @@ class ResourceContainer extends React.Component {
       transitionLeave={false}
     >
       <div className={classNames.this} >
-        <h2 className={classNames.pageHeading}>Resource</h2>
         <div className={classNames.actionsHeading}>
+          {isOwner
+            ? <EditResourceDialog resource={resource} master={master} user={viewer} />
+            : <IconButton disabled />
+          }
+          <IconButton disabled />
+          <div className={classNames.centerIconWrapper} >
+            <IoCube className={classNames.centerIcon} />
+          </div>
+          <IconButton disabled />
           <HeartResource
             resource={resource}
             user={viewer}
             doesLike={doesLike}
             count={likedBy.edges.length}
           />
-          {isOwner
-            && <EditResourceDialog resource={resource} master={master} user={viewer} />
-          }
         </div>
         <h3 className={classNames.contentHeading}>{resource.name}</h3>
-        <h4 className={classNames.contentSubheading}>| {resource.category} |</h4>
+        <h4 className={classNames.contentSubheading}>
+          | {resource.category} | <span className={classNames.location}>{resource.location}</span>
+        </h4>
         <HeroImage image={resource.image} />
 
         <div className={classNames.relationships}>
@@ -137,7 +147,7 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        lands(first: 1) {
+        lands(first: 3) {
           edges {
             node {
               id,
@@ -147,7 +157,7 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        projects(first: 1) {
+        projects(first: 6) {
           edges {
             node {
               id,
@@ -157,7 +167,7 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        tasks(first: 1) {
+        tasks(first: 6) {
           edges {
             node {
               id,
@@ -167,7 +177,7 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        likedBy(first: 1) {
+        likedBy(first: 6) {
           edges {
             node {
               id,
@@ -196,5 +206,3 @@ export default Relay.createContainer(ResourceContainer, {
     `,
   },
 });
-
-

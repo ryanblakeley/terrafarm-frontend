@@ -12,7 +12,7 @@ const styles = {
     width: 58,
     height: 58,
   },
-  icon: { color: Colors.deepOrange300 },
+  icon: { color: Colors.blue500 },
 };
 const { PUBLIC_IP, FRONTEND_PORT, AUTH0_CLIENT_ID, AUTH0_DOMAIN } = process.env;
 
@@ -28,7 +28,6 @@ export default class LoginPage extends React.Component {
   };
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
-    location: React.PropTypes.object,
     loggedIn: React.PropTypes.bool,
   };
   static childContextTypes = {
@@ -121,15 +120,24 @@ export default class LoginPage extends React.Component {
     this.setState({idToken: token});
   }
   render () {
+    const {router} = this.context;
+
     return <div className={classNames.this}>
       <h2 className={classNames.pageHeading}>Login</h2>
       <IconButton
         style={styles.button}
         iconStyle={styles.icon}
         onTouchTap={this.handleSignIn}
+        disabled={router.isActive('/login/authorize')}
       >
         <IoLogIn className={classNames.icon} />
       </IconButton>
+
+      {router.isActive('/login/authorize')
+        && <div className={classNames.authorizing}>
+          Authorizing...
+        </div>
+      }
 
       {this.props.children}
     </div>;

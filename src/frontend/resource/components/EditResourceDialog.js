@@ -15,6 +15,8 @@ import classNames from '../styles/EditResourceDialogStylesheet.css';
 
 class EditResourceDialog extends React.Component {
   static propTypes = {
+    master: React.PropTypes.object,
+    user: React.PropTypes.object,
     resource: React.PropTypes.object,
     categories: React.PropTypes.array.isRequired,
   };
@@ -99,9 +101,11 @@ class EditResourceDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const resourceCategories = categories.map((item, index) => {
-      return <MenuItem key={item} value={index} primaryText={item} />;
-    });
+    const resourceCategories = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
 
     return <div className={classNames.this}>
       <IconButton onTouchTap={this.handleOpen} >
@@ -130,6 +134,8 @@ class EditResourceDialog extends React.Component {
             label={'Description'}
             initialValue={resource.description}
             validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 500}}
+            multiLine
+            rows={3}
           />
           <SelectInput
             name={'categoryIndex'}

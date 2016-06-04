@@ -3,30 +3,34 @@
 Below is a roadmap of potential Terrafarm features and releases.
 
 
-## 0.7.1
+## 0.7.2
 
-- [x] fix eslint
-- [x] api limits
-
+- ship
 
 ## 0.8
 
-- update Home page layout
-- color relationships on User page
-  - land, project, task have dash
-  - resources have dots
 - add Wish lists
   - wish list item page
   - people will wish for resources, tasks, and projects
   - lands will wish for resources, tasks, and projects
   - tasks will wish for resources
   - projects will wish for resources
-- unit test plugin
+  - resources will wish for tasks, projects, lands
+  - how does watching fit in?
 
 
 ## 0.9
 
 - add Crop Schedules
+  - resource: discrete unit of input
+  - task: specific action that employs resources and generates measurable output
+  - project: combination of tasks that share a material objective
+  - land: discrete territory for organizing projects
+  - wish list: resource requests by a task, project, or land
+  - schedule:
+    - resource commitments, offers, and availability
+    - task and project deadlines
+    - cr
 
 
 ## 0.10
@@ -49,6 +53,11 @@ Below is a roadmap of potential Terrafarm features and releases.
   - inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/#Valentine)
 - progressive enhancement styles
 - handle expired jwt
+- check `state` on auth callback
+- color relationships on User page
+  - land, project, task have dash
+  - resources have dots
+- unit test plugin
 
 
 ## 1.0
@@ -66,7 +75,6 @@ Alpha prototype
   - show alert next to location with pending resources
 - Land container
   - add weather forecast and historical trends
-- Main Menu: alternative icon style if active page
 - multiple images for profile (2), resource (3), land (5)
 - new logo and add to`./package.json`
 - chaos monkey in dev
@@ -76,7 +84,6 @@ Alpha prototype
 - analytics
 - add a production build flag that removes source maps and minifies js/html
 - new loading component
-- check `state` on auth callback
 - SSL
 
 
@@ -102,9 +109,10 @@ First official release
 
 - resource pricing and transactions
 - higher limits on: lands, projects, land admins
-- descriptive URL parameters (rather than random string id)
+- custom short url with name, e.x. terra.farm/dunbar
 - crowd funding portal
 - vendor click-throughs for books, videos, and equipment
+- loadouts: save frequent resource combinations
 
 
 ## 4.0
@@ -134,7 +142,7 @@ Monetization release
   - hover on plus icon, circle expands from center around plus icon
     bottom of circle drops down to create rectangle with semi-circle top and bottom
     icons in the rectangle are new connections (resource offer, new task...).
-- a line between parent relationship items and children relationship items
+- distinguish parent relationship items
 - different icon for land:
   - torii gate by freepik: http://www.flaticon.com/free-icon/torii-gate_68189#term=gate&page=1&position=15
 - sticky footer
@@ -146,3 +154,4 @@ Monetization release
   - tagline fades in to center
   - photos fade in
 - /login and /login/authenticate loading animations
+- soil temp, moisture, and analysis

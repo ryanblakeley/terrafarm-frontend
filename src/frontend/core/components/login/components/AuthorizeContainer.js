@@ -67,7 +67,7 @@ class AuthorizeContainer extends React.Component {
     );
   }
   render () {
-    return <div></div>;
+    return <div>Authorizing...</div>;
   }
 }
 

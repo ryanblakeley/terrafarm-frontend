@@ -1,6 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 import CSSTransitionLand from 'react-addons-css-transition-group';
+import IoPerson from 'react-icons/lib/io/person';
+import IconButton from 'material-ui/lib/icon-button';
 import NewResourceDialog from './components/NewResourceDialog';
 import NewLandDialog from './components/NewLandDialog';
 import EditProfileDialog from './components/EditProfileDialog';
@@ -37,9 +39,9 @@ class ProfileContainer extends React.Component {
   }
   updateColorChart (resources) {
     const landIds = [];
-    let landsUsingResources = resources.edges.map(edge => {
-      return edge.node.lands.edges.map(landEdge => landEdge.node);
-    });
+    let landsUsingResources = resources.edges.map(edge => (
+      edge.node.lands.edges.map(landEdge => landEdge.node)
+    ));
     landsUsingResources = [].concat.apply([], landsUsingResources);
     landsUsingResources = landsUsingResources.filter(land => {
       if (landIds.indexOf(land.id) > -1) {
@@ -56,9 +58,9 @@ class ProfileContainer extends React.Component {
   updateLandList (landsAdmin, resources) {
     const landIds = landsAdmin.edges.map(edge => edge.node.id);
 
-    let landsUsingResources = resources.edges.map(edge => {
-      return edge.node.lands.edges.map(landEdge => landEdge.node);
-    });
+    let landsUsingResources = resources.edges.map(edge => (
+      edge.node.lands.edges.map(landEdge => landEdge.node)
+    ));
     landsUsingResources = [].concat.apply([], landsUsingResources);
     landsUsingResources = landsUsingResources.filter(land => {
       if (landIds.indexOf(land.id) > -1) {
@@ -82,48 +84,47 @@ class ProfileContainer extends React.Component {
       transitionLeave={false}
     >
       <div className={classNames.this} >
-        <h2 className={classNames.pageHeading}>Profile</h2>
         <div className={classNames.actionsHeading}>
-          <NewLandDialog user={viewer} master={master} />
-          <NewResourceDialog user={viewer} master={master} />
           <EditProfileDialog user={viewer} master={master} />
+          <NewLandDialog user={viewer} master={master} />
+          <div className={classNames.centerIconWrapper} >
+            <IoPerson className={classNames.centerIcon} />
+          </div>
+          <NewResourceDialog user={viewer} master={master} />
+          <IconButton disabled />
         </div>
         <h3 className={classNames.contentHeading}>{viewer.name}</h3>
+        <h4 className={classNames.contentSubheading}>
+          <span className={classNames.location}>{viewer.location}</span>
+        </h4>
         <HeroImage image={viewer.image} />
-        <h6 className={classNames.location}>{viewer.location}</h6>
 
         <div className={classNames.relationships} >
-          {landsAdmin.edges.map(edge => {
-            return <LandItem
-              key={edge.node.id}
-              land={edge.node}
-              colorSwatch={this.state.colorChart[edge.node.id]}
-              adminBadge
-              enableEdit
-            />;
-          })}
+          {landsAdmin.edges.map(edge => <LandItem
+            key={edge.node.id}
+            land={edge.node}
+            colorSwatch={this.state.colorChart[edge.node.id]}
+            adminBadge
+            enableEdit
+          />)}
 
           {this.state.landsUsingResources
             && this.state.landsUsingResources.length > 0
-            && this.state.landsUsingResources.map(land => {
-              return <LandItem
-                key={land.id}
-                land={land}
-                colorSwatch={this.state.colorChart[land.id]}
-              />;
-            })
+            && this.state.landsUsingResources.map(land => <LandItem
+              key={land.id}
+              land={land}
+              colorSwatch={this.state.colorChart[land.id]}
+            />)
           }
 
-          {viewer.resources.edges.map(edge => {
-            return <ResourceItem
-              key={edge.node.id}
-              resource={edge.node}
-              colorSwatches={edge.node.lands.edges.map(landEdge => {
-                return this.state.colorChart[landEdge.node.id];
-              })}
-              enableEdit
-            />;
-          })}
+          {viewer.resources.edges.map(edge => <ResourceItem
+            key={edge.node.id}
+            resource={edge.node}
+            colorSwatches={edge.node.lands.edges.map(landEdge => (
+              this.state.colorChart[landEdge.node.id]
+            ))}
+            enableEdit
+          />)}
 
           <p className={classNames.description}>{viewer.description}</p>
         </div>
@@ -140,7 +141,7 @@ export default Relay.createContainer(ProfileContainer, {
         image,
         location,
         description,
-        resources(first: 1) {
+        resources(first: 3) {
           edges {
             node {
               id,

@@ -1,11 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import IoIosLocation from 'react-icons/lib/io/ios-location';
+import IconButton from 'material-ui/lib/icon-button';
 import HeartLand from './components/HeartLand';
 import EditLandDialog from './components/EditLandDialog';
 import NewResourceOfferDialog from './components/NewResourceOfferDialog';
 import NewProjectDialog from './components/NewProjectDialog';
-import ResourcesPendingNotification from './components/ResourcesPendingNotification';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import ResourceItem from '../shared/components/ResourceItem';
 import UserItem from '../shared/components/UserItem';
@@ -86,10 +87,6 @@ class LandContainer extends React.Component {
 
     this.setState({resourceOwners});
   }
-  scrollToResourcesPending = () => {
-    const {resourcesPending} = this.refs;
-    resourcesPending.scrollIntoView();
-  }
   render () {
     const {land, viewer, master} = this.props;
     const {isAdmin, doesLike, resourceOwners, colorChart} = this.state;
@@ -114,31 +111,31 @@ class LandContainer extends React.Component {
       transitionLeave={false}
     >
       <div className={classNames.this}>
-        <h2 className={classNames.pageHeading}>Land</h2>
         <div className={classNames.actionsHeading}>
+          {isAdmin
+            ? <EditLandDialog land={land} master={master} user={viewer} />
+            : <IconButton disabled />
+          }
+          {isAdmin
+            ? <NewProjectDialog land={land} master={master} user={viewer} />
+            : <IconButton disabled />
+          }
+          <div className={classNames.centerIconWrapper} >
+            <IoIosLocation className={classNames.centerIcon} />
+          </div>
+          <NewResourceOfferDialog land={land} user={viewer} disabled={!(isAdmin || doesLike)} />
           <HeartLand
             land={land}
             user={viewer}
             doesLike={doesLike}
             count={likedBy.edges.length}
           />
-          {doesLike
-            && <NewResourceOfferDialog land={land} user={viewer} />
-          }
-          {isAdmin
-            && <NewProjectDialog land={land} master={master} user={viewer} />
-          }
-          {isAdmin
-            && <EditLandDialog land={land} master={master} user={viewer} />
-          }
-          {!!resourcesPending.edges.length
-            && <ResourcesPendingNotification onTouchTap={this.scrollToResourcesPending} />
-          }
         </div>
         <h3 className={classNames.contentHeading}>{name}</h3>
-        <h4 className={classNames.contentSubheading}>| {category} |</h4>
+        <h4 className={classNames.contentSubheading}>
+          | {category} | <span className={classNames.location}>{location}</span>
+        </h4>
         <HeroImage image={image} />
-        <h6 className={classNames.location}>{location}</h6>
 
         <div className={classNames.relationships} >
           {projects
@@ -190,7 +187,7 @@ class LandContainer extends React.Component {
           <div ref={'resourcesPending'}>
             {isAdmin
               && resourcesPending
-              && resourcesPending.length > 0
+              && resourcesPending.edges.length > 0
               && resourcesPending.edges.map(edge => <div key={edge.node.id}>
                 <ResourceItem
                   resource={edge.node}
@@ -223,7 +220,7 @@ export default Relay.createContainer(LandContainer, {
         description,
         category,
         image,
-        resources(first: 1) {
+        resources(first: 3) {
           edges {
             node {
               id,
@@ -242,7 +239,7 @@ export default Relay.createContainer(LandContainer, {
             }
           }
         },
-        resourcesPending(first: 1) {
+        resourcesPending(first: 3) {
           edges {
             node {
               id,
@@ -261,14 +258,14 @@ export default Relay.createContainer(LandContainer, {
             }
           }
         },
-        likedBy(first: 1) {
+        likedBy(first: 6) {
           edges {
             node {
               id,
             }
           }
         },
-        projects(first: 1) {
+        projects(first: 6) {
           edges {
             node {
               id,

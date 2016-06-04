@@ -119,6 +119,8 @@ class NewProjectDialog extends React.Component {
             placeholder={'Overview of project specification.'}
             validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
             required
+            multiLine
+            rows={3}
           />
           <SelectInput
             name={'categoryIndex'}

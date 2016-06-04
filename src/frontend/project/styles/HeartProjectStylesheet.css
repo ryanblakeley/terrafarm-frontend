@@ -1,5 +1,6 @@
 .this {
   composes: actionsHeadingButton from '../../shared/styles/layout.css';
+  position: relative;
   text-align: center;
 }
 .icon {
@@ -7,4 +8,6 @@
 }
 .count {
   composes: articleSubheading from '../../shared/styles/typography.css';
+  position: absolute;
+  width: 100%;
 }

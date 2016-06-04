@@ -4,7 +4,7 @@ const {
   FIELDBOOK_KEY,
 } = process.env;
 
-export const baseUrl = 'https://api.fieldbook.com/v1/' + FIELDBOOK_ID;
+export const baseUrl = `https://api.fieldbook.com/v1/${FIELDBOOK_ID}`;
 export const options = {
   headers: {accept: 'application/json'},
 

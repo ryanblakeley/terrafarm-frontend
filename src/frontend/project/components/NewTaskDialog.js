@@ -84,9 +84,11 @@ class NewTaskDialog extends React.Component {
         disabled={!canSubmit}
       />,
     ];
-    const taskCategories = categories.map((item, index) => {
-      return <MenuItem key={item} value={index} primaryText={item} />;
-    });
+    const taskCategories = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
 
     return <div className={classNames.this} >
       <IconButton onTouchTap={this.handleOpen} >
@@ -115,6 +117,8 @@ class NewTaskDialog extends React.Component {
             placeholder={'Overview of task specification.'}
             validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
             required
+            multiLine
+            rows={3}
           />
           <SelectInput
             name={'categoryIndex'}

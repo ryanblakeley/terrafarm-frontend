@@ -18,7 +18,7 @@ import {ResourceType} from './types/ResourceType';
 import {ProjectType} from './types/ProjectType';
 import {TaskType} from './types/TaskType';
 import {nodeField} from './types/node';
-
+/* eslint max-len: 0 */
 import AddResourceToLandMutation from './mutations/AddResourceToLandMutation';
 import AddResourceToProjectMutation from './mutations/AddResourceToProjectMutation';
 import AddResourceToTaskMutation from './mutations/AddResourceToTaskMutation';
@@ -93,7 +93,7 @@ const Root = new GraphQLObjectType({
     viewer: {
       type: UserType,
       resolve: async (_, args, {rootValue: {user}}) => {
-        const query = '?email=' + user.email;
+        const query = `?email=${user.email}`;
         const result = await sheetQuery(getEndpoint(UserType), query);
         return result[0];
       },

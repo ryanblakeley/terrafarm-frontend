@@ -15,6 +15,7 @@ class NewResourceOfferDialog extends React.Component {
   static propTypes = {
     project: React.PropTypes.object,
     user: React.PropTypes.object,
+    disabled: React.PropTypes.bool,
   };
   state = {
     open: false,
@@ -43,7 +44,7 @@ class NewResourceOfferDialog extends React.Component {
     }
   }
   render () {
-    const {project, user} = this.props;
+    const {project, user, disabled} = this.props;
     const {canSubmit, resourceIndex} = this.state;
 
     let resource = null;
@@ -72,7 +73,7 @@ class NewResourceOfferDialog extends React.Component {
     />);
 
     return <div className={classNames.this} >
-      <IconButton onTouchTap={this.handleOpen} >
+      <IconButton onTouchTap={this.handleOpen} disabled={disabled} >
         <IoCube className={classNames.icon} />
       </IconButton>
       <Dialog

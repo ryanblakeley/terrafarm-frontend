@@ -22,7 +22,6 @@ class BrowseContainer extends React.Component {
       transitionLeave={false}
     >
       <div className={classNames.this} >
-        <h2 className={classNames.pageHeading}>Browse</h2>
         <BrowsePanel />
         <BrowseResults master={master} />
       </div>

@@ -3,7 +3,7 @@ import {baseUrl, options} from './config';
 
 /* eslint no-unused-vars: 0 */
 export default async function updateItem (endpoint, id, body) {
-  const url = baseUrl + '/' + endpoint(id);
+  const url = `${baseUrl}/${endpoint(id)}`;
 
   options.method = 'PATCH';
   options.body = body;
@@ -12,9 +12,8 @@ export default async function updateItem (endpoint, id, body) {
   try {
     response = await requestify.request(url, options);
   } catch (err) {
-    console.error('[Error] with updateItem API:', err);
+    console.error(`[Error] with updateItem API: ${err}`);
   }
 
   return JSON.parse(response.body);
 }
-

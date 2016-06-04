@@ -17,3 +17,6 @@
   composes: icon from '../../../../shared/styles/typography.css';
   font-size: 34px;
 }
+.authorizing {
+  composes: bodyText from '../../../../shared/styles/typography.css';
+}
