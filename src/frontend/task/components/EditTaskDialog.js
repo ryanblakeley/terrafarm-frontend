@@ -4,8 +4,6 @@ import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
-import IconButton from 'material-ui/lib/icon-button';
-import IoEdit from 'react-icons/lib/io/edit';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
 import UpdateTask from './UpdateTask';
@@ -103,9 +101,7 @@ class EditTaskDialog extends React.Component {
     />);
 
     return <div className={classNames.this}>
-      <IconButton onTouchTap={this.handleOpen} >
-        <IoEdit className={classNames.icon} />
-      </IconButton>
+      <MenuItem primaryText={'Edit task'} onTouchTap={this.handleOpen} />
       <Dialog
         name={'Edit Task'}
         actions={actions}

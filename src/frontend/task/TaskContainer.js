@@ -3,6 +3,8 @@ import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import IoLeaf from 'react-icons/lib/io/leaf';
 import IconButton from 'material-ui/lib/icon-button';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import IoCube from 'react-icons/lib/io/cube';
 import EditTaskDialog from './components/EditTaskDialog';
 import NewResourceOfferDialog from './components/NewResourceOfferDialog';
 import PendingResourceDialog from './components/PendingResourceDialog';
@@ -15,6 +17,13 @@ import LandItem from '../shared/components/LandItem';
 import createColorChart from '../shared/themes/create-color-chart';
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/TaskContainerStylesheet.css';
+const styles = {
+  large: {
+    width: 64,
+    height: 64,
+    padding: 0,
+  },
+};
 
 class TaskContainer extends React.Component {
   static propTypes = {
@@ -117,20 +126,34 @@ class TaskContainer extends React.Component {
     >
       <div className={classNames.this}>
         <div className={classNames.actionsHeading}>
-          {isProjectAdmin
-            ? <EditTaskDialog task={task} master={master} />
-            : <IconButton disabled />
-          }
+          <IconButton disabled />
           <IconButton disabled />
           <div className={classNames.centerIconWrapper} >
-            <IoLeaf className={classNames.centerIcon} />
+            <IconMenu
+              iconButtonElement={<IconButton style={styles.large} >
+                <IoLeaf className={classNames.centerIcon} />
+              </IconButton>}
+              anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+              targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+              disabled={!isProjectAdmin}
+            >
+              <EditTaskDialog task={task} master={master} />
+            </IconMenu>
           </div>
-          <NewResourceOfferDialog
-            task={task}
-            user={viewer}
-            isProjectAdmin={isProjectAdmin}
-            disabled={!(isProjectAdmin || doesLike)}
-          />
+          <IconMenu
+            iconButtonElement={<IconButton>
+              <IoCube className={classNames.icon} />
+            </IconButton>}
+            anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+          >
+            <NewResourceOfferDialog
+              task={task}
+              user={viewer}
+              isProjectAdmin={isProjectAdmin}
+              disabled={!(isProjectAdmin || doesLike)}
+            />
+          </IconMenu>
           <IconButton disabled />
         </div>
         <h3 className={classNames.contentHeading}>{name}</h3>

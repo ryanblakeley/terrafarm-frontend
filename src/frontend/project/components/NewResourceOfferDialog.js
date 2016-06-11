@@ -4,8 +4,8 @@ import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
-import IconButton from 'material-ui/lib/icon-button';
-import IoCube from 'react-icons/lib/io/cube';
+// import IconButton from 'material-ui/lib/icon-button';
+// import IoCube from 'react-icons/lib/io/cube';
 import SelectInput from '../../shared/components/SelectInput';
 import AddPendingResource from './AddPendingResource';
 
@@ -73,9 +73,7 @@ class NewResourceOfferDialog extends React.Component {
     />);
 
     return <div className={classNames.this} >
-      <IconButton onTouchTap={this.handleOpen} disabled={disabled} >
-        <IoCube className={classNames.icon} />
-      </IconButton>
+      <MenuItem primaryText={'Offer'} onTouchTap={this.handleOpen} disabled={disabled} />
       <Dialog
         title={'New Resource Offer'}
         actions={actions}

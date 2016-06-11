@@ -93,9 +93,7 @@ class NewProjectDialog extends React.Component {
     />);
 
     return <div className={classNames.this} >
-      <IconButton onTouchTap={this.handleOpen} >
-        <GoRepo className={classNames.icon} />
-      </IconButton>
+      <MenuItem primaryText={'New project'} onTouchTap={this.handleOpen} />
       <Dialog
         title={'New Project'}
         actions={actions}

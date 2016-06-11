@@ -3,6 +3,9 @@ import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import GoRepo from 'react-icons/lib/go/repo';
 import IconButton from 'material-ui/lib/icon-button';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import IoCube from 'react-icons/lib/io/cube';
+import IoLeaf from 'react-icons/lib/io/leaf';
 import HeartProject from './components/HeartProject';
 import EditProjectDialog from './components/EditProjectDialog';
 import NewResourceOfferDialog from './components/NewResourceOfferDialog';
@@ -17,6 +20,13 @@ import ResourceItem from '../shared/components/ResourceItem';
 import createColorChart from '../shared/themes/create-color-chart';
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/ProjectContainerStylesheet.css';
+const styles = {
+  large: {
+    width: 64,
+    height: 64,
+    padding: 0,
+  },
+};
 
 class ProjectContainer extends React.Component {
   static propTypes = {
@@ -93,18 +103,42 @@ class ProjectContainer extends React.Component {
     >
       <div className={classNames.this}>
         <div className={classNames.actionsHeading}>
-          {isProjectAdmin
-            ? <EditProjectDialog project={project} master={master} />
-            : <IconButton disabled />
-          }
-          {isProjectAdmin
-            ? <NewTaskDialog project={project} master={master} />
-            : <IconButton disabled />
-          }
+          <IconButton disabled />
+          <IconMenu
+            iconButtonElement={<IconButton>
+              <IoLeaf className={classNames.icon} />
+            </IconButton>}
+            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+            targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+            disabled={!isProjectAdmin}
+          >
+            <NewTaskDialog project={project} master={master} />
+          </IconMenu>
           <div className={classNames.centerIconWrapper} >
-            <GoRepo className={classNames.centerIcon} />
+            <IconMenu
+              iconButtonElement={<IconButton style={styles.large} >
+                <GoRepo className={classNames.centerIcon} />
+              </IconButton>}
+              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+              targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+              disabled={!isProjectAdmin}
+            >
+              <EditProjectDialog project={project} master={master} />
+            </IconMenu>
           </div>
-          <NewResourceOfferDialog project={project} user={viewer} disabled={!(isProjectAdmin || doesLike)} />
+          <IconMenu
+            iconButtonElement={<IconButton>
+              <IoCube className={classNames.icon} />
+            </IconButton>}
+            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+            targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+          >
+            <NewResourceOfferDialog
+              project={project}
+              user={viewer}
+              disabled={!(isProjectAdmin || doesLike)}
+            />
+          </IconMenu>
           <HeartProject
             project={project}
             user={viewer}

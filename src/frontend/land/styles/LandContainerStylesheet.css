@@ -10,6 +10,9 @@
 .centerIconWrapper {
   composes: centerIconWrapper from '../../shared/styles/layout.css';
 }
+.icon {
+  composes: icon from '../../shared/styles/typography.css';
+}
 .contentHeading {
   composes: contentHeading from '../../shared/styles/typography.css';
 }

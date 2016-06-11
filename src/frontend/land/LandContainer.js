@@ -3,6 +3,9 @@ import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import IoIosLocation from 'react-icons/lib/io/ios-location';
 import IconButton from 'material-ui/lib/icon-button';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import IoCube from 'react-icons/lib/io/cube';
+import GoRepo from 'react-icons/lib/go/repo';
 import HeartLand from './components/HeartLand';
 import EditLandDialog from './components/EditLandDialog';
 import NewResourceOfferDialog from './components/NewResourceOfferDialog';
@@ -17,6 +20,13 @@ import HeroImage from '../shared/components/HeroImage';
 import createColorChart from '../shared/themes/create-color-chart';
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/LandContainerStylesheet.css';
+const styles = {
+  large: {
+    width: 64,
+    height: 64,
+    padding: 0,
+  },
+};
 
 class LandContainer extends React.Component {
   static propTypes = {
@@ -112,18 +122,42 @@ class LandContainer extends React.Component {
     >
       <div className={classNames.this}>
         <div className={classNames.actionsHeading}>
-          {isAdmin
-            ? <EditLandDialog land={land} master={master} user={viewer} />
-            : <IconButton disabled />
-          }
-          {isAdmin
-            ? <NewProjectDialog land={land} master={master} user={viewer} />
-            : <IconButton disabled />
-          }
+          <IconButton disabled />
+          <IconMenu
+            iconButtonElement={<IconButton>
+              <GoRepo className={classNames.icon} />
+            </IconButton>}
+            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+            targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+            disabled={!isAdmin}
+          >
+            <NewProjectDialog land={land} master={master} user={viewer} />
+          </IconMenu>
           <div className={classNames.centerIconWrapper} >
-            <IoIosLocation className={classNames.centerIcon} />
+            <IconMenu
+              iconButtonElement={<IconButton style={styles.large} >
+                <IoIosLocation className={classNames.centerIcon} />
+              </IconButton>}
+              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+              targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+              disabled={!isAdmin}
+            >
+              <EditLandDialog land={land} master={master} user={viewer} />
+            </IconMenu>
           </div>
-          <NewResourceOfferDialog land={land} user={viewer} disabled={!(isAdmin || doesLike)} />
+          <IconMenu
+            iconButtonElement={<IconButton>
+              <IoCube className={classNames.icon} />
+            </IconButton>}
+            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+            targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+          >
+            <NewResourceOfferDialog
+              land={land}
+              user={viewer}
+              disabled={!(isAdmin || doesLike)}
+            />
+          </IconMenu>
           <HeartLand
             land={land}
             user={viewer}

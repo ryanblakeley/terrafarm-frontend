@@ -3,6 +3,9 @@ import Relay from 'react-relay';
 import CSSTransitionLand from 'react-addons-css-transition-group';
 import IoPerson from 'react-icons/lib/io/person';
 import IconButton from 'material-ui/lib/icon-button';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import IoCube from 'react-icons/lib/io/cube';
+import IoIosLocation from 'react-icons/lib/io/ios-location';
 import NewResourceDialog from './components/NewResourceDialog';
 import NewLandDialog from './components/NewLandDialog';
 import EditProfileDialog from './components/EditProfileDialog';
@@ -13,6 +16,13 @@ import HeroImage from '../shared/components/HeroImage';
 import createColorChart from '../shared/themes/create-color-chart';
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/ProfileContainerStylesheet.css';
+const styles = {
+  large: {
+    width: 64,
+    height: 64,
+    padding: 0,
+  },
+};
 
 class ProfileContainer extends React.Component {
   static propTypes = {
@@ -85,12 +95,36 @@ class ProfileContainer extends React.Component {
     >
       <div className={classNames.this} >
         <div className={classNames.actionsHeading}>
-          <EditProfileDialog user={viewer} master={master} />
-          <NewLandDialog user={viewer} master={master} />
+          <IconButton disabled />
+          <IconMenu
+            iconButtonElement={<IconButton>
+              <IoIosLocation className={classNames.icon} />
+            </IconButton>}
+            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+            targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          >
+            <NewLandDialog user={viewer} master={master} />
+          </IconMenu>
           <div className={classNames.centerIconWrapper} >
-            <IoPerson className={classNames.centerIcon} />
+            <IconMenu
+              iconButtonElement={<IconButton style={styles.large} >
+                <IoPerson className={classNames.centerIcon} />
+              </IconButton>}
+              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+              targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+            >
+              <EditProfileDialog user={viewer} master={master} />
+            </IconMenu>
           </div>
-          <NewResourceDialog user={viewer} master={master} />
+          <IconMenu
+            iconButtonElement={<IconButton>
+              <IoCube className={classNames.icon} />
+            </IconButton>}
+            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+            targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          >
+            <NewResourceDialog user={viewer} master={master} />
+          </IconMenu>
           <IconButton disabled />
         </div>
         <h3 className={classNames.contentHeading}>{viewer.name}</h3>

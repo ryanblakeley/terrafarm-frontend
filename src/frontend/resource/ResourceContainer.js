@@ -2,6 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import IconButton from 'material-ui/lib/icon-button';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IoCube from 'react-icons/lib/io/cube';
 import HeartResource from './components/HeartResource';
 import EditResourceDialog from './components/EditResourceDialog';
@@ -16,6 +17,13 @@ import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFro
 
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/ResourceContainerStylesheet.css';
+const styles = {
+  large: {
+    width: 64,
+    height: 64,
+    padding: 0,
+  },
+};
 
 class ResourceContainer extends React.Component {
   static propTypes = {
@@ -62,13 +70,19 @@ class ResourceContainer extends React.Component {
     >
       <div className={classNames.this} >
         <div className={classNames.actionsHeading}>
-          {isOwner
-            ? <EditResourceDialog resource={resource} master={master} user={viewer} />
-            : <IconButton disabled />
-          }
+          <IconButton disabled />
           <IconButton disabled />
           <div className={classNames.centerIconWrapper} >
-            <IoCube className={classNames.centerIcon} />
+            <IconMenu
+              iconButtonElement={<IconButton style={styles.large} >
+                <IoCube className={classNames.centerIcon} />
+              </IconButton>}
+              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+              targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+              disabled={!isOwner}
+            >
+              <EditResourceDialog resource={resource} master={master} user={viewer} />
+            </IconMenu>
           </div>
           <IconButton disabled />
           <HeartResource

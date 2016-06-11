@@ -4,8 +4,6 @@ import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
-import IconButton from 'material-ui/lib/icon-button';
-import IoLeaf from 'react-icons/lib/io/leaf';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
 import NewTask from './NewTask';
@@ -91,9 +89,7 @@ class NewTaskDialog extends React.Component {
     />);
 
     return <div className={classNames.this} >
-      <IconButton onTouchTap={this.handleOpen} >
-        <IoLeaf className={classNames.icon} />
-      </IconButton>
+      <MenuItem primaryText={'New task'} onTouchTap={this.handleOpen} />
       <Dialog
         title={'New Task'}
         actions={actions}

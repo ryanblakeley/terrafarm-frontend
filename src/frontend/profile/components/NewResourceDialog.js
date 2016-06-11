@@ -4,8 +4,8 @@ import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
-import IconButton from 'material-ui/lib/icon-button';
-import IoCube from 'react-icons/lib/io/cube';
+// import IconButton from 'material-ui/lib/icon-button';
+// import IoCube from 'react-icons/lib/io/cube';
 import TextInput from '../../shared/components/TextInput';
 import SelectInput from '../../shared/components/SelectInput';
 import NewResource from './NewResource';
@@ -94,9 +94,7 @@ class NewResourceDialog extends React.Component {
     />);
 
     return <div className={classNames.this} >
-      <IconButton onTouchTap={this.handleOpen} >
-        <IoCube className={classNames.icon} />
-      </IconButton>
+      <MenuItem primaryText={'New'} onTouchTap={this.handleOpen} />
       <Dialog
         title={'New Resource'}
         actions={actions}
