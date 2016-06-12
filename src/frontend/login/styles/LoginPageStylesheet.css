@@ -1,0 +1,10 @@
+.this {
+  composes: page from '../../shared/styles/layout.css';
+}
+.text {
+  composes: bodyText from '../../shared/styles/typography.css';
+}
+.auth0Container {
+  display: flex; justify-content: center;
+  margin: 15px auto;
+}

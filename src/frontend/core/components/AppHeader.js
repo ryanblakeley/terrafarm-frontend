@@ -2,34 +2,48 @@ import React from 'react';
 import AppLogo from './AppLogo';
 import Nav from './Nav';
 
-import classNames from '../styles/AppHeaderStylesheet.css';
-/* eslint react/prefer-stateless-function: 0 */
-export default class AppHeader extends React.Component {
-  static contextTypes = {
-    router: React.PropTypes.object,
-  };
+import classnames from 'classnames/bind';
+import classNamesContext from '../styles/AppHeaderStylesheet.css';
+const cx = classnames.bind(classNamesContext);
+
+class AppHeader extends React.Component {
   render () {
     const {router} = this.context;
-    let pageHeading = 'Terrafarm';
+    let text = '';
     if (router.isActive({pathname: '/profile'})) {
-      pageHeading = 'Profile';
+      text = 'Profile';
     } else if (router.isActive({pathname: '/browse'})) {
-      pageHeading = 'Browse';
+      text = 'Browse';
     } else if (router.isActive({pathname: '/land'})) {
-      pageHeading = 'Land';
+      text = 'Land';
     } else if (router.isActive({pathname: '/project'})) {
-      pageHeading = 'Project';
+      text = 'Project';
     } else if (router.isActive({pathname: '/task'})) {
-      pageHeading = 'Task';
+      text = 'Task';
     } else if (router.isActive({pathname: '/resource'})) {
-      pageHeading = 'Resource';
+      text = 'Resource';
     } else if (router.isActive({pathname: '/user'})) {
-      pageHeading = 'User';
+      text = 'User';
+    } else if (router.isActive({pathname: '/login'})) {
+      text = 'Login';
+    } else {
+      text = 'Terrafarm';
     }
 
-    return <div className={classNames.this} >
-      <AppLogo outline pageHeading={pageHeading} />
+    return <div
+      className={cx({
+        this: true,
+        home: text === 'Terrafarm',
+      })}
+    >
+      <AppLogo outline text={text} />
       <Nav />
     </div>;
   }
 }
+
+AppHeader.contextTypes = {
+  router: React.PropTypes.object,
+};
+
+export default AppHeader;

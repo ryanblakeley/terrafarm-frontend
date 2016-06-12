@@ -6,11 +6,11 @@ import {RelayRouter} from 'react-router-relay';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import CoreContainer from './core/CoreContainer';
-import Home from './core/components/home/HomePage';
-import LoginPage from './core/components/login/LoginPage';
-import AuthorizeContainer from './core/components/login/components/AuthorizeContainer';
-import AuthorizeQueries from './core/components/login/components/AuthorizeQueries';
-import NotFound from './core/components/not-found/NotFoundPage';
+import Home from './home/HomePage';
+import LoginPage from './login/LoginPage';
+import AuthorizeContainer from './login/components/AuthorizeContainer';
+import AuthorizeQueries from './login/components/AuthorizeQueries';
+import NotFound from './not-found/NotFoundPage';
 import ProfileContainer from './profile/ProfileContainer';
 import ProfileQueries from './profile/ProfileQueries';
 import BrowseContainer from './browse/BrowseContainer';
@@ -21,6 +21,14 @@ import ResourceContainer from './resource/ResourceContainer';
 import ResourceQueries from './resource/ResourceQueries';
 import LandContainer from './land/LandContainer';
 import LandQueries from './land/LandQueries';
+import EditLandContainer from './land/components/EditLandContainer';
+import EditLandQueries from './land/components/EditLandQueries';
+import NewProjectContainer from './land/components/NewProjectContainer';
+import NewProjectQueries from './land/components/NewProjectQueries';
+import OfferResourceToLandContainer from './land/components/OfferResourceToLandContainer';
+import OfferResourceToLandQueries from './land/components/OfferResourceToLandQueries';
+import RequestResourceForLandContainer from './land/components/RequestResourceForLandContainer';
+import RequestResourceForLandQueries from './land/components/RequestResourceForLandQueries';
 import ProjectContainer from './project/ProjectContainer';
 import ProjectQueries from './project/ProjectQueries';
 import TaskContainer from './task/TaskContainer';
@@ -88,7 +96,26 @@ ReactDOM.render(
           component={LandContainer}
           queries={LandQueries}
           renderLoading={renderLoading}
-        />
+        >
+          <Route
+            path={'edit'}
+            component={EditLandContainer}
+            queries={EditLandQueries}
+            renderLoading={renderLoading}
+          />
+          <Route
+            path={'new-project'}
+            component={NewProjectContainer}
+            queries={NewProjectQueries}
+            renderLoading={renderLoading}
+          />
+          <Route
+            path={'offer-resource'}
+            component={OfferResourceToLandContainer}
+            queries={OfferResourceToLandQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
       </Route>
       <Route path={'project'} onEnter={authBouncer} >
         <Route

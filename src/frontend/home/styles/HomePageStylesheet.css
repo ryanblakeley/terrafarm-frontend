@@ -1,0 +1,4 @@
+.this {
+  composes: page from '../../shared/styles/layout.css';
+  text-align: center;
+}

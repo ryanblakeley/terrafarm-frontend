@@ -21,8 +21,11 @@
   .page { width: 480px; }
   .actionsHeading { margin-top: 0; }
 }
+@media only screen and (min-width: 680px) {
+  .page { width: 650px; }
+  .actionsHeading { margin-top: 15px; max-width: 300px; }
+}
 /*
-@media only screen and (min-width: 680px) { .page { width: 650px; } }
 @media only screen and (min-width: 950px) { .page { width: 900px; } }
 @media only screen and (min-width: 1280px) { .page { width: 1200px; } }
 */

@@ -84,7 +84,6 @@ export default class CoreContainer extends React.Component {
     }
     this.setState({idToken: token});
   }
-
   render () {
     const {children} = this.props;
 

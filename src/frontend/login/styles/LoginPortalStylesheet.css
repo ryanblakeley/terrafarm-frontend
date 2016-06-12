@@ -1,0 +1,10 @@
+.this {}
+.medium {
+  font-size: 32px;
+}
+.icon {
+  composes: icon from '../../shared/styles/typography.css';
+}
+.small {
+  font-size: 16px;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginPortal from './LoginPortal';
+import LoginPortal from '../../login/components/LoginPortal';
 import BrowseButton from './BrowseButton';
 
 import classNames from '../styles/NavStylesheet.css';

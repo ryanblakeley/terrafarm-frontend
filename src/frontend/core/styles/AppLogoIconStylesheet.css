@@ -1,7 +1,7 @@
-.this {
-  margin-left: 12px;
-}
+.this { padding: 12px; }
 .icon {
   composes: icon from '../../shared/styles/typography.css';
   font-size: 52px;
+  cursor: pointer;
 }
+.disabled { cursor: default; }

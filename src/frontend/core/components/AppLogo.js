@@ -1,25 +1,31 @@
 import React from 'react';
 import AppLogoIcon from './AppLogoIcon';
 import AppLogoName from './AppLogoName';
+import PageHeading from './PageHeading';
 
 import classNames from 'classnames/bind';
 import classNamesContext from '../styles/AppLogoStylesheet.css';
 const cx = classNames.bind(classNamesContext);
-/* eslint react/prefer-stateless-function: 0 */
-class AppLogo extends React.Component {
-  static propTypes = {
-    stacked: React.PropTypes.bool,
-    outline: React.PropTypes.bool,
-    pageHeading: React.PropTypes.string,
-  };
-  render () {
-    const {stacked, outline, pageHeading} = this.props;
 
-    return <div className={cx({this: true, stacked})}>
-      <AppLogoIcon outline={outline} />
-      <AppLogoName pageHeading={pageHeading} />
-    </div>;
+const AppLogo = (props) => <div
+  className={cx({this: true, stacked: props.stacked})}
+>
+  <AppLogoIcon outline={props.outline} />
+  {props.text === 'Terrafarm'
+    ? <AppLogoName />
+    : <PageHeading text={props.text} />
   }
-}
-export default AppLogo;
+</div>;
 
+AppLogo.propTypes = {
+  stacked: React.PropTypes.bool,
+  outline: React.PropTypes.bool,
+  text: React.PropTypes.string,
+};
+
+AppLogo.defaultProps = {
+  stacked: false,
+  outline: false,
+};
+
+export default AppLogo;

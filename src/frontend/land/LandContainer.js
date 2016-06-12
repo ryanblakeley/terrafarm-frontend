@@ -1,38 +1,24 @@
 import React from 'react';
 import Relay from 'react-relay';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import IoIosLocation from 'react-icons/lib/io/ios-location';
-import IconButton from 'material-ui/lib/icon-button';
-import IconMenu from 'material-ui/lib/menus/icon-menu';
-import IoCube from 'react-icons/lib/io/cube';
-import GoRepo from 'react-icons/lib/go/repo';
-import HeartLand from './components/HeartLand';
-import EditLandDialog from './components/EditLandDialog';
-import NewResourceOfferDialog from './components/NewResourceOfferDialog';
-import NewProjectDialog from './components/NewProjectDialog';
-import PendingResourceDialog from './components/PendingResourceDialog';
 import ResourceItem from '../shared/components/ResourceItem';
 import UserItem from '../shared/components/UserItem';
 import ProjectItem from '../shared/components/ProjectItem';
 import RemoveResourceFromLandDialog from '../shared/components/RemoveResourceFromLandDialog';
 import HeroImage from '../shared/components/HeroImage';
+import LandMenu from './components/LandMenu';
+import PendingResourceDialog from './components/PendingResourceDialog';
 
 import createColorChart from '../shared/themes/create-color-chart';
 import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/LandContainerStylesheet.css';
-const styles = {
-  large: {
-    width: 64,
-    height: 64,
-    padding: 0,
-  },
-};
 
 class LandContainer extends React.Component {
   static propTypes = {
     master: React.PropTypes.object,
     land: React.PropTypes.object,
     viewer: React.PropTypes.object,
+    children: React.PropTypes.object,
   };
   state = {
     colorChart: {},
@@ -98,11 +84,10 @@ class LandContainer extends React.Component {
     this.setState({resourceOwners});
   }
   render () {
-    const {land, viewer, master} = this.props;
-    const {isAdmin, doesLike, resourceOwners, colorChart} = this.state;
+    const {land, viewer} = this.props;
+    const {isAdmin, resourceOwners, colorChart} = this.state;
     const {
       admins,
-      likedBy,
       projects,
       resources,
       resourcesPending,
@@ -121,50 +106,7 @@ class LandContainer extends React.Component {
       transitionLeave={false}
     >
       <div className={classNames.this}>
-        <div className={classNames.actionsHeading}>
-          <IconButton disabled />
-          <IconMenu
-            iconButtonElement={<IconButton>
-              <GoRepo className={classNames.icon} />
-            </IconButton>}
-            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-            disabled={!isAdmin}
-          >
-            <NewProjectDialog land={land} master={master} user={viewer} />
-          </IconMenu>
-          <div className={classNames.centerIconWrapper} >
-            <IconMenu
-              iconButtonElement={<IconButton style={styles.large} >
-                <IoIosLocation className={classNames.centerIcon} />
-              </IconButton>}
-              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-              targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-              disabled={!isAdmin}
-            >
-              <EditLandDialog land={land} master={master} user={viewer} />
-            </IconMenu>
-          </div>
-          <IconMenu
-            iconButtonElement={<IconButton>
-              <IoCube className={classNames.icon} />
-            </IconButton>}
-            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-          >
-            <NewResourceOfferDialog
-              land={land}
-              user={viewer}
-              disabled={!(isAdmin || doesLike)}
-            />
-          </IconMenu>
-          <HeartLand
-            land={land}
-            user={viewer}
-            doesLike={doesLike}
-            count={likedBy.edges.length}
-          />
-        </div>
+        <LandMenu isAdmin={isAdmin} />
         <h3 className={classNames.contentHeading}>{name}</h3>
         <h4 className={classNames.contentSubheading}>
           | {category} | <span className={classNames.location}>{location}</span>
@@ -308,28 +250,18 @@ export default Relay.createContainer(LandContainer, {
             }
           }
         },
-        ${EditLandDialog.getFragment('land')},
-        ${HeartLand.getFragment('land')},
-        ${NewResourceOfferDialog.getFragment('land')},
         ${PendingResourceDialog.getFragment('land')},
         ${RemoveResourceFromLandDialog.getFragment('land')},
-        ${NewProjectDialog.getFragment('land')},
       }
     `,
     viewer: () => Relay.QL`
       fragment on User {
         id,
-        ${HeartLand.getFragment('user')},
-        ${NewResourceOfferDialog.getFragment('user')},
-        ${EditLandDialog.getFragment('user')},
-        ${NewProjectDialog.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         id,
-        ${EditLandDialog.getFragment('master')},
-        ${NewProjectDialog.getFragment('master')},
       }
     `,
   },
