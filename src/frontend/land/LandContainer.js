@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import ResourceItem from '../shared/components/ResourceItem';
 import UserItem from '../shared/components/UserItem';
 import ProjectItem from '../shared/components/ProjectItem';
@@ -10,7 +10,6 @@ import LandMenu from './components/LandMenu';
 import PendingResourceDialog from './components/PendingResourceDialog';
 
 import createColorChart from '../shared/themes/create-color-chart';
-import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/LandContainerStylesheet.css';
 
 class LandContainer extends React.Component {
@@ -98,13 +97,7 @@ class LandContainer extends React.Component {
       location,
     } = land;
 
-    return <CSSTransitionGroup
-      transitionName={transitionNames}
-      transitionAppear
-      transitionAppearTimeout={350}
-      transitionEnterTimeout={350}
-      transitionLeave={false}
-    >
+    return <TransitionWrapper>
       <div className={classNames.this}>
         <LandMenu isAdmin={isAdmin} />
         <h3 className={classNames.contentHeading}>{name}</h3>
@@ -179,7 +172,7 @@ class LandContainer extends React.Component {
 
         <p className={classNames.description}>{description}</p>
       </div>
-    </CSSTransitionGroup>;
+    </TransitionWrapper>;
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import IconButton from 'material-ui/lib/icon-button';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IoCube from 'react-icons/lib/io/cube';
@@ -15,7 +15,6 @@ import RemoveResourceFromLandDialog from '../shared/components/RemoveResourceFro
 import RemoveResourceFromProjectDialog from '../shared/components/RemoveResourceFromProjectDialog';
 import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFromTaskDialog';
 
-import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/ResourceContainerStylesheet.css';
 const styles = {
   large: {
@@ -61,13 +60,7 @@ class ResourceContainer extends React.Component {
     const owner = resource.users.edges[0].node;
     const {lands, projects, tasks, likedBy} = resource;
 
-    return <CSSTransitionGroup
-      transitionName={transitionNames}
-      transitionAppear
-      transitionAppearTimeout={350}
-      transitionEnterTimeout={350}
-      transitionLeave={false}
-    >
+    return <TransitionWrapper>
       <div className={classNames.this} >
         <div className={classNames.actionsHeading}>
           <IconButton disabled />
@@ -137,7 +130,7 @@ class ResourceContainer extends React.Component {
 
         <p className={classNames.description}>{resource.description}</p>
       </div>
-    </CSSTransitionGroup>;
+    </TransitionWrapper>;
   }
 }
 

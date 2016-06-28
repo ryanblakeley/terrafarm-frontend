@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import IconButton from 'material-ui/lib/icon-button';
 import IoPerson from 'react-icons/lib/io/person';
 import ResourceItem from '../shared/components/ResourceItem';
@@ -10,7 +10,6 @@ import TaskItem from '../shared/components/TaskItem';
 import HeroImage from '../shared/components/HeroImage';
 
 // import createColorChart from '../shared/themes/create-color-chart';
-import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/UserContainerStylesheet.css';
 
 class UserContainer extends React.Component {
@@ -98,13 +97,7 @@ class UserContainer extends React.Component {
     } = this.state;
     const {landsAdmin, projectsAdmin, resources} = user;
 
-    return <CSSTransitionGroup
-      transitionName={transitionNames}
-      transitionAppear
-      transitionAppearTimeout={350}
-      transitionEnterTimeout={350}
-      transitionLeave={false}
-    >
+    return <TransitionWrapper>
       <div className={classNames.this} >
         <div className={classNames.actionsHeading}>
           <IconButton disabled />
@@ -173,7 +166,7 @@ class UserContainer extends React.Component {
           <p className={classNames.description}>{user.description}</p>
         </div>
       </div>
-    </CSSTransitionGroup>;
+    </TransitionWrapper>;
   }
 }
 

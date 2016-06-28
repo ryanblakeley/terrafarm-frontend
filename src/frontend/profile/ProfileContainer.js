@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionLand from 'react-addons-css-transition-group';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import IoPerson from 'react-icons/lib/io/person';
 import IconButton from 'material-ui/lib/icon-button';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
@@ -14,7 +14,6 @@ import LandItem from '../shared/components/LandItem';
 import HeroImage from '../shared/components/HeroImage';
 
 import createColorChart from '../shared/themes/create-color-chart';
-import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/ProfileContainerStylesheet.css';
 const styles = {
   large: {
@@ -86,13 +85,7 @@ class ProfileContainer extends React.Component {
     const {viewer, master} = this.props;
     const {landsAdmin} = viewer;
 
-    return <CSSTransitionLand
-      transitionName={transitionNames}
-      transitionAppear
-      transitionAppearTimeout={350}
-      transitionEnterTimeout={350}
-      transitionLeave={false}
-    >
+    return <TransitionWrapper>
       <div className={classNames.this} >
         <div className={classNames.actionsHeading}>
           <IconButton disabled />
@@ -163,7 +156,7 @@ class ProfileContainer extends React.Component {
           <p className={classNames.description}>{viewer.description}</p>
         </div>
       </div>
-    </CSSTransitionLand>;
+    </TransitionWrapper>;
   }
 }
 

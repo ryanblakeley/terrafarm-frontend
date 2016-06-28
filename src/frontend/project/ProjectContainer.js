@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import GoRepo from 'react-icons/lib/go/repo';
 import IconButton from 'material-ui/lib/icon-button';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
@@ -18,7 +18,6 @@ import TaskItem from '../shared/components/TaskItem';
 import ResourceItem from '../shared/components/ResourceItem';
 
 import createColorChart from '../shared/themes/create-color-chart';
-import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/ProjectContainerStylesheet.css';
 const styles = {
   large: {
@@ -94,13 +93,7 @@ class ProjectContainer extends React.Component {
       likedBy,
     } = project;
 
-    return <CSSTransitionGroup
-      transitionName={transitionNames}
-      transitionAppear
-      transitionAppearTimeout={350}
-      transitionEnterTimeout={350}
-      transitionLeave={false}
-    >
+    return <TransitionWrapper>
       <div className={classNames.this}>
         <div className={classNames.actionsHeading}>
           <IconButton disabled />
@@ -199,7 +192,7 @@ class ProjectContainer extends React.Component {
           }
         </div>
       </div>
-    </CSSTransitionGroup>;
+    </TransitionWrapper>;
   }
 }
 

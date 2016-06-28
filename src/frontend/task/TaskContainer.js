@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import IoLeaf from 'react-icons/lib/io/leaf';
 import IconButton from 'material-ui/lib/icon-button';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
@@ -15,7 +15,6 @@ import ResourceItem from '../shared/components/ResourceItem';
 import LandItem from '../shared/components/LandItem';
 
 import createColorChart from '../shared/themes/create-color-chart';
-import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/TaskContainerStylesheet.css';
 const styles = {
   large: {
@@ -117,13 +116,7 @@ class TaskContainer extends React.Component {
     const parentProject = projects.edges[0].node;
     const parentLand = parentProject.lands.edges[0].node;
 
-    return <CSSTransitionGroup
-      transitionName={transitionNames}
-      transitionAppear
-      transitionAppearTimeout={350}
-      transitionEnterTimeout={350}
-      transitionLeave={false}
-    >
+    return <TransitionWrapper>
       <div className={classNames.this}>
         <div className={classNames.actionsHeading}>
           <IconButton disabled />
@@ -204,7 +197,7 @@ class TaskContainer extends React.Component {
 
         <p className={classNames.description}>{description}</p>
       </div>
-    </CSSTransitionGroup>;
+    </TransitionWrapper>;
   }
 }
 

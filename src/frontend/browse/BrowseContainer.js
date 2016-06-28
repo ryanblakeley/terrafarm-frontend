@@ -1,10 +1,9 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import BrowsePanel from './components/BrowsePanel';
 import BrowseResults from './components/BrowseResults';
 
-import transitionNames from '../shared/styles/transitions.css';
 import classNames from './styles/BrowseContainerStylesheet.css';
 
 class BrowseContainer extends React.Component {
@@ -14,18 +13,12 @@ class BrowseContainer extends React.Component {
   render () {
     const {master} = this.props;
 
-    return <CSSTransitionGroup
-      transitionName={transitionNames}
-      transitionAppear
-      transitionAppearTimeout={350}
-      transitionEnterTimeout={350}
-      transitionLeave={false}
-    >
+    return <TransitionWrapper>
       <div className={classNames.this} >
         <BrowsePanel />
         <BrowseResults master={master} />
       </div>
-    </CSSTransitionGroup>;
+    </TransitionWrapper>;
   }
 }
 
