@@ -5,8 +5,9 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 ## 0.8
 
-- [x] refactor CSSTransitionGroup usage into a separate component (TransitionWrapper)
+- item page header menu (see Land page)
 - database
+  - upgrade number of results
 - logo
 - tests
 
