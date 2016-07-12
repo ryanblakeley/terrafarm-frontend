@@ -88,8 +88,10 @@ export default class CoreContainer extends React.Component {
     const {children} = this.props;
 
     return <div className={classNames.this} >
-      <AppHeader />
-      {children}
+      <div className={classNames.main} >
+        <AppHeader />
+        {children}
+      </div>
       <AppFooter />
     </div>;
   }

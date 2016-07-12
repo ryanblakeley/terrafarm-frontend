@@ -1,4 +1,8 @@
-.this { display: flex; align-items: center; justify-content: space-between; }
+.this {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 0 auto; max-width: 100%;
+  transition: margin 180ms linear, max-width 180ms linear;
+}
 
 @media only screen and (min-width: 680px) {
   .home { margin: 75px auto 0 auto; max-width: 75%; }
