@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Colors from 'material-ui/lib/styles/colors';
+import logoName from './logo_name.png';
 
 import classNames from '../styles/AppFooterStylesheet.css';
 const styles = {
@@ -17,10 +18,10 @@ const AppFooter = () => <footer className={classNames.this} style={styles.this}>
       className={classNames.link}
       style={styles.link}
     >
-      Terrafarm
+      <img src={logoName} className={classNames.logoImage} alt={'Terrafarm'} />
     </Link>
   </div>
-  <h6 className={classNames.footerMessage}>Prototype</h6>
+  <h6 className={classNames.footerMessage}>[Demo]</h6>
 </footer>;
 
 export default AppFooter;

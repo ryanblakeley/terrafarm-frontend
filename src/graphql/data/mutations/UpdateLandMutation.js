@@ -30,7 +30,7 @@ export default mutationWithClientMutationId({
           name: { type: GraphQLString },
           location: { type: GraphQLString },
           description: { type: GraphQLString },
-          category: { type: GraphQLString },
+          size: { type: GraphQLString },
           image: { type: GraphQLString },
         },
       }),

@@ -1,6 +1,5 @@
 .this {
   composes: contentHeading from '../../shared/styles/typography.css';
-  font-size: 2.63em;
   letter-spacing: 0.023em;
   margin-bottom: 0;
 }

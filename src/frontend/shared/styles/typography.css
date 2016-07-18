@@ -32,9 +32,10 @@ html { font-size: 14px; }
 }
 .pageHeading {
   margin: 0.83em 0;
-  font-family: 'Overlock', cursive;
+  font-family: 'Overlock', sans-serif;
   font-weight: 400;
   font-size: 1.12em;
+  text-transform: uppercase;
   border-bottom: 0.18em solid #263238;
 }
 .contentHeading {
@@ -59,7 +60,6 @@ html { font-size: 14px; }
   font-family: 'Overlock', cursive;
   font-weight: 400;
   font-size: 1.08em;
-  letter-spacing: 0.012em;
 }
 .bodyText {
   font-family: 'Simonetta', serif;

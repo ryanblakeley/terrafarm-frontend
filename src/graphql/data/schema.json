@@ -254,8 +254,8 @@
               "deprecationReason": null
             },
             {
-              "name": "category",
-              "description": "A cultivation project's category.",
+              "name": "size",
+              "description": "A cultivation project's size.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -7531,7 +7531,7 @@
               "defaultValue": null
             },
             {
-              "name": "category",
+              "name": "size",
               "description": null,
               "type": {
                 "kind": "SCALAR",

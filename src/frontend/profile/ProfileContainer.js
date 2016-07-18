@@ -1,27 +1,13 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-import IoPerson from 'react-icons/lib/io/person';
-import IconButton from 'material-ui/lib/icon-button';
-import IconMenu from 'material-ui/lib/menus/icon-menu';
-import IoCube from 'react-icons/lib/io/cube';
-import IoIosLocation from 'react-icons/lib/io/ios-location';
-import NewResourceDialog from './components/NewResourceDialog';
-import NewLandDialog from './components/NewLandDialog';
-import EditProfileDialog from './components/EditProfileDialog';
 import ResourceItem from '../shared/components/ResourceItem';
 import LandItem from '../shared/components/LandItem';
 import HeroImage from '../shared/components/HeroImage';
+import ProfileActionTabs from './components/ProfileActionTabs';
 
 import createColorChart from '../shared/themes/create-color-chart';
 import classNames from './styles/ProfileContainerStylesheet.css';
-const styles = {
-  large: {
-    width: 64,
-    height: 64,
-    padding: 0,
-  },
-};
 
 class ProfileContainer extends React.Component {
   static propTypes = {
@@ -87,39 +73,11 @@ class ProfileContainer extends React.Component {
 
     return <TransitionWrapper>
       <div className={classNames.this} >
-        <div className={classNames.actionsHeading}>
-          <IconButton disabled />
-          <IconMenu
-            iconButtonElement={<IconButton>
-              <IoIosLocation className={classNames.icon} />
-            </IconButton>}
-            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-            targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          >
-            <NewLandDialog user={viewer} master={master} />
-          </IconMenu>
-          <div className={classNames.centerIconWrapper} >
-            <IconMenu
-              iconButtonElement={<IconButton style={styles.large} >
-                <IoPerson className={classNames.centerIcon} />
-              </IconButton>}
-              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-              targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-            >
-              <EditProfileDialog user={viewer} master={master} />
-            </IconMenu>
-          </div>
-          <IconMenu
-            iconButtonElement={<IconButton>
-              <IoCube className={classNames.icon} />
-            </IconButton>}
-            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-            targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          >
-            <NewResourceDialog user={viewer} master={master} />
-          </IconMenu>
-          <IconButton disabled />
-        </div>
+        <ProfileActionTabs
+          master={master}
+          user={viewer}
+          isAdmin
+        />
         <h3 className={classNames.contentHeading}>{viewer.name}</h3>
         <h4 className={classNames.contentSubheading}>
           <span className={classNames.location}>{viewer.location}</span>
@@ -132,7 +90,6 @@ class ProfileContainer extends React.Component {
             land={edge.node}
             colorSwatch={this.state.colorChart[edge.node.id]}
             adminBadge
-            enableEdit
           />)}
 
           {this.state.landsUsingResources
@@ -150,7 +107,6 @@ class ProfileContainer extends React.Component {
             colorSwatches={edge.node.lands.edges.map(landEdge => (
               this.state.colorChart[landEdge.node.id]
             ))}
-            enableEdit
           />)}
 
           <p className={classNames.description}>{viewer.description}</p>
@@ -195,16 +151,13 @@ export default Relay.createContainer(ProfileContainer, {
             }
           }
         },
-        ${NewResourceDialog.getFragment('user')},
-        ${NewLandDialog.getFragment('user')},
-        ${EditProfileDialog.getFragment('user')},
+        ${ProfileActionTabs.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
-        ${NewResourceDialog.getFragment('master')},
-        ${NewLandDialog.getFragment('master')},
-        ${EditProfileDialog.getFragment('master')},
+        id,
+        ${ProfileActionTabs.getFragment('master')},
       }
     `,
   },

@@ -104,7 +104,7 @@ type Land implements Node {
   name: String
   location: String
   description: String
-  category: String
+  size: String
   image: String
   admins(after: String, first: Int, before: String, last: Int): UserConnection
   likedBy(after: String, first: Int, before: String, last: Int): UserConnection
@@ -117,7 +117,7 @@ input landAttributes {
   name: String
   location: String
   description: String
-  category: String
+  size: String
   image: String
 }
 

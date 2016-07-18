@@ -1,18 +1,6 @@
 .this {
   composes: page from '../../shared/styles/layout.css';
 }
-.actionsHeading {
-  composes: actionsHeading from '../../shared/styles/layout.css';
-}
-.centerIcon {
-  composes: xlargeIcon from '../../shared/styles/typography.css';
-}
-.centerIconWrapper {
-  composes: centerIconWrapper from '../../shared/styles/layout.css';
-}
-.icon {
-  composes: icon from '../../shared/styles/typography.css';
-}
 .contentHeading {
   composes: contentHeading from '../../shared/styles/typography.css';
 }
@@ -28,4 +16,5 @@
 }
 .description {
   composes: bodyText from '../../shared/styles/typography.css';
+  composes: description from '../../shared/styles/layout.css';
 }

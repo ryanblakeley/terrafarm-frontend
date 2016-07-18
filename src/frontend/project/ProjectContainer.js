@@ -1,31 +1,16 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-import GoRepo from 'react-icons/lib/go/repo';
-import IconButton from 'material-ui/lib/icon-button';
-import IconMenu from 'material-ui/lib/menus/icon-menu';
-import IoCube from 'react-icons/lib/io/cube';
-import IoLeaf from 'react-icons/lib/io/leaf';
-import HeartProject from './components/HeartProject';
-import EditProjectDialog from './components/EditProjectDialog';
-import NewResourceOfferDialog from './components/NewResourceOfferDialog';
-import NewTaskDialog from './components/NewTaskDialog';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import RemoveResourceFromProjectDialog from '../shared/components/RemoveResourceFromProjectDialog';
 import UserItem from '../shared/components/UserItem';
 import LandItem from '../shared/components/LandItem';
 import TaskItem from '../shared/components/TaskItem';
 import ResourceItem from '../shared/components/ResourceItem';
+import ProjectActionTabs from './components/ProjectActionTabs';
 
 import createColorChart from '../shared/themes/create-color-chart';
 import classNames from './styles/ProjectContainerStylesheet.css';
-const styles = {
-  large: {
-    width: 64,
-    height: 64,
-    padding: 0,
-  },
-};
 
 class ProjectContainer extends React.Component {
   static propTypes = {
@@ -90,55 +75,17 @@ class ProjectContainer extends React.Component {
       tasks,
       resources,
       resourcesPending,
-      likedBy,
     } = project;
 
     return <TransitionWrapper>
       <div className={classNames.this}>
-        <div className={classNames.actionsHeading}>
-          <IconButton disabled />
-          <IconMenu
-            iconButtonElement={<IconButton>
-              <IoLeaf className={classNames.icon} />
-            </IconButton>}
-            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-            disabled={!isProjectAdmin}
-          >
-            <NewTaskDialog project={project} master={master} />
-          </IconMenu>
-          <div className={classNames.centerIconWrapper} >
-            <IconMenu
-              iconButtonElement={<IconButton style={styles.large} >
-                <GoRepo className={classNames.centerIcon} />
-              </IconButton>}
-              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-              targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-              disabled={!isProjectAdmin}
-            >
-              <EditProjectDialog project={project} master={master} />
-            </IconMenu>
-          </div>
-          <IconMenu
-            iconButtonElement={<IconButton>
-              <IoCube className={classNames.icon} />
-            </IconButton>}
-            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-          >
-            <NewResourceOfferDialog
-              project={project}
-              user={viewer}
-              disabled={!(isProjectAdmin || doesLike)}
-            />
-          </IconMenu>
-          <HeartProject
-            project={project}
-            user={viewer}
-            doesLike={doesLike}
-            count={likedBy.edges.length}
-          />
-        </div>
+        <ProjectActionTabs
+          master={master}
+          user={viewer}
+          project={project}
+          isAdmin={isProjectAdmin}
+          doesLike={doesLike}
+        />
         <h3 className={classNames.contentHeading}>{name}</h3>
         <h4 className={classNames.contentSubheading}>| {category} |</h4>
 
@@ -265,26 +212,21 @@ export default Relay.createContainer(ProjectContainer, {
             }
           }
         },
-        ${EditProjectDialog.getFragment('project')},
-        ${HeartProject.getFragment('project')},
-        ${NewResourceOfferDialog.getFragment('project')},
         ${PendingResourceDialog.getFragment('project')},
         ${RemoveResourceFromProjectDialog.getFragment('project')},
-        ${NewTaskDialog.getFragment('project')},
+        ${ProjectActionTabs.getFragment('project')},
       }
     `,
     viewer: () => Relay.QL`
       fragment on User {
         id,
-        ${HeartProject.getFragment('user')},
-        ${NewResourceOfferDialog.getFragment('user')},
+        ${ProjectActionTabs.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         id,
-        ${EditProjectDialog.getFragment('master')},
-        ${NewTaskDialog.getFragment('master')},
+        ${ProjectActionTabs.getFragment('master')},
       }
     `,
   },

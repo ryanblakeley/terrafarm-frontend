@@ -14,7 +14,6 @@ class HeartResource extends React.Component {
     resource: React.PropTypes.object,
     user: React.PropTypes.object,
     doesLike: React.PropTypes.bool,
-    count: React.PropTypes.number.isRequired,
   };
   handleToggleHeart = () => {
     const {doesLike} = this.props;
@@ -44,7 +43,7 @@ class HeartResource extends React.Component {
     );
   }
   render () {
-    const {doesLike, count} = this.props;
+    const {doesLike} = this.props;
 
     return <div className={classNames.this}>
       <IconButton onTouchTap={this.handleToggleHeart} >
@@ -53,7 +52,6 @@ class HeartResource extends React.Component {
           : <IoIosHeartOutline className={classNames.icon} />
         }
       </IconButton>
-      <div className={classNames.count}>{count}</div>
     </div>;
   }
 }

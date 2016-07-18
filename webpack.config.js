@@ -9,14 +9,14 @@ import env from 'gulp-env';
 if (!process.env.AUTH0_CLIENT_ID) {
   env({file: './.env', type: 'ini'});
 }
-let {
+const {
   NODE_ENV,
   PUBLIC_IP,
   PORT,
-  FRONTEND_PORT,
   AUTH0_CLIENT_ID,
   AUTH0_DOMAIN,
 } = process.env;
+let {FRONTEND_PORT} = process.env;
 FRONTEND_PORT = Number(PORT) || Number(FRONTEND_PORT);
 
 const defaultConfig = {
@@ -61,7 +61,7 @@ const frontendConfig = Object.assign({}, defaultConfig, {
       {
         test: /\.js$/,
         include: path.join(__dirname, 'src', 'frontend'),
-        loaders: ['react-hot', 'babel?stage=0&plugins[]=' + path.join(__dirname, 'relayPlugin')],
+        loaders: ['react-hot', `babel?stage=0&plugins[]=${path.join(__dirname, 'relayPlugin')}`],
       },
       {
         test: /\.css$/,
@@ -72,6 +72,11 @@ const frontendConfig = Object.assign({}, defaultConfig, {
         test: /\.svg$/,
         include: path.join(__dirname, 'src', 'frontend'),
         loader: 'url-loader?limit=10000',
+      },
+      {
+        test: /\.png$/,
+        include: path.join(__dirname, 'src', 'frontend'),
+        loader: 'url-loader?limit=65000',
       },
     ],
   },

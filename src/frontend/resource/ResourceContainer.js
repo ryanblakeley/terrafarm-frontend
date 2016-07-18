@@ -1,11 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-import IconButton from 'material-ui/lib/icon-button';
-import IconMenu from 'material-ui/lib/menus/icon-menu';
-import IoCube from 'react-icons/lib/io/cube';
-import HeartResource from './components/HeartResource';
-import EditResourceDialog from './components/EditResourceDialog';
 import UserItem from '../shared/components/UserItem';
 import LandItem from '../shared/components/LandItem';
 import ProjectItem from '../shared/components/ProjectItem';
@@ -14,15 +9,9 @@ import HeroImage from '../shared/components/HeroImage';
 import RemoveResourceFromLandDialog from '../shared/components/RemoveResourceFromLandDialog';
 import RemoveResourceFromProjectDialog from '../shared/components/RemoveResourceFromProjectDialog';
 import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFromTaskDialog';
+import ResourceActionTabs from './components/ResourceActionTabs';
 
 import classNames from './styles/ResourceContainerStylesheet.css';
-const styles = {
-  large: {
-    width: 64,
-    height: 64,
-    padding: 0,
-  },
-};
 
 class ResourceContainer extends React.Component {
   static propTypes = {
@@ -58,33 +47,17 @@ class ResourceContainer extends React.Component {
     const {resource, viewer, master} = this.props;
     const {isOwner, doesLike} = this.state;
     const owner = resource.users.edges[0].node;
-    const {lands, projects, tasks, likedBy} = resource;
+    const {lands, projects, tasks} = resource;
 
     return <TransitionWrapper>
       <div className={classNames.this} >
-        <div className={classNames.actionsHeading}>
-          <IconButton disabled />
-          <IconButton disabled />
-          <div className={classNames.centerIconWrapper} >
-            <IconMenu
-              iconButtonElement={<IconButton style={styles.large} >
-                <IoCube className={classNames.centerIcon} />
-              </IconButton>}
-              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-              targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-              disabled={!isOwner}
-            >
-              <EditResourceDialog resource={resource} master={master} user={viewer} />
-            </IconMenu>
-          </div>
-          <IconButton disabled />
-          <HeartResource
-            resource={resource}
-            user={viewer}
-            doesLike={doesLike}
-            count={likedBy.edges.length}
-          />
-        </div>
+        <ResourceActionTabs
+          master={master}
+          user={viewer}
+          resource={resource}
+          isAdmin={isOwner}
+          doesLike={doesLike}
+        />
         <h3 className={classNames.contentHeading}>{resource.name}</h3>
         <h4 className={classNames.contentSubheading}>
           | {resource.category} | <span className={classNames.location}>{resource.location}</span>
@@ -191,24 +164,22 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        ${EditResourceDialog.getFragment('resource')},
-        ${HeartResource.getFragment('resource')},
         ${RemoveResourceFromLandDialog.getFragment('resource')},
         ${RemoveResourceFromProjectDialog.getFragment('resource')},
         ${RemoveResourceFromTaskDialog.getFragment('resource')},
+        ${ResourceActionTabs.getFragment('resource')},
       }
     `,
     viewer: () => Relay.QL`
       fragment on User {
         id,
-        ${HeartResource.getFragment('user')},
-        ${EditResourceDialog.getFragment('user')},
+        ${ResourceActionTabs.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         id,
-        ${EditResourceDialog.getFragment('master')},
+        ${ResourceActionTabs.getFragment('master')},
       }
     `,
   },

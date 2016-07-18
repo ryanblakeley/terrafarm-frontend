@@ -6,7 +6,7 @@ import UserItem from '../shared/components/UserItem';
 import ProjectItem from '../shared/components/ProjectItem';
 import RemoveResourceFromLandDialog from '../shared/components/RemoveResourceFromLandDialog';
 import HeroImage from '../shared/components/HeroImage';
-import LandMenu from './components/LandMenu';
+import LandActionTabs from './components/LandActionTabs';
 import PendingResourceDialog from './components/PendingResourceDialog';
 
 import createColorChart from '../shared/themes/create-color-chart';
@@ -17,7 +17,6 @@ class LandContainer extends React.Component {
     master: React.PropTypes.object,
     land: React.PropTypes.object,
     viewer: React.PropTypes.object,
-    children: React.PropTypes.object,
   };
   state = {
     colorChart: {},
@@ -83,15 +82,15 @@ class LandContainer extends React.Component {
     this.setState({resourceOwners});
   }
   render () {
-    const {land, viewer} = this.props;
-    const {isAdmin, resourceOwners, colorChart} = this.state;
+    const {master, land, viewer} = this.props;
+    const {isAdmin, doesLike, resourceOwners, colorChart} = this.state;
     const {
       admins,
       projects,
       resources,
       resourcesPending,
       description,
-      category,
+      size,
       name,
       image,
       location,
@@ -99,10 +98,16 @@ class LandContainer extends React.Component {
 
     return <TransitionWrapper>
       <div className={classNames.this}>
-        <LandMenu isAdmin={isAdmin} />
+        <LandActionTabs
+          master={master}
+          user={viewer}
+          land={land}
+          isAdmin={isAdmin}
+          doesLike={doesLike}
+        />
         <h3 className={classNames.contentHeading}>{name}</h3>
         <h4 className={classNames.contentSubheading}>
-          | {category} | <span className={classNames.location}>{location}</span>
+          | {size} | <span className={classNames.location}>{location}</span>
         </h4>
         <HeroImage image={image} />
 
@@ -187,7 +192,7 @@ export default Relay.createContainer(LandContainer, {
         name,
         location,
         description,
-        category,
+        size,
         image,
         resources(first: 3) {
           edges {
@@ -245,16 +250,19 @@ export default Relay.createContainer(LandContainer, {
         },
         ${PendingResourceDialog.getFragment('land')},
         ${RemoveResourceFromLandDialog.getFragment('land')},
+        ${LandActionTabs.getFragment('land')},
       }
     `,
     viewer: () => Relay.QL`
       fragment on User {
         id,
+        ${LandActionTabs.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         id,
+        ${LandActionTabs.getFragment('master')},
       }
     `,
   },

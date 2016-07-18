@@ -1,29 +1,27 @@
 .page { position: relative; margin: 0 auto; width: 100%; }
-
-.actionsHeading {
-  display: flex; align-items: center; justify-content: space-between;
-  margin: -15px auto 0; max-width: 250px; height: 80px;
-}
-.actionsHeadingButton { display: flex; flex-direction: column; }
-.centerIconWrapper { position: relative; top: -15px; }
-
-.relationships { margin-top: 2.33em; }
+.actionForm { margin: 0 auto; }
+.actionFormMessage { text-align: center; margin: 25px auto; max-width: 320px; }
+.actionFormButtons { text-align: center; margin-top: 25px; }
+.relationships { margin: 2.33em auto 1.67em; width: 280px; }
+.description { margin: 1.67em auto 3em; width: 280px; }
 
 @media only screen and (min-width: 320px) {
   .page { width: 300px; }
-  .actionsHeading { max-width: 260px; }
 }
 @media only screen and (min-width: 375px) {
   .page { width: 350px; }
-  .actionsHeading { max-width: 275px; }
+  .relationships { width: 320px; }
+  .description { width: 320px; }
 }
 @media only screen and (min-width: 500px) {
   .page { width: 480px; }
-  .actionsHeading { margin-top: 0; }
+  .relationships { width: 350px; }
+  .description { width: 350px; }
 }
 @media only screen and (min-width: 680px) {
   .page { width: 650px; }
-  .actionsHeading { margin-top: 15px; max-width: 300px; }
+  .relationships { width: 480px; }
+  .description { width: 480px; }
 }
 /*
 @media only screen and (min-width: 950px) { .page { width: 900px; } }

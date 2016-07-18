@@ -1,0 +1,5 @@
+.this {
+  display: none; text-align: center;
+  composes: bodyText from './typography.css';
+}
+.show { display: block; }

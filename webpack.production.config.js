@@ -9,7 +9,7 @@ import env from 'gulp-env';
 if (!process.env.AUTH0_CLIENT_ID) {
   env({file: './.env', type: 'ini'});
 }
-let {
+const {
   NODE_ENV,
   PUBLIC_IP,
   PRIVATE_IP,
@@ -72,7 +72,7 @@ const frontendProdConfig = Object.assign({}, defaultConfig, {
       {
         test: /\.js$/,
         include: path.join(__dirname, 'src', 'frontend'),
-        loaders: ['babel?stage=0&plugins[]=' + path.join(__dirname, 'relayPlugin')],
+        loaders: [`babel?stage=0&plugins[]=${path.join(__dirname, 'relayPlugin')}`],
         // query: {
         //   "presets": ["es2015", "stage-0", "react"]
         // }
@@ -81,10 +81,12 @@ const frontendProdConfig = Object.assign({}, defaultConfig, {
         test: /\.css$/,
         include: path.join(__dirname, 'src', 'frontend'),
         loader: 'style-loader!css-loader?modules',
-        // loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss')
+        // loader: ExtractTextPlugin.extract('style',
+        // 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss'
+        // ),
         // postcss: [
         //   require('autoprefixer')
-        // ]
+        // ],
       },
       {
         test: /\.svg$/,

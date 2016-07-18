@@ -1,28 +1,16 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-import IoLeaf from 'react-icons/lib/io/leaf';
-import IconButton from 'material-ui/lib/icon-button';
-import IconMenu from 'material-ui/lib/menus/icon-menu';
-import IoCube from 'react-icons/lib/io/cube';
-import EditTaskDialog from './components/EditTaskDialog';
-import NewResourceOfferDialog from './components/NewResourceOfferDialog';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFromTaskDialog';
 import ProjectItem from '../shared/components/ProjectItem';
 import UserItem from '../shared/components/UserItem';
 import ResourceItem from '../shared/components/ResourceItem';
 import LandItem from '../shared/components/LandItem';
+import TaskActionTabs from './components/TaskActionTabs';
 
 import createColorChart from '../shared/themes/create-color-chart';
 import classNames from './styles/TaskContainerStylesheet.css';
-const styles = {
-  large: {
-    width: 64,
-    height: 64,
-    padding: 0,
-  },
-};
 
 class TaskContainer extends React.Component {
   static propTypes = {
@@ -118,37 +106,13 @@ class TaskContainer extends React.Component {
 
     return <TransitionWrapper>
       <div className={classNames.this}>
-        <div className={classNames.actionsHeading}>
-          <IconButton disabled />
-          <IconButton disabled />
-          <div className={classNames.centerIconWrapper} >
-            <IconMenu
-              iconButtonElement={<IconButton style={styles.large} >
-                <IoLeaf className={classNames.centerIcon} />
-              </IconButton>}
-              anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-              targetOrigin={{horizontal: 'middle', vertical: 'top'}}
-              disabled={!isProjectAdmin}
-            >
-              <EditTaskDialog task={task} master={master} />
-            </IconMenu>
-          </div>
-          <IconMenu
-            iconButtonElement={<IconButton>
-              <IoCube className={classNames.icon} />
-            </IconButton>}
-            anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
-          >
-            <NewResourceOfferDialog
-              task={task}
-              user={viewer}
-              isProjectAdmin={isProjectAdmin}
-              disabled={!(isProjectAdmin || doesLike)}
-            />
-          </IconMenu>
-          <IconButton disabled />
-        </div>
+        <TaskActionTabs
+          master={master}
+          user={viewer}
+          task={task}
+          isAdmin={isProjectAdmin}
+          doesLike={doesLike}
+        />
         <h3 className={classNames.contentHeading}>{name}</h3>
         <h4 className={classNames.contentSubheading}>| {category} |</h4>
 
@@ -276,22 +240,21 @@ export default Relay.createContainer(TaskContainer, {
             }
           }
         },
-        ${NewResourceOfferDialog.getFragment('task')},
-        ${EditTaskDialog.getFragment('task')},
         ${PendingResourceDialog.getFragment('task')},
         ${RemoveResourceFromTaskDialog.getFragment('task')},
+        ${TaskActionTabs.getFragment('task')},
       }
     `,
     viewer: () => Relay.QL`
       fragment on User {
         id,
-        ${NewResourceOfferDialog.getFragment('user')},
+        ${TaskActionTabs.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         id,
-        ${EditTaskDialog.getFragment('master')},
+        ${TaskActionTabs.getFragment('master')},
       }
     `,
   },

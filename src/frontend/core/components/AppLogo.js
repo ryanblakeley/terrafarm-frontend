@@ -10,7 +10,7 @@ const cx = classNames.bind(classNamesContext);
 const AppLogo = (props) => <div
   className={cx({this: true, stacked: props.stacked})}
 >
-  <AppLogoIcon outline={props.outline} />
+  <AppLogoIcon />
   {props.text === 'Terrafarm'
     ? <AppLogoName />
     : <PageHeading text={props.text} />
@@ -19,13 +19,11 @@ const AppLogo = (props) => <div
 
 AppLogo.propTypes = {
   stacked: React.PropTypes.bool,
-  outline: React.PropTypes.bool,
   text: React.PropTypes.string,
 };
 
 AppLogo.defaultProps = {
   stacked: false,
-  outline: false,
 };
 
 export default AppLogo;

@@ -5,6 +5,8 @@
 - fixed login flow
 - added app header with dynamic page heading and nav
 - multiline inputs
+- added logo icon and name
+- added icon action tabs
 
 
 ## 0.7 2016 May

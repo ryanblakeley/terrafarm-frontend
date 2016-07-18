@@ -36,9 +36,9 @@ export const LandType = registerType(new GraphQLObjectType({
       type: GraphQLString,
       description: 'A cultivation project\'s size and overview.',
     },
-    category: {
+    size: {
       type: GraphQLString,
-      description: 'A cultivation project\'s category.',
+      description: 'A cultivation project\'s size.',
     },
     image: {
       type: GraphQLString,

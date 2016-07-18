@@ -1,7 +1,9 @@
-.this { padding: 12px; }
+.this { margin: 12px 0 12px 12px; }
 .icon {
   composes: icon from '../../shared/styles/typography.css';
   font-size: 52px;
   cursor: pointer;
+  opacity: 1;
 }
+.faded { opacity: 0.25; cursor: default; }
 .disabled { cursor: default; }

@@ -1,84 +1,139 @@
 import React from 'react';
 import Relay from 'react-relay';
-import RaisedButton from 'material-ui/lib/raised-button';
+import Formsy from 'formsy-react';
+import FlatButton from 'material-ui/lib/flat-button';
+import TextInput from '../../shared/components/TextInput';
+import SaveNewLand from './SaveNewLand';
 
-import NewLandMutation from '../mutations/NewLandMutation';
+import classNames from '../styles/NewLandStylesheet.css';
 
 class NewLand extends React.Component {
   static propTypes = {
     user: React.PropTypes.object,
     master: React.PropTypes.object,
-    onComplete: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
-    label: React.PropTypes.string,
-    primary: React.PropTypes.bool,
-    secondary: React.PropTypes.bool,
-    attributes: React.PropTypes.shape({
-      name: React.PropTypes.string,
-      location: React.PropTypes.string,
-      description: React.PropTypes.string,
-      category: React.PropTypes.string,
-    }),
+    notifyClose: React.PropTypes.func,
   };
-  static defaultProps = {
-    label: 'Submit',
-    disabled: true,
-    primary: false,
-    secondary: false,
+  state = {
+    canSubmit: false,
+    attributes: {
+      name: '',
+      size: '',
+      location: '',
+      description: '',
+      image: '',
+    },
+    categoryIndex: null,
   };
-  onComplete = () => {
-    if (this.props.onComplete) {
-      this.props.onComplete();
-    }
-  }
-  handleSubmit = () => {
-    if (this.props.disabled) {
-      console.warn('New land is not ready');
-      return;
-    }
+  handleValid = () => {
+    const currentValues = this.refs.form.getCurrentValues();
+    const {name, size, location, description, image} = currentValues;
 
-    const {user, master, attributes} = this.props;
-    const {name, location, description, category, image} = attributes;
-
-    Relay.Store.commitUpdate(
-      new NewLandMutation({
-        user,
-        master,
+    this.setState({
+      attributes: {
         name,
+        size,
         location,
         description,
-        category,
-      })
-    );
+        image,
+      },
+      canSubmit: true,
+    });
+  }
+  handleInvalid = () => {
+    this.setState({canSubmit: false});
+  }
+  handleChange = (currentValues, isChanged) => {
+    const {name, size, location, description, image} = currentValues;
 
-    this.onComplete();
+    if (isChanged) {
+      this.setState({
+        attributes: {
+          name,
+          size,
+          location,
+          description,
+          image,
+        },
+      });
+    }
+  }
+  handleClose = () => {
+    const {notifyClose} = this.props;
+    if (notifyClose) notifyClose();
   }
   render () {
-    return (
-      <RaisedButton
-        label={this.props.label}
-        disabled={this.props.disabled}
-        primary={this.props.primary}
-        secondary={this.props.secondary}
-        onTouchTap={this.handleSubmit}
-      />
-    );
+    const {master, user} = this.props;
+    const {attributes, canSubmit} = this.state;
+
+    return <div className={classNames.this} >
+      <Formsy.Form
+        ref={'form'}
+        onValid={this.handleValid}
+        onInvalid={this.handleInvalid}
+      >
+        <TextInput
+          name={'name'}
+          label={'Name'}
+          validations={{matchRegexp: /[A-Za-z,\.0-9]*/}}
+          required
+        />
+        <TextInput
+          name={'size'}
+          label={'Size'}
+          validations={{matchRegexp: /[A-Za-z,0-9]*/, maxLength: 80}}
+          required
+        />
+        <TextInput
+          name={'location'}
+          label={'Location'}
+          validations={{matchRegexp: /[A-Za-z,0-9]*/}}
+          required
+        />
+        <TextInput
+          name={'description'}
+          label={'Description'}
+          validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+          required
+          multiLine
+          rows={3}
+        />
+        <TextInput
+          name={'image'}
+          label={'Image'}
+          validations={'isUrl'}
+        />
+      </Formsy.Form>
+      <div className={classNames.buttons}>
+        <FlatButton
+          label={'Cancel'}
+          secondary
+          onTouchTap={this.handleClose}
+        />
+        <SaveNewLand
+          master={master}
+          user={user}
+          primary
+          onComplete={this.handleClose}
+          attributes={attributes}
+          disabled={!canSubmit}
+        />
+      </div>
+    </div>;
   }
 }
 
 export default Relay.createContainer(NewLand, {
   fragments: {
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-        ${NewLandMutation.getFragment('master')},
-      },
-    `,
     user: () => Relay.QL`
       fragment on User {
-        id,
-        ${NewLandMutation.getFragment('user')},
+        ${SaveNewLand.getFragment('user')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        ${SaveNewLand.getFragment('master')},
       }
     `,
   },
 });
+

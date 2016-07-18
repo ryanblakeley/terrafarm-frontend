@@ -1,78 +1,143 @@
 import React from 'react';
 import Relay from 'react-relay';
-import RaisedButton from 'material-ui/lib/raised-button';
+import Formsy from 'formsy-react';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import FlatButton from 'material-ui/lib/flat-button';
+import TextInput from '../../shared/components/TextInput';
+import SelectInput from '../../shared/components/SelectInput';
+import SaveNewResource from './SaveNewResource';
 
-import NewResourceMutation from '../mutations/NewResourceMutation';
+import classNames from '../styles/NewResourceStylesheet.css';
 
 class NewResource extends React.Component {
   static propTypes = {
     user: React.PropTypes.object,
     master: React.PropTypes.object,
-    onComplete: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
-    label: React.PropTypes.string,
-    primary: React.PropTypes.bool,
-    secondary: React.PropTypes.bool,
-    attributes: React.PropTypes.shape({
-      name: React.PropTypes.string,
-      description: React.PropTypes.string,
-      category: React.PropTypes.string,
-    }),
+    categories: React.PropTypes.array.isRequired,
+    notifyClose: React.PropTypes.func,
   };
   static defaultProps = {
-    label: 'Save',
-    disabled: true,
-    primary: false,
-    secondary: false,
+    categories: ['Equipment', 'Labor', 'Materials', 'Compost', 'Seeds'],
   };
-  onComplete = () => {
-    if (this.props.onComplete) {
-      this.props.onComplete();
-    }
-  }
-  handleSubmit = () => {
-    if (this.props.disabled) {
-      console.warn('New resource is not ready');
-      return;
-    }
+  state = {
+    canSubmit: false,
+    attributes: {
+      name: '',
+      description: '',
+      category: '',
+      image: '',
+    },
+    categoryIndex: null,
+  };
+  handleValid = () => {
+    const currentValues = this.refs.form.getCurrentValues();
+    const {name, description, categoryIndex, image} = currentValues;
 
-    const {user, master, attributes} = this.props;
-    const {name, description, category} = attributes;
-
-    Relay.Store.commitUpdate(
-      new NewResourceMutation({
-        user,
-        master,
+    this.setState({
+      attributes: {
         name,
         description,
-        category,
-      })
-    );
+        category: this.props.categories[categoryIndex],
+        image,
+      },
+      canSubmit: true,
+    });
+  }
+  handleInvalid = () => {
+    this.setState({canSubmit: false});
+  }
+  handleChange = (currentValues, isChanged) => {
+    const {name, description, categoryIndex, image} = currentValues;
 
-    this.onComplete();
+    if (isChanged) {
+      this.setState({
+        attributes: {
+          name,
+          description,
+          category: this.props.categories[categoryIndex],
+          image,
+        },
+      });
+    }
+  }
+  handleClose = () => {
+    const {notifyClose} = this.props;
+    if (notifyClose) notifyClose();
   }
   render () {
-    return (
-      <RaisedButton
-        {...this.props}
-        onTouchTap={this.handleSubmit}
-      />
-    );
+    const {master, user, categories} = this.props;
+    const {attributes, canSubmit, categoryIndex} = this.state;
+    const resourceCategories = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
+
+    return <div className={classNames.this} >
+      <Formsy.Form
+        ref={'form'}
+        onChange={this.handleChange}
+        onValid={this.handleValid}
+        onInvalid={this.handleInvalid}
+      >
+        <TextInput
+          name={'name'}
+          label={'Name'}
+          validations={{matchRegexp: /[A-Za-z,\.0-9]*/}}
+          required
+        />
+        <SelectInput
+          name={'categoryIndex'}
+          label={'Category'}
+          initialValue={categoryIndex}
+          validations={'isNumeric,isExisty'}
+          required
+        >
+          {resourceCategories}
+        </SelectInput>
+        <TextInput
+          name={'description'}
+          label={'Description'}
+          validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+          required
+          multiLine
+          rows={3}
+        />
+        <TextInput
+          name={'image'}
+          label={'Image'}
+          validations={'isUrl'}
+        />
+      </Formsy.Form>
+      <div className={classNames.buttons}>
+        <FlatButton
+          label={'Cancel'}
+          secondary
+          onTouchTap={this.handleClose}
+        />
+        <SaveNewResource
+          master={master}
+          user={user}
+          primary
+          onComplete={this.handleClose}
+          attributes={attributes}
+          disabled={!canSubmit}
+        />
+      </div>
+    </div>;
   }
 }
 
 export default Relay.createContainer(NewResource, {
   fragments: {
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-        ${NewResourceMutation.getFragment('master')},
-      },
-    `,
     user: () => Relay.QL`
       fragment on User {
-        id,
-        ${NewResourceMutation.getFragment('user')},
+        ${SaveNewResource.getFragment('user')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        ${SaveNewResource.getFragment('master')},
       }
     `,
   },

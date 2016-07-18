@@ -21,14 +21,6 @@ import ResourceContainer from './resource/ResourceContainer';
 import ResourceQueries from './resource/ResourceQueries';
 import LandContainer from './land/LandContainer';
 import LandQueries from './land/LandQueries';
-import EditLandContainer from './land/components/EditLandContainer';
-import EditLandQueries from './land/components/EditLandQueries';
-import NewProjectContainer from './land/components/NewProjectContainer';
-import NewProjectQueries from './land/components/NewProjectQueries';
-import OfferResourceToLandContainer from './land/components/OfferResourceToLandContainer';
-import OfferResourceToLandQueries from './land/components/OfferResourceToLandQueries';
-import RequestResourceForLandContainer from './land/components/RequestResourceForLandContainer';
-import RequestResourceForLandQueries from './land/components/RequestResourceForLandQueries';
 import ProjectContainer from './project/ProjectContainer';
 import ProjectQueries from './project/ProjectQueries';
 import TaskContainer from './task/TaskContainer';
@@ -96,26 +88,7 @@ ReactDOM.render(
           component={LandContainer}
           queries={LandQueries}
           renderLoading={renderLoading}
-        >
-          <Route
-            path={'edit'}
-            component={EditLandContainer}
-            queries={EditLandQueries}
-            renderLoading={renderLoading}
-          />
-          <Route
-            path={'new-project'}
-            component={NewProjectContainer}
-            queries={NewProjectQueries}
-            renderLoading={renderLoading}
-          />
-          <Route
-            path={'offer-resource'}
-            component={OfferResourceToLandContainer}
-            queries={OfferResourceToLandQueries}
-            renderLoading={renderLoading}
-          />
-        </Route>
+        />
       </Route>
       <Route path={'project'} onEnter={authBouncer} >
         <Route

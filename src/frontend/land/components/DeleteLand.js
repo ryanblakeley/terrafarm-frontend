@@ -6,7 +6,9 @@ import DeleteLandMutation from '../mutations/DeleteLandMutation';
 
 class DeleteLand extends React.Component {
   static propTypes = {
+    master: React.PropTypes.object,
     land: React.PropTypes.object,
+    user: React.PropTypes.object,
     label: React.PropTypes.string,
     primary: React.PropTypes.bool,
     secondary: React.PropTypes.bool,

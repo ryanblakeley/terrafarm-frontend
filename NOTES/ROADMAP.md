@@ -5,28 +5,26 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 ## 0.8
 
-- item page header menu (see Land page)
-- database
-  - upgrade number of results
-- logo
-- tests
+#### due Aug 15
+- [x] app logo -> page heading style
+- [x] user page style
 
 
 ## 0.9
 
-- redesign auth
+#### due Sept 14
+- replace fieldbook api with postgres db that reflects a graphql api
+- increase x in `(first: x)` chunks
+- patch auth
   - handle expired jwt
   - check `state` on auth callback
-- redesign dialogs
-  - layout
-    - title
-    - children
-    - actions
+  - handle login failure
+  - if not a registered member, fail and navigate to sign up
 
 
 ## 0.10
 
-- add Request resource button to dropdown on resource icon in action header on land, project, and task pages
+- add "request resource" button to dropdown on resource icon in action header on land, project, and task pages
   - land, project, task
   - on click, show list of resources liked by viewer
   - who can request a resource for a task?
@@ -38,19 +36,22 @@ Below is a roadmap of potential Terrafarm features and releases.
     - land admins and resource owners
   - who can a request a resource for a land?
     - land admins and resource owners
-- add Request resource button to dropdown on resource centerIcon on resource item page
+- add "request resource" button to dropdown on resource centerIcon on resource item page
   - on click, show list of lands and projects admin by viewer and lands,
     projects, and tasks where viewer is a resource owner
 
 
 ## 0.11
 
-- new Resource properties
-  - availability
-  - storage area
-  - last seen
+- add resource availability
+
 
 ## 0.12
+
+- add wish lists
+
+
+## 0.13
 
 - Browse container
   - map with zip + range
@@ -118,11 +119,9 @@ Monetization release
   - resource commitments, offers, and availability
   - task and project deadlines
 - svg background-image as dataURI
-- funny 404 page 'oh well arms ascii guy'
 - review likes
   - viewerDoesLike
   - likeCount
-- page view counters
 - css transition composition when https://github.com/facebook/react/issues/2680 lands
 - maybe add webpack-dev-server inside `if (isDeveloping)` in `frontend/server.js`
 - mail server
@@ -151,6 +150,9 @@ Monetization release
 - /login and /login/authenticate loading animations
 - soil temp, moisture, and analysis
 - add scrollIntoView to clicks on actions heading icons
-- smaller logout button
 - transitions on app header and item page header
 - color relationships
+- style guide
+- add Geometos Rounded font for app logo
+- hint to add resources to profile when trying to offer resource and profile resource list is empty
+- add warning to required fields

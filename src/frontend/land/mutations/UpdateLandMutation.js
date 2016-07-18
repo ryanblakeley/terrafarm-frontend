@@ -18,7 +18,7 @@ export default class UpdateLandMutation extends Relay.Mutation {
           name,
           location,
           description,
-          category,
+          size,
           image,
         },
       }
@@ -26,14 +26,14 @@ export default class UpdateLandMutation extends Relay.Mutation {
   }
   getOptimisticResponse () {
     const {attributes} = this.props;
-    const {name, location, description, category, image} = attributes;
+    const {name, location, description, size, image} = attributes;
 
     return {
       land: {
         name,
         location,
         description,
-        category,
+        size,
         image,
       },
     };
@@ -55,5 +55,3 @@ export default class UpdateLandMutation extends Relay.Mutation {
     };
   }
 }
-
-

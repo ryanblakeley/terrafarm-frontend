@@ -1,68 +1,123 @@
 import React from 'react';
 import Relay from 'react-relay';
-import RaisedButton from 'material-ui/lib/raised-button';
+import Formsy from 'formsy-react';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import FlatButton from 'material-ui/lib/flat-button';
+import TextInput from '../../shared/components/TextInput';
+import SelectInput from '../../shared/components/SelectInput';
+import SaveNewProject from './SaveNewProject';
 
-import NewProjectMutation from '../mutations/NewProjectMutation';
+import classNames from '../styles/NewProjectStylesheet.css';
 
 class NewProject extends React.Component {
   static propTypes = {
     land: React.PropTypes.object,
     user: React.PropTypes.object,
     master: React.PropTypes.object,
-    onComplete: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
-    label: React.PropTypes.string,
-    primary: React.PropTypes.bool,
-    secondary: React.PropTypes.bool,
-    attributes: React.PropTypes.shape({
-      name: React.PropTypes.string,
-      description: React.PropTypes.string,
-      category: React.PropTypes.string,
-    }),
+    categories: React.PropTypes.array.isRequired,
+    notifyClose: React.PropTypes.func,
   };
   static defaultProps = {
-    label: 'Submit',
-    disabled: true,
-    primary: false,
-    secondary: false,
+    categories: ['Active', 'Paused', 'Urgent'],
   };
-  onComplete = () => {
-    if (this.props.onComplete) {
-      this.props.onComplete();
-    }
-  }
-  handleSubmit = () => {
-    if (this.props.disabled) {
-      console.warn('New project is not ready');
-      return;
-    }
+  state = {
+    canSubmit: false,
+    attributes: {
+      name: '',
+      description: '',
+      category: '',
+    },
+    categoryIndex: null,
+  };
+  handleValid = () => {
+    const currentValues = this.refs.form.getCurrentValues();
+    const {name, description, categoryIndex} = currentValues;
 
-    const {land, user, master, attributes} = this.props;
-    const {name, description, category} = attributes;
-
-    Relay.Store.commitUpdate(
-      new NewProjectMutation({
-        land,
-        user,
-        master,
+    this.setState({
+      attributes: {
         name,
         description,
-        category,
-      })
-    );
+        category: this.props.categories[categoryIndex],
+      },
+      canSubmit: true,
+    });
+  }
+  handleInvalid = () => {
+    this.setState({canSubmit: false});
+  }
+  handleChange = (currentValues, isChanged) => {
+    const {name, description, categoryIndex} = currentValues;
 
-    this.onComplete();
+    if (isChanged) {
+      this.setState({
+        attributes: {
+          name,
+          description,
+          category: this.props.categories[categoryIndex],
+        },
+      });
+    }
+  }
+  handleClose = () => {
+    const {notifyClose} = this.props;
+    if (notifyClose) notifyClose();
   }
   render () {
-    return (
-      <RaisedButton
-        label={this.props.label}
-        disabled={this.props.disabled}
-        primary={this.props.primary}
-        secondary={this.props.secondary}
-        onTouchTap={this.handleSubmit}
-      />
-    );
+    const {master, land, user, categories} = this.props;
+    const {attributes, canSubmit, categoryIndex} = this.state;
+    const projectCategories = categories.map((item, index) => <MenuItem
+      key={item}
+      value={index}
+      primaryText={item}
+    />);
+
+    return <div className={classNames.this} >
+      <Formsy.Form
+        ref={'form'}
+        onValid={this.handleValid}
+        onInvalid={this.handleInvalid}
+      >
+        <TextInput
+          name={'name'}
+          label={'Name'}
+          validations={{matchRegexp: /[A-Za-z,\.0-9]*/}}
+          required
+        />
+        <SelectInput
+          name={'categoryIndex'}
+          label={'Category'}
+          initialValue={categoryIndex}
+          validations={'isNumeric,isExisty'}
+          required
+        >
+          {projectCategories}
+        </SelectInput>
+        <TextInput
+          name={'description'}
+          label={'Description'}
+          validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+          required
+          multiLine
+          rows={3}
+        />
+      </Formsy.Form>
+      <div className={classNames.buttons} >
+        <FlatButton
+          label={'Cancel'}
+          secondary
+          onTouchTap={this.handleClose}
+        />
+        <SaveNewProject
+          land={land}
+          master={master}
+          user={user}
+          primary
+          onComplete={this.handleClose}
+          attributes={attributes}
+          disabled={!canSubmit}
+        />
+      </div>
+    </div>;
   }
 }
 
@@ -70,20 +125,17 @@ export default Relay.createContainer(NewProject, {
   fragments: {
     land: () => Relay.QL`
       fragment on Land {
-        id,
-        ${NewProjectMutation.getFragment('land')},
+        ${SaveNewProject.getFragment('land')},
+      }
+    `,
+    user: () => Relay.QL`
+      fragment on User {
+        ${SaveNewProject.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
-        id,
-        ${NewProjectMutation.getFragment('master')},
-      },
-    `,
-    user: () => Relay.QL`
-      fragment on User {
-        id,
-        ${NewProjectMutation.getFragment('user')},
+        ${SaveNewProject.getFragment('master')},
       }
     `,
   },

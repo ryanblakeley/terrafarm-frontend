@@ -63,6 +63,30 @@ export default class CoreContainer extends React.Component {
   setLoggedIn (loggedIn) {
     this.setState({loggedIn});
   }
+  getPageName () {
+    const {router} = this.context;
+    let text = '';
+    if (router.isActive({pathname: '/profile'})) {
+      text = 'Profile';
+    } else if (router.isActive({pathname: '/browse'})) {
+      text = 'Browse';
+    } else if (router.isActive({pathname: '/land'})) {
+      text = 'Land';
+    } else if (router.isActive({pathname: '/project'})) {
+      text = 'Project';
+    } else if (router.isActive({pathname: '/task'})) {
+      text = 'Task';
+    } else if (router.isActive({pathname: '/resource'})) {
+      text = 'Resource';
+    } else if (router.isActive({pathname: '/user'})) {
+      text = 'User';
+    } else if (router.isActive({pathname: '/login'})) {
+      text = 'Login';
+    } else {
+      text = 'Terrafarm';
+    }
+    return text;
+  }
   forceRefresh = () => {
     this.injectAuthToken();
   }
@@ -86,10 +110,11 @@ export default class CoreContainer extends React.Component {
   }
   render () {
     const {children} = this.props;
+    const pageName = this.getPageName();
 
     return <div className={classNames.this} >
       <div className={classNames.main} >
-        <AppHeader />
+        <AppHeader pageName={pageName} />
         {children}
       </div>
       <AppFooter />

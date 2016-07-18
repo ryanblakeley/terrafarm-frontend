@@ -1,15 +1,13 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-import IconButton from 'material-ui/lib/icon-button';
-import IoPerson from 'react-icons/lib/io/person';
+import UserActionTabs from './components/UserActionTabs';
 import ResourceItem from '../shared/components/ResourceItem';
 import LandItem from '../shared/components/LandItem';
 import ProjectItem from '../shared/components/ProjectItem';
 import TaskItem from '../shared/components/TaskItem';
 import HeroImage from '../shared/components/HeroImage';
 
-// import createColorChart from '../shared/themes/create-color-chart';
 import classNames from './styles/UserContainerStylesheet.css';
 
 class UserContainer extends React.Component {
@@ -99,16 +97,7 @@ class UserContainer extends React.Component {
 
     return <TransitionWrapper>
       <div className={classNames.this} >
-        <div className={classNames.actionsHeading}>
-          <IconButton disabled />
-          <IconButton disabled />
-          <div className={classNames.centerIconWrapper} >
-            <IoPerson className={classNames.centerIcon} />
-          </div>
-          <IconButton disabled />
-          <IconButton disabled />
-        </div>
-
+        <UserActionTabs />
         <h3 className={classNames.contentHeading}>{user.name}</h3>
         <h4 className={classNames.contentSubheading}>
           <span className={classNames.location}>{user.location}</span>

@@ -1,0 +1,21 @@
+.this {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: -15px auto 0; max-width: 280px; height: 80px;
+}
+
+@media only screen and (min-width: 320px) {
+  .this { max-width: 260px; }
+}
+@media only screen and (min-width: 375px) {
+  .this { max-width: 275px; }
+}
+@media only screen and (min-width: 500px) {
+  .this{ margin-top: 0; }
+}
+@media only screen and (min-width: 680px) {
+  .this { margin-top: 15px; max-width: 300px; }
+}
+/*
+@media only screen and (min-width: 950px) { .page { width: 900px; } }
+@media only screen and (min-width: 1280px) { .page { width: 1200px; } }
+*/

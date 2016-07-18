@@ -19,6 +19,7 @@ export default class TextInput extends React.Component {
     required: false,
     style: {
       display: 'block',
+      margin: '0 auto',
       fontFamily: 'Simonetta, serif',
     },
   };

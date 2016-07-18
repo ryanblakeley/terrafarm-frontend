@@ -1,0 +1,10 @@
+.this { position: relative; }
+.button { display: flex; flex-direction: column; }
+.disabled { opacity: 0.25; cursor: default; }
+.icon {
+  composes: icon from './typography.css';
+}
+.hero { top: -15px; }
+.heroIcon {
+  composes: xlargeIcon from './typography.css';
+}
