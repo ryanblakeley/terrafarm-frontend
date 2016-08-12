@@ -5,6 +5,7 @@
   "description": "Food chain strategy and collaboration.",
   "repository": "rblakeley/terrafarm",
   "author": "rblakeley",
+  "logo": "./src/frontend/shared/components/logo_icon.svg",
   "license": "Creative Commons BY-NC-ND 3.0",
   "main": "gulpfile.babel.js",
   "scripts": {

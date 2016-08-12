@@ -23,12 +23,12 @@ html { font-size: 14px; }
   transition: color 160ms linear;
 }
 
-.appTitle {
+.appTagline {
   margin: 0.67em 0;
-  font-family: 'Life Savers', serif;
-  font-weight: 400;
-  font-size: 3.4em;
-  letter-spacing: 0.04em;
+  font-family: 'Averia Serif Libre', serif;
+  font-weight: 300;
+  font-size: 1.4em;
+  letter-spacing: 0.023em;
 }
 .pageHeading {
   margin: 0.83em 0;
@@ -40,7 +40,7 @@ html { font-size: 14px; }
 }
 .contentHeading {
   margin: 1em 0;
-  font-family: 'Life Savers', serif;
+  font-family: 'Averia Serif Libre', serif;
   font-weight: 400;
   font-size: 1.5em;
   text-align: center;
@@ -99,4 +99,7 @@ html { font-size: 14px; }
 @media only screen and (min-width: 320px) {  }
 @media only screen and (min-width: 375px) {  }
 */
-@media only screen and (min-width: 500px) { .contentHeading { font-size: 2.1em; } }
+@media only screen and (min-width: 500px) {
+  .appTagline { font-size: 1.8em; }
+  .contentHeading { font-size: 2.1em; }
+}

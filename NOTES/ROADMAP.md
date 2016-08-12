@@ -3,7 +3,30 @@
 Below is a roadmap of potential Terrafarm features and releases.
 
 
-## 0.8 complete
+## 0.8.1
+
+- add "request resource" to action header on land, project, and task pages
+  - first option is to type in a wish list item
+  - below is a list of resources liked by the viewer which can be requested
+    for this land, project, or task.
+  - permisssions
+    - who can request a resource for a task?
+      - task resource owners
+      - project admins and resource owners
+      - land admins and resource owners
+    - who can request a resource for a project?
+      - project admins and resource owners
+      - land admins and resource owners
+    - who can a request a resource for a land?
+      - land admins and resource owners
+
+- add "request resource" to resource action tabs
+  - on click, show list of lands and projects admin by viewer and lands,
+    projects, and tasks where viewer is a resource owner
+
+## 0.8.2
+
+- mark complete task/project items on parent page
 
 
 ## 0.9
@@ -20,34 +43,11 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 ## 0.10
 
-- add "request resource" button to dropdown on resource icon in action header on land, project, and task pages
-  - land, project, task
-  - on click, show list of resources liked by viewer
-  - who can request a resource for a task?
-    - task resource owners
-    - project admins and resource owners
-    - land admins and resource owners
-  - who can request a resource for a project?
-    - project admins and resource owners
-    - land admins and resource owners
-  - who can a request a resource for a land?
-    - land admins and resource owners
-- add "request resource" button to dropdown on resource centerIcon on resource item page
-  - on click, show list of lands and projects admin by viewer and lands,
-    projects, and tasks where viewer is a resource owner
+- add resource availability
+- review optimistic updates
 
 
 ## 0.11
-
-- add resource availability
-
-
-## 0.12
-
-- add wish lists
-
-
-## 0.13
 
 - Browse container
   - map with zip + range
@@ -68,9 +68,7 @@ Alpha prototype
 - Land container
   - add weather forecast and historical trends
 - multiple images for profile (2), resource (3), land (5)
-- new logo and add to`./package.json`
 - chaos monkey in dev
-- review optimistic updates
 - review having only certain graphql endpoints behind the lock
 - review scalability and load testing
 - analytics
@@ -146,9 +144,15 @@ Monetization release
 - /login and /login/authenticate loading animations
 - soil temp, moisture, and analysis
 - add scrollIntoView to clicks on actions heading icons
-- transitions on app header and item page header
-- color relationships
 - style guide
 - add Geometos Rounded font for app logo
 - hint to add resources to profile when trying to offer resource and profile resource list is empty
 - add warning to required fields
+- symbolize geographic location property
+- color relationships
+- transitions on app header and item page header
+
+
+## Note
+
+Anyone wanting to work on any of these items is encouraged to pitch an estimate.

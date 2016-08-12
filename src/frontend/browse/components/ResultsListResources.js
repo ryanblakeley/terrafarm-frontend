@@ -12,13 +12,11 @@ class ResultsListResources extends React.Component {
     const {resources} = this.props.master;
 
     return <div className={classNames.this} >
-      {resources.edges.map((edge, index) => {
-        return <ResultsItemResource
-          resource={edge.node}
-          index={index}
-          key={index}
-        />;
-      })}
+      {resources.edges.map((edge, index) => <ResultsItemResource
+        resource={edge.node}
+        index={index}
+        key={index}
+      />)}
     </div>;
   }
 }
@@ -27,7 +25,7 @@ export default Relay.createContainer(ResultsListResources, {
   fragments: {
     master: () => Relay.QL`
       fragment on Master {
-        resources(first: 1) {
+        resources(first: 2) {
           edges {
             node {
               id,

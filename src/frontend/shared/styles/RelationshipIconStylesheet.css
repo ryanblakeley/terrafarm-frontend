@@ -6,16 +6,16 @@
 .primary {
   composes: icon from './typography.css';
   margin-right: 8px;
-  font-size: 16px;
+  font-size: 20px;
 }
 .secondary {
   composes: icon from './typography.css';
   left: -63%;
   margin-right: 8px;
-  font-size: 16px;
+  font-size: 20px;
   opacity: 0.25;
 }
 .secondaryPlaceholder {
   display: inline-block;
-  width: 24px;
+  width: 28px;
 }

@@ -80,7 +80,7 @@ class OfferResourceToTask extends React.Component {
       value={index}
       primaryText={edge.node.name}
       disabled={!!edge.node.tasks.edges.length
-        && !!edge.node.tasks.edges.map(taskEdge => taskEdge.node.id === task.id)}
+        && !!edge.node.tasks.edges.find(taskEdge => taskEdge.node.id === task.id)}
     />);
 
     return <div className={classNames.this} >
