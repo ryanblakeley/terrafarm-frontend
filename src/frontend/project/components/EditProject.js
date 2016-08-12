@@ -18,7 +18,7 @@ class EditProject extends React.Component {
     notifyClose: React.PropTypes.func,
   };
   static defaultProps = {
-    categories: ['Active', 'Paused', 'Urgent'],
+    categories: ['Active', 'Paused', 'Urgent', 'Complete'],
   };
   state = {
     canSubmit: false,

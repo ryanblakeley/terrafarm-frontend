@@ -4,7 +4,10 @@ import classNames from '../styles/ItemActionTabsStylesheet.css';
 
 export default class ItemActionTabs extends React.Component {
   static propTypes = {
-    children: React.PropTypes.array,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+    ]),
   };
   static state = {
     currentTitle: '',
