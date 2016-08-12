@@ -5,7 +5,7 @@
 - fixed login flow
 - added app header with dynamic page heading and nav
 - multiline inputs
-- added logo icon and name
+- added logo
 - added icon action tabs
 
 

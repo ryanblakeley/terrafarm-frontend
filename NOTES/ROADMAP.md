@@ -3,11 +3,7 @@
 Below is a roadmap of potential Terrafarm features and releases.
 
 
-## 0.8
-
-#### due Aug 15
-- [x] app logo -> page heading style
-- [x] user page style
+## 0.8 complete
 
 
 ## 0.9
