@@ -1,8 +1,8 @@
 {
   "name": "terrafarm",
   "private": true,
-  "version": "0.7.1",
-  "description": "Collaborate, learn, and strategize around healthy farming.",
+  "version": "0.7.2",
+  "description": "Food chain strategy and collaboration.",
   "repository": "rblakeley/terrafarm",
   "author": "rblakeley",
   "license": "Creative Commons BY-NC-ND 3.0",
