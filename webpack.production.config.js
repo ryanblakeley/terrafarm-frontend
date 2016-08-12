@@ -93,6 +93,11 @@ const frontendProdConfig = Object.assign({}, defaultConfig, {
         include: path.join(__dirname, 'src', 'frontend'),
         loader: 'url-loader?limit=10000',
       },
+      {
+        test: /\.png$/,
+        include: path.join(__dirname, 'src', 'frontend'),
+        loader: 'url-loader?limit=65000',
+      },
     ],
   },
 });
