@@ -12,6 +12,7 @@ const UserActionTabs = (props) => <ItemActionTabs>
     <ItemActionTabButton
       icon={<IoPerson />}
       hero
+      disabled
     />
     <ItemActionTabButton disabled />
     <ItemActionTabButton disabled />

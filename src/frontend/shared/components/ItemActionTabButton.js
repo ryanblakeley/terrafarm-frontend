@@ -19,6 +19,7 @@ export default class ItemActionTabButton extends React.Component {
     value: React.PropTypes.string,
     disabled: React.PropTypes.bool,
     onEnter: React.PropTypes.func,
+    onLeave: React.PropTypes.func,
     onClick: React.PropTypes.func,
   };
   static defaultProps = {
@@ -30,6 +31,11 @@ export default class ItemActionTabButton extends React.Component {
     const {value, disabled, onEnter} = this.props;
 
     if (onEnter && !disabled) onEnter(value);
+  }
+  handleLeave = () => {
+    const {disabled, onLeave} = this.props;
+
+    if (onLeave && !disabled) onLeave();
   }
   handleClick = () => {
     const {value, disabled, onClick} = this.props;
@@ -51,7 +57,9 @@ export default class ItemActionTabButton extends React.Component {
         className={cx({ button: true, disabled })}
         style={hero ? styles.hero : {}}
         onMouseEnter={this.handleEnter}
+        onMouseLeave={this.handleLeave}
         onClick={this.handleClick}
+        disabled={disabled}
       >
         {iconElement}
       </IconButton>

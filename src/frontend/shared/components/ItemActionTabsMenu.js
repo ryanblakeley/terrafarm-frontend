@@ -4,7 +4,6 @@ import classNames from '../styles/ItemActionTabsMenuStylesheet.css';
 
 export default class ItemActionTabsMenu extends React.Component {
   static propTypes = {
-    onLeave: React.PropTypes.func,
     currentTitle: React.PropTypes.string,
     updateTitle: React.PropTypes.func,
     currentContent: React.PropTypes.string,
@@ -22,6 +21,7 @@ export default class ItemActionTabsMenu extends React.Component {
       || (!!this.props.currentContent
         && this.props.currentContent !== element.props.value),
     onEnter: this.props.updateTitle,
+    onLeave: this.handleLeave,
     onClick: this.props.updateContent,
   });
   handleLeave = () => {

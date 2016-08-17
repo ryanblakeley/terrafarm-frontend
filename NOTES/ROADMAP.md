@@ -5,24 +5,27 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 ## 0.8.1
 
-- add "request resource" to action header on land, project, and task pages
-  - first option is to type in a wish list item
-  - below is a list of resources liked by the viewer which can be requested
-    for this land, project, or task.
-  - permisssions
-    - who can request a resource for a task?
-      - task resource owners
-      - project admins and resource owners
-      - land admins and resource owners
-    - who can request a resource for a project?
-      - project admins and resource owners
-      - land admins and resource owners
-    - who can a request a resource for a land?
-      - land admins and resource owners
+- on resource page
+  - request resource from a button in the action tabs heading
+    - show a hierarchical display of lands, projects, and tasks where the viewer
+      has permission to request resources (admin or resource contributor).
+    - the owner of the requested resource sees a notification on the
+      ResourceRelationshipItem on his profile page and on the Resource page
+    - if a land, project, or task admin is on a Resource page for a resource that
+      has been offered to one of those scopes, show a notification that it has
+      been offered and the viewer can make a decision and take action.
 
-- add "request resource" to resource action tabs
-  - on click, show list of lands and projects admin by viewer and lands,
-    projects, and tasks where viewer is a resource owner
+- on land, project, and task pages
+  - show a wish list
+  - if the viewer has permission
+    - show delete options on wish list items
+    - show a button in the action heading for a new wish list item.
+      - use a text field, wish list is an array of text types
+    - show a list of resources requested
+      - provide the option to cancel a request.
+    - show a button for requesting a resource
+      - if clicked, show a list of resources liked by the viewer
+
 
 ## 0.8.2
 
@@ -151,8 +154,3 @@ Monetization release
 - symbolize geographic location property
 - color relationships
 - transitions on app header and item page header
-
-
-## Note
-
-Anyone wanting to work on any of these items is encouraged to pitch an estimate.

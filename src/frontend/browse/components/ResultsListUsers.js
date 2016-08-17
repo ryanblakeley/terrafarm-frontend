@@ -27,7 +27,7 @@ export default Relay.createContainer(ResultsListUsers, {
   fragments: {
     master: () => Relay.QL`
       fragment on Master {
-        users(first: 1) {
+        users(first: 2) {
           edges {
             node {
               id,

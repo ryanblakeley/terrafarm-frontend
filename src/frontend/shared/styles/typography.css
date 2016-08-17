@@ -27,7 +27,7 @@ html { font-size: 14px; }
   margin: 0.67em 0;
   font-family: 'Averia Serif Libre', serif;
   font-weight: 300;
-  font-size: 1.4em;
+  font-size: 1em;
   letter-spacing: 0.023em;
 }
 .pageHeading {
@@ -100,6 +100,6 @@ html { font-size: 14px; }
 @media only screen and (min-width: 375px) {  }
 */
 @media only screen and (min-width: 500px) {
-  .appTagline { font-size: 1.8em; }
+  .appTagline { font-size: 1.4em; }
   .contentHeading { font-size: 2.1em; }
 }

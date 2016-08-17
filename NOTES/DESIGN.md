@@ -1,3 +1,10 @@
+# Design
+
+## Getting Started
+
+Section of home page that quickly describes the user interface.
+
+UI Definitions
 - resource: discrete unit of input
 - task: specific action that employs resources and generates measurable output
 - project: combination of tasks that share a material objective

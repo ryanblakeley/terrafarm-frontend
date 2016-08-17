@@ -2,7 +2,3 @@
   composes: appTagline from '../../shared/styles/typography.css';
   margin: 25px auto 0; /* bottom: 0 fixes container height */
 }
-.line { margin: 8px auto; line-height: 125%; }
-.line:nth-of-type(2) { font-size: 67%;  }
-.line:nth-of-type(3) { margin-bottom: 0; font-size: 57%;  }
-/* bottom margin on last item has to be 0 to avoid stretching vh container */

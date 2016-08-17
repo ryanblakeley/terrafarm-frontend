@@ -34,7 +34,7 @@ const LandActionTabs = (props) => <ItemActionTabs>
       hero
     />
     <ItemActionTabButton
-      disabled={!props.doesLike || !props.isAdmin}
+      disabled={!props.doesLike && !props.isAdmin}
       icon={<IoCube />}
       value={'offer-resource'}
     />
