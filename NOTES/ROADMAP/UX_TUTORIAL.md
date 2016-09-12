@@ -1,6 +1,6 @@
-# Design
+# Terrafarm Roadmap
 
-## Getting Started
+## User Experience Tutorial
 
 Section of home page that quickly describes the user interface.
 

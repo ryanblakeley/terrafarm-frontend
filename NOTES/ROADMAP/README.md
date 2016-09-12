@@ -1,7 +1,6 @@
-# Roadmap
+# Terrafarm Roadmap
 
-Below is a roadmap of potential Terrafarm features and releases.
-
+Planned and potential features and releases.
 
 ## 0.8.1
 
@@ -26,29 +25,26 @@ Below is a roadmap of potential Terrafarm features and releases.
     - show a button for requesting a resource
       - if clicked, show a list of resources liked by the viewer
 
-
 ## 0.8.2
 
 - mark complete task/project items on parent page
 
-
 ## 0.9
 
-#### due Sept 14
+Sept 14
+
 - replace fieldbook api with postgres db that reflects a graphql api
 - increase x in `(first: x)` chunks
+
+## 0.10
+
 - patch auth
   - handle expired jwt
   - check `state` on auth callback
   - handle login failure
   - if not a registered member, fail and navigate to sign up
-
-
-## 0.10
-
 - add resource availability
 - review optimistic updates
-
 
 ## 0.11
 
@@ -58,11 +54,9 @@ Below is a roadmap of potential Terrafarm features and releases.
   - filter/sort
 - line-menu inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/#Valentine)
 
-
 ## 1.0
 
 Alpha prototype
-
 
 ## 1.1
 
@@ -78,22 +72,18 @@ Alpha prototype
 - new loading component
 - SSL
 
-
 ## 2.0
 
 Beta release
-
 
 ## 2.1
 
 - Getting Started page
 - css feature detection, fallbacks, and browser warnings
 
-
 ## 3.0
 
 First official release
-
 
 ## 3.1
 
@@ -104,11 +94,9 @@ First official release
 - vendor click-throughs for books, videos, and equipment
 - loadouts: save frequent resource combinations
 
-
 ## 4.0
 
 Monetization release
-
 
 ## 4.1
 

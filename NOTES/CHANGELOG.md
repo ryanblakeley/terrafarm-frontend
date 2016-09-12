@@ -1,6 +1,8 @@
-# Changelog
+# Terrafarm Notes
 
-## HEAD
+## Changelog
+
+### HEAD
 
 - fixed login flow
 - added app header with dynamic page heading and nav
@@ -8,8 +10,7 @@
 - added logo
 - added icon action tabs
 
-
-## 0.7 2016 May
+### 0.7 2016 May
 
 - added projects
 - added tasks
@@ -18,8 +19,7 @@
 - updated tagline
 - updated icons
 
-
-## 0.6 2016 April
+### 0.6 2016 April
 
 - added browse components
 - updated relationship icons layout
@@ -28,14 +28,12 @@
 - fixed error messages
 - added favicon
 
-
-## 0.5 2016 March
+### 0.5 2016 March
 
 - production build
 - remote deploy
 
-
-## 0.4 2016 February
+### 0.4 2016 February
 
 - style composition
 - global footer
@@ -47,8 +45,7 @@
 - switched like buttons to hearts
 - bumped relay
 
-
-## 0.3 2016 January
+### 0.3 2016 January
 
 #### Stories
 - user authentication
@@ -70,7 +67,6 @@
 #### Resilience
 - shrinkwrap
 - chaos monkey
-
 
 ## 0.2 2016 January
 
@@ -98,8 +94,7 @@
 - `./.env` db keys
 - added fields on types and mutations
 
-
-## 0.1 2015 December
+### 0.1 2015 December
 
 #### Documentation
 - core [practices](https://github.com/linuxfoundation/cii-best-practices-badge) and standards.
