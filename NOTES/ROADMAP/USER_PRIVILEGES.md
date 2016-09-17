@@ -1,6 +1,6 @@
 # Terrafarm Roadmap
 
-## User Privelages
+## User Privileges
 
 ### Note
 A "wish list" is different than a list of requested resources. Requests pertain to actual resources registered in the database. A wish list item is just a text description of a desired object. In the future, it would be cool to be able to connect a resource request or offer to a wish list item.  
