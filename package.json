@@ -2,7 +2,7 @@
   "name": "terrafarm",
   "private": true,
   "version": "0.7.2",
-  "description": "Food chain strategy and collaboration.",
+  "description": "A web platform for allocating and measuring resources in local food systems.",
   "repository": "rblakeley/terrafarm",
   "author": "rblakeley",
   "logo": "./src/frontend/shared/components/logo_icon.svg",
