@@ -132,7 +132,7 @@ included in the project:
 5. Locally merge (or rebase) the upstream development branch into your topic branch:
 
    ```bash
-   git pull [--rebase] upstream master
+   git pull [--rebase] upstream <dev-branch>
    ```
 
 6. Push your topic branch up to your fork:
@@ -142,7 +142,7 @@ included in the project:
    ```
 
 7. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
-    with a clear title and description.
+    against the development branch, and please include a clear title and description.
 
 **IMPORTANT**: By submitting a patch, you agree to allow the project
-owners to license your work under the terms of the [Creative Commons BY-NC-ND 3.0 License](http://creativecommons.org/licenses/by-nc-nd/3.0/).  
+owners to license your work under the terms of the [Creative Commons BY-NC-ND 3.0 License](http://creativecommons.org/licenses/by-nc-nd/3.0/).
