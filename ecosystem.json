@@ -2,19 +2,15 @@
   "apps": [
     {
       "name": "frontend",
-      "script": "./build/dist/frontend-server.js"
-    },
-    {
-      "name": "graphql",
-      "script": "./build/dist/graphql-server.js"
+      "script": "./build/dist/server.js"
     }
   ],
   "deploy": {
     "production": {
       "user": "git",
-      "host": "107.170.208.241",
+      "host": "...",
       "ref" : "origin/master",
-      "repo": "git@github.com:rblakeley/terrafarm-digital-ocean.git",
+      "repo": "git@github.com:rojobuffalo/terrafarm-frontend.git",
       "path": "/srv/www/production",
       "pre-deploy-local" : "echo 'Preparing to deploy to production...'",
       "post-deploy": "npm install ; npm run build ; pm2 startOrRestart ecosystem.json --env production",

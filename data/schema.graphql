@@ -1,0 +1,832 @@
+schema {
+  query: Root
+  mutation: Mutation
+}
+
+input AddResourceToLandInput {
+  resourceId: ID!
+  landId: ID!
+  clientMutationId: String
+}
+
+type AddResourceToLandPayload {
+  landEdge: LandEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  land: Land
+  clientMutationId: String
+}
+
+input AddResourceToProjectInput {
+  resourceId: ID!
+  projectId: ID!
+  clientMutationId: String
+}
+
+type AddResourceToProjectPayload {
+  projectEdge: ProjectEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  project: Project
+  clientMutationId: String
+}
+
+input AddResourceToTaskInput {
+  resourceId: ID!
+  taskId: ID!
+  clientMutationId: String
+}
+
+type AddResourceToTaskPayload {
+  taskEdge: TaskEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  task: Task
+  clientMutationId: String
+}
+
+input DeleteLandInput {
+  landId: ID!
+  userId: ID!
+  clientMutationId: String
+}
+
+type DeleteLandPayload {
+  removedLandID: ID
+  master: Master
+  user: User
+  clientMutationId: String
+}
+
+input DeleteProjectInput {
+  projectId: ID!
+  clientMutationId: String
+}
+
+type DeleteProjectPayload {
+  removedProjectID: ID
+  master: Master
+  clientMutationId: String
+}
+
+input DeleteResourceInput {
+  resourceId: ID!
+  userId: ID!
+  clientMutationId: String
+}
+
+type DeleteResourcePayload {
+  removedResourceID: ID
+  master: Master
+  user: User
+  clientMutationId: String
+}
+
+input DeleteTaskInput {
+  taskId: ID!
+  clientMutationId: String
+}
+
+type DeleteTaskPayload {
+  removedTaskID: ID
+  master: Master
+  clientMutationId: String
+}
+
+input DeleteUserInput {
+  userId: ID!
+  clientMutationId: String
+}
+
+type DeleteUserPayload {
+  removedUserID: ID
+  master: Master
+  clientMutationId: String
+}
+
+# An area of land for cultivation projects.
+type Land implements Node {
+  # The ID of an object
+  id: ID!
+
+  # A cultivation project's name.
+  name: String
+
+  # A cultivation project's location.
+  location: String
+
+  # A cultivation project's size and overview.
+  description: String
+
+  # A cultivation project's size.
+  size: String
+
+  # A cultivation project's image url.
+  image: String
+
+  # A cultivation project's list of decision makers.
+  admins(after: String, first: Int, before: String, last: Int): UserConnection
+
+  # A cultivation project's list of people who have liked it.
+  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
+
+  # An area of land's list of economic inputs.
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+
+  # An area of land's list of pending economic inputs.
+  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+
+  # An area of land's project list.
+  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+}
+
+input landAttributes {
+  name: String
+  location: String
+  description: String
+  size: String
+  image: String
+}
+
+# A connection to a list of items.
+type LandConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [LandEdge]
+}
+
+# An edge in a connection.
+type LandEdge {
+  # The item at the end of the edge
+  node: Land
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input LikeLandInput {
+  userId: ID!
+  landId: ID!
+  clientMutationId: String
+}
+
+type LikeLandPayload {
+  landEdge: LandEdge
+  userEdge: UserEdge
+  user: User
+  land: Land
+  clientMutationId: String
+}
+
+input LikeProjectInput {
+  userId: ID!
+  projectId: ID!
+  clientMutationId: String
+}
+
+type LikeProjectPayload {
+  projectEdge: ProjectEdge
+  userEdge: UserEdge
+  user: User
+  project: Project
+  clientMutationId: String
+}
+
+input LikeResourceInput {
+  userId: ID!
+  resourceId: ID!
+  clientMutationId: String
+}
+
+type LikeResourcePayload {
+  resourceEdge: ResourceEdge
+  userEdge: UserEdge
+  user: User
+  resource: Resource
+  clientMutationId: String
+}
+
+# A root-level client wrapper.
+type Master implements Node {
+  # The ID of an object
+  id: ID!
+  users(after: String, first: Int, before: String, last: Int): UserConnection
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  lands(after: String, first: Int, before: String, last: Int): LandConnection
+  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+}
+
+type Mutation {
+  addResourceToLand(input: AddResourceToLandInput!): AddResourceToLandPayload
+  addResourceToProject(input: AddResourceToProjectInput!): AddResourceToProjectPayload
+  addResourceToTask(input: AddResourceToTaskInput!): AddResourceToTaskPayload
+  deleteLand(input: DeleteLandInput!): DeleteLandPayload
+  deleteProject(input: DeleteProjectInput!): DeleteProjectPayload
+  deleteResource(input: DeleteResourceInput!): DeleteResourcePayload
+  deleteTask(input: DeleteTaskInput!): DeleteTaskPayload
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload
+  likeLand(input: LikeLandInput!): LikeLandPayload
+  likeProject(input: LikeProjectInput!): LikeProjectPayload
+  likeResource(input: LikeResourceInput!): LikeResourcePayload
+  newLand(input: NewLandInput!): NewLandPayload
+  newProject(input: NewProjectInput!): NewProjectPayload
+  newTask(input: NewTaskInput!): NewTaskPayload
+  newResource(input: NewResourceInput!): NewResourcePayload
+  newUser(input: NewUserInput!): NewUserPayload
+  pendingResourceToLand(input: PendingResourceToLandInput!): PendingResourceToLandPayload
+  pendingResourceToProject(input: PendingResourceToProjectInput!): PendingResourceToProjectPayload
+  pendingResourceToTask(input: PendingResourceToTaskInput!): PendingResourceToTaskPayload
+  removePendingResourceToLand(input: RemovePendingResourceToLandInput!): RemovePendingResourceToLandPayload
+  removePendingResourceToProject(input: RemovePendingResourceToProjectInput!): RemovePendingResourceToProjectPayload
+  removePendingResourceToTask(input: RemovePendingResourceToTaskInput!): RemovePendingResourceToTaskPayload
+  removeResourceFromLand(input: RemoveResourceFromLandInput!): RemoveResourceFromLandPayload
+  removeResourceFromProject(input: RemoveResourceFromProjectInput!): RemoveResourceFromProjectPayload
+  removeResourceFromTask(input: RemoveResourceFromTaskInput!): RemoveResourceFromTaskPayload
+  unlikeLand(input: UnlikeLandInput!): UnlikeLandPayload
+  unlikeProject(input: UnlikeProjectInput!): UnlikeProjectPayload
+  unlikeResource(input: UnlikeResourceInput!): UnlikeResourcePayload
+  updateLand(input: UpdateLandInput!): UpdateLandPayload
+  updateProject(input: UpdateProjectInput!): UpdateProjectPayload
+  updateResource(input: UpdateResourceInput!): UpdateResourcePayload
+  updateTask(input: UpdateTaskInput!): UpdateTaskPayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+}
+
+input NewLandInput {
+  userId: ID!
+  name: String!
+  description: String!
+  category: String!
+  image: String
+  clientMutationId: String
+}
+
+type NewLandPayload {
+  landEdge: LandEdge
+  user: User
+  master: Master
+  clientMutationId: String
+}
+
+input NewProjectInput {
+  userId: ID!
+  landId: ID!
+  name: String!
+  description: String!
+  category: String!
+  clientMutationId: String
+}
+
+type NewProjectPayload {
+  projectEdge: ProjectEdge
+  user: User
+  master: Master
+  land: Land
+  clientMutationId: String
+}
+
+input NewResourceInput {
+  userId: ID!
+  name: String!
+  description: String!
+  category: String!
+  image: String
+  clientMutationId: String
+}
+
+type NewResourcePayload {
+  resourceEdge: ResourceEdge
+  user: User
+  master: Master
+  clientMutationId: String
+}
+
+input NewTaskInput {
+  projectId: ID!
+  name: String!
+  description: String!
+  category: String!
+  clientMutationId: String
+}
+
+type NewTaskPayload {
+  taskEdge: TaskEdge
+  project: Project
+  master: Master
+  clientMutationId: String
+}
+
+input NewUserInput {
+  name: String!
+  email: String!
+  image: String
+  clientMutationId: String
+}
+
+type NewUserPayload {
+  userEdge: UserEdge
+  master: Master
+  clientMutationId: String
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+input PendingResourceToLandInput {
+  resourceId: ID!
+  landId: ID!
+  clientMutationId: String
+}
+
+type PendingResourceToLandPayload {
+  landEdge: LandEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  land: Land
+  clientMutationId: String
+}
+
+input PendingResourceToProjectInput {
+  resourceId: ID!
+  projectId: ID!
+  clientMutationId: String
+}
+
+type PendingResourceToProjectPayload {
+  projectEdge: ProjectEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  project: Project
+  clientMutationId: String
+}
+
+input PendingResourceToTaskInput {
+  resourceId: ID!
+  taskId: ID!
+  clientMutationId: String
+}
+
+type PendingResourceToTaskPayload {
+  taskEdge: TaskEdge
+  resourceEdge: ResourceEdge
+  resource: Resource
+  task: Task
+  clientMutationId: String
+}
+
+# A cultivation project.
+type Project implements Node {
+  # The ID of an object
+  id: ID!
+
+  # A cultivation project's name.
+  name: String
+
+  # A cultivation project's description.
+  description: String
+
+  # A cultivation project's priority level.
+  category: String
+
+  # A cultivation project's host land.
+  lands(after: String, first: Int, before: String, last: Int): LandConnection
+
+  # A project's list of administrators.
+  admins(after: String, first: Int, before: String, last: Int): UserConnection
+
+  # A cultivation project's list of people who have liked it.
+  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
+
+  # A cultivation project's subtask.
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+
+  # An area of land's list of economic inputs.
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+
+  # An area of land's list of pending economic inputs.
+  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+}
+
+input projectAttributes {
+  name: String
+  category: String
+  description: String
+}
+
+# A connection to a list of items.
+type ProjectConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ProjectEdge]
+}
+
+# An edge in a connection.
+type ProjectEdge {
+  # The item at the end of the edge
+  node: Project
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input RemovePendingResourceToLandInput {
+  resourceId: ID!
+  landId: ID!
+  clientMutationId: String
+}
+
+type RemovePendingResourceToLandPayload {
+  removedResourceID: ID
+  removedLandID: ID
+  resource: Resource
+  land: Land
+  clientMutationId: String
+}
+
+input RemovePendingResourceToProjectInput {
+  resourceId: ID!
+  projectId: ID!
+  clientMutationId: String
+}
+
+type RemovePendingResourceToProjectPayload {
+  removedResourceID: ID
+  removedProjectID: ID
+  resource: Resource
+  project: Project
+  clientMutationId: String
+}
+
+input RemovePendingResourceToTaskInput {
+  resourceId: ID!
+  taskId: ID!
+  clientMutationId: String
+}
+
+type RemovePendingResourceToTaskPayload {
+  removedResourceID: ID
+  removedTaskID: ID
+  resource: Resource
+  task: Task
+  clientMutationId: String
+}
+
+input RemoveResourceFromLandInput {
+  resourceId: ID!
+  landId: ID!
+  clientMutationId: String
+}
+
+type RemoveResourceFromLandPayload {
+  removedLandID: ID
+  removedResourceID: ID
+  resource: Resource
+  land: Land
+  clientMutationId: String
+}
+
+input RemoveResourceFromProjectInput {
+  resourceId: ID!
+  projectId: ID!
+  clientMutationId: String
+}
+
+type RemoveResourceFromProjectPayload {
+  removedProjectID: ID
+  removedResourceID: ID
+  resource: Resource
+  project: Project
+  clientMutationId: String
+}
+
+input RemoveResourceFromTaskInput {
+  resourceId: ID!
+  taskId: ID!
+  clientMutationId: String
+}
+
+type RemoveResourceFromTaskPayload {
+  removedTaskID: ID
+  removedResourceID: ID
+  resource: Resource
+  task: Task
+  clientMutationId: String
+}
+
+# An economic input.
+type Resource implements Node {
+  # The ID of an object
+  id: ID!
+
+  # An economic resource's name.
+  name: String
+
+  # An economic resource's access availability.
+  description: String
+
+  # An economic resource's category
+  category: String
+
+  # An economic input's image url.
+  image: String
+
+  # An economic input's list of owners.
+  users(after: String, first: Int, before: String, last: Int): UserConnection
+
+  # A list of people who have liked an economic input.
+  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
+
+  # An economic input's list of lands with access.
+  lands(after: String, first: Int, before: String, last: Int): LandConnection
+
+  # An economic input's list of pending land commitments.
+  landsPending(after: String, first: Int, before: String, last: Int): LandConnection
+
+  # An economic input's task commitment list.
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+
+  # An economic input's list of pending task commitments.
+  tasksPending(after: String, first: Int, before: String, last: Int): TaskConnection
+
+  # An economic input's project commitment list.
+  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+
+  # An economic input's list of pending project commitments.
+  projectsPending(after: String, first: Int, before: String, last: Int): ProjectConnection
+}
+
+input resourceAttributes {
+  name: String
+  description: String
+  category: String
+  image: String
+}
+
+# A connection to a list of items.
+type ResourceConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ResourceEdge]
+}
+
+# An edge in a connection.
+type ResourceEdge {
+  # The item at the end of the edge
+  node: Resource
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type Root {
+  land(landId: String): Land
+  master: Master
+  resource(resourceId: String): Resource
+  user(userId: String): User
+  viewer: User
+  project(projectId: String): Project
+  task(taskId: String): Task
+
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+}
+
+# A project subtask.
+type Task implements Node {
+  # The ID of an object
+  id: ID!
+
+  # A subtask's title.
+  name: String
+
+  # A project subtask's status
+  description: String
+
+  # A project subtask's specification.
+  category: String
+
+  # A subtask's parent project.
+  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+
+  # A project subtask's list of economic inputs.
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+
+  # A project subtask's list of pending economic inputs.
+  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+}
+
+input taskAttributes {
+  name: String
+  category: String
+  description: String
+}
+
+# A connection to a list of items.
+type TaskConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [TaskEdge]
+}
+
+# An edge in a connection.
+type TaskEdge {
+  # The item at the end of the edge
+  node: Task
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input UnlikeLandInput {
+  userId: ID!
+  landId: ID!
+  clientMutationId: String
+}
+
+type UnlikeLandPayload {
+  removedUserID: ID
+  removedLandID: ID
+  user: User
+  land: Land
+  clientMutationId: String
+}
+
+input UnlikeProjectInput {
+  userId: ID!
+  projectId: ID!
+  clientMutationId: String
+}
+
+type UnlikeProjectPayload {
+  removedUserID: ID
+  removedProjectID: ID
+  user: User
+  project: Project
+  clientMutationId: String
+}
+
+input UnlikeResourceInput {
+  userId: ID!
+  resourceId: ID!
+  clientMutationId: String
+}
+
+type UnlikeResourcePayload {
+  removedUserID: ID
+  removedResourceID: ID
+  user: User
+  resource: Resource
+  clientMutationId: String
+}
+
+input UpdateLandInput {
+  id: ID!
+  attributes: landAttributes
+  clientMutationId: String
+}
+
+type UpdateLandPayload {
+  land: Land
+  clientMutationId: String
+}
+
+input UpdateProjectInput {
+  id: ID!
+  attributes: projectAttributes
+  clientMutationId: String
+}
+
+type UpdateProjectPayload {
+  project: Project
+  clientMutationId: String
+}
+
+input UpdateResourceInput {
+  id: ID!
+  attributes: resourceAttributes
+  clientMutationId: String
+}
+
+type UpdateResourcePayload {
+  resource: Resource
+  clientMutationId: String
+}
+
+input UpdateTaskInput {
+  id: ID!
+  attributes: taskAttributes
+  clientMutationId: String
+}
+
+type UpdateTaskPayload {
+  task: Task
+  clientMutationId: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  attributes: userAttributes
+  clientMutationId: String
+}
+
+type UpdateUserPayload {
+  user: User
+  clientMutationId: String
+}
+
+# A person who uses our app.
+type User implements Node {
+  # The ID of an object
+  id: ID!
+
+  # A person's name.
+  name: String
+
+  # A person's email address.
+  email: String
+
+  # A person's physical location.
+  location: String
+
+  # A person's description of his or her intention.
+  description: String
+
+  # A person's image url.
+  image: String
+
+  # A person's list of economic inputs.
+  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+
+  # A list of resources that a person has liked.
+  resourcesLiked(after: String, first: Int, before: String, last: Int): ResourceConnection
+
+  # A list of lands in which a person is a decision maker.
+  landsAdmin(after: String, first: Int, before: String, last: Int): LandConnection
+
+  # A list of lands that a person has liked.
+  landsLiked(after: String, first: Int, before: String, last: Int): LandConnection
+
+  # A list of projects which a person is an admin .
+  projectsAdmin(after: String, first: Int, before: String, last: Int): ProjectConnection
+
+  # A list of projects that a person has liked.
+  projectsLiked(after: String, first: Int, before: String, last: Int): ProjectConnection
+
+  # An person's task assignment list.
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+}
+
+input userAttributes {
+  name: String
+  location: String
+  description: String
+  image: String
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge
+  node: User
+
+  # A cursor for use in pagination
+  cursor: String!
+}

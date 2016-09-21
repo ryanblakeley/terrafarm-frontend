@@ -1,4 +1,4 @@
-var getbabelRelayPlugin = require('babel-relay-plugin');
-var schema = require('./src/graphql/data/schema.json');
+import babelRelayPlugin from 'babel-relay-plugin';
+import schema from './data/schema.json';
 
-module.exports = getbabelRelayPlugin(schema.data);
+export default babelRelayPlugin(schema.data);

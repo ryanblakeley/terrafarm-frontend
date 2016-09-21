@@ -101,12 +101,16 @@ included in the project:
    fork, and configure the remotes:
 
    ```bash
-   # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/terrafarm.git
-   # Navigate to the newly cloned directory
+   # If you haven't already done so, create a parent directory for Terrafarm repos
+   mkdir terrafarm
+   # Navigate into the terrafarm parent directory
    cd terrafarm
+   # Clone your fork of the repo into the current directory
+   git clone https://github.com/<your-username>/frontend.git
+   # Navigate to the newly cloned directory
+   cd frontend
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/rblakeley/terrafarm.git
+   git remote add upstream https://github.com/terrafarm/frontend.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:

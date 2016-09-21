@@ -1,0 +1,41 @@
+parser: babel-eslint
+
+parserOptions:
+    ecmaFeatures:
+        jsx: true
+        modules: true
+
+plugins:
+    - react
+    - babel
+
+extends: ["eslint:recommended", "plugin:react/recommended", "airbnb"]
+
+env:
+    browser: true
+    node: true
+
+globals:
+    Auth0Lock: true
+
+rules:
+    # ERRORS
+    strict: [2, "never"]  # disable "use strict" rules
+
+    # DISABLE
+    eol-last: 2
+    no-unused-vars: [2, args: none]
+    quotes: [1, single, avoid-escape]  # allow single quotes for strings
+    no-multi-spaces: 2
+
+    # DISABLE (personal styles)
+    generator-star-spacing: 0
+    import/no-extraneous-dependencies: true
+    no-underscore-dangle: 0  # private/internal variables
+    no-use-before-define: 0
+    no-empty: 0  # allow empty blocks e.g. try catch
+    object-curly-spacing: 0
+    react/require-extension: 0
+    react/wrap-multilines: 0
+    space-before-function-paren: [2, "always"]
+    no-console: 0

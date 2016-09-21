@@ -1,0 +1,10 @@
+{
+  "presets": ["airbnb"],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    ["module-resolver", {
+      "root": ["./src"]
+    }]
+  ]
+}
