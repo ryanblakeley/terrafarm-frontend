@@ -14,25 +14,30 @@
     "start": "pm2 start ecosystem.json --env production",
     "restart": "pm2 restart ecosystem.json",
     "stop": "pm2 stop all",
-    "test": "",
     "eslint": "eslint .",
-    "deploy": ""
+    "deploy": "",
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/_mocha --opts spec/mocha.opts"
   },
   "engines": {
     "node": "6.6.0",
     "npm": "3.10.3"
   },
   "dependencies": {
+    "babel-polyfill": "^6.13.0",
     "babel-relay-plugin": "^0.7.3",
     "babel-runtime": "^6.11.6",
     "body-parser": "^1.15.0",
+    "chai": "^3.5.0",
     "classnames": "^2.2.3",
+    "enzyme": "^2.4.1",
     "fetch-everywhere": "^1.0.5",
     "formsy-material-ui": "^0.3.9",
     "formsy-react": "^0.17.0",
     "graphql": "^0.7.0",
     "http-proxy": "^1.13.2",
     "material-ui": "^0.14.4",
+    "mocha": "^3.0.2",
+    "mock-local-storage": "^1.0.2",
     "react": "^0.14.8",
     "react-addons-css-transition-group": "^0.14.8",
     "react-dom": "^0.14.8",
@@ -42,7 +47,9 @@
     "react-router": "^2.8.1",
     "react-router-relay": "^0.12.2",
     "react-tap-event-plugin": "^0.2.2",
+    "require-hacker": "^2.1.4",
     "sanitize.css": "^4.1.0",
+    "sinon": "^1.17.6",
     "util": "^0.10.3"
   },
   "devDependencies": {
@@ -69,6 +76,7 @@
     "gulp-util": "^3.0.7",
     "html-webpack-plugin": "^2.22.0",
     "node-fetch": "^1.6.2",
+    "react-addons-test-utils": "^15.3.2",
     "react-hot-loader": "^1.2.8",
     "source-map-support": "^0.4.2",
     "stats-webpack-plugin": "^0.4.2",
