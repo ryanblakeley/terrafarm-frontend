@@ -102,7 +102,8 @@ export class CoreContainer extends Component {
       Relay.injectNetworkLayer(
         new RelayNetworkLayer([
           urlMiddleware({
-            url: (req) => '/graphql'
+            url: (req) => '/graphql',
+            batchUrl: (req) => '/graphql'
           }),
           headerMiddleware(token)
         ])

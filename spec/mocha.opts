@@ -1,0 +1,6 @@
+--compilers js:babel-core/register
+--require babel-polyfill
+--require fetch-everywhere
+--require ./spec/specHelper.js
+--require mock-local-storage
+src/**/*Spec.js
