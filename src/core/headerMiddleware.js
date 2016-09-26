@@ -1,4 +1,4 @@
-export default next => req => token => {
+export default token => next => req => {
   req.headers['Authorization'] = `Bearer ${token}`;
   return next(req);
 }
