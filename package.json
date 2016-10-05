@@ -2,7 +2,7 @@
   "name": "terrafarm-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "A web platform for allocating and measuring resources in local food systems.",
+  "description": "Frontend server and client code for Terrafarm",
   "repository": "rojobuffalo/terrafarm-frontend",
   "author": "rojobuffalo",
   "license": "Creative Commons BY-NC-ND 3.0",

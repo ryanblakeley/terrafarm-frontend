@@ -1,4 +1,4 @@
-# Terrafarm Notes
+# Terrafarm Frontend Notes
 
 ## Acknowledgements
 

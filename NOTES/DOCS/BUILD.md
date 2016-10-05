@@ -1,7 +1,7 @@
-# Terrafarm Software Documentation
+# Terrafarm Frontend Software Documentation
 
 ## Build
 
 How stuff gets built from source
 
-**This process is being redesigned, so documentation will soon follow.**
+**Documentation needed.**

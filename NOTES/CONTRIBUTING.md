@@ -1,4 +1,4 @@
-# Terrafarm Notes
+# Terrafarm Frontend Notes
 
 ## Contributing
 
@@ -106,11 +106,11 @@ included in the project:
    # Navigate into the terrafarm parent directory
    cd terrafarm
    # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/frontend.git
+   git clone https://github.com/<your-username>/terrafarm-frontend.git frontend
    # Navigate to the newly cloned directory
    cd frontend
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/terrafarm/frontend.git
+   git remote add upstream https://github.com/rojobuffalo/terrafarm-frontend.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:

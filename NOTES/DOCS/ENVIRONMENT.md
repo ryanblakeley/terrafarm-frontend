@@ -1,7 +1,7 @@
-# Terrafarm Software Documentation
+# Terrafarm Frontend Software Documentation
 
 ## Environment
 
 Setting up environment variables.
 
-**This process is being redesigned, so documentation will soon follow.**
+**Documentation needed.**
