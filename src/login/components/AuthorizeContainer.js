@@ -4,6 +4,8 @@ import NewUserMutation from '../mutations/NewUserMutation';
 
 import classNames from '../styles/AuthorizeContainerStylesheet.css';
 
+// TODO: Remove references to `lock` and update the component
+//
 class AuthorizeContainer extends React.Component {
   static propTypes = {
     viewer: React.PropTypes.object,
@@ -11,7 +13,6 @@ class AuthorizeContainer extends React.Component {
   };
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
-    lock: React.PropTypes.object,
     idToken: React.PropTypes.string,
     loggedIn: React.PropTypes.bool,
     setLoggedIn: React.PropTypes.func,
@@ -48,23 +49,6 @@ class AuthorizeContainer extends React.Component {
     });
 
     return result;
-  }
-  createNewUser () {
-    const {master} = this.props;
-    const profile = this.getProfile();
-    const {email, picture} = profile;
-    let {name} = profile;
-
-    name = name.split(' ')[0];
-
-    Relay.Store.commitUpdate(
-      new NewUserMutation({
-        master,
-        name,
-        email,
-        image: picture,
-      })
-    );
   }
   render () {
     return <div className={classNames.text}>Still authorizing...</div>;

@@ -44,8 +44,6 @@ const config = {
         NODE_ENV: JSON.stringify(NODE_ENV),
         REVERSE_PROXY_PUBLIC_IP: JSON.stringify(REVERSE_PROXY_PUBLIC_IP), // obsolete with react-relay-network-layer
         PORT: Number(PORT), // obsolete with react-relay-network-layer
-        AUTH0_CLIENT_ID: JSON.stringify(AUTH0_CLIENT_ID),
-        AUTH0_DOMAIN: JSON.stringify(AUTH0_DOMAIN),
       },
     }),
   ],

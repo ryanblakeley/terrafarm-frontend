@@ -1,55 +1,39 @@
-import React from 'react';
+// Vendor
+import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import Tabs from 'material-ui/lib/tabs/tabs';
+import Tab from 'material-ui/lib/tabs/tab';
 
+// Local
+import { networkAddress } from 'shared/utils/network';
+import SignUp from './components/SignUp';
+import Login from './components/Login';
+
+// Styles
 import classNames from './styles/LoginPageStylesheet.css';
 
-const { REVERSE_PROXY_PUBLIC_IP, PORT, AUTH0_CLIENT_ID, AUTH0_DOMAIN } = process.env;
-
-const networkAddress = REVERSE_PROXY_PUBLIC_IP === 'localhost'
-  ? `${REVERSE_PROXY_PUBLIC_IP}:${PORT}`
-  : REVERSE_PROXY_PUBLIC_IP;
-
-export default class LoginPage extends React.Component {
+export default class LoginPage extends Component {
   static propTypes = {
-    viewer: React.PropTypes.object,
-    master: React.PropTypes.object,
-    children: React.PropTypes.object,
+    viewer: PropTypes.object,
+    master: PropTypes.object,
+    children: PropTypes.object,
   };
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-    loggedIn: React.PropTypes.bool,
-  };
-  static childContextTypes = {
-    lock: React.PropTypes.object,
-    idToken: React.PropTypes.string,
+    router: PropTypes.object.isRequired,
+    loggedIn: PropTypes.bool,
+    setLoggedIn: PropTypes.func.isRequired,
   };
   state = {
-    idToken: null,
+    idToken: null
   };
-  getChildContext () {
-    return {
-      lock: this.lock,
-      idToken: this.state.idToken,
-    };
-  }
   componentWillMount () {
-    if (!this.lock) {
-      this.lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
-    }
-
     this.injectAuthToken();
   }
   componentDidMount () {
     const {router, loggedIn} = this.context;
 
     if (!this.state.idToken) {
-      this.lock.show({
-        authParams: {
-          scope: 'openid profile',
-          callbackURL: `http://${networkAddress}/login`,
-        },
-        container: 'auth0_container',
-      });
+
     } else if (loggedIn) {
       router.replace('/profile');
     } else {
@@ -65,17 +49,8 @@ export default class LoginPage extends React.Component {
   }
   getIdToken () {
     let idToken = localStorage.getItem('id_token');
-    const authHash = this.lock && this.lock.parseHash(window.location.hash);
 
-    if (!idToken && authHash) {
-      if (authHash.id_token) {
-        idToken = authHash.id_token;
-        localStorage.setItem('id_token', authHash.id_token);
-      }
-      if (authHash.error) {
-        console.log('Error signing in', authHash);
-        return null;
-      }
+    if (!idToken) {
     }
 
     return idToken;
@@ -95,20 +70,30 @@ export default class LoginPage extends React.Component {
 
     this.setState({idToken: token});
   }
+  loginUser = (token) => {
+    const { loggedIn, router, setLoggedIn } = this.context;
+    localStorage.setItem('id_token', token);
+    setLoggedIn(true);
+    this.setState({ idToken: token });
+    router.push('/profile');
+  }
   render () {
-    const {router} = this.context;
+    const { router } = this.context;
+    const { canSubmit, loginError } = this.state;
 
-    return <div className={classNames.this}>
-
-      {router.isActive('/login/authorize')
-        && <div className={classNames.text}>
-          Authorizing...
+    return (
+      <div className={classNames.this}>
+        <div className={classNames.tabs}>
+          <Tabs>
+            <Tab label='Log In'>
+              <Login loginUser={this.loginUser} />
+            </Tab>
+            <Tab label='Sign Up'>
+              <SignUp loginUser={this.loginUser} />
+            </Tab>
+          </Tabs>
         </div>
-      }
-
-      <div className={classNames.auth0Container} id={'auth0_container'} />
-
-      {this.props.children}
-    </div>;
+      </div>
+    );
   }
 }
