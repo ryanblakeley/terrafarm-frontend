@@ -5,7 +5,6 @@ import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 // Local
-import { networkAddress } from 'shared/utils/network';
 import { post } from 'shared/utils/fetch';
 
 // Styles

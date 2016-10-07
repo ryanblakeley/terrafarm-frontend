@@ -8,7 +8,6 @@ import IoIosCheckmarkOutline from 'react-icons/lib/io/ios-checkmark-outline';
 import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
 
 // Local
-import { networkAddress } from 'shared/utils/network';
 import { post } from 'shared/utils/fetch';
 
 // Styles
