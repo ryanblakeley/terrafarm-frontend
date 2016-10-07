@@ -16,5 +16,5 @@ match({ routes, history: browserHistory }, (error, redirectLocation, renderProps
   ReactDOM.render(
     <Router {...renderProps} render={applyRouterMiddleware(useRelay)} />,
     document.getElementById('root')
-  ); 
+  );
 });

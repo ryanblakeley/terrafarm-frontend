@@ -22,7 +22,7 @@ export default class SignUp extends Component {
   };
   state = {
     canSubmit: false,
-    signupError: null,
+    signUpError: null,
     popoverOpen: false,
     popoverAnchor: null,
     passwordLengthValid: false,
@@ -31,7 +31,7 @@ export default class SignUp extends Component {
   signUpUser = (values) => {
     post({ url: 'signup', body: values }).then(response => {
       if (response.error) {
-        this.setState({ loginError: response.error });
+        this.setState({ signUpError: response.error });
       } else {
         this.props.loginUser(response.token);
       }
@@ -65,7 +65,7 @@ export default class SignUp extends Component {
   }
   render() {
     const {
-      signupError,
+      signUpError,
       canSubmit,
       popoverOpen,
       popoverAnchor
@@ -100,14 +100,17 @@ export default class SignUp extends Component {
           onFocus={this.openPopover}
           onBlur={this.closePopover}
         />
+        { signUpError &&
+          <div className={classNames.error}>{signUpError}</div>
+        }
         <Popover
           open={popoverOpen}
           anchorEl={popoverAnchor}
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         >
           <div className={classNames.password}>
-            <h3 className={classNames.passheader}>Password must contain:</h3>
-            <ul>
+            <h3 className={classNames.passheader}>Password must contain</h3>
+            <ul className={classNames.passwordlist}>
               <li>{this.lengthCheckIcon()} 6 characters</li>
               <li>{this.strengthCheckIcon()} 1 letter and 1 number</li>
             </ul>
