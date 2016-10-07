@@ -27,7 +27,6 @@ export default class Login extends Component {
         this.props.loginUser(response.token);
       }
     });
-    console.log(values);
   }
   handleValid = () => this.setState({ canSubmit: true });
   handleInvalid = () => this.setState({ canSubmit: false });

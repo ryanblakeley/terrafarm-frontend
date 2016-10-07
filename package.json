@@ -11,7 +11,7 @@
   "scripts": {
     "setup": "cp -n .env.example .env || true",
     "dev": "gulp",
-    "eslint": "eslint .",
+    "eslint": "eslint ./src",
     "test": "NODE_ENV=test ./node_modules/mocha/bin/_mocha --opts spec/mocha.opts",
     "build": "rimraf build && gulp build",
     "start": "pm2 start ecosystem.json --env production",

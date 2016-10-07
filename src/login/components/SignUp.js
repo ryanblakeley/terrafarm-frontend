@@ -4,8 +4,8 @@ import TextInput from 'shared/components/TextInput';
 import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Popover from 'material-ui/lib/popover/popover';
-import CircleCheck from 'react-icons/lib/io/ios-checkmark-outline';
-import CircleX from 'react-icons/lib/io/ios-close-outline';
+import IoIosCheckmarkOutline from 'react-icons/lib/io/ios-checkmark-outline';
+import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
 
 // Local
 import { networkAddress } from 'shared/utils/network';
@@ -48,13 +48,13 @@ export default class SignUp extends Component {
   }
   lengthCheckIcon = () => {
     if (this.state.passwordLengthValid) {
-      return <CircleCheck style={{ color: 'green' }} />;
-    } else return <CircleX style={{ color: 'red' }} />;
+      return <IoIosCheckmarkOutline style={{ color: 'green' }} />;
+    } else return <IoIosCloseOutline style={{ color: 'red' }} />;
   }
   strengthCheckIcon = () => {
     if (this.state.passwordStrengthValid) {
-      return <CircleCheck style={{ color: 'green' }} />;
-    } else return <CircleX style={{ color: 'red' }} />;
+      return <IoIosCheckmarkOutline style={{ color: 'green' }} />;
+    } else return <IoIosCloseOutline style={{ color: 'red' }} />;
   }
   checkPassword = (ev) => {
     const password = ev.target.value;

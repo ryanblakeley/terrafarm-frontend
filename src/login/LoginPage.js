@@ -5,9 +5,9 @@ import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 
 // Local
-import { networkAddress } from 'shared/utils/network';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
+import networkLayer from 'lib/networkLayer';
 
 // Styles
 import classNames from './styles/LoginPageStylesheet.css';
@@ -23,64 +23,34 @@ export default class LoginPage extends Component {
     loggedIn: PropTypes.bool,
     setLoggedIn: PropTypes.func.isRequired,
   };
-  state = {
-    idToken: null
-  };
   componentWillMount () {
     this.injectAuthToken();
   }
   componentDidMount () {
-    const {router, loggedIn} = this.context;
+    const { router, loggedIn } = this.context;
 
-    if (!this.state.idToken) {
-
-    } else if (loggedIn) {
+    if (loggedIn) {
       router.replace('/profile');
-    } else {
-      router.push('/login/authorize');
-    }
-  }
-  componentWillUpdate (nextProps, nextState) {
-    const {idToken} = nextState;
-
-    if (idToken !== this.state.idToken) {
-      this.injectAuthToken();
     }
   }
   getIdToken () {
-    let idToken = localStorage.getItem('id_token');
-
-    if (!idToken) {
-    }
-
-    return idToken;
+    return localStorage.getItem('id_token');
   }
   injectAuthToken () {
     const token = this.getIdToken();
 
     if (token) {
-      Relay.injectNetworkLayer(
-        new Relay.DefaultNetworkLayer(`http://${networkAddress}/graphql`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-      );
+      Relay.injectNetworkLayer(networkLayer(token));
     }
-
-    this.setState({idToken: token});
   }
   loginUser = (token) => {
     const { loggedIn, router, setLoggedIn } = this.context;
     localStorage.setItem('id_token', token);
+    this.injectAuthToken();
     setLoggedIn(true);
-    this.setState({ idToken: token });
     router.push('/profile');
   }
   render () {
-    const { router } = this.context;
-    const { canSubmit, loginError } = this.state;
-
     return (
       <div className={classNames.this}>
         <div className={classNames.tabs}>

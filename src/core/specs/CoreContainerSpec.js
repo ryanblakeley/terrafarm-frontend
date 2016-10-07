@@ -260,12 +260,20 @@ describe('<CoreContainer />', () => {
   });
 
   describe('#injectAuthToken', () => {
-    const container = renderContainer({ location: { foo: 'Foo' } });
-
     context('when the token exists', () => {
-      localStorage.id_token = 'foo';
-      const spy = sinon.spy(Relay, 'injectNetworkLayer');
-      container.instance().injectAuthToken();
+      const container = renderContainer({ location: { foo: 'Foo' } });
+      let spy;
+
+      before(() => {
+        spy = sinon.spy(Relay, 'injectNetworkLayer');
+        localStorage.setItem('id_token', 'foo');
+        container.instance().injectAuthToken();
+      });
+
+      after(() => {
+        spy.restore();
+        localStorage.removeItem('id_token');
+      });
 
       it('sets the loggedIn state to true', () => {
         expect(container.state('loggedIn')).to.be.true;

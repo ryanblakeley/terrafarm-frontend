@@ -8,8 +8,6 @@ import {
 import CoreContainer from './core/CoreContainer';
 import Home from './home/HomePage';
 import LoginPage from './login/LoginPage';
-import AuthorizeContainer from './login/components/AuthorizeContainer';
-import AuthorizeQueries from './login/components/AuthorizeQueries';
 import NotFound from './not-found/NotFoundPage';
 import ProfileContainer from './profile/ProfileContainer';
 import ProfileQueries from './profile/ProfileQueries';
@@ -43,13 +41,7 @@ function renderLoading () {
 const routes = (
   <Route path={'/'} component={CoreContainer} >
     <IndexRoute component={Home} />
-    <Route path={'login'} component={LoginPage} >
-      <Route
-        path={'authorize'}
-        component={AuthorizeContainer}
-        queries={AuthorizeQueries}
-      />
-    </Route>
+    <Route path={'login'} component={LoginPage} />
     <Route
       path={'profile'}
       component={ProfileContainer}
