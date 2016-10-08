@@ -1,11 +1,12 @@
 // Vendor
 import React, { Component, PropTypes } from 'react';
+import Relay from 'react-relay';
 import TextInput from 'shared/components/TextInput';
 import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 // Local
-import { post } from 'shared/utils/fetch';
+import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
 
 // Styles
 import classNames from '../styles/LoginPageStylesheet.css';
@@ -18,14 +19,20 @@ export default class Login extends Component {
     canSubmit: false,
     loginError: null
   };
-  loginUser = (values) => {
-    post({ url: 'signin', body: values }).then(response => {
-      if (response.error) {
-        this.setState({ loginError: response.error });
-      } else {
-        this.props.loginUser(response.token);
-      }
-    });
+  processLogin = (response) => {
+    const { authenticateUser: { output } } = response;
+
+    if (output) {
+      this.props.loginUser(output);
+    } else {
+      this.setState({ loginError: 'Email and/or Password is incorrect' });
+    }
+  }
+  loginUser = ({ email, password }) => {
+    Relay.Store.commitUpdate(
+      new AuthenticateUserMutation({ email, password }),
+      { onSuccess: this.processLogin }
+    );
   }
   handleValid = () => this.setState({ canSubmit: true });
   handleInvalid = () => this.setState({ canSubmit: false });

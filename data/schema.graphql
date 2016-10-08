@@ -1,832 +1,3916 @@
-schema {
-  query: Root
-  mutation: Mutation
-}
+# The input object for the `authenticateUser` procedure.
+input AuthenticateUserInput {
+  userEmail: String!
+  password: String!
+  key: String!
 
-input AddResourceToLandInput {
-  resourceId: ID!
-  landId: ID!
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-type AddResourceToLandPayload {
-  landEdge: LandEdge
-  resourceEdge: ResourceEdge
-  resource: Resource
-  land: Land
+# The payload returned by the `authenticateUser`
+type AuthenticateUserPayload implements Payload {
+  # The actual value returned by `authenticateUser`
+  output: String
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The input object for the `createUser` procedure.
+input CreateUserInput {
+  userEmail: String!
+  password: String!
+  userName: String!
+  key: String!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-input AddResourceToProjectInput {
-  resourceId: ID!
-  projectId: ID!
+# The payload returned by the `createUser`
+type CreateUserPayload implements Payload {
+  # The actual value returned by `createUser`
+  output: String
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# An opaque base64 encoded string describing a location in a list of items.
+scalar Cursor
+
+# Some time value
+scalar Date
+
+# Locates the single `Organization` node to delete using its required primary key fields.
+input DeleteOrganizationInput {
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-type AddResourceToProjectPayload {
-  projectEdge: ProjectEdge
-  resourceEdge: ResourceEdge
-  resource: Resource
-  project: Project
+# Locates the single `OrganizationMember` node to delete using its required primary key fields.
+input DeleteOrganizationMemberInput {
+  # Matches the `organizationId` field of the node.
+  organizationId: UUID!
+
+  # Matches the `memberId` field of the node.
+  memberId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-input AddResourceToTaskInput {
-  resourceId: ID!
-  taskId: ID!
+# Contains the `OrganizationMember` node deleted by the mutation.
+type DeleteOrganizationMemberPayload implements Payload {
+  # The deleted `OrganizationMember`.
+  organizationMember: OrganizationMember
+
+  # The deleted `OrganizationMember` id.
+  deletedOrganizationMemberId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Contains the `Organization` node deleted by the mutation.
+type DeleteOrganizationPayload implements Payload {
+  # The deleted `Organization`.
+  organization: Organization
+
+  # The deleted `Organization` id.
+  deletedOrganizationId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the single `OrganizationResource` node to delete using its required primary key fields.
+input DeleteOrganizationResourceInput {
+  # Matches the `organizationId` field of the node.
+  organizationId: UUID!
+
+  # Matches the `resourceId` field of the node.
+  resourceId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-type AddResourceToTaskPayload {
-  taskEdge: TaskEdge
-  resourceEdge: ResourceEdge
-  resource: Resource
-  task: Task
+# Contains the `OrganizationResource` node deleted by the mutation.
+type DeleteOrganizationResourcePayload implements Payload {
+  # The deleted `OrganizationResource`.
+  organizationResource: OrganizationResource
+
+  # The deleted `OrganizationResource` id.
+  deletedOrganizationResourceId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
   clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
 }
 
-input DeleteLandInput {
-  landId: ID!
-  userId: ID!
-  clientMutationId: String
-}
-
-type DeleteLandPayload {
-  removedLandID: ID
-  master: Master
-  user: User
-  clientMutationId: String
-}
-
+# Locates the single `Project` node to delete using its required primary key fields.
 input DeleteProjectInput {
-  projectId: ID!
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-type DeleteProjectPayload {
-  removedProjectID: ID
-  master: Master
+# Contains the `Project` node deleted by the mutation.
+type DeleteProjectPayload implements Payload {
+  # The deleted `Project`.
+  project: Project
+
+  # The deleted `Project` id.
+  deletedProjectId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the single `ProjectResource` node to delete using its required primary key fields.
+input DeleteProjectResourceInput {
+  # Matches the `projectId` field of the node.
+  projectId: UUID!
+
+  # Matches the `resourceId` field of the node.
+  resourceId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
+# Contains the `ProjectResource` node deleted by the mutation.
+type DeleteProjectResourcePayload implements Payload {
+  # The deleted `ProjectResource`.
+  projectResource: ProjectResource
+
+  # The deleted `ProjectResource` id.
+  deletedProjectResourceId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the single `Resource` node to delete using its required primary key fields.
 input DeleteResourceInput {
-  resourceId: ID!
-  userId: ID!
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-type DeleteResourcePayload {
-  removedResourceID: ID
-  master: Master
-  user: User
+# Contains the `Resource` node deleted by the mutation.
+type DeleteResourcePayload implements Payload {
+  # The deleted `Resource`.
+  resource: Resource
+
+  # The deleted `Resource` id.
+  deletedResourceId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
   clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
 }
 
+# Locates the single `Task` node to delete using its required primary key fields.
 input DeleteTaskInput {
-  taskId: ID!
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-type DeleteTaskPayload {
-  removedTaskID: ID
-  master: Master
+# Contains the `Task` node deleted by the mutation.
+type DeleteTaskPayload implements Payload {
+  # The deleted `Task`.
+  task: Task
+
+  # The deleted `Task` id.
+  deletedTaskId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the single `TaskResource` node to delete using its required primary key fields.
+input DeleteTaskResourceInput {
+  # Matches the `taskId` field of the node.
+  taskId: UUID!
+
+  # Matches the `resourceId` field of the node.
+  resourceId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
+# Contains the `TaskResource` node deleted by the mutation.
+type DeleteTaskResourcePayload implements Payload {
+  # The deleted `TaskResource`.
+  taskResource: TaskResource
+
+  # The deleted `TaskResource` id.
+  deletedTaskResourceId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the single `User` node to delete using its required primary key fields.
 input DeleteUserInput {
-  userId: ID!
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-type DeleteUserPayload {
-  removedUserID: ID
-  master: Master
+# Contains the `User` node deleted by the mutation.
+type DeleteUserPayload implements Payload {
+  # The deleted `User`.
+  user: User
+
+  # The deleted `User` id.
+  deletedUserId: ID
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The `Organization` to insert.
+input InsertOrganizationInput {
+  # The unique identifier for the organization.
+  rowId: UUID
+
+  # The organization’s human-readable name.
+  name: String!
+
+  # A description of the organization written by one of the organization’s admins.
+  description: String
+
+  # The location where the organization is based.
+  location: String
+
+  # A URL to an image that represents the organization.
+  imageUrl: String
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
   clientMutationId: String
 }
 
-# An area of land for cultivation projects.
-type Land implements Node {
-  # The ID of an object
-  id: ID!
+# The `OrganizationMember` to insert.
+input InsertOrganizationMemberInput {
+  # The organization which the user is a part of.
+  organizationId: UUID!
 
-  # A cultivation project's name.
-  name: String
+  # The user who is a member of the given organization.
+  memberId: UUID!
 
-  # A cultivation project's location.
-  location: String
+  # Denotes if this member has permission to administrate the organization.
+  isAdmin: Boolean
 
-  # A cultivation project's size and overview.
-  description: String
+  # The time this object was created.
+  createdAt: Date
 
-  # A cultivation project's size.
-  size: String
-
-  # A cultivation project's image url.
-  image: String
-
-  # A cultivation project's list of decision makers.
-  admins(after: String, first: Int, before: String, last: Int): UserConnection
-
-  # A cultivation project's list of people who have liked it.
-  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
-
-  # An area of land's list of economic inputs.
-  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
-
-  # An area of land's list of pending economic inputs.
-  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
-
-  # An area of land's project list.
-  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
 }
 
-input landAttributes {
-  name: String
-  location: String
-  description: String
-  size: String
-  image: String
+# Contains the `OrganizationMember` node inserted by the mutation.
+type InsertOrganizationMemberPayload implements Payload {
+  # The inserted `OrganizationMember`.
+  organizationMember: OrganizationMember
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  organizationMemberEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: OrganizationMemberOrdering = ORGANIZATION_ID
+  ): OrganizationMemberEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
 }
 
-# A connection to a list of items.
-type LandConnection {
-  # Information to aid in pagination.
+# Contains the `Organization` node inserted by the mutation.
+type InsertOrganizationPayload implements Payload {
+  # The inserted `Organization`.
+  organization: Organization
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  organizationEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: OrganizationOrdering = ROW_ID
+  ): OrganizationEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The `OrganizationResource` to insert.
+input InsertOrganizationResourceInput {
+  # The unique identifier of the organization which the resource has been allocated to.
+  organizationId: UUID!
+
+  # The unique identifier of the resource which has been allocated.
+  resourceId: UUID!
+
+  # The current status of the resource in the allocation lifecycle.
+  status: ResourceAllocationStatus!
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `OrganizationResource` node inserted by the mutation.
+type InsertOrganizationResourcePayload implements Payload {
+  # The inserted `OrganizationResource`.
+  organizationResource: OrganizationResource
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  organizationResourceEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: OrganizationResourceOrdering = ORGANIZATION_ID
+  ): OrganizationResourceEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The `Project` to insert.
+input InsertProjectInput {
+  # The unique identifier of the project.
+  rowId: UUID
+
+  # The unique identifier of the organization that has responsibility over this project.
+  organizationId: UUID!
+
+  # The name of the project.
+  name: String!
+
+  # A description of the project written by the organization responsible.
+  description: String
+
+  # The URL of an image to represent the project.
+  imageUrl: String
+
+  # Denotes whether or not this project is actively being worked on. Inactive may also mean paused.
+  isActive: Boolean
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `Project` node inserted by the mutation.
+type InsertProjectPayload implements Payload {
+  # The inserted `Project`.
+  project: Project
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  projectEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: ProjectOrdering = ROW_ID
+  ): ProjectEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The `ProjectResource` to insert.
+input InsertProjectResourceInput {
+  # The unique identifier of the project which the resource has been allocated to.
+  projectId: UUID!
+
+  # The unique identifier of the resource which has been allocated.
+  resourceId: UUID!
+
+  # The current status of the resource in the allocation lifecycle.
+  status: ResourceAllocationStatus!
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `ProjectResource` node inserted by the mutation.
+type InsertProjectResourcePayload implements Payload {
+  # The inserted `ProjectResource`.
+  projectResource: ProjectResource
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  projectResourceEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: ProjectResourceOrdering = PROJECT_ID
+  ): ProjectResourceEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The `Resource` to insert.
+input InsertResourceInput {
+  # The resource’s unique identifier.
+  rowId: UUID
+
+  # An unique identifier of the user who owns this resource.
+  ownerId: UUID!
+
+  # A human-readable name.
+  name: String!
+
+  # A description of the resource written by the owner.
+  description: String
+
+  # Where the resource is in the world.
+  location: String
+
+  # A link to an image for this resource.
+  imageUrl: String
+
+  # The type of resource this is. Depending on the type various other columns should have relative data.
+  type: ResourceType
+
+  # If the type of this resource is `land`, then this is the size of that land in meters squared.
+  landSize: Float
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `Resource` node inserted by the mutation.
+type InsertResourcePayload implements Payload {
+  # The inserted `Resource`.
+  resource: Resource
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  resourceEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: ResourceOrdering = ROW_ID
+  ): ResourceEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The `Task` to insert.
+input InsertTaskInput {
+  # The unique identifier of this task.
+  rowId: UUID
+
+  # The unique identifier of the project this task must be completed for.
+  projectId: UUID!
+
+  # The unique identifier of the user who created this task.
+  authorId: UUID
+
+  # The name given by project administrators for this task.
+  name: String!
+
+  # A short description written by project administrators about this task.
+  description: String
+
+  # Denotes whether or not this task has been completed for the project.
+  isComplete: Boolean
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `Task` node inserted by the mutation.
+type InsertTaskPayload implements Payload {
+  # The inserted `Task`.
+  task: Task
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  taskEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: TaskOrdering = ROW_ID
+  ): TaskEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The `TaskResource` to insert.
+input InsertTaskResourceInput {
+  # The unique identifier of the task which the resource has been allocated to.
+  taskId: UUID!
+
+  # The unique identifier of the resource which has been allocated.
+  resourceId: UUID!
+
+  # The current status of the resource in the allocation lifecycle.
+  status: ResourceAllocationStatus!
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `TaskResource` node inserted by the mutation.
+type InsertTaskResourcePayload implements Payload {
+  # The inserted `TaskResource`.
+  taskResource: TaskResource
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  taskResourceEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: TaskResourceOrdering = TASK_ID
+  ): TaskResourceEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The `User` to insert.
+input InsertUserInput {
+  # The user’s unique identifier.
+  rowId: UUID
+
+  # A human-readable first and last name.
+  name: String!
+
+  # Some copy written by the user as a brief description of themselves.
+  description: String
+
+  # A description of the user’s location in the world.
+  location: String
+
+  # The URL to an image which will be used as the user’s avatar.
+  imageUrl: String
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `User` node inserted by the mutation.
+type InsertUserPayload implements Payload {
+  # The inserted `User`.
+  user: User
+
+  # An edge to be inserted in a connection with help of the containing cursor.
+  userEdge(
+    # The value by which the cursor is created so relay knows where to insert the edge in the connection.
+    orderBy: UserOrdering = ROW_ID
+  ): UserEdge
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The input object for the `likeOrganization` procedure.
+input LikeOrganizationInput {
+  id: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# The payload returned by the `likeOrganization`
+type LikeOrganizationPayload implements Payload {
+  # The actual value returned by `likeOrganization`
+  output: Organization
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The input object for the `likeProject` procedure.
+input LikeProjectInput {
+  id: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# The payload returned by the `likeProject`
+type LikeProjectPayload implements Payload {
+  # The actual value returned by `likeProject`
+  output: Project
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The input object for the `likeResource` procedure.
+input LikeResourceInput {
+  id: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# The payload returned by the `likeResource`
+type LikeResourcePayload implements Payload {
+  # The actual value returned by `likeResource`
+  output: Resource
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The input object for the `likeTask` procedure.
+input LikeTaskInput {
+  id: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# The payload returned by the `likeTask`
+type LikeTaskPayload implements Payload {
+  # The actual value returned by `likeTask`
+  output: Task
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The entry type for GraphQL mutations.
+type Mutation {
+  unlikeOrganization(input: UnlikeOrganizationInput!): UnlikeOrganizationPayload
+  unlikeProject(input: UnlikeProjectInput!): UnlikeProjectPayload
+  createUser(input: CreateUserInput!): CreateUserPayload
+  likeResource(input: LikeResourceInput!): LikeResourcePayload
+  unlikeResource(input: UnlikeResourceInput!): UnlikeResourcePayload
+  likeOrganization(input: LikeOrganizationInput!): LikeOrganizationPayload
+  likeTask(input: LikeTaskInput!): LikeTaskPayload
+  unlikeTask(input: UnlikeTaskInput!): UnlikeTaskPayload
+  likeProject(input: LikeProjectInput!): LikeProjectPayload
+  authenticateUser(input: AuthenticateUserInput!): AuthenticateUserPayload
+
+  # Creates a new node of the `User` type.
+  insertUser(input: InsertUserInput!): InsertUserPayload
+
+  # Updates a single node of type `User`.
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+
+  # Deletes a single node of type `User`.
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload
+
+  # Creates a new node of the `Resource` type.
+  insertResource(input: InsertResourceInput!): InsertResourcePayload
+
+  # Updates a single node of type `Resource`.
+  updateResource(input: UpdateResourceInput!): UpdateResourcePayload
+
+  # Deletes a single node of type `Resource`.
+  deleteResource(input: DeleteResourceInput!): DeleteResourcePayload
+
+  # Creates a new node of the `Organization` type.
+  insertOrganization(input: InsertOrganizationInput!): InsertOrganizationPayload
+
+  # Updates a single node of type `Organization`.
+  updateOrganization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
+
+  # Deletes a single node of type `Organization`.
+  deleteOrganization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
+
+  # Creates a new node of the `OrganizationMember` type.
+  insertOrganizationMember(input: InsertOrganizationMemberInput!): InsertOrganizationMemberPayload
+
+  # Updates a single node of type `OrganizationMember`.
+  updateOrganizationMember(input: UpdateOrganizationMemberInput!): UpdateOrganizationMemberPayload
+
+  # Deletes a single node of type `OrganizationMember`.
+  deleteOrganizationMember(input: DeleteOrganizationMemberInput!): DeleteOrganizationMemberPayload
+
+  # Creates a new node of the `OrganizationResource` type.
+  insertOrganizationResource(input: InsertOrganizationResourceInput!): InsertOrganizationResourcePayload
+
+  # Updates a single node of type `OrganizationResource`.
+  updateOrganizationResource(input: UpdateOrganizationResourceInput!): UpdateOrganizationResourcePayload
+
+  # Deletes a single node of type `OrganizationResource`.
+  deleteOrganizationResource(input: DeleteOrganizationResourceInput!): DeleteOrganizationResourcePayload
+
+  # Creates a new node of the `Project` type.
+  insertProject(input: InsertProjectInput!): InsertProjectPayload
+
+  # Updates a single node of type `Project`.
+  updateProject(input: UpdateProjectInput!): UpdateProjectPayload
+
+  # Deletes a single node of type `Project`.
+  deleteProject(input: DeleteProjectInput!): DeleteProjectPayload
+
+  # Creates a new node of the `ProjectResource` type.
+  insertProjectResource(input: InsertProjectResourceInput!): InsertProjectResourcePayload
+
+  # Updates a single node of type `ProjectResource`.
+  updateProjectResource(input: UpdateProjectResourceInput!): UpdateProjectResourcePayload
+
+  # Deletes a single node of type `ProjectResource`.
+  deleteProjectResource(input: DeleteProjectResourceInput!): DeleteProjectResourcePayload
+
+  # Creates a new node of the `Task` type.
+  insertTask(input: InsertTaskInput!): InsertTaskPayload
+
+  # Updates a single node of type `Task`.
+  updateTask(input: UpdateTaskInput!): UpdateTaskPayload
+
+  # Deletes a single node of type `Task`.
+  deleteTask(input: DeleteTaskInput!): DeleteTaskPayload
+
+  # Creates a new node of the `TaskResource` type.
+  insertTaskResource(input: InsertTaskResourceInput!): InsertTaskResourcePayload
+
+  # Updates a single node of type `TaskResource`.
+  updateTaskResource(input: UpdateTaskResourceInput!): UpdateTaskResourcePayload
+
+  # Deletes a single node of type `TaskResource`.
+  deleteTaskResource(input: DeleteTaskResourceInput!): DeleteTaskResourcePayload
+}
+
+# A single node object in the graph with a globally unique identifier.
+interface Node {
+  # The `Node`’s globally unique identifier used to refetch the node.
+  id: ID
+}
+
+# A group of users who administers projects and may be given resources.
+type Organization implements Node {
+  # The globally unique identifier for this `Organization`.
+  id: ID
+
+  # The unique identifier for the organization.
+  rowId: UUID!
+
+  # The organization’s human-readable name.
+  name: String!
+
+  # A description of the organization written by one of the organization’s admins.
+  description: String
+
+  # The location where the organization is based.
+  location: String
+
+  # A URL to an image that represents the organization.
+  imageUrl: String
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+  likeCount: Int
+
+  # Queries and returns a set of `OrganizationMember` nodes that are related to the `Organization` source node.
+  organizationMemberNodesByOrganizationId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationMemberOrdering = ORGANIZATION_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `memberId` field.
+    memberId: UUID
+
+    # Filters the resulting set with an equality test on the `isAdmin` field.
+    isAdmin: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+  ): OrganizationMemberConnection
+
+  # Queries and returns a set of `OrganizationResource` nodes that are related to the `Organization` source node.
+  organizationResourceNodesByOrganizationId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationResourceOrdering = ORGANIZATION_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): OrganizationResourceConnection
+
+  # Queries and returns a set of `Project` nodes that are related to the `Organization` source node.
+  projectNodesByOrganizationId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ProjectOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `isActive` field.
+    isActive: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ProjectConnection
+}
+
+# A connection to a list of `Organization` items
+type OrganizationConnection {
+  # Information to aid in pagination of type `Organization`.
   pageInfo: PageInfo!
 
-  # A list of edges.
-  edges: [LandEdge]
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `Organization`.
+  nodes: [Organization]
+
+  # A single item and a cursor to aid in pagination.
+  edges: [OrganizationEdge]
 }
 
-# An edge in a connection.
-type LandEdge {
-  # The item at the end of the edge
-  node: Land
+# An edge in the `OrganizationConnection`.
+type OrganizationEdge {
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
 
-  # A cursor for use in pagination
-  cursor: String!
+  # The item at the end of the edge.
+  node: Organization
 }
 
-input LikeLandInput {
-  userId: ID!
-  landId: ID!
-  clientMutationId: String
+# Represents a user’s membership in an organization.
+type OrganizationMember implements Node {
+  # The globally unique identifier for this `OrganizationMember`.
+  id: ID
+
+  # The organization which the user is a part of.
+  organizationId: UUID!
+
+  # The user who is a member of the given organization.
+  memberId: UUID!
+
+  # Denotes if this member has permission to administrate the organization.
+  isAdmin: Boolean!
+
+  # The time this object was created.
+  createdAt: Date
+
+  # Queries a single `Organization` node related to the `OrganizationMember` type.
+  organizationByOrganizationId: Organization
+
+  # Queries a single `User` node related to the `OrganizationMember` type.
+  userByMemberId: User
 }
 
-type LikeLandPayload {
-  landEdge: LandEdge
-  userEdge: UserEdge
-  user: User
-  land: Land
-  clientMutationId: String
+# A connection to a list of `OrganizationMember` items
+type OrganizationMemberConnection {
+  # Information to aid in pagination of type `OrganizationMember`.
+  pageInfo: PageInfo!
+
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `OrganizationMember`.
+  nodes: [OrganizationMember]
+
+  # A single item and a cursor to aid in pagination.
+  edges: [OrganizationMemberEdge]
 }
 
-input LikeProjectInput {
-  userId: ID!
-  projectId: ID!
-  clientMutationId: String
+# An edge in the `OrganizationMemberConnection`.
+type OrganizationMemberEdge {
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
+  node: OrganizationMember
 }
 
-type LikeProjectPayload {
-  projectEdge: ProjectEdge
-  userEdge: UserEdge
-  user: User
-  project: Project
-  clientMutationId: String
+# Properties with which `OrganizationMember` can be ordered.
+enum OrganizationMemberOrdering {
+  # The organization which the user is a part of.
+  ORGANIZATION_ID
+
+  # The user who is a member of the given organization.
+  MEMBER_ID
+
+  # Denotes if this member has permission to administrate the organization.
+  IS_ADMIN
+
+  # The time this object was created.
+  CREATED_AT
 }
 
-input LikeResourceInput {
-  userId: ID!
-  resourceId: ID!
-  clientMutationId: String
+# Properties with which `Organization` can be ordered.
+enum OrganizationOrdering {
+  # The unique identifier for the organization.
+  ROW_ID
+
+  # The organization’s human-readable name.
+  NAME
+
+  # A description of the organization written by one of the organization’s admins.
+  DESCRIPTION
+
+  # The location where the organization is based.
+  LOCATION
+
+  # A URL to an image that represents the organization.
+  IMAGE_URL
+
+  # The time this object was created.
+  CREATED_AT
+
+  # The time this object was last updated.
+  UPDATED_AT
 }
 
-type LikeResourcePayload {
-  resourceEdge: ResourceEdge
-  userEdge: UserEdge
-  user: User
-  resource: Resource
-  clientMutationId: String
+# A resource that has been allocated to an organization.
+type OrganizationResource implements Node {
+  # The globally unique identifier for this `OrganizationResource`.
+  id: ID
+
+  # The unique identifier of the organization which the resource has been allocated to.
+  organizationId: UUID!
+
+  # The unique identifier of the resource which has been allocated.
+  resourceId: UUID!
+
+  # The current status of the resource in the allocation lifecycle.
+  status: ResourceAllocationStatus!
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # Queries a single `Organization` node related to the `OrganizationResource` type.
+  organizationByOrganizationId: Organization
+
+  # Queries a single `Resource` node related to the `OrganizationResource` type.
+  resourceByResourceId: Resource
 }
 
-# A root-level client wrapper.
-type Master implements Node {
-  # The ID of an object
-  id: ID!
-  users(after: String, first: Int, before: String, last: Int): UserConnection
-  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
-  lands(after: String, first: Int, before: String, last: Int): LandConnection
-  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
-  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+# A connection to a list of `OrganizationResource` items
+type OrganizationResourceConnection {
+  # Information to aid in pagination of type `OrganizationResource`.
+  pageInfo: PageInfo!
+
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `OrganizationResource`.
+  nodes: [OrganizationResource]
+
+  # A single item and a cursor to aid in pagination.
+  edges: [OrganizationResourceEdge]
 }
 
-type Mutation {
-  addResourceToLand(input: AddResourceToLandInput!): AddResourceToLandPayload
-  addResourceToProject(input: AddResourceToProjectInput!): AddResourceToProjectPayload
-  addResourceToTask(input: AddResourceToTaskInput!): AddResourceToTaskPayload
-  deleteLand(input: DeleteLandInput!): DeleteLandPayload
-  deleteProject(input: DeleteProjectInput!): DeleteProjectPayload
-  deleteResource(input: DeleteResourceInput!): DeleteResourcePayload
-  deleteTask(input: DeleteTaskInput!): DeleteTaskPayload
-  deleteUser(input: DeleteUserInput!): DeleteUserPayload
-  likeLand(input: LikeLandInput!): LikeLandPayload
-  likeProject(input: LikeProjectInput!): LikeProjectPayload
-  likeResource(input: LikeResourceInput!): LikeResourcePayload
-  newLand(input: NewLandInput!): NewLandPayload
-  newProject(input: NewProjectInput!): NewProjectPayload
-  newTask(input: NewTaskInput!): NewTaskPayload
-  newResource(input: NewResourceInput!): NewResourcePayload
-  newUser(input: NewUserInput!): NewUserPayload
-  pendingResourceToLand(input: PendingResourceToLandInput!): PendingResourceToLandPayload
-  pendingResourceToProject(input: PendingResourceToProjectInput!): PendingResourceToProjectPayload
-  pendingResourceToTask(input: PendingResourceToTaskInput!): PendingResourceToTaskPayload
-  removePendingResourceToLand(input: RemovePendingResourceToLandInput!): RemovePendingResourceToLandPayload
-  removePendingResourceToProject(input: RemovePendingResourceToProjectInput!): RemovePendingResourceToProjectPayload
-  removePendingResourceToTask(input: RemovePendingResourceToTaskInput!): RemovePendingResourceToTaskPayload
-  removeResourceFromLand(input: RemoveResourceFromLandInput!): RemoveResourceFromLandPayload
-  removeResourceFromProject(input: RemoveResourceFromProjectInput!): RemoveResourceFromProjectPayload
-  removeResourceFromTask(input: RemoveResourceFromTaskInput!): RemoveResourceFromTaskPayload
-  unlikeLand(input: UnlikeLandInput!): UnlikeLandPayload
-  unlikeProject(input: UnlikeProjectInput!): UnlikeProjectPayload
-  unlikeResource(input: UnlikeResourceInput!): UnlikeResourcePayload
-  updateLand(input: UpdateLandInput!): UpdateLandPayload
-  updateProject(input: UpdateProjectInput!): UpdateProjectPayload
-  updateResource(input: UpdateResourceInput!): UpdateResourcePayload
-  updateTask(input: UpdateTaskInput!): UpdateTaskPayload
-  updateUser(input: UpdateUserInput!): UpdateUserPayload
+# An edge in the `OrganizationResourceConnection`.
+type OrganizationResourceEdge {
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
+  node: OrganizationResource
 }
 
-input NewLandInput {
-  userId: ID!
-  name: String!
-  description: String!
-  category: String!
-  image: String
-  clientMutationId: String
-}
+# Properties with which `OrganizationResource` can be ordered.
+enum OrganizationResourceOrdering {
+  # The unique identifier of the organization which the resource has been allocated to.
+  ORGANIZATION_ID
 
-type NewLandPayload {
-  landEdge: LandEdge
-  user: User
-  master: Master
-  clientMutationId: String
-}
+  # The unique identifier of the resource which has been allocated.
+  RESOURCE_ID
 
-input NewProjectInput {
-  userId: ID!
-  landId: ID!
-  name: String!
-  description: String!
-  category: String!
-  clientMutationId: String
-}
+  # The current status of the resource in the allocation lifecycle.
+  STATUS
 
-type NewProjectPayload {
-  projectEdge: ProjectEdge
-  user: User
-  master: Master
-  land: Land
-  clientMutationId: String
-}
+  # The time this object was created.
+  CREATED_AT
 
-input NewResourceInput {
-  userId: ID!
-  name: String!
-  description: String!
-  category: String!
-  image: String
-  clientMutationId: String
-}
-
-type NewResourcePayload {
-  resourceEdge: ResourceEdge
-  user: User
-  master: Master
-  clientMutationId: String
-}
-
-input NewTaskInput {
-  projectId: ID!
-  name: String!
-  description: String!
-  category: String!
-  clientMutationId: String
-}
-
-type NewTaskPayload {
-  taskEdge: TaskEdge
-  project: Project
-  master: Master
-  clientMutationId: String
-}
-
-input NewUserInput {
-  name: String!
-  email: String!
-  image: String
-  clientMutationId: String
-}
-
-type NewUserPayload {
-  userEdge: UserEdge
-  master: Master
-  clientMutationId: String
-}
-
-# An object with an ID
-interface Node {
-  # The id of the object.
-  id: ID!
+  # The time this object was last updated.
+  UPDATED_AT
 }
 
 # Information about pagination in a connection.
 type PageInfo {
-  # When paginating forwards, are there more items?
+  # Are there items after our result set to be queried?
   hasNextPage: Boolean!
 
-  # When paginating backwards, are there more items?
+  # Are there items before our result set to be queried?
   hasPreviousPage: Boolean!
 
-  # When paginating backwards, the cursor to continue.
-  startCursor: String
+  # The cursor for the first item in the list.
+  startCursor: Cursor
 
-  # When paginating forwards, the cursor to continue.
-  endCursor: String
+  # The cursor for the last item in the list.
+  endCursor: Cursor
 }
 
-input PendingResourceToLandInput {
-  resourceId: ID!
-  landId: ID!
+# The payload of any mutation which contains a few important fields.
+interface Payload {
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
   clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
 }
 
-type PendingResourceToLandPayload {
-  landEdge: LandEdge
-  resourceEdge: ResourceEdge
-  resource: Resource
-  land: Land
-  clientMutationId: String
-}
-
-input PendingResourceToProjectInput {
-  resourceId: ID!
-  projectId: ID!
-  clientMutationId: String
-}
-
-type PendingResourceToProjectPayload {
-  projectEdge: ProjectEdge
-  resourceEdge: ResourceEdge
-  resource: Resource
-  project: Project
-  clientMutationId: String
-}
-
-input PendingResourceToTaskInput {
-  resourceId: ID!
-  taskId: ID!
-  clientMutationId: String
-}
-
-type PendingResourceToTaskPayload {
-  taskEdge: TaskEdge
-  resourceEdge: ResourceEdge
-  resource: Resource
-  task: Task
-  clientMutationId: String
-}
-
-# A cultivation project.
+# A project which Terrafarm users or organizations may allocate resources to.
 type Project implements Node {
-  # The ID of an object
-  id: ID!
+  # The globally unique identifier for this `Project`.
+  id: ID
 
-  # A cultivation project's name.
-  name: String
+  # The unique identifier of the project.
+  rowId: UUID!
 
-  # A cultivation project's description.
+  # The unique identifier of the organization that has responsibility over this project.
+  organizationId: UUID!
+
+  # The name of the project.
+  name: String!
+
+  # A description of the project written by the organization responsible.
   description: String
 
-  # A cultivation project's priority level.
-  category: String
+  # The URL of an image to represent the project.
+  imageUrl: String
 
-  # A cultivation project's host land.
-  lands(after: String, first: Int, before: String, last: Int): LandConnection
+  # Denotes whether or not this project is actively being worked on. Inactive may also mean paused.
+  isActive: Boolean
 
-  # A project's list of administrators.
-  admins(after: String, first: Int, before: String, last: Int): UserConnection
+  # The time this object was created.
+  createdAt: Date
 
-  # A cultivation project's list of people who have liked it.
-  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
+  # The time this object was last updated.
+  updatedAt: Date
+  likeCount: Int
 
-  # A cultivation project's subtask.
-  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+  # Queries a single `Organization` node related to the `Project` type.
+  organizationByOrganizationId: Organization
 
-  # An area of land's list of economic inputs.
-  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  # Queries and returns a set of `ProjectResource` nodes that are related to the `Project` source node.
+  projectResourceNodesByProjectId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ProjectResourceOrdering = PROJECT_ID
 
-  # An area of land's list of pending economic inputs.
-  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ProjectResourceConnection
+
+  # Queries and returns a set of `Task` nodes that are related to the `Project` source node.
+  taskNodesByProjectId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: TaskOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `authorId` field.
+    authorId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `isComplete` field.
+    isComplete: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): TaskConnection
 }
 
-input projectAttributes {
-  name: String
-  category: String
-  description: String
-}
-
-# A connection to a list of items.
+# A connection to a list of `Project` items
 type ProjectConnection {
-  # Information to aid in pagination.
+  # Information to aid in pagination of type `Project`.
   pageInfo: PageInfo!
 
-  # A list of edges.
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `Project`.
+  nodes: [Project]
+
+  # A single item and a cursor to aid in pagination.
   edges: [ProjectEdge]
 }
 
-# An edge in a connection.
+# An edge in the `ProjectConnection`.
 type ProjectEdge {
-  # The item at the end of the edge
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
   node: Project
-
-  # A cursor for use in pagination
-  cursor: String!
 }
 
-input RemovePendingResourceToLandInput {
-  resourceId: ID!
-  landId: ID!
-  clientMutationId: String
+# Properties with which `Project` can be ordered.
+enum ProjectOrdering {
+  # The unique identifier of the project.
+  ROW_ID
+
+  # The unique identifier of the organization that has responsibility over this project.
+  ORGANIZATION_ID
+
+  # The name of the project.
+  NAME
+
+  # A description of the project written by the organization responsible.
+  DESCRIPTION
+
+  # The URL of an image to represent the project.
+  IMAGE_URL
+
+  # Denotes whether or not this project is actively being worked on. Inactive may also mean paused.
+  IS_ACTIVE
+
+  # The time this object was created.
+  CREATED_AT
+
+  # The time this object was last updated.
+  UPDATED_AT
 }
 
-type RemovePendingResourceToLandPayload {
-  removedResourceID: ID
-  removedLandID: ID
-  resource: Resource
-  land: Land
-  clientMutationId: String
+# A resource that has been allocated to an project.
+type ProjectResource implements Node {
+  # The globally unique identifier for this `ProjectResource`.
+  id: ID
+
+  # The unique identifier of the project which the resource has been allocated to.
+  projectId: UUID!
+
+  # The unique identifier of the resource which has been allocated.
+  resourceId: UUID!
+
+  # The current status of the resource in the allocation lifecycle.
+  status: ResourceAllocationStatus!
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # Queries a single `Project` node related to the `ProjectResource` type.
+  projectByProjectId: Project
+
+  # Queries a single `Resource` node related to the `ProjectResource` type.
+  resourceByResourceId: Resource
 }
 
-input RemovePendingResourceToProjectInput {
-  resourceId: ID!
-  projectId: ID!
-  clientMutationId: String
-}
-
-type RemovePendingResourceToProjectPayload {
-  removedResourceID: ID
-  removedProjectID: ID
-  resource: Resource
-  project: Project
-  clientMutationId: String
-}
-
-input RemovePendingResourceToTaskInput {
-  resourceId: ID!
-  taskId: ID!
-  clientMutationId: String
-}
-
-type RemovePendingResourceToTaskPayload {
-  removedResourceID: ID
-  removedTaskID: ID
-  resource: Resource
-  task: Task
-  clientMutationId: String
-}
-
-input RemoveResourceFromLandInput {
-  resourceId: ID!
-  landId: ID!
-  clientMutationId: String
-}
-
-type RemoveResourceFromLandPayload {
-  removedLandID: ID
-  removedResourceID: ID
-  resource: Resource
-  land: Land
-  clientMutationId: String
-}
-
-input RemoveResourceFromProjectInput {
-  resourceId: ID!
-  projectId: ID!
-  clientMutationId: String
-}
-
-type RemoveResourceFromProjectPayload {
-  removedProjectID: ID
-  removedResourceID: ID
-  resource: Resource
-  project: Project
-  clientMutationId: String
-}
-
-input RemoveResourceFromTaskInput {
-  resourceId: ID!
-  taskId: ID!
-  clientMutationId: String
-}
-
-type RemoveResourceFromTaskPayload {
-  removedTaskID: ID
-  removedResourceID: ID
-  resource: Resource
-  task: Task
-  clientMutationId: String
-}
-
-# An economic input.
-type Resource implements Node {
-  # The ID of an object
-  id: ID!
-
-  # An economic resource's name.
-  name: String
-
-  # An economic resource's access availability.
-  description: String
-
-  # An economic resource's category
-  category: String
-
-  # An economic input's image url.
-  image: String
-
-  # An economic input's list of owners.
-  users(after: String, first: Int, before: String, last: Int): UserConnection
-
-  # A list of people who have liked an economic input.
-  likedBy(after: String, first: Int, before: String, last: Int): UserConnection
-
-  # An economic input's list of lands with access.
-  lands(after: String, first: Int, before: String, last: Int): LandConnection
-
-  # An economic input's list of pending land commitments.
-  landsPending(after: String, first: Int, before: String, last: Int): LandConnection
-
-  # An economic input's task commitment list.
-  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
-
-  # An economic input's list of pending task commitments.
-  tasksPending(after: String, first: Int, before: String, last: Int): TaskConnection
-
-  # An economic input's project commitment list.
-  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
-
-  # An economic input's list of pending project commitments.
-  projectsPending(after: String, first: Int, before: String, last: Int): ProjectConnection
-}
-
-input resourceAttributes {
-  name: String
-  description: String
-  category: String
-  image: String
-}
-
-# A connection to a list of items.
-type ResourceConnection {
-  # Information to aid in pagination.
+# A connection to a list of `ProjectResource` items
+type ProjectResourceConnection {
+  # Information to aid in pagination of type `ProjectResource`.
   pageInfo: PageInfo!
 
-  # A list of edges.
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `ProjectResource`.
+  nodes: [ProjectResource]
+
+  # A single item and a cursor to aid in pagination.
+  edges: [ProjectResourceEdge]
+}
+
+# An edge in the `ProjectResourceConnection`.
+type ProjectResourceEdge {
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
+  node: ProjectResource
+}
+
+# Properties with which `ProjectResource` can be ordered.
+enum ProjectResourceOrdering {
+  # The unique identifier of the project which the resource has been allocated to.
+  PROJECT_ID
+
+  # The unique identifier of the resource which has been allocated.
+  RESOURCE_ID
+
+  # The current status of the resource in the allocation lifecycle.
+  STATUS
+
+  # The time this object was created.
+  CREATED_AT
+
+  # The time this object was last updated.
+  UPDATED_AT
+}
+
+# The public namespace for all Terrafarm data objects.
+type Query {
+  # Fetches an object given its globally unique `ID`.
+  node(
+    # The `ID` of the node.
+    id: ID!
+  ): Node
+
+  # Queries a single `User` using its primary keys.
+  user(
+    # The `ID` of the `User` node.
+    id: ID!
+  ): User
+
+  # Queries a single `User` using a uniqueness constraint with field `rowId`.
+  userByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): User
+
+  # Queries and returns a set of items with some metatadata for `User`. Note that
+  # cursors will not work across different `orderBy` values. If you want to reuse
+  # a cursor, make sure you don’t change `orderBy`.
+  userNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: UserOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `location` field.
+    location: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): UserConnection
+
+  # Queries a single `Resource` using its primary keys.
+  resource(
+    # The `ID` of the `Resource` node.
+    id: ID!
+  ): Resource
+
+  # Queries a single `Resource` using a uniqueness constraint with field `rowId`.
+  resourceByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): Resource
+
+  # Queries and returns a set of items with some metatadata for `Resource`. Note
+  # that cursors will not work across different `orderBy` values. If you want to
+  # reuse a cursor, make sure you don’t change `orderBy`.
+  resourceNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ResourceOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `ownerId` field.
+    ownerId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `location` field.
+    location: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `type` field.
+    type: ResourceType
+
+    # Filters the resulting set with an equality test on the `landSize` field.
+    landSize: Float
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ResourceConnection
+
+  # Queries a single `Organization` using its primary keys.
+  organization(
+    # The `ID` of the `Organization` node.
+    id: ID!
+  ): Organization
+
+  # Queries a single `Organization` using a uniqueness constraint with field `rowId`.
+  organizationByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): Organization
+
+  # Queries and returns a set of items with some metatadata for `Organization`.
+  # Note that cursors will not work across different `orderBy` values. If you want
+  # to reuse a cursor, make sure you don’t change `orderBy`.
+  organizationNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `location` field.
+    location: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): OrganizationConnection
+
+  # Queries a single `OrganizationMember` using its primary keys.
+  organizationMember(
+    # The `ID` of the `OrganizationMember` node.
+    id: ID!
+  ): OrganizationMember
+
+  # Queries a single `OrganizationMember` using a uniqueness constraint with fields `organizationId`, `memberId`.
+  organizationMemberByOrganizationIdAndMemberId(
+    # The exact value of the `organizationId` field to match.
+    organizationId: UUID!
+
+    # The exact value of the `memberId` field to match.
+    memberId: UUID!
+  ): OrganizationMember
+
+  # Queries and returns a set of items with some metatadata for
+  # `OrganizationMember`. Note that cursors will not work across different
+  # `orderBy` values. If you want to reuse a cursor, make sure you don’t change `orderBy`.
+  organizationMemberNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationMemberOrdering = ORGANIZATION_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `organizationId` field.
+    organizationId: UUID
+
+    # Filters the resulting set with an equality test on the `memberId` field.
+    memberId: UUID
+
+    # Filters the resulting set with an equality test on the `isAdmin` field.
+    isAdmin: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+  ): OrganizationMemberConnection
+
+  # Queries a single `OrganizationResource` using its primary keys.
+  organizationResource(
+    # The `ID` of the `OrganizationResource` node.
+    id: ID!
+  ): OrganizationResource
+
+  # Queries a single `OrganizationResource` using a uniqueness constraint with fields `organizationId`, `resourceId`.
+  organizationResourceByOrganizationIdAndResourceId(
+    # The exact value of the `organizationId` field to match.
+    organizationId: UUID!
+
+    # The exact value of the `resourceId` field to match.
+    resourceId: UUID!
+  ): OrganizationResource
+
+  # Queries and returns a set of items with some metatadata for
+  # `OrganizationResource`. Note that cursors will not work across different
+  # `orderBy` values. If you want to reuse a cursor, make sure you don’t change `orderBy`.
+  organizationResourceNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationResourceOrdering = ORGANIZATION_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `organizationId` field.
+    organizationId: UUID
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): OrganizationResourceConnection
+
+  # Queries a single `Project` using its primary keys.
+  project(
+    # The `ID` of the `Project` node.
+    id: ID!
+  ): Project
+
+  # Queries a single `Project` using a uniqueness constraint with field `rowId`.
+  projectByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): Project
+
+  # Queries and returns a set of items with some metatadata for `Project`. Note
+  # that cursors will not work across different `orderBy` values. If you want to
+  # reuse a cursor, make sure you don’t change `orderBy`.
+  projectNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ProjectOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `organizationId` field.
+    organizationId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `isActive` field.
+    isActive: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ProjectConnection
+
+  # Queries a single `ProjectResource` using its primary keys.
+  projectResource(
+    # The `ID` of the `ProjectResource` node.
+    id: ID!
+  ): ProjectResource
+
+  # Queries a single `ProjectResource` using a uniqueness constraint with fields `projectId`, `resourceId`.
+  projectResourceByProjectIdAndResourceId(
+    # The exact value of the `projectId` field to match.
+    projectId: UUID!
+
+    # The exact value of the `resourceId` field to match.
+    resourceId: UUID!
+  ): ProjectResource
+
+  # Queries and returns a set of items with some metatadata for `ProjectResource`.
+  # Note that cursors will not work across different `orderBy` values. If you want
+  # to reuse a cursor, make sure you don’t change `orderBy`.
+  projectResourceNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ProjectResourceOrdering = PROJECT_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `projectId` field.
+    projectId: UUID
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ProjectResourceConnection
+
+  # Queries a single `Task` using its primary keys.
+  task(
+    # The `ID` of the `Task` node.
+    id: ID!
+  ): Task
+
+  # Queries a single `Task` using a uniqueness constraint with field `rowId`.
+  taskByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): Task
+
+  # Queries and returns a set of items with some metatadata for `Task`. Note that
+  # cursors will not work across different `orderBy` values. If you want to reuse
+  # a cursor, make sure you don’t change `orderBy`.
+  taskNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: TaskOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `projectId` field.
+    projectId: UUID
+
+    # Filters the resulting set with an equality test on the `authorId` field.
+    authorId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `isComplete` field.
+    isComplete: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): TaskConnection
+
+  # Queries a single `TaskResource` using its primary keys.
+  taskResource(
+    # The `ID` of the `TaskResource` node.
+    id: ID!
+  ): TaskResource
+
+  # Queries a single `TaskResource` using a uniqueness constraint with fields `taskId`, `resourceId`.
+  taskResourceByTaskIdAndResourceId(
+    # The exact value of the `taskId` field to match.
+    taskId: UUID!
+
+    # The exact value of the `resourceId` field to match.
+    resourceId: UUID!
+  ): TaskResource
+
+  # Queries and returns a set of items with some metatadata for `TaskResource`.
+  # Note that cursors will not work across different `orderBy` values. If you want
+  # to reuse a cursor, make sure you don’t change `orderBy`.
+  taskResourceNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: TaskResourceOrdering = TASK_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `taskId` field.
+    taskId: UUID
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): TaskResourceConnection
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# A physical resource that can be allocated to various other objects in Terrafarm.
+type Resource implements Node {
+  # The globally unique identifier for this `Resource`.
+  id: ID
+
+  # The resource’s unique identifier.
+  rowId: UUID!
+
+  # An unique identifier of the user who owns this resource.
+  ownerId: UUID!
+
+  # A human-readable name.
+  name: String!
+
+  # A description of the resource written by the owner.
+  description: String
+
+  # Where the resource is in the world.
+  location: String
+
+  # A link to an image for this resource.
+  imageUrl: String
+
+  # The type of resource this is. Depending on the type various other columns should have relative data.
+  type: ResourceType
+
+  # If the type of this resource is `land`, then this is the size of that land in meters squared.
+  landSize: Float
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+  likeCount: Int
+
+  # Queries a single `User` node related to the `Resource` type.
+  userByOwnerId: User
+
+  # Queries and returns a set of `OrganizationResource` nodes that are related to the `Resource` source node.
+  organizationResourceNodesByResourceId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationResourceOrdering = ORGANIZATION_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `organizationId` field.
+    organizationId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): OrganizationResourceConnection
+
+  # Queries and returns a set of `ProjectResource` nodes that are related to the `Resource` source node.
+  projectResourceNodesByResourceId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ProjectResourceOrdering = PROJECT_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `projectId` field.
+    projectId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ProjectResourceConnection
+
+  # Queries and returns a set of `TaskResource` nodes that are related to the `Resource` source node.
+  taskResourceNodesByResourceId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: TaskResourceOrdering = TASK_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `taskId` field.
+    taskId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): TaskResourceConnection
+}
+
+enum ResourceAllocationStatus {
+  REQUESTED
+  OFFERED
+  ACCEPTED
+  REJECTED
+}
+
+# A connection to a list of `Resource` items
+type ResourceConnection {
+  # Information to aid in pagination of type `Resource`.
+  pageInfo: PageInfo!
+
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `Resource`.
+  nodes: [Resource]
+
+  # A single item and a cursor to aid in pagination.
   edges: [ResourceEdge]
 }
 
-# An edge in a connection.
+# An edge in the `ResourceConnection`.
 type ResourceEdge {
-  # The item at the end of the edge
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
   node: Resource
-
-  # A cursor for use in pagination
-  cursor: String!
 }
 
-type Root {
-  land(landId: String): Land
-  master: Master
-  resource(resourceId: String): Resource
-  user(userId: String): User
-  viewer: User
-  project(projectId: String): Project
-  task(taskId: String): Task
+# Properties with which `Resource` can be ordered.
+enum ResourceOrdering {
+  # The resource’s unique identifier.
+  ROW_ID
 
-  # Fetches an object given its ID
-  node(
-    # The ID of an object
-    id: ID!
-  ): Node
+  # An unique identifier of the user who owns this resource.
+  OWNER_ID
+
+  # A human-readable name.
+  NAME
+
+  # A description of the resource written by the owner.
+  DESCRIPTION
+
+  # Where the resource is in the world.
+  LOCATION
+
+  # A link to an image for this resource.
+  IMAGE_URL
+
+  # The type of resource this is. Depending on the type various other columns should have relative data.
+  TYPE
+
+  # If the type of this resource is `land`, then this is the size of that land in meters squared.
+  LAND_SIZE
+
+  # The time this object was created.
+  CREATED_AT
+
+  # The time this object was last updated.
+  UPDATED_AT
 }
 
-# A project subtask.
+enum ResourceType {
+  LAND
+  EQUIPMENT
+  LABOR
+  MATERIALS
+  COMPOST
+  SEEDS
+}
+
+# A task that must be completed for a project.
 type Task implements Node {
-  # The ID of an object
-  id: ID!
+  # The globally unique identifier for this `Task`.
+  id: ID
 
-  # A subtask's title.
-  name: String
+  # The unique identifier of this task.
+  rowId: UUID!
 
-  # A project subtask's status
+  # The unique identifier of the project this task must be completed for.
+  projectId: UUID!
+
+  # The unique identifier of the user who created this task.
+  authorId: UUID
+
+  # The name given by project administrators for this task.
+  name: String!
+
+  # A short description written by project administrators about this task.
   description: String
 
-  # A project subtask's specification.
-  category: String
+  # Denotes whether or not this task has been completed for the project.
+  isComplete: Boolean
 
-  # A subtask's parent project.
-  projects(after: String, first: Int, before: String, last: Int): ProjectConnection
+  # The time this object was created.
+  createdAt: Date
 
-  # A project subtask's list of economic inputs.
-  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  # The time this object was last updated.
+  updatedAt: Date
+  likeCount: Int
 
-  # A project subtask's list of pending economic inputs.
-  resourcesPending(after: String, first: Int, before: String, last: Int): ResourceConnection
+  # Queries a single `Project` node related to the `Task` type.
+  projectByProjectId: Project
+
+  # Queries a single `User` node related to the `Task` type.
+  userByAuthorId: User
+
+  # Queries and returns a set of `TaskResource` nodes that are related to the `Task` source node.
+  taskResourceNodesByTaskId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: TaskResourceOrdering = TASK_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): TaskResourceConnection
 }
 
-input taskAttributes {
-  name: String
-  category: String
-  description: String
-}
-
-# A connection to a list of items.
+# A connection to a list of `Task` items
 type TaskConnection {
-  # Information to aid in pagination.
+  # Information to aid in pagination of type `Task`.
   pageInfo: PageInfo!
 
-  # A list of edges.
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `Task`.
+  nodes: [Task]
+
+  # A single item and a cursor to aid in pagination.
   edges: [TaskEdge]
 }
 
-# An edge in a connection.
+# An edge in the `TaskConnection`.
 type TaskEdge {
-  # The item at the end of the edge
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
   node: Task
-
-  # A cursor for use in pagination
-  cursor: String!
 }
 
-input UnlikeLandInput {
-  userId: ID!
-  landId: ID!
-  clientMutationId: String
+# Properties with which `Task` can be ordered.
+enum TaskOrdering {
+  # The unique identifier of this task.
+  ROW_ID
+
+  # The unique identifier of the project this task must be completed for.
+  PROJECT_ID
+
+  # The unique identifier of the user who created this task.
+  AUTHOR_ID
+
+  # The name given by project administrators for this task.
+  NAME
+
+  # A short description written by project administrators about this task.
+  DESCRIPTION
+
+  # Denotes whether or not this task has been completed for the project.
+  IS_COMPLETE
+
+  # The time this object was created.
+  CREATED_AT
+
+  # The time this object was last updated.
+  UPDATED_AT
 }
 
-type UnlikeLandPayload {
-  removedUserID: ID
-  removedLandID: ID
-  user: User
-  land: Land
-  clientMutationId: String
+# A resource that has been allocated to an task.
+type TaskResource implements Node {
+  # The globally unique identifier for this `TaskResource`.
+  id: ID
+
+  # The unique identifier of the task which the resource has been allocated to.
+  taskId: UUID!
+
+  # The unique identifier of the resource which has been allocated.
+  resourceId: UUID!
+
+  # The current status of the resource in the allocation lifecycle.
+  status: ResourceAllocationStatus!
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # Queries a single `Resource` node related to the `TaskResource` type.
+  resourceByResourceId: Resource
+
+  # Queries a single `Task` node related to the `TaskResource` type.
+  taskByTaskId: Task
 }
 
-input UnlikeProjectInput {
-  userId: ID!
-  projectId: ID!
-  clientMutationId: String
-}
-
-type UnlikeProjectPayload {
-  removedUserID: ID
-  removedProjectID: ID
-  user: User
-  project: Project
-  clientMutationId: String
-}
-
-input UnlikeResourceInput {
-  userId: ID!
-  resourceId: ID!
-  clientMutationId: String
-}
-
-type UnlikeResourcePayload {
-  removedUserID: ID
-  removedResourceID: ID
-  user: User
-  resource: Resource
-  clientMutationId: String
-}
-
-input UpdateLandInput {
-  id: ID!
-  attributes: landAttributes
-  clientMutationId: String
-}
-
-type UpdateLandPayload {
-  land: Land
-  clientMutationId: String
-}
-
-input UpdateProjectInput {
-  id: ID!
-  attributes: projectAttributes
-  clientMutationId: String
-}
-
-type UpdateProjectPayload {
-  project: Project
-  clientMutationId: String
-}
-
-input UpdateResourceInput {
-  id: ID!
-  attributes: resourceAttributes
-  clientMutationId: String
-}
-
-type UpdateResourcePayload {
-  resource: Resource
-  clientMutationId: String
-}
-
-input UpdateTaskInput {
-  id: ID!
-  attributes: taskAttributes
-  clientMutationId: String
-}
-
-type UpdateTaskPayload {
-  task: Task
-  clientMutationId: String
-}
-
-input UpdateUserInput {
-  id: ID!
-  attributes: userAttributes
-  clientMutationId: String
-}
-
-type UpdateUserPayload {
-  user: User
-  clientMutationId: String
-}
-
-# A person who uses our app.
-type User implements Node {
-  # The ID of an object
-  id: ID!
-
-  # A person's name.
-  name: String
-
-  # A person's email address.
-  email: String
-
-  # A person's physical location.
-  location: String
-
-  # A person's description of his or her intention.
-  description: String
-
-  # A person's image url.
-  image: String
-
-  # A person's list of economic inputs.
-  resources(after: String, first: Int, before: String, last: Int): ResourceConnection
-
-  # A list of resources that a person has liked.
-  resourcesLiked(after: String, first: Int, before: String, last: Int): ResourceConnection
-
-  # A list of lands in which a person is a decision maker.
-  landsAdmin(after: String, first: Int, before: String, last: Int): LandConnection
-
-  # A list of lands that a person has liked.
-  landsLiked(after: String, first: Int, before: String, last: Int): LandConnection
-
-  # A list of projects which a person is an admin .
-  projectsAdmin(after: String, first: Int, before: String, last: Int): ProjectConnection
-
-  # A list of projects that a person has liked.
-  projectsLiked(after: String, first: Int, before: String, last: Int): ProjectConnection
-
-  # An person's task assignment list.
-  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
-}
-
-input userAttributes {
-  name: String
-  location: String
-  description: String
-  image: String
-}
-
-# A connection to a list of items.
-type UserConnection {
-  # Information to aid in pagination.
+# A connection to a list of `TaskResource` items
+type TaskResourceConnection {
+  # Information to aid in pagination of type `TaskResource`.
   pageInfo: PageInfo!
 
-  # A list of edges.
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `TaskResource`.
+  nodes: [TaskResource]
+
+  # A single item and a cursor to aid in pagination.
+  edges: [TaskResourceEdge]
+}
+
+# An edge in the `TaskResourceConnection`.
+type TaskResourceEdge {
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
+  node: TaskResource
+}
+
+# Properties with which `TaskResource` can be ordered.
+enum TaskResourceOrdering {
+  # The unique identifier of the task which the resource has been allocated to.
+  TASK_ID
+
+  # The unique identifier of the resource which has been allocated.
+  RESOURCE_ID
+
+  # The current status of the resource in the allocation lifecycle.
+  STATUS
+
+  # The time this object was created.
+  CREATED_AT
+
+  # The time this object was last updated.
+  UPDATED_AT
+}
+
+# The input object for the `unlikeOrganization` procedure.
+input UnlikeOrganizationInput {
+  id: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# The payload returned by the `unlikeOrganization`
+type UnlikeOrganizationPayload implements Payload {
+  # The actual value returned by `unlikeOrganization`
+  output: Organization
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The input object for the `unlikeProject` procedure.
+input UnlikeProjectInput {
+  id: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# The payload returned by the `unlikeProject`
+type UnlikeProjectPayload implements Payload {
+  # The actual value returned by `unlikeProject`
+  output: Project
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The input object for the `unlikeResource` procedure.
+input UnlikeResourceInput {
+  id: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# The payload returned by the `unlikeResource`
+type UnlikeResourcePayload implements Payload {
+  # The actual value returned by `unlikeResource`
+  output: Resource
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# The input object for the `unlikeTask` procedure.
+input UnlikeTaskInput {
+  id: UUID!
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# The payload returned by the `unlikeTask`
+type UnlikeTaskPayload implements Payload {
+  # The actual value returned by `unlikeTask`
+  output: Task
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the `Organization` node to update and specifies some new field values.
+# Primary key fields are required to be able to locate the node to update.
+input UpdateOrganizationInput {
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # Updates the node’s `rowId` field with this new value.
+  newRowId: UUID
+
+  # Updates the node’s `name` field with this new value.
+  newName: String
+
+  # Updates the node’s `description` field with this new value.
+  newDescription: String
+
+  # Updates the node’s `location` field with this new value.
+  newLocation: String
+
+  # Updates the node’s `imageUrl` field with this new value.
+  newImageUrl: String
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # Updates the node’s `updatedAt` field with this new value.
+  newUpdatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Locates the `OrganizationMember` node to update and specifies some new field
+# values. Primary key fields are required to be able to locate the node to update.
+input UpdateOrganizationMemberInput {
+  # Matches the `organizationId` field of the node.
+  organizationId: UUID!
+
+  # Matches the `memberId` field of the node.
+  memberId: UUID!
+
+  # Updates the node’s `organizationId` field with this new value.
+  newOrganizationId: UUID
+
+  # Updates the node’s `memberId` field with this new value.
+  newMemberId: UUID
+
+  # Updates the node’s `isAdmin` field with this new value.
+  newIsAdmin: Boolean
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `OrganizationMember` node updated by the mutation.
+type UpdateOrganizationMemberPayload implements Payload {
+  # The updated `OrganizationMember`.
+  organizationMember: OrganizationMember
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Contains the `Organization` node updated by the mutation.
+type UpdateOrganizationPayload implements Payload {
+  # The updated `Organization`.
+  organization: Organization
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the `OrganizationResource` node to update and specifies some new field
+# values. Primary key fields are required to be able to locate the node to update.
+input UpdateOrganizationResourceInput {
+  # Matches the `organizationId` field of the node.
+  organizationId: UUID!
+
+  # Matches the `resourceId` field of the node.
+  resourceId: UUID!
+
+  # Updates the node’s `organizationId` field with this new value.
+  newOrganizationId: UUID
+
+  # Updates the node’s `resourceId` field with this new value.
+  newResourceId: UUID
+
+  # Updates the node’s `status` field with this new value.
+  newStatus: ResourceAllocationStatus
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # Updates the node’s `updatedAt` field with this new value.
+  newUpdatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `OrganizationResource` node updated by the mutation.
+type UpdateOrganizationResourcePayload implements Payload {
+  # The updated `OrganizationResource`.
+  organizationResource: OrganizationResource
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the `Project` node to update and specifies some new field values.
+# Primary key fields are required to be able to locate the node to update.
+input UpdateProjectInput {
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # Updates the node’s `rowId` field with this new value.
+  newRowId: UUID
+
+  # Updates the node’s `organizationId` field with this new value.
+  newOrganizationId: UUID
+
+  # Updates the node’s `name` field with this new value.
+  newName: String
+
+  # Updates the node’s `description` field with this new value.
+  newDescription: String
+
+  # Updates the node’s `imageUrl` field with this new value.
+  newImageUrl: String
+
+  # Updates the node’s `isActive` field with this new value.
+  newIsActive: Boolean
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # Updates the node’s `updatedAt` field with this new value.
+  newUpdatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `Project` node updated by the mutation.
+type UpdateProjectPayload implements Payload {
+  # The updated `Project`.
+  project: Project
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the `ProjectResource` node to update and specifies some new field
+# values. Primary key fields are required to be able to locate the node to update.
+input UpdateProjectResourceInput {
+  # Matches the `projectId` field of the node.
+  projectId: UUID!
+
+  # Matches the `resourceId` field of the node.
+  resourceId: UUID!
+
+  # Updates the node’s `projectId` field with this new value.
+  newProjectId: UUID
+
+  # Updates the node’s `resourceId` field with this new value.
+  newResourceId: UUID
+
+  # Updates the node’s `status` field with this new value.
+  newStatus: ResourceAllocationStatus
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # Updates the node’s `updatedAt` field with this new value.
+  newUpdatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `ProjectResource` node updated by the mutation.
+type UpdateProjectResourcePayload implements Payload {
+  # The updated `ProjectResource`.
+  projectResource: ProjectResource
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the `Resource` node to update and specifies some new field values.
+# Primary key fields are required to be able to locate the node to update.
+input UpdateResourceInput {
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # Updates the node’s `rowId` field with this new value.
+  newRowId: UUID
+
+  # Updates the node’s `ownerId` field with this new value.
+  newOwnerId: UUID
+
+  # Updates the node’s `name` field with this new value.
+  newName: String
+
+  # Updates the node’s `description` field with this new value.
+  newDescription: String
+
+  # Updates the node’s `location` field with this new value.
+  newLocation: String
+
+  # Updates the node’s `imageUrl` field with this new value.
+  newImageUrl: String
+
+  # Updates the node’s `type` field with this new value.
+  newType: ResourceType
+
+  # Updates the node’s `landSize` field with this new value.
+  newLandSize: Float
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # Updates the node’s `updatedAt` field with this new value.
+  newUpdatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `Resource` node updated by the mutation.
+type UpdateResourcePayload implements Payload {
+  # The updated `Resource`.
+  resource: Resource
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the `Task` node to update and specifies some new field values. Primary
+# key fields are required to be able to locate the node to update.
+input UpdateTaskInput {
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # Updates the node’s `rowId` field with this new value.
+  newRowId: UUID
+
+  # Updates the node’s `projectId` field with this new value.
+  newProjectId: UUID
+
+  # Updates the node’s `authorId` field with this new value.
+  newAuthorId: UUID
+
+  # Updates the node’s `name` field with this new value.
+  newName: String
+
+  # Updates the node’s `description` field with this new value.
+  newDescription: String
+
+  # Updates the node’s `isComplete` field with this new value.
+  newIsComplete: Boolean
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # Updates the node’s `updatedAt` field with this new value.
+  newUpdatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `Task` node updated by the mutation.
+type UpdateTaskPayload implements Payload {
+  # The updated `Task`.
+  task: Task
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the `TaskResource` node to update and specifies some new field values.
+# Primary key fields are required to be able to locate the node to update.
+input UpdateTaskResourceInput {
+  # Matches the `taskId` field of the node.
+  taskId: UUID!
+
+  # Matches the `resourceId` field of the node.
+  resourceId: UUID!
+
+  # Updates the node’s `taskId` field with this new value.
+  newTaskId: UUID
+
+  # Updates the node’s `resourceId` field with this new value.
+  newResourceId: UUID
+
+  # Updates the node’s `status` field with this new value.
+  newStatus: ResourceAllocationStatus
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # Updates the node’s `updatedAt` field with this new value.
+  newUpdatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `TaskResource` node updated by the mutation.
+type UpdateTaskResourcePayload implements Payload {
+  # The updated `TaskResource`.
+  taskResource: TaskResource
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# Locates the `User` node to update and specifies some new field values. Primary
+# key fields are required to be able to locate the node to update.
+input UpdateUserInput {
+  # Matches the `rowId` field of the node.
+  rowId: UUID!
+
+  # Updates the node’s `rowId` field with this new value.
+  newRowId: UUID
+
+  # Updates the node’s `name` field with this new value.
+  newName: String
+
+  # Updates the node’s `description` field with this new value.
+  newDescription: String
+
+  # Updates the node’s `location` field with this new value.
+  newLocation: String
+
+  # Updates the node’s `imageUrl` field with this new value.
+  newImageUrl: String
+
+  # Updates the node’s `createdAt` field with this new value.
+  newCreatedAt: Date
+
+  # Updates the node’s `updatedAt` field with this new value.
+  newUpdatedAt: Date
+
+  # An optional mutation ID for client’s to use in tracking mutations. This field
+  # has no meaning to the server and is simply returned as is.
+  clientMutationId: String
+}
+
+# Contains the `User` node updated by the mutation.
+type UpdateUserPayload implements Payload {
+  # The updated `User`.
+  user: User
+
+  # If the mutation was passed a `clientMutationId` in the input object this is the exact same value echoed back.
+  clientMutationId: String
+
+  # A single entry query for the advanced data client Relay. Nothing special at
+  # all, if you don’t know what this field is for, you probably don’t need it.
+  viewer: Viewer!
+}
+
+# A single human that uses the Terrafarm app.
+type User implements Node {
+  # The globally unique identifier for this `User`.
+  id: ID
+
+  # The user’s unique identifier.
+  rowId: UUID!
+
+  # A human-readable first and last name.
+  name: String!
+
+  # Some copy written by the user as a brief description of themselves.
+  description: String
+
+  # A description of the user’s location in the world.
+  location: String
+
+  # The URL to an image which will be used as the user’s avatar.
+  imageUrl: String
+
+  # The time this object was created.
+  createdAt: Date
+
+  # The time this object was last updated.
+  updatedAt: Date
+
+  # Queries and returns a set of `OrganizationMember` nodes that are related to the `User` source node.
+  organizationMemberNodesByMemberId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationMemberOrdering = ORGANIZATION_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `organizationId` field.
+    organizationId: UUID
+
+    # Filters the resulting set with an equality test on the `isAdmin` field.
+    isAdmin: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+  ): OrganizationMemberConnection
+
+  # Queries and returns a set of `Resource` nodes that are related to the `User` source node.
+  resourceNodesByOwnerId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ResourceOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `location` field.
+    location: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `type` field.
+    type: ResourceType
+
+    # Filters the resulting set with an equality test on the `landSize` field.
+    landSize: Float
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ResourceConnection
+
+  # Queries and returns a set of `Task` nodes that are related to the `User` source node.
+  taskNodesByAuthorId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: TaskOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `projectId` field.
+    projectId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `isComplete` field.
+    isComplete: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): TaskConnection
+
+  # Queries and returns a set of `UserAccount` nodes that are related to the `User` source node.
+  userAccountNodesByUserId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: UserAccountOrdering = USER_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `email` field.
+    email: String
+
+    # Filters the resulting set with an equality test on the `passwordHash` field.
+    passwordHash: String
+  ): UserAccountConnection
+
+  # Queries and returns a set of `UserLike` nodes that are related to the `User` source node.
+  userLikeNodesByUserId(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: UserLikeOrdering = USER_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `likeId` field.
+    likeId: UUID
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+  ): UserLikeConnection
+}
+
+# All private information about a human user of Terrafarm is stored here.
+type UserAccount implements Node {
+  # The globally unique identifier for this `UserAccount`.
+  id: ID
+
+  # The user who this private information is for.
+  userId: UUID!
+
+  # An email address. Emails must be unique across all users and must vaguely look like an email.
+  email: String!
+
+  # The hash for the users password.
+  passwordHash: String!
+
+  # Queries a single `User` node related to the `UserAccount` type.
+  userByUserId: User
+}
+
+# A connection to a list of `UserAccount` items
+type UserAccountConnection {
+  # Information to aid in pagination of type `UserAccount`.
+  pageInfo: PageInfo!
+
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `UserAccount`.
+  nodes: [UserAccount]
+
+  # A single item and a cursor to aid in pagination.
+  edges: [UserAccountEdge]
+}
+
+# An edge in the `UserAccountConnection`.
+type UserAccountEdge {
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
+  node: UserAccount
+}
+
+# Properties with which `UserAccount` can be ordered.
+enum UserAccountOrdering {
+  # The user who this private information is for.
+  USER_ID
+
+  # An email address. Emails must be unique across all users and must vaguely look like an email.
+  EMAIL
+
+  # The hash for the users password.
+  PASSWORD_HASH
+}
+
+# A connection to a list of `User` items
+type UserConnection {
+  # Information to aid in pagination of type `User`.
+  pageInfo: PageInfo!
+
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `User`.
+  nodes: [User]
+
+  # A single item and a cursor to aid in pagination.
   edges: [UserEdge]
 }
 
-# An edge in a connection.
+# An edge in the `UserConnection`.
 type UserEdge {
-  # The item at the end of the edge
-  node: User
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
 
-  # A cursor for use in pagination
-  cursor: String!
+  # The item at the end of the edge.
+  node: User
+}
+
+# A single “like” by a user towards a like group.
+type UserLike implements Node {
+  # The globally unique identifier for this `UserLike`.
+  id: ID
+
+  # The user who liked this group.
+  userId: UUID!
+
+  # The object the user liked.
+  likeId: UUID!
+
+  # The time this object was created.
+  createdAt: Date
+
+  # Queries a single `User` node related to the `UserLike` type.
+  userByUserId: User
+}
+
+# A connection to a list of `UserLike` items
+type UserLikeConnection {
+  # Information to aid in pagination of type `UserLike`.
+  pageInfo: PageInfo!
+
+  # All of the items available to be queried in this connection.
+  totalCount: Int
+
+  # The queried list of `UserLike`.
+  nodes: [UserLike]
+
+  # A single item and a cursor to aid in pagination.
+  edges: [UserLikeEdge]
+}
+
+# An edge in the `UserLikeConnection`.
+type UserLikeEdge {
+  # The cursor describing the position of the edge’s associated node.
+  cursor: Cursor!
+
+  # The item at the end of the edge.
+  node: UserLike
+}
+
+# Properties with which `UserLike` can be ordered.
+enum UserLikeOrdering {
+  # The user who liked this group.
+  USER_ID
+
+  # The object the user liked.
+  LIKE_ID
+
+  # The time this object was created.
+  CREATED_AT
+}
+
+# Properties with which `User` can be ordered.
+enum UserOrdering {
+  # The user’s unique identifier.
+  ROW_ID
+
+  # A human-readable first and last name.
+  NAME
+
+  # Some copy written by the user as a brief description of themselves.
+  DESCRIPTION
+
+  # A description of the user’s location in the world.
+  LOCATION
+
+  # The URL to an image which will be used as the user’s avatar.
+  IMAGE_URL
+
+  # The time this object was created.
+  CREATED_AT
+
+  # The time this object was last updated.
+  UPDATED_AT
+}
+
+# A universally unique identifier
+scalar UUID
+
+# The viewer type, provides a “view” into your data. To be used with Relay.
+type Viewer implements Node {
+  # Fetches an object given its globally unique `ID`.
+  node(
+    # The `ID` of the node.
+    id: ID!
+  ): Node
+
+  # Queries a single `User` using its primary keys.
+  user(
+    # The `ID` of the `User` node.
+    id: ID!
+  ): User
+
+  # Queries a single `User` using a uniqueness constraint with field `rowId`.
+  userByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): User
+
+  # Queries and returns a set of items with some metatadata for `User`. Note that
+  # cursors will not work across different `orderBy` values. If you want to reuse
+  # a cursor, make sure you don’t change `orderBy`.
+  userNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: UserOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `location` field.
+    location: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): UserConnection
+
+  # Queries a single `Resource` using its primary keys.
+  resource(
+    # The `ID` of the `Resource` node.
+    id: ID!
+  ): Resource
+
+  # Queries a single `Resource` using a uniqueness constraint with field `rowId`.
+  resourceByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): Resource
+
+  # Queries and returns a set of items with some metatadata for `Resource`. Note
+  # that cursors will not work across different `orderBy` values. If you want to
+  # reuse a cursor, make sure you don’t change `orderBy`.
+  resourceNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ResourceOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `ownerId` field.
+    ownerId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `location` field.
+    location: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `type` field.
+    type: ResourceType
+
+    # Filters the resulting set with an equality test on the `landSize` field.
+    landSize: Float
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ResourceConnection
+
+  # Queries a single `Organization` using its primary keys.
+  organization(
+    # The `ID` of the `Organization` node.
+    id: ID!
+  ): Organization
+
+  # Queries a single `Organization` using a uniqueness constraint with field `rowId`.
+  organizationByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): Organization
+
+  # Queries and returns a set of items with some metatadata for `Organization`.
+  # Note that cursors will not work across different `orderBy` values. If you want
+  # to reuse a cursor, make sure you don’t change `orderBy`.
+  organizationNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `location` field.
+    location: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): OrganizationConnection
+
+  # Queries a single `OrganizationMember` using its primary keys.
+  organizationMember(
+    # The `ID` of the `OrganizationMember` node.
+    id: ID!
+  ): OrganizationMember
+
+  # Queries a single `OrganizationMember` using a uniqueness constraint with fields `organizationId`, `memberId`.
+  organizationMemberByOrganizationIdAndMemberId(
+    # The exact value of the `organizationId` field to match.
+    organizationId: UUID!
+
+    # The exact value of the `memberId` field to match.
+    memberId: UUID!
+  ): OrganizationMember
+
+  # Queries and returns a set of items with some metatadata for
+  # `OrganizationMember`. Note that cursors will not work across different
+  # `orderBy` values. If you want to reuse a cursor, make sure you don’t change `orderBy`.
+  organizationMemberNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationMemberOrdering = ORGANIZATION_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `organizationId` field.
+    organizationId: UUID
+
+    # Filters the resulting set with an equality test on the `memberId` field.
+    memberId: UUID
+
+    # Filters the resulting set with an equality test on the `isAdmin` field.
+    isAdmin: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+  ): OrganizationMemberConnection
+
+  # Queries a single `OrganizationResource` using its primary keys.
+  organizationResource(
+    # The `ID` of the `OrganizationResource` node.
+    id: ID!
+  ): OrganizationResource
+
+  # Queries a single `OrganizationResource` using a uniqueness constraint with fields `organizationId`, `resourceId`.
+  organizationResourceByOrganizationIdAndResourceId(
+    # The exact value of the `organizationId` field to match.
+    organizationId: UUID!
+
+    # The exact value of the `resourceId` field to match.
+    resourceId: UUID!
+  ): OrganizationResource
+
+  # Queries and returns a set of items with some metatadata for
+  # `OrganizationResource`. Note that cursors will not work across different
+  # `orderBy` values. If you want to reuse a cursor, make sure you don’t change `orderBy`.
+  organizationResourceNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: OrganizationResourceOrdering = ORGANIZATION_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `organizationId` field.
+    organizationId: UUID
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): OrganizationResourceConnection
+
+  # Queries a single `Project` using its primary keys.
+  project(
+    # The `ID` of the `Project` node.
+    id: ID!
+  ): Project
+
+  # Queries a single `Project` using a uniqueness constraint with field `rowId`.
+  projectByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): Project
+
+  # Queries and returns a set of items with some metatadata for `Project`. Note
+  # that cursors will not work across different `orderBy` values. If you want to
+  # reuse a cursor, make sure you don’t change `orderBy`.
+  projectNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ProjectOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `organizationId` field.
+    organizationId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `imageUrl` field.
+    imageUrl: String
+
+    # Filters the resulting set with an equality test on the `isActive` field.
+    isActive: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ProjectConnection
+
+  # Queries a single `ProjectResource` using its primary keys.
+  projectResource(
+    # The `ID` of the `ProjectResource` node.
+    id: ID!
+  ): ProjectResource
+
+  # Queries a single `ProjectResource` using a uniqueness constraint with fields `projectId`, `resourceId`.
+  projectResourceByProjectIdAndResourceId(
+    # The exact value of the `projectId` field to match.
+    projectId: UUID!
+
+    # The exact value of the `resourceId` field to match.
+    resourceId: UUID!
+  ): ProjectResource
+
+  # Queries and returns a set of items with some metatadata for `ProjectResource`.
+  # Note that cursors will not work across different `orderBy` values. If you want
+  # to reuse a cursor, make sure you don’t change `orderBy`.
+  projectResourceNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: ProjectResourceOrdering = PROJECT_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `projectId` field.
+    projectId: UUID
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): ProjectResourceConnection
+
+  # Queries a single `Task` using its primary keys.
+  task(
+    # The `ID` of the `Task` node.
+    id: ID!
+  ): Task
+
+  # Queries a single `Task` using a uniqueness constraint with field `rowId`.
+  taskByRowId(
+    # The exact value of the `rowId` field to match.
+    rowId: UUID!
+  ): Task
+
+  # Queries and returns a set of items with some metatadata for `Task`. Note that
+  # cursors will not work across different `orderBy` values. If you want to reuse
+  # a cursor, make sure you don’t change `orderBy`.
+  taskNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: TaskOrdering = ROW_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `rowId` field.
+    rowId: UUID
+
+    # Filters the resulting set with an equality test on the `projectId` field.
+    projectId: UUID
+
+    # Filters the resulting set with an equality test on the `authorId` field.
+    authorId: UUID
+
+    # Filters the resulting set with an equality test on the `name` field.
+    name: String
+
+    # Filters the resulting set with an equality test on the `description` field.
+    description: String
+
+    # Filters the resulting set with an equality test on the `isComplete` field.
+    isComplete: Boolean
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): TaskConnection
+
+  # Queries a single `TaskResource` using its primary keys.
+  taskResource(
+    # The `ID` of the `TaskResource` node.
+    id: ID!
+  ): TaskResource
+
+  # Queries a single `TaskResource` using a uniqueness constraint with fields `taskId`, `resourceId`.
+  taskResourceByTaskIdAndResourceId(
+    # The exact value of the `taskId` field to match.
+    taskId: UUID!
+
+    # The exact value of the `resourceId` field to match.
+    resourceId: UUID!
+  ): TaskResource
+
+  # Queries and returns a set of items with some metatadata for `TaskResource`.
+  # Note that cursors will not work across different `orderBy` values. If you want
+  # to reuse a cursor, make sure you don’t change `orderBy`.
+  taskResourceNodes(
+    # The order the resulting items should be returned in. This argument is also
+    # important as it is used in creating pagination cursors. This value’s default
+    # is the primary key for the object.
+    orderBy: TaskResourceOrdering = TASK_ID
+
+    # The top `n` items in the set to be returned. Can’t be used with `last`.
+    first: Int
+
+    # The bottom `n` items in the set to be returned. Can’t be used with `first`.
+    last: Int
+
+    # Constrains the set to nodes *before* this cursor in the specified ordering.
+    before: Cursor
+
+    # Constrains the set to nodes *after* this cursor in the specified ordering.
+    after: Cursor
+
+    # An integer offset representing how many items to skip in the set.
+    offset: Int
+
+    # If `true` the nodes will be in descending order, if `false` the items will be in ascending order. `false` by default.
+    descending: Boolean = false
+
+    # Filters the resulting set with an equality test on the `taskId` field.
+    taskId: UUID
+
+    # Filters the resulting set with an equality test on the `resourceId` field.
+    resourceId: UUID
+
+    # Filters the resulting set with an equality test on the `status` field.
+    status: ResourceAllocationStatus
+
+    # Filters the resulting set with an equality test on the `createdAt` field.
+    createdAt: Date
+
+    # Filters the resulting set with an equality test on the `updatedAt` field.
+    updatedAt: Date
+  ): TaskResourceConnection
+
+  # An identifier for the viewer node. Just the plain string “viewer.” Can be used
+  # to refetch the viewer object in the `node` field. This is required for Relay.
+  id: ID
 }

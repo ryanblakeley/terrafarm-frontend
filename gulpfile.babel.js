@@ -17,7 +17,7 @@ import prodConfig from './webpack.production.config';
 import serverProdConfig from './webpack.server.production.config';
 
 // Test for environment variables and load if undefined
-if (!process.env.FIELDBOOK_ID) {
+if (!process.env.API_PORT) {
   env({file: './.env', type: 'ini'});
 }
 const PRIVATE_IP = process.env.PRIVATE_IP;
@@ -48,7 +48,7 @@ function onBuild (done, logLevel) {
 }
 
 gulp.task('load-schema', () => {
-  fetch(`${PATHS.apiSvr}`, {
+  fetch(`${PATHS.apiSvr}/graphql`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

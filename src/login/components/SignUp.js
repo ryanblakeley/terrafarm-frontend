@@ -1,5 +1,6 @@
 // Vendor
 import React, { Component, PropTypes } from 'react';
+import Relay from 'react-relay';
 import TextInput from 'shared/components/TextInput';
 import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/lib/raised-button';
@@ -8,7 +9,7 @@ import IoIosCheckmarkOutline from 'react-icons/lib/io/ios-checkmark-outline';
 import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
 
 // Local
-import { post } from 'shared/utils/fetch';
+import SignUpUserMutation from '../mutations/SignUpUserMutation';
 
 // Styles
 import classNames from '../styles/LoginPageStylesheet.css';
@@ -27,14 +28,23 @@ export default class SignUp extends Component {
     passwordLengthValid: false,
     passwordStrengthValid: false
   };
-  signUpUser = (values) => {
-    post({ url: 'signup', body: values }).then(response => {
-      if (response.error) {
-        this.setState({ signUpError: response.error });
-      } else {
-        this.props.loginUser(response.token);
-      }
-    });
+  processSignUp = (response) => {
+    const { createUser: { output } } = response;
+
+    if (output) {
+      this.props.loginUser(output);
+    } else {
+      this.setState({ signUpEror: 'There was an error signing you up.' });
+    }
+  }
+  handleFailure = (response) => {
+    this.setState({ signUpError: 'User already exists!' });
+  }
+  signUpUser = ({ name, email, password }) => {
+    Relay.Store.commitUpdate(
+      new SignUpUserMutation({ name, password, email }),
+      { onSuccess: this.processSignUp, onFailure: this.handleFailure }
+    );
   }
   handleValid = () => this.setState({ canSubmit: true });
   handleInvalid = () => this.setState({ canSubmit: false });
@@ -123,6 +133,6 @@ export default class SignUp extends Component {
           Sign Up
         </RaisedButton>
       </Formsy.Form>
-    )
+    );
   }
 }

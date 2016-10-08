@@ -23,9 +23,6 @@ export default class LoginPage extends Component {
     loggedIn: PropTypes.bool,
     setLoggedIn: PropTypes.func.isRequired,
   };
-  componentWillMount () {
-    this.injectAuthToken();
-  }
   componentDidMount () {
     const { router, loggedIn } = this.context;
 
@@ -33,20 +30,10 @@ export default class LoginPage extends Component {
       router.replace('/profile');
     }
   }
-  getIdToken () {
-    return localStorage.getItem('id_token');
-  }
-  injectAuthToken () {
-    const token = this.getIdToken();
-
-    if (token) {
-      Relay.injectNetworkLayer(networkLayer(token));
-    }
-  }
   loginUser = (token) => {
-    const { loggedIn, router, setLoggedIn } = this.context;
+    const { router, setLoggedIn } = this.context;
     localStorage.setItem('id_token', token);
-    this.injectAuthToken();
+    Relay.injectNetworkLayer(networkLayer(token));
     setLoggedIn(true);
     router.push('/profile');
   }

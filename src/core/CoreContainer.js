@@ -10,7 +10,6 @@ import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 // Local
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
-import networkLayer from 'lib/networkLayer';
 
 // Styles
 import 'shared/styles/base.css';
@@ -29,7 +28,6 @@ export class CoreContainer extends Component {
     location: PropTypes.object,
     loggedIn: PropTypes.bool,
     setLoggedIn: PropTypes.func,
-    refresh: PropTypes.func,
   };
   state = {
     loggedIn: false,
@@ -41,29 +39,17 @@ export class CoreContainer extends Component {
       location: this.props.location,
       loggedIn: this.state.loggedIn,
       setLoggedIn: (loggedIn) => this.setLoggedIn(loggedIn),
-      refresh: this.forceRefresh,
     };
   }
-  componentWillMount () {
-    this.injectAuthToken();
-  }
-  componentWillUpdate (_, nextState) {
-    const { idToken } = nextState;
-
-    if (idToken !== this.state.idToken) {
-      this.injectAuthToken();
-    }
-  }
-  getIdToken () {
+  componentDidMount () {
     const idToken = localStorage.getItem('id_token');
-
-    return idToken;
+    this.setState({ idToken });
   }
   setLoggedIn (loggedIn) {
     this.setState({ loggedIn });
   }
   getPageName () {
-    const {router} = this.context;
+    const { router } = this.context;
     let text = '';
     if (router.isActive({pathname: '/profile'})) {
       text = 'Profile';
@@ -86,20 +72,6 @@ export class CoreContainer extends Component {
     }
     return text;
   }
-  forceRefresh = () => {
-    this.injectAuthToken();
-  }
-  injectAuthToken () {
-    const token = this.getIdToken();
-
-    if (token) {
-      this.setState({ loggedIn: true });
-      Relay.injectNetworkLayer(networkLayer(token));
-    } else {
-      this.setState({ loggedIn: false });
-    }
-    this.setState({ idToken: token });
-  }
   render () {
     const { children } = this.props;
     const pageName = this.getPageName();
@@ -116,10 +88,6 @@ export class CoreContainer extends Component {
   }
 }
 
-// I moved this down here and out of a decorator so that we can
-// export a class that isn't wrapped in a theme. Wrapping it in
-// a theme by default obscures a lot of things and doesn't allow
-// us to properly test the component
 /* eslint new-cap: 0 */
 export default ThemeDecorator(
   ThemeManager.getMuiTheme(TerrafarmRawTheme)
