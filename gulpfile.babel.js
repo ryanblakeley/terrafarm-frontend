@@ -77,8 +77,6 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     historyApiFallback: true,
     proxy: {
       '/graphql': PATHS.apiSvr,
-      '/signin': PATHS.apiSvr,
-      '/signup': PATHS.apiSvr
     },
   });
   server.listen(PORT, (err/* , result */) => {

@@ -800,16 +800,16 @@ type LikeTaskPayload implements Payload {
 
 # The entry type for GraphQL mutations.
 type Mutation {
-  unlikeOrganization(input: UnlikeOrganizationInput!): UnlikeOrganizationPayload
+  authenticateUser(input: AuthenticateUserInput!): AuthenticateUserPayload
   unlikeProject(input: UnlikeProjectInput!): UnlikeProjectPayload
-  createUser(input: CreateUserInput!): CreateUserPayload
-  likeResource(input: LikeResourceInput!): LikeResourcePayload
+  likeProject(input: LikeProjectInput!): LikeProjectPayload
   unlikeResource(input: UnlikeResourceInput!): UnlikeResourcePayload
+  likeResource(input: LikeResourceInput!): LikeResourcePayload
   likeOrganization(input: LikeOrganizationInput!): LikeOrganizationPayload
   likeTask(input: LikeTaskInput!): LikeTaskPayload
+  createUser(input: CreateUserInput!): CreateUserPayload
   unlikeTask(input: UnlikeTaskInput!): UnlikeTaskPayload
-  likeProject(input: LikeProjectInput!): LikeProjectPayload
-  authenticateUser(input: AuthenticateUserInput!): AuthenticateUserPayload
+  unlikeOrganization(input: UnlikeOrganizationInput!): UnlikeOrganizationPayload
 
   # Creates a new node of the `User` type.
   insertUser(input: InsertUserInput!): InsertUserPayload
