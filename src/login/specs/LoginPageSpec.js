@@ -78,81 +78,22 @@ describe('<LoginPage />', () => {
     });
   });
 
-  describe('#getIdToken', () => {
-    before(() => {
-      localStorage.setItem('id_token', 'foo');
-    });
-
-    after(() => {
-      localStorage.removeItem('id_token');
-    });
-
-    it('returns the token from localStorage', () => {
-      const login = new LoginPage();
-      expect(login.getIdToken()).to.eql('foo');
-    });
-  });
-
-  describe('#injectAuthToken', () => {
-    const login = new LoginPage();
-
-    context('when the token is set', () => {
-      let spy;
-
-      before(() => {
-        localStorage.setItem('id_token', 'foo');
-        spy = sinon.spy(Relay, 'injectNetworkLayer');
-      });
-
-      after(() => {
-        localStorage.removeItem('id_token');
-        spy.restore();
-      });
-
-      it('injects the network layer', () => {
-        login.injectAuthToken();
-        expect(spy.called).to.be.true; // eslint-disable-line no-unused-expressions
-      });
-    });
-
-    context('when the token is not set', () => {
-      let spy;
-
-      before(() => {
-        localStorage.removeItem('id_token');
-        spy = sinon.spy(Relay, 'injectNetworkLayer');
-      });
-
-      after(() => {
-        spy.restore();
-      });
-
-      it('does not inject the network layer', () => {
-        login.injectAuthToken();
-        expect(spy.called).to.be.false; // eslint-disable-line no-unused-expressions
-      });
-    });
-  });
-
   describe('#loginUser', () => {
     const component = renderComponent();
     let injectStub;
 
     before(() => {
-      injectStub = sinon.stub(component.instance(), 'injectAuthToken');
       localStorage.removeItem('id_token');
     });
 
     after(() => {
       pushStub.reset();
-      injectStub.restore();
       setLoggedInStub.reset();
       localStorage.removeItem('id_token');
     });
 
     it('does all the expected things', () => {
       component.instance().loginUser('foo');
-      expect(injectStub.called).to.be.true; // eslint-disable-line no-unused-expressions
       expect(setLoggedInStub.calledWith(true)).to.be.true; // eslint-disable-line no-unused-expressions
       expect(pushStub.calledWith('/profile')).to.be.true; // eslint-disable-line no-unused-expressions
       expect(localStorage.getItem('id_token')).to.eql('foo');

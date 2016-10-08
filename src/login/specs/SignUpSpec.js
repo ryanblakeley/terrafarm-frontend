@@ -4,20 +4,9 @@ import React, { PropTypes } from 'react';
 import sinon from 'sinon';
 
 import SignUp from 'login/components/SignUp';
-import * as fetchers from 'shared/utils/fetch';
 
 describe('<SignUp />', () => {
   const comp = shallow(<SignUp loginUser={() => 'foo'} />);
-
-  let stub;
-
-  beforeEach(() => {
-    stub = sinon.stub(fetchers, 'post');
-  });
-
-  afterEach(() => {
-    stub.restore();
-  });
 
   describe('.propTypes', () => {
     it('should have the right propTypes', () => {
@@ -71,23 +60,29 @@ describe('<SignUp />', () => {
 
     context('when signup fails', () => {
       it('sets the signUpError state', () => {
-        stub.returns({
-          then: cb => cb({ error: 'No way jose' }),
-        });
-        signup.instance().signUpUser({ name: 'foo', email: 'foo@bar.com', password: 'foo123' });
-        expect(signup.state().signUpError).to.eql('No way jose');
+        const response = { createUser: { output: null } };
+        signup.instance().processSignUp(response);
+        expect(signup.state().signUpError).to.eql('There was an error signing you up.');
         expect(loginUser.called).to.be.false; // eslint-disable-line no-unused-expressions
       });
     });
 
     context('when signup succeeds', () => {
       it('calls the loginUser function with the token', () => {
-        stub.returns({
-          then: cb => cb({ token: 'foo' }),
-        });
-        signup.instance().signUpUser({ name: 'foo', email: 'foo@bar.com', password: 'foo123' });
+        const response = { createUser: { output: 'foo' } };
+        signup.instance().processSignUp(response);
         expect(loginUser.calledWith('foo')).to.be.true; //eslint-disable-line no-unused-expressions
       });
+    });
+  });
+
+  describe('#handleFailure', () => {
+    const loginUser = sinon.stub();
+    const signup = shallow(<SignUp loginUser={loginUser} />);
+
+    it('sets the error message', () => {
+      signup.instance().handleFailure();
+      expect(signup.state('signUpError')).to.eql('User already exists!');
     });
   });
 

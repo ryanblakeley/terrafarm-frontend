@@ -4,20 +4,9 @@ import React, { PropTypes } from 'react';
 import sinon from 'sinon';
 
 import Login from 'login/components/Login';
-import * as fetchers from 'shared/utils/fetch';
 
 describe('<Login />', () => {
   const comp = shallow(<Login loginUser={() => 'foo'} />);
-
-  let stub;
-
-  beforeEach(() => {
-    stub = sinon.stub(fetchers, 'post');
-  });
-
-  afterEach(() => {
-    stub.restore();
-  });
 
   describe('.propTypes', () => {
     it('should have the right propTypes', () => {
@@ -41,27 +30,23 @@ describe('<Login />', () => {
     });
   });
 
-  describe('#loginUser', () => {
+  describe('#processLogin', () => {
     const loginUser = sinon.stub();
     const login = shallow(<Login loginUser={loginUser} />);
 
     context('when login fails', () => {
       it('sets the loginError state', () => {
-        stub.returns({
-          then: cb => cb({ error: 'No way jose' }),
-        });
-        login.instance().loginUser({ email: 'foo@bar.com', password: 'foo123' });
-        expect(login.state().loginError).to.eql('No way jose');
+        const response = { authenticateUser: { output: null } };
+        login.instance().processLogin(response);
+        expect(login.state().loginError).to.eql('Email and/or Password is incorrect');
         expect(loginUser.called).to.be.false; // eslint-disable-line no-unused-expressions
       });
     });
 
     context('when login succeeds', () => {
       it('calls the loginUser function with the token', () => {
-        stub.returns({
-          then: cb => cb({ token: 'foo' }),
-        });
-        login.instance().loginUser({ email: 'foo@bar.com', password: 'foo123' });
+        const response = { authenticateUser: { output: 'foo' } };
+        login.instance().processLogin(response);
         expect(loginUser.calledWith('foo')).to.be.true; //eslint-disable-line no-unused-expressions
       });
     });

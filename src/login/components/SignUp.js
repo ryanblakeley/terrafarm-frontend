@@ -34,10 +34,10 @@ export default class SignUp extends Component {
     if (output) {
       this.props.loginUser(output);
     } else {
-      this.setState({ signUpEror: 'There was an error signing you up.' });
+      this.setState({ signUpError: 'There was an error signing you up.' });
     }
   }
-  handleFailure = (response) => {
+  handleFailure = () => {
     this.setState({ signUpError: 'User already exists!' });
   }
   signUpUser = ({ name, email, password }) => {
