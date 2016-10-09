@@ -3,17 +3,23 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import validate from 'webpack-validator';
 import env from 'gulp-env';
+import jwt from 'jsonwebtoken';
 
-if (!process.env.AUTH0_CLIENT_ID) {
+if (!process.env.PORT) {
   env({file: './.env', type: 'ini'});
 }
 const {
   NODE_ENV,
   REVERSE_PROXY_PUBLIC_IP,
   PORT,
-  AUTH0_CLIENT_ID,
-  AUTH0_DOMAIN,
+  JWT_PRIVATE_KEY,
 } = process.env;
+
+const anonymousToken = jwt.sign({
+  role: 'postgraphql_anonymous',
+  sub: 'postgraphql',
+  aud: 'postgraphql'
+}, JWT_PRIVATE_KEY);
 
 const PATHS = {
   src: path.join(__dirname, 'src'),
@@ -38,14 +44,13 @@ const config = {
       filename: 'index.html',
       template: 'src/index.template.html',
       inject: true,
+      anonymousToken
     }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(NODE_ENV),
         REVERSE_PROXY_PUBLIC_IP: JSON.stringify(REVERSE_PROXY_PUBLIC_IP), // obsolete with react-relay-network-layer
         PORT: Number(PORT), // obsolete with react-relay-network-layer
-        AUTH0_CLIENT_ID: JSON.stringify(AUTH0_CLIENT_ID),
-        AUTH0_DOMAIN: JSON.stringify(AUTH0_DOMAIN),
       },
     }),
   ],

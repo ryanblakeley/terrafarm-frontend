@@ -14,10 +14,11 @@ const proxyOptions = {
   target: `http://${REVERSE_PROXY_PRIVATE_IP}:${API_PORT}/graphql`,
   ignorePath: true,
 };
-const proxy = httpProxy.createProxyServer(proxyOptions);
+const proxy = httpProxy.createProxyServer({ ignorePath: true });
 
 app.use(express.static(publicPath));
 app.use(bodyParser.json({ limit: '1mb' }));
+
 app.use('/graphql', (req, res) => {
   req.removeAllListeners('data');
   req.removeAllListeners('end');
@@ -31,6 +32,7 @@ app.use('/graphql', (req, res) => {
 
   proxy.web(req, res, proxyOptions);
 });
+
 app.get('*', function response(req, res) {
   res.sendFile(path.join(publicPath, 'index.html'));
 });

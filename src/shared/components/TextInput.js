@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormsyText} from 'formsy-material-ui';
+import { FormsyText } from 'formsy-material-ui';
 import Colors from 'material-ui/lib/styles/colors';
 
 export default class TextInput extends React.Component {

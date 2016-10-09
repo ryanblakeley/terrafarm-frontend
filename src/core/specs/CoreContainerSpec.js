@@ -72,12 +72,6 @@ describe('<CoreContainer />', () => {
         expect(CoreContainer.childContextTypes.setLoggedIn).to.eq(PropTypes.func);
       });
     });
-
-    describe('refresh', () => {
-      it('should be a function', () => {
-        expect(CoreContainer.childContextTypes.refresh).to.eq(PropTypes.func);
-      });
-    });
   });
 
   // Test that we initialize the component with the proper state
@@ -116,53 +110,6 @@ describe('<CoreContainer />', () => {
       expect(context.loggedIn).to.eql(expected.loggedIn);
       expect(context.setLoggedIn(false)).to.eql(expected.setLoggedIn(false));
       expect(context.refresh).to.eql(expected.refresh);
-    });
-  });
-
-  // Test that the proper method is called when the component mounts
-  // We don't actually need to mount the component here, nor do we
-  // need to test the underlying implementation of the injectAuthToken
-  // method, because that is tested later. We just want to know that
-  // it was called
-  describe('#componentWillMount', () => {
-    const container = new CoreContainer();
-
-    it('calls the injectAuthToken method', () => {
-      const stub = sinon.stub(container, 'injectAuthToken');
-      container.componentWillMount();
-      expect(stub.called).to.be.true;
-    });
-  });
-
-  // Test the branching logic inside this method and use sinon again
-  // to stub the injectAuthToken method and make sure it is only called
-  // in the right circumstances
-  describe('#componentWillUpdate', () => {
-    context('when the idToken has changed', () => {
-      it('calls the injectAuthToken method', () => {
-        const container = new CoreContainer();
-        const stub = sinon.stub(container, 'injectAuthToken');
-        container.componentWillUpdate({}, { idToken: 'Foo' });
-        expect(stub.called).to.be.true;
-      });
-    });
-
-    context('when the idToken has not changed', () => {
-      it('does not call the injectAuthToken method', () => {
-        const container = new CoreContainer();
-        const stub = sinon.stub(container, 'injectAuthToken');
-        container.componentWillUpdate({}, { idToken: null });
-        expect(stub.called).to.be.false;
-      });
-    });
-  });
-
-  describe('#getIdToken', () => {
-    const container = new CoreContainer();
-
-    it('returns the id_token key from localStorage', () => {
-      localStorage.id_token = 'foo';
-      expect(container.getIdToken()).to.eql('foo');
     });
   });
 
@@ -245,38 +192,6 @@ describe('<CoreContainer />', () => {
         const func = ({ pathname }) => false;
         const container = renderContainer({ location: { foo: 'Foo' } }, func);
         expect(container.instance().getPageName()).to.eql('Terrafarm');
-      });
-    });
-  });
-
-  describe('#forceRefresh', () => {
-    const container = new CoreContainer();
-
-    it('calls the injectAuthToken method', () => {
-      const stub = sinon.stub(container, 'injectAuthToken');
-      container.componentWillMount();
-      expect(stub.called).to.be.true;
-    });
-  });
-
-  describe('#injectAuthToken', () => {
-    const container = renderContainer({ location: { foo: 'Foo' } });
-
-    context('when the token exists', () => {
-      localStorage.id_token = 'foo';
-      const spy = sinon.spy(Relay, 'injectNetworkLayer');
-      container.instance().injectAuthToken();
-
-      it('sets the loggedIn state to true', () => {
-        expect(container.state('loggedIn')).to.be.true;
-      });
-
-      it('injects a network layer', () => {
-        expect(spy.called).to.be.true;
-      });
-
-      it('sets the idToken state to the token value', () => {
-        expect(container.state('idToken')).to.eql('foo');
       });
     });
   });
