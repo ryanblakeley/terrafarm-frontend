@@ -18,8 +18,8 @@ import classNames from './styles/CoreContainerStylesheet.css';
 
 export class CoreContainer extends Component {
   static propTypes = {
-    location: PropTypes.shape({}),
-    children: PropTypes.shape({}),
+    location: PropTypes.object,
+    children: PropTypes.object,
   };
   static contextTypes = {
     router: PropTypes.object.isRequired,

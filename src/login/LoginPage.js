@@ -14,9 +14,9 @@ import classNames from './styles/LoginPageStylesheet.css';
 
 export default class LoginPage extends Component {
   static propTypes = {
-    viewer: PropTypes.shape({}),
-    master: PropTypes.shape({}),
-    children: PropTypes.shape({}),
+    viewer: PropTypes.object,
+    master: PropTypes.object,
+    children: PropTypes.object,
   };
   static contextTypes = {
     router: PropTypes.object.isRequired,
