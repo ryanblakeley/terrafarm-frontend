@@ -8,7 +8,7 @@ import IoLogOut from 'react-icons/lib/io/log-out';
 import classNames from 'classnames/bind';
 
 // Local
-import networkLayer from 'lib/networkLayer';
+import networkLayer from '../../lib/networkLayer';
 
 // Styles
 import classNamesContext from '../styles/LoginPortalStylesheet.css';

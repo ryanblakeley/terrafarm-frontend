@@ -29,12 +29,21 @@ rules:
     no-multi-spaces: 2
 
     # DISABLE (personal styles)
+    arrow-parens: ["error", "as-needed"]
+    class-methods-use-this: ["error", { "exceptMethods": [
+        "getMutation",
+        "getVariables",
+        "getFatQuery",
+        "getConfigs",
+    ] }]
     generator-star-spacing: 0
-    import/no-extraneous-dependencies: 2
+    import/no-extraneous-dependencies: ["error", {"devDependencies": true}]
     no-underscore-dangle: 0  # private/internal variables
     no-use-before-define: 0
     no-empty: 0  # allow empty blocks e.g. try catch
     object-curly-spacing: 0
+    react/jsx-filename-extension: 0
+    react/jsx-wrap-multilines: 0
     react/require-extension: 0
     react/wrap-multilines: 0
     space-before-function-paren: [2, "always"]

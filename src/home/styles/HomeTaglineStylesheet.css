@@ -1,4 +1,7 @@
 .this {
-  composes: appTagline from '../../shared/styles/typography.css';
-  margin: 25px auto 0; /* bottom: 0 fixes container height */
+  composes: center from '../../shared/styles/layout.css';
+}
+.text {
+  composes: largeBodyText from '../../shared/styles/typography.css';
+  /*margin: 25px auto 0;*/ /* bottom: 0 fixes container height */
 }

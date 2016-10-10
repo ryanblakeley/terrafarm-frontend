@@ -11,8 +11,8 @@ import classNames from './styles/ProfileContainerStylesheet.css';
 
 class ProfileContainer extends React.Component {
   static propTypes = {
-    viewer: React.PropTypes.object,
-    master: React.PropTypes.object,
+    viewer: React.PropTypes.shape({}),
+    master: React.PropTypes.shape({}),
   };
   state = {
     colorChart: {},
@@ -23,16 +23,19 @@ class ProfileContainer extends React.Component {
     const {landsAdmin, resources} = viewer;
 
     this.updateColorChart(resources);
-    this.updateLandList(landsAdmin, resources);
+    // this.updateLandList(landsAdmin, resources);
   }
   componentWillReceiveProps (nextProps) {
     const {viewer} = nextProps;
     const {landsAdmin, resources} = viewer;
 
     this.updateColorChart(resources);
-    this.updateLandList(landsAdmin, resources);
+    // this.updateLandList(landsAdmin, resources);
   }
   updateColorChart (resources) {
+
+
+    /*
     const landIds = [];
     let landsUsingResources = resources.edges.map(edge => (
       edge.node.lands.edges.map(landEdge => landEdge.node)
@@ -45,6 +48,7 @@ class ProfileContainer extends React.Component {
       landIds.push(land.id);
       return true;
     });
+   */
 
     const colorChart = createColorChart(landIds);
 
@@ -83,7 +87,7 @@ class ProfileContainer extends React.Component {
           <span className={classNames.location}>{viewer.location}</span>
         </h4>
         <HeroImage image={viewer.image} />
-
+        {/*
         <div className={classNames.relationships} >
           {landsAdmin.edges.map(edge => <LandItem
             key={edge.node.id}
@@ -108,9 +112,9 @@ class ProfileContainer extends React.Component {
               this.state.colorChart[landEdge.node.id]
             ))}
           />)}
-
           <p className={classNames.description}>{viewer.description}</p>
         </div>
+       */}
       </div>
     </TransitionWrapper>;
   }

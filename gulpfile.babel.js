@@ -1,5 +1,5 @@
 import gulp from 'gulp';
-import gutil from 'gulp-util';
+import gultil from 'gulp-util';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import path from 'path';
@@ -79,7 +79,7 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
       '/graphql': PATHS.apiSvr,
     },
   });
-  server.listen(PORT, (err/* , result */) => {
+  server.listen(PORT, err => {
     if (err) {
       return console.error(err);
     }
@@ -87,11 +87,11 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
   });
 });
 
-gulp.task('build-frontend', ['load-schema'], (done) => {
+gulp.task('build-frontend', ['load-schema'], done => {
   webpack(prodConfig).run(onBuild(done));
 });
 
-gulp.task('build-server', (done) => {
+gulp.task('build-server', done => {
   webpack(serverProdConfig).run(onBuild(done));
 });
 

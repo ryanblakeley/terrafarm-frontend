@@ -1,9 +1,9 @@
 // Vendor
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import TextInput from 'shared/components/TextInput';
 import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/lib/raised-button';
+import TextInput from '../../shared/components/TextInput';
 
 // Local
 import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
@@ -13,13 +13,13 @@ import classNames from '../styles/LoginPageStylesheet.css';
 
 export default class Login extends Component {
   static propTypes = {
-    loginUser: PropTypes.func.isRequired
+    loginUser: PropTypes.func.isRequired,
   };
   state = {
     canSubmit: false,
-    loginError: null
+    loginError: null,
   };
-  processLogin = (response) => {
+  processLogin = response => {
     const { authenticateUser: { output } } = response;
 
     if (output) {
@@ -36,7 +36,7 @@ export default class Login extends Component {
   }
   handleValid = () => this.setState({ canSubmit: true });
   handleInvalid = () => this.setState({ canSubmit: false });
-  render() {
+  render () {
     const { loginError, canSubmit } = this.state;
 
     return (
@@ -47,17 +47,17 @@ export default class Login extends Component {
       >
         <div className={classNames.login}>
           <TextInput
-            type='email'
-            label='Email'
-            name='email'
-            validations='isEmail'
-            validationError='A valid email is required'
+            type={'email'}
+            label={'Email'}
+            name={'email'}
+            validations={'isEmail'}
+            validationError={'A valid email is required'}
           />
           <TextInput
-            type='password'
-            name='password'
-            label='Password'
-            validationError='A password is required'
+            type={'password'}
+            name={'password'}
+            label={'Password'}
+            validationError={'A password is required'}
             required
           />
           { loginError &&
@@ -66,7 +66,7 @@ export default class Login extends Component {
           <RaisedButton
             style={{ width: '256px', marginTop: '5px' }}
             disabled={!canSubmit}
-            type='submit'
+            type={'submit'}
           >
             Sign In
           </RaisedButton>

@@ -1,24 +1,25 @@
 // Vendor
+/* eslint no-unused-vars: 0 */
 import React, { PropTypes, Component } from 'react';
 import Relay from 'react-relay';
 
 // Theme
-import TerrafarmRawTheme from 'shared/themes/terrafarm-raw-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
+import TerrafarmRawTheme from '../shared/themes/terrafarm-raw-theme';
 
 // Local
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
 
 // Styles
-import 'shared/styles/base.css';
+import '../shared/styles/base.css';
 import classNames from './styles/CoreContainerStylesheet.css';
 
 export class CoreContainer extends Component {
   static propTypes = {
-    location: PropTypes.object,
-    children: PropTypes.object,
+    location: PropTypes.shape({}),
+    children: PropTypes.shape({}),
   };
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -38,9 +39,10 @@ export class CoreContainer extends Component {
       router: this.context.router,
       location: this.props.location,
       loggedIn: this.state.loggedIn,
-      setLoggedIn: (loggedIn) => this.setLoggedIn(loggedIn),
+      setLoggedIn: loggedIn => this.setLoggedIn(loggedIn),
     };
   }
+  /* eslint react/no-did-mount-set-state: 0 */
   componentDidMount () {
     const idToken = localStorage.getItem('id_token');
     this.setState({ idToken });
@@ -91,4 +93,4 @@ export class CoreContainer extends Component {
 /* eslint new-cap: 0 */
 export default ThemeDecorator(
   ThemeManager.getMuiTheme(TerrafarmRawTheme)
-)(CoreContainer)
+)(CoreContainer);

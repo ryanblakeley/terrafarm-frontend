@@ -3,7 +3,11 @@ import React from 'react';
 import classNames from '../styles/HomeTaglineStylesheet.css';
 
 const HomeTagline = () => <div className={classNames.this}>
-  Collaborate with food chain resources.
+  <p className={classNames.text}>
+    Allocate resources<br />
+    and measure objectives<br />
+    in local food systems.
+  </p>
 </div>;
 
 export default HomeTagline;

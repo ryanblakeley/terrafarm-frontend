@@ -7,16 +7,16 @@ import Tab from 'material-ui/lib/tabs/tab';
 // Local
 import SignUp from './components/SignUp';
 import Login from './components/Login';
-import networkLayer from 'lib/networkLayer';
+import networkLayer from '../lib/networkLayer';
 
 // Styles
 import classNames from './styles/LoginPageStylesheet.css';
 
 export default class LoginPage extends Component {
   static propTypes = {
-    viewer: PropTypes.object,
-    master: PropTypes.object,
-    children: PropTypes.object,
+    viewer: PropTypes.shape({}),
+    master: PropTypes.shape({}),
+    children: PropTypes.shape({}),
   };
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -30,7 +30,7 @@ export default class LoginPage extends Component {
       router.replace('/profile');
     }
   }
-  loginUser = (token) => {
+  loginUser = token => {
     const { router, setLoggedIn } = this.context;
     localStorage.setItem('id_token', token);
     Relay.injectNetworkLayer(networkLayer(token));
@@ -42,10 +42,10 @@ export default class LoginPage extends Component {
       <div className={classNames.this}>
         <div className={classNames.tabs}>
           <Tabs>
-            <Tab label='Log In'>
+            <Tab label={'Log In'}>
               <Login loginUser={this.loginUser} />
             </Tab>
-            <Tab label='Sign Up'>
+            <Tab label={'Sign Up'}>
               <SignUp loginUser={this.loginUser} />
             </Tab>
           </Tabs>
