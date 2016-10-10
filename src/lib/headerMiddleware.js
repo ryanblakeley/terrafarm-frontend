@@ -1,6 +1,7 @@
 export default token => next => req => {
-  const nextReq = Object.assign(req, { headers: {
-    Authorization: `Bearer ${token}`,
-  }});
+  const nextHeaders = Object.assign(req.headers, {
+    'Authorization': `Bearer ${token}`,
+  });
+  const nextReq = Object.assign(req, { headers: nextHeaders });
   return next(nextReq);
 };
