@@ -8,7 +8,6 @@ import {
 import CoreContainer from './core/CoreContainer';
 import Home from './home/HomePage';
 import LoginPage from './login/LoginPage';
-//import LoginQueries from './login/LoginQueries';
 import NotFound from './not-found/NotFoundPage';
 //import ProfileContainer from './profile/ProfileContainer';
 //import ProfileQueries from './profile/ProfileQueries';

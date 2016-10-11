@@ -21,6 +21,12 @@ const anonymousToken = jwt.sign({
   aud: 'postgraphql'
 }, JWT_PRIVATE_KEY);
 
+const registrarToken = jwt.sign({
+  role: 'postgraphql_registrar',
+  sub: 'postgraphql',
+  aud: 'postgraphql'
+}, JWT_PRIVATE_KEY);
+
 const PATHS = {
   src: path.join(__dirname, 'src'),
   build: path.join(__dirname, 'build', 'public'),
@@ -44,7 +50,8 @@ const config = {
       filename: 'index.html',
       template: 'src/index.template.html',
       inject: true,
-      anonymousToken
+      anonymousToken,
+      registrarToken
     }),
     new webpack.DefinePlugin({
       'process.env': {

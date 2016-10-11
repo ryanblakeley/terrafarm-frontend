@@ -6,7 +6,7 @@ export default class AuthenticateUserMutation extends Relay.Mutation {
   }
   getVariables () {
     return {
-      userEmail: this.props.email,
+      username: this.props.email,
       password: this.props.password,
     };
   }

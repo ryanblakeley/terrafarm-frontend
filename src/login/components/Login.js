@@ -20,6 +20,7 @@ export default class Login extends Component {
     loginError: null,
   };
   processLogin = response => {
+    console.log(response);
     const { authenticateUser: { output } } = response;
 
     if (output) {

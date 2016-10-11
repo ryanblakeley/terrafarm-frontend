@@ -65,9 +65,9 @@ export default class LoginPortal extends React.Component {
   }
   handleSignOut = () => {
     const { router, setLoggedIn } = this.context;
-    const { anonymousToken } = window;
+    const { registrarToken } = window;
     localStorage.removeItem('id_token');
-    Relay.injectNetworkLayer(networkLayer(anonymousToken));
+    Relay.injectNetworkLayer(networkLayer(registrarToken));
     setLoggedIn(false);
     router.push('/');
   }

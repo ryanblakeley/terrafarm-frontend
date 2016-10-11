@@ -32,16 +32,6 @@ function renderComponent(loggedIn = false) {
 }
 
 describe('<LoginPage />', () => {
-  describe('.propTypes', () => {
-    it('should have the right propTypes', () => {
-      expect(LoginPage.propTypes).to.eql({
-        viewer: PropTypes.object,
-        master: PropTypes.object,
-        children: PropTypes.object,
-      });
-    });
-  });
-
   describe('.contextTypes', () => {
     it('should have the correct contextTypes', () => {
       expect(LoginPage.contextTypes).to.eql({
