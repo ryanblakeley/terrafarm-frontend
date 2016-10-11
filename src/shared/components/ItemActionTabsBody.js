@@ -1,7 +1,7 @@
 import React from 'react';
-
 import classnames from 'classnames/bind';
 import classNamesContext from '../styles/ItemActionTabsBodyStylesheet.css';
+
 const cx = classnames.bind(classNamesContext);
 
 // change show: true -> show

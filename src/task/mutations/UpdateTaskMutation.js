@@ -51,5 +51,3 @@ export default class UpdateTaskMutation extends Relay.Mutation {
     };
   }
 }
-
-

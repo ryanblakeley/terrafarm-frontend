@@ -2,8 +2,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import Colors from 'material-ui/lib/styles/colors';
 import logoName from './logo_name.png';
-
 import classNames from '../styles/AppFooterStylesheet.css';
+
 const styles = {
   this: {
     backgroundColor: Colors.brown100,

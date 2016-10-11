@@ -60,7 +60,8 @@ describe('<SignUp />', () => {
 
     context('when signup fails', () => {
       it('sets the signUpError state', () => {
-        const response = { createUser: { output: null } };
+        const data = { token: 'foo', id: null };
+        const response = { createUser: { output: JSON.stringify(data) } };
         signup.instance().processSignUp(response);
         expect(signup.state().signUpError).to.eql('There was an error signing you up.');
         expect(loginUser.called).to.be.false; // eslint-disable-line no-unused-expressions
@@ -69,9 +70,10 @@ describe('<SignUp />', () => {
 
     context('when signup succeeds', () => {
       it('calls the loginUser function with the token', () => {
-        const response = { createUser: { output: 'foo' } };
+        const data = { token: 'foo', id: 'bar' };
+        const response = { createUser: { output: JSON.stringify(data) } };
         signup.instance().processSignUp(response);
-        expect(loginUser.calledWith('foo')).to.be.true; //eslint-disable-line no-unused-expressions
+        expect(loginUser.calledWith(data)).to.be.true; //eslint-disable-line no-unused-expressions
       });
     });
   });

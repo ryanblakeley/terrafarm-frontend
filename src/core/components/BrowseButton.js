@@ -2,8 +2,8 @@ import React from 'react';
 import IconButton from 'material-ui/lib/icon-button';
 import Colors from 'material-ui/lib/styles/colors';
 import IoIosSearch from 'react-icons/lib/io/ios-search';
-
 import classNames from '../styles/BrowseButtonStylesheet.css';
+
 const styles = {
   button: {
     width: 58,

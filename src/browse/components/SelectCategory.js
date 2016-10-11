@@ -22,19 +22,17 @@ export default class SelectCategory extends React.Component {
       activeEntity,
       activeCategory,
       notifySelectCategory,
-      categoryLists
+      categoryLists,
     } = this.props;
 
     return categoryLists[activeEntity]
-      && categoryLists[activeEntity].map(name => {
-        return <CategoryButton
-          key={name}
-          name={name}
-          active={activeCategory === name}
-          activeEntity={activeEntity}
-          handleNotify={notifySelectCategory}
-        />;
-      });
+      && categoryLists[activeEntity].map(name => <CategoryButton
+        key={name}
+        name={name}
+        active={activeCategory === name}
+        activeEntity={activeEntity}
+        handleNotify={notifySelectCategory}
+      />);
   }
   render () {
     return <div className={classNames.this} >

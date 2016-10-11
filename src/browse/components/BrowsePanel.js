@@ -1,11 +1,16 @@
 import React from 'react';
 import SelectEntity from './SelectEntity.js';
-import SelectCategory from './SelectCategory.js';
+// import SelectCategory from './SelectCategory.js';
 
 import classNames from '../styles/BrowsePanelStylesheet.css';
 
-export default class BrowsePanel extends React.Component {
-  /*
+const BrowsePanel = _ => <div className={classNames.this} >
+  <SelectEntity />
+</div>;
+
+export default BrowsePanel;
+
+/*
   state = {
     activeEntity: '',
     activeCategory: '',
@@ -20,9 +25,7 @@ export default class BrowsePanel extends React.Component {
       activeCategory: name,
     });
   }
-  */
   render () {
-/*
     const {activeEntity, activeCategory} = this.state;
         notifySelectEntity={this.handleSelectEntity}
         activeEntity={activeEntity}
@@ -33,8 +36,3 @@ export default class BrowsePanel extends React.Component {
         activeCategory={activeCategory}
       />
 */
-    return <div className={classNames.this} >
-      <SelectEntity />
-    </div>;
-  }
-}

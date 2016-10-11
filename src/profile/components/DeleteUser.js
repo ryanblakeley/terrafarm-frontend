@@ -7,6 +7,7 @@ import DeleteUserMutation from '../mutations/DeleteUserMutation';
 class DeleteUser extends React.Component {
   static propTypes = {
     user: React.PropTypes.object,
+    master: React.PropTypes.object,
     label: React.PropTypes.string,
     primary: React.PropTypes.bool,
     secondary: React.PropTypes.bool,

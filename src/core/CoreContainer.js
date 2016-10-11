@@ -29,10 +29,12 @@ export class CoreContainer extends Component {
     location: PropTypes.object,
     loggedIn: PropTypes.bool,
     setLoggedIn: PropTypes.func,
+    setUserId: PropTypes.func,
   };
   state = {
     loggedIn: false,
     idToken: null,
+    userId: null,
   };
   getChildContext () {
     return {
@@ -40,6 +42,7 @@ export class CoreContainer extends Component {
       location: this.props.location,
       loggedIn: this.state.loggedIn,
       setLoggedIn: loggedIn => this.setLoggedIn(loggedIn),
+      setUserId: userId => this.setUserId(userId),
     };
   }
   /* eslint react/no-did-mount-set-state: 0 */
@@ -49,6 +52,9 @@ export class CoreContainer extends Component {
   }
   setLoggedIn (loggedIn) {
     this.setState({ loggedIn });
+  }
+  setUserId (userId) {
+    this.setState({ userId });
   }
   getPageName () {
     const { router } = this.context;
@@ -91,6 +97,8 @@ export class CoreContainer extends Component {
 }
 
 /* eslint new-cap: 0 */
-export default ThemeDecorator(
+const CoreContainerTheme = ThemeDecorator(
   ThemeManager.getMuiTheme(TerrafarmRawTheme)
 )(CoreContainer);
+
+export default CoreContainerTheme;

@@ -1,12 +1,15 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-import classNames from './styles/TEMPLATEContainer.css';
+import classNames from './styles/TEMPLATEContainerStylesheet.css';
 
 class TEMPLATEContainer extends React.Component {
   static propTypes = {
     aaa: React.PropTypes.string,
   };
+  componentWillMount () {
+    console.log('Mounting template');
+  }
   render () {
     return <div className={classNames.this}>
       <h2>TEMPLATE Container</h2>

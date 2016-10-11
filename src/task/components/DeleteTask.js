@@ -7,6 +7,7 @@ import DeleteTaskMutation from '../mutations/DeleteTaskMutation';
 class DeleteTask extends React.Component {
   static propTypes = {
     task: React.PropTypes.object,
+    master: React.PropTypes.object,
     label: React.PropTypes.string,
     primary: React.PropTypes.bool,
     secondary: React.PropTypes.bool,

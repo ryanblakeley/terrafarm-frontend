@@ -66,8 +66,7 @@ class PendingResourceDialog extends React.Component {
           <span> to the <strong>{project.name}</strong> project.</span>
         </p>
         <p>
-          You may email {owner.name} at <a href={`mailto:${owner.email}`}>
-          {owner.email}</a>.
+          You may email {owner.name} at <a href={`mailto:${owner.email}`}>{owner.email}</a>.
         </p>
       </Dialog>
     </div>;

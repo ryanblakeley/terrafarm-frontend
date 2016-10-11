@@ -2,28 +2,27 @@ import React from 'react';
 import {
   Route,
   IndexRoute,
-  IndexRedirect,
+  // IndexRedirect,
 } from 'react-router';
 
-import CoreContainer from './core/CoreContainer';
+import CoreContainerTheme from './core/CoreContainer';
 import Home from './home/HomePage';
 import LoginPage from './login/LoginPage';
-//import LoginQueries from './login/LoginQueries';
 import NotFound from './not-found/NotFoundPage';
-//import ProfileContainer from './profile/ProfileContainer';
-//import ProfileQueries from './profile/ProfileQueries';
-//import BrowseContainer from './browse/BrowseContainer';
-//import BrowseQueries from './browse/BrowseQueries';
-//import UserContainer from './user/UserContainer';
-//import UserQueries from './user/UserQueries';
-//import ResourceContainer from './resource/ResourceContainer';
-//import ResourceQueries from './resource/ResourceQueries';
-//import LandContainer from './land/LandContainer';
-//import LandQueries from './land/LandQueries';
-//import ProjectContainer from './project/ProjectContainer';
-//import ProjectQueries from './project/ProjectQueries';
-//import TaskContainer from './task/TaskContainer';
-//import TaskQueries from './task/TaskQueries';
+// import ProfileContainer from './profile/ProfileContainer';
+// import ProfileQueries from './profile/ProfileQueries';
+// import BrowseContainer from './browse/BrowseContainer';
+// import BrowseQueries from './browse/BrowseQueries';
+// import UserContainer from './user/UserContainer';
+// import UserQueries from './user/UserQueries';
+// import ResourceContainer from './resource/ResourceContainer';
+// import ResourceQueries from './resource/ResourceQueries';
+// import LandContainer from './land/LandContainer';
+// import LandQueries from './land/LandQueries';
+// import ProjectContainer from './project/ProjectContainer';
+// import ProjectQueries from './project/ProjectQueries';
+// import TaskContainer from './task/TaskContainer';
+// import TaskQueries from './task/TaskQueries';
 import Loading from './core/components/Loading';
 
 
@@ -40,7 +39,7 @@ function renderLoading () {
 }
 
 const routes = (
-  <Route path={'/'} component={CoreContainer} >
+  <Route path={'/'} component={CoreContainerTheme} >
     <IndexRoute component={Home} />
     <Route
       path={'login'}

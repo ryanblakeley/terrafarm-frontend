@@ -36,7 +36,8 @@ describe('<Login />', () => {
 
     context('when login fails', () => {
       it('sets the loginError state', () => {
-        const response = { authenticateUser: { output: null } };
+        const data = { token: 'foo', id: null };
+        const response = { authenticateUser: { output: JSON.stringify(data) } };
         login.instance().processLogin(response);
         expect(login.state().loginError).to.eql('Email and/or Password is incorrect');
         expect(loginUser.called).to.be.false; // eslint-disable-line no-unused-expressions
@@ -45,9 +46,10 @@ describe('<Login />', () => {
 
     context('when login succeeds', () => {
       it('calls the loginUser function with the token', () => {
-        const response = { authenticateUser: { output: 'foo' } };
+        const data = { token: 'foo', id: 'bar' };
+        const response = { authenticateUser: { output: JSON.stringify(data) } };
         login.instance().processLogin(response);
-        expect(loginUser.calledWith('foo')).to.be.true; //eslint-disable-line no-unused-expressions
+        expect(loginUser.calledWith(data)).to.be.true; //eslint-disable-line no-unused-expressions
       });
     });
   });

@@ -4,24 +4,19 @@ import {Link} from 'react-router';
 
 import classNames from '../styles/ResultsItemResourceStylesheet.css';
 
-class ResultsItemResource extends React.Component {
-  static propTypes = {
-    resource: React.PropTypes.object,
-    index: React.PropTypes.number,
-  };
-  render () {
-    const {resource, index} = this.props;
+const ResultsItemResource = props => <div className={classNames.this}>
+  <span className={classNames.number} >
+    {props.index + 1}.
+  </span>
+  <Link to={`/resource/${props.resource.id}`} className={classNames.name} >
+    {props.resource.name[0].toUpperCase() + props.resource.name.slice(1)}
+  </Link>
+</div>;
 
-    return <div className={classNames.this}>
-      <span className={classNames.number} >
-        {index + 1}.
-      </span>
-      <Link to={`/resource/${resource.id}`} className={classNames.name} >
-        {resource.name[0].toUpperCase() + resource.name.slice(1)}
-      </Link>
-    </div>;
-  }
-}
+ResultsItemResource.propTypes = {
+  resource: React.PropTypes.object,
+  index: React.PropTypes.number,
+};
 
 export default Relay.createContainer(ResultsItemResource, {
   fragments: {

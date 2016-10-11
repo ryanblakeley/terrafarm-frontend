@@ -3,7 +3,6 @@ import Relay from 'react-relay';
 import ResultsListUsers from './ResultsListUsers';
 import ResultsListLands from './ResultsListLands';
 import ResultsListResources from './ResultsListResources';
-
 import classNames from '../styles/ResultsListStylesheet.css';
 
 class ResultsList extends React.Component {
@@ -44,6 +43,7 @@ class ResultsList extends React.Component {
         return <ResultsListResources master={master} />;
       }
     }
+    return '';
   }
   render () {
     return <div className={classNames.this} >

@@ -1,17 +1,21 @@
 import React from 'react';
 import EntityButton from './EntityButton';
-
 import classNames from '../styles/SelectEntityStylesheet.css';
 
-export default class SelectEntity extends React.Component {
-  /*
+const SelectEntity = _ => <div className={classNames.this} >
+  <EntityButton name={'users'} />
+  <EntityButton name={'lands'} />
+  <EntityButton name={'resources'} />
+</div>;
+
+export default SelectEntity;
+
+/*
   static propTypes = {
     activeEntity: React.PropTypes.string,
     notifySelectEntity: React.PropTypes.func,
   };
-  */
   render () {
-/*
     const {activeEntity, notifySelectEntity} = this.props;
 
       <EntityButton
@@ -30,10 +34,3 @@ export default class SelectEntity extends React.Component {
         active={activeEntity === 'resources'}
       />
 */
-    return <div className={classNames.this} >
-      <EntityButton name={'users'} />
-      <EntityButton name={'lands'} />
-      <EntityButton name={'resources'} />
-    </div>;
-  }
-}

@@ -7,6 +7,7 @@ import DeleteProjectMutation from '../mutations/DeleteProjectMutation';
 class DeleteProject extends React.Component {
   static propTypes = {
     project: React.PropTypes.object,
+    master: React.PropTypes.object,
     label: React.PropTypes.string,
     primary: React.PropTypes.bool,
     secondary: React.PropTypes.bool,

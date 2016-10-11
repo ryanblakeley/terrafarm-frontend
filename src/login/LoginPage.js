@@ -13,15 +13,11 @@ import networkLayer from '../lib/networkLayer';
 import classNames from './styles/LoginPageStylesheet.css';
 
 export default class LoginPage extends Component {
-  static propTypes = {
-    viewer: PropTypes.object,
-    master: PropTypes.object,
-    children: PropTypes.object,
-  };
   static contextTypes = {
     router: PropTypes.object.isRequired,
     loggedIn: PropTypes.bool,
     setLoggedIn: PropTypes.func.isRequired,
+    setUserId: PropTypes.func.isRequired,
   };
   componentDidMount () {
     const { router, loggedIn } = this.context;
@@ -30,11 +26,12 @@ export default class LoginPage extends Component {
       router.replace('/profile');
     }
   }
-  loginUser = token => {
-    const { router, setLoggedIn } = this.context;
-    localStorage.setItem('id_token', token);
-    Relay.injectNetworkLayer(networkLayer(token));
+  loginUser = data => {
+    const { router, setLoggedIn, setUserId } = this.context;
+    localStorage.setItem('id_token', data.token);
+    Relay.injectNetworkLayer(networkLayer(data.token));
     setLoggedIn(true);
+    setUserId(data.id);
     router.push('/profile');
   }
   render () {

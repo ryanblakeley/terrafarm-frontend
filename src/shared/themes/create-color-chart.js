@@ -12,9 +12,7 @@ export default function createColorChart (ids) {
   const colorChart = {};
 
   if (ids.length) {
-    ids.map((id, i) => {
-      colorChart[id] = colorOptions[i];
-    });
+    ids.map((id, i) => (colorChart[id] = colorOptions[i]));
   }
 
   return colorChart;

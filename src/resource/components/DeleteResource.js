@@ -7,6 +7,8 @@ import DeleteResourceMutation from '../mutations/DeleteResourceMutation';
 class DeleteResource extends React.Component {
   static propTypes = {
     resource: React.PropTypes.object,
+    master: React.PropTypes.object,
+    user: React.PropTypes.object,
     label: React.PropTypes.string,
     primary: React.PropTypes.bool,
     secondary: React.PropTypes.bool,

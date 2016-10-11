@@ -119,5 +119,3 @@ export default class PendingResourceToTaskMutation extends Relay.Mutation {
     };
   }
 }
-
-

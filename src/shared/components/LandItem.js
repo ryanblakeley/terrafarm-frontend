@@ -6,8 +6,8 @@ import IoIosLocation from 'react-icons/lib/io/ios-location';
 import MdStar from 'react-icons/lib/md/star';
 import RelationshipIcon from './RelationshipIcon';
 import RelationshipColorDash from './RelationshipColorDash';
-
 import classNames from '../styles/LandItemStylesheet.css';
+
 const styles = {
   this: {
     color: Colors.blueGrey900,

@@ -119,5 +119,3 @@ export default class PendingResourceToLandMutation extends Relay.Mutation {
     };
   }
 }
-
-

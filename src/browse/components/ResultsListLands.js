@@ -4,24 +4,17 @@ import ResultsItemLand from './ResultsItemLand';
 
 import classNames from '../styles/ResultsListLandsStylesheet.css';
 
-class ResultsListLands extends React.Component {
-  static propTypes = {
-    master: React.PropTypes.object,
-  };
-  render () {
-    const {lands} = this.props.master;
+const ResultsListLands = props => <div className={classNames.this} >
+  {props.master.lands.edges.map((edge, index) => <ResultsItemLand
+    land={edge.node}
+    index={index}
+    key={index}
+  />)}
+</div>;
 
-    return <div className={classNames.this} >
-      {lands.edges.map((edge, index) => {
-        return <ResultsItemLand
-          land={edge.node}
-          index={index}
-          key={index}
-        />;
-      })}
-    </div>;
-  }
-}
+ResultsListLands.propTypes = {
+  master: React.PropTypes.object,
+};
 
 export default Relay.createContainer(ResultsListLands, {
   fragments: {

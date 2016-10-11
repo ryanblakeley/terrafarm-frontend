@@ -1,7 +1,7 @@
 import React from 'react';
-
 import classnames from 'classnames/bind';
 import classNamesContext from '../styles/ItemActionTabTitleStylesheet.css';
+
 const cx = classnames.bind(classNamesContext);
 
 const ItemActionTabTitle = (props) => <div className={cx({this: true, show: props.show})} >

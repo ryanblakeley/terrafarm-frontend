@@ -1,8 +1,14 @@
 import React from 'react';
-
 import classnames from 'classnames/bind';
 import classNamesContext from '../styles/ItemActionTabIconStylesheet.css';
+
 const cx = classnames.bind(classNamesContext);
+
+function cloneWithProps (element, props) {
+  return React.cloneElement(element, {
+    className: cx({ icon: true, largeIcon: props.large }),
+  });
+}
 
 class ItemActionTabIcon extends React.Component {
   handleEnter = () => {
@@ -20,11 +26,6 @@ class ItemActionTabIcon extends React.Component {
       this.props.onClick();
     }
   }
-  cloneWithProps (element, props) {
-    return React.cloneElement(element, {
-      className: cx({ icon: true, largeIcon: props.large }),
-    });
-  }
   render () {
     const {icon, large, disabled} = this.props;
 
@@ -34,7 +35,7 @@ class ItemActionTabIcon extends React.Component {
       onMouseLeave={this.handleLeave}
       onClick={this.handleClick}
     >
-      {this.cloneWithProps(icon, {large})}
+      {cloneWithProps(icon, {large})}
     </div>;
   }
 }

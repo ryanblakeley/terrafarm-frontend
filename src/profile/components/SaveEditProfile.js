@@ -24,7 +24,7 @@ class UpdateProfile extends React.Component {
 
     Relay.Store.commitUpdate(
       new UpdateUserMutation({
-        user: user,
+        user,
         attributes,
       })
     );

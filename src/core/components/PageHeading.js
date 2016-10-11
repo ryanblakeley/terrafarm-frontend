@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from '../styles/PageHeadingStylesheet.css';
 
-const PageHeading = (props) => <div className={classNames.this}>
+const PageHeading = props => <div className={classNames.this}>
   <h1 className={classNames.pageHeading}>{props.text}</h1>
 </div>;
 

@@ -21,9 +21,10 @@ export default class Login extends Component {
   };
   processLogin = response => {
     const { authenticateUser: { output } } = response;
+    const data = JSON.parse(output);
 
-    if (output) {
-      this.props.loginUser(output);
+    if (data.id) {
+      this.props.loginUser(data);
     } else {
       this.setState({ loginError: 'Email and/or Password is incorrect' });
     }

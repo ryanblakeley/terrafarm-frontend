@@ -4,22 +4,17 @@ import ResultsItemResource from './ResultsItemResource';
 
 import classNames from '../styles/ResultsListResourcesStylesheet.css';
 
-class ResultsListResources extends React.Component {
-  static propTypes = {
-    master: React.PropTypes.object,
-  };
-  render () {
-    const {resources} = this.props.master;
+const ResultsListResources = props => <div className={classNames.this} >
+  {props.master.resources.edges.map((edge, index) => <ResultsItemResource
+    resource={edge.node}
+    index={index}
+    key={index}
+  />)}
+</div>;
 
-    return <div className={classNames.this} >
-      {resources.edges.map((edge, index) => <ResultsItemResource
-        resource={edge.node}
-        index={index}
-        key={index}
-      />)}
-    </div>;
-  }
-}
+ResultsListResources.propTypes = {
+  master: React.PropTypes.object,
+};
 
 export default Relay.createContainer(ResultsListResources, {
   fragments: {
