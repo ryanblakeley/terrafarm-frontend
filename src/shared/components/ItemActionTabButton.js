@@ -1,8 +1,8 @@
 import React from 'react';
 import IconButton from 'material-ui/lib/icon-button';
-
 import classnames from 'classnames/bind';
 import classNamesContext from '../styles/ItemActionTabButtonStylesheet.css';
+
 const cx = classnames.bind(classNamesContext);
 const styles = {
   hero: {
@@ -42,7 +42,7 @@ export default class ItemActionTabButton extends React.Component {
 
     if (onClick && !disabled) onClick(value);
   }
-  cloneWithProps = (element) => React.cloneElement(element, {
+  cloneWithProps = element => React.cloneElement(element, {
     className: cx({
       icon: true,
       heroIcon: this.props.hero,

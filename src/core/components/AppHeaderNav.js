@@ -4,7 +4,7 @@ import BrowseButton from './BrowseButton';
 
 import classNames from '../styles/AppHeaderNavStylesheet.css';
 
-const AppHeaderNav = () => <div className={classNames.this} >
+const AppHeaderNav = _ => <div className={classNames.this} >
   <BrowseButton />
   <LoginPortal />
 </div>;

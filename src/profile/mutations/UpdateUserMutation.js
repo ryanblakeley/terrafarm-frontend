@@ -53,5 +53,3 @@ export default class UpdateUserMutation extends Relay.Mutation {
     };
   }
 }
-
-

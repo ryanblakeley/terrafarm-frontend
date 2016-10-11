@@ -7,7 +7,7 @@ import httpProxy from 'http-proxy';
 const app = express();
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
-const { PRIVATE_IP, REVERSE_PROXY_PRIVATE_IP, PORT, API_PORT } = process.env
+const { PRIVATE_IP, REVERSE_PROXY_PRIVATE_IP, PORT, API_PORT } = process.env;
 
 const publicPath = path.join(__dirname, '/..', 'public');
 const proxyOptions = {
@@ -23,7 +23,7 @@ app.use('/graphql', (req, res) => {
   req.removeAllListeners('data');
   req.removeAllListeners('end');
 
-  process.nextTick(function () {
+  process.nextTick(_ => {
     if (req.body) {
       req.emit('data', JSON.stringify(req.body));
     }
@@ -33,10 +33,10 @@ app.use('/graphql', (req, res) => {
   proxy.web(req, res, proxyOptions);
 });
 
-app.get('*', function response(req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
-app.listen(PORT, PRIVATE_IP, function onStart(err) {
+app.listen(PORT, PRIVATE_IP, err => {
   if (err) {
     console.log(`[Error]: ${err}`);
   }

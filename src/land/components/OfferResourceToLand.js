@@ -71,8 +71,7 @@ class OfferResourceToLand extends React.Component {
           {resourceItems}
         </SelectInput>
         <p className={classNames.message}>
-          Your email address will be shared with the <strong>
-          {land.name}</strong> land admin.
+          Your email address will be shared with the <strong>{land.name}</strong> land admin.
         </p>
       </Formsy.Form>
       <div className={classNames.buttons}>

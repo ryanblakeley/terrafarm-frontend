@@ -61,5 +61,3 @@ export default Relay.createContainer(RemoveResourceFromTask, {
     `,
   },
 });
-
-

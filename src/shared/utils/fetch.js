@@ -2,15 +2,16 @@ import 'fetch-everywhere';
 
 import { networkAddress } from './network';
 
+/* eslint quote-props: 0 */
 const defaultHeaders = {
   'Accept': 'application/json',
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 };
 
-export function post({ url, body, options = {} }) {
+export default function post ({ url, body, options = {} }) {
   return fetch(`//${networkAddress}/${url}`, {
     method: 'POST',
     headers: defaultHeaders,
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   }).then(response => response.json());
 }

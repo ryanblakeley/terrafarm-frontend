@@ -1,8 +1,8 @@
 import React from 'react';
 import FlatButton from 'material-ui/lib/flat-button';
-
-import classNamesContext from '../styles/CategoryButtonStylesheet.css';
 import classNames from 'classnames/bind';
+import classNamesContext from '../styles/CategoryButtonStylesheet.css';
+
 const cx = classNames.bind(classNamesContext);
 
 export default class CategoryButton extends React.Component {
@@ -21,7 +21,7 @@ export default class CategoryButton extends React.Component {
   };
   handleClick = () => {
     const {name, handleNotify, activeEntity} = this.props;
-    const {location, router} = this.context;
+    const {router} = this.context;
 
     if (handleNotify) {
       handleNotify(name);
@@ -32,7 +32,7 @@ export default class CategoryButton extends React.Component {
       query: {
         entities: activeEntity,
         category: name,
-      }
+      },
     });
   }
   render () {
@@ -43,7 +43,7 @@ export default class CategoryButton extends React.Component {
       secondary={!active}
       className={cx({
         this: true,
-        active
+        active,
       })}
       label={name}
       onClick={this.handleClick}

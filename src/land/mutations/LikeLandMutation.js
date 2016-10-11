@@ -95,5 +95,3 @@ export default class LikeLandMutation extends Relay.Mutation {
     };
   }
 }
-
-

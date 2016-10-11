@@ -24,26 +24,40 @@ rules:
 
     # DISABLE
     eol-last: 2
-    no-unused-vars: [2, args: none]
+    no-unused-vars: [1, args: none]
     quotes: [1, single, avoid-escape]  # allow single quotes for strings
     no-multi-spaces: 2
 
     # DISABLE (personal styles)
-    arrow-parens: ["error", "as-needed"]
+    arrow-parens: [1, "as-needed"]
     class-methods-use-this: ["error", { "exceptMethods": [
+        "cloneWithProps",
         "getMutation",
         "getVariables",
         "getFatQuery",
         "getConfigs",
+        "componentDidMount",
+        "componentDidUpdate",
+        "componentWillMount",
+        "componentWillReceiveProps",
+        "componentWillUnmount",
+        "componentWillUpdate",
+        "render",
+        "shouldComponentUpdate",
     ] }]
     generator-star-spacing: 0
     import/no-extraneous-dependencies: ["error", {"devDependencies": true}]
+    jsx-a11y/no-static-element-interactions: 1
     no-underscore-dangle: 0  # private/internal variables
     no-use-before-define: 0
     no-empty: 0  # allow empty blocks e.g. try catch
     object-curly-spacing: 0
+    prefer-spread: 1
+    react/forbid-prop-types: 0
     react/jsx-filename-extension: 0
     react/jsx-wrap-multilines: 0
+    react/no-string-refs: 1
+    react/no-unused-prop-types: 1
     react/require-extension: 0
     react/wrap-multilines: 0
     space-before-function-paren: [2, "always"]

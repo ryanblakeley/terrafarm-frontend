@@ -3,9 +3,10 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 import Colors from 'material-ui/lib/styles/colors';
 import IoLeaf from 'react-icons/lib/io/leaf';
+import MdStar from 'react-icons/lib/md/star';
 import RelationshipIcon from './RelationshipIcon';
-
 import classNames from '../styles/TaskItemStylesheet.css';
+
 const styles = {
   this: {
     color: Colors.blueGrey900,
@@ -50,4 +51,3 @@ export default Relay.createContainer(TaskItem, {
     `,
   },
 });
-

@@ -51,5 +51,3 @@ export default class RemoveResourceFromTaskMutation extends Relay.Mutation {
     };
   }
 }
-
-

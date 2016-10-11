@@ -119,5 +119,3 @@ export default class PendingResourceToProjectMutation extends Relay.Mutation {
     };
   }
 }
-
-

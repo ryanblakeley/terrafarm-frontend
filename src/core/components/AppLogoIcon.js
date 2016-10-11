@@ -1,8 +1,8 @@
 import React from 'react';
-import LogoIcon from '../../shared/components/LogoIcon';
-
 import classnames from 'classnames/bind';
+import LogoIcon from '../../shared/components/LogoIcon';
 import classNamesContext from '../styles/AppLogoIconStylesheet.css';
+
 const cx = classnames.bind(classNamesContext);
 
 export default class AppLogoIcon extends React.Component {
@@ -10,14 +10,6 @@ export default class AppLogoIcon extends React.Component {
     router: React.PropTypes.object,
     loggedIn: React.PropTypes.bool,
   };
-  getIcon () {
-    const {loggedIn} = this.context;
-
-    return <LogoIcon
-      className={cx({icon: true, faded: !loggedIn})}
-      width={52} height={52}
-    />;
-  }
   handleProfile = () => {
     const {router, loggedIn} = this.context;
 
@@ -26,10 +18,13 @@ export default class AppLogoIcon extends React.Component {
     }
   }
   render () {
-    const icon = this.getIcon();
+    const {loggedIn} = this.context;
 
     return <div className={cx({this: true})} onClick={this.handleProfile}>
-      {icon}
+      <LogoIcon
+        className={cx({icon: true, faded: !loggedIn})}
+        width={52} height={52}
+      />
     </div>;
   }
 }

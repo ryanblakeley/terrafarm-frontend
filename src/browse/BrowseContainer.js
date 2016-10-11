@@ -6,21 +6,16 @@ import BrowseResults from './components/BrowseResults';
 
 import classNames from './styles/BrowseContainerStylesheet.css';
 
-class BrowseContainer extends React.Component {
-  static propTypes = {
-    master: React.PropTypes.object,
-  };
-  render () {
-    const {master} = this.props;
+const BrowseContainer = props => <TransitionWrapper>
+  <div className={classNames.this} >
+    <BrowsePanel />
+    <BrowseResults master={props.master} />
+  </div>
+</TransitionWrapper>;
 
-    return <TransitionWrapper>
-      <div className={classNames.this} >
-        <BrowsePanel />
-        <BrowseResults master={master} />
-      </div>
-    </TransitionWrapper>;
-  }
-}
+BrowseContainer.propTypes = {
+  master: React.PropTypes.object,
+};
 
 export default Relay.createContainer(BrowseContainer, {
   fragments: {

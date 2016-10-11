@@ -39,5 +39,3 @@ export default class UpdateResourceMutation extends Relay.Mutation {
     };
   }
 }
-
-

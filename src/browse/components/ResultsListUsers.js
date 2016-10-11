@@ -4,24 +4,17 @@ import ResultsItemUser from './ResultsItemUser';
 
 import classNames from '../styles/ResultsListUsersStylesheet.css';
 
-class ResultsListUsers extends React.Component {
-  static propTypes = {
-    master: React.PropTypes.object,
-  };
-  render () {
-    const {users} = this.props.master;
+const ResultsListUsers = props => <div className={classNames.this} >
+  {props.master.users.edges.map((edge, index) => <ResultsItemUser
+    user={edge.node}
+    index={index}
+    key={index}
+  />)}
+</div>;
 
-    return <div className={classNames.this} >
-      {users.edges.map((edge, index) => {
-        return <ResultsItemUser
-          user={edge.node}
-          index={index}
-          key={index}
-        />;
-      })}
-    </div>;
-  }
-}
+ResultsListUsers.propTypes = {
+  master: React.PropTypes.object,
+};
 
 export default Relay.createContainer(ResultsListUsers, {
   fragments: {

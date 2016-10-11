@@ -97,6 +97,8 @@ export class CoreContainer extends Component {
 }
 
 /* eslint new-cap: 0 */
-export default ThemeDecorator(
+const CoreContainerTheme = ThemeDecorator(
   ThemeManager.getMuiTheme(TerrafarmRawTheme)
 )(CoreContainer);
+
+export default CoreContainerTheme;

@@ -1,17 +1,16 @@
 import React from 'react';
 import FlatButton from 'material-ui/lib/flat-button';
-
-import classNamesContext from '../styles/EntityButtonStylesheet.css';
 import classNames from 'classnames/bind';
+import classNamesContext from '../styles/EntityButtonStylesheet.css';
+
 const cx = classNames.bind(classNamesContext);
 
 export default class EntityButton extends React.Component {
-  /*
   static propTypes = {
-    handleNotify: React.PropTypes.func.isRequired,
-    active: React.PropTypes.bool,
+    name: React.PropTypes.string,
+    // handleNotify: React.PropTypes.func.isRequired,
+    // active: React.PropTypes.bool,
   };
-  */
   static contextTypes = {
     location: React.PropTypes.object,
     router: React.PropTypes.object,
@@ -55,7 +54,7 @@ export default class EntityButton extends React.Component {
       primary={active}
       className={cx({
         this: true,
-        active
+        active,
       })}
       label={name}
       onClick={this.handleClick}

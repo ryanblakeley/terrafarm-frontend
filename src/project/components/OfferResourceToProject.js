@@ -71,8 +71,7 @@ class OfferResourceToProject extends React.Component {
           {resourceItems}
         </SelectInput>
         <p className={classNames.message}>
-          Your email address will be shared with the <strong>
-          {project.name}</strong> project admin.
+          Your email address will be shared with the <strong>{project.name}</strong> project admin.
         </p>
       </Formsy.Form>
       <div className={classNames.buttons}>

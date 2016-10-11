@@ -100,8 +100,8 @@ class OfferResourceToTask extends React.Component {
           {resourceItems}
         </SelectInput>
         <p className={classNames.message}>
-          Your email address will be shared with the <strong>
-          {task.projects.edges[0].node.name}</strong> project admin.
+          Your email address will be shared with the
+          <strong>{task.projects.edges[0].node.name}</strong> project admin.
         </p>
       </Formsy.Form>
       <div className={classNames.buttons}>

@@ -4,24 +4,19 @@ import {Link} from 'react-router';
 
 import classNames from '../styles/ResultsItemLandStylesheet.css';
 
-class ResultsItemLand extends React.Component {
-  static propTypes = {
-    land: React.PropTypes.object,
-    index: React.PropTypes.number,
-  };
-  render () {
-    const {land, index} = this.props;
+const ResultsItemLand = props => <div className={classNames.this}>
+  <span className={classNames.number} >
+    {props.index + 1}.
+  </span>
+  <Link to={`/land/${props.land.id}`} className={classNames.name} >
+    {props.land.name[0].toUpperCase() + props.land.name.slice(1)}
+  </Link>
+</div>;
 
-    return <div className={classNames.this}>
-      <span className={classNames.number} >
-        {index + 1}.
-      </span>
-      <Link to={`/land/${land.id}`} className={classNames.name} >
-        {land.name[0].toUpperCase() + land.name.slice(1)}
-      </Link>
-    </div>;
-  }
-}
+ResultsItemLand.propTypes = {
+  land: React.PropTypes.object,
+  index: React.PropTypes.number,
+};
 
 export default Relay.createContainer(ResultsItemLand, {
   fragments: {
