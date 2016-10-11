@@ -1,4 +1,6 @@
-# Terrafarm Authentication Scheme
+# Terrafarm Frontend Software Documentation
+
+## Authentication
 
 This describes how Authentication and User Sign Up works in the Terrafarm
 App as of commit de14ce3cb2c1b98ba2598de4ddf90c1831d58e30.
