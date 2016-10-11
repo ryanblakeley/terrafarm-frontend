@@ -10,6 +10,7 @@ import * as fetchers from 'shared/utils/fetch';
 const replaceStub = sinon.stub();
 const pushStub = sinon.stub();
 const setLoggedInStub = sinon.stub();
+const setUserIdStub = sinon.stub();
 
 function renderComponent(loggedIn = false) {
   return shallow(
@@ -22,6 +23,7 @@ function renderComponent(loggedIn = false) {
       context: {
         loggedIn: loggedIn,
         setLoggedIn: setLoggedInStub,
+        setUserId: setUserIdStub,
         router: {
           replace: replaceStub,
           push: pushStub,
@@ -38,6 +40,7 @@ describe('<LoginPage />', () => {
         router: PropTypes.object.isRequired,
         loggedIn: PropTypes.bool,
         setLoggedIn: PropTypes.func.isRequired,
+        setUserId: PropTypes.func.isRequired,
       });
     });
   });
@@ -79,12 +82,14 @@ describe('<LoginPage />', () => {
     after(() => {
       pushStub.reset();
       setLoggedInStub.reset();
+      setUserIdStub.reset();
       localStorage.removeItem('id_token');
     });
 
     it('does all the expected things', () => {
-      component.instance().loginUser('foo');
+      component.instance().loginUser({ token: 'foo', id: 'bar' });
       expect(setLoggedInStub.calledWith(true)).to.be.true; // eslint-disable-line no-unused-expressions
+      expect(setUserIdStub.calledWith('bar')).to.be.true; // eslint-disable-line no-unused-expressions
       expect(pushStub.calledWith('/profile')).to.be.true; // eslint-disable-line no-unused-expressions
       expect(localStorage.getItem('id_token')).to.eql('foo');
     });

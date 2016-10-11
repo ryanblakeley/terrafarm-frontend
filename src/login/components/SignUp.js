@@ -30,9 +30,10 @@ export default class SignUp extends Component {
   };
   processSignUp = (response) => {
     const { createUser: { output } } = response;
+    const data = JSON.parse(output);
 
-    if (output) {
-      this.props.loginUser(output);
+    if (data.id) {
+      this.props.loginUser(data);
     } else {
       this.setState({ signUpError: 'There was an error signing you up.' });
     }
