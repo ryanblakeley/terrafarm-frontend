@@ -31,13 +31,12 @@ payload.
 For the current implementation, see the [docs section](https://github.com/rojobuffalo/terrafarm-frontend/tree/dev/NOTES/DOCS/AUTHENTICATION.md).
 
 #### Frontend
-When the user hits the `/login` [route][3], it creates an Auth0 lock if one doesn’t yet exist. That lock allows us to parse a hash on a callback from Auth0. It looks for `id_token` in `localStorage`. If there is no `id_token` but we have a hash to parse, we parse the hash with the lock and set the `id_token` in `localStorage`. If that token has not been injected in the Relay network layer, then it gets injected in the `Authorization` header for the graphql proxy.
+When the user hits the `/login` [route][1], they are presented with a screen that will allow them to login or sign up. This information is then sent to the API server via a Relay mutation. When the reponse is received, we either login the user or display an error message.
 
-The `id_token` and Auth0 `lock` are passed in `context` to a [nested route][4] `/login/authorize`. `AuthorizeContainer` also gets context functions called `setLoggedIn` and `refresh` from the top-level app component `CoreContainer`. If we have `context.idToken` but `props.viewer` (from Relay) is falsey, a `NewUser` mutation gets called. A refresh is triggered so Relay can get the new `viewer`, but it doesn’t always work smoothly :(.
+When the user is logged in, we set the localStorage key `id_token` with the signed JWT token that is received in the response. We then call the `setUserId` context function with the UUID received in the response. Next we call the `setLoggedIn` context function, and then redirect the user to their profile page.
 
-[3]: /src/frontend/login/LoginPage.js
-[4]: /src/frontend/login/components/AuthorizeContainer.js
+[1]: /src/frontend/login/LoginPage.js
 
-Relay Router uses the `onEnter` hook to check for an `id_token` in `localStorage` and [bounces][6] to `/login` if there isn’t one. This kind of sucks because the user has to be logged in to get to any pages that use Relay. But because of the jwt middleware on the graphql endpoint, anything that hits graphql without a token gets an unauthorized error.
+Relay Router uses the `onEnter` hook to check for an `id_token` in `localStorage` and [bounces][2] to `/login` if there isn’t one. This kind of sucks because the user has to be logged in to get to any pages that use Relay. But because of the jwt middleware on the graphql endpoint, anything that hits graphql without a token gets an unauthorized error.
 
-[6]: /src/frontend/index.js#L32
+[2]: /src/frontend/index.js#L32
