@@ -1,8 +1,10 @@
+# Custom
+data/schema.*
+
 # Build ...
 node_modules
 npm-debug.log
 tmp
-data
 
 # Environment
 .env
@@ -98,5 +100,3 @@ node_modules
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
-
-data/schema.*
