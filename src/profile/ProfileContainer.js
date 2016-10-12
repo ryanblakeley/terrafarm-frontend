@@ -1,22 +1,66 @@
 import React from 'react';
+import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import classNames from './styles/ProfileContainerStylesheet.css';
-
+/*
 const ProfileContainer = props => <TransitionWrapper>
   <div className={classNames.this} >
-    Profile...
+    <p>Profile for {props.user.name}</p>
+    {console.log('profile id:', props.user.id)}
   </div>
 </TransitionWrapper>;
+*/
+
+class ProfileContainer extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object,
+    location: React.PropTypes.object,
+    userId: React.PropTypes.string,
+  };
+  componentDidMount () {
+    const {router, location, userId} = this.context;
+    router.push({
+      pathname: location.pathname,
+      state: {
+        userId,
+      },
+    });
+  }
+  render () {
+    const {location} = this.context;
+    console.log('location state:', location);
+    return <TransitionWrapper>
+      <div className={classNames.this} >
+        <p>Profile for...</p>
+      </div>
+    </TransitionWrapper>;
+  }
+}
 
 ProfileContainer.propTypes = {
-  viewer: React.PropTypes.shape({}),
-  master: React.PropTypes.shape({}),
+  user: React.PropTypes.shape({
+    id: React.PropTypes.string,
+    name: React.PropTypes.string,
+  }),
 };
 
-export default ProfileContainer;
+// export default ProfileContainer;
+
+export default Relay.createContainer(ProfileContainer, {
+  initialVariables: {
+    userId: null,
+  },
+  fragments: {
+    user: () => Relay.QL`
+      fragment on User {
+        id,
+        name,
+      }
+    `,
+  },
+});
 
 /*
-import Relay from 'react-relay';
 import ResourceItem from '../shared/components/ResourceItem';
 import LandItem from '../shared/components/LandItem';
 import HeroImage from '../shared/components/HeroImage';
@@ -59,53 +103,6 @@ import createColorChart from '../shared/themes/create-color-chart';
       />)}
       <p className={classNames.description}>{viewer.description}</p>
     </div>
-
-export default Relay.createContainer(ProfileContainer, {
-  fragments: {
-    viewer: () => Relay.QL`
-      fragment on User {
-        name,
-        image,
-        location,
-        description,
-        resources(first: 3) {
-          edges {
-            node {
-              id,
-              name,
-              lands(first: 1) {
-                edges {
-                  node {
-                    id,
-                    name,
-                    ${LandItem.getFragment('land')}
-                  }
-                }
-              },
-              ${ResourceItem.getFragment('resource')},
-            }
-          },
-        },
-        landsAdmin(first: 1) {
-          edges {
-            node {
-              id,
-              name,
-              ${LandItem.getFragment('land')}
-            }
-          }
-        },
-        ${ProfileActionTabs.getFragment('user')},
-      }
-    `,
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-        ${ProfileActionTabs.getFragment('master')},
-      }
-    `,
-  },
-});
 
   state = {
     colorChart: {},
@@ -160,4 +157,49 @@ export default Relay.createContainer(ProfileContainer, {
 
     this.setState({landsUsingResources});
   }
+
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on User {
+        name,
+        image,
+        location,
+        description,
+        resources(first: 3) {
+          edges {
+            node {
+              id,
+              name,
+              lands(first: 1) {
+                edges {
+                  node {
+                    id,
+                    name,
+                    ${LandItem.getFragment('land')}
+                  }
+                }
+              },
+              ${ResourceItem.getFragment('resource')},
+            }
+          },
+        },
+        landsAdmin(first: 1) {
+          edges {
+            node {
+              id,
+              name,
+              ${LandItem.getFragment('land')}
+            }
+          }
+        },
+        ${ProfileActionTabs.getFragment('user')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        id,
+        ${ProfileActionTabs.getFragment('master')},
+      }
+    `,
+
 */

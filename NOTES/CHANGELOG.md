@@ -4,6 +4,13 @@
 
 ### HEAD
 
+### 1.0.0
+
+- test framework
+- new authentication
+
+### 0.8 2016 July
+
 - fixed login flow
 - added app header with dynamic page heading and nav
 - multiline inputs

@@ -1,18 +1,11 @@
-// Vendor
 /* eslint no-unused-vars: 0 */
 import React, { PropTypes, Component } from 'react';
 import Relay from 'react-relay';
-
-// Theme
-import ThemeManager from 'material-ui/lib/styles/theme-manager';
-import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TerrafarmRawTheme from '../shared/themes/terrafarm-raw-theme';
-
-// Local
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
-
-// Styles
 import '../shared/styles/base.css';
 import classNames from './styles/CoreContainerStylesheet.css';
 
@@ -97,8 +90,10 @@ export class CoreContainer extends Component {
 }
 
 /* eslint new-cap: 0 */
-const CoreContainerTheme = ThemeDecorator(
-  ThemeManager.getMuiTheme(TerrafarmRawTheme)
-)(CoreContainer);
+const CoreContainerTheme = props => (
+  <MuiThemeProvider muiTheme={getMuiTheme(TerrafarmRawTheme)}>
+    <CoreContainer {...props} />
+  </MuiThemeProvider>
+);
 
 export default CoreContainerTheme;

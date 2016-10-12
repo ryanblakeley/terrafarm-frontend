@@ -1,15 +1,9 @@
-// Vendor
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import Tabs from 'material-ui/lib/tabs/tabs';
-import Tab from 'material-ui/lib/tabs/tab';
-
-// Local
+import {Tabs, Tab} from 'material-ui/Tabs';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import networkLayer from '../lib/networkLayer';
-
-// Styles
 import classNames from './styles/LoginPageStylesheet.css';
 
 export default class LoginPage extends Component {

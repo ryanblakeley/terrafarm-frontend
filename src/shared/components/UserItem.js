@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
-import Colors from 'material-ui/lib/styles/colors';
+import {blueGrey900} from 'material-ui/styles/colors';
 import IoPerson from 'react-icons/lib/io/person';
 import MdStar from 'react-icons/lib/md/star';
 import RelationshipIcon from './RelationshipIcon';
@@ -10,7 +10,7 @@ import classNames from '../styles/UserItemStylesheet.css';
 
 const styles = {
   this: {
-    color: Colors.blueGrey900,
+    color: blueGrey900,
   },
 };
 

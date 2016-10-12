@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import FlatButton from 'material-ui/lib/flat-button';
+import FlatButton from 'material-ui/FlatButton';
 
 import DeleteUserMutation from '../mutations/DeleteUserMutation';
 

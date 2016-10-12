@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import NewResourceMutation from '../mutations/NewResourceMutation';
 

@@ -16,7 +16,7 @@ import ItemActionTabsBody from '../../shared/components/ItemActionTabsBody';
 import ItemActionTabClose from '../../shared/components/ItemActionTabClose';
 import ItemActionTabContent from '../../shared/components/ItemActionTabContent';
 
-const ProfileActionTabs = (props) => <ItemActionTabs>
+const ProfileActionTabs = props => <ItemActionTabs>
   <ItemActionTabsMenu>
     <ItemActionTabButton disabled />
     <ItemActionTabButton

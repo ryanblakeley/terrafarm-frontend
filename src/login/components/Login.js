@@ -1,14 +1,9 @@
-// Vendor
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import Formsy from 'formsy-react';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 import TextInput from '../../shared/components/TextInput';
-
-// Local
 import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
-
-// Styles
 import classNames from '../styles/LoginPageStylesheet.css';
 
 export default class Login extends Component {

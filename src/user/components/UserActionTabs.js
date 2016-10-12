@@ -5,7 +5,7 @@ import ItemActionTabs from '../../shared/components/ItemActionTabs';
 import ItemActionTabsMenu from '../../shared/components/ItemActionTabsMenu';
 import ItemActionTabButton from '../../shared/components/ItemActionTabButton';
 
-const UserActionTabs = (props) => <ItemActionTabs>
+const UserActionTabs = props => <ItemActionTabs>
   <ItemActionTabsMenu>
     <ItemActionTabButton disabled />
     <ItemActionTabButton disabled />

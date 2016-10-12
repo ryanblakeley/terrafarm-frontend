@@ -2,8 +2,8 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import Formsy from 'formsy-react';
-import RaisedButton from 'material-ui/lib/raised-button';
-import Popover from 'material-ui/lib/popover/popover';
+import RaisedButton from 'material-ui/RaisedButton';
+import Popover from 'material-ui/Popover';
 import IoIosCheckmarkOutline from 'react-icons/lib/io/ios-checkmark-outline';
 import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
 import TextInput from '../../shared/components/TextInput';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import IconButton from 'material-ui/lib/icon-button';
+import IconButton from 'material-ui/IconButton';
 import IoIosHeart from 'react-icons/lib/io/ios-heart';
 import IoIosHeartOutline from 'react-icons/lib/io/ios-heart-outline';
 

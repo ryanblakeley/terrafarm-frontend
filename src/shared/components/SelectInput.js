@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormsySelect} from 'formsy-material-ui';
-import Colors from 'material-ui/lib/styles/colors';
+import {blueGrey900} from 'material-ui/styles/colors';
 
 export default class SelectInput extends React.Component {
   static propTypes = {
@@ -29,8 +29,8 @@ export default class SelectInput extends React.Component {
       <FormsySelect
         name={this.props.name}
         style={this.props.style}
-        floatingLabelStyle={{color: Colors.blueGrey900}}
-        underlineFocusStyle={{borderColor: Colors.blueGrey900}}
+        floatingLabelStyle={{color: blueGrey900}}
+        underlineFocusStyle={{borderColor: blueGrey900}}
         hintText={this.props.placeholder}
         floatingLabelText={this.props.label}
         value={this.props.initialValue}

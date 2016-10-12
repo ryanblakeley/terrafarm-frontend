@@ -25,7 +25,7 @@ Relay.injectNetworkLayer(networkLayer(token));
 
 match({ routes, history: browserHistory }, (error, redirectLocation, renderProps) => {
   ReactDOM.render(
-    <Router {...renderProps} render={applyRouterMiddleware(useRelay)} />,
+    <Router {...renderProps} render={applyRouterMiddleware(useRelay)} environment={Relay.Store} />,
     document.getElementById('root')
   );
 });

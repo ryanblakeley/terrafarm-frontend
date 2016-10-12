@@ -18,13 +18,13 @@ const {
 const anonymousToken = jwt.sign({
   role: 'postgraphql_anonymous',
   sub: 'postgraphql',
-  aud: 'postgraphql'
+  aud: 'postgraphql',
 }, JWT_PRIVATE_KEY);
 
 const registrarToken = jwt.sign({
   role: 'postgraphql_registrar',
   sub: 'postgraphql',
-  aud: 'postgraphql'
+  aud: 'postgraphql',
 }, JWT_PRIVATE_KEY);
 
 const PATHS = {
@@ -51,13 +51,13 @@ const config = {
       template: 'src/index.template.html',
       inject: true,
       anonymousToken,
-      registrarToken
+      registrarToken,
     }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(NODE_ENV),
-        REVERSE_PROXY_PUBLIC_IP: JSON.stringify(REVERSE_PROXY_PUBLIC_IP), // obsolete with react-relay-network-layer
-        PORT: Number(PORT), // obsolete with react-relay-network-layer
+        REVERSE_PROXY_PUBLIC_IP: JSON.stringify(REVERSE_PROXY_PUBLIC_IP),
+        PORT: Number(PORT),
       },
     }),
   ],

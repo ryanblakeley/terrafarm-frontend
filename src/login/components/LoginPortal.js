@@ -1,8 +1,8 @@
 // Vendor
 import React from 'react';
 import Relay from 'react-relay';
-import IconButton from 'material-ui/lib/icon-button';
-import Colors from 'material-ui/lib/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import {red200, blue500} from 'material-ui/styles/colors';
 import IoLogIn from 'react-icons/lib/io/log-in';
 import IoLogOut from 'react-icons/lib/io/log-out';
 import classNames from 'classnames/bind';
@@ -33,7 +33,7 @@ export default class LoginPortal extends React.Component {
   getIcon () {
     const { loggedIn } = this.context;
 
-    styles.icon.color = loggedIn ? Colors.red200 : Colors.blue500;
+    styles.icon.color = loggedIn ? red200 : blue500;
 
     if (loggedIn) {
       return <IconButton

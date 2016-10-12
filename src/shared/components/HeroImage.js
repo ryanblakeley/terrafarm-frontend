@@ -1,11 +1,11 @@
 import React from 'react';
-import Colors from 'material-ui/lib/styles/colors';
+import {blueGrey100, blueGrey400} from 'material-ui/styles/colors';
 import classNames from '../styles/HeroImageStylesheet.css';
 
 const styles = {
   this: {
-    backgroundColor: Colors.blueGrey100,
-    borderColor: Colors.blueGrey400,
+    backgroundColor: blueGrey100,
+    borderColor: blueGrey400,
   },
 };
 

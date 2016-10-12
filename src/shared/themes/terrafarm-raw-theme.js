@@ -1,22 +1,32 @@
-import Colors from 'material-ui/lib/styles/colors';
-import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
-import Spacing from 'material-ui/lib/styles/spacing';
+import {
+  blueGrey50,
+  blueGrey300,
+  blueGrey500,
+  blueGrey900,
+  cyan700,
+  green200,
+  green500,
+  green700,
+  lightBlack,
+} from 'material-ui/styles/colors';
+import {fade} from 'material-ui/utils/colorManipulator';
+import Spacing from 'material-ui/styles/spacing';
 
 const TerrafarmRawTheme = {
   spacing: Spacing,
   fontFamily: 'Overlock, sans-serif',
   palette: {
-    primary1Color: Colors.blueGrey500,
-    primary2Color: Colors.cyan700,
-    primary3Color: Colors.lightBlack,
-    accent1Color: Colors.green500,
-    accent2Color: Colors.green200,
-    accent3Color: Colors.green700,
-    textColor: Colors.blueGrey900,
-    alternateTextColor: Colors.blueGrey50,
-    canvasColor: Colors.blueGrey50,
-    borderColor: Colors.blueGrey300,
-    disabledColor: ColorManipulator.fade(Colors.blueGrey900, 0.3),
+    primary1Color: blueGrey500,
+    primary2Color: cyan700,
+    primary3Color: lightBlack,
+    accent1Color: green500,
+    accent2Color: green200,
+    accent3Color: green700,
+    textColor: blueGrey900,
+    alternateTextColor: blueGrey50,
+    canvasColor: blueGrey50,
+    borderColor: blueGrey300,
+    disabledColor: fade(blueGrey900, 0.3),
   },
 };
 
