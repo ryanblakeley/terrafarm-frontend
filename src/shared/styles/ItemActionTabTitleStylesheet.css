@@ -1,5 +1,5 @@
 .this {
   display: none; text-align: center;
-  composes: bodyText from './typography.css';
+  composes: bodyText from './_typography.css';
 }
 .show { display: block; }

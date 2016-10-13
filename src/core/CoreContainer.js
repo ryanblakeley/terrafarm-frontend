@@ -6,7 +6,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TerrafarmRawTheme from '../shared/themes/terrafarm-raw-theme';
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
-import '../shared/styles/base.css';
+import '../shared/styles/_base.css';
 import classNames from './styles/CoreContainerStylesheet.css';
 
 export class CoreContainer extends Component {

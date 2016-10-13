@@ -3,7 +3,7 @@
   font-size: 32px;
 }
 .icon {
-  composes: icon from '../../shared/styles/typography.css';
+  composes: icon from '../../shared/styles/_typography.css';
 }
 .small {
   font-size: 16px;

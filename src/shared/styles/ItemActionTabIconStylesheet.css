@@ -6,6 +6,6 @@
 }
 .this.disabled { cursor: default; }
 .this.large { width: 88px; height: 88px; padding: 12px; }
-.icon { composes: icon from './typography.css'; }
+.icon { composes: icon from './_typography.css'; }
 .disabled .icon { opacity: 0.3; }
 .largeIcon { font-size: 64px; }

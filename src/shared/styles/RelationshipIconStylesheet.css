@@ -4,12 +4,12 @@
   top: -0.14em;
 }
 .primary {
-  composes: icon from './typography.css';
+  composes: icon from './_typography.css';
   margin-right: 8px;
   font-size: 20px;
 }
 .secondary {
-  composes: icon from './typography.css';
+  composes: icon from './_typography.css';
   left: -63%;
   margin-right: 8px;
   font-size: 20px;

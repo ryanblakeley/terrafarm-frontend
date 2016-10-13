@@ -2,7 +2,7 @@
   line-height: 2.2em;
 }
 .relationshipItemName {
-  composes: bodyText from './typography.css';
+  composes: bodyText from './_typography.css';
   font-size: 1.1em;
 }
 .colorsPlaceholder {

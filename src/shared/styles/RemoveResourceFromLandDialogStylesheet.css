@@ -3,7 +3,7 @@
   display: inline-block;
 }
 .link {
-  composes: link from './typography.css';
+  composes: link from './_typography.css';
   font-weight: 700;
 }
 .pointer {

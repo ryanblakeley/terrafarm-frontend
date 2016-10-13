@@ -1,7 +1,7 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
-import transitionNames from '../styles/transitions.css';
+import transitionNames from '../styles/_transitions.css';
 /*
 const TransitionWrapper = props => <CSSTransitionGroup
   transitionName={transitionNames}

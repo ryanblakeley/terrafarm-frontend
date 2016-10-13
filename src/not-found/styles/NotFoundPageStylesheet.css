@@ -1,12 +1,12 @@
 .this {
-  composes: page from '../../shared/styles/layout.css';
+  composes: page from '../../shared/styles/_layout.css';
 }
 .pageHeading {
-  composes: pageHeading from '../../shared/styles/typography.css';
+  composes: pageHeading from '../../shared/styles/_typography.css';
 }
 .contentHeading {
-  composes: contentHeading from '../../shared/styles/typography.css';
+  composes: contentHeading from '../../shared/styles/_typography.css';
 }
 .bodyText {
-  composes: bodyText from '../../shared/styles/typography.css';
+  composes: bodyText from '../../shared/styles/_typography.css';
 }

@@ -1,6 +1,6 @@
 .this { margin: 12px 0 12px 12px; }
 .icon {
-  composes: icon from '../../shared/styles/typography.css';
+  composes: icon from '../../shared/styles/_typography.css';
   font-size: 52px;
   cursor: pointer;
   opacity: 1;

@@ -1,7 +1,7 @@
 .this {
-  composes: center from '../../shared/styles/layout.css';
+  composes: center from '../../shared/styles/_layout.css';
 }
 .text {
-  composes: largeBodyText from '../../shared/styles/typography.css';
+  composes: largeBodyText from '../../shared/styles/_typography.css';
   /*margin: 25px auto 0;*/ /* bottom: 0 fixes container height */
 }

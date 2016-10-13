@@ -1,20 +1,20 @@
 .this {
-  composes: page from '../../shared/styles/layout.css';
+  composes: page from '../../shared/styles/_layout.css';
 }
 .contentHeading {
-  composes: contentHeading from '../../shared/styles/typography.css';
+  composes: contentHeading from '../../shared/styles/_typography.css';
 }
 .contentSubheading {
-  composes: contentSubheading from '../../shared/styles/typography.css';
+  composes: contentSubheading from '../../shared/styles/_typography.css';
   font-size: 1.08em;
 }
 .location {
-  composes: articleSubheading from '../../shared/styles/typography.css';
+  composes: articleSubheading from '../../shared/styles/_typography.css';
 }
 .relationships {
-  composes: relationships from '../../shared/styles/layout.css';
+  composes: relationships from '../../shared/styles/_layout.css';
 }
 .description {
-  composes: bodyText from '../../shared/styles/typography.css';
-  composes: description from '../../shared/styles/layout.css';
+  composes: bodyText from '../../shared/styles/_typography.css';
+  composes: description from '../../shared/styles/_layout.css';
 }
