@@ -30,6 +30,7 @@ const registrarToken = jwt.sign({
 const PATHS = {
   src: path.join(__dirname, 'src'),
   build: path.join(__dirname, 'build', 'public'),
+  fonts: path.join(__dirname, 'src', 'shared', 'fonts'),
 };
 
 const config = {
@@ -82,6 +83,16 @@ const config = {
         test: /\.png$/,
         include: PATHS.src,
         loader: 'url-loader?limit=65000',
+      },
+      {
+        test: /\.(woff|woff2)$/,
+        include: PATHS.fonts,
+        query: {
+          name: 'font/[hash].[ext]',
+          limit: 5000,
+          mimetype: 'application/font-woff',
+        },
+        loader: 'url?limit=50000',
       },
     ],
   },

@@ -1,6 +1,5 @@
 @import 'sanitize.css/sanitize.css';
-@import url(https://fonts.googleapis.com/css?family=Simonetta:400,400italic,900|Overlock|Averia+Serif+Libre:300,400);
-/* |Bree+Serif|Droid+Serif */
+@import './_fonts.css';
 
 :root { font-size: 14px; transition: font-size 160ms linear; }
 
