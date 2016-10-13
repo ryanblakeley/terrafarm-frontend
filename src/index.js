@@ -23,9 +23,12 @@ injectTapEventPlugin();
 const token = localStorage.getItem('id_token') || window.registrarToken;
 Relay.injectNetworkLayer(networkLayer(token));
 
-match({ routes, history: browserHistory }, (error, redirectLocation, renderProps) => {
-  ReactDOM.render(
-    <Router {...renderProps} render={applyRouterMiddleware(useRelay)} environment={Relay.Store} />,
-    document.getElementById('root')
-  );
-});
+ReactDOM.render(
+  <Router
+    render={applyRouterMiddleware(useRelay)}
+    history={browserHistory}
+    environment={Relay.Store}
+    routes={routes}
+  />,
+  document.getElementById('root')
+);

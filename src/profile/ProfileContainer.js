@@ -2,49 +2,28 @@ import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import classNames from './styles/ProfileContainerStylesheet.css';
-/*
-const ProfileContainer = props => <TransitionWrapper>
-  <div className={classNames.this} >
-    <p>Profile for {props.user.name}</p>
-    {console.log('profile id:', props.user.id)}
-  </div>
-</TransitionWrapper>;
-*/
 
 class ProfileContainer extends React.Component {
+  static propTypes = {
+    user: React.PropTypes.shape({
+      name: React.PropTypes.string,
+    }),
+  };
   static contextTypes = {
     router: React.PropTypes.object,
     location: React.PropTypes.object,
     userId: React.PropTypes.string,
   };
-  componentDidMount () {
-    const {router, location, userId} = this.context;
-    router.push({
-      pathname: location.pathname,
-      state: {
-        userId,
-      },
-    });
-  }
   render () {
-    const {location} = this.context;
-    console.log('location state:', location);
+    const {name} = this.props.user;
+
     return <TransitionWrapper>
       <div className={classNames.this} >
-        <p>Profile for...</p>
+        <p>Profile for {name}</p>
       </div>
     </TransitionWrapper>;
   }
 }
-
-ProfileContainer.propTypes = {
-  user: React.PropTypes.shape({
-    id: React.PropTypes.string,
-    name: React.PropTypes.string,
-  }),
-};
-
-// export default ProfileContainer;
 
 export default Relay.createContainer(ProfileContainer, {
   initialVariables: {

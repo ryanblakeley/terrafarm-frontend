@@ -9,24 +9,18 @@ import classNames from './styles/LoginPageStylesheet.css';
 export default class LoginPage extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     loggedIn: PropTypes.bool,
     setLoggedIn: PropTypes.func.isRequired,
     setUserId: PropTypes.func.isRequired,
   };
-  componentDidMount () {
-    const { router, loggedIn } = this.context;
-
-    if (loggedIn) {
-      router.replace('/profile');
-    }
-  }
   loginUser = data => {
-    const { router, setLoggedIn, setUserId } = this.context;
     localStorage.setItem('id_token', data.token);
+    localStorage.setItem('user_uuid', data.id);
     Relay.injectNetworkLayer(networkLayer(data.token));
-    setLoggedIn(true);
-    setUserId(data.id);
-    router.push('/profile');
+    this.context.setLoggedIn(true);
+    this.context.setUserId(data.id);
+    this.context.router.push('/profile');
   }
   render () {
     return (

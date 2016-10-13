@@ -11,8 +11,8 @@ import LoginPage from './login/LoginPage';
 import NotFound from './not-found/NotFoundPage';
 import ProfileContainer from './profile/ProfileContainer';
 import ProfileQueries from './profile/ProfileQueries';
-// import BrowseContainer from './browse/BrowseContainer';
-// import BrowseQueries from './browse/BrowseQueries';
+import BrowseContainer from './browse/BrowseContainer';
+import BrowseQueries from './browse/BrowseQueries';
 // import UserContainer from './user/UserContainer';
 // import UserQueries from './user/UserQueries';
 // import ResourceContainer from './resource/ResourceContainer';
@@ -25,21 +25,24 @@ import ProfileQueries from './profile/ProfileQueries';
 // import TaskQueries from './task/TaskQueries';
 import Loading from './core/components/Loading';
 
-// UUID for terrafarmapp@gmail.com: '4b8c2e6a-80f4-11e6-a289-cb1a075172b4'
 function prepareProfileParams (params, {location}) {
-  const {userId} = location.state || '';
-  console.log('prepare params location state:', location.state);
   return {
     ...params,
-    userId,
+    userId: localStorage.getItem('user_uuid'),
   };
+}
+
+function profileBouncer (nextState, replace) {
+  const idToken = localStorage.getItem('id_token');
+  if (idToken) {
+    replace('/profile');
+  }
 }
 
 function authBouncer (nextState, replace) {
   const idToken = localStorage.getItem('id_token');
-
   if (!idToken) {
-    replace('/');
+    replace('/login');
   }
 }
 
@@ -53,6 +56,7 @@ const routes = (
     <Route
       path={'login'}
       component={LoginPage}
+      onEnter={profileBouncer}
     />
     <Route
       path={'profile'}
@@ -62,7 +66,6 @@ const routes = (
       onEnter={authBouncer}
       renderLoading={renderLoading}
     />
-    {/*
     <Route
       path={'browse'}
       component={BrowseContainer}
@@ -70,6 +73,7 @@ const routes = (
       onEnter={authBouncer}
       renderLoading={renderLoading}
     />
+    {/*
     <Route path={'user'} onEnter={authBouncer} >
       <Route
         path={':userId'}
