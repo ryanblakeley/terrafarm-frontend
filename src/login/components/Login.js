@@ -15,8 +15,8 @@ export default class Login extends Component {
     loginError: null,
   };
   processLogin = response => {
-    const { authenticateUser: { output } } = response;
-    const data = JSON.parse(output);
+    const { authenticateUser: { json } } = response;
+    const data = JSON.parse(json);
 
     if (data.id) {
       this.props.loginUser(data);

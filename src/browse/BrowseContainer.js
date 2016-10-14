@@ -13,31 +13,31 @@ const BrowseContainer = props => <TransitionWrapper>
     <BrowseResults master={props.master} />
     */}
     <h4>Users</h4>
-    {props.viewer.userNodes.edges.map(userEdge => (
+    {props.query.allUsers.edges.map(userEdge => (
       <div key={userEdge.node.id}>
         {userEdge.node.name}
       </div>
     ))}
     <h4>Resources</h4>
-    {props.viewer.resourceNodes.edges.map(resourceEdge => (
+    {props.query.allResources.edges.map(resourceEdge => (
       <div key={resourceEdge.node.id}>
         {resourceEdge.node.name}
       </div>
     ))}
     <h4>Organizations</h4>
-    {props.viewer.organizationNodes.edges.map(organizationEdge => (
+    {props.query.allOrganizations.edges.map(organizationEdge => (
       <div key={organizationEdge.node.id}>
         {organizationEdge.node.name}
       </div>
     ))}
     <h4>Projects</h4>
-    {props.viewer.projectNodes.edges.map(projectEdge => (
+    {props.query.allProjects.edges.map(projectEdge => (
       <div key={projectEdge.node.id}>
         {projectEdge.node.name}
       </div>
     ))}
     <h4>Tasks</h4>
-    {props.viewer.taskNodes.edges.map(taskEdge => (
+    {props.query.allTasks.edges.map(taskEdge => (
       <div key={taskEdge.node.id}>
         {taskEdge.node.name}
       </div>
@@ -46,14 +46,14 @@ const BrowseContainer = props => <TransitionWrapper>
 </TransitionWrapper>;
 
 BrowseContainer.propTypes = {
-  viewer: React.PropTypes.object,
+  query: React.PropTypes.object,
 };
 
 export default Relay.createContainer(BrowseContainer, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        userNodes(first: 10) {
+    query: () => Relay.QL`
+      fragment on Query {
+        allUsers(first: 10) {
           edges {
             node {
               id,
@@ -61,7 +61,7 @@ export default Relay.createContainer(BrowseContainer, {
             }
           }
         },
-        resourceNodes(first: 10) {
+        allResources(first: 10) {
           edges {
             node {
               id,
@@ -69,7 +69,7 @@ export default Relay.createContainer(BrowseContainer, {
             }
           }
         },
-        organizationNodes(first: 10) {
+        allOrganizations(first: 10) {
           edges {
             node {
               id,
@@ -77,7 +77,7 @@ export default Relay.createContainer(BrowseContainer, {
             }
           }
         },
-        projectNodes(first: 10) {
+        allProjects(first: 10) {
           edges {
             node {
               id,
@@ -85,7 +85,7 @@ export default Relay.createContainer(BrowseContainer, {
             }
           }
         },
-        taskNodes(first: 10) {
+        allTasks(first: 10) {
           edges {
             node {
               id,

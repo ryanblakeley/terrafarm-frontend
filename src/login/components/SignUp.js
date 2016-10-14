@@ -29,8 +29,8 @@ export default class SignUp extends Component {
     passwordStrengthValid: false,
   };
   processSignUp = response => {
-    const { createUser: { output } } = response;
-    const data = JSON.parse(output);
+    const { createUser: { json } } = response;
+    const data = JSON.parse(json);
 
     if (data.id) {
       this.props.loginUser(data);

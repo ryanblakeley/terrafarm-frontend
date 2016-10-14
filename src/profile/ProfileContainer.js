@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import classNames from './styles/ProfileContainerStylesheet.css';
 
+/* eslint react/prefer-stateless-function: 0 */
 class ProfileContainer extends React.Component {
   static propTypes = {
     user: React.PropTypes.shape({

@@ -1,7 +1,5 @@
 import Relay from 'react-relay';
 
 export default {
-  viewer: () => Relay.QL`
-    query { viewer },
-  `,
+  query: () => Relay.QL`query { query }`,
 };

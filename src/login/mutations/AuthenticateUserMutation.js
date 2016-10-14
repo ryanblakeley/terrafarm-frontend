@@ -13,7 +13,7 @@ export default class AuthenticateUserMutation extends Relay.Mutation {
   getFatQuery () {
     return Relay.QL`
       fragment on AuthenticateUserPayload {
-        output
+        json,
       }
     `;
   }
@@ -24,7 +24,7 @@ export default class AuthenticateUserMutation extends Relay.Mutation {
         children: [
           Relay.QL`
             fragment on AuthenticateUserPayload {
-              output
+              json,
             }
           `,
         ],
