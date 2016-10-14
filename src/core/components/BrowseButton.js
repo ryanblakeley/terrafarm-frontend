@@ -25,20 +25,15 @@ export default class BrowseButton extends React.Component {
     router.push('/browse');
   }
   render () {
-    const {loggedIn} = this.context;
-
-    if (loggedIn) {
-      return <div className={classNames.this}>
-        <IconButton
-          style={styles.button}
-          iconStyle={styles.icon}
-          onTouchTap={this.handleBrowse}
-          touch
-        >
-          <IoIosSearch className={classNames.icon} />
-        </IconButton>
-      </div>;
-    }
-    return null;
+    return <div className={classNames.this}>
+      <IconButton
+        style={styles.button}
+        iconStyle={styles.icon}
+        onTouchTap={this.handleBrowse}
+        touch
+      >
+        <IoIosSearch className={classNames.icon} />
+      </IconButton>
+    </div>;
   }
 }

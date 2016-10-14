@@ -53,38 +53,13 @@ export class CoreContainer extends Component {
   setUserId (userId) {
     this.setState({ userId });
   }
-  getPageName () {
-    const { router } = this.context;
-    let text = '';
-    if (router.isActive({pathname: '/profile'})) {
-      text = 'Profile';
-    } else if (router.isActive({pathname: '/browse'})) {
-      text = 'Browse';
-    } else if (router.isActive({pathname: '/land'})) {
-      text = 'Land';
-    } else if (router.isActive({pathname: '/project'})) {
-      text = 'Project';
-    } else if (router.isActive({pathname: '/task'})) {
-      text = 'Task';
-    } else if (router.isActive({pathname: '/resource'})) {
-      text = 'Resource';
-    } else if (router.isActive({pathname: '/user'})) {
-      text = 'User';
-    } else if (router.isActive({pathname: '/login'})) {
-      text = 'Login';
-    } else {
-      text = 'Terrafarm';
-    }
-    return text;
-  }
   render () {
     const { children } = this.props;
-    const pageName = this.getPageName();
 
     return (
       <div className={classNames.this}>
         <div className={classNames.main}>
-          <AppHeader pageName={pageName} />
+          <AppHeader />
           {children}
         </div>
         <AppFooter />
