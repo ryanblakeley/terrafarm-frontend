@@ -6,19 +6,15 @@
   text-align: center;
   border-top-width: 8px;
   border-top-style: solid;
+  background-color: #d7ccc8;
+  border-color: #8d6e63;
 }
-.appTitle {
-  composes: appTitle from '../../shared/styles/_typography.css';
-  font-size: 1.2em;
-}
-.link {
-  composes: link from '../../shared/styles/_typography.css';
-}
-.logoImage { width: 120px; }
-.footerMessage {
+.logoImage { width: 40px; }
+.text {
   composes: articleSubheading from '../../shared/styles/_typography.css';
   position: absolute;
   bottom: 25px;
+  margin: 0;
   width: 100%;
   opacity: 0.44;
   font-size: 0.92em;

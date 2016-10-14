@@ -70,7 +70,6 @@ const routes = (
       path={'browse'}
       component={BrowseContainer}
       queries={BrowseQueries}
-      onEnter={authBouncer}
       renderLoading={renderLoading}
     />
     {/*
