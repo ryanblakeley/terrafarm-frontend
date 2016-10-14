@@ -57,7 +57,7 @@ rules:
     react/jsx-filename-extension: 0
     react/jsx-wrap-multilines: 0
     react/no-string-refs: 1
-    react/no-unused-prop-types: 1
+    react/no-unused-prop-types: 0 # too buggy
     react/require-extension: 0
     react/wrap-multilines: 0
     space-before-function-paren: [2, "always"]

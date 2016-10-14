@@ -1,6 +1,6 @@
 import React from 'react';
-import { FormsyText } from 'formsy-material-ui';
 import {blueGrey900} from 'material-ui/styles/colors';
+import FormsyText from 'formsy-material-ui/lib/FormsyText';
 
 export default class TextInput extends React.Component {
   static propTypes = {
@@ -14,6 +14,7 @@ export default class TextInput extends React.Component {
     ]),
     required: React.PropTypes.bool,
     initialValue: React.PropTypes.string,
+    updateImmediately: React.PropTypes.bool,
   };
   static defaultProps = {
     required: false,
@@ -24,9 +25,11 @@ export default class TextInput extends React.Component {
     },
   };
   render () {
+    const { updateImmediately, ...rest } = this.props;
+
     return (
       <FormsyText
-        {...this.props}
+        {...rest}
         floatingLabelStyle={{color: blueGrey900}}
         underlineFocusStyle={{borderColor: blueGrey900}}
         hintText={this.props.placeholder}

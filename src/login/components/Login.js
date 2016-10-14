@@ -44,10 +44,11 @@ export default class Login extends Component {
         <div className={classNames.login}>
           <TextInput
             type={'email'}
-            label={'Email'}
             name={'email'}
+            label={'Email'}
             validations={'isEmail'}
             validationError={'A valid email is required'}
+            required
           />
           <TextInput
             type={'password'}
