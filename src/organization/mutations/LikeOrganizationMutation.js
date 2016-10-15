@@ -1,14 +1,14 @@
 import Relay from 'react-relay';
 
-export default class LikeLandMutation extends Relay.Mutation {
+export default class LikeOrganizationMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
       fragment on User {
         id,
       }
     `,
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
         likedBy(first: 18) {
           edges {
@@ -19,15 +19,15 @@ export default class LikeLandMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{likeLand}`;
+    return Relay.QL`mutation{likeOrganization}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on LikeLandPayload {
-        landEdge,
+      fragment on LikeOrganizationPayload {
+        organizationEdge,
         userEdge,
         user,
-        land,
+        organization,
       }
     `;
   }
@@ -37,16 +37,16 @@ export default class LikeLandMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'user',
         parentID: this.props.user.id,
-        connectionName: 'landsLiked',
-        edgeName: 'landEdge',
+        connectionName: 'organizationsLiked',
+        edgeName: 'organizationEdge',
         rangeBehaviors: {
           '': 'append',
         },
       },
       {
         type: 'RANGE_ADD',
-        parentName: 'land',
-        parentID: this.props.land.id,
+        parentName: 'organization',
+        parentID: this.props.organization.id,
         connectionName: 'likedBy',
         edgeName: 'userEdge',
         rangeBehaviors: {
@@ -56,15 +56,15 @@ export default class LikeLandMutation extends Relay.Mutation {
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
-          fragment on LikeLandPayload {
-            landEdge,
+          fragment on LikeOrganizationPayload {
+            organizationEdge,
           }
         `],
       },
     ];
   }
   getOptimisticResponse () {
-    const {user, land} = this.props;
+    const {user, organization} = this.props;
 
     return {
       userEdge: {
@@ -72,14 +72,14 @@ export default class LikeLandMutation extends Relay.Mutation {
           id: user.id,
         },
       },
-      landEdge: {
+      organizationEdge: {
         node: {
-          id: land.id,
+          id: organization.id,
         },
       },
-      land: {
+      organization: {
         likedBy: {
-          edges: land.likedBy.edges.push({
+          edges: organization.likedBy.edges.push({
             node: {
               id: user.id,
             },
@@ -91,7 +91,7 @@ export default class LikeLandMutation extends Relay.Mutation {
   getVariables () {
     return {
       userId: this.props.user.id,
-      landId: this.props.land.id,
+      organizationId: this.props.organization.id,
     };
   }
 }

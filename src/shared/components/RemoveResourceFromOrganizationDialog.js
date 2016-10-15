@@ -4,13 +4,13 @@ import {Link} from 'react-router';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import MdRemove from 'react-icons/lib/md/remove';
-import RemoveResourceFromLand from './RemoveResourceFromLand';
+import RemoveResourceFromOrganization from './RemoveResourceFromOrganization';
 
-import classNames from '../styles/RemoveResourceFromLandDialogStylesheet.css';
+import classNames from '../styles/RemoveResourceFromOrganizationDialogStylesheet.css';
 
-class RemoveResourceFromLandDialog extends React.Component {
+class RemoveResourceFromOrganizationDialog extends React.Component {
   static propTypes = {
-    land: React.PropTypes.object,
+    organization: React.PropTypes.object,
     resource: React.PropTypes.object,
   };
   state = {
@@ -23,16 +23,16 @@ class RemoveResourceFromLandDialog extends React.Component {
     this.setState({open: false});
   }
   render () {
-    const {land, resource} = this.props;
+    const {organization, resource} = this.props;
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <RemoveResourceFromLand
+      <RemoveResourceFromOrganization
         resource={resource}
-        land={land}
+        organization={organization}
         primary
         onComplete={this.handleClose}
       />,
@@ -51,27 +51,27 @@ class RemoveResourceFromLandDialog extends React.Component {
           <Link to={`/resource/${resource.id}`} className={classNames.link}>
             {resource.name}
           </Link>
-          <span> from the land <span className={classNames.link}>{land.name}</span>.</span>
+          <span> from the organization <span className={classNames.link}>{organization.name}</span>.</span>
         </p>
       </Dialog>
     </div>;
   }
 }
 
-export default Relay.createContainer(RemoveResourceFromLandDialog, {
+export default Relay.createContainer(RemoveResourceFromOrganizationDialog, {
   fragments: {
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
         name,
-        ${RemoveResourceFromLand.getFragment('land')},
+        ${RemoveResourceFromOrganization.getFragment('organization')},
       }
     `,
     resource: () => Relay.QL`
       fragment on Resource {
         id,
         name,
-        ${RemoveResourceFromLand.getFragment('resource')},
+        ${RemoveResourceFromOrganization.getFragment('resource')},
       }
     `,
   },

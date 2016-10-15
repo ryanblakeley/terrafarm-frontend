@@ -1,17 +1,16 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-// import BrowsePanel from './components/BrowsePanel';
-// import BrowseResults from './components/BrowseResults';
+import BrowsePanel from './components/BrowsePanel';
+import BrowseResults from './components/BrowseResults';
 
 import classNames from './styles/BrowseContainerStylesheet.css';
 
 const BrowseContainer = props => <TransitionWrapper>
   <div className={classNames.this} >
-    {/*
     <BrowsePanel />
-    <BrowseResults master={props.master} />
-    */}
+    <BrowseResults query={props.query} />
+    {/*
     <h4>Users</h4>
     {props.query.allUsers.edges.map(userEdge => (
       <div key={userEdge.node.id}>
@@ -42,6 +41,7 @@ const BrowseContainer = props => <TransitionWrapper>
         {taskEdge.node.name}
       </div>
     ))}
+    */}
   </div>
 </TransitionWrapper>;
 
@@ -53,46 +53,7 @@ export default Relay.createContainer(BrowseContainer, {
   fragments: {
     query: () => Relay.QL`
       fragment on Query {
-        allUsers(first: 10) {
-          edges {
-            node {
-              id,
-              name,
-            }
-          }
-        },
-        allResources(first: 10) {
-          edges {
-            node {
-              id,
-              name,
-            }
-          }
-        },
-        allOrganizations(first: 10) {
-          edges {
-            node {
-              id,
-              name,
-            }
-          }
-        },
-        allProjects(first: 10) {
-          edges {
-            node {
-              id,
-              name,
-            }
-          }
-        },
-        allTasks(first: 10) {
-          edges {
-            node {
-              id,
-              name,
-            }
-          }
-        },
+        ${BrowseResults.getFragment('query')}
       }
     `,
   },

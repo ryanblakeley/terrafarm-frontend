@@ -1,28 +1,28 @@
 import Relay from 'react-relay';
 
-export default class UnlikeLandMutation extends Relay.Mutation {
+export default class UnlikeOrganizationMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
       fragment on User {
         id,
       }
     `,
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
       }
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{unlikeLand}`;
+    return Relay.QL`mutation{unlikeOrganization}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on UnlikeLandPayload {
-        removedLandID,
+      fragment on UnlikeOrganizationPayload {
+        removedOrganizationID,
         removedUserID,
         user,
-        land,
+        organization,
       }
     `;
   }
@@ -32,13 +32,13 @@ export default class UnlikeLandMutation extends Relay.Mutation {
         type: 'NODE_DELETE',
         parentName: 'user',
         parentID: this.props.user.id,
-        connectionName: 'landsLiked',
-        deletedIDFieldName: 'removedLandID',
+        connectionName: 'organizationsLiked',
+        deletedIDFieldName: 'removedOrganizationID',
       },
       {
         type: 'NODE_DELETE',
-        parentName: 'land',
-        parentID: this.props.land.id,
+        parentName: 'organization',
+        parentID: this.props.organization.id,
         connectionName: 'likedBy',
         deletedIDFieldName: 'removedUserID',
       },
@@ -47,7 +47,7 @@ export default class UnlikeLandMutation extends Relay.Mutation {
   getVariables () {
     return {
       userId: this.props.user.id,
-      landId: this.props.land.id,
+      organizationId: this.props.organization.id,
     };
   }
 }

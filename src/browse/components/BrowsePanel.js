@@ -1,11 +1,11 @@
 import React from 'react';
-import SelectEntity from './SelectEntity.js';
+import GlobalObjectMenu from './GlobalObjectMenu.js';
 // import SelectCategory from './SelectCategory.js';
 
 import classNames from '../styles/BrowsePanelStylesheet.css';
 
 const BrowsePanel = _ => <div className={classNames.this} >
-  <SelectEntity />
+  <GlobalObjectMenu />
 </div>;
 
 export default BrowsePanel;

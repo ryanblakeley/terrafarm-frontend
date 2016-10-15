@@ -1,14 +1,16 @@
 import React from 'react';
-import EntityButton from './EntityButton';
-import classNames from '../styles/SelectEntityStylesheet.css';
+import GlobalObjectButton from './GlobalObjectButton';
+import classNames from '../styles/GlobalObjectMenuStylesheet.css';
 
-const SelectEntity = _ => <div className={classNames.this} >
-  <EntityButton name={'users'} />
-  <EntityButton name={'lands'} />
-  <EntityButton name={'resources'} />
+const GlobalObjectMenu = _ => <div className={classNames.this} >
+  <GlobalObjectButton name={'users'} />
+  <GlobalObjectButton name={'resources'} />
+  <GlobalObjectButton name={'organizations'} />
+  <GlobalObjectButton name={'projects'} />
+  <GlobalObjectButton name={'tasks'} />
 </div>;
 
-export default SelectEntity;
+export default GlobalObjectMenu;
 
 /*
   static propTypes = {

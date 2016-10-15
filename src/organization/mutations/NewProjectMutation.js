@@ -2,8 +2,8 @@ import Relay from 'react-relay';
 
 export default class NewProjectMutation extends Relay.Mutation {
   static fragments = {
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
       }
     `,
@@ -32,7 +32,7 @@ export default class NewProjectMutation extends Relay.Mutation {
           projectsAdmin,
           projectsLiked,
         },
-        land {
+        organization {
           projects,
         },
       }
@@ -52,8 +52,8 @@ export default class NewProjectMutation extends Relay.Mutation {
       },
       {
         type: 'RANGE_ADD',
-        parentName: 'land',
-        parentID: this.props.land.id,
+        parentName: 'organization',
+        parentID: this.props.organization.id,
         connectionName: 'projects',
         edgeName: 'projectEdge',
         rangeBehaviors: {
@@ -85,7 +85,7 @@ export default class NewProjectMutation extends Relay.Mutation {
   getVariables () {
     return {
       userId: this.props.user.id,
-      landId: this.props.land.id,
+      organizationId: this.props.organization.id,
       name: this.props.name,
       description: this.props.description,
       category: this.props.category,

@@ -1,11 +1,11 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import classNames from 'classnames/bind';
-import classNamesContext from '../styles/EntityButtonStylesheet.css';
+import classNamesContext from '../styles/GlobalObjectButtonStylesheet.css';
 
 const cx = classNames.bind(classNamesContext);
 
-export default class EntityButton extends React.Component {
+export default class GlobalObjectButton extends React.Component {
   static propTypes = {
     name: React.PropTypes.string,
     // handleNotify: React.PropTypes.func.isRequired,
@@ -28,11 +28,11 @@ export default class EntityButton extends React.Component {
   }
   handleQuery (query) {
     const {name} = this.props;
-    const {entities} = query;
+    const {objects} = query;
 
-    if (entities) {
+    if (objects) {
       this.setState({
-        active: query.entities.search(name) > -1,
+        active: objects.search(name) > -1,
       });
     }
   }
@@ -42,7 +42,7 @@ export default class EntityButton extends React.Component {
 
     router.push({
       pathname: location.pathname,
-      query: {entities: name},
+      query: {objects: name},
     });
   }
   render () {

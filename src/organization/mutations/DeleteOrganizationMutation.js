@@ -1,14 +1,14 @@
 import Relay from 'react-relay';
 
-export default class DeleteLandMutation extends Relay.Mutation {
+export default class DeleteOrganizationMutation extends Relay.Mutation {
   static fragments = {
     master: () => Relay.QL`
       fragment on Master {
         id,
       }
     `,
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
       }
     `,
@@ -19,24 +19,24 @@ export default class DeleteLandMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{deleteLand}`;
+    return Relay.QL`mutation{deleteOrganization}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on DeleteLandPayload {
-        removedLandID,
+      fragment on DeleteOrganizationPayload {
+        removedOrganizationID,
         master {
-          lands,
+          organizations,
         },
         user {
-          landsAdmin,
+          organizationsAdmin,
         },
       }
     `;
   }
 /*
   getOptimisticResponse () {
-    return {land: {}};
+    return {organization: {}};
   }
 */
   getConfigs () {
@@ -45,21 +45,21 @@ export default class DeleteLandMutation extends Relay.Mutation {
         type: 'NODE_DELETE',
         parentName: 'master',
         parentID: this.props.master.id,
-        connectionName: 'lands',
-        deletedIDFieldName: 'removedLandID',
+        connectionName: 'organizations',
+        deletedIDFieldName: 'removedOrganizationID',
       },
       {
         type: 'NODE_DELETE',
         parentName: 'user',
         parentID: this.props.user.id,
-        connectionName: 'landsAdmin',
-        deletedIDFieldName: 'removedLandID',
+        connectionName: 'organizationsAdmin',
+        deletedIDFieldName: 'removedOrganizationID',
       },
     ];
   }
   getVariables () {
     return {
-      landId: this.props.land.id,
+      organizationId: this.props.organization.id,
       userId: this.props.user.id,
     };
   }

@@ -10,19 +10,18 @@ import Home from './home/HomePage';
 import LoginPage from './login/LoginPage';
 import NotFound from './not-found/NotFoundPage';
 import ProfileContainer from './profile/ProfileContainer';
-import ProfileQueries from './profile/ProfileQueries';
+import UserContainer from './user/UserContainer';
+import UserQueries from './user/UserQueries';
 import BrowseContainer from './browse/BrowseContainer';
 import QueryQueries from './shared/QueryQueries';
-// import UserContainer from './user/UserContainer';
-// import UserQueries from './user/UserQueries';
-// import ResourceContainer from './resource/ResourceContainer';
-// import ResourceQueries from './resource/ResourceQueries';
-// import LandContainer from './land/LandContainer';
-// import LandQueries from './land/LandQueries';
-// import ProjectContainer from './project/ProjectContainer';
-// import ProjectQueries from './project/ProjectQueries';
-// import TaskContainer from './task/TaskContainer';
-// import TaskQueries from './task/TaskQueries';
+import ResourceContainer from './resource/ResourceContainer';
+import ResourceQueries from './resource/ResourceQueries';
+import OrganizationContainer from './organization/OrganizationContainer';
+import OrganizationQueries from './organization/OrganizationQueries';
+import ProjectContainer from './project/ProjectContainer';
+import ProjectQueries from './project/ProjectQueries';
+import TaskContainer from './task/TaskContainer';
+import TaskQueries from './task/TaskQueries';
 import Loading from './core/components/Loading';
 
 function prepareProfileParams (params, {location}) {
@@ -41,10 +40,9 @@ function enterLogin (nextState, replace) {
       && idToken !== window.anonymousToken
       && idToken !== window.registrarToken) {
     replace('/profile');
-  } else if (!idToken
-             || idToken === window.anonymousToken) {
-    localStorage.setItem('id_token', window.registrarToken);
   }
+  localStorage.setItem('id_token', window.registrarToken);
+  localStorage.setItem('user_uuid', '');
 }
 
 function loginBouncer (nextState, replace) {
@@ -82,7 +80,7 @@ const routes = (
     <Route
       path={'profile'}
       component={ProfileContainer}
-      queries={ProfileQueries}
+      queries={UserQueries}
       prepareParams={prepareProfileParams}
       onEnter={loginBouncer}
       renderLoading={renderLoading}
@@ -94,7 +92,6 @@ const routes = (
       onEnter={ensurePublicAccess}
       renderLoading={renderLoading}
     />
-    {/*
     <Route path={'user'} onEnter={loginBouncer} >
       <Route
         path={':userId'}
@@ -111,11 +108,11 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'land'} onEnter={loginBouncer} >
+    <Route path={'organization'} onEnter={loginBouncer} >
       <Route
-        path={':landId'}
-        component={LandContainer}
-        queries={LandQueries}
+        path={':organizationId'}
+        component={OrganizationContainer}
+        queries={OrganizationQueries}
         renderLoading={renderLoading}
       />
     </Route>
@@ -135,7 +132,6 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    */}
     <Route path={'*'} component={NotFound} />
   </Route>
 );

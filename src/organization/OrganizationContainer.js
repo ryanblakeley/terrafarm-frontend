@@ -1,22 +1,53 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-import ResourceItem from '../shared/components/ResourceItem';
-import UserItem from '../shared/components/UserItem';
-import ProjectItem from '../shared/components/ProjectItem';
-import RemoveResourceFromLandDialog from '../shared/components/RemoveResourceFromLandDialog';
+// import ResourceItem from '../shared/components/ResourceItem';
+// import UserItem from '../shared/components/UserItem';
+// import ProjectItem from '../shared/components/ProjectItem';
+// import RemoveResourceFromOrganizationDialog
+//   from '../shared/components/RemoveResourceFromOrganizationDialog';
 import HeroImage from '../shared/components/HeroImage';
-import LandActionTabs from './components/LandActionTabs';
-import PendingResourceDialog from './components/PendingResourceDialog';
+// import OrganizationActionTabs from './components/OrganizationActionTabs';
+// import PendingResourceDialog from './components/PendingResourceDialog';
 
-import createColorChart from '../shared/themes/create-color-chart';
-import classNames from './styles/LandContainerStylesheet.css';
+// import createColorChart from '../shared/themes/create-color-chart';
+import classNames from './styles/OrganizationContainerStylesheet.css';
 
-class LandContainer extends React.Component {
+const OrganizationContainer = props => <TransitionWrapper>
+  <div className={classNames.this}>
+    <h3 className={classNames.contentHeading}>{props.organization.name}</h3>
+    <h4 className={classNames.contentSubheading}>
+      <span className={classNames.location}>{props.organization.location}</span>
+    </h4>
+    <HeroImage image={props.organization.imageUrl} />
+    <p className={classNames.description}>{props.organization.description}</p>
+  </div>
+</TransitionWrapper>;
+
+OrganizationContainer.propTypes = {
+  organization: React.PropTypes.object,
+};
+
+export default Relay.createContainer(OrganizationContainer, {
+  initialVariables: {
+    organizationId: null,
+  },
+  fragments: {
+    organization: () => Relay.QL`
+      fragment on Organization {
+        name,
+        location,
+        imageUrl,
+        description,
+      }
+    `,
+  },
+});
+
+/*
+class OrganizationContainer extends React.Component {
   static propTypes = {
-    master: React.PropTypes.object,
-    land: React.PropTypes.object,
-    viewer: React.PropTypes.object,
+    organization: React.PropTypes.object,
   };
   state = {
     colorChart: {},
@@ -25,16 +56,16 @@ class LandContainer extends React.Component {
     resourceOwners: [],
   };
   componentWillMount () {
-    const {land, viewer} = this.props;
-    const {resources, admins, likedBy} = land;
+    const {organization, viewer} = this.props;
+    const {resources, admins, likedBy} = organization;
 
     this.updateViewerStatus(viewer, admins, likedBy);
     this.updateUserList(admins, resources);
     this.updateColorChart(resources);
   }
   componentWillReceiveProps (nextProps) {
-    const {land, viewer} = nextProps;
-    const {resources, admins, likedBy} = land;
+    const {organization, viewer} = nextProps;
+    const {resources, admins, likedBy} = organization;
 
     this.updateViewerStatus(viewer, admins, likedBy);
     this.updateUserList(admins, resources);
@@ -82,7 +113,7 @@ class LandContainer extends React.Component {
     this.setState({resourceOwners});
   }
   render () {
-    const {master, land, viewer} = this.props;
+    const {master, organization, viewer} = this.props;
     const {isAdmin, doesLike, resourceOwners, colorChart} = this.state;
     const {
       admins,
@@ -94,14 +125,14 @@ class LandContainer extends React.Component {
       name,
       image,
       location,
-    } = land;
+    } = organization;
 
     return <TransitionWrapper>
       <div className={classNames.this}>
-        <LandActionTabs
+        <OrganizationActionTabs
           master={master}
           user={viewer}
-          land={land}
+          organization={organization}
           isAdmin={isAdmin}
           doesLike={doesLike}
         />
@@ -144,7 +175,9 @@ class LandContainer extends React.Component {
             && resources.edges.map(edge => {
               const owner = edge.node.users.edges[0].node;
               const action = (isAdmin || owner.id === viewer.id)
-                ? <RemoveResourceFromLandDialog resource={edge.node} land={land} />
+                ? <RemoveResourceFromOrganizationDialog
+                  resource={edge.node}
+                  organization={organization} />
                 : null;
 
               return <div key={edge.node.id}>
@@ -167,7 +200,7 @@ class LandContainer extends React.Component {
                   resource={edge.node}
                   action={<PendingResourceDialog
                     resource={edge.node}
-                    land={land}
+                    organization={organization}
                   />}
                 />
               </div>)
@@ -181,13 +214,13 @@ class LandContainer extends React.Component {
   }
 }
 
-export default Relay.createContainer(LandContainer, {
+export default Relay.createContainer(OrganizationContainer, {
   initialVariables: {
-    landId: null,
+    organizationId: null,
   },
   fragments: {
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
         name,
         location,
@@ -208,7 +241,7 @@ export default Relay.createContainer(LandContainer, {
                   }
                 }
               },
-              ${RemoveResourceFromLandDialog.getFragment('resource')},
+              ${RemoveResourceFromOrganizationDialog.getFragment('resource')},
               ${ResourceItem.getFragment('resource')},
             }
           }
@@ -248,22 +281,23 @@ export default Relay.createContainer(LandContainer, {
             }
           }
         },
-        ${PendingResourceDialog.getFragment('land')},
-        ${RemoveResourceFromLandDialog.getFragment('land')},
-        ${LandActionTabs.getFragment('land')},
+        ${PendingResourceDialog.getFragment('organization')},
+        ${RemoveResourceFromOrganizationDialog.getFragment('organization')},
+        ${OrganizationActionTabs.getFragment('organization')},
       }
     `,
     viewer: () => Relay.QL`
       fragment on User {
         id,
-        ${LandActionTabs.getFragment('user')},
+        ${OrganizationActionTabs.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         id,
-        ${LandActionTabs.getFragment('master')},
+        ${OrganizationActionTabs.getFragment('master')},
       }
     `,
   },
 });
+*/

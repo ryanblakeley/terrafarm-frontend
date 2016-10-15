@@ -1,6 +1,54 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+// import ResourceItem from '../shared/components/ResourceItem';
+// import UserItem from '../shared/components/UserItem';
+// import ProjectItem from '../shared/components/ProjectItem';
+// import RemoveResourceFromUserDialog
+//   from '../shared/components/RemoveResourceFromUserDialog';
+import HeroImage from '../shared/components/HeroImage';
+// import UserActionTabs from './components/UserActionTabs';
+// import PendingResourceDialog from './components/PendingResourceDialog';
+
+// import createColorChart from '../shared/themes/create-color-chart';
+import classNames from './styles/UserContainerStylesheet.css';
+
+const UserContainer = props => <TransitionWrapper>
+  <div className={classNames.this}>
+    <h3 className={classNames.contentHeading}>{props.user.name}</h3>
+    <h4 className={classNames.contentSubheading}>
+      <span className={classNames.location}>{props.user.location}</span>
+    </h4>
+    <HeroImage image={props.user.imageUrl} />
+    <p className={classNames.description}>{props.user.description}</p>
+  </div>
+</TransitionWrapper>;
+
+UserContainer.propTypes = {
+  user: React.PropTypes.object,
+};
+
+export default Relay.createContainer(UserContainer, {
+  initialVariables: {
+    userId: null,
+  },
+  fragments: {
+    user: () => Relay.QL`
+      fragment on User {
+        name,
+        location,
+        imageUrl,
+        description,
+      }
+    `,
+  },
+});
+
+
+/*
+import React from 'react';
+import Relay from 'react-relay';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import UserActionTabs from './components/UserActionTabs';
 import ResourceItem from '../shared/components/ResourceItem';
 import LandItem from '../shared/components/LandItem';
@@ -226,3 +274,4 @@ export default Relay.createContainer(UserContainer, {
     `,
   },
 });
+*/

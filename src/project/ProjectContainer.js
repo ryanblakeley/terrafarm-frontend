@@ -1,6 +1,49 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+// import ResourceItem from '../shared/components/ResourceItem';
+// import UserItem from '../shared/components/UserItem';
+// import ProjectItem from '../shared/components/ProjectItem';
+// import RemoveResourceFromProjectDialog
+//   from '../shared/components/RemoveResourceFromProjectDialog';
+import HeroImage from '../shared/components/HeroImage';
+// import ProjectActionTabs from './components/ProjectActionTabs';
+// import PendingResourceDialog from './components/PendingResourceDialog';
+
+// import createColorChart from '../shared/themes/create-color-chart';
+import classNames from './styles/ProjectContainerStylesheet.css';
+
+const ProjectContainer = props => <TransitionWrapper>
+  <div className={classNames.this}>
+    <h3 className={classNames.contentHeading}>{props.project.name}</h3>
+    <HeroImage image={props.project.imageUrl} />
+    <p className={classNames.description}>{props.project.description}</p>
+  </div>
+</TransitionWrapper>;
+
+ProjectContainer.propTypes = {
+  project: React.PropTypes.object,
+};
+
+export default Relay.createContainer(ProjectContainer, {
+  initialVariables: {
+    projectId: null,
+  },
+  fragments: {
+    project: () => Relay.QL`
+      fragment on Project {
+        name,
+        imageUrl,
+        description,
+      }
+    `,
+  },
+});
+
+/*
+import React from 'react';
+import Relay from 'react-relay';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import RemoveResourceFromProjectDialog from '../shared/components/RemoveResourceFromProjectDialog';
 import UserItem from '../shared/components/UserItem';
@@ -231,3 +274,4 @@ export default Relay.createContainer(ProjectContainer, {
     `,
   },
 });
+*/

@@ -1,6 +1,53 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+// import ResourceItem from '../shared/components/ResourceItem';
+// import UserItem from '../shared/components/UserItem';
+// import ProjectItem from '../shared/components/ProjectItem';
+// import RemoveResourceFromResourceDialog
+//   from '../shared/components/RemoveResourceFromResourceDialog';
+import HeroImage from '../shared/components/HeroImage';
+// import ResourceActionTabs from './components/ResourceActionTabs';
+// import PendingResourceDialog from './components/PendingResourceDialog';
+
+// import createColorChart from '../shared/themes/create-color-chart';
+import classNames from './styles/ResourceContainerStylesheet.css';
+
+const ResourceContainer = props => <TransitionWrapper>
+  <div className={classNames.this}>
+    <h3 className={classNames.contentHeading}>{props.resource.name}</h3>
+    <h4 className={classNames.contentSubheading}>
+      <span className={classNames.location}>{props.resource.location}</span>
+    </h4>
+    <HeroImage image={props.resource.imageUrl} />
+    <p className={classNames.description}>{props.resource.description}</p>
+  </div>
+</TransitionWrapper>;
+
+ResourceContainer.propTypes = {
+  resource: React.PropTypes.object,
+};
+
+export default Relay.createContainer(ResourceContainer, {
+  initialVariables: {
+    resourceId: null,
+  },
+  fragments: {
+    resource: () => Relay.QL`
+      fragment on Resource {
+        name,
+        location,
+        imageUrl,
+        description,
+      }
+    `,
+  },
+});
+
+/*
+import React from 'react';
+import Relay from 'react-relay';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import UserItem from '../shared/components/UserItem';
 import LandItem from '../shared/components/LandItem';
 import ProjectItem from '../shared/components/ProjectItem';
@@ -184,3 +231,4 @@ export default Relay.createContainer(ResourceContainer, {
     `,
   },
 });
+*/

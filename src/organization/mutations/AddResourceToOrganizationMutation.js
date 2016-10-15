@@ -1,12 +1,12 @@
 import Relay from 'react-relay';
 
-export default class PendingResourceToLandMutation extends Relay.Mutation {
+export default class AddResourceToOrganization extends Relay.Mutation {
   static fragments = {
     resource: () => Relay.QL`
       fragment on Resource {
         id,
         name,
-        landsPending(first: 18) {
+        organizations(first: 18) {
           edges {
             node {
               id,
@@ -16,11 +16,11 @@ export default class PendingResourceToLandMutation extends Relay.Mutation {
         },
       }
     `,
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
         name,
-        resourcesPending(first: 18) {
+        resources(first: 18) {
           edges {
             node {
               id,
@@ -32,15 +32,17 @@ export default class PendingResourceToLandMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{pendingResourceToLand}`;
+    return Relay.QL`mutation{addResourceToOrganization}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on PendingResourceToLandPayload {
-        landEdge,
+      fragment on AddResourceToOrganizationPayload {
+        organizationEdge {
+          node,
+        },
         resourceEdge,
         resource,
-        land,
+        organization,
       }
     `;
   }
@@ -50,17 +52,17 @@ export default class PendingResourceToLandMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'resource',
         parentID: this.props.resource.id,
-        connectionName: 'landsPending',
-        edgeName: 'landEdge',
+        connectionName: 'organizations',
+        edgeName: 'organizationEdge',
         rangeBehaviors: {
           '': 'append',
         },
       },
       {
         type: 'RANGE_ADD',
-        parentName: 'land',
-        parentID: this.props.land.id,
-        connectionName: 'resourcesPending',
+        parentName: 'organization',
+        parentID: this.props.organization.id,
+        connectionName: 'resources',
         edgeName: 'resourceEdge',
         rangeBehaviors: {
           '': 'append',
@@ -69,21 +71,21 @@ export default class PendingResourceToLandMutation extends Relay.Mutation {
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
-          fragment on PendingResourceToLandPayload {
-            landEdge,
+          fragment on AddResourceToOrganizationPayload {
+            organizationEdge,
           }
         `],
       },
     ];
   }
   getOptimisticResponse () {
-    const {resource, land} = this.props;
+    const {resource, organization} = this.props;
 
     return {
-      landEdge: {
+      organizationEdge: {
         node: {
-          id: land.id,
-          name: land.name,
+          id: organization.id,
+          name: organization.name,
         },
       },
       resourceEdge: {
@@ -92,9 +94,19 @@ export default class PendingResourceToLandMutation extends Relay.Mutation {
           name: resource.name,
         },
       },
-      land: {
+      resource: {
+        organizations: {
+          edges: resource.organizations.edges.push({
+            node: {
+              id: organization.id,
+              name: organization.name,
+            },
+          }),
+        },
+      },
+      organization: {
         resources: {
-          edges: land.resourcesPending.edges.push({
+          edges: organization.resources.edges.push({
             node: {
               id: resource.id,
               name: resource.name,
@@ -102,20 +114,13 @@ export default class PendingResourceToLandMutation extends Relay.Mutation {
           }),
         },
       },
-      resource: {
-        edges: resource.landsPending.edges.push({
-          node: {
-            id: land.id,
-            name: land.name,
-          },
-        }),
-      },
     };
   }
   getVariables () {
     return {
       resourceId: this.props.resource.id,
-      landId: this.props.land.id,
+      organizationId: this.props.organization.id,
     };
   }
 }
+

@@ -1,12 +1,12 @@
 import Relay from 'react-relay';
 
-export default class AddResourceToLand extends Relay.Mutation {
+export default class PendingResourceToOrganizationMutation extends Relay.Mutation {
   static fragments = {
     resource: () => Relay.QL`
       fragment on Resource {
         id,
         name,
-        lands(first: 18) {
+        organizationsPending(first: 18) {
           edges {
             node {
               id,
@@ -16,11 +16,11 @@ export default class AddResourceToLand extends Relay.Mutation {
         },
       }
     `,
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
         name,
-        resources(first: 18) {
+        resourcesPending(first: 18) {
           edges {
             node {
               id,
@@ -32,17 +32,15 @@ export default class AddResourceToLand extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{addResourceToLand}`;
+    return Relay.QL`mutation{pendingResourceToOrganization}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on AddResourceToLandPayload {
-        landEdge {
-          node,
-        },
+      fragment on PendingResourceToOrganizationPayload {
+        organizationEdge,
         resourceEdge,
         resource,
-        land,
+        organization,
       }
     `;
   }
@@ -52,17 +50,17 @@ export default class AddResourceToLand extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'resource',
         parentID: this.props.resource.id,
-        connectionName: 'lands',
-        edgeName: 'landEdge',
+        connectionName: 'organizationsPending',
+        edgeName: 'organizationEdge',
         rangeBehaviors: {
           '': 'append',
         },
       },
       {
         type: 'RANGE_ADD',
-        parentName: 'land',
-        parentID: this.props.land.id,
-        connectionName: 'resources',
+        parentName: 'organization',
+        parentID: this.props.organization.id,
+        connectionName: 'resourcesPending',
         edgeName: 'resourceEdge',
         rangeBehaviors: {
           '': 'append',
@@ -71,21 +69,21 @@ export default class AddResourceToLand extends Relay.Mutation {
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
-          fragment on AddResourceToLandPayload {
-            landEdge,
+          fragment on PendingResourceToOrganizationPayload {
+            organizationEdge,
           }
         `],
       },
     ];
   }
   getOptimisticResponse () {
-    const {resource, land} = this.props;
+    const {resource, organization} = this.props;
 
     return {
-      landEdge: {
+      organizationEdge: {
         node: {
-          id: land.id,
-          name: land.name,
+          id: organization.id,
+          name: organization.name,
         },
       },
       resourceEdge: {
@@ -94,19 +92,9 @@ export default class AddResourceToLand extends Relay.Mutation {
           name: resource.name,
         },
       },
-      resource: {
-        lands: {
-          edges: resource.lands.edges.push({
-            node: {
-              id: land.id,
-              name: land.name,
-            },
-          }),
-        },
-      },
-      land: {
+      organization: {
         resources: {
-          edges: land.resources.edges.push({
+          edges: organization.resourcesPending.edges.push({
             node: {
               id: resource.id,
               name: resource.name,
@@ -114,13 +102,20 @@ export default class AddResourceToLand extends Relay.Mutation {
           }),
         },
       },
+      resource: {
+        edges: resource.organizationsPending.edges.push({
+          node: {
+            id: organization.id,
+            name: organization.name,
+          },
+        }),
+      },
     };
   }
   getVariables () {
     return {
       resourceId: this.props.resource.id,
-      landId: this.props.land.id,
+      organizationId: this.props.organization.id,
     };
   }
 }
-

@@ -1,40 +1,38 @@
 import Relay from 'react-relay';
 
-export default class UpdateLandMutation extends Relay.Mutation {
+export default class UpdateOrganizationMutation extends Relay.Mutation {
   static fragments = {
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
       }
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{updateLand}`;
+    return Relay.QL`mutation{updateOrganization}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on UpdateLandPayload {
-        land {
+      fragment on UpdateOrganizationPayload {
+        organization {
           name,
           location,
           description,
-          size,
-          image,
+          image_url,
         },
       }
     `;
   }
   getOptimisticResponse () {
     const {attributes} = this.props;
-    const {name, location, description, size, image} = attributes;
+    const {name, location, description, image_url} = attributes;
 
     return {
-      land: {
+      organization: {
         name,
         location,
         description,
-        size,
-        image,
+        image_url,
       },
     };
   }
@@ -43,14 +41,14 @@ export default class UpdateLandMutation extends Relay.Mutation {
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
-          land: this.props.land.id,
+          organization: this.props.organization.id,
         },
       },
     ];
   }
   getVariables () {
     return {
-      id: this.props.land.id,
+      id: this.props.organization.id,
       attributes: this.props.attributes,
     };
   }

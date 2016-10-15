@@ -2,12 +2,12 @@ import React from 'react';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 
-import RemoveResourceFromLandMutation from '../mutations/RemoveResourceFromLandMutation';
+import RemoveResourceFromOrganizationMutation from '../mutations/RemoveResourceFromOrganizationMutation';
 
-class RemoveResourceFromLand extends React.Component {
+class RemoveResourceFromOrganization extends React.Component {
   static propTypes = {
     resource: React.PropTypes.object,
-    land: React.PropTypes.object,
+    organization: React.PropTypes.object,
     label: React.PropTypes.string,
     primary: React.PropTypes.bool,
     secondary: React.PropTypes.bool,
@@ -18,11 +18,11 @@ class RemoveResourceFromLand extends React.Component {
     secondary: false,
   };
   handleRemove = () => {
-    const {resource, land} = this.props;
+    const {resource, organization} = this.props;
     Relay.Store.commitUpdate(
-      new RemoveResourceFromLandMutation({
+      new RemoveResourceFromOrganizationMutation({
         resource,
-        land,
+        organization,
       })
     );
   }
@@ -30,7 +30,7 @@ class RemoveResourceFromLand extends React.Component {
     return (
       <FlatButton
         resource={this.props.resource}
-        land={this.props.land}
+        organization={this.props.organization}
         label={this.props.label}
         primary={this.props.primary}
         secondary={this.props.secondary}
@@ -40,23 +40,23 @@ class RemoveResourceFromLand extends React.Component {
   }
 }
 
-export default Relay.createContainer(RemoveResourceFromLand, {
+export default Relay.createContainer(RemoveResourceFromOrganization, {
   initialVariables: {
-    landId: null,
+    organizationId: null,
   },
   fragments: {
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
         name,
-        ${RemoveResourceFromLandMutation.getFragment('land')},
+        ${RemoveResourceFromOrganizationMutation.getFragment('organization')},
       },
     `,
     resource: () => Relay.QL`
       fragment on Resource {
         id,
         name,
-        ${RemoveResourceFromLandMutation.getFragment('resource')},
+        ${RemoveResourceFromOrganizationMutation.getFragment('resource')},
       }
     `,
   },

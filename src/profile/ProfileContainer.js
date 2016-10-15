@@ -1,30 +1,32 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+// import ResourceItem from '../shared/components/ResourceItem';
+// import UserItem from '../shared/components/UserItem';
+// import ProjectItem from '../shared/components/ProjectItem';
+// import RemoveResourceFromProfileDialog
+//   from '../shared/components/RemoveResourceFromProfileDialog';
+import HeroImage from '../shared/components/HeroImage';
+// import ProfileActionTabs from './components/ProfileActionTabs';
+// import PendingResourceDialog from './components/PendingResourceDialog';
+
+// import createColorChart from '../shared/themes/create-color-chart';
 import classNames from './styles/ProfileContainerStylesheet.css';
 
-/* eslint react/prefer-stateless-function: 0 */
-class ProfileContainer extends React.Component {
-  static propTypes = {
-    user: React.PropTypes.shape({
-      name: React.PropTypes.string,
-    }),
-  };
-  static contextTypes = {
-    router: React.PropTypes.object,
-    location: React.PropTypes.object,
-    userId: React.PropTypes.string,
-  };
-  render () {
-    const {name} = this.props.user;
+const ProfileContainer = props => <TransitionWrapper>
+  <div className={classNames.this}>
+    <h3 className={classNames.contentHeading}>{props.user.name}</h3>
+    <h4 className={classNames.contentSubheading}>
+      <span className={classNames.location}>{props.user.location}</span>
+    </h4>
+    <HeroImage image={props.user.imageUrl} />
+    <p className={classNames.description}>{props.user.description}</p>
+  </div>
+</TransitionWrapper>;
 
-    return <TransitionWrapper>
-      <div className={classNames.this} >
-        <p>Profile for {name}</p>
-      </div>
-    </TransitionWrapper>;
-  }
-}
+ProfileContainer.propTypes = {
+  user: React.PropTypes.object,
+};
 
 export default Relay.createContainer(ProfileContainer, {
   initialVariables: {
@@ -33,8 +35,10 @@ export default Relay.createContainer(ProfileContainer, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
-        id,
         name,
+        location
+        imageUrl,
+        description,
       }
     `,
   },

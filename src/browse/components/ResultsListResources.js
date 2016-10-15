@@ -5,7 +5,7 @@ import ResultsItemResource from './ResultsItemResource';
 import classNames from '../styles/ResultsListResourcesStylesheet.css';
 
 const ResultsListResources = props => <div className={classNames.this} >
-  {props.master.resources.edges.map((edge, index) => <ResultsItemResource
+  {props.query.allResources.edges.map((edge, index) => <ResultsItemResource
     resource={edge.node}
     index={index}
     key={index}
@@ -13,18 +13,16 @@ const ResultsListResources = props => <div className={classNames.this} >
 </div>;
 
 ResultsListResources.propTypes = {
-  master: React.PropTypes.object,
+  query: React.PropTypes.object,
 };
 
 export default Relay.createContainer(ResultsListResources, {
   fragments: {
-    master: () => Relay.QL`
-      fragment on Master {
-        resources(first: 2) {
+    query: () => Relay.QL`
+      fragment on Query {
+        allResources(first: 10) {
           edges {
             node {
-              id,
-              name,
               ${ResultsItemResource.getFragment('resource')},
             }
           }

@@ -1,6 +1,46 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+// import ResourceItem from '../shared/components/ResourceItem';
+// import UserItem from '../shared/components/UserItem';
+// import ProjectItem from '../shared/components/ProjectItem';
+// import RemoveResourceFromTaskDialog
+//   from '../shared/components/RemoveResourceFromTaskDialog';
+// import TaskActionTabs from './components/TaskActionTabs';
+// import PendingResourceDialog from './components/PendingResourceDialog';
+
+// import createColorChart from '../shared/themes/create-color-chart';
+import classNames from './styles/TaskContainerStylesheet.css';
+
+const TaskContainer = props => <TransitionWrapper>
+  <div className={classNames.this}>
+    <h3 className={classNames.contentHeading}>{props.task.name}</h3>
+    <p className={classNames.description}>{props.task.description}</p>
+  </div>
+</TransitionWrapper>;
+
+TaskContainer.propTypes = {
+  task: React.PropTypes.object,
+};
+
+export default Relay.createContainer(TaskContainer, {
+  initialVariables: {
+    taskId: null,
+  },
+  fragments: {
+    task: () => Relay.QL`
+      fragment on Task {
+        name,
+        description,
+      }
+    `,
+  },
+});
+
+/*
+import React from 'react';
+import Relay from 'react-relay';
+import TransitionWrapper from '../shared/components/TransitionWrapper';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFromTaskDialog';
 import ProjectItem from '../shared/components/ProjectItem';
@@ -259,3 +299,4 @@ export default Relay.createContainer(TaskContainer, {
     `,
   },
 });
+*/
