@@ -41,7 +41,9 @@ export class CoreContainer extends Component {
   /* eslint react/no-did-mount-set-state: 0 */
   componentDidMount () {
     const idToken = localStorage.getItem('id_token');
-    if (idToken) {
+    if (idToken
+        && idToken !== window.anonymousToken
+        && idToken !== window.registrarToken) {
       this.setState({ idToken, loggedIn: true });
     } else {
       this.setState({ loggedIn: false });

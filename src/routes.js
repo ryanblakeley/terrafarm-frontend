@@ -32,17 +32,38 @@ function prepareProfileParams (params, {location}) {
   };
 }
 
-function profileBouncer (nextState, replace) {
+function enterLogin (nextState, replace) {
+  const userId = localStorage.getItem('user_uuid');
   const idToken = localStorage.getItem('id_token');
-  if (idToken) {
+
+  if (userId
+      && idToken
+      && idToken !== window.anonymousToken
+      && idToken !== window.registrarToken) {
     replace('/profile');
+  } else if (!idToken
+             || idToken === window.anonymousToken) {
+    localStorage.setItem('id_token', window.registrarToken);
   }
 }
 
-function authBouncer (nextState, replace) {
+function loginBouncer (nextState, replace) {
+  const userId = localStorage.getItem('user_uuid');
   const idToken = localStorage.getItem('id_token');
-  if (!idToken) {
+
+  if (!userId
+      || !idToken
+      || idToken === window.anonymousToken
+      || idToken === window.registrarToken) {
     replace('/login');
+  }
+}
+
+function ensurePublicAccess (nextState, replace) {
+  const idToken = localStorage.getItem('id_token');
+  if (!idToken
+      || idToken === window.registrarToken) {
+    localStorage.setItem('id_token', window.anonymousToken);
   }
 }
 
@@ -56,24 +77,25 @@ const routes = (
     <Route
       path={'login'}
       component={LoginPage}
-      onEnter={profileBouncer}
+      onEnter={enterLogin}
     />
     <Route
       path={'profile'}
       component={ProfileContainer}
       queries={ProfileQueries}
       prepareParams={prepareProfileParams}
-      onEnter={authBouncer}
+      onEnter={loginBouncer}
       renderLoading={renderLoading}
     />
     <Route
       path={'browse'}
       component={BrowseContainer}
       queries={BrowseQueries}
+      onEnter={ensurePublicAccess}
       renderLoading={renderLoading}
     />
     {/*
-    <Route path={'user'} onEnter={authBouncer} >
+    <Route path={'user'} onEnter={loginBouncer} >
       <Route
         path={':userId'}
         component={UserContainer}
@@ -81,7 +103,7 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'resource'} onEnter={authBouncer} >
+    <Route path={'resource'} onEnter={loginBouncer} >
       <Route
         path={':resourceId'}
         component={ResourceContainer}
@@ -89,7 +111,7 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'land'} onEnter={authBouncer} >
+    <Route path={'land'} onEnter={loginBouncer} >
       <Route
         path={':landId'}
         component={LandContainer}
@@ -97,7 +119,7 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'project'} onEnter={authBouncer} >
+    <Route path={'project'} onEnter={loginBouncer} >
       <Route
         path={':projectId'}
         component={ProjectContainer}
@@ -105,7 +127,7 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'task'} onEnter={authBouncer} >
+    <Route path={'task'} onEnter={loginBouncer} >
       <Route
         path={':taskId'}
         component={TaskContainer}

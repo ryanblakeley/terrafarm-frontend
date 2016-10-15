@@ -1,14 +1,10 @@
 // Vendor
 import React from 'react';
-import Relay from 'react-relay';
 import IconButton from 'material-ui/IconButton';
 import {red200, blue500} from 'material-ui/styles/colors';
 import IoLogIn from 'react-icons/lib/io/log-in';
 import IoLogOut from 'react-icons/lib/io/log-out';
 import classNames from 'classnames/bind';
-
-// Local
-import networkLayer from '../../lib/networkLayer';
 
 // Styles
 import classNamesContext from '../styles/LoginPortalStylesheet.css';
@@ -65,10 +61,8 @@ export default class LoginPortal extends React.Component {
   }
   handleSignOut = () => {
     const { router, setLoggedIn } = this.context;
-    const { registrarToken } = window;
-    localStorage.removeItem('id_token');
+    localStorage.setItem('id_token', window.anonymousToken);
     localStorage.removeItem('user_uuid');
-    Relay.injectNetworkLayer(networkLayer(registrarToken));
     setLoggedIn(false);
     router.push('/');
   }

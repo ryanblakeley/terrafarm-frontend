@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Relay from 'react-relay';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
-import networkLayer from '../lib/networkLayer';
 import classNames from './styles/LoginPageStylesheet.css';
 
 export default class LoginPage extends Component {
@@ -17,7 +15,6 @@ export default class LoginPage extends Component {
   loginUser = data => {
     localStorage.setItem('id_token', data.token);
     localStorage.setItem('user_uuid', data.id);
-    Relay.injectNetworkLayer(networkLayer(data.token));
     this.context.setLoggedIn(true);
     this.context.setUserId(data.id);
     this.context.router.push('/profile');
