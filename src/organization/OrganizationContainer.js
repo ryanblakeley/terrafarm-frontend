@@ -1,31 +1,38 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-// import ResourceItem from '../shared/components/ResourceItem';
-// import UserItem from '../shared/components/UserItem';
-// import ProjectItem from '../shared/components/ProjectItem';
-// import RemoveResourceFromOrganizationDialog
-//   from '../shared/components/RemoveResourceFromOrganizationDialog';
 import HeroImage from '../shared/components/HeroImage';
-// import OrganizationActionTabs from './components/OrganizationActionTabs';
-// import PendingResourceDialog from './components/PendingResourceDialog';
-
-// import createColorChart from '../shared/themes/create-color-chart';
+import ProjectItem from '../shared/components/ProjectItem';
+import OrganizationActionTabs from './components/OrganizationActionTabs';
 import classNames from './styles/OrganizationContainerStylesheet.css';
 
-const OrganizationContainer = props => <TransitionWrapper>
+const OrganizationContainer = (props, context) => <TransitionWrapper>
   <div className={classNames.this}>
+    <OrganizationActionTabs
+      isAdmin={context.loggedIn}
+      organization={props.organization}
+      query={props.query}
+    />
     <h3 className={classNames.contentHeading}>{props.organization.name}</h3>
     <h4 className={classNames.contentSubheading}>
       <span className={classNames.location}>{props.organization.location}</span>
     </h4>
     <HeroImage image={props.organization.imageUrl} />
     <p className={classNames.description}>{props.organization.description}</p>
+    {props.organization.projectsByOrganizationId.edges.map(edge => <ProjectItem
+      key={edge.node.id}
+      project={edge.node}
+    />)}
   </div>
 </TransitionWrapper>;
 
 OrganizationContainer.propTypes = {
   organization: React.PropTypes.object,
+  query: React.PropTypes.object,
+};
+
+OrganizationContainer.contextTypes = {
+  loggedIn: React.PropTypes.bool,
 };
 
 export default Relay.createContainer(OrganizationContainer, {
@@ -39,12 +46,35 @@ export default Relay.createContainer(OrganizationContainer, {
         location,
         imageUrl,
         description,
+        projectsByOrganizationId(first: 10) {
+          edges {
+            node {
+              id,
+              ${ProjectItem.getFragment('project')},
+            }
+          }
+        },
+        ${OrganizationActionTabs.getFragment('organization')},
+      }
+    `,
+    query: () => Relay.QL`
+      fragment on Query {
+        ${OrganizationActionTabs.getFragment('query')},
       }
     `,
   },
 });
 
 /*
+
+import ResourceItem from '../shared/components/ResourceItem';
+import UserItem from '../shared/components/UserItem';
+import RemoveResourceFromOrganizationDialog
+  from '../shared/components/RemoveResourceFromOrganizationDialog';
+import PendingResourceDialog from './components/PendingResourceDialog';
+
+import createColorChart from '../shared/themes/create-color-chart';
+
 class OrganizationContainer extends React.Component {
   static propTypes = {
     organization: React.PropTypes.object,
@@ -129,19 +159,6 @@ class OrganizationContainer extends React.Component {
 
     return <TransitionWrapper>
       <div className={classNames.this}>
-        <OrganizationActionTabs
-          master={master}
-          user={viewer}
-          organization={organization}
-          isAdmin={isAdmin}
-          doesLike={doesLike}
-        />
-        <h3 className={classNames.contentHeading}>{name}</h3>
-        <h4 className={classNames.contentSubheading}>
-          | {size} | <span className={classNames.location}>{location}</span>
-        </h4>
-        <HeroImage image={image} />
-
         <div className={classNames.relationships} >
           {projects
             && projects.edges.length > 0

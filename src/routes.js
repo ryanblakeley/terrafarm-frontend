@@ -10,6 +10,7 @@ import Home from './home/HomePage';
 import LoginPage from './login/LoginPage';
 import NotFound from './not-found/NotFoundPage';
 import ProfileContainer from './profile/ProfileContainer';
+import ProfileQueries from './profile/ProfileQueries';
 import UserContainer from './user/UserContainer';
 import UserQueries from './user/UserQueries';
 import BrowseContainer from './browse/BrowseContainer';
@@ -34,20 +35,22 @@ function prepareProfileParams (params, {location}) {
 function enterLogin (nextState, replace) {
   const userId = localStorage.getItem('user_uuid');
   const idToken = localStorage.getItem('id_token');
+  console.log('enter login');
 
   if (userId
       && idToken
       && idToken !== window.anonymousToken
       && idToken !== window.registrarToken) {
     replace('/profile');
+  } else {
+    setRegistrarToken();
   }
-  localStorage.setItem('id_token', window.registrarToken);
-  localStorage.setItem('user_uuid', '');
 }
 
 function loginBouncer (nextState, replace) {
   const userId = localStorage.getItem('user_uuid');
   const idToken = localStorage.getItem('id_token');
+  console.log('login bouncer');
 
   if (!userId
       || !idToken
@@ -61,9 +64,19 @@ function ensurePublicAccess (nextState, replace) {
   const idToken = localStorage.getItem('id_token');
   if (!idToken
       || idToken === window.registrarToken) {
-    localStorage.setItem('id_token', window.anonymousToken);
+    setAnonymousToken();
   }
 }
+
+function setAnonymousToken () {
+  localStorage.setItem('id_token', window.anonymousToken);
+}
+
+function setRegistrarToken () {
+  localStorage.setItem('id_token', window.registrarToken);
+  localStorage.setItem('user_uuid', '');
+}
+
 
 function renderLoading () {
   return <Loading />;
@@ -80,7 +93,7 @@ const routes = (
     <Route
       path={'profile'}
       component={ProfileContainer}
-      queries={UserQueries}
+      queries={ProfileQueries}
       prepareParams={prepareProfileParams}
       onEnter={loginBouncer}
       renderLoading={renderLoading}
@@ -92,7 +105,7 @@ const routes = (
       onEnter={ensurePublicAccess}
       renderLoading={renderLoading}
     />
-    <Route path={'user'} onEnter={loginBouncer} >
+    <Route path={'user'} onEnter={ensurePublicAccess} >
       <Route
         path={':userId'}
         component={UserContainer}
@@ -100,7 +113,7 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'resource'} onEnter={loginBouncer} >
+    <Route path={'resource'} onEnter={ensurePublicAccess} >
       <Route
         path={':resourceId'}
         component={ResourceContainer}
@@ -108,7 +121,7 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'organization'} onEnter={loginBouncer} >
+    <Route path={'organization'} onEnter={ensurePublicAccess} >
       <Route
         path={':organizationId'}
         component={OrganizationContainer}
@@ -116,7 +129,7 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'project'} onEnter={loginBouncer} >
+    <Route path={'project'} onEnter={ensurePublicAccess} >
       <Route
         path={':projectId'}
         component={ProjectContainer}
@@ -124,7 +137,7 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'task'} onEnter={loginBouncer} >
+    <Route path={'task'} onEnter={ensurePublicAccess} >
       <Route
         path={':taskId'}
         component={TaskContainer}

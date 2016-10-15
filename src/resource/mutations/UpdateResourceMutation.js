@@ -11,13 +11,20 @@ export default class UpdateResourceMutation extends Relay.Mutation {
   getMutation () {
     return Relay.QL`mutation{updateResource}`;
   }
+  getVariables () {
+    return {
+      id: this.props.resource.id,
+      resourcePatch: this.props.resourcePatch,
+    };
+  }
   getFatQuery () {
     return Relay.QL`
       fragment on UpdateResourcePayload {
         resource {
           name,
           description,
-          category,
+          location,
+          imageUrl,
         },
       }
     `;
@@ -31,11 +38,5 @@ export default class UpdateResourceMutation extends Relay.Mutation {
         },
       },
     ];
-  }
-  getVariables () {
-    return {
-      id: this.props.resource.id,
-      attributes: this.props.attributes,
-    };
   }
 }

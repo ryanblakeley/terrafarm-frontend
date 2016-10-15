@@ -3,8 +3,7 @@ import Relay from 'react-relay';
 import IoCube from 'react-icons/lib/io/cube';
 import IoLeaf from 'react-icons/lib/io/leaf';
 
-import EditTask from './EditTask';
-import OfferResourceToTask from './OfferResourceToTask';
+import EditTaskForm from './EditTaskForm';
 import ItemActionTabs from '../../shared/components/ItemActionTabs';
 import ItemActionTabsMenu from '../../shared/components/ItemActionTabsMenu';
 import ItemActionTabButton from '../../shared/components/ItemActionTabButton';
@@ -25,7 +24,7 @@ const TaskActionTabs = props => <ItemActionTabs>
       hero
     />
     <ItemActionTabButton
-      disabled={!props.doesLike || !props.isAdmin}
+      disabled={!props.isAdmin}
       icon={<IoCube />}
       value={'offer-resource'}
     />
@@ -38,20 +37,16 @@ const TaskActionTabs = props => <ItemActionTabs>
   <ItemActionTabsBody>
     <ItemActionTabClose />
     <ItemActionTabContent value={'edit-task'}>
-      <EditTask master={props.master} task={props.task} />
+      <EditTaskForm task={props.task} query={props.query} />
     </ItemActionTabContent>
-    <ItemActionTabContent value={'offer-resource'}>
-      <OfferResourceToTask task={props.task} user={props.user} />
-    </ItemActionTabContent>
+    <ItemActionTabContent value={'offer-resource'} />
   </ItemActionTabsBody>
 </ItemActionTabs>;
 
 TaskActionTabs.propTypes = {
   isAdmin: React.PropTypes.bool,
-  doesLike: React.PropTypes.bool,
-  master: React.PropTypes.object,
   task: React.PropTypes.object,
-  user: React.PropTypes.object,
+  query: React.PropTypes.object,
 };
 
 TaskActionTabs.contextTypes = {
@@ -61,21 +56,14 @@ TaskActionTabs.contextTypes = {
 
 export default Relay.createContainer(TaskActionTabs, {
   fragments: {
-    master: () => Relay.QL`
-      fragment on Master {
-        ${EditTask.getFragment('master')}
-      }
-    `,
     task: () => Relay.QL`
       fragment on Task {
-        ${EditTask.getFragment('task')},
-        ${OfferResourceToTask.getFragment('task')},
+        ${EditTaskForm.getFragment('task')},
       }
     `,
-    user: () => Relay.QL`
-      fragment on User {
-        id,
-        ${OfferResourceToTask.getFragment('user')},
+    query: () => Relay.QL`
+      fragment on Query {
+        ${EditTaskForm.getFragment('query')},
       }
     `,
   },

@@ -24,11 +24,11 @@ html { font-size: 14px; }
   transition: color 160ms linear;
 }
 
-.appTagline {
+.appName {
   margin: 0.67em 0;
   font-family: 'Averia Serif Libre', serif;
   font-weight: 300;
-  font-size: 1em;
+  font-size: 5em;
   letter-spacing: 0.023em;
 }
 .pageHeading {
@@ -108,6 +108,5 @@ html { font-size: 14px; }
 @media only screen and (min-width: 375px) {  }
 */
 @media only screen and (min-width: 500px) {
-  .appTagline { font-size: 1.4em; }
   .contentHeading { font-size: 2.1em; }
 }

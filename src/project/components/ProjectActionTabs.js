@@ -4,12 +4,9 @@ import GoRepo from 'react-icons/lib/go/repo';
 import IoLeaf from 'react-icons/lib/io/leaf';
 import IoCube from 'react-icons/lib/io/cube';
 import IoIosHeart from 'react-icons/lib/io/ios-heart';
-import IoIosHeartOutline from 'react-icons/lib/io/ios-heart-outline';
 
-import EditProject from './EditProject';
-import NewTask from './NewTask';
-import HeartProject from './HeartProject';
-import OfferResourceToProject from './OfferResourceToProject';
+import EditProjectForm from './EditProjectForm';
+import CreateTaskForm from './CreateTaskForm';
 import ItemActionTabs from '../../shared/components/ItemActionTabs';
 import ItemActionTabsMenu from '../../shared/components/ItemActionTabsMenu';
 import ItemActionTabButton from '../../shared/components/ItemActionTabButton';
@@ -34,12 +31,12 @@ const ProjectActionTabs = props => <ItemActionTabs>
       hero
     />
     <ItemActionTabButton
-      disabled={!props.doesLike || !props.isAdmin}
+      disabled={!props.isAdmin}
       icon={<IoCube />}
       value={'offer-resource'}
     />
     <ItemActionTabButton
-      icon={props.doesLike ? <IoIosHeart /> : <IoIosHeartOutline />}
+      icon={<IoIosHeart />}
       value={'bookmark'}
     />
   </ItemActionTabsMenu>
@@ -52,26 +49,20 @@ const ProjectActionTabs = props => <ItemActionTabs>
   <ItemActionTabsBody>
     <ItemActionTabClose />
     <ItemActionTabContent value={'new-task'}>
-      <NewTask master={props.master} project={props.project} />
+      <CreateTaskForm project={props.project} query={props.query} />
     </ItemActionTabContent>
     <ItemActionTabContent value={'edit-project'}>
-      <EditProject master={props.master} project={props.project} />
+      <EditProjectForm project={props.project} query={props.query} />
     </ItemActionTabContent>
-    <ItemActionTabContent value={'offer-resource'}>
-      <OfferResourceToProject project={props.project} user={props.user} />
-    </ItemActionTabContent>
-    <ItemActionTabContent value={'bookmark'}>
-      <HeartProject project={props.project} user={props.user} doesLike={props.doesLike} />
-    </ItemActionTabContent>
+    <ItemActionTabContent value={'offer-resource'} />
+    <ItemActionTabContent value={'bookmark'} />
   </ItemActionTabsBody>
 </ItemActionTabs>;
 
 ProjectActionTabs.propTypes = {
   isAdmin: React.PropTypes.bool,
-  doesLike: React.PropTypes.bool,
-  master: React.PropTypes.object,
   project: React.PropTypes.object,
-  user: React.PropTypes.object,
+  query: React.PropTypes.object,
 };
 
 ProjectActionTabs.contextTypes = {
@@ -81,25 +72,16 @@ ProjectActionTabs.contextTypes = {
 
 export default Relay.createContainer(ProjectActionTabs, {
   fragments: {
-    master: () => Relay.QL`
-      fragment on Master {
-        ${EditProject.getFragment('master')},
-        ${NewTask.getFragment('master')},
-      }
-    `,
     project: () => Relay.QL`
       fragment on Project {
-        ${EditProject.getFragment('project')},
-        ${NewTask.getFragment('project')},
-        ${HeartProject.getFragment('project')},
-        ${OfferResourceToProject.getFragment('project')},
+        ${EditProjectForm.getFragment('project')},
+        ${CreateTaskForm.getFragment('project')},
       }
     `,
-    user: () => Relay.QL`
-      fragment on User {
-        id,
-        ${HeartProject.getFragment('user')},
-        ${OfferResourceToProject.getFragment('user')},
+    query: () => Relay.QL`
+      fragment on Query {
+        ${EditProjectForm.getFragment('query')},
+        ${CreateTaskForm.getFragment('query')},
       }
     `,
   },

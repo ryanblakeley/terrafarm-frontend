@@ -2,13 +2,16 @@ import Relay from 'react-relay';
 
 export default class DeleteProjectMutation extends Relay.Mutation {
   static fragments = {
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-      }
-    `,
     project: () => Relay.QL`
       fragment on Project {
+        id,
+        organizationByOrganizationId {
+          id,
+        },
+      }
+    `,
+    query: () => Relay.QL`
+      fragment on Query {
         id,
       }
     `,
@@ -16,35 +19,38 @@ export default class DeleteProjectMutation extends Relay.Mutation {
   getMutation () {
     return Relay.QL`mutation{deleteProject}`;
   }
+  getVariables () {
+    return {
+      id: this.props.project.id,
+    };
+  }
   getFatQuery () {
     return Relay.QL`
       fragment on DeleteProjectPayload {
-        removedProjectID,
-        master {
-          projects,
+        deletedProjectId,
+        organizationByOrganizationId,
+        query {
+          allProjects,
         },
       }
     `;
   }
-/*
-  getOptimisticResponse () {
-    return {project: {}};
-  }
-*/
   getConfigs () {
     return [
       {
         type: 'NODE_DELETE',
-        parentName: 'master',
-        parentID: this.props.master.id,
-        connectionName: 'projects',
-        deletedIDFieldName: 'removedProjectID',
+        parentName: 'query',
+        parentID: this.props.query.id,
+        connectionName: 'allProjects',
+        deletedIDFieldName: 'deletedProjectId',
+      },
+      {
+        type: 'NODE_DELETE',
+        parentName: 'organizationByOrganizationId',
+        parentID: this.props.project.organizationByOrganizationId.id,
+        connectionName: 'projectsByOrganizationId',
+        deletedIDFieldName: 'deletedProjectId',
       },
     ];
-  }
-  getVariables () {
-    return {
-      projectId: this.props.project.id,
-    };
   }
 }

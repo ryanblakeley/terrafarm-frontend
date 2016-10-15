@@ -4,11 +4,13 @@ import { RelayNetworkLayer, urlMiddleware, authMiddleware } from 'react-relay-ne
 const networkLayer = new RelayNetworkLayer([
   urlMiddleware({
     url: req => '/graphql',
-    batchUrl: req => '/graphql',
+    // when postgraphql supports batch
+    // batchUrl: req => '/graphql',
   }),
   authMiddleware({
     token: () => localStorage.getItem('id_token'),
   }),
-]);
+// remove when postgraphql supports batch
+], {disableBatchQuery: true});
 
 export default networkLayer;

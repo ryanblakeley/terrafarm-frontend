@@ -2,11 +2,6 @@ import Relay from 'react-relay';
 
 export default class DeleteUserMutation extends Relay.Mutation {
   static fragments = {
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-      }
-    `,
     user: () => Relay.QL`
       fragment on User {
         id,
@@ -19,32 +14,30 @@ export default class DeleteUserMutation extends Relay.Mutation {
   getFatQuery () {
     return Relay.QL`
       fragment on DeleteUserPayload {
-        removedUserID,
-        master {
-          users,
+        user,
+        deletedUserId,
+        query {
+         allUsers,
         },
       }
     `;
   }
-/*
-  getOptimisticResponse () {
-    return {user: {}};
-  }
-*/
   getConfigs () {
     return [
+      /*
       {
         type: 'NODE_DELETE',
-        parentName: 'master',
-        parentID: this.props.master.id,
-        connectionName: 'users',
-        deletedIDFieldName: 'removedUserID',
+        parentName: 'query',
+        parentID: this.props.query.id,
+        connectionName: 'allUsers',
+        deletedIDFieldName: 'deletedUserID',
       },
+      */
     ];
   }
   getVariables () {
     return {
-      userId: this.props.user.id,
+      id: this.props.user.id,
     };
   }
 }

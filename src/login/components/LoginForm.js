@@ -4,9 +4,9 @@ import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextInput from '../../shared/components/TextInput';
 import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
-import classNames from '../styles/LoginPageStylesheet.css';
+import classNames from '../styles/LoginFormStylesheet.css';
 
-export default class Login extends Component {
+export default class LoginForm extends Component {
   static propTypes = {
     loginUser: PropTypes.func.isRequired,
   };
@@ -15,11 +15,10 @@ export default class Login extends Component {
     loginError: null,
   };
   processLogin = response => {
-    const { authenticateUser: { json } } = response;
-    const data = JSON.parse(json);
+    const { authenticateUser: { authenticateUserResult } } = response;
 
-    if (data.id) {
-      this.props.loginUser(data);
+    if (authenticateUserResult.userId) {
+      this.props.loginUser(authenticateUserResult);
     } else {
       this.setState({ loginError: 'Email and/or Password is incorrect' });
     }
@@ -41,7 +40,7 @@ export default class Login extends Component {
         onInvalid={this.handleInvalid}
         onValidSubmit={this.loginUser}
       >
-        <div className={classNames.login}>
+        <div className={classNames.form}>
           <TextInput
             type={'email'}
             name={'email'}
@@ -60,13 +59,14 @@ export default class Login extends Component {
           { loginError &&
             <div className={classNames.error}>{loginError}</div>
           }
-          <RaisedButton
-            style={{ width: '256px', marginTop: '5px' }}
-            disabled={!canSubmit}
-            type={'submit'}
-          >
-            Sign In
-          </RaisedButton>
+          <div className={classNames.buttons}>
+            <RaisedButton
+              type={'submit'}
+              label={'Submit'}
+              disabled={!canSubmit}
+              fullWidth
+            />
+          </div>
         </div>
       </Formsy.Form>
     );

@@ -28,6 +28,11 @@ const TerrafarmRawTheme = {
     borderColor: blueGrey300,
     disabledColor: fade(blueGrey900, 0.3),
   },
+  tabs: {
+    backgroundColor: blueGrey50,
+    textColor: blueGrey500,
+    selectedTextColor: blueGrey900,
+  },
 };
 
 export default TerrafarmRawTheme;

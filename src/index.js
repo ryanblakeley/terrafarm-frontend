@@ -10,7 +10,7 @@ import useRelay from 'react-router-relay';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import routes from './routes';
-import networkLayer from './lib/networkLayer';
+import networkLayer from './shared/utils/networkLayer';
 
 injectTapEventPlugin();
 Relay.injectNetworkLayer(networkLayer);

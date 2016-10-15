@@ -1,31 +1,45 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-// import ResourceItem from '../shared/components/ResourceItem';
-// import UserItem from '../shared/components/UserItem';
-// import ProjectItem from '../shared/components/ProjectItem';
-// import RemoveResourceFromUserDialog
-//   from '../shared/components/RemoveResourceFromUserDialog';
 import HeroImage from '../shared/components/HeroImage';
-// import UserActionTabs from './components/UserActionTabs';
-// import PendingResourceDialog from './components/PendingResourceDialog';
-
-// import createColorChart from '../shared/themes/create-color-chart';
+import ResourceItem from '../shared/components/ResourceItem';
+import TaskItem from '../shared/components/TaskItem';
+import UserActionTabs from './components/UserActionTabs';
 import classNames from './styles/UserContainerStylesheet.css';
 
 const UserContainer = props => <TransitionWrapper>
   <div className={classNames.this}>
+    <UserActionTabs />
     <h3 className={classNames.contentHeading}>{props.user.name}</h3>
     <h4 className={classNames.contentSubheading}>
       <span className={classNames.location}>{props.user.location}</span>
     </h4>
     <HeroImage image={props.user.imageUrl} />
     <p className={classNames.description}>{props.user.description}</p>
+    {props.user.resourcesByOwnerId.edges.map(edge => <ResourceItem
+      key={edge.node.id}
+      resource={edge.node}
+    />)}
+    {/* props.user.organizationMembersByMemberId.edges.map(edge => <OrganizationItem
+      key={edge.node.id}
+      organization={edge.node}
+    />) */}
+    {props.user.tasksByAuthorId.edges.map(edge => <TaskItem
+      key={edge.node.id}
+      task={edge.node}
+    />)}
   </div>
 </TransitionWrapper>;
 
 UserContainer.propTypes = {
-  user: React.PropTypes.object,
+  user: React.PropTypes.shape({
+    name: React.PropTypes.string,
+    location: React.PropTypes.string,
+    description: React.PropTypes.string,
+    imageUrl: React.PropTypes.string,
+    resourcesByOwnerId: React.PropTypes.object,
+    tasksByAuthorId: React.PropTypes.object,
+  }).isRequired,
 };
 
 export default Relay.createContainer(UserContainer, {
@@ -39,6 +53,22 @@ export default Relay.createContainer(UserContainer, {
         location,
         imageUrl,
         description,
+        resourcesByOwnerId(first: 10) {
+          edges {
+            node {
+              id,
+              ${ResourceItem.getFragment('resource')},
+            }
+          }
+        },
+        tasksByAuthorId(first: 10) {
+          edges {
+            node {
+              id,
+              ${TaskItem.getFragment('task')},
+            }
+          }
+        },
       }
     `,
   },
@@ -46,22 +76,13 @@ export default Relay.createContainer(UserContainer, {
 
 
 /*
-import React from 'react';
-import Relay from 'react-relay';
-import TransitionWrapper from '../shared/components/TransitionWrapper';
-import UserActionTabs from './components/UserActionTabs';
-import ResourceItem from '../shared/components/ResourceItem';
-import LandItem from '../shared/components/LandItem';
-import ProjectItem from '../shared/components/ProjectItem';
-import TaskItem from '../shared/components/TaskItem';
-import HeroImage from '../shared/components/HeroImage';
-
+import RemoveResourceFromUserDialog
+  from '../shared/components/RemoveResourceFromUserDialog';
+import PendingResourceDialog from './components/PendingResourceDialog';
+import createColorChart from '../shared/themes/create-color-chart';
 import classNames from './styles/UserContainerStylesheet.css';
 
 class UserContainer extends React.Component {
-  static propTypes = {
-    user: React.PropTypes.object,
-  };
   state = {
     landsUsingResources: [],
     projectsUsingResources: [],
@@ -145,13 +166,6 @@ class UserContainer extends React.Component {
 
     return <TransitionWrapper>
       <div className={classNames.this} >
-        <UserActionTabs />
-        <h3 className={classNames.contentHeading}>{user.name}</h3>
-        <h4 className={classNames.contentSubheading}>
-          <span className={classNames.location}>{user.location}</span>
-        </h4>
-        <HeroImage image={user.image} />
-
         <div className={classNames.relationships} >
           {landsAdmin.edges.map(edge => <LandItem
             key={edge.node.id}
@@ -199,8 +213,6 @@ class UserContainer extends React.Component {
               resource={edge.node}
             />)
           }
-
-          <p className={classNames.description}>{user.description}</p>
         </div>
       </div>
     </TransitionWrapper>;

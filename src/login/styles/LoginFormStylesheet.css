@@ -1,0 +1,17 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 15px auto;
+}
+.error {
+  margin: 10px 0;
+  width: 256px;
+  font-size: 0.8em;
+  font-family: 'Simonetta, serif';
+  color: red;
+}
+.buttons {
+  composes: actionFormButtons from '../../shared/styles/_layout.css';
+}

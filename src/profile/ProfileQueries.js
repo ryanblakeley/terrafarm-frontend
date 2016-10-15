@@ -1,8 +1,8 @@
 import Relay from 'react-relay';
 
 export default {
-  task: () => Relay.QL`
-    query { task(id: $taskId) }
+  user: () => Relay.QL`
+    query { userByRowId(rowId: $userId) }
   `,
   query: () => Relay.QL`
     query { query }

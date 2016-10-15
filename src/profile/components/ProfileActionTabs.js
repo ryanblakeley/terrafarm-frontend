@@ -4,9 +4,9 @@ import IoIosLocation from 'react-icons/lib/io/ios-location';
 import IoPerson from 'react-icons/lib/io/person';
 import IoCube from 'react-icons/lib/io/cube';
 
-import EditProfile from './EditProfile';
-import NewLand from './NewLand';
-import NewResource from './NewResource';
+import EditProfileForm from './EditProfileForm';
+import CreateOrganizationForm from './CreateOrganizationForm';
+import CreateResourceForm from './CreateResourceForm';
 import ItemActionTabs from '../../shared/components/ItemActionTabs';
 import ItemActionTabsMenu from '../../shared/components/ItemActionTabsMenu';
 import ItemActionTabButton from '../../shared/components/ItemActionTabButton';
@@ -20,46 +20,42 @@ const ProfileActionTabs = props => <ItemActionTabs>
   <ItemActionTabsMenu>
     <ItemActionTabButton disabled />
     <ItemActionTabButton
-      disabled={!props.isAdmin}
       icon={<IoIosLocation />}
-      value={'new-land'}
+      value={'new-organization'}
     />
     <ItemActionTabButton
-      disabled={!props.isAdmin}
       icon={<IoPerson />}
       value={'edit-profile'}
       hero
     />
     <ItemActionTabButton
-      disabled={!props.isAdmin}
       icon={<IoCube />}
       value={'new-resource'}
     />
     <ItemActionTabButton disabled />
   </ItemActionTabsMenu>
   <ItemActionTabsLabel>
-    <ItemActionTabTitle value={'new-land'} text={'New Land'} />
+    <ItemActionTabTitle value={'new-organization'} text={'New Organization'} />
     <ItemActionTabTitle value={'edit-profile'} text={'Edit Profile'} />
     <ItemActionTabTitle value={'new-resource'} text={'New Resource'} />
   </ItemActionTabsLabel>
   <ItemActionTabsBody>
     <ItemActionTabClose />
-    <ItemActionTabContent value={'new-land'}>
-      <NewLand master={props.master} user={props.user} />
+    <ItemActionTabContent value={'new-organization'}>
+      <CreateOrganizationForm user={props.user} query={props.query} />
     </ItemActionTabContent>
     <ItemActionTabContent value={'edit-profile'}>
-      <EditProfile master={props.master} user={props.user} />
+      <EditProfileForm user={props.user} />
     </ItemActionTabContent>
     <ItemActionTabContent value={'new-resource'}>
-      <NewResource master={props.master} user={props.user} />
+      <CreateResourceForm user={props.user} query={props.query} />
     </ItemActionTabContent>
   </ItemActionTabsBody>
 </ItemActionTabs>;
 
 ProfileActionTabs.propTypes = {
-  isAdmin: React.PropTypes.bool,
-  master: React.PropTypes.object,
   user: React.PropTypes.object,
+  query: React.PropTypes.object,
 };
 
 ProfileActionTabs.contextTypes = {
@@ -69,18 +65,18 @@ ProfileActionTabs.contextTypes = {
 
 export default Relay.createContainer(ProfileActionTabs, {
   fragments: {
-    master: () => Relay.QL`
-      fragment on Master {
-        ${EditProfile.getFragment('master')},
-        ${NewLand.getFragment('master')},
-        ${NewResource.getFragment('master')}
-      }
-    `,
     user: () => Relay.QL`
       fragment on User {
-        ${EditProfile.getFragment('user')},
-        ${NewLand.getFragment('user')},
-        ${NewResource.getFragment('user')}
+        id,
+        ${EditProfileForm.getFragment('user')},
+        ${CreateOrganizationForm.getFragment('user')},
+        ${CreateResourceForm.getFragment('user')}
+      }
+    `,
+    query: () => Relay.QL`
+      fragment on Query {
+        ${CreateResourceForm.getFragment('query')},
+        ${CreateOrganizationForm.getFragment('query')},
       }
     `,
   },

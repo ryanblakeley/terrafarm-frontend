@@ -1,4 +1,3 @@
-// Vendor
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import Formsy from 'formsy-react';
@@ -7,16 +6,12 @@ import Popover from 'material-ui/Popover';
 import IoIosCheckmarkOutline from 'react-icons/lib/io/ios-checkmark-outline';
 import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
 import TextInput from '../../shared/components/TextInput';
-
-// Local
 import SignUpUserMutation from '../mutations/SignUpUserMutation';
-
-// Styles
-import classNames from '../styles/LoginPageStylesheet.css';
+import classNames from '../styles/NewUserFormStylesheet.css';
 
 const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,}/;
 
-export default class SignUp extends Component {
+export default class NewUserForm extends Component {
   static propTypes = {
     loginUser: PropTypes.func.isRequired,
   };
@@ -29,11 +24,10 @@ export default class SignUp extends Component {
     passwordStrengthValid: false,
   };
   processSignUp = response => {
-    const { createUser: { json } } = response;
-    const data = JSON.parse(json);
+    const { registerUser: { authenticateUserResult } } = response;
 
-    if (data.id) {
-      this.props.loginUser(data);
+    if (authenticateUserResult.userId) {
+      this.props.loginUser(authenticateUserResult);
     } else {
       this.setState({ signUpError: 'There was an error signing you up.' });
     }
@@ -89,52 +83,57 @@ export default class SignUp extends Component {
         onInvalid={this.handleInvalid}
         onValidSubmit={this.signUpUser}
       >
-        <TextInput
-          label={'Name'}
-          name={'name'}
-          validationError={'Please enter your name'}
-          required
-        />
-        <TextInput
-          label={'Email'}
-          type={'email'}
-          name={'email'}
-          validationError={'Please enter a valid email'}
-          validations={'isEmail'}
-        />
-        <TextInput
-          label={'Password'}
-          type={'password'}
-          name={'password'}
-          onChange={this.checkPassword}
-          validationError={'Password does not meet the criteria'}
-          validations={{ matchRegexp: PASSWORD_REGEX }}
-          onFocus={this.openPopover}
-          onBlur={this.closePopover}
-        />
-        { signUpError &&
-          <div className={classNames.error}>{signUpError}</div>
-        }
-        <Popover
-          open={popoverOpen}
-          anchorEl={popoverAnchor}
-          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-        >
-          <div className={classNames.password}>
-            <h3 className={classNames.passheader}>Password must contain</h3>
-            <ul className={classNames.passwordlist}>
-              <li>{this.lengthCheckIcon()} 6 characters</li>
-              <li>{this.strengthCheckIcon()} 1 letter and 1 number</li>
-            </ul>
+        <div className={classNames.form}>
+          <TextInput
+            label={'Name'}
+            name={'name'}
+            validationError={'Please enter your name'}
+            required
+          />
+          <TextInput
+            label={'Email'}
+            type={'email'}
+            name={'email'}
+            validationError={'Please enter a valid email'}
+            validations={'isEmail'}
+            required
+          />
+          <TextInput
+            label={'Password'}
+            type={'password'}
+            name={'password'}
+            onChange={this.checkPassword}
+            validationError={'Password does not meet the criteria'}
+            validations={{ matchRegexp: PASSWORD_REGEX }}
+            required
+            onFocus={this.openPopover}
+            onBlur={this.closePopover}
+          />
+          { signUpError &&
+            <div className={classNames.error}>{signUpError}</div>
+          }
+          <Popover
+            open={popoverOpen}
+            anchorEl={popoverAnchor}
+            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+          >
+            <div className={classNames.password}>
+              <h3 className={classNames.passheader}>Password must contain</h3>
+              <ul className={classNames.passwordlist}>
+                <li>{this.lengthCheckIcon()} 6 characters</li>
+                <li>{this.strengthCheckIcon()} 1 letter and 1 number</li>
+              </ul>
+            </div>
+          </Popover>
+          <div className={classNames.buttons}>
+            <RaisedButton
+              type={'submit'}
+              label={'Sign Up'}
+              disabled={!canSubmit}
+              fullWidth
+            />
           </div>
-        </Popover>
-        <RaisedButton
-          style={{ width: '256px', marginTop: '15px' }}
-          disabled={!canSubmit}
-          type={'submit'}
-        >
-          Sign Up
-        </RaisedButton>
+        </div>
       </Formsy.Form>
     );
   }

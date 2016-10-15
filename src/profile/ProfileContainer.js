@@ -1,31 +1,39 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-// import ResourceItem from '../shared/components/ResourceItem';
-// import UserItem from '../shared/components/UserItem';
-// import ProjectItem from '../shared/components/ProjectItem';
-// import RemoveResourceFromProfileDialog
-//   from '../shared/components/RemoveResourceFromProfileDialog';
 import HeroImage from '../shared/components/HeroImage';
-// import ProfileActionTabs from './components/ProfileActionTabs';
-// import PendingResourceDialog from './components/PendingResourceDialog';
-
-// import createColorChart from '../shared/themes/create-color-chart';
+import ResourceItem from '../shared/components/ResourceItem';
+import TaskItem from '../shared/components/TaskItem';
+import ProfileActionTabs from './components/ProfileActionTabs';
 import classNames from './styles/ProfileContainerStylesheet.css';
 
 const ProfileContainer = props => <TransitionWrapper>
   <div className={classNames.this}>
+    <ProfileActionTabs user={props.user} query={props.query} />
     <h3 className={classNames.contentHeading}>{props.user.name}</h3>
     <h4 className={classNames.contentSubheading}>
       <span className={classNames.location}>{props.user.location}</span>
     </h4>
     <HeroImage image={props.user.imageUrl} />
     <p className={classNames.description}>{props.user.description}</p>
+    {props.user.resourcesByOwnerId.edges.map(edge => <ResourceItem
+      key={edge.node.id}
+      resource={edge.node}
+    />)}
+    {/* props.user.organizationMembersByMemberId.edges.map(edge => <OrganizationItem
+      key={edge.node.id}
+      organization={edge.node}
+    />) */}
+    {props.user.tasksByAuthorId.edges.map(edge => <TaskItem
+      key={edge.node.id}
+      task={edge.node}
+    />)}
   </div>
 </TransitionWrapper>;
 
 ProfileContainer.propTypes = {
   user: React.PropTypes.object,
+  query: React.PropTypes.object,
 };
 
 export default Relay.createContainer(ProfileContainer, {
@@ -39,28 +47,39 @@ export default Relay.createContainer(ProfileContainer, {
         location
         imageUrl,
         description,
+        resourcesByOwnerId(first: 10) {
+          edges {
+            node {
+              id,
+              ${ResourceItem.getFragment('resource')},
+            }
+          }
+        },
+        tasksByAuthorId(first: 10) {
+          edges {
+            node {
+              id,
+              ${TaskItem.getFragment('task')},
+            }
+          }
+        },
+        ${ProfileActionTabs.getFragment('user')},
+      }
+    `,
+    query: () => Relay.QL`
+      fragment on Query {
+        ${ProfileActionTabs.getFragment('query')},
       }
     `,
   },
 });
 
 /*
-import ResourceItem from '../shared/components/ResourceItem';
-import LandItem from '../shared/components/LandItem';
-import HeroImage from '../shared/components/HeroImage';
-import ProfileActionTabs from './components/ProfileActionTabs';
+import RemoveResourceFromProfileDialog
+  from '../shared/components/RemoveResourceFromProfileDialog';
+import PendingResourceDialog from './components/PendingResourceDialog';
 import createColorChart from '../shared/themes/create-color-chart';
 
-    <ProfileActionTabs
-      master={master}
-      user={viewer}
-      isAdmin
-    />
-    <h3 className={classNames.contentHeading}>{viewer.name}</h3>
-    <h4 className={classNames.contentSubheading}>
-      <span className={classNames.location}>{viewer.location}</span>
-    </h4>
-    <HeroImage image={viewer.image} />
     <div className={classNames.relationships} >
       {landsAdmin.edges.map(edge => <LandItem
         key={edge.node.id}
@@ -77,15 +96,6 @@ import createColorChart from '../shared/themes/create-color-chart';
           colorSwatch={this.state.colorChart[land.id]}
         />)
       }
-
-      {viewer.resources.edges.map(edge => <ResourceItem
-        key={edge.node.id}
-        resource={edge.node}
-        colorSwatches={edge.node.lands.edges.map(landEdge => (
-          this.state.colorChart[landEdge.node.id]
-        ))}
-      />)}
-      <p className={classNames.description}>{viewer.description}</p>
     </div>
 
   state = {
@@ -179,11 +189,4 @@ import createColorChart from '../shared/themes/create-color-chart';
         ${ProfileActionTabs.getFragment('user')},
       }
     `,
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-        ${ProfileActionTabs.getFragment('master')},
-      }
-    `,
-
 */

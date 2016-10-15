@@ -9,15 +9,17 @@ const styles = {
   },
 };
 
-export default class HeroImage extends React.Component {
-  static propTypes = {
-    image: React.PropTypes.string,
-  };
-  render () {
-    const {image} = this.props;
-    styles.this.backgroundImage = `url(${image})`;
-
-    return image
-      && <div className={classNames.this} style={styles.this} />;
+const HeroImage = props => <div
+  className={classNames.this}
+  style={
+    Object.assign(styles.this, {
+      backgroundImage: `url(${props.image})`,
+    })
   }
-}
+/>;
+
+HeroImage.propTypes = {
+  image: React.PropTypes.string,
+};
+
+export default HeroImage;

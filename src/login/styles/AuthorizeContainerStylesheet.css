@@ -1,4 +1,0 @@
-.this {}
-.text {
-  composes: bodyText from '../../shared/styles/_typography.css';
-}

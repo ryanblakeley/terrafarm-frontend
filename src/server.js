@@ -1,12 +1,10 @@
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-import url from 'url';
 import httpProxy from 'http-proxy';
 
 const app = express();
 
-const isDeveloping = process.env.NODE_ENV !== 'production';
 const { PRIVATE_IP, REVERSE_PROXY_PRIVATE_IP, PORT, API_PORT } = process.env;
 
 const publicPath = path.join(__dirname, '/..', 'public');

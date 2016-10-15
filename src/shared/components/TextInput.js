@@ -25,7 +25,7 @@ export default class TextInput extends React.Component {
     },
   };
   render () {
-    const { updateImmediately, ...rest } = this.props;
+    const { updateImmediately, initialValue, ...rest } = this.props;
 
     return (
       <FormsyText
@@ -34,7 +34,7 @@ export default class TextInput extends React.Component {
         underlineFocusStyle={{borderColor: blueGrey900}}
         hintText={this.props.placeholder}
         floatingLabelText={this.props.label}
-        value={this.props.initialValue}
+        value={initialValue}
       />
     );
   }

@@ -2,7 +2,32 @@
 
 Planned and potential features and releases.
 
-## 0.8.1
+### 1.0.1
+
+*ready*
+
+### 1.0.2
+
+- Mutation changes
+  - deletes do not work if there are connections (no cascade)
+  - delete profile
+  - offer resource
+  - request resource
+  - accept resource
+  - decline resource
+  - likes
+
+### 1.0.3
+
+- create object--create connections between organizations, projects, tasks
+- delete object--cleanup connections
+
+### 1.0.4
+
+- expired `id_token`
+- test coverage
+
+### 1.1.x
 
 - on resource page
   - request resource from a button in the action tabs heading
@@ -25,28 +50,7 @@ Planned and potential features and releases.
     - show a button for requesting a resource
       - if clicked, show a list of resources liked by the viewer
 
-## 0.8.2
-
-- mark complete task/project items on parent page
-
-## 0.9
-
-Sept 14
-
-- replace fieldbook api with postgres db that reflects a graphql api
-- increase x in `(first: x)` chunks
-
-## 0.10
-
-- patch auth
-  - handle expired jwt
-  - check `state` on auth callback
-  - handle login failure
-  - if not a registered member, fail and navigate to sign up
-- add resource availability
-- review optimistic updates
-
-## 0.11
+### 1.2.x
 
 - Browse container
   - map with zip + range
@@ -54,11 +58,7 @@ Sept 14
   - filter/sort
 - line-menu inspiration [line-menu-styles](http://tympanus.net/Development/LineMenuStyles/#Valentine)
 
-## 1.0
-
-Alpha prototype
-
-## 1.1
+### 1.3.x
 
 - Profile container
   - show alert next to location with pending resources
@@ -72,21 +72,16 @@ Alpha prototype
 - new loading component
 - SSL
 
-## 2.0
-
-Beta release
-
-## 2.1
+### 1.4.x
 
 - Getting Started page
+- icon that links to about page right above copyright line in footer
 - css feature detection, fallbacks, and browser warnings
+- build optimization review
 
-## 3.0
+### 2.x.x
 
-First official release
-
-## 3.1
-
+#### Possible monetization
 - resource pricing and transactions
 - higher limits on: lands, projects, land admins
 - custom short url with name, e.x. terra.farm/dunbar
@@ -94,12 +89,7 @@ First official release
 - vendor click-throughs for books, videos, and equipment
 - loadouts: save frequent resource combinations
 
-## 4.0
-
-Monetization release
-
-## 4.1
-
+#### Other possibilities
 - add Crop Schedules
   - resource commitments, offers, and availability
   - task and project deadlines

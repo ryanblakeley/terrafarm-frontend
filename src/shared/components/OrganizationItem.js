@@ -6,7 +6,7 @@ import IoIosLocation from 'react-icons/lib/io/ios-location';
 import MdStar from 'react-icons/lib/md/star';
 import RelationshipIcon from './RelationshipIcon';
 import RelationshipColorDash from './RelationshipColorDash';
-import classNames from '../styles/LandItemStylesheet.css';
+import classNames from '../styles/OrganizationItemStylesheet.css';
 
 const styles = {
   this: {
@@ -15,9 +15,9 @@ const styles = {
 };
 
 
-class LandItem extends React.Component {
+class OrganizationItem extends React.Component {
   static propTypes = {
-    land: React.PropTypes.object,
+    organization: React.PropTypes.object,
     colorSwatch: React.PropTypes.string,
     adminBadge: React.PropTypes.bool,
     action: React.PropTypes.element,
@@ -26,7 +26,7 @@ class LandItem extends React.Component {
     adminBadge: false,
   };
   render () {
-    const {land, colorSwatch, adminBadge, action} = this.props;
+    const {organization, colorSwatch, adminBadge, action} = this.props;
     const secondaryIcon = action || (adminBadge
       ? <MdStar />
       : null);
@@ -40,17 +40,17 @@ class LandItem extends React.Component {
         ? <RelationshipColorDash color={colorSwatch} />
         : <div className={classNames.colorsPlaceholder} />
       }
-      <Link to={`/land/${land.id}`} className={classNames.name} >
-        {land.name[0].toUpperCase() + land.name.slice(1)}
+      <Link to={`/organization/${organization.id}`} className={classNames.name} >
+        {organization.name[0].toUpperCase() + organization.name.slice(1)}
       </Link>
     </div>;
   }
 }
 
-export default Relay.createContainer(LandItem, {
+export default Relay.createContainer(OrganizationItem, {
   fragments: {
-    land: () => Relay.QL`
-      fragment on Land {
+    organization: () => Relay.QL`
+      fragment on Organization {
         id,
         name,
       }

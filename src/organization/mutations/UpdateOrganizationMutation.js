@@ -18,21 +18,21 @@ export default class UpdateOrganizationMutation extends Relay.Mutation {
           name,
           location,
           description,
-          image_url,
+          imageUrl,
         },
       }
     `;
   }
   getOptimisticResponse () {
-    const {attributes} = this.props;
-    const {name, location, description, image_url} = attributes;
+    const {organizationPatch} = this.props;
+    const {name, location, description, imageUrl} = organizationPatch;
 
     return {
       organization: {
         name,
         location,
         description,
-        image_url,
+        imageUrl,
       },
     };
   }
@@ -49,7 +49,7 @@ export default class UpdateOrganizationMutation extends Relay.Mutation {
   getVariables () {
     return {
       id: this.props.organization.id,
-      attributes: this.props.attributes,
+      organizationPatch: this.props.organizationPatch,
     };
   }
 }

@@ -11,25 +11,29 @@ export default class UpdateTaskMutation extends Relay.Mutation {
   getMutation () {
     return Relay.QL`mutation{updateTask}`;
   }
+  getVariables () {
+    return {
+      id: this.props.task.id,
+      taskPatch: this.props.taskPatch,
+    };
+  }
   getFatQuery () {
     return Relay.QL`
       fragment on UpdateTaskPayload {
-        task {
-          name,
-          category,
-          description,
-        },
+        task,
+        userByAuthorId,
+        projectByProjectId,
+        query,
       }
     `;
   }
   getOptimisticResponse () {
-    const {attributes} = this.props;
-    const {name, category, description} = attributes;
+    const {taskPatch} = this.props;
+    const {name, description} = taskPatch;
 
     return {
       task: {
         name,
-        category,
         description,
       },
     };
@@ -43,11 +47,5 @@ export default class UpdateTaskMutation extends Relay.Mutation {
         },
       },
     ];
-  }
-  getVariables () {
-    return {
-      id: this.props.task.id,
-      attributes: this.props.attributes,
-    };
   }
 }

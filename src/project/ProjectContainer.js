@@ -1,28 +1,42 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-// import ResourceItem from '../shared/components/ResourceItem';
-// import UserItem from '../shared/components/UserItem';
-// import ProjectItem from '../shared/components/ProjectItem';
-// import RemoveResourceFromProjectDialog
-//   from '../shared/components/RemoveResourceFromProjectDialog';
 import HeroImage from '../shared/components/HeroImage';
-// import ProjectActionTabs from './components/ProjectActionTabs';
-// import PendingResourceDialog from './components/PendingResourceDialog';
-
-// import createColorChart from '../shared/themes/create-color-chart';
+import OrganizationItem from '../shared/components/OrganizationItem';
+import TaskItem from '../shared/components/TaskItem';
+import ProjectActionTabs from './components/ProjectActionTabs';
 import classNames from './styles/ProjectContainerStylesheet.css';
 
-const ProjectContainer = props => <TransitionWrapper>
+const ProjectContainer = (props, context) => <TransitionWrapper>
   <div className={classNames.this}>
+    <ProjectActionTabs
+      isAdmin={context.loggedIn}
+      project={props.project}
+      query={props.query}
+    />
     <h3 className={classNames.contentHeading}>{props.project.name}</h3>
     <HeroImage image={props.project.imageUrl} />
     <p className={classNames.description}>{props.project.description}</p>
+    {props.project.organizationByOrganizationId
+     && <OrganizationItem
+       key={props.project.organizationByOrganizationId.id}
+       organization={props.project.organizationByOrganizationId}
+     />
+    }
+    {props.project.tasksByProjectId.edges.map(edge => <TaskItem
+      key={edge.node.id}
+      task={edge.node}
+    />)}
   </div>
 </TransitionWrapper>;
 
 ProjectContainer.propTypes = {
   project: React.PropTypes.object,
+  query: React.PropTypes.object,
+};
+
+ProjectContainer.contextTypes = {
+  loggedIn: React.PropTypes.bool,
 };
 
 export default Relay.createContainer(ProjectContainer, {
@@ -35,33 +49,38 @@ export default Relay.createContainer(ProjectContainer, {
         name,
         imageUrl,
         description,
+        organizationByOrganizationId {
+          id,
+          ${OrganizationItem.getFragment('organization')},
+        },
+        tasksByProjectId(first: 10) {
+          edges {
+            node {
+              id,
+              ${TaskItem.getFragment('task')},
+            }
+          }
+        },
+        ${ProjectActionTabs.getFragment('project')},
+      }
+    `,
+    query: () => Relay.QL`
+      fragment on Query {
+        ${ProjectActionTabs.getFragment('query')},
       }
     `,
   },
 });
 
 /*
-import React from 'react';
-import Relay from 'react-relay';
-import TransitionWrapper from '../shared/components/TransitionWrapper';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import RemoveResourceFromProjectDialog from '../shared/components/RemoveResourceFromProjectDialog';
-import UserItem from '../shared/components/UserItem';
-import LandItem from '../shared/components/LandItem';
-import TaskItem from '../shared/components/TaskItem';
-import ResourceItem from '../shared/components/ResourceItem';
-import ProjectActionTabs from './components/ProjectActionTabs';
 
 import createColorChart from '../shared/themes/create-color-chart';
 import classNames from './styles/ProjectContainerStylesheet.css';
 
 class ProjectContainer extends React.Component {
-  static propTypes = {
-    master: React.PropTypes.object,
-    project: React.PropTypes.object,
-    viewer: React.PropTypes.object,
-  };
-  state = {
+    state = {
     isProjectAdmin: false,
     doesLike: false,
     colorChart: {},
@@ -122,17 +141,7 @@ class ProjectContainer extends React.Component {
 
     return <TransitionWrapper>
       <div className={classNames.this}>
-        <ProjectActionTabs
-          master={master}
-          user={viewer}
-          project={project}
-          isAdmin={isProjectAdmin}
-          doesLike={doesLike}
-        />
-        <h3 className={classNames.contentHeading}>{name}</h3>
-        <h4 className={classNames.contentSubheading}>| {category} |</h4>
-
-        <div className={classNames.relationships} >
+               <div className={classNames.relationships} >
           {lands.edges.map(edge => <LandItem
             key={edge.node.id}
             land={edge.node}
@@ -258,18 +267,6 @@ export default Relay.createContainer(ProjectContainer, {
         ${PendingResourceDialog.getFragment('project')},
         ${RemoveResourceFromProjectDialog.getFragment('project')},
         ${ProjectActionTabs.getFragment('project')},
-      }
-    `,
-    viewer: () => Relay.QL`
-      fragment on User {
-        id,
-        ${ProjectActionTabs.getFragment('user')},
-      }
-    `,
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-        ${ProjectActionTabs.getFragment('master')},
       }
     `,
   },

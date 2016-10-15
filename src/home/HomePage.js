@@ -1,17 +1,14 @@
 import React from 'react';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import HomeTagline from './components/HomeTagline';
+import LoginLinks from './components/LoginLinks';
 import classNames from './styles/HomePageStylesheet.css';
 
 const HomePage = props => <TransitionWrapper>
   <div className={classNames.this} >
     <HomeTagline />
-    {props.children}
+    <LoginLinks />
   </div>
 </TransitionWrapper>;
-
-HomePage.propTypes = {
-  children: React.PropTypes.object,
-};
 
 export default HomePage;

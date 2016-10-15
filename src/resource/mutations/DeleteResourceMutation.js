@@ -2,18 +2,16 @@ import Relay from 'react-relay';
 
 export default class DeleteResourceMutation extends Relay.Mutation {
   static fragments = {
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-      }
-    `,
     resource: () => Relay.QL`
       fragment on Resource {
         id,
+        userByOwnerId {
+          id,
+        },
       }
     `,
-    user: () => Relay.QL`
-      fragment on User {
+    query: () => Relay.QL`
+      fragment on Query {
         id,
       }
     `,
@@ -21,46 +19,40 @@ export default class DeleteResourceMutation extends Relay.Mutation {
   getMutation () {
     return Relay.QL`mutation{deleteResource}`;
   }
+  getVariables () {
+    return {
+      id: this.props.resource.id,
+    };
+  }
   getFatQuery () {
     return Relay.QL`
       fragment on DeleteResourcePayload {
-        removedResourceID,
-        master {
-          resources,
+        deletedResourceId,
+        userByOwnerId {
+          resourcesByOwnerId,
         },
-        user {
-          resources,
+        query {
+          allResources
         },
       }
     `;
   }
-/*
-  getOptimisticResponse () {
-    return {resource: {}};
-  }
-*/
   getConfigs () {
     return [
       {
         type: 'NODE_DELETE',
-        parentName: 'master',
-        parentID: this.props.master.id,
-        connectionName: 'resources',
-        deletedIDFieldName: 'removedResourceID',
+        parentName: 'query',
+        parentID: this.props.query.id,
+        connectionName: 'allResources',
+        deletedIDFieldName: 'deletedResourceId',
       },
       {
         type: 'NODE_DELETE',
-        parentName: 'user',
-        parentID: this.props.user.id,
-        connectionName: 'resources',
-        deletedIDFieldName: 'removedResourceID',
+        parentName: 'userByOwnerId',
+        parentID: this.props.resource.userByOwnerId.id,
+        connectionName: 'resourcesByOwnerId',
+        deletedIDFieldName: 'deletedResourceId',
       },
     ];
-  }
-  getVariables () {
-    return {
-      resourceId: this.props.resource.id,
-      userId: this.props.user.id,
-    };
   }
 }

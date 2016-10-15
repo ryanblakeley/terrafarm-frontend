@@ -1,26 +1,32 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-// import ResourceItem from '../shared/components/ResourceItem';
-// import UserItem from '../shared/components/UserItem';
-// import ProjectItem from '../shared/components/ProjectItem';
-// import RemoveResourceFromTaskDialog
-//   from '../shared/components/RemoveResourceFromTaskDialog';
-// import TaskActionTabs from './components/TaskActionTabs';
-// import PendingResourceDialog from './components/PendingResourceDialog';
-
-// import createColorChart from '../shared/themes/create-color-chart';
+import ProjectItem from '../shared/components/ProjectItem';
+import UserItem from '../shared/components/UserItem';
+import TaskActionTabs from './components/TaskActionTabs';
 import classNames from './styles/TaskContainerStylesheet.css';
 
-const TaskContainer = props => <TransitionWrapper>
+const TaskContainer = (props, context) => <TransitionWrapper>
   <div className={classNames.this}>
+    <TaskActionTabs task={props.task} query={props.query} isAdmin={context.loggedIn} />
     <h3 className={classNames.contentHeading}>{props.task.name}</h3>
     <p className={classNames.description}>{props.task.description}</p>
+    {props.task.projectByProjectId
+     && <ProjectItem project={props.task.projectByProjectId} />
+    }
+    {props.task.userByAuthorId
+     && <UserItem user={props.task.userByAuthorId} />
+    }
   </div>
 </TransitionWrapper>;
 
 TaskContainer.propTypes = {
   task: React.PropTypes.object,
+  query: React.PropTypes.object,
+};
+
+TaskContainer.contextTypes = {
+  loggedIn: React.PropTypes.bool,
 };
 
 export default Relay.createContainer(TaskContainer, {
@@ -32,32 +38,31 @@ export default Relay.createContainer(TaskContainer, {
       fragment on Task {
         name,
         description,
+        projectByProjectId {
+          ${ProjectItem.getFragment('project')},
+        },
+        userByAuthorId {
+          ${UserItem.getFragment('user')},
+        },
+        ${TaskActionTabs.getFragment('task')},
+      }
+    `,
+    query: () => Relay.QL`
+      fragment on Query {
+        ${TaskActionTabs.getFragment('query')},
       }
     `,
   },
 });
 
 /*
-import React from 'react';
-import Relay from 'react-relay';
-import TransitionWrapper from '../shared/components/TransitionWrapper';
 import PendingResourceDialog from './components/PendingResourceDialog';
 import RemoveResourceFromTaskDialog from '../shared/components/RemoveResourceFromTaskDialog';
-import ProjectItem from '../shared/components/ProjectItem';
-import UserItem from '../shared/components/UserItem';
-import ResourceItem from '../shared/components/ResourceItem';
-import LandItem from '../shared/components/LandItem';
-import TaskActionTabs from './components/TaskActionTabs';
 
 import createColorChart from '../shared/themes/create-color-chart';
 import classNames from './styles/TaskContainerStylesheet.css';
 
 class TaskContainer extends React.Component {
-  static propTypes = {
-    master: React.PropTypes.object,
-    task: React.PropTypes.object,
-    viewer: React.PropTypes.object,
-  };
   state = {
     isProjectAdmin: false,
     likedBy: [],
@@ -126,7 +131,6 @@ class TaskContainer extends React.Component {
     resourcesPending.scrollIntoView();
   }
   render () {
-    const {task, viewer, master} = this.props;
     const {
       isProjectAdmin,
       doesLike,
@@ -146,17 +150,7 @@ class TaskContainer extends React.Component {
 
     return <TransitionWrapper>
       <div className={classNames.this}>
-        <TaskActionTabs
-          master={master}
-          user={viewer}
-          task={task}
-          isAdmin={isProjectAdmin}
-          doesLike={doesLike}
-        />
-        <h3 className={classNames.contentHeading}>{name}</h3>
-        <h4 className={classNames.contentSubheading}>| {category} |</h4>
-
-        <div className={classNames.relationships} >
+            <div className={classNames.relationships} >
           <LandItem key={parentLand.id} land={parentLand} />
           <ProjectItem key={parentProject.id} project={parentProject} />
 
@@ -198,8 +192,6 @@ class TaskContainer extends React.Component {
             }
           </div>
         </div>
-
-        <p className={classNames.description}>{description}</p>
       </div>
     </TransitionWrapper>;
   }
@@ -283,18 +275,6 @@ export default Relay.createContainer(TaskContainer, {
         ${PendingResourceDialog.getFragment('task')},
         ${RemoveResourceFromTaskDialog.getFragment('task')},
         ${TaskActionTabs.getFragment('task')},
-      }
-    `,
-    viewer: () => Relay.QL`
-      fragment on User {
-        id,
-        ${TaskActionTabs.getFragment('user')},
-      }
-    `,
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-        ${TaskActionTabs.getFragment('master')},
       }
     `,
   },

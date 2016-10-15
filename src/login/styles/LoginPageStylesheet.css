@@ -2,34 +2,5 @@
   composes: page from '../../shared/styles/_layout.css';
 }
 .tabs {
-  width: 256px;
-  margin: 0 auto;
-}
-.text {
-  composes: bodyText from '../../shared/styles/_typography.css';
-}
-.login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  margin: 15px auto;
-}
-.error {
-  margin: 10px 0;
-  width: 256px;
-  font-size: 0.8em;
-  font-family: 'Simonetta, serif';
-  color: red;
-}
-.password {
-  font-size: 0.8em;
-  padding: 3px 10px 0 10px;
-}
-.passheader {
-  font-size: 1.3em;
-  margin: 5px;
-}
-.passwordlist {
-  margin-left: 5px;
+  margin: 15px auto 0; width: 256px;
 }

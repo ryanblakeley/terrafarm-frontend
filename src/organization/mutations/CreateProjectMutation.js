@@ -1,39 +1,37 @@
 import Relay from 'react-relay';
 
-export default class NewProjectMutation extends Relay.Mutation {
+export default class CreateProjectMutation extends Relay.Mutation {
   static fragments = {
     organization: () => Relay.QL`
       fragment on Organization {
         id,
+        rowId,
       }
     `,
-    user: () => Relay.QL`
-      fragment on User {
-        id,
-      }
-    `,
-    master: () => Relay.QL`
-      fragment on Master {
+    query: () => Relay.QL`
+      fragment on Query {
         id,
       }
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{newProject}`;
+    return Relay.QL`mutation{createProject}`;
+  }
+  getVariables () {
+    return {
+      project: Object.assign({
+        organizationId: this.props.organization.rowId,
+      }, this.props.projectData),
+    };
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on NewProjectPayload {
+      fragment on CreateProjectPayload {
         projectEdge,
-        master {
-          projects,
-        },
-        user {
-          projectsAdmin,
-          projectsLiked,
-        },
-        organization {
-          projects,
+        project,
+        organizationByOrganizationId,
+        query {
+          allOrganizations,
         },
       }
     `;
@@ -42,9 +40,9 @@ export default class NewProjectMutation extends Relay.Mutation {
     return [
       {
         type: 'RANGE_ADD',
-        parentName: 'master',
-        parentID: this.props.master.id,
-        connectionName: 'projects',
+        parentName: 'query',
+        parentID: this.props.query.id,
+        connectionName: 'allProjects',
         edgeName: 'projectEdge',
         rangeBehaviors: {
           '': 'append',
@@ -52,14 +50,15 @@ export default class NewProjectMutation extends Relay.Mutation {
       },
       {
         type: 'RANGE_ADD',
-        parentName: 'organization',
+        parentName: 'organizationByOrganizationId',
         parentID: this.props.organization.id,
-        connectionName: 'projects',
+        connectionName: 'projectsByOrganizationId',
         edgeName: 'projectEdge',
         rangeBehaviors: {
           '': 'append',
         },
       },
+      /*
       {
         type: 'RANGE_ADD',
         parentName: 'user',
@@ -80,15 +79,7 @@ export default class NewProjectMutation extends Relay.Mutation {
           '': 'append',
         },
       },
+      */
     ];
-  }
-  getVariables () {
-    return {
-      userId: this.props.user.id,
-      organizationId: this.props.organization.id,
-      name: this.props.name,
-      description: this.props.description,
-      category: this.props.category,
-    };
   }
 }

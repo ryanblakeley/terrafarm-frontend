@@ -2,7 +2,7 @@
 .center { text-align: center; margin: 0 auto; }
 .actionForm { margin: 0 auto; }
 .actionFormMessage { text-align: center; margin: 25px auto; max-width: 320px; }
-.actionFormButtons { text-align: center; margin-top: 25px; }
+.actionFormButtons { text-align: center; margin-top: 25px; width: 100%; }
 .relationships { margin: 2.33em auto 1.67em; width: 280px; }
 .description { margin: 1.67em auto 3em; width: 280px; }
 

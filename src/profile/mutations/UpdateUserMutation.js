@@ -18,21 +18,21 @@ export default class UpdateUserMutation extends Relay.Mutation {
           name,
           location,
           description,
-          image,
+          imageUrl,
         },
       }
     `;
   }
   getOptimisticResponse () {
-    const {attributes} = this.props;
-    const {name, location, description, image} = attributes;
+    const {userPatch} = this.props;
+    const {name, location, description, imageUrl} = userPatch;
 
     return {
-      viewer: {
+      user: {
         name,
         location,
         description,
-        image,
+        imageUrl,
       },
     };
   }
@@ -49,7 +49,7 @@ export default class UpdateUserMutation extends Relay.Mutation {
   getVariables () {
     return {
       id: this.props.user.id,
-      attributes: this.props.attributes,
+      userPatch: this.props.userPatch,
     };
   }
 }
