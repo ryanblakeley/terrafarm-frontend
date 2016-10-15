@@ -12,7 +12,7 @@ import NotFound from './not-found/NotFoundPage';
 import ProfileContainer from './profile/ProfileContainer';
 import ProfileQueries from './profile/ProfileQueries';
 import BrowseContainer from './browse/BrowseContainer';
-import BrowseQueries from './browse/BrowseQueries';
+import QueryQueries from './shared/QueryQueries';
 // import UserContainer from './user/UserContainer';
 // import UserQueries from './user/UserQueries';
 // import ResourceContainer from './resource/ResourceContainer';
@@ -90,7 +90,7 @@ const routes = (
     <Route
       path={'browse'}
       component={BrowseContainer}
-      queries={BrowseQueries}
+      queries={QueryQueries}
       onEnter={ensurePublicAccess}
       renderLoading={renderLoading}
     />
