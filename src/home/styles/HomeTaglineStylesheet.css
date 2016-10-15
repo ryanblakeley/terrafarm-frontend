@@ -3,5 +3,5 @@
 }
 .text {
   composes: largeBodyText from '../../shared/styles/_typography.css';
-  /*margin: 25px auto 0;*/ /* bottom: 0 fixes container height */
+  margin: 0 auto; padding: 0 0.67em;
 }
