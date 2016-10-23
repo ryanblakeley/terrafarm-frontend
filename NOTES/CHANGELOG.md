@@ -4,6 +4,13 @@
 
 ### HEAD
 
+- update icons
+
+### 1.0.1 2016 Oct 23
+
+- update authentication
+- update to match new api
+
 ### 1.0.0
 
 - test framework

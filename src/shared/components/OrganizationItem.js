@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import {blueGrey900} from 'material-ui/styles/colors';
-import IoIosLocation from 'react-icons/lib/io/ios-location';
+import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import MdStar from 'react-icons/lib/md/star';
 import RelationshipIcon from './RelationshipIcon';
 import RelationshipColorDash from './RelationshipColorDash';
@@ -33,7 +33,7 @@ class OrganizationItem extends React.Component {
 
     return <div className={classNames.this} style={styles.this} >
       <RelationshipIcon
-        primary={<IoIosLocation />}
+        primary={<IoIosBriefcase />}
         secondary={secondaryIcon}
       />
       {colorSwatch

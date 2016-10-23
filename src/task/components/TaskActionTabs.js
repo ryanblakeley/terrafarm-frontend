@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import IoCube from 'react-icons/lib/io/cube';
-import IoLeaf from 'react-icons/lib/io/leaf';
+import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 
 import EditTaskForm from './EditTaskForm';
 import ItemActionTabs from '../../shared/components/ItemActionTabs';
@@ -19,7 +19,7 @@ const TaskActionTabs = props => <ItemActionTabs>
     <ItemActionTabButton disabled />
     <ItemActionTabButton
       disabled={!props.isAdmin}
-      icon={<IoLeaf />}
+      icon={<IoIosPaperOutline />}
       value={'edit-task'}
       hero
     />

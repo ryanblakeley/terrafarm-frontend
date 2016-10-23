@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import IoCube from 'react-icons/lib/io/cube';
 import GoRepo from 'react-icons/lib/go/repo';
-import IoIosLocation from 'react-icons/lib/io/ios-location';
+import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import IoIosHeart from 'react-icons/lib/io/ios-heart';
 
 import EditOrganizationForm from './EditOrganizationForm';
@@ -26,7 +26,7 @@ const OrganizationActionTabs = props => <ItemActionTabs>
     />
     <ItemActionTabButton
       disabled={!props.isAdmin}
-      icon={<IoIosLocation />}
+      icon={<IoIosBriefcase />}
       value={'edit-organization'}
       hero
     />

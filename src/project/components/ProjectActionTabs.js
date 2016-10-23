@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import GoRepo from 'react-icons/lib/go/repo';
-import IoLeaf from 'react-icons/lib/io/leaf';
+import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import IoCube from 'react-icons/lib/io/cube';
 import IoIosHeart from 'react-icons/lib/io/ios-heart';
 
@@ -21,7 +21,7 @@ const ProjectActionTabs = props => <ItemActionTabs>
     <ItemActionTabButton disabled />
     <ItemActionTabButton
       disabled={!props.isAdmin}
-      icon={<IoLeaf />}
+      icon={<IoIosPaperOutline />}
       value={'new-task'}
     />
     <ItemActionTabButton

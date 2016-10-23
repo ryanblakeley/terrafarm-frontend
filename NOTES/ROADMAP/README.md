@@ -2,20 +2,17 @@
 
 Planned and potential features and releases.
 
-### 1.0.1
-
-*ready*
-
 ### 1.0.2
 
+- [x] review and change icons
 - Mutation changes
-  - deletes do not work if there are connections (no cascade)
-  - delete profile
   - offer resource
   - request resource
   - accept resource
   - decline resource
   - likes
+  - deletes do not work if there are connections (no cascade)
+  - delete profile
 
 ### 1.0.3
 

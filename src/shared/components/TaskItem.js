@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import {blueGrey900} from 'material-ui/styles/colors';
-import IoLeaf from 'react-icons/lib/io/leaf';
+import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import MdStar from 'react-icons/lib/md/star';
 import RelationshipIcon from './RelationshipIcon';
 import classNames from '../styles/TaskItemStylesheet.css';
@@ -30,7 +30,7 @@ class TaskItem extends React.Component {
 
     return <div className={classNames.this} style={styles.this} >
       <RelationshipIcon
-        primary={<IoLeaf />}
+        primary={<IoIosPaperOutline />}
         secondary={secondaryIcon}
       />
       <div className={classNames.colorsPlaceholder} />

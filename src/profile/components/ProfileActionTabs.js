@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import IoIosLocation from 'react-icons/lib/io/ios-location';
+import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import IoPerson from 'react-icons/lib/io/person';
 import IoCube from 'react-icons/lib/io/cube';
 
@@ -20,7 +20,7 @@ const ProfileActionTabs = props => <ItemActionTabs>
   <ItemActionTabsMenu>
     <ItemActionTabButton disabled />
     <ItemActionTabButton
-      icon={<IoIosLocation />}
+      icon={<IoIosBriefcase />}
       value={'new-organization'}
     />
     <ItemActionTabButton
