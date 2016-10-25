@@ -19,10 +19,10 @@ class LoginLinks extends React.Component {
   render () {
     const {loggedIn} = this.context;
     const link1 = !loggedIn
-      ? <Link to={'/login'}>
+      ? <Link to={'/login'} className={classNames.link}>
         <RaisedButton label={'Login'} primary className={classNames.button} />
       </Link>
-      : <Link to={'/profile'}>
+      : <Link to={'/profile'} className={classNames.link}>
         <RaisedButton label={'Profile'} primary className={classNames.button} />
       </Link>;
 

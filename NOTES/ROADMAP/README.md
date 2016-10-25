@@ -5,6 +5,7 @@ Planned and potential features and releases.
 ### 1.0.2
 
 - [x] review and change icons
+- [x] icon that links to about page right above copyright line in footer
 - Mutation changes
   - offer resource
   - request resource
@@ -72,9 +73,12 @@ Planned and potential features and releases.
 ### 1.4.x
 
 - Getting Started page
-- icon that links to about page right above copyright line in footer
 - css feature detection, fallbacks, and browser warnings
 - build optimization review
+
+### 1.5.x
+
+- language tunnel
 
 ### 2.x.x
 

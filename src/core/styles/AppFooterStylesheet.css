@@ -3,7 +3,7 @@
   box-sizing: border-box;
   margin-top: 5vh; padding-top: 30px;
   height: 30vh;
-  min-height: 150px;
+  min-height: 180px;
   text-align: center;
   border-top-width: 8px;
   border-top-style: solid;
@@ -13,8 +13,8 @@
 .logoImage { width: 40px; }
 .text {
   composes: appName from '../../shared/styles/_typography.css';
-  position: absolute;
-  bottom: 25px;
+  /* position: absolute;
+  bottom: 25px; */
   margin: 0;
   width: 100%;
   opacity: 0.44;

@@ -1,0 +1,24 @@
+.this {
+  composes: smallWidth from '../../shared/styles/_layout.css';
+}
+.icon {
+  composes: icon from '../../shared/styles/_typography.css';
+  font-size: 32px;
+}
+.heading {
+  composes: contentSubheading from '../../shared/styles/_typography.css';
+}
+.text {
+  composes: bodyText from '../../shared/styles/_typography.css';
+  text-align: left;
+}
+.list {
+  composes: bulletList from '../../shared/styles/_typography.css';
+  list-style-type: decimal;
+  text-align: left;
+  padding-left: 0.67em;
+}
+.listItem {
+  composes: bodyText from '../../shared/styles/_typography.css';
+  padding: 0.33em 0 0.33em 0.67em;
+}

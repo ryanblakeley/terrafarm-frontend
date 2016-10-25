@@ -1,0 +1,15 @@
+.this {
+  composes: smallWidth from '../../shared/styles/_layout.css';
+  margin-bottom: 2em;
+}
+.heading {
+  composes: contentSubheading from '../../shared/styles/_typography.css';
+}
+.text {
+  composes: bodyText from '../../shared/styles/_typography.css';
+  text-align: center;
+}
+.link {
+  composes: link from '../../shared/styles/_typography.css';
+  text-decoration: underline;
+}

@@ -1,4 +1,5 @@
 .this {
   composes: page from '../../shared/styles/_layout.css';
+  margin-bottom: 25px;
   text-align: center;
 }

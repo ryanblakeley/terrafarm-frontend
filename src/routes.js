@@ -7,6 +7,7 @@ import {
 
 import CoreContainerTheme from './core/CoreContainer';
 import Home from './home/HomePage';
+import AboutPage from './about/AboutPage';
 import LoginPage from './login/LoginPage';
 import NotFound from './not-found/NotFoundPage';
 import ProfileContainer from './profile/ProfileContainer';
@@ -85,6 +86,7 @@ function renderLoading () {
 const routes = (
   <Route path={'/'} component={CoreContainerTheme} >
     <IndexRoute component={Home} />
+    <Route path={'about'} component={AboutPage} />
     <Route
       path={'login'}
       component={LoginPage}
