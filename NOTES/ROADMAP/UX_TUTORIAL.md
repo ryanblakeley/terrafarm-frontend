@@ -2,7 +2,7 @@
 
 ## User Experience Tutorial
 
-Section of home page that quickly describes the user interface.
+Section of home or about page that demonstrates or describes the user interface.
 
 UI Definitions
 - resource: discrete unit of input

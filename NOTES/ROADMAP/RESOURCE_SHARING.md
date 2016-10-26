@@ -3,18 +3,21 @@
 ## Resource Sharing
 
 ### Story
-Let’s look at 4 entities that a user creates: an Organization, a Project, a Task, and a Resource.
+- Post resources such as land, labor, equipment, compost, seeds, and materials.
+- Create organizations, projects, and tasks; and at any of those three levels describe resource requirements.
+- Offer or request resources that match requirement descriptions; and the other party accepts or declines the engagement.
 
+### Details
 Organizations are parent objects for Projects, and Projects are parent objects for Tasks.
 
-Organizations, Projects, and Tasks can have Wish Lists. A Wish List is a list of items that describe desired resources. A Wish List has a text field that is something the user just types.
+Organizations, Projects, and Tasks can have Wish Lists which describe resource requirements.
 
-A resource owner may offer one of his resources to an Organization, Project, or Task. If he is responding to a Wish List item, he should be able to indicate that in the offer.
+A resource owner may offer one of his or her resources to an Organization, Project, or Task. 
 
-From the other side, an administrator for an Organization, Project, or Task may identify someone else’s resource as being a good fit for something on their Wish List. That person would “Request” the resource and indicate the Wish List item that the Resource addresses.
+A user with permission to request a resource can do so from the resource page or the organziation, project, or task page.
 
-Depending on which party initiates the potential allocation, the other party is given a notice and has the ability to respond Yes or No.
+In the future, wish list items might have a field `candidateResources`. With this feature, a user offering or requesting a resource could indicate a wish list item that the offer or request is linked to.
 
-In the future I would like to get more fine-grained about allocations by adding a Resource Availability mechanism. This would be something that describes how much access to that resource is being allocated. Like if I’m saying you can use this tractor for your project, it would say you can use for up to a week. And then on that Resource’s page, there would be a calendar for showing the allocation schedule.
+Depending on which party initiates the connection, the other party is given a notice and has the ability to respond Yes or No.
 
-This last part isn’t an top priority at present, but just something on the roadmap.
+In the future it would be good to add "resource availability". Allocation would need to be temporally specific.
