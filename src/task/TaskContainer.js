@@ -1,8 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay';
+import GoRepo from 'react-icons/lib/go/repo';
+import IoPerson from 'react-icons/lib/io/person';
+import IoCube from 'react-icons/lib/io/cube';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
-import ProjectItem from '../shared/components/ProjectItem';
-import UserItem from '../shared/components/UserItem';
+import RelationshipList from '../shared/components/RelationshipList';
 import TaskActionTabs from './components/TaskActionTabs';
 import classNames from './styles/TaskContainerStylesheet.css';
 
@@ -11,12 +13,34 @@ const TaskContainer = (props, context) => <TransitionWrapper>
     <TaskActionTabs task={props.task} query={props.query} isAdmin={context.loggedIn} />
     <h3 className={classNames.contentHeading}>{props.task.name}</h3>
     <p className={classNames.description}>{props.task.description}</p>
-    {props.task.projectByProjectId
-     && <ProjectItem project={props.task.projectByProjectId} />
-    }
-    {props.task.userByAuthorId
-     && <UserItem user={props.task.userByAuthorId} />
-    }
+    <RelationshipList
+      icon={<GoRepo />}
+      title={'Parent Project'}
+      pathname={'project'}
+      listItems={[{
+        id: props.task.projectByProjectId.id,
+        name: props.task.projectByProjectId.name,
+      }]}
+    />
+    <RelationshipList
+      icon={<IoPerson />}
+      title={'Author'}
+      pathname={'user'}
+      listItems={[{
+        id: props.task.userByAuthorId.id,
+        name: props.task.userByAuthorId.name,
+      }]}
+    />
+    <RelationshipList
+      icon={<IoCube />}
+      title={'Resources'}
+      pathname={'resource'}
+      listItems={props.task.taskResourcesByTaskId.edges.map(edge => ({
+        id: edge.node.resourceByResourceId.id,
+        name: edge.node.resourceByResourceId.name,
+        status: edge.node.status,
+      }))}
+    />
   </div>
 </TransitionWrapper>;
 
@@ -39,10 +63,23 @@ export default Relay.createContainer(TaskContainer, {
         name,
         description,
         projectByProjectId {
-          ${ProjectItem.getFragment('project')},
+          id,
+          name,
         },
         userByAuthorId {
-          ${UserItem.getFragment('user')},
+          id,
+          name,
+        },
+        taskResourcesByTaskId(first: 10) {
+          edges {
+            node {
+              status,
+              resourceByResourceId {
+                id,
+                name,
+              }
+            }
+          }
         },
         ${TaskActionTabs.getFragment('task')},
       }

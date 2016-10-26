@@ -1,9 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
+import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
+import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
+import IoCube from 'react-icons/lib/io/cube';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import HeroImage from '../shared/components/HeroImage';
-import ResourceItem from '../shared/components/ResourceItem';
-import TaskItem from '../shared/components/TaskItem';
+import RelationshipList from '../shared/components/RelationshipList';
 import UserActionTabs from './components/UserActionTabs';
 import classNames from './styles/UserContainerStylesheet.css';
 
@@ -16,18 +18,33 @@ const UserContainer = props => <TransitionWrapper>
     </h4>
     <HeroImage image={props.user.imageUrl} />
     <p className={classNames.description}>{props.user.description}</p>
-    {props.user.resourcesByOwnerId.edges.map(edge => <ResourceItem
-      key={edge.node.id}
-      resource={edge.node}
-    />)}
-    {/* props.user.organizationMembersByMemberId.edges.map(edge => <OrganizationItem
-      key={edge.node.id}
-      organization={edge.node}
-    />) */}
-    {props.user.tasksByAuthorId.edges.map(edge => <TaskItem
-      key={edge.node.id}
-      task={edge.node}
-    />)}
+    <RelationshipList
+      icon={<IoIosBriefcase />}
+      title={'Organizations'}
+      pathname={'organization'}
+      listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
+        id: edge.node.organizationByOrganizationId.id,
+        name: edge.node.organizationByOrganizationId.name,
+      }))}
+    />
+    <RelationshipList
+      icon={<IoIosPaperOutline />}
+      title={'Tasks'}
+      pathname={'task'}
+      listItems={props.user.tasksByAuthorId.edges.map(edge => ({
+        id: edge.node.id,
+        name: edge.node.name,
+      }))}
+    />
+    <RelationshipList
+      icon={<IoCube />}
+      title={'Resources'}
+      pathname={'resource'}
+      listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
+        id: edge.node.id,
+        name: edge.node.name,
+      }))}
+    />
   </div>
 </TransitionWrapper>;
 
@@ -37,6 +54,7 @@ UserContainer.propTypes = {
     location: React.PropTypes.string,
     description: React.PropTypes.string,
     imageUrl: React.PropTypes.string,
+    organizationMembersByMemberId: React.PropTypes.object,
     resourcesByOwnerId: React.PropTypes.object,
     tasksByAuthorId: React.PropTypes.object,
   }).isRequired,
@@ -53,11 +71,21 @@ export default Relay.createContainer(UserContainer, {
         location,
         imageUrl,
         description,
+        organizationMembersByMemberId(first: 5) {
+          edges {
+            node {
+              organizationByOrganizationId {
+                id,
+                name,
+              }
+            }
+          }
+        },
         resourcesByOwnerId(first: 10) {
           edges {
             node {
               id,
-              ${ResourceItem.getFragment('resource')},
+              name,
             }
           }
         },
@@ -65,7 +93,7 @@ export default Relay.createContainer(UserContainer, {
           edges {
             node {
               id,
-              ${TaskItem.getFragment('task')},
+              name,
             }
           }
         },

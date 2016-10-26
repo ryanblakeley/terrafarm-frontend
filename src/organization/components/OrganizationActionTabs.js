@@ -1,12 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay';
+import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
 import IoCube from 'react-icons/lib/io/cube';
 import GoRepo from 'react-icons/lib/go/repo';
 import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import IoIosHeart from 'react-icons/lib/io/ios-heart';
-
-import EditOrganizationForm from './EditOrganizationForm';
-import CreateProjectForm from './CreateProjectForm';
 import ItemActionTabs from '../../shared/components/ItemActionTabs';
 import ItemActionTabsMenu from '../../shared/components/ItemActionTabsMenu';
 import ItemActionTabButton from '../../shared/components/ItemActionTabButton';
@@ -15,10 +13,17 @@ import ItemActionTabTitle from '../../shared/components/ItemActionTabTitle';
 import ItemActionTabsBody from '../../shared/components/ItemActionTabsBody';
 import ItemActionTabClose from '../../shared/components/ItemActionTabClose';
 import ItemActionTabContent from '../../shared/components/ItemActionTabContent';
+import RequestResourceForOrganizationForm from './RequestResourceForOrganizationForm';
+import EditOrganizationForm from './EditOrganizationForm';
+import CreateProjectForm from './CreateProjectForm';
 
 const OrganizationActionTabs = props => <ItemActionTabs>
   <ItemActionTabsMenu>
-    <ItemActionTabButton disabled />
+    <ItemActionTabButton
+      disabled={!props.isAdmin}
+      icon={<IoAndroidRadioButtonOn />}
+      value={'request-resource'}
+    />
     <ItemActionTabButton
       disabled={!props.isAdmin}
       icon={<GoRepo />}
@@ -41,6 +46,7 @@ const OrganizationActionTabs = props => <ItemActionTabs>
     />
   </ItemActionTabsMenu>
   <ItemActionTabsLabel>
+    <ItemActionTabTitle value={'request-resource'} text={'Request Resource'} />
     <ItemActionTabTitle value={'new-project'} text={'New Project'} />
     <ItemActionTabTitle value={'edit-organization'} text={'Edit Organization'} />
     <ItemActionTabTitle value={'offer-resource'} text={'Offer Resource'} />
@@ -48,6 +54,9 @@ const OrganizationActionTabs = props => <ItemActionTabs>
   </ItemActionTabsLabel>
   <ItemActionTabsBody>
     <ItemActionTabClose />
+    <ItemActionTabContent value={'request-resource'}>
+      <RequestResourceForOrganizationForm organization={props.organization} query={props.query} />
+    </ItemActionTabContent>
     <ItemActionTabContent value={'new-project'}>
       <CreateProjectForm organization={props.organization} query={props.query} />
     </ItemActionTabContent>
@@ -76,12 +85,14 @@ export default Relay.createContainer(OrganizationActionTabs, {
       fragment on Organization {
         ${EditOrganizationForm.getFragment('organization')},
         ${CreateProjectForm.getFragment('organization')},
+        ${RequestResourceForOrganizationForm.getFragment('organization')},
       }
     `,
     query: () => Relay.QL`
       fragment on Query {
         ${EditOrganizationForm.getFragment('query')},
         ${CreateProjectForm.getFragment('query')},
+        ${RequestResourceForOrganizationForm.getFragment('query')},
       }
     `,
   },

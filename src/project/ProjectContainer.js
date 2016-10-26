@@ -1,9 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
+import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
+import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
+import IoCube from 'react-icons/lib/io/cube';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import HeroImage from '../shared/components/HeroImage';
-import OrganizationItem from '../shared/components/OrganizationItem';
-import TaskItem from '../shared/components/TaskItem';
+import RelationshipList from '../shared/components/RelationshipList';
 import ProjectActionTabs from './components/ProjectActionTabs';
 import classNames from './styles/ProjectContainerStylesheet.css';
 
@@ -17,16 +19,34 @@ const ProjectContainer = (props, context) => <TransitionWrapper>
     <h3 className={classNames.contentHeading}>{props.project.name}</h3>
     <HeroImage image={props.project.imageUrl} />
     <p className={classNames.description}>{props.project.description}</p>
-    {props.project.organizationByOrganizationId
-     && <OrganizationItem
-       key={props.project.organizationByOrganizationId.id}
-       organization={props.project.organizationByOrganizationId}
-     />
-    }
-    {props.project.tasksByProjectId.edges.map(edge => <TaskItem
-      key={edge.node.id}
-      task={edge.node}
-    />)}
+    <RelationshipList
+      icon={<IoIosBriefcase />}
+      title={'Parent Organization'}
+      pathname={'organization'}
+      listItems={[{
+        id: props.project.organizationByOrganizationId.id,
+        name: props.project.organizationByOrganizationId.name,
+      }]}
+    />
+    <RelationshipList
+      icon={<IoIosPaperOutline />}
+      title={'Tasks'}
+      pathname={'task'}
+      listItems={props.project.tasksByProjectId.edges.map(edge => ({
+        id: edge.node.id,
+        name: edge.node.name,
+      }))}
+    />
+    <RelationshipList
+      icon={<IoCube />}
+      title={'Resources'}
+      pathname={'resource'}
+      listItems={props.project.projectResourcesByProjectId.edges.map(edge => ({
+        id: edge.node.resourceByResourceId.id,
+        name: edge.node.resourceByResourceId.name,
+        status: edge.node.status,
+      }))}
+    />
   </div>
 </TransitionWrapper>;
 
@@ -51,13 +71,24 @@ export default Relay.createContainer(ProjectContainer, {
         description,
         organizationByOrganizationId {
           id,
-          ${OrganizationItem.getFragment('organization')},
+          name,
         },
         tasksByProjectId(first: 10) {
           edges {
             node {
               id,
-              ${TaskItem.getFragment('task')},
+              name,
+            }
+          }
+        },
+        projectResourcesByProjectId(first: 10) {
+          edges {
+            node {
+              status,
+              resourceByResourceId {
+                id,
+                name,
+              }
             }
           }
         },

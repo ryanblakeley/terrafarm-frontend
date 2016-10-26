@@ -1,8 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
+import GoRepo from 'react-icons/lib/go/repo';
+import IoCube from 'react-icons/lib/io/cube';
+import IoPerson from 'react-icons/lib/io/person';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import HeroImage from '../shared/components/HeroImage';
-import ProjectItem from '../shared/components/ProjectItem';
+import RelationshipList from '../shared/components/RelationshipList';
 import OrganizationActionTabs from './components/OrganizationActionTabs';
 import classNames from './styles/OrganizationContainerStylesheet.css';
 
@@ -19,10 +22,34 @@ const OrganizationContainer = (props, context) => <TransitionWrapper>
     </h4>
     <HeroImage image={props.organization.imageUrl} />
     <p className={classNames.description}>{props.organization.description}</p>
-    {props.organization.projectsByOrganizationId.edges.map(edge => <ProjectItem
-      key={edge.node.id}
-      project={edge.node}
-    />)}
+    <RelationshipList
+      icon={<GoRepo />}
+      title={'Projects'}
+      pathname={'project'}
+      listItems={props.organization.projectsByOrganizationId.edges.map(edge => ({
+        id: edge.node.id,
+        name: edge.node.name,
+      }))}
+    />
+    <RelationshipList
+      icon={<IoPerson />}
+      title={'Members'}
+      pathname={'user'}
+      listItems={props.organization.organizationMembersByOrganizationId.edges.map(edge => ({
+        id: edge.node.userByMemberId.id,
+        name: edge.node.userByMemberId.name,
+      }))}
+    />
+    <RelationshipList
+      icon={<IoCube />}
+      title={'Resources'}
+      pathname={'resource'}
+      listItems={props.organization.organizationResourcesByOrganizationId.edges.map(edge => ({
+        id: edge.node.resourceByResourceId.id,
+        name: edge.node.resourceByResourceId.name,
+        status: edge.node.status,
+      }))}
+    />
   </div>
 </TransitionWrapper>;
 
@@ -50,7 +77,28 @@ export default Relay.createContainer(OrganizationContainer, {
           edges {
             node {
               id,
-              ${ProjectItem.getFragment('project')},
+              name,
+            }
+          }
+        },
+        organizationResourcesByOrganizationId(first: 10) {
+          edges {
+            node {
+              status,
+              resourceByResourceId {
+                id,
+                name,
+              }
+            }
+          }
+        },
+        organizationMembersByOrganizationId(first: 10) {
+          edges {
+            node {
+              userByMemberId {
+                id,
+                name,
+              }
             }
           }
         },

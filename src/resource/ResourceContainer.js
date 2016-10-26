@@ -1,8 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
+import IoPerson from 'react-icons/lib/io/person';
+import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
+import GoRepo from 'react-icons/lib/go/repo';
+import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import HeroImage from '../shared/components/HeroImage';
-import UserItem from '../shared/components/UserItem';
+import RelationshipList from '../shared/components/RelationshipList';
 import ResourceActionTabs from './components/ResourceActionTabs';
 import classNames from './styles/ResourceContainerStylesheet.css';
 
@@ -19,9 +23,46 @@ const ResourceContainer = (props, context) => <TransitionWrapper>
     </h4>
     <HeroImage image={props.resource.imageUrl} />
     <p className={classNames.description}>{props.resource.description}</p>
-    {props.resource.userByOwnerId
-     && <UserItem user={props.resource.userByOwnerId} adminBadge />
-    }
+    <RelationshipList
+      icon={<IoPerson />}
+      title={'Owner'}
+      pathname={'user'}
+      listItems={[{
+        id: props.resource.userByOwnerId.id,
+        name: props.resource.userByOwnerId.name,
+        status: props.resource.status,
+      }]}
+    />
+    <RelationshipList
+      icon={<IoIosBriefcase />}
+      title={'Organizations'}
+      pathname={'organization'}
+      listItems={props.resource.organizationResourcesByResourceId.edges.map(edge => ({
+        id: edge.node.organizationByOrganizationId.id,
+        name: edge.node.organizationByOrganizationId.name,
+        status: edge.node.status,
+      }))}
+    />
+    <RelationshipList
+      icon={<GoRepo />}
+      title={'Projects'}
+      pathname={'project'}
+      listItems={props.resource.projectResourcesByResourceId.edges.map(edge => ({
+        id: edge.node.projectByProjectId.id,
+        name: edge.node.projectByProjectId.name,
+        status: edge.node.status,
+      }))}
+    />
+    <RelationshipList
+      icon={<IoIosPaperOutline />}
+      title={'Tasks'}
+      pathname={'task'}
+      listItems={props.resource.taskResourcesByResourceId.edges.map(edge => ({
+        id: edge.node.taskByTaskId.id,
+        name: edge.node.taskByTaskId.name,
+        status: edge.node.status,
+      }))}
+    />
   </div>
 </TransitionWrapper>;
 
@@ -46,7 +87,41 @@ export default Relay.createContainer(ResourceContainer, {
         imageUrl,
         description,
         userByOwnerId {
-          ${UserItem.getFragment('user')},
+          id,
+          name,
+        },
+        organizationResourcesByResourceId(first: 5) {
+          edges {
+            node {
+              status,
+              organizationByOrganizationId {
+                id,
+                name,
+              }
+            }
+          }
+        },
+        projectResourcesByResourceId(first: 5) {
+          edges {
+            node {
+              status,
+              projectByProjectId {
+                id,
+                name,
+              }
+            }
+          }
+        },
+        taskResourcesByResourceId(first: 5) {
+          edges {
+            node {
+              status,
+              taskByTaskId {
+                id,
+                name,
+              }
+            }
+          }
         },
         ${ResourceActionTabs.getFragment('resource')},
       }
