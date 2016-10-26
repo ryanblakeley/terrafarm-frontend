@@ -6,9 +6,18 @@ import classNamesContext from '../styles/AppHeaderStylesheet.css';
 
 const cx = classnames.bind(classNamesContext);
 
-const AppHeader = props => <div className={cx({this: true, home: true})}>
+const AppHeader = (props, context) => <div
+  className={cx({
+    this: true,
+    home: context.router.isActive('/', true),
+  })}
+>
   <AppLogo />
   <AppHeaderNav />
 </div>;
+
+AppHeader.contextTypes = {
+  router: React.PropTypes.object,
+};
 
 export default AppHeader;

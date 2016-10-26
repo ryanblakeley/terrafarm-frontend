@@ -36,7 +36,6 @@ function prepareProfileParams (params, {location}) {
 function enterLogin (nextState, replace) {
   const userId = localStorage.getItem('user_uuid');
   const idToken = localStorage.getItem('id_token');
-  console.log('enter login');
 
   if (userId
       && idToken
@@ -51,7 +50,6 @@ function enterLogin (nextState, replace) {
 function loginBouncer (nextState, replace) {
   const userId = localStorage.getItem('user_uuid');
   const idToken = localStorage.getItem('id_token');
-  console.log('login bouncer');
 
   if (!userId
       || !idToken

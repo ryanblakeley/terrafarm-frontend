@@ -7,3 +7,7 @@
 @media only screen and (min-width: 680px) {
   .home { margin: 0 auto; padding-top: 75px; max-width: 75%; }
 }
+
+@media only screen and (min-width: 800px) {
+  .this { padding-top: 15px; max-width: 880px; }
+}

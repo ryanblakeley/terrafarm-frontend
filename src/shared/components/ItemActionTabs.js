@@ -13,19 +13,19 @@ export default class ItemActionTabs extends React.Component {
     currentTitle: '',
     currentContent: '',
   };
-  cloneWithProps = (element) => React.cloneElement(element, {
+  cloneWithProps = element => React.cloneElement(element, {
     currentTitle: this.state ? this.state.currentTitle : '',
     currentContent: this.state ? this.state.currentContent : '',
     updateTitle: this.updateTitle,
     updateContent: this.updateContent,
     children: element.props.children,
   });
-  updateTitle = (value) => {
+  updateTitle = value => {
     this.setState({
       currentTitle: value,
     });
   }
-  updateContent = (value) => {
+  updateContent = value => {
     this.setState({
       currentContent: value,
     });

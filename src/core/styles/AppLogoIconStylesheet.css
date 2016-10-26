@@ -1,4 +1,4 @@
-.this { margin: 12px 0 12px 12px; }
+.this { margin: 14px 0 14px 14px; }
 .icon {
   composes: icon from '../../shared/styles/_typography.css';
   font-size: 52px;
