@@ -5,6 +5,12 @@
 ### HEAD
 
 - update icons
+- change layout for app header and page menu
+- add relationship lists
+- add offer and request resource
+- simplify tagline
+- add about page
+- home page links
 
 ### 1.0.1 2016 Oct 23
 
