@@ -7,9 +7,9 @@ import MenuItem from 'material-ui/MenuItem';
 import SelectInput from '../../shared/components/SelectInput';
 import CreateOrganizationResourceMutation from '../mutations/CreateOrganizationResourceMutation';
 
-import classNames from '../styles/RequestResourceForOrganizationFormStylesheet.css';
+import classNames from '../styles/OfferResourceToOrganizationFormStylesheet.css';
 
-class RequestResourceForOrganizationForm extends React.Component {
+class OfferResourceToOrganizationForm extends React.Component {
   static propTypes = {
     organization: React.PropTypes.object,
     query: React.PropTypes.object,
@@ -46,7 +46,7 @@ class RequestResourceForOrganizationForm extends React.Component {
       new CreateOrganizationResourceMutation({
         organization,
         resource: data.resource,
-        status: 'REQUESTED',
+        status: 'OFFERED',
       })
     );
 
@@ -65,7 +65,7 @@ class RequestResourceForOrganizationForm extends React.Component {
       >
         <SelectInput
           name={'resource'}
-          label={'Select a resource to request'}
+          label={'Select resource to offer'}
           required
         >
           {query.allResources.edges.map(edge => <MenuItem
@@ -92,7 +92,7 @@ class RequestResourceForOrganizationForm extends React.Component {
   }
 }
 
-export default Relay.createContainer(RequestResourceForOrganizationForm, {
+export default Relay.createContainer(OfferResourceToOrganizationForm, {
   fragments: {
     organization: () => Relay.QL`
       fragment on Organization {

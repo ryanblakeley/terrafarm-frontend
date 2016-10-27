@@ -1,6 +1,8 @@
 import React from 'react';
-import {FormsySelect} from 'formsy-material-ui';
+import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 import {blueGrey900} from 'material-ui/styles/colors';
+
+import classNames from '../styles/SelectInputStylesheet.css';
 
 export default class SelectInput extends React.Component {
   static propTypes = {
@@ -19,13 +21,11 @@ export default class SelectInput extends React.Component {
   static defaultProps = {
     required: false,
     style: {
-      display: 'block',
-      margin: '0 auto',
       fontFamily: 'Simonetta, serif',
     },
   };
   render () {
-    return (
+    return <div className={classNames.this}>
       <FormsySelect
         name={this.props.name}
         style={this.props.style}
@@ -39,7 +39,7 @@ export default class SelectInput extends React.Component {
       >
         {this.props.children}
       </FormsySelect>
-    );
+    </div>;
   }
 }
 

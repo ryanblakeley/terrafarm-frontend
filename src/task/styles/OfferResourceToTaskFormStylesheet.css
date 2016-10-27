@@ -1,2 +1,6 @@
 .this { composes: actionForm from '../../shared/styles/_layout.css'; }
 .buttons { composes: actionFormButtons from '../../shared/styles/_layout.css'; }
+.message {
+  composes: actionFormMessage from '../../shared/styles/_layout.css';
+  composes: bodyText from '../../shared/styles/_typography.css';
+}

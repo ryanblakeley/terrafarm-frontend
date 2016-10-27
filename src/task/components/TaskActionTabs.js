@@ -2,8 +2,10 @@ import React from 'react';
 import Relay from 'react-relay';
 import IoCube from 'react-icons/lib/io/cube';
 import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
-
+import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
 import EditTaskForm from './EditTaskForm';
+import RequestResourceForTaskForm from './RequestResourceForTaskForm';
+import OfferResourceToTaskForm from './OfferResourceToTaskForm';
 import ItemActionTabs from '../../shared/components/ItemActionTabs';
 import ItemActionTabsMenu from '../../shared/components/ItemActionTabsMenu';
 import ItemActionTabButton from '../../shared/components/ItemActionTabButton';
@@ -16,7 +18,11 @@ import ItemActionTabContent from '../../shared/components/ItemActionTabContent';
 const TaskActionTabs = props => <ItemActionTabs>
   <ItemActionTabsMenu>
     <ItemActionTabButton disabled />
-    <ItemActionTabButton disabled />
+    <ItemActionTabButton
+      disabled={!props.isAdmin}
+      icon={<IoAndroidRadioButtonOn />}
+      value={'request-resource'}
+    />
     <ItemActionTabButton
       disabled={!props.isAdmin}
       icon={<IoIosPaperOutline />}
@@ -31,15 +37,21 @@ const TaskActionTabs = props => <ItemActionTabs>
     <ItemActionTabButton disabled />
   </ItemActionTabsMenu>
   <ItemActionTabsLabel>
+    <ItemActionTabTitle value={'request-resource'} text={'Request Resource'} />
     <ItemActionTabTitle value={'edit-task'} text={'Edit Task'} />
     <ItemActionTabTitle value={'offer-resource'} text={'Offer Resource'} />
   </ItemActionTabsLabel>
   <ItemActionTabsBody>
     <ItemActionTabClose />
+    <ItemActionTabContent value={'request-resource'}>
+      <RequestResourceForTaskForm task={props.task} query={props.query} />
+    </ItemActionTabContent>
     <ItemActionTabContent value={'edit-task'}>
       <EditTaskForm task={props.task} query={props.query} />
     </ItemActionTabContent>
-    <ItemActionTabContent value={'offer-resource'} />
+    <ItemActionTabContent value={'offer-resource'}>
+      <OfferResourceToTaskForm task={props.task} query={props.query} />
+    </ItemActionTabContent>
   </ItemActionTabsBody>
 </ItemActionTabs>;
 
@@ -59,11 +71,15 @@ export default Relay.createContainer(TaskActionTabs, {
     task: () => Relay.QL`
       fragment on Task {
         ${EditTaskForm.getFragment('task')},
+        ${RequestResourceForTaskForm.getFragment('task')},
+        ${OfferResourceToTaskForm.getFragment('task')},
       }
     `,
     query: () => Relay.QL`
       fragment on Query {
         ${EditTaskForm.getFragment('query')},
+        ${RequestResourceForTaskForm.getFragment('query')},
+        ${OfferResourceToTaskForm.getFragment('query')},
       }
     `,
   },

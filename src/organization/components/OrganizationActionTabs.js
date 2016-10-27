@@ -14,6 +14,7 @@ import ItemActionTabsBody from '../../shared/components/ItemActionTabsBody';
 import ItemActionTabClose from '../../shared/components/ItemActionTabClose';
 import ItemActionTabContent from '../../shared/components/ItemActionTabContent';
 import RequestResourceForOrganizationForm from './RequestResourceForOrganizationForm';
+import OfferResourceToOrganizationForm from './OfferResourceToOrganizationForm';
 import EditOrganizationForm from './EditOrganizationForm';
 import CreateProjectForm from './CreateProjectForm';
 
@@ -63,7 +64,9 @@ const OrganizationActionTabs = props => <ItemActionTabs>
     <ItemActionTabContent value={'edit-organization'}>
       <EditOrganizationForm organization={props.organization} query={props.query} />
     </ItemActionTabContent>
-    <ItemActionTabContent value={'offer-resource'} />
+    <ItemActionTabContent value={'offer-resource'}>
+      <OfferResourceToOrganizationForm organization={props.organization} query={props.query} />
+    </ItemActionTabContent>
     <ItemActionTabContent value={'bookmark'} />
   </ItemActionTabsBody>
 </ItemActionTabs>;
@@ -86,6 +89,7 @@ export default Relay.createContainer(OrganizationActionTabs, {
         ${EditOrganizationForm.getFragment('organization')},
         ${CreateProjectForm.getFragment('organization')},
         ${RequestResourceForOrganizationForm.getFragment('organization')},
+        ${OfferResourceToOrganizationForm.getFragment('organization')},
       }
     `,
     query: () => Relay.QL`
@@ -93,6 +97,7 @@ export default Relay.createContainer(OrganizationActionTabs, {
         ${EditOrganizationForm.getFragment('query')},
         ${CreateProjectForm.getFragment('query')},
         ${RequestResourceForOrganizationForm.getFragment('query')},
+        ${OfferResourceToOrganizationForm.getFragment('query')},
       }
     `,
   },

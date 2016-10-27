@@ -5,13 +5,13 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import SelectInput from '../../shared/components/SelectInput';
-import CreateOrganizationResourceMutation from '../mutations/CreateOrganizationResourceMutation';
+import CreateTaskResourceMutation from '../mutations/CreateTaskResourceMutation';
 
-import classNames from '../styles/RequestResourceForOrganizationFormStylesheet.css';
+import classNames from '../styles/OfferResourceToTaskFormStylesheet.css';
 
-class RequestResourceForOrganizationForm extends React.Component {
+class OfferResourceToTaskForm extends React.Component {
   static propTypes = {
-    organization: React.PropTypes.object,
+    task: React.PropTypes.object,
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
@@ -35,7 +35,7 @@ class RequestResourceForOrganizationForm extends React.Component {
     console.error('Form error:', data);
   }
   handleSubmit = data => {
-    const {organization} = this.props;
+    const {task} = this.props;
 
     if (!this.state.canSubmit) {
       console.warn('New resource is not ready');
@@ -43,10 +43,10 @@ class RequestResourceForOrganizationForm extends React.Component {
     }
 
     Relay.Store.commitUpdate(
-      new CreateOrganizationResourceMutation({
-        organization,
+      new CreateTaskResourceMutation({
+        task,
         resource: data.resource,
-        status: 'REQUESTED',
+        status: 'OFFERED',
       })
     );
 
@@ -65,7 +65,7 @@ class RequestResourceForOrganizationForm extends React.Component {
       >
         <SelectInput
           name={'resource'}
-          label={'Select a resource to request'}
+          label={'Select resource to offer'}
           required
         >
           {query.allResources.edges.map(edge => <MenuItem
@@ -92,11 +92,11 @@ class RequestResourceForOrganizationForm extends React.Component {
   }
 }
 
-export default Relay.createContainer(RequestResourceForOrganizationForm, {
+export default Relay.createContainer(OfferResourceToTaskForm, {
   fragments: {
-    organization: () => Relay.QL`
-      fragment on Organization {
-        ${CreateOrganizationResourceMutation.getFragment('organization')},
+    task: () => Relay.QL`
+      fragment on Task {
+        ${CreateTaskResourceMutation.getFragment('task')},
       }
     `,
     query: () => Relay.QL`
@@ -106,7 +106,7 @@ export default Relay.createContainer(RequestResourceForOrganizationForm, {
             node {
               id,
               name,
-              ${CreateOrganizationResourceMutation.getFragment('resource')},
+              ${CreateTaskResourceMutation.getFragment('resource')},
             }
           }
         },
