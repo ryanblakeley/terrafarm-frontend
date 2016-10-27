@@ -3,11 +3,11 @@ import GlobalObjectButton from './GlobalObjectButton';
 import classNames from '../styles/GlobalObjectMenuStylesheet.css';
 
 const GlobalObjectMenu = _ => <div className={classNames.this} >
-  <GlobalObjectButton name={'users'} />
-  <GlobalObjectButton name={'resources'} />
   <GlobalObjectButton name={'organizations'} />
   <GlobalObjectButton name={'projects'} />
   <GlobalObjectButton name={'tasks'} />
+  <GlobalObjectButton name={'resources'} />
+  <GlobalObjectButton name={'users'} />
 </div>;
 
 export default GlobalObjectMenu;
