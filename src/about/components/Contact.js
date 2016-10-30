@@ -6,7 +6,7 @@ const Contact = props => {
     className={classNames.link}
     href={'mailto:ryan@terrafarm.io'}
   >
-    email us
+    email
   </a>;
 
   return <div className={classNames.this}>
@@ -14,7 +14,7 @@ const Contact = props => {
       Contact
     </h3>
     <p className={classNames.text}>
-      If you have any questions or feedback, please {emailLink}.
+      If you have any questions or feedback, please reach out via {emailLink}.
     </p>
   </div>;
 };

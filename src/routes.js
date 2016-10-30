@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Route,
-  IndexRoute,
-  // IndexRedirect,
-} from 'react-router';
-
+import {Route, IndexRoute} from 'react-router';
 import CoreContainerTheme from './core/CoreContainer';
 import Home from './home/HomePage';
 import AboutPage from './about/AboutPage';

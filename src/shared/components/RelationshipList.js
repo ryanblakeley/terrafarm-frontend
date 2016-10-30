@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import RelationshipListItem from './RelationshipListItem';
 import classNames from '../styles/RelationshipListStylesheet.css';
 
 const RelationshipList = props => <div className={classNames.this}>
@@ -15,18 +15,16 @@ const RelationshipList = props => <div className={classNames.this}>
   </div>
 
   <div className={classNames.list}>
-    {!props.listItems && <div className={classNames.listItem}>
-      <p className={classNames.emptyWarning}>{props.emptyWarning}</p>
-    </div>}
-
-    {props.listItems.map(item => <div className={classNames.listItem} key={item.id}>
-      {item.status
-        && <div className={classNames.status}>[{item.status}]</div>
-      }
-      <Link to={`/${props.pathname}/${item.id}`} className={classNames.link} >
-        {item.name}
-      </Link>
-    </div>)}
+    {props.listItems.length
+      ? props.listItems.map(item => <RelationshipListItem
+        {...item}
+        pathname={props.pathname}
+        key={item.itemId}
+      />)
+      : <div className={classNames.emptyListItem}>
+        <p className={classNames.emptyWarning}>{props.emptyWarning}</p>
+      </div>
+    }
   </div>
 </div>;
 
@@ -34,12 +32,19 @@ RelationshipList.propTypes = {
   icon: React.PropTypes.element,
   title: React.PropTypes.string,
   pathname: React.PropTypes.string,
-  listItems: React.PropTypes.array,
   emptyWarning: React.PropTypes.string,
+  listItems: React.PropTypes.arrayOf(React.PropTypes.shape({
+    name: React.PropTypes.string,
+    itemId: React.PropTypes.string,
+    relationshipId: React.PropTypes.string,
+    status: React.PropTypes.string,
+    accept: React.PropTypes.func,
+    decline: React.PropTypes.func,
+  })),
 };
 
 RelationshipList.defaultProps = {
-  emptyWarning: '(empty)',
+  emptyWarning: '(none)',
 };
 
 export default RelationshipList;

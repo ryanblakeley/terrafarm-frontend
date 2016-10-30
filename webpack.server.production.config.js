@@ -3,7 +3,7 @@ import path from 'path';
 import validate from 'webpack-validator';
 import env from 'gulp-env';
 
-if (!process.env.AUTH0_CLIENT_ID) {
+if (!process.env.API_PORT) {
   env({file: './.env', type: 'ini'});
 }
 const {

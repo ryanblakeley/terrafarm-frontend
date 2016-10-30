@@ -5,13 +5,11 @@ import validate from 'webpack-validator';
 import env from 'gulp-env';
 import jwt from 'jsonwebtoken';
 
-if (!process.env.PORT) {
+if (!process.env.JWT_PRIVATE_KEY) {
   env({file: './.env', type: 'ini'});
 }
 const {
   NODE_ENV,
-  REVERSE_PROXY_PUBLIC_IP,
-  PORT,
   JWT_PRIVATE_KEY,
 } = process.env;
 
@@ -44,8 +42,8 @@ const config = {
     publicPath: '/',
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       title: 'Terrafarm',
       filename: 'index.html',
@@ -57,8 +55,6 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(NODE_ENV),
-        REVERSE_PROXY_PUBLIC_IP: JSON.stringify(REVERSE_PROXY_PUBLIC_IP),
-        PORT: Number(PORT),
       },
     }),
   ],
@@ -67,7 +63,7 @@ const config = {
       {
         test: /\.js$/,
         include: PATHS.src,
-        loaders: ['react-hot', `babel-loader?plugins[]=${path.join(__dirname, 'relayPlugin')}`],
+        loaders: [`babel-loader?plugins[]=${path.join(__dirname, 'relayPlugin')}`],
       },
       {
         test: /\.css$/,

@@ -28,8 +28,8 @@ const ResourceContainer = (props, context) => <TransitionWrapper>
       title={'Owner'}
       pathname={'user'}
       listItems={[{
-        id: props.resource.userByOwnerId.id,
         name: props.resource.userByOwnerId.name,
+        itemId: props.resource.userByOwnerId.id,
         status: props.resource.status,
       }]}
     />
@@ -38,8 +38,8 @@ const ResourceContainer = (props, context) => <TransitionWrapper>
       title={'Organizations'}
       pathname={'organization'}
       listItems={props.resource.organizationResourcesByResourceId.edges.map(edge => ({
-        id: edge.node.organizationByOrganizationId.id,
         name: edge.node.organizationByOrganizationId.name,
+        itemId: edge.node.organizationByOrganizationId.id,
         status: edge.node.status,
       }))}
     />
@@ -48,8 +48,8 @@ const ResourceContainer = (props, context) => <TransitionWrapper>
       title={'Projects'}
       pathname={'project'}
       listItems={props.resource.projectResourcesByResourceId.edges.map(edge => ({
-        id: edge.node.projectByProjectId.id,
         name: edge.node.projectByProjectId.name,
+        itemId: edge.node.projectByProjectId.id,
         status: edge.node.status,
       }))}
     />
@@ -58,8 +58,8 @@ const ResourceContainer = (props, context) => <TransitionWrapper>
       title={'Tasks'}
       pathname={'task'}
       listItems={props.resource.taskResourcesByResourceId.edges.map(edge => ({
-        id: edge.node.taskByTaskId.id,
         name: edge.node.taskByTaskId.name,
+        itemId: edge.node.taskByTaskId.id,
         status: edge.node.status,
       }))}
     />

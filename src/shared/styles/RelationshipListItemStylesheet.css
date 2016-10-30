@@ -1,0 +1,16 @@
+.this {
+  composes: bodyText from './_typography.css';
+}
+.link {
+  composes: link from './_typography.css';
+}
+.status {
+  display: inline-block;
+  width: 75px;
+  text-transform: lowercase;
+  font-size: 0.82em;
+}
+.actions, .actions * {
+  display: inline-block;
+  margin-right: 8px;
+}

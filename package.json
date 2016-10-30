@@ -9,15 +9,15 @@
   "keywords": [],
   "main": "gulpfile.babel.js",
   "scripts": {
-    "schema": "gulp load-schema",
     "setup": "cp -n .env.example .env || true",
+    "schema": "gulp load-schema",
     "dev": "gulp",
     "eslint": "eslint ./src",
     "test": "NODE_ENV=test ./node_modules/mocha/bin/_mocha --opts spec/mocha.opts",
     "build": "rimraf build && gulp build",
     "start": "pm2 start ecosystem.json --env production",
     "restart": "pm2 restart ecosystem.json",
-    "stop": "pm2 stop all",
+    "stop": "pm2 stop frontend-alpha",
     "deploy": ""
   },
   "engines": {

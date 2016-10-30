@@ -1,35 +1,33 @@
 # js
 
-Directories in this folder other than `shared/` are considered `containers`.
+Directories in this folder other than `./shared` are considered `containers`.
 
-`TEMPLATE/` can be copied to start a new container.
+`./TEMPLATE` can be copied to start a new container.
 
 
 ## containers
 
-> These containers are used by Routes in `app.js` or by other containers.
+> These containers are used by Routes in `./index.js` or by other containers.
 
 A container can represent a page or a fragment of a page.
 
-A container is composed of `components` from its own directory and possibly from `shared/components/*`.
+A container is composed of `components` from its own directory and possibly from `./shared/components/*`.
 
 A container can have layout styles, but `components` handle visual stuff with their own stylesheets.
 
 A container is allowed to import the following stuff:
-* `components/*`
-* `styles/*ContainerStylesheet.css`
-* `shared/*`
+* `<container>/components/<component>`
+* `<container>/styles/<container>Stylesheet.css`
+* `./shared/*`
 
 Don't import:
-* `elements/*` -> wrap the element in a component.
-* `mutations/*` -> wrap the mutation in a component.
+* `<container>/elements/<element>` -> wrap the element in a component.
+* `<container>/mutations/<mutation>` -> wrap the mutation in a component.
 
 
 ## components
 
 >  The components are used by `containers` or by other components.
-
-A component uses Relay to fetch data.
 
 A component is allowed to import the following stuff:
 * `components/*`
@@ -72,10 +70,10 @@ A mutation does not import anything. It uses the Relay `getMutation` API to get 
 
 ## styles
 
-> The styles are used by `components`, `elements`, and the container.
+> The styles are used by `containers`, `components`, and `elements`.
 
-These are CSS stylesheets. Each component should have its own namespaced stylesheet if it needs any CSS.
+These are CSS-module stylesheets. Each component should have its own namespaced stylesheet if it needs any CSS.
 
-Some style rules may be composed from `../shared/styles/*`.
+Some style rules may be composed from `./shared/styles/_<stylesheet>`.
 
 See [this post](https://css-modules.github.io/webpack-demo/) for info on CSS Modules.

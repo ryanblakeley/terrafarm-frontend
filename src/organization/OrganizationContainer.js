@@ -9,58 +9,74 @@ import RelationshipList from '../shared/components/RelationshipList';
 import OrganizationActionTabs from './components/OrganizationActionTabs';
 import classNames from './styles/OrganizationContainerStylesheet.css';
 
-const OrganizationContainer = (props, context) => <TransitionWrapper>
-  <div className={classNames.this}>
-    <OrganizationActionTabs
-      isAdmin={context.loggedIn}
-      organization={props.organization}
-      query={props.query}
-    />
-    <h3 className={classNames.contentHeading}>{props.organization.name}</h3>
-    <h4 className={classNames.contentSubheading}>
-      <span className={classNames.location}>{props.organization.location}</span>
-    </h4>
-    <HeroImage image={props.organization.imageUrl} />
-    <p className={classNames.description}>{props.organization.description}</p>
-    <RelationshipList
-      icon={<GoRepo />}
-      title={'Projects'}
-      pathname={'project'}
-      listItems={props.organization.projectsByOrganizationId.edges.map(edge => ({
-        id: edge.node.id,
-        name: edge.node.name,
-      }))}
-    />
-    <RelationshipList
-      icon={<IoPerson />}
-      title={'Members'}
-      pathname={'user'}
-      listItems={props.organization.organizationMembersByOrganizationId.edges.map(edge => ({
-        id: edge.node.userByMemberId.id,
-        name: edge.node.userByMemberId.name,
-      }))}
-    />
-    <RelationshipList
-      icon={<IoCube />}
-      title={'Resources'}
-      pathname={'resource'}
-      listItems={props.organization.organizationResourcesByOrganizationId.edges.map(edge => ({
-        id: edge.node.resourceByResourceId.id,
-        name: edge.node.resourceByResourceId.name,
-        status: edge.node.status,
-      }))}
-    />
-  </div>
-</TransitionWrapper>;
+class OrganizationContainer extends React.Component {
+  static propTypes = {
+    organization: React.PropTypes.object,
+    query: React.PropTypes.object,
+  };
+  static contextTypes = {
+    loggedIn: React.PropTypes.bool,
+  };
+  acceptResource = relationshipId => {
+    console.log('accept resource', relationshipId);
+    // mutation
+  }
+  declineResource = relationshipId => {
+    console.log('decline resource', relationshipId);
+    // mutation
+  }
+  render () {
+    const {organization, query} = this.props;
+    const {loggedIn} = this.context;
 
-OrganizationContainer.propTypes = {
-  organization: React.PropTypes.object,
-  query: React.PropTypes.object,
-};
-
-OrganizationContainer.contextTypes = {
-  loggedIn: React.PropTypes.bool,
-};
+    return <TransitionWrapper>
+      <div className={classNames.this}>
+        <OrganizationActionTabs
+          isAdmin={loggedIn}
+          organization={organization}
+          query={query}
+        />
+        <h3 className={classNames.contentHeading}>{organization.name}</h3>
+        <h4 className={classNames.contentSubheading}>
+          <span className={classNames.location}>{organization.location}</span>
+        </h4>
+        <HeroImage image={organization.imageUrl} />
+        <p className={classNames.description}>{organization.description}</p>
+        <RelationshipList
+          icon={<GoRepo />}
+          title={'Projects'}
+          pathname={'project'}
+          listItems={organization.projectsByOrganizationId.edges.map(edge => ({
+            name: edge.node.name,
+            itemId: edge.node.id,
+          }))}
+        />
+        <RelationshipList
+          icon={<IoPerson />}
+          title={'Members'}
+          pathname={'user'}
+          listItems={organization.organizationMembersByOrganizationId.edges.map(edge => ({
+            name: edge.node.userByMemberId.name,
+            itemId: edge.node.userByMemberId.id,
+          }))}
+        />
+        <RelationshipList
+          icon={<IoCube />}
+          title={'Resources'}
+          pathname={'resource'}
+          listItems={organization.organizationResourcesByOrganizationId.edges.map(edge => ({
+            name: edge.node.resourceByResourceId.name,
+            itemId: edge.node.resourceByResourceId.id,
+            relationshipId: edge.node.id,
+            status: edge.node.status,
+            accept: this.acceptResource,
+            decline: this.declineResource,
+          }))}
+        />
+      </div>
+    </TransitionWrapper>;
+  }
+}
 
 export default Relay.createContainer(OrganizationContainer, {
   initialVariables: {
@@ -84,6 +100,7 @@ export default Relay.createContainer(OrganizationContainer, {
         organizationResourcesByOrganizationId(first: 10) {
           edges {
             node {
+              id,
               status,
               resourceByResourceId {
                 id,

@@ -29,7 +29,7 @@ API_PORT = Number(API_PORT);
 
 const PATHS = {
   schema: path.join(__dirname, 'data', 'schema'),
-  apiSvr: `http://${REVERSE_PROXY_PRIVATE_IP}:${API_PORT}`,
+  apiSrv: `http://${REVERSE_PROXY_PRIVATE_IP}:${API_PORT}`,
   public: path.join(__dirname, 'build', 'public'),
 };
 
@@ -48,7 +48,7 @@ function onBuild (done, logLevel) {
 }
 
 gulp.task('load-schema', () => {
-  fetch(`${PATHS.apiSvr}/graphql`, {
+  fetch(`${PATHS.apiSrv}/graphql`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -76,7 +76,7 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     stats: { colors: true, chunks: false },
     historyApiFallback: true,
     proxy: {
-      '/graphql': PATHS.apiSvr,
+      '/graphql': PATHS.apiSrv,
     },
   });
   server.listen(PORT, err => {
