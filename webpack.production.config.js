@@ -80,6 +80,16 @@ const prodConfig = {
         include: PATHS.src,
         loader: 'url-loader?limit=65000',
       },
+      {
+        test: /\.(woff|woff2)$/,
+        include: PATHS.fonts,
+        query: {
+          name: 'font/[hash].[ext]',
+          limit: 5000,
+          mimetype: 'application/font-woff',
+        },
+        loader: 'url?limit=50000',
+      },
     ],
   },
 };
