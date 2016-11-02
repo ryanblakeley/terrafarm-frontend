@@ -38,8 +38,10 @@ RelationshipList.propTypes = {
     itemId: React.PropTypes.string,
     relationshipId: React.PropTypes.string,
     status: React.PropTypes.string,
+    isAdmin: React.PropTypes.bool,
     accept: React.PropTypes.func,
     decline: React.PropTypes.func,
+    remove: React.PropTypes.func,
   })),
 };
 

@@ -8,72 +8,179 @@ import TransitionWrapper from '../shared/components/TransitionWrapper';
 import HeroImage from '../shared/components/HeroImage';
 import RelationshipList from '../shared/components/RelationshipList';
 import ResourceActionTabs from './components/ResourceActionTabs';
+import UpdateOrganizationResourceMutation from '../organization/mutations/UpdateOrganizationResourceMutation';
+import UpdateProjectResourceMutation from '../project/mutations/UpdateProjectResourceMutation';
+import UpdateTaskResourceMutation from '../task/mutations/UpdateTaskResourceMutation';
+import DeleteOrganizationResourceMutation from '../organization/mutations/DeleteOrganizationResourceMutation';
+import DeleteProjectResourceMutation from '../project/mutations/DeleteProjectResourceMutation';
+import DeleteTaskResourceMutation from '../task/mutations/DeleteTaskResourceMutation';
 import classNames from './styles/ResourceContainerStylesheet.css';
 
-const ResourceContainer = (props, context) => <TransitionWrapper>
-  <div className={classNames.this}>
-    <ResourceActionTabs
-      isAdmin={context.loggedIn}
-      resource={props.resource}
-      query={props.query}
-    />
-    <h3 className={classNames.contentHeading}>{props.resource.name}</h3>
-    <h4 className={classNames.contentSubheading}>
-      <span className={classNames.location}>{props.resource.location}</span>
-    </h4>
-    <HeroImage image={props.resource.imageUrl} />
-    <p className={classNames.description}>{props.resource.description}</p>
-    <RelationshipList
-      icon={<IoPerson />}
-      title={'Owner'}
-      pathname={'user'}
-      listItems={[{
-        name: props.resource.userByOwnerId.name,
-        itemId: props.resource.userByOwnerId.id,
-        status: props.resource.status,
-      }]}
-    />
-    <RelationshipList
-      icon={<IoIosBriefcase />}
-      title={'Organizations'}
-      pathname={'organization'}
-      listItems={props.resource.organizationResourcesByResourceId.edges.map(edge => ({
-        name: edge.node.organizationByOrganizationId.name,
-        itemId: edge.node.organizationByOrganizationId.id,
-        status: edge.node.status,
-      }))}
-    />
-    <RelationshipList
-      icon={<GoRepo />}
-      title={'Projects'}
-      pathname={'project'}
-      listItems={props.resource.projectResourcesByResourceId.edges.map(edge => ({
-        name: edge.node.projectByProjectId.name,
-        itemId: edge.node.projectByProjectId.id,
-        status: edge.node.status,
-      }))}
-    />
-    <RelationshipList
-      icon={<IoIosPaperOutline />}
-      title={'Tasks'}
-      pathname={'task'}
-      listItems={props.resource.taskResourcesByResourceId.edges.map(edge => ({
-        name: edge.node.taskByTaskId.name,
-        itemId: edge.node.taskByTaskId.id,
-        status: edge.node.status,
-      }))}
-    />
-  </div>
-</TransitionWrapper>;
+class ResourceContainer extends React.Component {
+  static propTypes = {
+    resource: React.PropTypes.object,
+    query: React.PropTypes.object,
+  };
 
-ResourceContainer.propTypes = {
-  resource: React.PropTypes.object,
-  query: React.PropTypes.object,
-};
+  static contextTypes = {
+    loggedIn: React.PropTypes.bool,
+  };
+  acceptOrganization = relationship => {
+    Relay.Store.commitUpdate(
+      new UpdateOrganizationResourceMutation({
+        organizationResourcePatch: {
+          status: 'ACCEPTED',
+        },
+        organizationResource: relationship,
+      })
+    );
+  }
+  acceptProject = relationship => {
+    Relay.Store.commitUpdate(
+      new UpdateProjectResourceMutation({
+        projectResourcePatch: {
+          status: 'ACCEPTED',
+        },
+        projectResource: relationship,
+      })
+    );
+  }
+  acceptTask = relationship => {
+    Relay.Store.commitUpdate(
+      new UpdateTaskResourceMutation({
+        taskResourcePatch: {
+          status: 'ACCEPTED',
+        },
+        taskResource: relationship,
+      })
+    );
+  }
+  declineOrganization = relationship => {
+    Relay.Store.commitUpdate(
+      new UpdateOrganizationResourceMutation({
+        organizationResourcePatch: {
+          status: 'DECLINED',
+        },
+        organizationResource: relationship,
+      })
+    );
+  }
+  declineProject = relationship => {
+    Relay.Store.commitUpdate(
+      new UpdateProjectResourceMutation({
+        projectResourcePatch: {
+          status: 'DECLINED',
+        },
+        projectResource: relationship,
+      })
+    );
+  }
+  declineTask = relationship => {
+    Relay.Store.commitUpdate(
+      new UpdateTaskResourceMutation({
+        taskResourcePatch: {
+          status: 'DECLINED',
+        },
+        taskResource: relationship,
+      })
+    );
+  }
+  removeOrganization = relationship => {
+    Relay.Store.commitUpdate(
+      new DeleteOrganizationResourceMutation({
+        organizationResource: relationship,
+      })
+    );
+  }
+  removeProject = relationship => {
+    Relay.Store.commitUpdate(
+      new DeleteProjectResourceMutation({
+        projectResource: relationship,
+      })
+    );
+  }
+  removeTask = relationship => {
+    Relay.Store.commitUpdate(
+      new DeleteTaskResourceMutation({
+        taskResource: relationship,
+      })
+    );
+  }
+  render () {
+    const {resource, query} = this.props;
+    const {loggedIn} = this.context;
 
-ResourceContainer.contextTypes = {
-  loggedIn: React.PropTypes.bool,
-};
+    return <TransitionWrapper>
+      <div className={classNames.this}>
+        <ResourceActionTabs
+          isAdmin={loggedIn}
+          resource={resource}
+          query={query}
+        />
+        <h3 className={classNames.contentHeading}>{resource.name}</h3>
+        <h4 className={classNames.contentSubheading}>
+          <span className={classNames.location}>{resource.location}</span>
+        </h4>
+        <HeroImage image={resource.imageUrl} />
+        <p className={classNames.description}>{resource.description}</p>
+        <RelationshipList
+          icon={<IoPerson />}
+          title={'Owner'}
+          pathname={'user'}
+          listItems={[{
+            name: resource.userByOwnerId.name,
+            itemId: resource.userByOwnerId.id,
+          }]}
+        />
+        <RelationshipList
+          icon={<IoIosBriefcase />}
+          title={'Organizations'}
+          pathname={'organization'}
+          listItems={resource.organizationResourcesByResourceId.edges.map(edge => ({
+            name: edge.node.organizationByOrganizationId.name,
+            itemId: edge.node.organizationByOrganizationId.id,
+            relationship: edge.node,
+            status: edge.node.status,
+            isAdmin: loggedIn,
+            accept: this.acceptOrganization,
+            decline: this.declineOrganization,
+            remove: this.removeOrganization,
+          }))}
+        />
+        <RelationshipList
+          icon={<GoRepo />}
+          title={'Projects'}
+          pathname={'project'}
+          listItems={resource.projectResourcesByResourceId.edges.map(edge => ({
+            name: edge.node.projectByProjectId.name,
+            itemId: edge.node.projectByProjectId.id,
+            relationship: edge.node,
+            status: edge.node.status,
+            isAdmin: loggedIn,
+            accept: this.acceptProject,
+            decline: this.declineProject,
+            remove: this.removeProject,
+          }))}
+        />
+        <RelationshipList
+          icon={<IoIosPaperOutline />}
+          title={'Tasks'}
+          pathname={'task'}
+          listItems={resource.taskResourcesByResourceId.edges.map(edge => ({
+            name: edge.node.taskByTaskId.name,
+            itemId: edge.node.taskByTaskId.id,
+            relationship: edge.node,
+            status: edge.node.status,
+            isAdmin: loggedIn,
+            accept: this.acceptTask,
+            decline: this.declineTask,
+            remove: this.removeTask,
+          }))}
+        />
+      </div>
+    </TransitionWrapper>;
+  }
+}
 
 export default Relay.createContainer(ResourceContainer, {
   initialVariables: {
@@ -97,7 +204,9 @@ export default Relay.createContainer(ResourceContainer, {
               organizationByOrganizationId {
                 id,
                 name,
-              }
+              },
+              ${UpdateOrganizationResourceMutation.getFragment('organizationResource')},
+              ${DeleteOrganizationResourceMutation.getFragment('organizationResource')},
             }
           }
         },
@@ -108,7 +217,9 @@ export default Relay.createContainer(ResourceContainer, {
               projectByProjectId {
                 id,
                 name,
-              }
+              },
+              ${UpdateProjectResourceMutation.getFragment('projectResource')},
+              ${DeleteProjectResourceMutation.getFragment('projectResource')},
             }
           }
         },
@@ -119,7 +230,9 @@ export default Relay.createContainer(ResourceContainer, {
               taskByTaskId {
                 id,
                 name,
-              }
+              },
+              ${UpdateTaskResourceMutation.getFragment('taskResource')},
+              ${DeleteTaskResourceMutation.getFragment('taskResource')},
             }
           }
         },

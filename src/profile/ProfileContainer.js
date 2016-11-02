@@ -23,8 +23,8 @@ const ProfileContainer = props => <TransitionWrapper>
       title={'Organizations'}
       pathname={'organization'}
       listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
-        id: edge.node.organizationByOrganizationId.id,
         name: edge.node.organizationByOrganizationId.name,
+        itemId: edge.node.organizationByOrganizationId.id,
       }))}
     />
     <RelationshipList
@@ -32,8 +32,8 @@ const ProfileContainer = props => <TransitionWrapper>
       title={'Tasks'}
       pathname={'task'}
       listItems={props.user.tasksByAuthorId.edges.map(edge => ({
-        id: edge.node.id,
         name: edge.node.name,
+        itemId: edge.node.id,
       }))}
     />
     <RelationshipList
@@ -41,8 +41,8 @@ const ProfileContainer = props => <TransitionWrapper>
       title={'Resources'}
       pathname={'resource'}
       listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
-        id: edge.node.id,
         name: edge.node.name,
+        itemId: edge.node.id,
       }))}
     />
   </div>

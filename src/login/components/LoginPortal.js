@@ -60,7 +60,6 @@ export default class LoginPortal extends React.Component {
     localStorage.setItem('id_token', window.anonymousToken);
     localStorage.removeItem('user_uuid');
     setLoggedIn(false);
-    console.log('portal sign out');
     router.push('/');
   }
   render () {

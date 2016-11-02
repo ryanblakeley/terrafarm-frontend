@@ -41,7 +41,7 @@ class RequestResourceForProjectForm extends React.Component {
       console.warn('New resource is not ready');
       return;
     }
-    console.log('arg:', project, data.resource);
+
     Relay.Store.commitUpdate(
       new CreateProjectResourceMutation({
         project,

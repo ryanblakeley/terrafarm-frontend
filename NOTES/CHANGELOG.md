@@ -7,7 +7,7 @@
 - update icons
 - change layout for app header and page menu
 - add relationship lists
-- add offer and request resource
+- add ui resource allocation lifecycle
 - simplify tagline
 - add about page
 - home page links

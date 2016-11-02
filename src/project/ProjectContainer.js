@@ -7,57 +7,97 @@ import TransitionWrapper from '../shared/components/TransitionWrapper';
 import HeroImage from '../shared/components/HeroImage';
 import RelationshipList from '../shared/components/RelationshipList';
 import ProjectActionTabs from './components/ProjectActionTabs';
+import UpdateProjectResourceMutation from './mutations/UpdateProjectResourceMutation';
+import DeleteProjectResourceMutation from './mutations/DeleteProjectResourceMutation';
 import classNames from './styles/ProjectContainerStylesheet.css';
 
-const ProjectContainer = (props, context) => <TransitionWrapper>
-  <div className={classNames.this}>
-    <ProjectActionTabs
-      isAdmin={context.loggedIn}
-      project={props.project}
-      query={props.query}
-    />
-    <h3 className={classNames.contentHeading}>{props.project.name}</h3>
-    <HeroImage image={props.project.imageUrl} />
-    <p className={classNames.description}>{props.project.description}</p>
-    <RelationshipList
-      icon={<IoIosBriefcase />}
-      title={'Parent Organization'}
-      pathname={'organization'}
-      listItems={[{
-        name: props.project.organizationByOrganizationId.name,
-        itemId: props.project.organizationByOrganizationId.id,
-      }]}
-    />
-    <RelationshipList
-      icon={<IoIosPaperOutline />}
-      title={'Tasks'}
-      pathname={'task'}
-      listItems={props.project.tasksByProjectId.edges.map(edge => ({
-        name: edge.node.name,
-        itemId: edge.node.id,
-      }))}
-    />
-    <RelationshipList
-      icon={<IoCube />}
-      title={'Resources'}
-      pathname={'resource'}
-      listItems={props.project.projectResourcesByProjectId.edges.map(edge => ({
-        name: edge.node.resourceByResourceId.name,
-        itemId: edge.node.resourceByResourceId.id,
-        status: edge.node.status,
-      }))}
-    />
-  </div>
-</TransitionWrapper>;
+class ProjectContainer extends React.Component {
+  static propTypes = {
+    project: React.PropTypes.object,
+    query: React.PropTypes.object,
+  };
 
-ProjectContainer.propTypes = {
-  project: React.PropTypes.object,
-  query: React.PropTypes.object,
-};
+  static contextTypes = {
+    loggedIn: React.PropTypes.bool,
+  };
+  acceptResource = relationship => {
+    Relay.Store.commitUpdate(
+      new UpdateProjectResourceMutation({
+        projectResourcePatch: {
+          status: 'ACCEPTED',
+        },
+        projectResource: relationship,
+      })
+    );
+  }
+  declineResource = relationship => {
+    Relay.Store.commitUpdate(
+      new UpdateProjectResourceMutation({
+        projectResourcePatch: {
+          status: 'DECLINED',
+        },
+        projectResource: relationship,
+      })
+    );
+  }
+  removeResource = relationship => {
+    Relay.Store.commitUpdate(
+      new DeleteProjectResourceMutation({
+        projectResource: relationship,
+      })
+    );
+  }
+  render () {
+    const {project, query} = this.props;
+    const {loggedIn} = this.context;
 
-ProjectContainer.contextTypes = {
-  loggedIn: React.PropTypes.bool,
-};
+    return <TransitionWrapper>
+      <div className={classNames.this}>
+        <ProjectActionTabs
+          isAdmin={loggedIn}
+          project={project}
+          query={query}
+        />
+        <h3 className={classNames.contentHeading}>{project.name}</h3>
+        <HeroImage image={project.imageUrl} />
+        <p className={classNames.description}>{project.description}</p>
+        <RelationshipList
+          icon={<IoIosBriefcase />}
+          title={'Parent Organization'}
+          pathname={'organization'}
+          listItems={[{
+            name: project.organizationByOrganizationId.name,
+            itemId: project.organizationByOrganizationId.id,
+          }]}
+        />
+        <RelationshipList
+          icon={<IoIosPaperOutline />}
+          title={'Tasks'}
+          pathname={'task'}
+          listItems={project.tasksByProjectId.edges.map(edge => ({
+            name: edge.node.name,
+            itemId: edge.node.id,
+          }))}
+        />
+        <RelationshipList
+          icon={<IoCube />}
+          title={'Resources'}
+          pathname={'resource'}
+          listItems={project.projectResourcesByProjectId.edges.map(edge => ({
+            name: edge.node.resourceByResourceId.name,
+            itemId: edge.node.resourceByResourceId.id,
+            relationship: edge.node,
+            status: edge.node.status,
+            isAdmin: loggedIn,
+            accept: this.acceptResource,
+            decline: this.declineResource,
+            remove: this.removeResource,
+          }))}
+        />
+      </div>
+    </TransitionWrapper>;
+  }
+}
 
 export default Relay.createContainer(ProjectContainer, {
   initialVariables: {
@@ -89,6 +129,8 @@ export default Relay.createContainer(ProjectContainer, {
                 id,
                 name,
               }
+              ${UpdateProjectResourceMutation.getFragment('projectResource')},
+              ${DeleteProjectResourceMutation.getFragment('projectResource')},
             }
           }
         },

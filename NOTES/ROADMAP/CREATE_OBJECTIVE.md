@@ -2,29 +2,25 @@
 
 ## Create Objective
 
-On the profile page for the logged in user, change the left action tab for 'new land'
-to 'new objective'
-- replace icon with ion-ios-list
-
 When it is clicked open, show the following user flow:
 ```
 o Organization
   - Foo Group
   - Bar Squad
   [New organization name]
-> Project
-> Task
+> Project (disabled)
+> Task (disabled)
 ```
 **If a new organization is entered:**
 - keep 'project' and 'task' disabled
 - show fields for new organization
 ```
 > Organization
-  Baz patrol
-> Project
-> Task
+  [Baz Farm]
+> Project (disabled)
+> Task (disabled)
 
-<fields>
+<new organization fields>
 ```
 If an existing organization is selected:
 - open the 'project' input
@@ -34,7 +30,7 @@ If an existing organization is selected:
 o Project
   - Compost stuff
   [New project name]
-> Task
+> Task (disabled)
 ```
 **If a new project is entered:**
 - keep 'task' disabled
@@ -43,8 +39,8 @@ o Project
 > Organization
   Foo Group
 > Project
-  Bee colony
-> Task
+  [Bee colony]
+> Task (disabled)
 
 <new project fields>
 ```
