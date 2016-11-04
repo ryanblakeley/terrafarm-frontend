@@ -14,6 +14,9 @@ class CreateProjectForm extends React.Component {
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
+  static contextTypes = {
+    router: React.PropTypes.object,
+  };
   state = {
     canSubmit: false,
   };
@@ -32,6 +35,7 @@ class CreateProjectForm extends React.Component {
   }
   handleSubmit = data => {
     const {organization, query} = this.props;
+    const {router} = this.context;
 
     if (!this.state.canSubmit) {
       console.warn('New resource is not ready');
@@ -43,7 +47,12 @@ class CreateProjectForm extends React.Component {
         projectData: data,
         organization,
         query,
-      })
+      }), {
+        onSuccess: response => {
+          const projectId = response.createProject.projectEdge.node.id;
+          router.push(`/project/${projectId}`);
+        },
+      }
     );
 
     this.handleClose();

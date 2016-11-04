@@ -7,6 +7,8 @@ import LoginPage from './login/LoginPage';
 import NotFound from './not-found/NotFoundPage';
 import ProfileContainer from './profile/ProfileContainer';
 import ProfileQueries from './profile/ProfileQueries';
+import JoinOrganizationContainer from './profile/JoinOrganizationContainer';
+import JoinOrganizationQueries from './profile/JoinOrganizationQueries';
 import UserContainer from './user/UserContainer';
 import UserQueries from './user/UserQueries';
 import BrowseContainer from './browse/BrowseContainer';
@@ -92,7 +94,16 @@ const routes = (
       prepareParams={prepareProfileParams}
       onEnter={loginBouncer}
       renderLoading={renderLoading}
-    />
+    >
+      <Route path={'join-organization'}>
+        <Route
+          path={':organizationId'}
+          component={JoinOrganizationContainer}
+          queries={JoinOrganizationQueries}
+          renderLoading={renderLoading}
+        />
+      </Route>
+    </Route>
     <Route
       path={'browse'}
       component={BrowseContainer}

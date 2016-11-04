@@ -4,7 +4,7 @@ export default class CreateOrganizationMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
       fragment on User {
-        id,
+        rowId,
       }
     `,
     query: () => Relay.QL`
@@ -26,10 +26,13 @@ export default class CreateOrganizationMutation extends Relay.Mutation {
   getFatQuery () {
     return Relay.QL`
       fragment on CreateOrganizationPayload {
-        organizationEdge,
-        organization {
-          organizationMembersByOrganizationId,
-        }
+        organization { rowId },
+        organizationEdge {
+          node {
+            id,
+            rowId,
+          }
+        },
         query {
           allOrganizations,
         },
@@ -48,29 +51,21 @@ export default class CreateOrganizationMutation extends Relay.Mutation {
           '': 'append',
         },
       },
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [
+          Relay.QL`
+            fragment on CreateOrganizationPayload {
+              organizationEdge {
+                node {
+                  id,
+                  rowId,
+                }
+              },
+            }
+          `,
+        ],
+      },
     ];
   }
 }
-
-/*
-      {
-        type: 'RANGE_ADD',
-        parentName: 'user',
-        parentID: this.props.user.id,
-        connectionName: 'organizationsAdmin',
-        edgeName: 'organizationEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
-      },
-      {
-        type: 'RANGE_ADD',
-        parentName: 'user',
-        parentID: this.props.user.id,
-        connectionName: 'organizationsLiked',
-        edgeName: 'organizationEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
-      },
-*/

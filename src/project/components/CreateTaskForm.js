@@ -14,6 +14,9 @@ class CreateTaskForm extends React.Component {
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
+  static contextTypes = {
+    router: React.PropTypes.object,
+  };
   state = {
     canSubmit: false,
   };
@@ -32,6 +35,7 @@ class CreateTaskForm extends React.Component {
   }
   handleSubmit = data => {
     const {project, query} = this.props;
+    const {router} = this.context;
 
     if (!this.state.canSubmit) {
       console.warn('New resource is not ready');
@@ -43,7 +47,12 @@ class CreateTaskForm extends React.Component {
         taskData: data,
         project,
         query,
-      })
+      }), {
+        onSuccess: response => {
+          const taskId = response.createTask.taskEdge.node.id;
+          router.push(`/task/${taskId}`);
+        },
+      }
     );
 
     this.handleClose();

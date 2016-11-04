@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextInput from '../../shared/components/TextInput';
 import CreateOrganizationMutation from '../mutations/CreateOrganizationMutation';
+import CreateOrganizationMemberMutation from '../../organization/mutations/CreateOrganizationMemberMutation';
 
 import classNames from '../styles/CreateOrganizationFormStylesheet.css';
 
@@ -13,6 +14,9 @@ class CreateOrganizationForm extends React.Component {
     user: React.PropTypes.object,
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
+  };
+  static contextTypes = {
+    router: React.PropTypes.object,
   };
   state = {
     canSubmit: false,
@@ -32,6 +36,7 @@ class CreateOrganizationForm extends React.Component {
   }
   handleSubmit = data => {
     const {user, query} = this.props;
+    const {router} = this.context;
 
     if (!this.state.canSubmit) {
       console.warn('New resource is not ready');
@@ -43,7 +48,17 @@ class CreateOrganizationForm extends React.Component {
         organizationData: data,
         user,
         query,
-      })
+      }), {
+        onSuccess: response => {
+          const organizationId = response.createOrganization.organizationEdge.node.rowId;
+          router.push({
+            pathname: `/profile/join-organization/${organizationId}`,
+            state: {
+              isAdmin: true,
+            },
+          });
+        },
+      }
     );
 
     this.handleClose();
@@ -106,6 +121,7 @@ export default Relay.createContainer(CreateOrganizationForm, {
     user: () => Relay.QL`
       fragment on User {
         ${CreateOrganizationMutation.getFragment('user')},
+        ${CreateOrganizationMemberMutation.getFragment('user')},
       }
     `,
     query: () => Relay.QL`
@@ -115,11 +131,3 @@ export default Relay.createContainer(CreateOrganizationForm, {
     `,
   },
 });
-
-/*
-        <TextInput
-          name={'size'}
-          label={'Size'}
-          required
-        />
-*/

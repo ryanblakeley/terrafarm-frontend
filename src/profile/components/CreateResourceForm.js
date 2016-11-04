@@ -14,6 +14,9 @@ class CreateResourceForm extends React.Component {
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
+  static contextTypes = {
+    router: React.PropTypes.object,
+  };
   state = {
     canSubmit: false,
   };
@@ -32,6 +35,7 @@ class CreateResourceForm extends React.Component {
   }
   handleSubmit = data => {
     const {user, query} = this.props;
+    const {router} = this.context;
 
     if (!this.state.canSubmit) {
       console.warn('New resource is not ready');
@@ -43,7 +47,12 @@ class CreateResourceForm extends React.Component {
         resourceData: data,
         user,
         query,
-      })
+      }), {
+        onSuccess: response => {
+          const resourceId = response.createResource.resourceEdge.node.id;
+          router.push(`/resource/${resourceId}`);
+        },
+      }
     );
 
     this.handleClose();
