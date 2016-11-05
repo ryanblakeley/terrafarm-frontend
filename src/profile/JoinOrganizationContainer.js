@@ -22,7 +22,7 @@ class JoinOrganizationContainer extends React.Component {
         isAdmin: !!location.state.isAdmin,
       }), {
         onSuccess: response => {
-          router.replace(`/organization/${organization.id}`);
+          router.replace(`/organization/${organization.rowId}`);
         },
       }
     );
@@ -46,7 +46,7 @@ export default Relay.createContainer(JoinOrganizationContainer, {
     `,
     organization: () => Relay.QL`
       fragment on Organization {
-        id,
+        rowId,
         ${CreateOrganizationMemberMutation.getFragment('organization')},
       }
     `,

@@ -184,6 +184,9 @@ class RequestObjectiveForm extends React.Component {
 }
 
 export default Relay.createContainer(RequestObjectiveForm, {
+  initialVariables: {
+    resourceId: null,
+  },
   fragments: {
     resource: () => Relay.QL`
       fragment on Resource {

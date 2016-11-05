@@ -25,6 +25,7 @@ export default class DeleteOrganizationMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on DeleteOrganizationPayload {
         deletedOrganizationId,
+        organization,
         query {
           allOrganizations,
         },
@@ -32,6 +33,16 @@ export default class DeleteOrganizationMutation extends Relay.Mutation {
     `;
   }
   getConfigs () {
+    /*
+    const members = this.props.organization.organizationMembersByOrganizationId.edges.map(edge => ({
+      type: 'NODE_DELTE',
+      parentName: 'userByMemberId',
+      parentId: edge.node.userByMemberId.id,
+      connectionName: 'organizationMembersByMemberId',
+      deletedIdFieldName: ''
+    }));
+    */
+
     return [
       {
         type: 'NODE_DELETE',
@@ -40,6 +51,15 @@ export default class DeleteOrganizationMutation extends Relay.Mutation {
         connectionName: 'allOrganizations',
         deletedIDFieldName: 'deletedOrganizationId',
       },
+      /*
+      {
+        type: 'NODE_DELETE',
+        parentName: 'organizationMembersByMemberId',
+        parentID: this.props.organization.organizationMembersByMemberId.id,
+        connectionName: 'allOrganizations',
+        deletedIDFieldName: 'deletedOrganizationId',
+      },
+      */
     ];
   }
 }

@@ -49,7 +49,7 @@ class CreateResourceForm extends React.Component {
         query,
       }), {
         onSuccess: response => {
-          const resourceId = response.createResource.resourceEdge.node.id;
+          const resourceId = response.createResource.resourceEdge.node.rowId;
           router.push(`/resource/${resourceId}`);
         },
       }
@@ -111,6 +111,9 @@ class CreateResourceForm extends React.Component {
 }
 
 export default Relay.createContainer(CreateResourceForm, {
+  initialVariables: {
+    userId: null,
+  },
   fragments: {
     user: () => Relay.QL`
       fragment on User {
@@ -124,18 +127,3 @@ export default Relay.createContainer(CreateResourceForm, {
     `,
   },
 });
-
-/*
-import MenuItem from 'material-ui/MenuItem';
-import SelectInput from '../../shared/components/SelectInput';
-
-        <SelectInput
-          name={'categoryIndex'}
-          label={'Category'}
-          initialValue={categoryIndex}
-          validations={'isNumeric,isExisty'}
-          required
-        >
-          {resourceCategories}
-        </SelectInput>
-*/

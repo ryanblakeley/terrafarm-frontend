@@ -129,6 +129,9 @@ class EditProfileForm extends React.Component {
 }
 
 export default Relay.createContainer(EditProfileForm, {
+  initialVariables: {
+    userId: null,
+  },
   fragments: {
     user: () => Relay.QL`
       fragment on User {

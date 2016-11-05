@@ -8,7 +8,7 @@ const ResultsItemUser = props => <div className={classNames.this}>
   <span className={classNames.number} >
     {props.index + 1}.
   </span>
-  <Link to={`/user/${props.user.id}`} className={classNames.name} >
+  <Link to={`/user/${props.user.rowId}`} className={classNames.name} >
     {props.user.name[0].toUpperCase() + props.user.name.slice(1)}
   </Link>
 </div>;
@@ -22,7 +22,7 @@ export default Relay.createContainer(ResultsItemUser, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
-        id,
+        rowId,
         name,
       }
     `,

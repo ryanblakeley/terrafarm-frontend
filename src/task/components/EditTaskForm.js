@@ -54,7 +54,7 @@ class EditTaskForm extends React.Component {
   handleDelete = () => {
     const {task, query} = this.props;
     const {router} = this.context;
-    const projectId = task.projectByProjectId.id;
+    const projectId = task.projectByProjectId.rowId;
 
     Relay.Store.commitUpdate(
       new DeleteTaskMutation({
@@ -117,6 +117,9 @@ class EditTaskForm extends React.Component {
 }
 
 export default Relay.createContainer(EditTaskForm, {
+  initialVariables: {
+    taskId: null,
+  },
   fragments: {
     task: () => Relay.QL`
       fragment on Task {
@@ -124,7 +127,7 @@ export default Relay.createContainer(EditTaskForm, {
         name,
         description,
         projectByProjectId {
-          id,
+          rowId,
         },
         ${UpdateTaskMutation.getFragment('task')},
         ${DeleteTaskMutation.getFragment('task')},

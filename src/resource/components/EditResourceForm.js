@@ -129,6 +129,9 @@ class EditResourceForm extends React.Component {
 }
 
 export default Relay.createContainer(EditResourceForm, {
+  initialVariables: {
+    resourceId: null,
+  },
   fragments: {
     resource: () => Relay.QL`
       fragment on Resource {

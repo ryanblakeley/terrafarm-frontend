@@ -93,6 +93,9 @@ class RequestResourceForTaskForm extends React.Component {
 }
 
 export default Relay.createContainer(RequestResourceForTaskForm, {
+  initialVariables: {
+    taskId: null,
+  },
   fragments: {
     task: () => Relay.QL`
       fragment on Task {

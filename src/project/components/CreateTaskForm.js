@@ -49,7 +49,7 @@ class CreateTaskForm extends React.Component {
         query,
       }), {
         onSuccess: response => {
-          const taskId = response.createTask.taskEdge.node.id;
+          const taskId = response.createTask.taskEdge.node.rowId;
           router.push(`/task/${taskId}`);
         },
       }
@@ -100,6 +100,9 @@ class CreateTaskForm extends React.Component {
 }
 
 export default Relay.createContainer(CreateTaskForm, {
+  initialVariables: {
+    projectId: null,
+  },
   fragments: {
     project: () => Relay.QL`
       fragment on Project {

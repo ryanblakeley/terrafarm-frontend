@@ -15,6 +15,7 @@ class OrganizationContainer extends React.Component {
   static propTypes = {
     organization: React.PropTypes.object,
     query: React.PropTypes.object,
+    children: React.PropTypes.object,
   };
   static contextTypes = {
     loggedIn: React.PropTypes.bool,
@@ -47,7 +48,7 @@ class OrganizationContainer extends React.Component {
     );
   }
   render () {
-    const {organization, query} = this.props;
+    const {organization, query, children} = this.props;
     const {loggedIn} = this.context;
 
     return <TransitionWrapper>
@@ -57,6 +58,9 @@ class OrganizationContainer extends React.Component {
           organization={organization}
           query={query}
         />
+        <div className={classNames.children}>
+          {children}
+        </div>
         <h3 className={classNames.contentHeading}>{organization.name}</h3>
         <h4 className={classNames.contentSubheading}>
           <span className={classNames.location}>{organization.location}</span>
@@ -69,7 +73,7 @@ class OrganizationContainer extends React.Component {
           pathname={'project'}
           listItems={organization.projectsByOrganizationId.edges.map(edge => ({
             name: edge.node.name,
-            itemId: edge.node.id,
+            itemId: edge.node.rowId,
           }))}
         />
         <RelationshipList
@@ -78,7 +82,7 @@ class OrganizationContainer extends React.Component {
           pathname={'user'}
           listItems={organization.organizationMembersByOrganizationId.edges.map(edge => ({
             name: edge.node.userByMemberId.name,
-            itemId: edge.node.userByMemberId.id,
+            itemId: edge.node.userByMemberId.rowId,
           }))}
         />
         <RelationshipList
@@ -87,7 +91,7 @@ class OrganizationContainer extends React.Component {
           pathname={'resource'}
           listItems={organization.organizationResourcesByOrganizationId.edges.map(edge => ({
             name: edge.node.resourceByResourceId.name,
-            itemId: edge.node.resourceByResourceId.id,
+            itemId: edge.node.resourceByResourceId.rowId,
             relationship: edge.node,
             status: edge.node.status,
             isAdmin: loggedIn,
@@ -115,7 +119,7 @@ export default Relay.createContainer(OrganizationContainer, {
         projectsByOrganizationId(first: 10) {
           edges {
             node {
-              id,
+              rowId,
               name,
             }
           }
@@ -126,7 +130,7 @@ export default Relay.createContainer(OrganizationContainer, {
               id,
               status,
               resourceByResourceId {
-                id,
+                rowId,
                 name,
               },
               ${UpdateOrganizationResourceMutation.getFragment('organizationResource')},
@@ -138,7 +142,7 @@ export default Relay.createContainer(OrganizationContainer, {
           edges {
             node {
               userByMemberId {
-                id,
+                rowId,
                 name,
               }
             }

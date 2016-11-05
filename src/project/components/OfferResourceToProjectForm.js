@@ -93,6 +93,9 @@ class OfferResourceToProjectForm extends React.Component {
 }
 
 export default Relay.createContainer(OfferResourceToProjectForm, {
+  initialVariables: {
+    projectId: null,
+  },
   fragments: {
     project: () => Relay.QL`
       fragment on Project {

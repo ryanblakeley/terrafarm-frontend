@@ -117,6 +117,9 @@ class CreateOrganizationForm extends React.Component {
 }
 
 export default Relay.createContainer(CreateOrganizationForm, {
+  initialVariables: {
+    userId: null,
+  },
   fragments: {
     user: () => Relay.QL`
       fragment on User {

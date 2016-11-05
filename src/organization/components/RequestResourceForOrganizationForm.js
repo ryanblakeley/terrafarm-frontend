@@ -93,6 +93,9 @@ class RequestResourceForOrganizationForm extends React.Component {
 }
 
 export default Relay.createContainer(RequestResourceForOrganizationForm, {
+  initialVariables: {
+    organizationId: null,
+  },
   fragments: {
     organization: () => Relay.QL`
       fragment on Organization {

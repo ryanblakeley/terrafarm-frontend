@@ -58,28 +58,6 @@ export default class CreateProjectMutation extends Relay.Mutation {
           '': 'append',
         },
       },
-      /*
-      {
-        type: 'RANGE_ADD',
-        parentName: 'user',
-        parentID: this.props.user.id,
-        connectionName: 'projectsAdmin',
-        edgeName: 'projectEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
-      },
-      {
-        type: 'RANGE_ADD',
-        parentName: 'user',
-        parentID: this.props.user.id,
-        connectionName: 'projectsLiked',
-        edgeName: 'projectEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
-      },
-      */
     ];
   }
 }

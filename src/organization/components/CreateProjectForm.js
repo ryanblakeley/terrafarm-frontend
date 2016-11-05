@@ -49,7 +49,7 @@ class CreateProjectForm extends React.Component {
         query,
       }), {
         onSuccess: response => {
-          const projectId = response.createProject.projectEdge.node.id;
+          const projectId = response.createProject.projectEdge.node.rowId;
           router.push(`/project/${projectId}`);
         },
       }
@@ -105,6 +105,9 @@ class CreateProjectForm extends React.Component {
 }
 
 export default Relay.createContainer(CreateProjectForm, {
+  initialVariables: {
+    organizationId: null,
+  },
   fragments: {
     organization: () => Relay.QL`
       fragment on Organization {

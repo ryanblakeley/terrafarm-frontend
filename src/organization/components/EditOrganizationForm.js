@@ -129,6 +129,9 @@ class EditOrganizationForm extends React.Component {
 }
 
 export default Relay.createContainer(EditOrganizationForm, {
+  initialVariables: {
+    organizationId: null,
+  },
   fragments: {
     organization: () => Relay.QL`
       fragment on Organization {

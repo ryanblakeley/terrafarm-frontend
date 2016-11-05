@@ -93,6 +93,9 @@ class OfferResourceToTaskForm extends React.Component {
 }
 
 export default Relay.createContainer(OfferResourceToTaskForm, {
+  initialVariables: {
+    taskId: null,
+  },
   fragments: {
     task: () => Relay.QL`
       fragment on Task {

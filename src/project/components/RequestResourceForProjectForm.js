@@ -93,6 +93,9 @@ class RequestResourceForProjectForm extends React.Component {
 }
 
 export default Relay.createContainer(RequestResourceForProjectForm, {
+  initialVariables: {
+    projectId: null,
+  },
   fragments: {
     project: () => Relay.QL`
       fragment on Project {

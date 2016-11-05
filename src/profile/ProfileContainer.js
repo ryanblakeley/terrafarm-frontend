@@ -12,7 +12,9 @@ import classNames from './styles/ProfileContainerStylesheet.css';
 const ProfileContainer = props => <TransitionWrapper>
   <div className={classNames.this}>
     <ProfileActionTabs user={props.user} query={props.query} />
-    {props.children}
+    <div className={classNames.children}>
+      {props.children}
+    </div>
     <h3 className={classNames.contentHeading}>{props.user.name}</h3>
     <h4 className={classNames.contentSubheading}>
       <span className={classNames.location}>{props.user.location}</span>
@@ -25,7 +27,7 @@ const ProfileContainer = props => <TransitionWrapper>
       pathname={'organization'}
       listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
         name: edge.node.organizationByOrganizationId.name,
-        itemId: edge.node.organizationByOrganizationId.id,
+        itemId: edge.node.organizationByOrganizationId.rowId,
       }))}
     />
     <RelationshipList
@@ -34,7 +36,7 @@ const ProfileContainer = props => <TransitionWrapper>
       pathname={'task'}
       listItems={props.user.tasksByAuthorId.edges.map(edge => ({
         name: edge.node.name,
-        itemId: edge.node.id,
+        itemId: edge.node.rowId,
       }))}
     />
     <RelationshipList
@@ -43,7 +45,7 @@ const ProfileContainer = props => <TransitionWrapper>
       pathname={'resource'}
       listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
         name: edge.node.name,
-        itemId: edge.node.id,
+        itemId: edge.node.rowId,
       }))}
     />
   </div>
@@ -73,7 +75,7 @@ export default Relay.createContainer(ProfileContainer, {
           edges {
             node {
               organizationByOrganizationId {
-                id,
+                rowId,
                 name,
               }
             }
@@ -82,7 +84,7 @@ export default Relay.createContainer(ProfileContainer, {
         resourcesByOwnerId(first: 25) {
           edges {
             node {
-              id,
+              rowId,
               name,
             }
           }
@@ -90,7 +92,7 @@ export default Relay.createContainer(ProfileContainer, {
         tasksByAuthorId(first: 10) {
           edges {
             node {
-              id,
+              rowId,
               name,
             }
           }
