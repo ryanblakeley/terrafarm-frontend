@@ -15,12 +15,8 @@ html { font-size: 14px; }
 }
 
 .icon                /*svg*/ {
-  color: #9FA8DA;
-  transition: color 160ms linear;
-}
-
-.xlargeIcon          /*svg*/ {
-  color: #5C6BC0;
+  /*color: #9FA8DA;*/
+  color: rgba(92,107,192 ,0.92);
   transition: color 160ms linear;
 }
 
@@ -28,42 +24,46 @@ html { font-size: 14px; }
   margin: 0.67em 0;
   font-family: 'Averia Serif Libre', serif;
   font-weight: 300;
-  font-size: 5em;
+  font-size: 5rem;
   letter-spacing: 0.023em;
 }
 .pageHeading {
   margin: 0.83em 0;
   font-family: 'Overlock', sans-serif;
-  font-weight: 400;
-  font-size: 1.12em;
-  text-transform: uppercase;
-  border-bottom: 0.18em solid #263238;
+  font-weight: 600;
+  font-size: 2.1rem;
+  text-align: center;
+  letter-spacing: 0.03rem;
 }
 .contentHeading {
   margin: 1em 0;
   font-family: 'Averia Serif Libre', serif;
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 1.76rem;
   text-align: center;
 }
 .contentSubheading {
   margin: 1.33em 0;
   font-family: 'Simonetta', serif;
   font-weight: 900;
-  font-size: 1.12em;
-  text-align: center;
+  font-size: 1.32rem;
 }
 .articleHeading {
   font-family: 'Simonetta', serif;
   font-weight: 400;
+  font-size: 1.46rem;
+  text-align: center;
+  text-transform: capitalize;
 }
 .articleSubheading {
   font-family: 'Overlock', cursive;
-  font-weight: 400;
-  font-size: 1.08em;
+  font-weight: 600;
+  font-size: 1.32rem;
+  letter-spacing: 0.01rem;
 }
 .bodyText {
   font-family: 'Simonetta', serif;
+  font-size: 1.17rem;
   text-decoration: none;
   color: inherit;
 }
@@ -71,7 +71,7 @@ html { font-size: 14px; }
   margin: 0.67em 0;
   font-family: 'Averia Serif Libre', serif;
   font-weight: 400;
-  font-size: 1.7em;
+  font-size: 2rem;
   letter-spacing: 0.023em;
 }
 .button {
@@ -90,12 +90,9 @@ html { font-size: 14px; }
   color: #ff8a65;
 }
 */
-.icon {
-  font-size: 24px;
-}
-.xlargeIcon {
-  font-size: 64px;
-}
+.icon { font-size: 24px; }
+.smallIcon { font-size: 16px; }
+.largeIcon { font-size: 58px; }
 .bulletList {
   list-style: initial;
   margin: 1em 0;

@@ -1,3 +1,5 @@
-.this { composes: actionForm from '../../shared/styles/_layout.css'; }
-.buttons { composes: actionFormButtons from '../../shared/styles/_layout.css'; }
-.radioButtonGroup { display: block; margin: 0 auto; width: 256px; }
+.text {
+  composes: articleSubheading from '../../shared/styles/_typography.css';
+  margin: 0 auto 15px;
+  width: 256px;
+}

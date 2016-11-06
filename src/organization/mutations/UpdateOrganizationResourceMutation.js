@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-export default class UpdateOrganizationMutation extends Relay.Mutation {
+export default class UpdateOrganizationResourceMutation extends Relay.Mutation {
   static fragments = {
     organizationResource: () => Relay.QL`
       fragment on OrganizationResource {

@@ -35,6 +35,8 @@ import OfferResourceToOrganizationForm
   from './organization/components/OfferResourceToOrganizationForm';
 import EditOrganizationForm from './organization/components/EditOrganizationForm';
 import CreateProjectForm from './organization/components/CreateProjectForm';
+import EditOrganizationResourceForm from './organization/components/EditOrganizationResourceForm';
+import OrganizationResourceQueries from './organization/OrganizationResourceQueries';
 
 import ProjectContainer from './project/ProjectContainer';
 import ProjectQueries from './project/ProjectQueries';
@@ -44,6 +46,8 @@ import OfferResourceToProjectForm
   from './project/components/OfferResourceToProjectForm';
 import EditProjectForm from './project/components/EditProjectForm';
 import CreateTaskForm from './project/components/CreateTaskForm';
+import EditProjectResourceForm from './project/components/EditProjectResourceForm';
+import ProjectResourceQueries from './project/ProjectResourceQueries';
 
 import TaskContainer from './task/TaskContainer';
 import TaskQueries from './task/TaskQueries';
@@ -52,7 +56,8 @@ import RequestResourceForTaskForm
 import OfferResourceToTaskForm
   from './task/components/OfferResourceToTaskForm';
 import EditTaskForm from './task/components/EditTaskForm';
-
+import EditTaskResourceForm from './task/components/EditTaskResourceForm';
+import TaskResourceQueries from './task/TaskResourceQueries';
 
 function prepareProfileParams (params, {location}) {
   return {
@@ -160,7 +165,7 @@ const routes = (
         renderLoading={renderLoading}
       >
         <Route path={'request-resource'} component={RequestResourceForm} queries={ResourceQueries} />
-        <Route path={'edit-resource'} component={EditResourceForm} queries={ResourceQueries} />
+        <Route path={'edit'} component={EditResourceForm} queries={ResourceQueries} />
       </Route>
     </Route>
     <Route path={'organization'} onEnter={ensurePublicAccess} >
@@ -174,6 +179,13 @@ const routes = (
         <Route path={'offer-resource'} component={OfferResourceToOrganizationForm} queries={OrganizationQueries} />
         <Route path={'edit'} component={EditOrganizationForm} queries={OrganizationQueries} />
         <Route path={'new-project'} component={CreateProjectForm} queries={OrganizationQueries} />
+        <Route path={'review-allocation'}>
+          <Route
+            path={':organizationResourceId'}
+            component={EditOrganizationResourceForm}
+            queries={OrganizationResourceQueries}
+          />
+        </Route>
       </Route>
     </Route>
     <Route path={'project'} onEnter={ensurePublicAccess} >
@@ -187,6 +199,13 @@ const routes = (
         <Route path={'offer-resource'} component={OfferResourceToProjectForm} queries={ProjectQueries} />
         <Route path={'edit'} component={EditProjectForm} queries={ProjectQueries} />
         <Route path={'new-task'} component={CreateTaskForm} queries={ProjectQueries} />
+        <Route path={'review-allocation'}>
+          <Route
+            path={':projectResourceId'}
+            component={EditProjectResourceForm}
+            queries={ProjectResourceQueries}
+          />
+        </Route>
       </Route>
     </Route>
     <Route path={'task'} onEnter={ensurePublicAccess} >
@@ -199,6 +218,13 @@ const routes = (
         <Route path={'request-resource'} component={RequestResourceForTaskForm} queries={TaskQueries} />
         <Route path={'offer-resource'} component={OfferResourceToTaskForm} queries={TaskQueries} />
         <Route path={'edit'} component={EditTaskForm} queries={TaskQueries} />
+        <Route path={'review-allocation'}>
+          <Route
+            path={':taskResourceId'}
+            component={EditTaskResourceForm}
+            queries={TaskResourceQueries}
+          />
+        </Route>
       </Route>
     </Route>
     <Route path={'*'} component={NotFound} />

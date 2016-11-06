@@ -1,0 +1,32 @@
+.this {
+  transition: background-color 180ms ease;
+  border-bottom: 3px solid rgb(55,71,79);
+}
+.this:hover {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+.this:last-of-type { border-bottom: none; }
+.this.disabled { }
+.flexWrapper {
+  display: flex; width: 100%;
+}
+.iconWrapper {
+  display: flex;
+  align-items: center; justify-content: center;
+  width: 112px;
+  padding: 12px;
+}
+.icon { composes: icon from './_typography.css'; }
+.smallIcon { font-size: 16px; }
+.largeIcon { font-size: 64px; }
+.disabled .icon { }
+.titleWrapper { flex-grow: 1; }
+.title {
+  composes: pageHeading from './_typography.css';
+  margin: 0;
+  line-height: 60px;
+  font-size: 1.3rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.link { composes: link from './_typography.css'; }

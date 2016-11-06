@@ -1,55 +1,88 @@
 import React from 'react';
 import Relay from 'react-relay';
+// Icons
+import IoPerson from 'react-icons/lib/io/person';
 import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import IoCube from 'react-icons/lib/io/cube';
+// Components
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+import ContentHeader from '../shared/components/ContentHeader';
+import MainContentWrapper from '../shared/components/MainContentWrapper';
 import HeroImage from '../shared/components/HeroImage';
 import RelationshipList from '../shared/components/RelationshipList';
-import UserActionTabs from './components/UserActionTabs';
+import Menu from '../shared/components/Menu';
+import Accordion from '../shared/components/Accordion';
+import ContentSubheader from '../shared/components/ContentSubheader';
+import ContentBodyText from '../shared/components/ContentBodyText';
+
 import classNames from './styles/UserContainerStylesheet.css';
 
 const UserContainer = props => <TransitionWrapper>
   <div className={classNames.this}>
-    <UserActionTabs />
-    <h3 className={classNames.contentHeading}>{props.user.name}</h3>
-    <h4 className={classNames.contentSubheading}>
-      <span className={classNames.location}>{props.user.location}</span>
-    </h4>
-    <HeroImage image={props.user.imageUrl} />
-    <p className={classNames.description}>{props.user.description}</p>
-    <RelationshipList
-      icon={<IoIosBriefcase />}
-      title={'Organizations'}
-      pathname={'organization'}
-      listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
-        name: edge.node.organizationByOrganizationId.name,
-        itemId: edge.node.organizationByOrganizationId.rowId,
-      }))}
+    <Menu
+      baseUrl={`/props.user/${props.user.rowId}`}
+      header={{icon: <IoPerson />, title: 'User'}}
+      list={[]}
+      disabled
     />
-    <RelationshipList
-      icon={<IoIosPaperOutline />}
-      title={'Tasks'}
-      pathname={'task'}
-      listItems={props.user.tasksByAuthorId.edges.map(edge => ({
-        name: edge.node.name,
-        itemId: edge.node.rowId,
-      }))}
-    />
-    <RelationshipList
-      icon={<IoCube />}
-      title={'Resources'}
-      pathname={'resource'}
-      listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
-        name: edge.node.name,
-        itemId: edge.node.rowId,
-      }))}
+    <ContentHeader text={props.user.name} />
+    <MainContentWrapper
+      right={<Accordion
+        panels={[
+          {
+            header: {
+              icon: <IoIosBriefcase />,
+              label: 'Organizations',
+            },
+            body: <RelationshipList
+              listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
+                name: edge.node.organizationByOrganizationId.name,
+                itemId: edge.node.organizationByOrganizationId.rowId,
+                itemUrl: 'organization',
+              }))}
+            />,
+          },
+          {
+            header: {
+              icon: <IoIosPaperOutline />,
+              label: 'Tasks',
+            },
+            body: <RelationshipList
+              listItems={props.user.tasksByAuthorId.edges.map(edge => ({
+                name: edge.node.name,
+                itemId: edge.node.rowId,
+                itemUrl: 'task',
+              }))}
+            />,
+          },
+          {
+            header: {
+              icon: <IoCube />,
+              label: 'Resources',
+            },
+            body: <RelationshipList
+              listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
+                name: edge.node.name,
+                itemId: edge.node.rowId,
+                itemUrl: 'resource',
+              }))}
+            />,
+          },
+        ]}
+      />}
+      left={<div>
+        <ContentSubheader text={props.user.location} />
+        <ContentBodyText text={props.user.description} />
+        <HeroImage image={props.user.imageUrl} />
+      </div>}
     />
   </div>
 </TransitionWrapper>;
 
 UserContainer.propTypes = {
   user: React.PropTypes.shape({
+    rowId: React.PropTypes.string,
     name: React.PropTypes.string,
     location: React.PropTypes.string,
     description: React.PropTypes.string,
@@ -67,6 +100,7 @@ export default Relay.createContainer(UserContainer, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
+        rowId,
         name,
         location,
         imageUrl,

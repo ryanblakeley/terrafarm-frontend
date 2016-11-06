@@ -1,0 +1,23 @@
+.this { position: relative; overflow: hidden; }
+.flexWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+.right,
+.left { width: 92%; max-width: 390px; }
+.right { margin-top: 15px; }
+
+@media only screen and (min-width: 550px) {
+  .flexWrapper {
+    flex-direction: initial;
+    align-items: initial;
+    justify-content: center;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  .right { margin: 0 0 0 15px; width: 35%; }
+  .left { flex-grow: 1; max-width: initial; }
+}

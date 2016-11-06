@@ -1,5 +1,5 @@
 .this {
-  margin: 25px auto 0;
+  margin: 17px auto 0;
 }
 .icon {
   composes: icon from '../../shared/styles/_typography.css';

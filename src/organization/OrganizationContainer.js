@@ -1,109 +1,118 @@
 import React from 'react';
 import Relay from 'react-relay';
+// Icons
+import IoEdit from 'react-icons/lib/io/edit';
 import GoRepo from 'react-icons/lib/go/repo';
+import IoBriefcase from 'react-icons/lib/io/briefcase';
+import IoPlus from 'react-icons/lib/io/plus';
 import IoCube from 'react-icons/lib/io/cube';
 import IoPerson from 'react-icons/lib/io/person';
+import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
+// Components
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+import Menu from '../shared/components/Menu';
+import ContentHeader from '../shared/components/ContentHeader';
+import MainContentWrapper from '../shared/components/MainContentWrapper';
 import HeroImage from '../shared/components/HeroImage';
+import Accordion from '../shared/components/Accordion';
 import RelationshipList from '../shared/components/RelationshipList';
-import OrganizationActionTabs from './components/OrganizationActionTabs';
-import UpdateOrganizationResourceMutation from './mutations/UpdateOrganizationResourceMutation';
-import DeleteOrganizationResourceMutation from './mutations/DeleteOrganizationResourceMutation';
+import ActionPanel from '../shared/components/ActionPanel';
+import ContentSubheader from '../shared/components/ContentSubheader';
+import ContentBodyText from '../shared/components/ContentBodyText';
+
 import classNames from './styles/OrganizationContainerStylesheet.css';
 
-class OrganizationContainer extends React.Component {
-  static propTypes = {
-    organization: React.PropTypes.object,
-    query: React.PropTypes.object,
-    children: React.PropTypes.object,
-  };
-  static contextTypes = {
-    loggedIn: React.PropTypes.bool,
-  };
-  acceptResource = relationship => {
-    Relay.Store.commitUpdate(
-      new UpdateOrganizationResourceMutation({
-        organizationResourcePatch: {
-          status: 'ACCEPTED',
-        },
-        organizationResource: relationship,
-      })
-    );
-  }
-  declineResource = relationship => {
-    Relay.Store.commitUpdate(
-      new UpdateOrganizationResourceMutation({
-        organizationResourcePatch: {
-          status: 'DECLINED',
-        },
-        organizationResource: relationship,
-      })
-    );
-  }
-  removeResource = relationship => {
-    Relay.Store.commitUpdate(
-      new DeleteOrganizationResourceMutation({
-        organizationResource: relationship,
-      })
-    );
-  }
-  render () {
-    const {organization, query, children} = this.props;
-    const {loggedIn} = this.context;
+const OrganizationContainer = (props, context) => <TransitionWrapper>
+  <div className={classNames.this}>
+    <Menu
+      baseUrl={`/organization/${props.organization.rowId}`}
+      header={{icon: <IoBriefcase />, title: 'Organization'}}
+      list={[
+        { icon: <IoPlus />, title: 'New Project', url: 'new-project' },
+        { icon: <IoCube />, title: 'Offer Resource', url: 'offer-resource' },
+        { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
+        { icon: <IoEdit />, title: 'Edit', url: 'edit' },
+      ]}
+    />
+    <ContentHeader text={props.organization.name} />
+    <MainContentWrapper
+      right={<Accordion
+        panels={[
+          {
+            header: {
+              icon: <GoRepo />,
+              label: 'Projects',
+            },
+            body: <RelationshipList
+              listItems={props.organization.projectsByOrganizationId.edges.map(edge => ({
+                name: edge.node.name,
+                itemId: edge.node.rowId,
+                itemUrl: 'project',
+              }))}
+            />,
+          },
+          {
+            header: {
+              icon: <IoPerson />,
+              label: 'Members',
+            },
+            body: <RelationshipList
+              listItems={props.organization
+                .organizationMembersByOrganizationId.edges.map(edge => ({
+                  name: edge.node.userByMemberId.name,
+                  itemId: edge.node.userByMemberId.rowId,
+                  itemUrl: 'user',
+                }))
+              }
+            />,
+          },
+          {
+            header: {
+              icon: <IoCube />,
+              label: 'Resources',
+            },
+            body: <RelationshipList
+              listItems={props.organization
+                .organizationResourcesByOrganizationId.edges.map(edge => ({
+                  name: edge.node.resourceByResourceId.name,
+                  itemId: edge.node.resourceByResourceId.rowId,
+                  itemUrl: 'resource',
+                  baseId: props.organization.rowId,
+                  baseUrl: 'organization',
+                  relationshipId: edge.node.id,
+                  status: edge.node.status,
+                  isAdmin: context.loggedIn,
+                }))
+              }
+            />,
+          },
+        ]}
+      />}
+      left={<div>
+        <ActionPanel
+          children={props.children}
+          notifyClose={() => {
+            context.router.replace(`/organization/${props.organization.rowId}`);
+          }}
+        />
+        <ContentSubheader text={props.organization.location} />
+        <ContentBodyText text={props.organization.description} />
+        <HeroImage image={props.organization.imageUrl} />
+      </div>}
+    />
+  </div>
+</TransitionWrapper>;
 
-    return <TransitionWrapper>
-      <div className={classNames.this}>
-        <OrganizationActionTabs
-          isAdmin={loggedIn}
-          organization={organization}
-          query={query}
-        />
-        <div className={classNames.children}>
-          {children}
-        </div>
-        <h3 className={classNames.contentHeading}>{organization.name}</h3>
-        <h4 className={classNames.contentSubheading}>
-          <span className={classNames.location}>{organization.location}</span>
-        </h4>
-        <HeroImage image={organization.imageUrl} />
-        <p className={classNames.description}>{organization.description}</p>
-        <RelationshipList
-          icon={<GoRepo />}
-          title={'Projects'}
-          pathname={'project'}
-          listItems={organization.projectsByOrganizationId.edges.map(edge => ({
-            name: edge.node.name,
-            itemId: edge.node.rowId,
-          }))}
-        />
-        <RelationshipList
-          icon={<IoPerson />}
-          title={'Members'}
-          pathname={'user'}
-          listItems={organization.organizationMembersByOrganizationId.edges.map(edge => ({
-            name: edge.node.userByMemberId.name,
-            itemId: edge.node.userByMemberId.rowId,
-          }))}
-        />
-        <RelationshipList
-          icon={<IoCube />}
-          title={'Resources'}
-          pathname={'resource'}
-          listItems={organization.organizationResourcesByOrganizationId.edges.map(edge => ({
-            name: edge.node.resourceByResourceId.name,
-            itemId: edge.node.resourceByResourceId.rowId,
-            relationship: edge.node,
-            status: edge.node.status,
-            isAdmin: loggedIn,
-            accept: this.acceptResource,
-            decline: this.declineResource,
-            remove: this.removeResource,
-          }))}
-        />
-      </div>
-    </TransitionWrapper>;
-  }
-}
+OrganizationContainer.propTypes = {
+  organization: React.PropTypes.object,
+  query: React.PropTypes.object,
+  children: React.PropTypes.object,
+};
+
+OrganizationContainer.contextTypes = {
+  loggedIn: React.PropTypes.bool,
+  router: React.PropTypes.object,
+};
 
 export default Relay.createContainer(OrganizationContainer, {
   initialVariables: {
@@ -112,6 +121,7 @@ export default Relay.createContainer(OrganizationContainer, {
   fragments: {
     organization: () => Relay.QL`
       fragment on Organization {
+        rowId,
         name,
         location,
         imageUrl,
@@ -133,8 +143,6 @@ export default Relay.createContainer(OrganizationContainer, {
                 rowId,
                 name,
               },
-              ${UpdateOrganizationResourceMutation.getFragment('organizationResource')},
-              ${DeleteOrganizationResourceMutation.getFragment('organizationResource')},
             }
           }
         },
@@ -148,12 +156,11 @@ export default Relay.createContainer(OrganizationContainer, {
             }
           }
         },
-        ${OrganizationActionTabs.getFragment('organization')},
       }
     `,
     query: () => Relay.QL`
       fragment on Query {
-        ${OrganizationActionTabs.getFragment('query')},
+        id,
       }
     `,
   },

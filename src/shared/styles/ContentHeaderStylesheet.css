@@ -1,0 +1,4 @@
+.this {}
+.title {
+  composes: contentHeading from './_typography.css';
+}

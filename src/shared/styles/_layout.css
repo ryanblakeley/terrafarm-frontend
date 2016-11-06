@@ -1,32 +1,22 @@
 .page { position: relative; margin: 0 auto; width: 100%; }
-.page--smallWidth { margin: 0 auto; max-width: 300px; }
-.center { text-align: center; margin: 0 auto; }
-.actionForm { margin: 0 auto; }
-.actionFormMessage { text-align: center; margin: 25px auto; max-width: 320px; }
-.actionFormButtons { text-align: center; margin-top: 25px; width: 100%; }
-.smallWidth { margin: 0 auto; width: 280px; }
-.relationships { margin: 2.33em auto 1.67em; width: 280px; }
-.description { margin: 1.67em auto 3em; width: 280px; }
+.page--smallWidth { position: relative; margin: 0 auto; max-width: 300px; }
+.page--fullWidth { position: relative; margin: 0 auto; width: 100%; }
+.center { text-align: center; margin: 0 auto; width: 100%; }
+.description { margin: 1.67em auto 3em; width: 280px; text-align: center; }
 
 @media only screen and (min-width: 320px) {
   .page { width: 300px; }
 }
 @media only screen and (min-width: 375px) {
   .page,
-  .smallWidth { width: 320px; }
-  .relationships { width: 320px; }
   .description { width: 320px; }
 }
 @media only screen and (min-width: 500px) {
   .page { width: 480px; }
-  .smallWidth { width: 350px; }
-  .relationships { width: 350px; }
   .description { width: 350px; }
 }
 @media only screen and (min-width: 680px) {
   .page { width: 650px; }
-  .smallWidth { width: 480px; }
-  .relationships { width: 480px; }
   .description { width: 480px; }
 }
 /*

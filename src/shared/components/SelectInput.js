@@ -10,7 +10,9 @@ export default class SelectInput extends React.Component {
     style: React.PropTypes.object,
     label: React.PropTypes.string,
     placeholder: React.PropTypes.string,
-    initialValue: React.PropTypes.number,
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.string, React.PropTypes.number,
+    ]),
     validations: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.object,
@@ -33,7 +35,7 @@ export default class SelectInput extends React.Component {
         underlineFocusStyle={{borderColor: blueGrey900}}
         hintText={this.props.placeholder}
         floatingLabelText={this.props.label}
-        value={this.props.initialValue}
+        value={this.props.value}
         validations={this.props.validations}
         required={this.props.required}
       >

@@ -1,0 +1,7 @@
+.this {}
+.label {
+  composes: articleSubheading from './_typography.css';
+}
+.text {
+  composes: bodyText from './_typography.css';
+}

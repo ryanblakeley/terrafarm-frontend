@@ -3,7 +3,18 @@
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
-  border-width: 6px;
+  border-width: 3px;
   border-style: solid;
   border-radius: 2px;
+}
+.emptyWarning {
+  display: flex; justify-content: center; align-items: center;
+  height: 100%;
+}
+.emptyWarningText {
+  composes: contentSubheading from './_typography.css';
+  font-style: italic;
+  font-weight: 400;
+  opacity: 0.88;
+  text-align: center;
 }

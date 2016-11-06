@@ -25,15 +25,21 @@ export default class TextInput extends React.Component {
     },
   };
   render () {
-    const { updateImmediately, initialValue, ...rest } = this.props;
+    const {
+      updateImmediately,
+      initialValue,
+      placeholder,
+      label,
+      ...rest,
+    } = this.props;
 
     return (
       <FormsyText
         {...rest}
         floatingLabelStyle={{color: blueGrey900}}
         underlineFocusStyle={{borderColor: blueGrey900}}
-        hintText={this.props.placeholder}
-        floatingLabelText={this.props.label}
+        hintText={placeholder}
+        floatingLabelText={label}
         value={initialValue}
       />
     );

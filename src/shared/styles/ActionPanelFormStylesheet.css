@@ -1,0 +1,3 @@
+.title { composes: articleHeading from './_typography.css'; }
+.buttons { composes: center from './_layout.css'; margin-top: 25px; }
+.bodyText {}

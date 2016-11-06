@@ -16,7 +16,11 @@ const HeroImage = props => <div
       backgroundImage: `url(${props.image})`,
     })
   }
-/>;
+>
+  {!props.image && <div className={classNames.emptyWarning}>
+    <h4 className={classNames.emptyWarningText}>(Image not provided)</h4>
+  </div>}
+</div>;
 
 HeroImage.propTypes = {
   image: React.PropTypes.string,

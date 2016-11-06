@@ -1,100 +1,108 @@
 import React from 'react';
 import Relay from 'react-relay';
+// Icons
+import IoEdit from 'react-icons/lib/io/edit';
+import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
+import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
 import GoRepo from 'react-icons/lib/go/repo';
 import IoPerson from 'react-icons/lib/io/person';
 import IoCube from 'react-icons/lib/io/cube';
+// Components
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+import MainContentWrapper from '../shared/components/MainContentWrapper';
+import ContentHeader from '../shared/components/ContentHeader';
 import RelationshipList from '../shared/components/RelationshipList';
-import TaskActionTabs from './components/TaskActionTabs';
-import UpdateTaskResourceMutation from './mutations/UpdateTaskResourceMutation';
-import DeleteTaskResourceMutation from './mutations/DeleteTaskResourceMutation';
+import Menu from '../shared/components/Menu';
+import ActionPanel from '../shared/components/ActionPanel';
+import Accordion from '../shared/components/Accordion';
+import ContentBodyText from '../shared/components/ContentBodyText';
+
 import classNames from './styles/TaskContainerStylesheet.css';
 
-class TaskContainer extends React.Component {
-  static propTypes = {
-    task: React.PropTypes.object,
-    query: React.PropTypes.object,
-    children: React.PropTypes.object,
-  };
-  static contextTypes = {
-    loggedIn: React.PropTypes.bool,
-  };
-  acceptResource = relationship => {
-    Relay.Store.commitUpdate(
-      new UpdateTaskResourceMutation({
-        taskResourcePatch: {
-          status: 'ACCEPTED',
-        },
-        taskResource: relationship,
-      })
-    );
-  }
-  declineResource = relationship => {
-    Relay.Store.commitUpdate(
-      new UpdateTaskResourceMutation({
-        taskResourcePatch: {
-          status: 'DECLINED',
-        },
-        taskResource: relationship,
-      })
-    );
-  }
-  removeResource = relationship => {
-    Relay.Store.commitUpdate(
-      new DeleteTaskResourceMutation({
-        taskResource: relationship,
-      })
-    );
-  }
-  render () {
-    const {task, query, children} = this.props;
-    const {loggedIn} = this.context;
+const TaskContainer = (props, context) => <TransitionWrapper>
+  <div className={classNames.this}>
+    <Menu
+      baseUrl={`/task/${props.task.rowId}`}
+      header={{icon: <IoIosPaperOutline />, title: 'Task'}}
+      list={[
+        { icon: <IoCube />, title: 'Offer Resource', url: 'offer-resource' },
+        { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
+        { icon: <IoEdit />, title: 'Edit', url: 'edit' },
+      ]}
+    />
+    <ContentHeader text={props.task.name} />
+    <MainContentWrapper
+      right={<Accordion
+        panels={[
+          {
+            header: {
+              icon: <GoRepo />,
+              label: 'Parent Project',
+            },
+            body: <RelationshipList
+              listItems={[{
+                name: props.task.projectByProjectId.name,
+                itemId: props.task.projectByProjectId.rowId,
+                itemUrl: 'project',
+              }]}
+            />,
+          },
+          {
+            header: {
+              icon: <IoPerson />,
+              label: 'Author',
+            },
+            body: <RelationshipList
+              listItems={[{
+                name: props.task.userByAuthorId.name,
+                itemId: props.task.userByAuthorId.rowId,
+                itemUrl: 'user',
+              }]}
+            />,
+          },
+          {
+            header: {
+              icon: <IoCube />,
+              label: 'Resources',
+            },
+            body: <RelationshipList
+              listItems={props.task.taskResourcesByTaskId.edges.map(edge => ({
+                name: edge.node.resourceByResourceId.name,
+                itemId: edge.node.resourceByResourceId.rowId,
+                itemUrl: 'resource',
+                baseId: props.task.rowId,
+                baseUrl: 'task',
+                relationshipId: edge.node.id,
+                status: edge.node.status,
+                isAdmin: context.loggedIn,
+              }))}
+            />,
+          },
+        ]}
+      />}
+      left={<div>
+        <ActionPanel
+          children={props.children}
+          notifyClose={() => (
+            context.router.replace(`/task/${props.task.rowId}`)
+          )}
+        />
+        <ContentBodyText text={props.task.description} />
+      </div>}
+    />
+  </div>
+</TransitionWrapper>;
 
-    return <TransitionWrapper>
-      <div className={classNames.this}>
-        <TaskActionTabs task={task} query={query} isAdmin={loggedIn} />
-        <div className={classNames.children}>
-          {children}
-        </div>
-        <h3 className={classNames.contentHeading}>{task.name}</h3>
-        <p className={classNames.description}>{task.description}</p>
-        <RelationshipList
-          icon={<GoRepo />}
-          title={'Parent Project'}
-          pathname={'project'}
-          listItems={[{
-            name: task.projectByProjectId.name,
-            itemId: task.projectByProjectId.rowId,
-          }]}
-        />
-        <RelationshipList
-          icon={<IoPerson />}
-          title={'Author'}
-          pathname={'user'}
-          listItems={[{
-            name: task.userByAuthorId.name,
-            itemId: task.userByAuthorId.rowId,
-          }]}
-        />
-        <RelationshipList
-          icon={<IoCube />}
-          title={'Resources'}
-          pathname={'resource'}
-          listItems={task.taskResourcesByTaskId.edges.map(edge => ({
-            name: edge.node.resourceByResourceId.name,
-            itemId: edge.node.resourceByResourceId.rowId,
-            relationship: edge.node,
-            status: edge.node.status,
-            isAdmin: loggedIn,
-            accept: this.acceptResource,
-            decline: this.declineResource,
-            remove: this.removeResource,
-          }))}
-        />
-      </div>
-    </TransitionWrapper>;
-  }
-}
+TaskContainer.propTypes = {
+  task: React.PropTypes.object,
+  query: React.PropTypes.object,
+  children: React.PropTypes.object,
+};
+
+TaskContainer.contextTypes = {
+  loggedIn: React.PropTypes.bool,
+  router: React.PropTypes.object,
+};
 
 export default Relay.createContainer(TaskContainer, {
   initialVariables: {
@@ -103,6 +111,7 @@ export default Relay.createContainer(TaskContainer, {
   fragments: {
     task: () => Relay.QL`
       fragment on Task {
+        rowId,
         name,
         description,
         projectByProjectId {
@@ -116,22 +125,20 @@ export default Relay.createContainer(TaskContainer, {
         taskResourcesByTaskId(first: 10) {
           edges {
             node {
+              id,
               status,
               resourceByResourceId {
                 rowId,
                 name,
               },
-              ${UpdateTaskResourceMutation.getFragment('taskResource')},
-              ${DeleteTaskResourceMutation.getFragment('taskResource')},
             }
           }
         },
-        ${TaskActionTabs.getFragment('task')},
       }
     `,
     query: () => Relay.QL`
       fragment on Query {
-        ${TaskActionTabs.getFragment('query')},
+        id,
       }
     `,
   },

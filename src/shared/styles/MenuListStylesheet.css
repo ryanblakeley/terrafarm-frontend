@@ -1,0 +1,17 @@
+.this {
+  position: absolute;
+  display: none;
+  opacity: 0;
+  width: 100%;
+  transition: all 300ms ease;
+  border-width: 3px;
+  border-style: solid;
+  border-color: rgb(55,71,79);
+  border-radius: 2px;
+  border-top: none;
+  background-color: rgba(239,235,233 ,0.92);
+}
+.this.open {
+  display: block;
+  opacity: 1;
+}

@@ -1,0 +1,7 @@
+.this {
+  position: relative;
+  z-index: 110;
+  margin: 0 auto;
+  width: 92%;
+  max-width: 390px;
+}

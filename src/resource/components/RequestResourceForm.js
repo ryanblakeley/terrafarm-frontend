@@ -1,58 +1,27 @@
 import React from 'react';
 import Relay from 'react-relay';
-import Formsy from 'formsy-react';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
+import ActionPanelForm from '../../shared/components/ActionPanelForm';
+import Radio from '../../shared/components/Radio';
+import RadioGroup from '../../shared/components/RadioGroup';
 import SelectInput from '../../shared/components/SelectInput';
+// import SelectInputItem from '../../shared/components/SelectInputItem';
 import CreateOrganizationResourceMutation from '../../organization/mutations/CreateOrganizationResourceMutation';
 import CreateProjectResourceMutation from '../../project/mutations/CreateProjectResourceMutation';
 import CreateTaskResourceMutation from '../../task/mutations/CreateTaskResourceMutation';
 
 import classNames from '../styles/RequestResourceFormStylesheet.css';
 
-const styles = {
-  block: {
-    maxWidth: 250,
-  },
-  radioButton: {
-    marginBottom: 16,
-  },
-};
-
-class RequestObjectiveForm extends React.Component {
+class RequestResourceForm extends React.Component {
   static propTypes = {
     resource: React.PropTypes.object,
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
-  static contextTypes = {
-    router: React.PropTypes.object,
-  };
   state = {
-    canSubmit: false,
     submitFor: 'task',
   };
-  handleValid = () => {
-    this.setState({ canSubmit: true });
-  }
-  handleInvalid = () => {
-    this.setState({ canSubmit: false });
-  }
-  handleClose = () => {
-    const {notifyClose} = this.props;
-    if (notifyClose) notifyClose();
-  }
-  handleFormError = data => {
-    console.error('Form error:', data);
-  }
   handleSubmit = data => {
-    if (!this.state.canSubmit) {
-      console.warn('Form is not valid');
-      return;
-    }
-
     if (this.state.submitFor === 'organization') {
       this.submitForOrganization(data);
     } else if (this.state.submitFor === 'project') {
@@ -60,8 +29,6 @@ class RequestObjectiveForm extends React.Component {
     } else if (this.state.submitFor === 'task') {
       this.submitForTask(data);
     }
-
-    this.handleClose();
   }
   submitForOrganization (data) {
     Relay.Store.commitUpdate(
@@ -94,96 +61,71 @@ class RequestObjectiveForm extends React.Component {
     this.setState({submitFor: value});
   }
   render () {
-    const {query} = this.props;
-    const {canSubmit, submitFor} = this.state;
+    const {query, notifyClose} = this.props;
+    const {submitFor} = this.state;
 
-    return <div className={classNames.this} >
-      <Formsy.Form
-        onValid={this.handleValid}
-        onInvalid={this.handleInvalid}
-        onValidSubmit={this.handleSubmit}
-        onInvalidSubmit={this.handleFormError}
+    return <ActionPanelForm
+      title={'Request Resource'}
+      notifyClose={notifyClose}
+      onValidSubmit={this.handleSubmit}
+    >
+      <p className={classNames.text}>
+        For:
+      </p>
+      <RadioGroup
+        name={'submitFor'}
+        defaultSelected={'task'}
+        onChange={this.handleChange}
+        required
       >
-        <RadioButtonGroup
-          name={'submitFor'}
-          defaultSelected={'task'}
-          onChange={this.handleChange}
-          className={classNames.radioButtonGroup}
+        <Radio value={'organization'} label={'Organization'} />
+        <Radio value={'project'} label={'Project'} />
+        <Radio value={'task'} label={'Task'} />
+      </RadioGroup>
+      {submitFor === 'organization'
+        && <SelectInput
+          name={'organization'}
+          label={'Select an organization'}
+          required
         >
-          <RadioButton
-            value={'organization'}
-            label={'Organization'}
-            style={styles.radioButton}
-          />
-          <RadioButton
-            value={'project'}
-            label={'Project'}
-            style={styles.radioButton}
-          />
-          <RadioButton
-            value={'task'}
-            label={'Task'}
-            style={styles.radioButton}
-          />
-        </RadioButtonGroup>
-        {submitFor === 'organization'
-          && <SelectInput
-            name={'organization'}
-            label={'Select an organization'}
-            required
-          >
-            {query.allOrganizations.edges.map(edge => <MenuItem
-              value={edge.node}
-              key={edge.node.id}
-              primaryText={edge.node.name}
-            />)}
-          </SelectInput>
-        }
-        {submitFor === 'project'
-          && <SelectInput
-            name={'project'}
-            label={'Select a project'}
-            required
-          >
-            {query.allProjects.edges.map(edge => <MenuItem
-              value={edge.node}
-              key={edge.node.id}
-              primaryText={edge.node.name}
-            />)}
-          </SelectInput>
-        }
-        {submitFor === 'task'
-          && <SelectInput
-            name={'task'}
-            label={'Select a task'}
-            required
-          >
-            {query.allTasks.edges.map(edge => <MenuItem
-              value={edge.node}
-              key={edge.node.id}
-              primaryText={edge.node.name}
-            />)}
-          </SelectInput>
-        }
-        <div className={classNames.buttons}>
-          <FlatButton
-            label={'Cancel'}
-            secondary
-            onTouchTap={this.handleClose}
-          />
-          <RaisedButton
-            label={'Save'}
-            primary
-            type={'submit'}
-            disabled={!canSubmit}
-          />
-        </div>
-      </Formsy.Form>
-    </div>;
+          {query.allOrganizations.edges.map(edge => <MenuItem
+            value={edge.node}
+            key={edge.node.id}
+            primaryText={edge.node.name}
+          />)}
+        </SelectInput>
+      }
+      {submitFor === 'project'
+        && <SelectInput
+          name={'project'}
+          label={'Select a project'}
+          required
+        >
+          {query.allProjects.edges.map(edge => <MenuItem
+            value={edge.node}
+            key={edge.node.id}
+            primaryText={edge.node.name}
+          />)}
+        </SelectInput>
+      }
+      {submitFor === 'task'
+        && <SelectInput
+          name={'task'}
+          label={'Select a task'}
+          required
+        >
+          {query.allTasks.edges.map(edge => <MenuItem
+            value={edge.node}
+            key={edge.node.id}
+            primaryText={edge.node.name}
+          />)}
+        </SelectInput>
+      }
+    </ActionPanelForm>;
   }
 }
 
-export default Relay.createContainer(RequestObjectiveForm, {
+export default Relay.createContainer(RequestResourceForm, {
   initialVariables: {
     resourceId: null,
   },

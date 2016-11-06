@@ -4,7 +4,7 @@ import classNames from '../styles/TaglineStylesheet.css';
 
 const Tagline = () => <div className={classNames.this}>
   <p className={classNames.text}>
-    Crowdsource local<br />
+    Crowdsource<span className={classNames.break} />
     food systems
   </p>
 </div>;

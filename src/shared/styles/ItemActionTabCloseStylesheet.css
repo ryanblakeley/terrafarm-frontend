@@ -1,5 +1,0 @@
-.this { text-align: center; }
-.button { display: flex; flex-direction: column; }
-.icon {
-  composes: icon from './_typography.css';
-}

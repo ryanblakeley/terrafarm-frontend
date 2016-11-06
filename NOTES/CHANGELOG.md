@@ -4,6 +4,15 @@
 
 ### HEAD
 
+- new menu and action panel
+- frontend permission logic for resource allocations
+- resource allocation life cycle
+- implement currentPerson
+- forms as routes/containers
+  - caveats
+    - deleting a project orphans tasks
+    - deleting organization orphans projects
+    - delete resource leaves false connections in Relay, fixed with a refresh
 - update icons
 - change layout for app header and page menu
 - add relationship lists

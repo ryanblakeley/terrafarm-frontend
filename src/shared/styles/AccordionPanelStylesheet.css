@@ -1,0 +1,9 @@
+.header { display: flex; align-items: center; }
+.iconWrapper { margin: -4px 15px 0 0; }
+.icon {
+  composes: icon from './_typography.css';
+}
+.labelWrapper {}
+.label {
+  composes: articleSubheading from './_typography.css';
+}

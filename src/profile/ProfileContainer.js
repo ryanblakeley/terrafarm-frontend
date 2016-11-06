@@ -1,52 +1,88 @@
 import React from 'react';
 import Relay from 'react-relay';
+// Icons
+import IoEdit from 'react-icons/lib/io/edit';
+import IoPerson from 'react-icons/lib/io/person';
+import IoPlus from 'react-icons/lib/io/plus';
 import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import IoCube from 'react-icons/lib/io/cube';
 import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
+// Components
 import TransitionWrapper from '../shared/components/TransitionWrapper';
+import MainContentWrapper from '../shared/components/MainContentWrapper';
+import ContentHeader from '../shared/components/ContentHeader';
 import HeroImage from '../shared/components/HeroImage';
 import RelationshipList from '../shared/components/RelationshipList';
-import ProfileActionTabs from './components/ProfileActionTabs';
+import Menu from '../shared/components/Menu';
+import ActionPanel from '../shared/components/ActionPanel';
+import Accordion from '../shared/components/Accordion';
+import ContentSubheader from '../shared/components/ContentSubheader';
+import ContentBodyText from '../shared/components/ContentBodyText';
+
 import classNames from './styles/ProfileContainerStylesheet.css';
 
-const ProfileContainer = props => <TransitionWrapper>
+const ProfileContainer = (props, context) => <TransitionWrapper>
   <div className={classNames.this}>
-    <ProfileActionTabs user={props.user} query={props.query} />
-    <div className={classNames.children}>
-      {props.children}
-    </div>
-    <h3 className={classNames.contentHeading}>{props.user.name}</h3>
-    <h4 className={classNames.contentSubheading}>
-      <span className={classNames.location}>{props.user.location}</span>
-    </h4>
-    <HeroImage image={props.user.imageUrl} />
-    <p className={classNames.description}>{props.user.description}</p>
-    <RelationshipList
-      icon={<IoIosBriefcase />}
-      title={'Organizations'}
-      pathname={'organization'}
-      listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
-        name: edge.node.organizationByOrganizationId.name,
-        itemId: edge.node.organizationByOrganizationId.rowId,
-      }))}
+    <Menu
+      baseUrl={'/profile'}
+      header={{icon: <IoPerson />, title: 'Profile'}}
+      list={[
+        { icon: <IoPlus />, title: 'New Resource', url: 'new-resource' },
+        { icon: <IoPlus />, title: 'New Organization', url: 'new-organization' },
+        { icon: <IoEdit />, title: 'Edit', url: 'edit' },
+      ]}
     />
-    <RelationshipList
-      icon={<IoIosPaperOutline />}
-      title={'Tasks'}
-      pathname={'task'}
-      listItems={props.user.tasksByAuthorId.edges.map(edge => ({
-        name: edge.node.name,
-        itemId: edge.node.rowId,
-      }))}
-    />
-    <RelationshipList
-      icon={<IoCube />}
-      title={'Resources'}
-      pathname={'resource'}
-      listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
-        name: edge.node.name,
-        itemId: edge.node.rowId,
-      }))}
+    <ContentHeader text={props.user.name} />
+    <MainContentWrapper
+      right={<Accordion
+        panels={[
+          {
+            header: {
+              icon: <IoIosBriefcase />,
+              label: 'Organizations',
+            },
+            body: <RelationshipList
+              listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
+                name: edge.node.organizationByOrganizationId.name,
+                itemId: edge.node.organizationByOrganizationId.rowId,
+                itemUrl: 'organization',
+              }))}
+            />,
+          },
+          {
+            header: {
+              icon: <IoIosPaperOutline />,
+              label: 'Tasks',
+            },
+            body: <RelationshipList
+              listItems={props.user.tasksByAuthorId.edges.map(edge => ({
+                name: edge.node.name,
+                itemId: edge.node.rowId,
+                itemUrl: 'task',
+              }))}
+            />,
+          },
+          {
+            header: {
+              icon: <IoCube />,
+              label: 'Resources',
+            },
+            body: <RelationshipList
+              listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
+                name: edge.node.name,
+                itemId: edge.node.rowId,
+                itemUrl: 'resource',
+              }))}
+            />,
+          },
+        ]}
+      />}
+      left={<div>
+        <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
+        <ContentSubheader text={props.user.location} />
+        <ContentBodyText text={props.user.description} />
+        <HeroImage image={props.user.imageUrl} />
+      </div>}
     />
   </div>
 </TransitionWrapper>;
@@ -58,6 +94,10 @@ ProfileContainer.propTypes = {
     React.PropTypes.object,
     React.PropTypes.array,
   ]),
+};
+
+ProfileContainer.contextTypes = {
+  router: React.PropTypes.object,
 };
 
 export default Relay.createContainer(ProfileContainer, {
@@ -97,12 +137,11 @@ export default Relay.createContainer(ProfileContainer, {
             }
           }
         },
-        ${ProfileActionTabs.getFragment('user')},
       }
     `,
     query: () => Relay.QL`
       fragment on Query {
-        ${ProfileActionTabs.getFragment('query')},
+        id,
       }
     `,
   },

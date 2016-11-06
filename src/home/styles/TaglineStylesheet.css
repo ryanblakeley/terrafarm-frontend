@@ -5,3 +5,9 @@
   composes: largeBodyText from '../../shared/styles/_typography.css';
   margin: 0 auto; padding: 0.67em 0;
 }
+.break { display: block; }
+
+@media only screen and (min-width: 520px) {
+  .break { display: inline; }
+  .break:before { display: inline; content: ' '; }
+}
