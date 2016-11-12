@@ -89,7 +89,6 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
 
 ProfileContainer.propTypes = {
   user: React.PropTypes.object,
-  query: React.PropTypes.object,
   children: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.array,
@@ -137,11 +136,6 @@ export default Relay.createContainer(ProfileContainer, {
             }
           }
         },
-      }
-    `,
-    query: () => Relay.QL`
-      fragment on Query {
-        id,
       }
     `,
   },
