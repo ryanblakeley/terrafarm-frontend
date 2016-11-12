@@ -13,5 +13,6 @@
   color: red;
 }
 .buttons {
-  composes: actionFormButtons from '../../shared/styles/_layout.css';
+  composes: center from '../../shared/styles/_layout.css';
+  margin-top: 15px;
 }
