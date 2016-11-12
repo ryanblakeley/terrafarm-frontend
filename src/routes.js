@@ -12,20 +12,22 @@ import BrowseContainer from './browse/BrowseContainer';
 import QueryQueries from './shared/QueryQueries';
 
 import ProfileContainer from './profile/ProfileContainer';
-import ProfileQueries from './profile/ProfileQueries';
 import JoinOrganizationContainer from './profile/JoinOrganizationContainer';
-import JoinOrganizationQueries from './profile/JoinOrganizationQueries';
 import CreateResourceForm from './profile/components/CreateResourceForm';
 import CreateOrganizationForm from './profile/components/CreateOrganizationForm';
 import EditProfileForm from './profile/components/EditProfileForm';
+import ProfileQueries from './profile/ProfileQueries';
+import ProfileQueryQueries from './profile/ProfileQueryQueries';
+import JoinOrganizationQueries from './profile/JoinOrganizationQueries';
 
 import UserContainer from './user/UserContainer';
 import UserQueries from './user/UserQueries';
 
 import ResourceContainer from './resource/ResourceContainer';
-import ResourceQueries from './resource/ResourceQueries';
 import EditResourceForm from './resource/components/EditResourceForm';
 import RequestResourceForm from './resource/components/RequestResourceForm';
+import ResourceQueries from './resource/ResourceQueries';
+import ResourceCurrentPersonQueries from './resource/ResourceCurrentPersonQueries';
 
 import OrganizationContainer from './organization/OrganizationContainer';
 import RequestResourceForOrganizationForm
@@ -142,8 +144,8 @@ const routes = (
         />
       </Route>
       <Route path={'edit'} component={EditProfileForm} queries={UserQueries} />
-      <Route path={'new-resource'} component={CreateResourceForm} queries={ProfileQueries} />
-      <Route path={'new-organization'} component={CreateOrganizationForm} queries={ProfileQueries} />
+      <Route path={'new-resource'} component={CreateResourceForm} queries={ProfileQueryQueries} />
+      <Route path={'new-organization'} component={CreateOrganizationForm} queries={ProfileQueryQueries} />
     </Route>
     <Route
       path={'browse'}
@@ -167,7 +169,7 @@ const routes = (
         queries={ResourceQueries}
         renderLoading={renderLoading}
       >
-        <Route path={'request-resource'} component={RequestResourceForm} queries={ResourceQueries} />
+        <Route path={'request-resource'} component={RequestResourceForm} queries={ResourceCurrentPersonQueries} />
         <Route path={'edit'} component={EditResourceForm} queries={ResourceQueries} />
       </Route>
     </Route>

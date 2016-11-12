@@ -15,7 +15,7 @@ import classNames from '../styles/RequestResourceFormStylesheet.css';
 class RequestResourceForm extends React.Component {
   static propTypes = {
     resource: React.PropTypes.object,
-    query: React.PropTypes.object,
+    currentPerson: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
   state = {
@@ -61,8 +61,23 @@ class RequestResourceForm extends React.Component {
     this.setState({submitFor: value});
   }
   render () {
-    const {query, notifyClose} = this.props;
+    const {currentPerson, notifyClose} = this.props;
     const {submitFor} = this.state;
+
+    const { organizationMembersByMemberId, tasksByAuthorId } = currentPerson;
+
+    let tasksToConsider = organizationMembersByMemberId.edges.reduce((acc, cur) => acc.concat(
+      cur.node.organizationByOrganizationId
+        .projectsByOrganizationId.edges.reduce((acc2, cur2) => acc2.concat(
+          cur2.node.tasksByProjectId.edges
+        ), [])
+    ), []);
+
+    const otherTasksToConsider = tasksByAuthorId.edges.filter(edge => (
+      tasksToConsider.find(edge2 => edge2.node.rowId === edge.node.rowId) < 0
+    ));
+
+    tasksToConsider = tasksToConsider.concat(otherTasksToConsider);
 
     return <ActionPanelForm
       title={'Request Resource'}
@@ -88,11 +103,13 @@ class RequestResourceForm extends React.Component {
           label={'Select an organization'}
           required
         >
-          {query.allOrganizations.edges.map(edge => <MenuItem
-            value={edge.node}
-            key={edge.node.id}
-            primaryText={edge.node.name}
-          />)}
+          {organizationMembersByMemberId.edges.map(edge => (
+            <MenuItem
+              value={edge.node.organizationByOrganizationId}
+              key={edge.node.organizationByOrganizationId.rowId}
+              primaryText={edge.node.organizationByOrganizationId.name}
+            />
+          ))}
         </SelectInput>
       }
       {submitFor === 'project'
@@ -101,11 +118,16 @@ class RequestResourceForm extends React.Component {
           label={'Select a project'}
           required
         >
-          {query.allProjects.edges.map(edge => <MenuItem
-            value={edge.node}
-            key={edge.node.id}
-            primaryText={edge.node.name}
-          />)}
+          {organizationMembersByMemberId.edges.reduce((acc, cur) => acc.concat(
+            cur.node.organizationByOrganizationId
+              .projectsByOrganizationId.edges.map(edge => (
+                <MenuItem
+                  value={edge.node}
+                  key={edge.node.rowId}
+                  primaryText={edge.node.name}
+                />
+              ))
+          ), [])}
         </SelectInput>
       }
       {submitFor === 'task'
@@ -114,11 +136,13 @@ class RequestResourceForm extends React.Component {
           label={'Select a task'}
           required
         >
-          {query.allTasks.edges.map(edge => <MenuItem
-            value={edge.node}
-            key={edge.node.id}
-            primaryText={edge.node.name}
-          />)}
+          {tasksToConsider.map(edge => (
+            <MenuItem
+              value={edge.node}
+              key={edge.node.rowId}
+              primaryText={edge.node.name}
+            />
+          ))}
         </SelectInput>
       }
     </ActionPanelForm>;
@@ -137,30 +161,41 @@ export default Relay.createContainer(RequestResourceForm, {
         ${CreateTaskResourceMutation.getFragment('resource')},
       }
     `,
-    query: () => Relay.QL`
-      fragment on Query {
-        allOrganizations(first: 10) {
+    currentPerson: () => Relay.QL`
+      fragment on User {
+        organizationMembersByMemberId(first: 5) {
           edges {
             node {
-              id,
-              name,
-              ${CreateOrganizationResourceMutation.getFragment('organization')},
+              organizationByOrganizationId {
+                rowId,
+                name,
+                projectsByOrganizationId(first: 8) {
+                  edges {
+                    node {
+                      rowId,
+                      name,
+                      tasksByProjectId(first: 5) {
+                        edges {
+                          node {
+                            rowId,
+                            name,
+                            ${CreateTaskResourceMutation.getFragment('task')},
+                          }
+                        }
+                      },
+                      ${CreateProjectResourceMutation.getFragment('project')},
+                    }
+                  }
+                },
+                ${CreateOrganizationResourceMutation.getFragment('organization')},
+              }
             }
           }
         },
-        allProjects(first: 10) {
+        tasksByAuthorId(first: 10) {
           edges {
             node {
-              id,
-              name,
-              ${CreateProjectResourceMutation.getFragment('project')},
-            }
-          }
-        },
-        allTasks(first: 10) {
-          edges {
-            node {
-              id,
+              rowId,
               name,
               ${CreateTaskResourceMutation.getFragment('task')},
             }
