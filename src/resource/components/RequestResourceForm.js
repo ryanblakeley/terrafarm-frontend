@@ -20,15 +20,39 @@ class RequestResourceForm extends React.Component {
   };
   state = {
     submitFor: 'task',
+    tasksToConsider: [],
   };
-  handleSubmit = data => {
-    if (this.state.submitFor === 'organization') {
-      this.submitForOrganization(data);
-    } else if (this.state.submitFor === 'project') {
-      this.submitForProject(data);
-    } else if (this.state.submitFor === 'task') {
-      this.submitForTask(data);
-    }
+  componentWillMount () {
+    const {currentPerson} = this.props;
+    const {organizationMembersByMemberId, tasksByAuthorId} = currentPerson;
+    this.setTasksToConsider(organizationMembersByMemberId, tasksByAuthorId);
+    this.setProjectsToConsider(organizationMembersByMemberId);
+  }
+  setTasksToConsider (viaOrganizations, viaAuthor) {
+    const tasksViaOrganizations = viaOrganizations
+      .edges.reduce((accrue, current) => accrue.concat(
+        current.node.organizationByOrganizationId.projectsByOrganizationId
+          .edges.reduce((accrue2, current2) => accrue2.concat(
+            current2.node.tasksByProjectId.edges
+          ), [])
+      ), []);
+    const tasksViaAuthor = viaAuthor.edges.filter(edge => (
+      tasksViaOrganizations.find(edge2 => edge2.node.rowId === edge.node.rowId) < 0
+    ));
+
+    this.setState({
+      tasksToConsider: tasksViaOrganizations.concat(tasksViaAuthor),
+    });
+  }
+  setProjectsToConsider (viaOrganizations) {
+    const projectsViaOrganizations = viaOrganizations
+      .edges.reduce((accrue, current) => accrue.concat(
+        current.node.organizationByOrganizationId.projectsByOrganizationId.edges
+      ), []);
+
+    this.setState({
+      projectsToConsider: projectsViaOrganizations,
+    });
   }
   submitForOrganization (data) {
     Relay.Store.commitUpdate(
@@ -57,27 +81,22 @@ class RequestResourceForm extends React.Component {
       })
     );
   }
+  handleSubmit = data => {
+    if (this.state.submitFor === 'organization') {
+      this.submitForOrganization(data);
+    } else if (this.state.submitFor === 'project') {
+      this.submitForProject(data);
+    } else if (this.state.submitFor === 'task') {
+      this.submitForTask(data);
+    }
+  }
   handleChange = (event, value) => {
     this.setState({submitFor: value});
   }
   render () {
     const {currentPerson, notifyClose} = this.props;
-    const {submitFor} = this.state;
-
-    const { organizationMembersByMemberId, tasksByAuthorId } = currentPerson;
-
-    let tasksToConsider = organizationMembersByMemberId.edges.reduce((acc, cur) => acc.concat(
-      cur.node.organizationByOrganizationId
-        .projectsByOrganizationId.edges.reduce((acc2, cur2) => acc2.concat(
-          cur2.node.tasksByProjectId.edges
-        ), [])
-    ), []);
-
-    const otherTasksToConsider = tasksByAuthorId.edges.filter(edge => (
-      tasksToConsider.find(edge2 => edge2.node.rowId === edge.node.rowId) < 0
-    ));
-
-    tasksToConsider = tasksToConsider.concat(otherTasksToConsider);
+    const {submitFor, tasksToConsider, projectsToConsider} = this.state;
+    const { organizationMembersByMemberId } = currentPerson;
 
     return <ActionPanelForm
       title={'Request Resource'}
@@ -118,16 +137,11 @@ class RequestResourceForm extends React.Component {
           label={'Select a project'}
           required
         >
-          {organizationMembersByMemberId.edges.reduce((acc, cur) => acc.concat(
-            cur.node.organizationByOrganizationId
-              .projectsByOrganizationId.edges.map(edge => (
-                <MenuItem
-                  value={edge.node}
-                  key={edge.node.rowId}
-                  primaryText={edge.node.name}
-                />
-              ))
-          ), [])}
+          {projectsToConsider.map(edge => <MenuItem
+            value={edge.node}
+            key={edge.node.rowId}
+            primaryText={edge.node.name}
+          />)}
         </SelectInput>
       }
       {submitFor === 'task'
