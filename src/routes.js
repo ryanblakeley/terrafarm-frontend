@@ -28,7 +28,6 @@ import EditResourceForm from './resource/components/EditResourceForm';
 import RequestResourceForm from './resource/components/RequestResourceForm';
 
 import OrganizationContainer from './organization/OrganizationContainer';
-import OrganizationQueries from './organization/OrganizationQueries';
 import RequestResourceForOrganizationForm
   from './organization/components/RequestResourceForOrganizationForm';
 import OfferResourceToOrganizationForm
@@ -36,10 +35,11 @@ import OfferResourceToOrganizationForm
 import EditOrganizationForm from './organization/components/EditOrganizationForm';
 import CreateProjectForm from './organization/components/CreateProjectForm';
 import EditOrganizationResourceForm from './organization/components/EditOrganizationResourceForm';
+import OrganizationQueries from './organization/OrganizationQueries';
+import OrganizationCurrentPersonQueries from './organization/OrganizationCurrentPersonQueries';
 import OrganizationResourceQueries from './organization/OrganizationResourceQueries';
 
 import ProjectContainer from './project/ProjectContainer';
-import ProjectQueries from './project/ProjectQueries';
 import RequestResourceForProjectForm
   from './project/components/RequestResourceForProjectForm';
 import OfferResourceToProjectForm
@@ -47,16 +47,19 @@ import OfferResourceToProjectForm
 import EditProjectForm from './project/components/EditProjectForm';
 import CreateTaskForm from './project/components/CreateTaskForm';
 import EditProjectResourceForm from './project/components/EditProjectResourceForm';
+import ProjectQueries from './project/ProjectQueries';
+import ProjectCurrentPersonQueries from './project/ProjectCurrentPersonQueries';
 import ProjectResourceQueries from './project/ProjectResourceQueries';
 
 import TaskContainer from './task/TaskContainer';
-import TaskQueries from './task/TaskQueries';
 import RequestResourceForTaskForm
   from './task/components/RequestResourceForTaskForm';
 import OfferResourceToTaskForm
   from './task/components/OfferResourceToTaskForm';
 import EditTaskForm from './task/components/EditTaskForm';
 import EditTaskResourceForm from './task/components/EditTaskResourceForm';
+import TaskQueries from './task/TaskQueries';
+import TaskCurrentPersonQueries from './task/TaskCurrentPersonQueries';
 import TaskResourceQueries from './task/TaskResourceQueries';
 
 function prepareProfileParams (params, {location}) {
@@ -176,7 +179,7 @@ const routes = (
         renderLoading={renderLoading}
       >
         <Route path={'request-resource'} component={RequestResourceForOrganizationForm} queries={OrganizationQueries} />
-        <Route path={'offer-resource'} component={OfferResourceToOrganizationForm} queries={OrganizationQueries} />
+        <Route path={'offer-resource'} component={OfferResourceToOrganizationForm} queries={OrganizationCurrentPersonQueries} />
         <Route path={'edit'} component={EditOrganizationForm} queries={OrganizationQueries} />
         <Route path={'new-project'} component={CreateProjectForm} queries={OrganizationQueries} />
         <Route path={'review-allocation'}>
@@ -196,7 +199,7 @@ const routes = (
         renderLoading={renderLoading}
       >
         <Route path={'request-resource'} component={RequestResourceForProjectForm} queries={ProjectQueries} />
-        <Route path={'offer-resource'} component={OfferResourceToProjectForm} queries={ProjectQueries} />
+        <Route path={'offer-resource'} component={OfferResourceToProjectForm} queries={ProjectCurrentPersonQueries} />
         <Route path={'edit'} component={EditProjectForm} queries={ProjectQueries} />
         <Route path={'new-task'} component={CreateTaskForm} queries={ProjectQueries} />
         <Route path={'review-allocation'}>
@@ -216,7 +219,7 @@ const routes = (
         renderLoading={renderLoading}
       >
         <Route path={'request-resource'} component={RequestResourceForTaskForm} queries={TaskQueries} />
-        <Route path={'offer-resource'} component={OfferResourceToTaskForm} queries={TaskQueries} />
+        <Route path={'offer-resource'} component={OfferResourceToTaskForm} queries={TaskCurrentPersonQueries} />
         <Route path={'edit'} component={EditTaskForm} queries={TaskQueries} />
         <Route path={'review-allocation'}>
           <Route

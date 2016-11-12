@@ -9,7 +9,7 @@ import CreateTaskResourceMutation from '../mutations/CreateTaskResourceMutation'
 class OfferResourceToTaskForm extends React.Component {
   static propTypes = {
     task: React.PropTypes.object,
-    query: React.PropTypes.object,
+    currentPerson: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
   handleSubmit = data => {
@@ -24,7 +24,7 @@ class OfferResourceToTaskForm extends React.Component {
     );
   }
   render () {
-    const {query, notifyClose} = this.props;
+    const {currentPerson, notifyClose} = this.props;
 
     return <ActionPanelForm
       title={'Offer Resource'}
@@ -36,7 +36,7 @@ class OfferResourceToTaskForm extends React.Component {
         label={'Select resource to offer'}
         required
       >
-        {query.allResources.edges.map(edge => <MenuItem
+        {currentPerson.resourcesByOwnerId.edges.map(edge => <MenuItem
           value={edge.node}
           key={edge.node.id}
           primaryText={edge.node.name}
@@ -56,9 +56,9 @@ export default Relay.createContainer(OfferResourceToTaskForm, {
         ${CreateTaskResourceMutation.getFragment('task')},
       }
     `,
-    query: () => Relay.QL`
-      fragment on Query {
-        allResources(first: 10) {
+    currentPerson: () => Relay.QL`
+      fragment on User {
+        resourcesByOwnerId(first: 10) {
           edges {
             node {
               id,
