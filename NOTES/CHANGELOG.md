@@ -2,9 +2,9 @@
 
 ## Changelog
 
-### HEAD
+### 1.0.2 2016 Nov 11
 
-- new menu and action panel
+- all new style and layout
 - frontend permission logic for resource allocations
 - resource allocation life cycle
 - implement currentPerson
