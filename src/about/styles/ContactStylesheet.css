@@ -7,7 +7,6 @@
 }
 .text {
   composes: bodyText from '../../shared/styles/_typography.css';
-  text-align: center;
 }
 .link {
   composes: link from '../../shared/styles/_typography.css';
