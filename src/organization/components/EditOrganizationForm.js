@@ -14,6 +14,9 @@ class EditOrganizationForm extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {organization} = this.props;
 
@@ -21,30 +24,45 @@ class EditOrganizationForm extends React.Component {
       new UpdateOrganizationMutation({
         organizationPatch: data,
         organization,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   handleDelete = () => {
     const {organization, query} = this.props;
-    const {router} = this.context;
 
     Relay.Store.commitUpdate(
       new DeleteOrganizationMutation({
         organization,
         query,
-      })
+      }), {
+        onSuccess: this.handleSuccessDelete,
+        onFailure: this.handleFailure,
+      }
     );
-
-    router.push('/profile');
+  }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
+  handleSuccessDelete = response => {
+    const {router} = this.context;
+    router.replace('/profile');
   }
   render () {
     const {organization, notifyClose} = this.props;
-
+    const { error } = this.state;
     return <ActionPanelForm
       title={'Edit Organization'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}
+      error={error}
     >
       <TextInput
         name={'name'}

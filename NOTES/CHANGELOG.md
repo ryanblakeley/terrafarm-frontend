@@ -2,6 +2,14 @@
 
 ## Changelog
 
+### HEAD
+
+- mutation callbacks with form errors
+- handle routes with missing data
+- bounce unauthorized users from routes for forms
+- disable menu if not logged in or no items exist
+- only link status to form if authorized
+
 ### 1.0.2 2016 Nov 11
 
 - all new style and layout

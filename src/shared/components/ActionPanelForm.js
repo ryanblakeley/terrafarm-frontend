@@ -3,6 +3,7 @@ import Formsy from 'formsy-react';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import CloseButton from '../../shared/components/CloseButton';
+import FormError from '../../shared/components/FormError';
 import classNames from '../styles/ActionPanelFormStylesheet.css';
 
 class ActionPanelForm extends React.Component {
@@ -19,9 +20,13 @@ class ActionPanelForm extends React.Component {
     notifyClose: React.PropTypes.func,
     onValidSubmit: React.PropTypes.func,
     onDelete: React.PropTypes.func,
+    error: React.PropTypes.bool,
+    errorMessage: React.PropTypes.string,
   };
   static defaultProps = {
     showForm: true,
+    error: false,
+    errorMessage: 'Internal server error.',
   };
   state = {
     canSubmit: false,
@@ -36,7 +41,13 @@ class ActionPanelForm extends React.Component {
     const {notifyClose} = this.props;
     if (notifyClose) notifyClose();
   }
+  // disabling the submit button should prevent this handler from ever being called
   handleFormError = data => {
+    /*
+    this.setState({
+      errorMessage: 'Form error');
+    });
+    */
     console.error('Form error:', data);
   }
   handleSubmit = data => {
@@ -48,7 +59,8 @@ class ActionPanelForm extends React.Component {
       return;
     } else if (onValidSubmit) {
       onValidSubmit(data);
-      this.handleClose();
+      // delegate closing to the form, which can determine if it was successful or failed
+      // this.handleClose();
     }
   }
   handleDelete = () => {
@@ -58,7 +70,7 @@ class ActionPanelForm extends React.Component {
   }
   render () {
     const {
-      title, children, onDelete, bodyText, showForm, formBlockedMessage,
+      title, children, onDelete, bodyText, showForm, formBlockedMessage, error, errorMessage,
     } = this.props;
     const {canSubmit} = this.state;
 
@@ -78,6 +90,7 @@ class ActionPanelForm extends React.Component {
         onInvalidSubmit={this.handleFormError}
       >
         {showForm && children}
+        {error && <FormError text={errorMessage} /> }
         <div className={classNames.buttons}>
           {onDelete && <FlatButton
             label={'Delete'}

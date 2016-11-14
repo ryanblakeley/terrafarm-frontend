@@ -8,15 +8,8 @@ import {
   green500,
   green700,
   lightBlack,
-  orange100,
-  orange200,
-  orange300,
-  orange400,
-  orange500,
-  orange600,
-  orange700,
-  orange800,
-  orange900,
+  // limeGreen800,
+  // deepOrange700,
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
 import Spacing from 'material-ui/styles/spacing';
@@ -37,14 +30,14 @@ const TerrafarmRawTheme = {
     borderColor: blueGrey300,
     disabledColor: fade(blueGrey900, 0.3),
   },
+  menuItem: {
+    dataHeight: 24,
+    height: 28,
+  },
   tabs: {
     backgroundColor: blueGrey50,
     textColor: blueGrey500,
     selectedTextColor: blueGrey900,
-  },
-  menuItem: {
-    dataHeight: 24,
-    height: 28,
   },
 };
 

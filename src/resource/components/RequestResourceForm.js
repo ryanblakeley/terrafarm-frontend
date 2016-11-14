@@ -21,6 +21,7 @@ class RequestResourceForm extends React.Component {
   state = {
     submitFor: 'task',
     tasksToConsider: [],
+    error: false,
   };
   componentWillMount () {
     const {currentPerson} = this.props;
@@ -60,7 +61,10 @@ class RequestResourceForm extends React.Component {
         resource: this.props.resource,
         organization: data.organization,
         status: 'REQUESTED',
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   submitForProject (data) {
@@ -69,7 +73,10 @@ class RequestResourceForm extends React.Component {
         resource: this.props.resource,
         project: data.project,
         status: 'REQUESTED',
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   submitForTask (data) {
@@ -78,7 +85,10 @@ class RequestResourceForm extends React.Component {
         resource: this.props.resource,
         task: data.task,
         status: 'REQUESTED',
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   handleSubmit = data => {
@@ -93,15 +103,23 @@ class RequestResourceForm extends React.Component {
   handleChange = (event, value) => {
     this.setState({submitFor: value});
   }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
   render () {
     const {currentPerson, notifyClose} = this.props;
-    const {submitFor, tasksToConsider, projectsToConsider} = this.state;
+    const {submitFor, tasksToConsider, projectsToConsider, error} = this.state;
     const { organizationMembersByMemberId } = currentPerson;
 
     return <ActionPanelForm
       title={'Request Resource'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
+      error={error}
     >
       <p className={classNames.text}>
         For:

@@ -10,6 +10,9 @@ class EditProfileForm extends React.Component {
     user: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {user} = this.props;
 
@@ -17,7 +20,10 @@ class EditProfileForm extends React.Component {
       new UpdateUserMutation({
         userPatch: data,
         user,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   /*
@@ -26,23 +32,35 @@ class EditProfileForm extends React.Component {
     const {router} = this.context;
 
     Relay.Store.commitUpdate(
-      new DeleteUserMutation({user})
+      new DeleteUserMutation({user}), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
 
     this.handleClose();
 
     localStorage.removeItem('id_token');
     localStorage.removeItem('user_uuid');
-    router.push('/');
+    router.replace('/');
   }
   */
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
   render () {
     const {user, notifyClose} = this.props;
+    const {error} = this.state;
 
     return <ActionPanelForm
       title={'Edit'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
+      error={error}
     >
       <TextInput
         name={'name'}

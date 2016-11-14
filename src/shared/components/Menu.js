@@ -24,18 +24,24 @@ class Menu extends React.Component {
     enabled: true,
     closeTimeoutId: null,
   };
+  componentWillUnmount () {
+    clearTimeout(this.state.closeTimeoutId);
+    clearTimeout(this.state.openTimeoutId);
+  }
   setOpen = _ => {
-    setTimeout(() => {
-      clearTimeout(this.state.closeTimeoutId);
-      this.setState({
-        open: true,
-      });
-    }, 10);
+    this.setState({
+      openTimeoutId: setTimeout(() => {
+        clearTimeout(this.state.closeTimeoutId);
+        this.setState({
+          open: true,
+        });
+      }, 1),
+    });
   }
   setClose = _ => {
     this.setState({
-      // requestClose: true,
       closeTimeoutId: setTimeout(() => {
+        // clearTimeout(this.state.openTimeoutId);
         this.setState({
           open: false,
         });

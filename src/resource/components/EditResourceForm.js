@@ -14,6 +14,9 @@ class EditResourceForm extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {resource} = this.props;
 
@@ -21,30 +24,46 @@ class EditResourceForm extends React.Component {
       new UpdateResourceMutation({
         resourcePatch: data,
         resource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   handleDelete = () => {
     const {resource, query} = this.props;
-    const {router} = this.context;
 
     Relay.Store.commitUpdate(
       new DeleteResourceMutation({
         resource,
         query,
-      })
+      }), {
+        onSuccess: this.handleSuccessDelete,
+        onFailure: this.handleFailure,
+      }
     );
-
-    router.push('/profile');
+  }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
+  handleSuccessDelete = response => {
+    const {router} = this.context;
+    router.replace('/profile');
   }
   render () {
     const {resource, notifyClose} = this.props;
+    const {error} = this.state;
 
     return <ActionPanelForm
       title={'Edit'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}
+      error={error}
     >
       <TextInput
         name={'name'}

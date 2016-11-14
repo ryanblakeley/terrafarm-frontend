@@ -13,9 +13,11 @@ class CreateProjectForm extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {organization, query} = this.props;
-    const {router} = this.context;
 
     Relay.Store.commitUpdate(
       new CreateProjectMutation({
@@ -23,18 +25,28 @@ class CreateProjectForm extends React.Component {
         organization,
         query,
       }), {
-        onSuccess: response => {
-          const projectId = response.createProject.projectEdge.node.rowId;
-          router.push(`/project/${projectId}`);
-        },
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
       }
     );
   }
+  handleSuccess = response => {
+    const {router} = this.context;
+    const projectId = response.createProject.projectEdge.node.rowId;
+    router.replace(`/project/${projectId}`);
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
   render () {
+    const {notifyClose} = this.props;
+    const {error} = this.state;
     return <ActionPanelForm
       title={'New Project'}
-      notifyClose={this.props.notifyClose}
+      notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
+      error={error}
     >
       <TextInput
         name={'name'}

@@ -8,6 +8,7 @@ import GoRepo from 'react-icons/lib/go/repo';
 import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
 // Components
+import NotFoundPage from '../not-found/NotFoundPage';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import MainContentWrapper from '../shared/components/MainContentWrapper';
 import ContentHeader from '../shared/components/ContentHeader';
@@ -21,102 +22,105 @@ import ContentBodyText from '../shared/components/ContentBodyText';
 
 import classNames from './styles/ResourceContainerStylesheet.css';
 
-const ResourceContainer = (props, context) => <TransitionWrapper>
-  <div className={classNames.this}>
-    <Menu
-      baseUrl={`/resource/${props.resource.rowId}`}
-      header={{icon: <GoRepo />, title: 'Resource'}}
-      disabled={!context.loggedIn}
-      list={[
-        { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
-        { icon: <IoEdit />, title: 'Edit', url: 'edit' },
-      ]}
-    />
-    <ContentHeader text={props.resource.name} />
-    <MainContentWrapper
-      right={<Accordion
-        panels={[
-          {
-            header: {
-              icon: <IoPerson />,
-              label: 'Owner',
-            },
-            body: <RelationshipList
-              listItems={[{
-                name: props.resource.userByOwnerId.name,
-                itemId: props.resource.userByOwnerId.rowId,
-                itemUrl: 'user',
-              }]}
-            />,
-          },
-          {
-            header: {
-              icon: <IoIosBriefcase />,
-              label: 'Organizations',
-            },
-            body: <RelationshipList
-              listItems={props.resource.organizationResourcesByResourceId.edges.map(edge => ({
-                name: edge.node.organizationByOrganizationId.name,
-                itemId: edge.node.organizationByOrganizationId.rowId,
-                itemUrl: 'organization',
-                baseId: edge.node.organizationByOrganizationId.rowId,
-                baseUrl: 'organization',
-                relationshipId: edge.node.id,
-                status: edge.node.status,
-                isAdmin: context.loggedIn,
-              }))}
-            />,
-          },
-          {
-            header: {
-              icon: <GoRepo />,
-              label: 'Projects',
-            },
-            body: <RelationshipList
-              listItems={props.resource.projectResourcesByResourceId.edges.map(edge => ({
-                name: edge.node.projectByProjectId.name,
-                itemId: edge.node.projectByProjectId.rowId,
-                itemUrl: 'project',
-                baseId: edge.node.projectByProjectId.rowId,
-                baseUrl: 'project',
-                relationshipId: edge.node.id,
-                status: edge.node.status,
-                isAdmin: context.loggedIn,
-              }))}
-            />,
-          },
-          {
-            header: {
-              icon: <IoIosPaperOutline />,
-              label: 'Tasks',
-            },
-            body: <RelationshipList
-              listItems={props.resource.taskResourcesByResourceId.edges.map(edge => ({
-                name: edge.node.taskByTaskId.name,
-                itemId: edge.node.taskByTaskId.rowId,
-                itemUrl: 'task',
-                baseId: edge.node.taskByTaskId.rowId,
-                baseUrl: 'task',
-                relationshipId: edge.node.id,
-                status: edge.node.status,
-                isAdmin: context.loggedIn,
-              }))}
-            />,
-          },
+const ResourceContainer = (props, context) => (!props.resource
+  ? <NotFoundPage message={'Resource not found.'} />
+  : <TransitionWrapper>
+    <div className={classNames.this}>
+      <Menu
+        baseUrl={`/resource/${props.resource.rowId}`}
+        header={{icon: <GoRepo />, title: 'Resource'}}
+        disabled={!context.loggedIn}
+        list={[
+          { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
+          { icon: <IoEdit />, title: 'Edit', url: 'edit' },
         ]}
-      />}
-      left={<div>
-        <ActionPanel
-          children={props.children}
-          notifyClose={() => context.router.replace(`/resource/${props.resource.rowId}`)}
-        />
-        <ContentSubheader text={props.resource.location} />
-        <ContentBodyText text={props.resource.description} />
-        <HeroImage image={props.resource.imageUrl} />
-      </div>}
-    />
-  </div>
-</TransitionWrapper>;
+      />
+      <ContentHeader text={props.resource.name} />
+      <MainContentWrapper
+        right={<Accordion
+          panels={[
+            {
+              header: {
+                icon: <IoPerson />,
+                label: 'Owner',
+              },
+              body: <RelationshipList
+                listItems={[{
+                  name: props.resource.userByOwnerId.name,
+                  itemId: props.resource.userByOwnerId.rowId,
+                  itemUrl: 'user',
+                }]}
+              />,
+            },
+            {
+              header: {
+                icon: <IoIosBriefcase />,
+                label: 'Organizations',
+              },
+              body: <RelationshipList
+                listItems={props.resource.organizationResourcesByResourceId.edges.map(edge => ({
+                  name: edge.node.organizationByOrganizationId.name,
+                  itemId: edge.node.organizationByOrganizationId.rowId,
+                  itemUrl: 'organization',
+                  baseId: edge.node.organizationByOrganizationId.rowId,
+                  baseUrl: 'organization',
+                  relationshipId: edge.node.id,
+                  status: edge.node.status,
+                  isAdmin: context.loggedIn,
+                }))}
+              />,
+            },
+            {
+              header: {
+                icon: <GoRepo />,
+                label: 'Projects',
+              },
+              body: <RelationshipList
+                listItems={props.resource.projectResourcesByResourceId.edges.map(edge => ({
+                  name: edge.node.projectByProjectId.name,
+                  itemId: edge.node.projectByProjectId.rowId,
+                  itemUrl: 'project',
+                  baseId: edge.node.projectByProjectId.rowId,
+                  baseUrl: 'project',
+                  relationshipId: edge.node.id,
+                  status: edge.node.status,
+                  isAdmin: context.loggedIn,
+                }))}
+              />,
+            },
+            {
+              header: {
+                icon: <IoIosPaperOutline />,
+                label: 'Tasks',
+              },
+              body: <RelationshipList
+                listItems={props.resource.taskResourcesByResourceId.edges.map(edge => ({
+                  name: edge.node.taskByTaskId.name,
+                  itemId: edge.node.taskByTaskId.rowId,
+                  itemUrl: 'task',
+                  baseId: edge.node.taskByTaskId.rowId,
+                  baseUrl: 'task',
+                  relationshipId: edge.node.id,
+                  status: edge.node.status,
+                  isAdmin: context.loggedIn,
+                }))}
+              />,
+            },
+          ]}
+        />}
+        left={<div>
+          <ActionPanel
+            children={props.children}
+            notifyClose={() => context.router.replace(`/resource/${props.resource.rowId}`)}
+          />
+          <ContentSubheader text={props.resource.location} />
+          <ContentBodyText text={props.resource.description} />
+          <HeroImage image={props.resource.imageUrl} />
+        </div>}
+      />
+    </div>
+  </TransitionWrapper>
+);
 
 ResourceContainer.propTypes = {
   resource: React.PropTypes.object,

@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextInput from '../../shared/components/TextInput';
+import FormError from '../../shared/components/FormError';
 import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
 import classNames from '../styles/LoginFormStylesheet.css';
 
@@ -17,7 +18,7 @@ export default class LoginForm extends Component {
   processLogin = response => {
     const { authenticateUser: { authenticateUserResult } } = response;
 
-    if (authenticateUserResult.userId) {
+    if (authenticateUserResult && authenticateUserResult.userId) {
       this.props.loginUser(authenticateUserResult);
     } else {
       this.setState({ loginError: 'Email and/or Password is incorrect' });
@@ -26,11 +27,14 @@ export default class LoginForm extends Component {
   loginUser = ({ email, password }) => {
     Relay.Store.commitUpdate(
       new AuthenticateUserMutation({ email, password }),
-      { onSuccess: this.processLogin }
+      {
+        onSuccess: this.processLogin,
+      }
     );
   }
   handleValid = () => this.setState({ canSubmit: true });
   handleInvalid = () => this.setState({ canSubmit: false });
+  handleLoginFailure = _ => console.log('failure:', _);
   render () {
     const { loginError, canSubmit } = this.state;
 
@@ -56,9 +60,7 @@ export default class LoginForm extends Component {
             validationError={'A password is required'}
             required
           />
-          { loginError &&
-            <div className={classNames.error}>{loginError}</div>
-          }
+          { loginError && <FormError text={loginError} /> }
           <div className={classNames.buttons}>
             <RaisedButton
               type={'submit'}

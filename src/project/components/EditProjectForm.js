@@ -14,6 +14,9 @@ class EditProjectForm extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {project} = this.props;
 
@@ -21,31 +24,48 @@ class EditProjectForm extends React.Component {
       new UpdateProjectMutation({
         projectPatch: data,
         project,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   handleDelete = () => {
     const {project, query} = this.props;
-    const {router} = this.context;
-    const organizationId = project.organizationByOrganizationId.rowId;
 
     Relay.Store.commitUpdate(
       new DeleteProjectMutation({
         project,
         query,
-      })
+      }), {
+        onSuccess: this.handleSuccessDelete,
+        onFailure: this.handleFailure,
+      }
     );
-
-    router.push(`/organization/${organizationId}`);
+  }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
+  handleSuccessDelete = response => {
+    const {project} = this.props;
+    const {router} = this.context;
+    const organizationId = project.organizationByOrganizationId.rowId;
+    router.replace(`/organization/${organizationId}`);
   }
   render () {
     const {project, notifyClose} = this.props;
+    const { error } = this.state;
 
     return <ActionPanelForm
       title={'Edit'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}
+      error={error}
     >
       <TextInput
         name={'name'}

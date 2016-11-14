@@ -13,9 +13,11 @@ class CreateResourceForm extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {user, query} = this.props;
-    const {router} = this.context;
 
     Relay.Store.commitUpdate(
       new CreateResourceMutation({
@@ -23,12 +25,19 @@ class CreateResourceForm extends React.Component {
         user,
         query,
       }), {
-        onSuccess: response => {
-          const resourceId = response.createResource.resourceEdge.node.rowId;
-          router.push(`/resource/${resourceId}`);
-        },
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
       }
     );
+  }
+  handleSuccess = response => {
+    const {router} = this.context;
+    const resourceId = response.createResource.resourceEdge.node.rowId;
+    router.push(`/resource/${resourceId}`);
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
   }
   render () {
     return <ActionPanelForm

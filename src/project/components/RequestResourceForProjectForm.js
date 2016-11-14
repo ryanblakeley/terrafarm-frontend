@@ -12,6 +12,9 @@ class RequestResourceForProjectForm extends React.Component {
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {project} = this.props;
 
@@ -20,16 +23,28 @@ class RequestResourceForProjectForm extends React.Component {
         project,
         resource: data.resource,
         status: 'REQUESTED',
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
+  }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
   }
   render () {
     const {query, notifyClose} = this.props;
+    const { error } = this.state;
 
     return <ActionPanelForm
       title={'Request Resource'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
+      error={error}
     >
       <SelectInput
         name={'resource'}

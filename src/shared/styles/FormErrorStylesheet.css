@@ -1,0 +1,9 @@
+.this {
+  composes: center from './_layout.css';
+  width: 256px;
+}
+.text {
+  composes: bodyText from './_typography.css';
+  margin: 1em 0;
+  color: rgb(230, 74, 25); /* deepOrange700 */
+}

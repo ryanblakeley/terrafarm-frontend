@@ -6,6 +6,7 @@ import Popover from 'material-ui/Popover';
 import IoIosCheckmarkOutline from 'react-icons/lib/io/ios-checkmark-outline';
 import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
 import TextInput from '../../shared/components/TextInput';
+import FormError from '../../shared/components/FormError';
 import SignUpUserMutation from '../mutations/SignUpUserMutation';
 import classNames from '../styles/NewUserFormStylesheet.css';
 
@@ -26,20 +27,20 @@ export default class NewUserForm extends Component {
   processSignUp = response => {
     const { registerUser: { authenticateUserResult } } = response;
 
-    if (authenticateUserResult.userId) {
+    if (authenticateUserResult && authenticateUserResult.userId) {
       this.props.loginUser(authenticateUserResult);
     } else {
       this.setState({ signUpError: 'There was an error signing you up.' });
     }
-  }
-  handleFailure = () => {
-    this.setState({ signUpError: 'User already exists!' });
   }
   signUpUser = ({ name, email, password }) => {
     Relay.Store.commitUpdate(
       new SignUpUserMutation({ name, password, email }),
       { onSuccess: this.processSignUp, onFailure: this.handleFailure }
     );
+  }
+  handleFailure = () => {
+    this.setState({ signUpError: 'User already exists!' });
   }
   handleValid = () => this.setState({ canSubmit: true });
   handleInvalid = () => this.setState({ canSubmit: false });
@@ -109,9 +110,7 @@ export default class NewUserForm extends Component {
             onFocus={this.openPopover}
             onBlur={this.closePopover}
           />
-          { signUpError &&
-            <div className={classNames.error}>{signUpError}</div>
-          }
+          { signUpError && <FormError text={signUpError} /> }
           <Popover
             open={popoverOpen}
             anchorEl={popoverAnchor}

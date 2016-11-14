@@ -13,6 +13,9 @@ class OfferResourceToOrganizationForm extends React.Component {
     currentPerson: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {organization} = this.props;
 
@@ -21,11 +24,22 @@ class OfferResourceToOrganizationForm extends React.Component {
         organization,
         resource: data.resource,
         status: 'OFFERED',
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
+  }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
   }
   render () {
     const {currentPerson, notifyClose} = this.props;
+    const {error} = this.state;
     const ownerResources = currentPerson.resourcesByOwnerId
       .edges.map(edge => <MenuItem
         value={edge.node}
@@ -40,6 +54,7 @@ class OfferResourceToOrganizationForm extends React.Component {
       onDelete={this.handleDelete}
       showForm={ownerResources.length > 0}
       formBlockedMessage={<ZeroResourcesWarning />}
+      error={error}
     >
       <SelectInput
         name={'resource'}

@@ -18,6 +18,7 @@ class EditProjectResourceForm extends React.Component {
   state = {
     isMember: false,
     isOwner: false,
+    error: false,
   };
   componentWillMount () {
     const {currentPerson, projectResource} = this.props;
@@ -55,7 +56,10 @@ class EditProjectResourceForm extends React.Component {
           status: 'ACCEPTED',
         },
         projectResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   declineResource = _ => {
@@ -67,7 +71,10 @@ class EditProjectResourceForm extends React.Component {
           status: 'DECLINED',
         },
         projectResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   removeResource = _ => {
@@ -76,11 +83,21 @@ class EditProjectResourceForm extends React.Component {
     Relay.Store.commitUpdate(
       new DeleteProjectResourceMutation({
         projectResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
   render () {
-    const {isMember, isOwner} = this.state;
+    const {isMember, isOwner, error} = this.state;
     const {projectResource, notifyClose} = this.props;
     const {status, resourceByResourceId} = projectResource;
     const showForm = (
@@ -108,6 +125,7 @@ class EditProjectResourceForm extends React.Component {
           {resourceByResourceId.name}
         </Link>
       </p>}
+      error={error}
     >
       <RadioGroup name={'status'} required>
         <Radio value={'accept'} label={'Accept'} />

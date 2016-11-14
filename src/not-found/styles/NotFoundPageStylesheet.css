@@ -9,4 +9,5 @@
 }
 .bodyText {
   composes: bodyText from '../../shared/styles/_typography.css';
+  composes: center from '../../shared/styles/_layout.css';
 }

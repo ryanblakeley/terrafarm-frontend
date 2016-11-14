@@ -14,9 +14,11 @@ class CreateOrganizationForm extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {user, query} = this.props;
-    const {router} = this.context;
 
     Relay.Store.commitUpdate(
       new CreateOrganizationMutation({
@@ -24,23 +26,32 @@ class CreateOrganizationForm extends React.Component {
         user,
         query,
       }), {
-        onSuccess: response => {
-          const organizationId = response.createOrganization.organizationEdge.node.rowId;
-          router.push({
-            pathname: `/profile/join-organization/${organizationId}`,
-            state: {
-              isAdmin: true,
-            },
-          });
-        },
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
       }
     );
   }
+  handleSuccess = response => {
+    const {router} = this.context;
+    const organizationId = response.createOrganization.organizationEdge.node.rowId;
+    router.push({
+      pathname: `/profile/join-organization/${organizationId}`,
+      state: {
+        isAdmin: true,
+      },
+    });
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
   render () {
+    const {error} = this.state;
     return <ActionPanelForm
       title={'New Organization'}
       notifyClose={this.props.notifyClose}
       onValidSubmit={this.handleSubmit}
+      error={error}
     >
       <TextInput
         name={'name'}

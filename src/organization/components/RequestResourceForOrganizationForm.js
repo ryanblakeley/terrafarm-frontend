@@ -12,6 +12,9 @@ class RequestResourceForOrganizationForm extends React.Component {
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {organization} = this.props;
 
@@ -20,17 +23,29 @@ class RequestResourceForOrganizationForm extends React.Component {
         organization,
         resource: data.resource,
         status: 'REQUESTED',
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
+  }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
   }
   render () {
     const {query, notifyClose} = this.props;
+    const {error} = this.state;
 
     return <ActionPanelForm
       title={'Request Resource'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}
+      error={error}
     >
       <SelectInput
         name={'resource'}

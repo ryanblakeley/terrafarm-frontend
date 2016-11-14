@@ -18,6 +18,7 @@ class EditTaskResourceForm extends React.Component {
   state = {
     isMember: false,
     isOwner: false,
+    error: false,
   };
   componentWillMount () {
     const {currentPerson, taskResource} = this.props;
@@ -56,7 +57,10 @@ class EditTaskResourceForm extends React.Component {
           status: 'ACCEPTED',
         },
         taskResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   declineResource = _ => {
@@ -68,7 +72,10 @@ class EditTaskResourceForm extends React.Component {
           status: 'DECLINED',
         },
         taskResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   removeResource = _ => {
@@ -77,11 +84,21 @@ class EditTaskResourceForm extends React.Component {
     Relay.Store.commitUpdate(
       new DeleteTaskResourceMutation({
         taskResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
   render () {
-    const {isMember, isOwner} = this.state;
+    const {isMember, isOwner, error} = this.state;
     const {taskResource, notifyClose} = this.props;
     const {status, resourceByResourceId} = taskResource;
     const showForm = (
@@ -108,6 +125,7 @@ class EditTaskResourceForm extends React.Component {
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={onDelete}
+      error={error}
     >
       <RadioGroup name={'status'} required>
         <Radio value={'accept'} label={'Accept'} />

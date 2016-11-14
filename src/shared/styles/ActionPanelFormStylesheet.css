@@ -1,3 +1,10 @@
 .title { composes: articleHeading from './_typography.css'; }
 .buttons { composes: center from './_layout.css'; margin-top: 25px; }
 .bodyText {}
+.errorMessage {
+  composes: bodyText from './_typography.css';
+  composes: center from './_layout.css';
+  margin: 1em auto;
+  width: 86%;
+  color: #D84315;
+}

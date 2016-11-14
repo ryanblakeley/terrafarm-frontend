@@ -13,9 +13,11 @@ class CreateTaskForm extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object,
   };
+  state = {
+    error: false,
+  };
   handleSubmit = data => {
     const {project, query} = this.props;
-    const {router} = this.context;
 
     Relay.Store.commitUpdate(
       new CreateTaskMutation({
@@ -23,18 +25,27 @@ class CreateTaskForm extends React.Component {
         project,
         query,
       }), {
-        onSuccess: response => {
-          const taskId = response.createTask.taskEdge.node.rowId;
-          router.push(`/task/${taskId}`);
-        },
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
       }
     );
   }
+  handleSuccess = response => {
+    const {router} = this.context;
+    const taskId = response.createTask.taskEdge.node.rowId;
+    router.push(`/task/${taskId}`);
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
   render () {
+    const { error } = this.state;
     return <ActionPanelForm
       title={'New Task'}
       notifyClose={this.props.notifyClose}
       onValidSubmit={this.handleSubmit}
+      error={error}
     >
       <TextInput
         name={'name'}

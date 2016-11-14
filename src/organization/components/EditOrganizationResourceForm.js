@@ -18,6 +18,7 @@ class EditOrganizationResourceForm extends React.Component {
   state = {
     isMember: false,
     isOwner: false,
+    error: false,
   };
   componentWillMount () {
     const {currentPerson, organizationResource} = this.props;
@@ -45,6 +46,13 @@ class EditOrganizationResourceForm extends React.Component {
   handleDelete = () => {
     this.removeResource();
   }
+  handleSuccess = response => {
+    this.props.notifyClose();
+  }
+  handleFailure = transaction => {
+    const error = transaction.getError() || new Error('Mutation failed.');
+    this.setState({ error: !!error });
+  }
   acceptResource = _ => {
     const {organizationResource} = this.props;
 
@@ -54,7 +62,10 @@ class EditOrganizationResourceForm extends React.Component {
           status: 'ACCEPTED',
         },
         organizationResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   declineResource = _ => {
@@ -66,7 +77,10 @@ class EditOrganizationResourceForm extends React.Component {
           status: 'DECLINED',
         },
         organizationResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   removeResource = _ => {
@@ -75,11 +89,14 @@ class EditOrganizationResourceForm extends React.Component {
     Relay.Store.commitUpdate(
       new DeleteOrganizationResourceMutation({
         organizationResource,
-      })
+      }), {
+        onSuccess: this.handleSuccess,
+        onFailure: this.handleFailure,
+      }
     );
   }
   render () {
-    const {isMember, isOwner} = this.state;
+    const {isMember, isOwner, error} = this.state;
     const {organizationResource, notifyClose} = this.props;
     const {status, resourceByResourceId} = organizationResource;
     const showForm = (
@@ -106,6 +123,7 @@ class EditOrganizationResourceForm extends React.Component {
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={onDelete}
+      error={error}
     >
       <RadioGroup name={'status'} required>
         <Radio value={'accept'} label={'Accept'} />
