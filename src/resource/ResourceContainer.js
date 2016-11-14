@@ -26,6 +26,7 @@ const ResourceContainer = (props, context) => <TransitionWrapper>
     <Menu
       baseUrl={`/resource/${props.resource.rowId}`}
       header={{icon: <GoRepo />, title: 'Resource'}}
+      disabled={!context.loggedIn}
       list={[
         { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
         { icon: <IoEdit />, title: 'Edit', url: 'edit' },

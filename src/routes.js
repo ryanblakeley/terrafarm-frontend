@@ -183,15 +183,36 @@ const routes = (
         queries={OrganizationQueries}
         renderLoading={renderLoading}
       >
-        <Route path={'request-resource'} component={RequestResourceForOrganizationForm} queries={OrganizationQueryQueries} />
-        <Route path={'offer-resource'} component={OfferResourceToOrganizationForm} queries={OrganizationCurrentPersonQueries} />
-        <Route path={'edit'} component={EditOrganizationForm} queries={OrganizationQueryQueries} />
-        <Route path={'new-project'} component={CreateProjectForm} queries={OrganizationQueryQueries} />
+        <Route
+          path={'request-resource'}
+          component={RequestResourceForOrganizationForm}
+          queries={OrganizationQueryQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'offer-resource'}
+          component={OfferResourceToOrganizationForm}
+          queries={OrganizationCurrentPersonQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'edit'}
+          component={EditOrganizationForm}
+          queries={OrganizationQueryQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'new-project'}
+          component={CreateProjectForm}
+          queries={OrganizationQueryQueries}
+          onEnter={loginBouncer}
+        />
         <Route path={'review-allocation'}>
           <Route
             path={':organizationResourceId'}
             component={EditOrganizationResourceForm}
             queries={OrganizationResourceQueries}
+            onEnter={loginBouncer}
           />
         </Route>
       </Route>
@@ -203,15 +224,36 @@ const routes = (
         queries={ProjectQueries}
         renderLoading={renderLoading}
       >
-        <Route path={'request-resource'} component={RequestResourceForProjectForm} queries={ProjectQueryQueries} />
-        <Route path={'offer-resource'} component={OfferResourceToProjectForm} queries={ProjectCurrentPersonQueries} />
-        <Route path={'edit'} component={EditProjectForm} queries={ProjectQueryQueries} />
-        <Route path={'new-task'} component={CreateTaskForm} queries={ProjectQueryQueries} />
+        <Route
+          path={'request-resource'}
+          component={RequestResourceForProjectForm}
+          queries={ProjectQueryQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'offer-resource'}
+          component={OfferResourceToProjectForm}
+          queries={ProjectCurrentPersonQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'edit'}
+          component={EditProjectForm}
+          queries={ProjectQueryQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'new-task'}
+          component={CreateTaskForm}
+          queries={ProjectQueryQueries}
+          onEnter={loginBouncer}
+        />
         <Route path={'review-allocation'}>
           <Route
             path={':projectResourceId'}
             component={EditProjectResourceForm}
             queries={ProjectResourceQueries}
+            onEnter={loginBouncer}
           />
         </Route>
       </Route>
@@ -223,14 +265,30 @@ const routes = (
         queries={TaskQueries}
         renderLoading={renderLoading}
       >
-        <Route path={'request-resource'} component={RequestResourceForTaskForm} queries={TaskQueryQueries} />
-        <Route path={'offer-resource'} component={OfferResourceToTaskForm} queries={TaskCurrentPersonQueries} />
-        <Route path={'edit'} component={EditTaskForm} queries={TaskQueryQueries} />
+        <Route
+          path={'request-resource'}
+          component={RequestResourceForTaskForm}
+          queries={TaskQueryQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'offer-resource'}
+          component={OfferResourceToTaskForm}
+          queries={TaskCurrentPersonQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'edit'}
+          component={EditTaskForm}
+          queries={TaskQueryQueries}
+          onEnter={loginBouncer}
+        />
         <Route path={'review-allocation'}>
           <Route
             path={':taskResourceId'}
             component={EditTaskResourceForm}
             queries={TaskResourceQueries}
+            onEnter={loginBouncer}
           />
         </Route>
       </Route>

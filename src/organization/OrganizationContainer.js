@@ -27,6 +27,7 @@ const OrganizationContainer = (props, context) => <TransitionWrapper>
     <Menu
       baseUrl={`/organization/${props.organization.rowId}`}
       header={{icon: <IoBriefcase />, title: 'Organization'}}
+      disabled={!context.loggedIn}
       list={[
         { icon: <IoPlus />, title: 'New Project', url: 'new-project' },
         { icon: <IoCube />, title: 'Offer Resource', url: 'offer-resource' },

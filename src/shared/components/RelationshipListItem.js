@@ -17,11 +17,12 @@ class RelationshipListItem extends React.Component {
     isAdmin: React.PropTypes.bool,
   };
   render () {
-    const {baseUrl, baseId, itemUrl, itemId, name, status, relationshipId} = this.props;
-
-    return <div className={classNames.this} onMouseLeave={this.handleClose}>
-      {status
-        && <Link
+    const {
+      baseUrl, baseId, itemUrl, itemId, name, status, relationshipId, isAdmin,
+    } = this.props;
+    const statusElement = status
+      ? isAdmin
+        ? <Link
           className={cx({
             status: true,
             bright: status === 'REQUESTED' || status === 'OFFERED',
@@ -30,7 +31,18 @@ class RelationshipListItem extends React.Component {
         >
           [{status}]
         </Link>
-      }
+        : <span
+          className={cx({
+            status: true,
+            bright: status === 'REQUESTED' || status === 'OFFERED',
+          })}
+        >
+          [{status}]
+        </span>
+      : null;
+
+    return <div className={classNames.this} onMouseLeave={this.handleClose}>
+      {statusElement}
       <Link to={`/${itemUrl}/${itemId}`} className={classNames.link} >
         {name}
       </Link>

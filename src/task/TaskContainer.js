@@ -24,6 +24,7 @@ const TaskContainer = (props, context) => <TransitionWrapper>
     <Menu
       baseUrl={`/task/${props.task.rowId}`}
       header={{icon: <IoIosPaperOutline />, title: 'Task'}}
+      disabled={!context.loggedIn}
       list={[
         { icon: <IoCube />, title: 'Offer Resource', url: 'offer-resource' },
         { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },

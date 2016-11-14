@@ -26,6 +26,7 @@ const ProjectContainer = (props, context) => <TransitionWrapper>
     <Menu
       baseUrl={`/project/${props.project.rowId}`}
       header={{icon: <GoRepo />, title: 'Project'}}
+      disabled={!context.loggedIn}
       list={[
         { icon: <IoPlus />, title: 'New Task', url: 'new-task' },
         { icon: <IoCube />, title: 'Offer Resource', url: 'offer-resource' },
