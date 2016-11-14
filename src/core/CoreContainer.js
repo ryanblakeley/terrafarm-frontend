@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
-import TerrafarmRawTheme from '../shared/themes/terrafarm-raw-theme';
+import TerrafarmRawTheme from '../shared/utils/terrafarm-raw-theme';
 import '../shared/styles/_base.css';
 import classNames from './styles/CoreContainerStylesheet.css';
 
