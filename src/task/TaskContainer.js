@@ -136,10 +136,5 @@ export default Relay.createContainer(TaskContainer, {
         },
       }
     `,
-    query: () => Relay.QL`
-      fragment on Query {
-        id,
-      }
-    `,
   },
 });

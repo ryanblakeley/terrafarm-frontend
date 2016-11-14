@@ -105,7 +105,6 @@ const OrganizationContainer = (props, context) => <TransitionWrapper>
 
 OrganizationContainer.propTypes = {
   organization: React.PropTypes.object,
-  query: React.PropTypes.object,
   children: React.PropTypes.object,
 };
 
@@ -156,11 +155,6 @@ export default Relay.createContainer(OrganizationContainer, {
             }
           }
         },
-      }
-    `,
-    query: () => Relay.QL`
-      fragment on Query {
-        id,
       }
     `,
   },

@@ -99,7 +99,6 @@ const ProjectContainer = (props, context) => <TransitionWrapper>
 
 ProjectContainer.propTypes = {
   project: React.PropTypes.object,
-  query: React.PropTypes.object,
   children: React.PropTypes.object,
 };
 
@@ -143,11 +142,6 @@ export default Relay.createContainer(ProjectContainer, {
             }
           }
         },
-      }
-    `,
-    query: () => Relay.QL`
-      fragment on Query {
-        id,
       }
     `,
   },

@@ -1,8 +1,8 @@
 import Relay from 'react-relay';
 
 export default {
-  organization: () => Relay.QL`
-    query { organizationByRowId(rowId: $organizationId) }
+  project: () => Relay.QL`
+    query { projectByRowId(rowId: $projectId) }
   `,
   currentPerson: () => Relay.QL`query { currentPerson } `,
 };
