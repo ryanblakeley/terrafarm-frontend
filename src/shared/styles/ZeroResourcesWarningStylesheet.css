@@ -1,0 +1,15 @@
+.this {
+  composes: center from './_layout.css';
+  max-width: 88%;
+}
+.text {
+  composes: bodyText from './_typography.css';
+}
+.link { composes: link from './_typography.css'; text-decoration: underline; }
+
+@media only screen and (min-width: 550px) {
+  .this { max-width: 75%; }
+}
+@media only screen and (min-width: 800px) {
+  .this { max-width: 60%; }
+}

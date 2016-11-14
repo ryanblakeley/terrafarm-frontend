@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import SelectInput from '../../shared/components/SelectInput';
 // import SelectInputItem from '../../shared/components/SelectInputItem';
+import ZeroResourcesWarning from '../../shared/components/ZeroResourcesWarning';
 import CreateProjectResourceMutation from '../mutations/CreateProjectResourceMutation';
 
 class OfferResourceToProjectForm extends React.Component {
@@ -25,22 +26,26 @@ class OfferResourceToProjectForm extends React.Component {
   }
   render () {
     const {currentPerson, notifyClose} = this.props;
+    const ownerResources = currentPerson.resourcesByOwnerId
+      .edges.map(edge => <MenuItem
+        value={edge.node}
+        key={edge.node.id}
+        primaryText={edge.node.name}
+      />);
 
     return <ActionPanelForm
       title={'Offer Resource'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
+      showForm={ownerResources.length > 0}
+      formBlockedMessage={<ZeroResourcesWarning />}
     >
       <SelectInput
         name={'resource'}
         label={'Select resource to offer'}
         required
       >
-        {currentPerson.resourcesByOwnerId.edges.map(edge => <MenuItem
-          value={edge.node}
-          key={edge.node.id}
-          primaryText={edge.node.name}
-        />)}
+        {ownerResources}
       </SelectInput>
     </ActionPanelForm>;
   }

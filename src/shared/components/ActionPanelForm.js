@@ -13,6 +13,9 @@ class ActionPanelForm extends React.Component {
     ]),
     bodyText: React.PropTypes.element,
     showForm: React.PropTypes.bool,
+    formBlockedMessage: React.PropTypes.oneOfType([
+      React.PropTypes.element, React.PropTypes.string,
+    ]),
     notifyClose: React.PropTypes.func,
     onValidSubmit: React.PropTypes.func,
     onDelete: React.PropTypes.func,
@@ -54,7 +57,9 @@ class ActionPanelForm extends React.Component {
     this.handleClose();
   }
   render () {
-    const {title, children, onDelete, bodyText, showForm} = this.props;
+    const {
+      title, children, onDelete, bodyText, showForm, formBlockedMessage,
+    } = this.props;
     const {canSubmit} = this.state;
 
     return <div className={classNames.this}>
@@ -62,6 +67,9 @@ class ActionPanelForm extends React.Component {
       <h5 className={classNames.title}>{title}</h5>
       {bodyText && <div className={classNames.bodyText}>
         {bodyText}
+      </div>}
+      {!showForm && formBlockedMessage && <div>
+        {formBlockedMessage}
       </div>}
       <Formsy.Form
         onValid={this.handleValid}
