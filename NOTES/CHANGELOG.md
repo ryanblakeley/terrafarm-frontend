@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### HEAD
+
+- chaos monkey
+- setup info@terra.farm
+
 ### 1.0.4 2016 Nov 15
 
 - mutation callbacks with form errors

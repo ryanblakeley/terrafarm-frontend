@@ -1,4 +1,5 @@
 import gulp from 'gulp';
+/* eslint no-unused-vars:0 */
 import gultil from 'gulp-util';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
@@ -26,6 +27,7 @@ let PORT = process.env.PORT;
 let API_PORT = process.env.API_PORT;
 PORT = Number(PORT);
 API_PORT = Number(API_PORT);
+const CHAOS_MONKEY = process.env;
 
 const PATHS = {
   schema: path.join(__dirname, 'data', 'schema'),
@@ -45,6 +47,20 @@ function onBuild (done, logLevel) {
       done();
     }
   };
+}
+
+function unleashChaosMonkey (req, res) {
+  const monkey = 'The chaos monkey strikes again!';
+  const statusCodes = [500, 401]; // 500, 401
+  const randomStatusCode = statusCodes[
+    Math.floor(Math.random() * statusCodes.length)
+  ];
+  res.writeHead(randomStatusCode, {
+    'Content-Type': 'text/plain',
+    'Content-Length': monkey.length,
+  });
+  res.write(monkey);
+  res.end();
 }
 
 gulp.task('load-schema', () => {
@@ -77,6 +93,15 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     historyApiFallback: true,
     proxy: {
       '/graphql': PATHS.apiSrv,
+    },
+    setup: app => {
+      app.all('/graphql', (req, res, next) => {
+        if (CHAOS_MONKEY && Math.random() < 0.04) {
+          unleashChaosMonkey(req, res);
+        } else {
+          next();
+        }
+      });
     },
   });
   server.listen(PORT, err => {

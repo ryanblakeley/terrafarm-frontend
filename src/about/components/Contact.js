@@ -4,7 +4,7 @@ import classNames from '../styles/ContactStylesheet.css';
 const Contact = props => {
   const emailLink = <a
     className={classNames.link}
-    href={'mailto:ryan@terrafarm.io'}
+    href={'mailto:info@terra.farm'}
   >
     email
   </a>;

@@ -14,10 +14,7 @@ const proxyOptions = {
 };
 const proxy = httpProxy.createProxyServer({ ignorePath: true });
 
-app.use(express.static(publicPath));
-app.use(bodyParser.json({ limit: '1mb' }));
-
-app.use('/graphql', (req, res) => {
+function getFromProxy (req, res) {
   req.removeAllListeners('data');
   req.removeAllListeners('end');
 
@@ -29,7 +26,11 @@ app.use('/graphql', (req, res) => {
   });
 
   proxy.web(req, res, proxyOptions);
-});
+}
+
+app.use(express.static(publicPath));
+app.use(bodyParser.json({ limit: '1mb' }));
+app.use('/graphql', getFromProxy);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
