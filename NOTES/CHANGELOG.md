@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### HEAD
+### 1.0.3 2016 Nov 15
 
 - mutation callbacks with form errors
 - handle routes with missing data
