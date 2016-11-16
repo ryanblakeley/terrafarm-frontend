@@ -1,7 +1,7 @@
 {
   "name": "terrafarm-frontend",
   "private": true,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Frontend server and client code for Terrafarm",
   "repository": "rojobuffalo/terrafarm-frontend",
   "author": "rojobuffalo",

@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.0.3 2016 Nov 15
+### 1.0.4 2016 Nov 15
 
 - mutation callbacks with form errors
 - handle routes with missing data
@@ -10,7 +10,7 @@
 - disable menu if not logged in or no items exist
 - only link status to form if authorized
 
-### 1.0.2 2016 Nov 11
+### 1.0.3 2016 Nov 11
 
 - all new style and layout
 - frontend permission logic for resource allocations
