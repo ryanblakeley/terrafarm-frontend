@@ -25,7 +25,8 @@ import UserQueries from './user/UserQueries';
 import ResourceContainer from './resource/ResourceContainer';
 import EditResourceForm from './resource/components/EditResourceForm';
 import RequestResourceForm from './resource/components/RequestResourceForm';
-import ResourceQueries from './resource/ResourceQueries';
+import StarResourceForm from './resource/components/StarResourceForm';
+// import ResourceQueries from './resource/ResourceQueries';
 import ResourceQueryQueries from './resource/ResourceQueryQueries';
 import ResourceCurrentPersonQueries from './resource/ResourceCurrentPersonQueries';
 
@@ -39,8 +40,8 @@ import CreateProjectForm from './organization/components/CreateProjectForm';
 import EditOrganizationResourceForm from './organization/components/EditOrganizationResourceForm';
 import OrganizationQueries from './organization/OrganizationQueries';
 import OrganizationQueryQueries from './organization/OrganizationQueryQueries';
-import OrganizationCurrentPersonQueries from './organization/OrganizationCurrentPersonQueries';
 import OrganizationResourceQueries from './organization/OrganizationResourceQueries';
+import OrganizationCurrentPersonQueries from './organization/OrganizationCurrentPersonQueries';
 
 import ProjectContainer from './project/ProjectContainer';
 import RequestResourceForProjectForm
@@ -52,8 +53,8 @@ import CreateTaskForm from './project/components/CreateTaskForm';
 import EditProjectResourceForm from './project/components/EditProjectResourceForm';
 import ProjectQueries from './project/ProjectQueries';
 import ProjectQueryQueries from './project/ProjectQueryQueries';
-import ProjectCurrentPersonQueries from './project/ProjectCurrentPersonQueries';
 import ProjectResourceQueries from './project/ProjectResourceQueries';
+import ProjectCurrentPersonQueries from './project/ProjectCurrentPersonQueries';
 
 import TaskContainer from './task/TaskContainer';
 import RequestResourceForTaskForm
@@ -64,8 +65,8 @@ import EditTaskForm from './task/components/EditTaskForm';
 import EditTaskResourceForm from './task/components/EditTaskResourceForm';
 import TaskQueries from './task/TaskQueries';
 import TaskQueryQueries from './task/TaskQueryQueries';
-import TaskCurrentPersonQueries from './task/TaskCurrentPersonQueries';
 import TaskResourceQueries from './task/TaskResourceQueries';
+import TaskCurrentPersonQueries from './task/TaskCurrentPersonQueries';
 
 function prepareProfileParams (params, {location}) {
   return {
@@ -169,11 +170,12 @@ const routes = (
       <Route
         path={':resourceId'}
         component={ResourceContainer}
-        queries={ResourceQueries}
+        queries={ResourceCurrentPersonQueries}
         renderLoading={renderLoading}
       >
-        <Route path={'request-resource'} component={RequestResourceForm} queries={ResourceCurrentPersonQueries} />
         <Route path={'edit'} component={EditResourceForm} queries={ResourceQueryQueries} />
+        <Route path={'request-resource'} component={RequestResourceForm} queries={ResourceCurrentPersonQueries} />
+        <Route path={'star'} component={StarResourceForm} queries={ResourceCurrentPersonQueries} />
       </Route>
     </Route>
     <Route path={'organization'} onEnter={ensurePublicAccess} >
@@ -186,7 +188,7 @@ const routes = (
         <Route
           path={'request-resource'}
           component={RequestResourceForOrganizationForm}
-          queries={OrganizationQueryQueries}
+          queries={OrganizationCurrentPersonQueries}
           onEnter={loginBouncer}
         />
         <Route
@@ -227,7 +229,7 @@ const routes = (
         <Route
           path={'request-resource'}
           component={RequestResourceForProjectForm}
-          queries={ProjectQueryQueries}
+          queries={ProjectCurrentPersonQueries}
           onEnter={loginBouncer}
         />
         <Route
@@ -268,7 +270,7 @@ const routes = (
         <Route
           path={'request-resource'}
           component={RequestResourceForTaskForm}
-          queries={TaskQueryQueries}
+          queries={TaskCurrentPersonQueries}
           onEnter={loginBouncer}
         />
         <Route

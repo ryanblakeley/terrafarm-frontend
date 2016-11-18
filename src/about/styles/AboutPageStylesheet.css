@@ -16,8 +16,6 @@
 .list {
   composes: bulletList from '../../shared/styles/_typography.css';
   list-style-type: decimal;
-  text-align: left;
-  padding-left: 0.67em;
 }
 .listItem {
   composes: bodyText from '../../shared/styles/_typography.css';

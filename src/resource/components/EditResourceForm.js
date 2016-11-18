@@ -59,7 +59,7 @@ class EditResourceForm extends React.Component {
     const {error} = this.state;
 
     return <ActionPanelForm
-      title={'Edit'}
+      title={'Edit Resource'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}

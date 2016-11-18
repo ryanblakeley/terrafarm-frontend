@@ -61,7 +61,7 @@ class EditTaskForm extends React.Component {
     const { error } = this.state;
 
     return <ActionPanelForm
-      title={'Edit'}
+      title={'Edit Task'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}

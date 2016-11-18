@@ -57,7 +57,7 @@ class EditProfileForm extends React.Component {
     const {error} = this.state;
 
     return <ActionPanelForm
-      title={'Edit'}
+      title={'Edit Profile'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       error={error}

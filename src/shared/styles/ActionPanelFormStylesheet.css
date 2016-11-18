@@ -1,6 +1,9 @@
 .title { composes: articleHeading from './_typography.css'; }
 .buttons { composes: center from './_layout.css'; margin-top: 25px; }
-.bodyText {}
+.bodyText {
+  composes: bodyText from './_typography.css';
+  composes: center from './_layout.css';
+}
 .errorMessage {
   composes: bodyText from './_typography.css';
   composes: center from './_layout.css';

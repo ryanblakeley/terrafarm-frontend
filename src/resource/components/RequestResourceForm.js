@@ -135,47 +135,62 @@ class RequestResourceForm extends React.Component {
         <Radio value={'task'} label={'Task'} />
       </RadioGroup>
       {submitFor === 'organization'
-        && <SelectInput
-          name={'organization'}
-          label={'Select an organization'}
-          required
-        >
-          {organizationMembersByMemberId.edges.map(edge => (
-            <MenuItem
-              value={edge.node.organizationByOrganizationId}
-              key={edge.node.organizationByOrganizationId.rowId}
-              primaryText={edge.node.organizationByOrganizationId.name}
-            />
-          ))}
-        </SelectInput>
+        && <div>
+          <p className={classNames.text}>
+            Organizations you are a member of
+          </p>
+          <SelectInput
+            name={'organization'}
+            label={'Organizations'}
+            required
+          >
+            {organizationMembersByMemberId.edges.map(edge => (
+              <MenuItem
+                value={edge.node.organizationByOrganizationId}
+                key={edge.node.organizationByOrganizationId.rowId}
+                primaryText={edge.node.organizationByOrganizationId.name}
+              />
+            ))}
+          </SelectInput>
+        </div>
       }
       {submitFor === 'project'
-        && <SelectInput
-          name={'project'}
-          label={'Select a project'}
-          required
-        >
-          {projectsToConsider.map(edge => <MenuItem
-            value={edge.node}
-            key={edge.node.rowId}
-            primaryText={edge.node.name}
-          />)}
-        </SelectInput>
-      }
-      {submitFor === 'task'
-        && <SelectInput
-          name={'task'}
-          label={'Select a task'}
-          required
-        >
-          {tasksToConsider.map(edge => (
-            <MenuItem
+        && <div>
+          <p className={classNames.text}>
+            Projects attached to organizations you are a member of
+          </p>
+          <SelectInput
+            name={'project'}
+            label={'Projects'}
+            required
+          >
+            {projectsToConsider.map(edge => <MenuItem
               value={edge.node}
               key={edge.node.rowId}
               primaryText={edge.node.name}
-            />
-          ))}
-        </SelectInput>
+            />)}
+          </SelectInput>
+        </div>
+      }
+      {submitFor === 'task'
+        && <div>
+          <p className={classNames.text}>
+            Tasks you authored and tasks attached to projects attached to organizations you are a member of.
+          </p>
+          <SelectInput
+            name={'task'}
+            label={'Tasks'}
+            required
+          >
+            {tasksToConsider.map(edge => (
+              <MenuItem
+                value={edge.node}
+                key={edge.node.rowId}
+                primaryText={edge.node.name}
+              />
+            ))}
+          </SelectInput>
+        </div>
       }
     </ActionPanelForm>;
   }

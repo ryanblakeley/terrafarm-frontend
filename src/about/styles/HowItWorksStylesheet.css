@@ -1,0 +1,14 @@
+.heading {
+  composes: contentSubheading from '../../shared/styles/_typography.css';
+}
+.listNumbered {
+  composes: bulletList from '../../shared/styles/_typography.css';
+  list-style-type: decimal;
+}
+.list {
+  composes: bulletList from '../../shared/styles/_typography.css';
+}
+.listItem {
+  composes: bodyText from '../../shared/styles/_typography.css';
+  padding: 0.33em 0 0.33em 0.67em;
+}

@@ -7,6 +7,8 @@ import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import GoRepo from 'react-icons/lib/go/repo';
 import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
+import IoIosStar from 'react-icons/lib/io/ios-star';
+import IoIosStarOutline from 'react-icons/lib/io/ios-star-outline';
 // Components
 import NotFoundPage from '../not-found/NotFoundPage';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
@@ -31,6 +33,15 @@ const ResourceContainer = (props, context) => (!props.resource
         header={{icon: <GoRepo />, title: 'Resource'}}
         disabled={!context.loggedIn}
         list={[
+          {
+            icon: props.currentPerson.id
+              && props.resource.resourceStarsByResourceId
+                .edges.find(edge => edge.node.userByUserId.id === props.currentPerson.id)
+                ? <IoIosStar />
+                : <IoIosStarOutline />,
+            title: 'Star',
+            url: 'star',
+          },
           { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
           { icon: <IoEdit />, title: 'Edit', url: 'edit' },
         ]}
@@ -124,6 +135,7 @@ const ResourceContainer = (props, context) => (!props.resource
 
 ResourceContainer.propTypes = {
   resource: React.PropTypes.object,
+  currentPerson: React.PropTypes.object,
   children: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.array,
@@ -150,6 +162,15 @@ export default Relay.createContainer(ResourceContainer, {
         userByOwnerId {
           rowId,
           name,
+        },
+        resourceStarsByResourceId(first: 9) {
+          edges {
+            node {
+              userByUserId {
+                id,
+              }
+            }
+          }
         },
         organizationResourcesByResourceId(first: 5) {
           edges {
@@ -187,6 +208,11 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
+      }
+    `,
+    currentPerson: () => Relay.QL`
+      fragment on User {
+        id,
       }
     `,
   },

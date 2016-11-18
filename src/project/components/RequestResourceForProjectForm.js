@@ -9,7 +9,7 @@ import CreateProjectResourceMutation from '../mutations/CreateProjectResourceMut
 class RequestResourceForProjectForm extends React.Component {
   static propTypes = {
     project: React.PropTypes.object,
-    query: React.PropTypes.object,
+    currentPerson: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
   };
   state = {
@@ -37,7 +37,7 @@ class RequestResourceForProjectForm extends React.Component {
     this.setState({ error: !!error });
   }
   render () {
-    const {query, notifyClose} = this.props;
+    const {currentPerson, notifyClose} = this.props;
     const { error } = this.state;
 
     return <ActionPanelForm
@@ -48,13 +48,13 @@ class RequestResourceForProjectForm extends React.Component {
     >
       <SelectInput
         name={'resource'}
-        label={'Select a resource to request'}
+        label={'Resources you starred'}
         required
       >
-        {query.allResources.edges.map(edge => <MenuItem
-          value={edge.node}
-          key={edge.node.id}
-          primaryText={edge.node.name}
+        {currentPerson.resourceStarsByUserId.edges.map(edge => <MenuItem
+          value={edge.node.resourceByResourceId}
+          key={edge.node.resourceByResourceId.id}
+          primaryText={edge.node.resourceByResourceId.name}
         />)}
       </SelectInput>
     </ActionPanelForm>;
@@ -71,14 +71,16 @@ export default Relay.createContainer(RequestResourceForProjectForm, {
         ${CreateProjectResourceMutation.getFragment('project')},
       }
     `,
-    query: () => Relay.QL`
-      fragment on Query {
-        allResources(first: 10) {
+    currentPerson: () => Relay.QL`
+      fragment on User {
+        resourceStarsByUserId(first: 10) {
           edges {
             node {
-              id,
-              name,
-              ${CreateProjectResourceMutation.getFragment('resource')},
+              resourceByResourceId {
+                id,
+                name,
+                ${CreateProjectResourceMutation.getFragment('resource')},
+              }
             }
           }
         },

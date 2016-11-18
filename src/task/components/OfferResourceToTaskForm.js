@@ -57,7 +57,7 @@ class OfferResourceToTaskForm extends React.Component {
     >
       <SelectInput
         name={'resource'}
-        label={'Select resource to offer'}
+        label={'Resources you own'}
         required
       >
         {ownerResources}

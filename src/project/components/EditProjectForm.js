@@ -61,7 +61,7 @@ class EditProjectForm extends React.Component {
     const { error } = this.state;
 
     return <ActionPanelForm
-      title={'Edit'}
+      title={'Edit Project'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}

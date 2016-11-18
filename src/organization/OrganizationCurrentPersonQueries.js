@@ -4,5 +4,7 @@ export default {
   organization: () => Relay.QL`
     query { organizationByRowId(rowId: $organizationId) }
   `,
-  currentPerson: () => Relay.QL`query { currentPerson } `,
+  currentPerson: () => Relay.QL`
+    query { currentPerson }
+  `,
 };
