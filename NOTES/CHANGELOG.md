@@ -2,10 +2,12 @@
 
 ## Changelog
 
-### HEAD
+### 1.0.5 2016 Nov 18
 
 - chaos monkey
-- setup info@terra.farm
+- setup emails @terra.farm
+- SSL/HTTPS for alpha.terra.farm
+- analytics
 
 ### 1.0.4 2016 Nov 15
 
