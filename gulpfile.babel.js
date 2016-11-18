@@ -43,9 +43,7 @@ function onBuild (done, logLevel) {
       console.log('[build stats]:', stats.toString());
     }
 
-    if (done) {
-      done();
-    }
+    if (done) done();
   };
 }
 

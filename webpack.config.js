@@ -11,6 +11,7 @@ if (!process.env.JWT_PRIVATE_KEY) {
 const {
   NODE_ENV,
   JWT_PRIVATE_KEY,
+  GA_TRACKING_ID,
 } = process.env;
 
 const anonymousToken = jwt.sign({
@@ -55,6 +56,7 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(NODE_ENV),
+        GA_TRACKING_ID: JSON.stringify(GA_TRACKING_ID),
       },
     }),
   ],
