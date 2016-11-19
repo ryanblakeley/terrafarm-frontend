@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import {Route, IndexRoute, IndexRedirect} from 'react-router';
 
 import CoreContainerTheme from './core/CoreContainer';
 import Loading from './core/components/Loading';
@@ -9,11 +9,16 @@ import LoginPage from './login/LoginPage';
 import NotFound from './not-found/NotFoundPage';
 
 import BrowseContainer from './browse/BrowseContainer';
+import PerformSearchResources from './browse/components/PerformSearchResources';
+import PerformSearchTasks from './browse/components/PerformSearchTasks';
+import PerformSearchOrganizations from './browse/components/PerformSearchOrganizations';
+import PerformSearchUsers from './browse/components/PerformSearchUsers';
 import QueryQueries from './shared/QueryQueries';
 
 import ProfileContainer from './profile/ProfileContainer';
 import JoinOrganizationContainer from './profile/JoinOrganizationContainer';
 import CreateResourceForm from './profile/components/CreateResourceForm';
+import CreateTaskForm from './profile/components/CreateTaskForm';
 import CreateOrganizationForm from './profile/components/CreateOrganizationForm';
 import EditProfileForm from './profile/components/EditProfileForm';
 import ProfileQueryQueries from './profile/ProfileQueryQueries';
@@ -26,7 +31,7 @@ import ResourceContainer from './resource/ResourceContainer';
 import EditResourceForm from './resource/components/EditResourceForm';
 import RequestResourceForm from './resource/components/RequestResourceForm';
 import StarResourceForm from './resource/components/StarResourceForm';
-// import ResourceQueries from './resource/ResourceQueries';
+import ResourceQueries from './resource/ResourceQueries';
 import ResourceQueryQueries from './resource/ResourceQueryQueries';
 import ResourceCurrentPersonQueries from './resource/ResourceCurrentPersonQueries';
 
@@ -36,25 +41,11 @@ import RequestResourceForOrganizationForm
 import OfferResourceToOrganizationForm
   from './organization/components/OfferResourceToOrganizationForm';
 import EditOrganizationForm from './organization/components/EditOrganizationForm';
-import CreateProjectForm from './organization/components/CreateProjectForm';
 import EditOrganizationResourceForm from './organization/components/EditOrganizationResourceForm';
 import OrganizationQueries from './organization/OrganizationQueries';
 import OrganizationQueryQueries from './organization/OrganizationQueryQueries';
 import OrganizationResourceQueries from './organization/OrganizationResourceQueries';
 import OrganizationCurrentPersonQueries from './organization/OrganizationCurrentPersonQueries';
-
-import ProjectContainer from './project/ProjectContainer';
-import RequestResourceForProjectForm
-  from './project/components/RequestResourceForProjectForm';
-import OfferResourceToProjectForm
-  from './project/components/OfferResourceToProjectForm';
-import EditProjectForm from './project/components/EditProjectForm';
-import CreateTaskForm from './project/components/CreateTaskForm';
-import EditProjectResourceForm from './project/components/EditProjectResourceForm';
-import ProjectQueries from './project/ProjectQueries';
-import ProjectQueryQueries from './project/ProjectQueryQueries';
-import ProjectResourceQueries from './project/ProjectResourceQueries';
-import ProjectCurrentPersonQueries from './project/ProjectCurrentPersonQueries';
 
 import TaskContainer from './task/TaskContainer';
 import RequestResourceForTaskForm
@@ -67,6 +58,9 @@ import TaskQueries from './task/TaskQueries';
 import TaskQueryQueries from './task/TaskQueryQueries';
 import TaskResourceQueries from './task/TaskResourceQueries';
 import TaskCurrentPersonQueries from './task/TaskCurrentPersonQueries';
+
+import PlaceRegistryContainer from './place/PlaceRegistryContainer';
+import PlaceQueries from './place/PlaceQueries';
 
 function prepareProfileParams (params, {location}) {
   return {
@@ -147,9 +141,46 @@ const routes = (
           renderLoading={renderLoading}
         />
       </Route>
-      <Route path={'edit'} component={EditProfileForm} queries={UserQueries} />
-      <Route path={'new-resource'} component={CreateResourceForm} queries={ProfileQueryQueries} />
-      <Route path={'new-organization'} component={CreateOrganizationForm} queries={ProfileQueryQueries} />
+      <Route path={'edit'} component={EditProfileForm} queries={UserQueries} >
+        <Route path={'place-registry'}>
+          <Route
+            path={':placeId'}
+            component={PlaceRegistryContainer}
+            queries={PlaceQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
+      </Route>
+      <Route path={'new-resource'} component={CreateResourceForm} queries={ProfileQueryQueries} >
+        <Route path={'place-registry'}>
+          <Route
+            path={':placeId'}
+            component={PlaceRegistryContainer}
+            queries={PlaceQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
+      </Route>
+      <Route path={'new-task'} component={CreateTaskForm} queries={ProfileQueryQueries} >
+        <Route path={'place-registry'}>
+          <Route
+            path={':placeId'}
+            component={PlaceRegistryContainer}
+            queries={PlaceQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
+      </Route>
+      <Route path={'new-organization'} component={CreateOrganizationForm} queries={ProfileQueryQueries} >
+        <Route path={'place-registry'}>
+          <Route
+            path={':placeId'}
+            component={PlaceRegistryContainer}
+            queries={PlaceQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
+      </Route>
     </Route>
     <Route
       path={'browse'}
@@ -157,7 +188,33 @@ const routes = (
       queries={QueryQueries}
       onEnter={ensurePublicAccess}
       renderLoading={renderLoading}
-    />
+    >
+      <IndexRedirect to={'resources'} />
+      <Route
+        path={'resources'}
+        component={PerformSearchResources}
+        queries={QueryQueries}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'organizations'}
+        component={PerformSearchOrganizations}
+        queries={QueryQueries}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'tasks'}
+        component={PerformSearchTasks}
+        queries={QueryQueries}
+        renderLoading={renderLoading}
+      />
+      <Route
+        path={'users'}
+        component={PerformSearchUsers}
+        queries={QueryQueries}
+        renderLoading={renderLoading}
+      />
+    </Route>
     <Route path={'user'} onEnter={ensurePublicAccess} >
       <Route
         path={':userId'}
@@ -170,10 +227,19 @@ const routes = (
       <Route
         path={':resourceId'}
         component={ResourceContainer}
-        queries={ResourceCurrentPersonQueries}
+        queries={ResourceQueries}
         renderLoading={renderLoading}
       >
-        <Route path={'edit'} component={EditResourceForm} queries={ResourceQueryQueries} />
+        <Route path={'edit'} component={EditResourceForm} queries={ResourceQueryQueries} >
+          <Route path={'place-registry'}>
+            <Route
+              path={':placeId'}
+              component={PlaceRegistryContainer}
+              queries={PlaceQueries}
+              renderLoading={renderLoading}
+            />
+          </Route>
+        </Route>
         <Route path={'request-resource'} component={RequestResourceForm} queries={ResourceCurrentPersonQueries} />
         <Route path={'star'} component={StarResourceForm} queries={ResourceCurrentPersonQueries} />
       </Route>
@@ -202,59 +268,21 @@ const routes = (
           component={EditOrganizationForm}
           queries={OrganizationQueryQueries}
           onEnter={loginBouncer}
-        />
-        <Route
-          path={'new-project'}
-          component={CreateProjectForm}
-          queries={OrganizationQueryQueries}
-          onEnter={loginBouncer}
-        />
+        >
+          <Route path={'place-registry'}>
+            <Route
+              path={':placeId'}
+              component={PlaceRegistryContainer}
+              queries={PlaceQueries}
+              renderLoading={renderLoading}
+            />
+          </Route>
+        </Route>
         <Route path={'review-allocation'}>
           <Route
             path={':organizationResourceId'}
             component={EditOrganizationResourceForm}
             queries={OrganizationResourceQueries}
-            onEnter={loginBouncer}
-          />
-        </Route>
-      </Route>
-    </Route>
-    <Route path={'project'} onEnter={ensurePublicAccess} >
-      <Route
-        path={':projectId'}
-        component={ProjectContainer}
-        queries={ProjectQueries}
-        renderLoading={renderLoading}
-      >
-        <Route
-          path={'request-resource'}
-          component={RequestResourceForProjectForm}
-          queries={ProjectCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
-        <Route
-          path={'offer-resource'}
-          component={OfferResourceToProjectForm}
-          queries={ProjectCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
-        <Route
-          path={'edit'}
-          component={EditProjectForm}
-          queries={ProjectQueryQueries}
-          onEnter={loginBouncer}
-        />
-        <Route
-          path={'new-task'}
-          component={CreateTaskForm}
-          queries={ProjectQueryQueries}
-          onEnter={loginBouncer}
-        />
-        <Route path={'review-allocation'}>
-          <Route
-            path={':projectResourceId'}
-            component={EditProjectResourceForm}
-            queries={ProjectResourceQueries}
             onEnter={loginBouncer}
           />
         </Route>
@@ -284,7 +312,16 @@ const routes = (
           component={EditTaskForm}
           queries={TaskQueryQueries}
           onEnter={loginBouncer}
-        />
+        >
+          <Route path={'place-registry'}>
+            <Route
+              path={':placeId'}
+              component={PlaceRegistryContainer}
+              queries={PlaceQueries}
+              renderLoading={renderLoading}
+            />
+          </Route>
+        </Route>
         <Route path={'review-allocation'}>
           <Route
             path={':taskResourceId'}

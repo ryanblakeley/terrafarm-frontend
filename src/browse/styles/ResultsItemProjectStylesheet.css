@@ -1,9 +1,0 @@
-.this {
-  composes: resultsItem from './ResultsItemStylesheet.css';
-}
-.number {
-  composes: resultsItemNumber from './ResultsItemStylesheet.css';
-}
-.name {
-  composes: resultsItemName from './ResultsItemStylesheet.css';
-}

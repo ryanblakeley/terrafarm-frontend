@@ -16,25 +16,14 @@ class EditTaskResourceForm extends React.Component {
     notifyClose: React.PropTypes.func,
   };
   state = {
-    isMember: false,
     isOwner: false,
     error: false,
   };
   componentWillMount () {
     const {currentPerson, taskResource} = this.props;
-    // this is an insufficient way to checking for a member because the search
-    // is limited by the `first:x` argument in the Relay.QL query
-    const isMember = taskResource
-      .taskByTaskId
-      .projectByProjectId
-      .organizationByOrganizationId
-      .organizationMembersByOrganizationId.edges.findIndex(edge => (
-        edge.node.userByMemberId.id === currentPerson.id
-      )) > -1;
     const isOwner = taskResource.resourceByResourceId.ownerId === currentPerson.rowId;
 
     this.setState({
-      isMember,
       isOwner,
     });
   }
@@ -98,21 +87,17 @@ class EditTaskResourceForm extends React.Component {
     this.setState({ error: !!error });
   }
   render () {
-    const {isMember, isOwner, error} = this.state;
+    const {isOwner, error} = this.state;
     const {taskResource, notifyClose} = this.props;
     const {status, resourceByResourceId} = taskResource;
-    const showForm = (
-      (isMember && status === 'OFFERED')
-        || (isOwner && status === 'REQUESTED')
-    ) || null;
+    const showForm = (isOwner && status === 'REQUESTED') || null;
     const onDelete = (
-      (status === 'OFFERED' && isOwner)
-        || (status === 'REQUESTED' && isMember)
+      (isOwner && status === 'OFFERED')
         || (
           (status === 'ACCEPTED' || status === 'DECLINED')
-            && (isMember || isOwner)
+            && isOwner
         )
-    ) && this.handleDelete;
+    ) ? this.handleDelete : null;
 
     return <ActionPanelForm
       title={`Resource ${status.toLowerCase()}`}
@@ -147,21 +132,6 @@ export default Relay.createContainer(EditTaskResourceForm, {
           rowId,
           name,
           ownerId,
-        },
-        taskByTaskId {
-          projectByProjectId {
-            organizationByOrganizationId {
-              organizationMembersByOrganizationId(first: 15) {
-                edges {
-                  node {
-                    userByMemberId {
-                      id,
-                    },
-                  }
-                }
-              },
-            },
-          },
         },
         ${UpdateTaskResourceMutation.getFragment('taskResource')},
         ${DeleteTaskResourceMutation.getFragment('taskResource')},

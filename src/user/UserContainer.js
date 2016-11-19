@@ -75,7 +75,7 @@ const UserContainer = props => (!props.user
           ]}
         />}
         left={<div>
-          <ContentSubheader text={props.user.location} />
+          <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} />
           <ContentBodyText text={props.user.description} />
           <HeroImage image={props.user.imageUrl} />
         </div>}
@@ -88,7 +88,9 @@ UserContainer.propTypes = {
   user: React.PropTypes.shape({
     rowId: React.PropTypes.string,
     name: React.PropTypes.string,
-    location: React.PropTypes.string,
+    placeByPlaceId: React.PropTypes.shape({
+      address: React.PropTypes.string,
+    }),
     description: React.PropTypes.string,
     imageUrl: React.PropTypes.string,
     organizationMembersByMemberId: React.PropTypes.object,
@@ -106,9 +108,11 @@ export default Relay.createContainer(UserContainer, {
       fragment on User {
         rowId,
         name,
-        location,
         imageUrl,
         description,
+        placeByPlaceId {
+          address,
+        },
         organizationMembersByMemberId(first: 5) {
           edges {
             node {

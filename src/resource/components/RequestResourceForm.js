@@ -7,7 +7,6 @@ import RadioGroup from '../../shared/components/RadioGroup';
 import SelectInput from '../../shared/components/SelectInput';
 // import SelectInputItem from '../../shared/components/SelectInputItem';
 import CreateOrganizationResourceMutation from '../../organization/mutations/CreateOrganizationResourceMutation';
-import CreateProjectResourceMutation from '../../project/mutations/CreateProjectResourceMutation';
 import CreateTaskResourceMutation from '../../task/mutations/CreateTaskResourceMutation';
 
 import classNames from '../styles/RequestResourceFormStylesheet.css';
@@ -27,32 +26,11 @@ class RequestResourceForm extends React.Component {
     const {currentPerson} = this.props;
     const {organizationMembersByMemberId, tasksByAuthorId} = currentPerson;
     this.setTasksToConsider(organizationMembersByMemberId, tasksByAuthorId);
-    this.setProjectsToConsider(organizationMembersByMemberId);
   }
   setTasksToConsider (viaOrganizations, viaAuthor) {
-    const tasksViaOrganizations = viaOrganizations
-      .edges.reduce((accrue, current) => accrue.concat(
-        current.node.organizationByOrganizationId.projectsByOrganizationId
-          .edges.reduce((accrue2, current2) => accrue2.concat(
-            current2.node.tasksByProjectId.edges
-          ), [])
-      ), []);
-    const tasksViaAuthor = viaAuthor.edges.filter(edge => (
-      tasksViaOrganizations.find(edge2 => edge2.node.rowId === edge.node.rowId) < 0
-    ));
-
+    // concat tasks from organizations
     this.setState({
-      tasksToConsider: tasksViaOrganizations.concat(tasksViaAuthor),
-    });
-  }
-  setProjectsToConsider (viaOrganizations) {
-    const projectsViaOrganizations = viaOrganizations
-      .edges.reduce((accrue, current) => accrue.concat(
-        current.node.organizationByOrganizationId.projectsByOrganizationId.edges
-      ), []);
-
-    this.setState({
-      projectsToConsider: projectsViaOrganizations,
+      tasksToConsider: viaAuthor.edges,
     });
   }
   submitForOrganization (data) {
@@ -60,18 +38,6 @@ class RequestResourceForm extends React.Component {
       new CreateOrganizationResourceMutation({
         resource: this.props.resource,
         organization: data.organization,
-        status: 'REQUESTED',
-      }), {
-        onSuccess: this.handleSuccess,
-        onFailure: this.handleFailure,
-      }
-    );
-  }
-  submitForProject (data) {
-    Relay.Store.commitUpdate(
-      new CreateProjectResourceMutation({
-        resource: this.props.resource,
-        project: data.project,
         status: 'REQUESTED',
       }), {
         onSuccess: this.handleSuccess,
@@ -94,8 +60,6 @@ class RequestResourceForm extends React.Component {
   handleSubmit = data => {
     if (this.state.submitFor === 'organization') {
       this.submitForOrganization(data);
-    } else if (this.state.submitFor === 'project') {
-      this.submitForProject(data);
     } else if (this.state.submitFor === 'task') {
       this.submitForTask(data);
     }
@@ -112,7 +76,7 @@ class RequestResourceForm extends React.Component {
   }
   render () {
     const {currentPerson, notifyClose} = this.props;
-    const {submitFor, tasksToConsider, projectsToConsider, error} = this.state;
+    const {submitFor, tasksToConsider, error} = this.state;
     const { organizationMembersByMemberId } = currentPerson;
 
     return <ActionPanelForm
@@ -131,7 +95,6 @@ class RequestResourceForm extends React.Component {
         required
       >
         <Radio value={'organization'} label={'Organization'} />
-        <Radio value={'project'} label={'Project'} />
         <Radio value={'task'} label={'Task'} />
       </RadioGroup>
       {submitFor === 'organization'
@@ -154,28 +117,10 @@ class RequestResourceForm extends React.Component {
           </SelectInput>
         </div>
       }
-      {submitFor === 'project'
-        && <div>
-          <p className={classNames.text}>
-            Projects attached to organizations you are a member of
-          </p>
-          <SelectInput
-            name={'project'}
-            label={'Projects'}
-            required
-          >
-            {projectsToConsider.map(edge => <MenuItem
-              value={edge.node}
-              key={edge.node.rowId}
-              primaryText={edge.node.name}
-            />)}
-          </SelectInput>
-        </div>
-      }
       {submitFor === 'task'
         && <div>
           <p className={classNames.text}>
-            Tasks you authored and tasks attached to projects attached to organizations you are a member of.
+            Tasks you created.
           </p>
           <SelectInput
             name={'task'}
@@ -204,7 +149,6 @@ export default Relay.createContainer(RequestResourceForm, {
     resource: () => Relay.QL`
       fragment on Resource {
         ${CreateOrganizationResourceMutation.getFragment('resource')},
-        ${CreateProjectResourceMutation.getFragment('resource')},
         ${CreateTaskResourceMutation.getFragment('resource')},
       }
     `,
@@ -216,24 +160,6 @@ export default Relay.createContainer(RequestResourceForm, {
               organizationByOrganizationId {
                 rowId,
                 name,
-                projectsByOrganizationId(first: 8) {
-                  edges {
-                    node {
-                      rowId,
-                      name,
-                      tasksByProjectId(first: 5) {
-                        edges {
-                          node {
-                            rowId,
-                            name,
-                            ${CreateTaskResourceMutation.getFragment('task')},
-                          }
-                        }
-                      },
-                      ${CreateProjectResourceMutation.getFragment('project')},
-                    }
-                  }
-                },
                 ${CreateOrganizationResourceMutation.getFragment('organization')},
               }
             }

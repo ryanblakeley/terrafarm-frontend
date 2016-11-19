@@ -22,8 +22,8 @@ export default class UpdateResourceMutation extends Relay.Mutation {
       fragment on UpdateResourcePayload {
         resource {
           name,
+          placeByPlaceId,
           description,
-          location,
           imageUrl,
         },
       }

@@ -18,6 +18,10 @@ class Menu extends React.Component {
     })),
     notifyReset: React.PropTypes.func,
     disabled: React.PropTypes.bool,
+    timeoutDelay: React.PropTypes.number,
+  };
+  static defaultProps = {
+    timeoutDelay: 310,
   };
   state = {
     open: false,
@@ -39,13 +43,15 @@ class Menu extends React.Component {
     });
   }
   setClose = _ => {
+    const {timeoutDelay} = this.props;
+
     this.setState({
       closeTimeoutId: setTimeout(() => {
         // clearTimeout(this.state.openTimeoutId);
         this.setState({
           open: false,
         });
-      }, 650),
+      }, timeoutDelay),
     });
   }
   setCloseImmediate = _ => {

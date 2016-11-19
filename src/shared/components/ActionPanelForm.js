@@ -70,13 +70,14 @@ class ActionPanelForm extends React.Component {
   }
   render () {
     const {
-      title, children, onDelete, bodyText, showForm, formBlockedMessage, error, errorMessage,
+      title, children, onDelete, bodyText, showForm, formBlockedMessage, error,
+      errorMessage, notifyClose,
     } = this.props;
     const {canSubmit} = this.state;
 
     return <div className={classNames.this}>
-      <CloseButton notifyClose={this.handleClose} />
-      <h5 className={classNames.title}>{title}</h5>
+      {notifyClose && <CloseButton notifyClose={this.handleClose} />}
+      {title && <h5 className={classNames.title}>{title}</h5>}
       {bodyText && <div className={classNames.bodyText}>
         {bodyText}
       </div>}

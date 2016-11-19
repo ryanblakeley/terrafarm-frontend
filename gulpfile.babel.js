@@ -27,8 +27,7 @@ let PORT = process.env.PORT;
 let API_PORT = process.env.API_PORT;
 PORT = Number(PORT);
 API_PORT = Number(API_PORT);
-const CHAOS_MONKEY = process.env;
-
+const CHAOS_MONKEY = process.env.CHAOS_MONKEY;
 const PATHS = {
   schema: path.join(__dirname, 'data', 'schema'),
   apiSrv: `http://${REVERSE_PROXY_PRIVATE_IP}:${API_PORT}`,
@@ -53,6 +52,7 @@ function unleashChaosMonkey (req, res) {
   const randomStatusCode = statusCodes[
     Math.floor(Math.random() * statusCodes.length)
   ];
+  console.warn(monkey);
   res.writeHead(randomStatusCode, {
     'Content-Type': 'text/plain',
     'Content-Length': monkey.length,
@@ -94,7 +94,7 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     },
     setup: app => {
       app.all('/graphql', (req, res, next) => {
-        if (CHAOS_MONKEY && Math.random() < 0.04) {
+        if (CHAOS_MONKEY === true && (Math.random() < 0.04)) {
           unleashChaosMonkey(req, res);
         } else {
           next();

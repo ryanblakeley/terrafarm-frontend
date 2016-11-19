@@ -1,5 +1,5 @@
 .this {
-  composes: page--fullWidth from '../../shared/styles/_layout.css';
+  composes: page from '../../shared/styles/_layout.css';
 }
 .contentSubheading {
   composes: contentSubheading from '../../shared/styles/_typography.css';

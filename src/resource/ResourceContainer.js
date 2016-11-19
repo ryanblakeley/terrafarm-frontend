@@ -1,14 +1,15 @@
 import React from 'react';
 import Relay from 'react-relay';
 // Icons
+import IoCube from 'react-icons/lib/io/cube';
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
 import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
-import GoRepo from 'react-icons/lib/go/repo';
 import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
 import IoIosStar from 'react-icons/lib/io/ios-star';
-import IoIosStarOutline from 'react-icons/lib/io/ios-star-outline';
+// import IoIosStarOutline from 'react-icons/lib/io/ios-star-outline';
+
 // Components
 import NotFoundPage from '../not-found/NotFoundPage';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
@@ -30,19 +31,10 @@ const ResourceContainer = (props, context) => (!props.resource
     <div className={classNames.this}>
       <Menu
         baseUrl={`/resource/${props.resource.rowId}`}
-        header={{icon: <GoRepo />, title: 'Resource'}}
+        header={{icon: <IoCube />, title: 'Resource'}}
         disabled={!context.loggedIn}
         list={[
-          {
-            icon: props.currentPerson
-              && props.currentPerson.id
-              && props.resource.resourceStarsByResourceId
-                .edges.find(edge => edge.node.userByUserId.id === props.currentPerson.id)
-                ? <IoIosStar />
-                : <IoIosStarOutline />,
-            title: 'Star',
-            url: 'star',
-          },
+          { icon: <IoIosStar />, title: 'Star', url: 'star' },
           { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
           { icon: <IoEdit />, title: 'Edit', url: 'edit' },
         ]}
@@ -66,42 +58,6 @@ const ResourceContainer = (props, context) => (!props.resource
             },
             {
               header: {
-                icon: <IoIosBriefcase />,
-                label: 'Organizations',
-              },
-              body: <RelationshipList
-                listItems={props.resource.organizationResourcesByResourceId.edges.map(edge => ({
-                  name: edge.node.organizationByOrganizationId.name,
-                  itemId: edge.node.organizationByOrganizationId.rowId,
-                  itemUrl: 'organization',
-                  baseId: edge.node.organizationByOrganizationId.rowId,
-                  baseUrl: 'organization',
-                  relationshipId: edge.node.id,
-                  status: edge.node.status,
-                  isAdmin: context.loggedIn,
-                }))}
-              />,
-            },
-            {
-              header: {
-                icon: <GoRepo />,
-                label: 'Projects',
-              },
-              body: <RelationshipList
-                listItems={props.resource.projectResourcesByResourceId.edges.map(edge => ({
-                  name: edge.node.projectByProjectId.name,
-                  itemId: edge.node.projectByProjectId.rowId,
-                  itemUrl: 'project',
-                  baseId: edge.node.projectByProjectId.rowId,
-                  baseUrl: 'project',
-                  relationshipId: edge.node.id,
-                  status: edge.node.status,
-                  isAdmin: context.loggedIn,
-                }))}
-              />,
-            },
-            {
-              header: {
                 icon: <IoIosPaperOutline />,
                 label: 'Tasks',
               },
@@ -118,6 +74,24 @@ const ResourceContainer = (props, context) => (!props.resource
                 }))}
               />,
             },
+            {
+              header: {
+                icon: <IoIosBriefcase />,
+                label: 'Organizations',
+              },
+              body: <RelationshipList
+                listItems={props.resource.organizationResourcesByResourceId.edges.map(edge => ({
+                  name: edge.node.organizationByOrganizationId.name,
+                  itemId: edge.node.organizationByOrganizationId.rowId,
+                  itemUrl: 'organization',
+                  baseId: edge.node.organizationByOrganizationId.rowId,
+                  baseUrl: 'organization',
+                  relationshipId: edge.node.id,
+                  status: edge.node.status,
+                  isAdmin: context.loggedIn,
+                }))}
+              />,
+            },
           ]}
         />}
         left={<div>
@@ -125,7 +99,10 @@ const ResourceContainer = (props, context) => (!props.resource
             children={props.children}
             notifyClose={() => context.router.replace(`/resource/${props.resource.rowId}`)}
           />
-          <ContentSubheader text={props.resource.location} />
+          <ContentSubheader
+            text={props.resource.placeByPlaceId
+              && props.resource.placeByPlaceId.address}
+          />
           <ContentBodyText text={props.resource.description} />
           <HeroImage image={props.resource.imageUrl} />
         </div>}
@@ -136,7 +113,6 @@ const ResourceContainer = (props, context) => (!props.resource
 
 ResourceContainer.propTypes = {
   resource: React.PropTypes.object,
-  currentPerson: React.PropTypes.object,
   children: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.array,
@@ -157,12 +133,14 @@ export default Relay.createContainer(ResourceContainer, {
       fragment on Resource {
         rowId,
         name,
-        location,
         imageUrl,
         description,
         userByOwnerId {
           rowId,
           name,
+        },
+        placeByPlaceId {
+          address,
         },
         resourceStarsByResourceId(first: 9) {
           edges {
@@ -185,18 +163,6 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-        projectResourcesByResourceId(first: 5) {
-          edges {
-            node {
-              id,
-              status,
-              projectByProjectId {
-                rowId,
-                name,
-              },
-            }
-          }
-        },
         taskResourcesByResourceId(first: 5) {
           edges {
             node {
@@ -209,11 +175,6 @@ export default Relay.createContainer(ResourceContainer, {
             }
           }
         },
-      }
-    `,
-    currentPerson: () => Relay.QL`
-      fragment on User {
-        id,
       }
     `,
   },

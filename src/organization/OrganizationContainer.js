@@ -2,9 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
-import GoRepo from 'react-icons/lib/go/repo';
 import IoBriefcase from 'react-icons/lib/io/briefcase';
-import IoPlus from 'react-icons/lib/io/plus';
 import IoCube from 'react-icons/lib/io/cube';
 import IoPerson from 'react-icons/lib/io/person';
 import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
@@ -32,7 +30,6 @@ const OrganizationContainer = (props, context) => (!props.organization
         header={{icon: <IoBriefcase />, title: 'Organization'}}
         disabled={!context.loggedIn}
         list={[
-          { icon: <IoPlus />, title: 'New Project', url: 'new-project' },
           { icon: <IoCube />, title: 'Offer Resource', url: 'offer-resource' },
           { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
           { icon: <IoEdit />, title: 'Edit', url: 'edit' },
@@ -42,19 +39,6 @@ const OrganizationContainer = (props, context) => (!props.organization
       <MainContentWrapper
         right={<Accordion
           panels={[
-            {
-              header: {
-                icon: <GoRepo />,
-                label: 'Projects',
-              },
-              body: <RelationshipList
-                listItems={props.organization.projectsByOrganizationId.edges.map(edge => ({
-                  name: edge.node.name,
-                  itemId: edge.node.rowId,
-                  itemUrl: 'project',
-                }))}
-              />,
-            },
             {
               header: {
                 icon: <IoPerson />,
@@ -99,7 +83,10 @@ const OrganizationContainer = (props, context) => (!props.organization
               context.router.replace(`/organization/${props.organization.rowId}`);
             }}
           />
-          <ContentSubheader text={props.organization.location} />
+          <ContentSubheader
+            text={props.organization.placeByPlaceId
+              && props.organization.placeByPlaceId.address}
+          />
           <ContentBodyText text={props.organization.description} />
           <HeroImage image={props.organization.imageUrl} />
         </div>}
@@ -127,16 +114,10 @@ export default Relay.createContainer(OrganizationContainer, {
       fragment on Organization {
         rowId,
         name,
-        location,
         imageUrl,
         description,
-        projectsByOrganizationId(first: 10) {
-          edges {
-            node {
-              rowId,
-              name,
-            }
-          }
+        placeByPlaceId {
+          address,
         },
         organizationResourcesByOrganizationId(first: 10) {
           edges {

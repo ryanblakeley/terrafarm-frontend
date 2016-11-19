@@ -16,7 +16,7 @@ export default class UpdateUserMutation extends Relay.Mutation {
       fragment on UpdateUserPayload {
         user {
           name,
-          location,
+          placeByPlaceId,
           description,
           imageUrl,
         },
@@ -25,15 +25,9 @@ export default class UpdateUserMutation extends Relay.Mutation {
   }
   getOptimisticResponse () {
     const {userPatch} = this.props;
-    const {name, location, description, imageUrl} = userPatch;
 
     return {
-      user: {
-        name,
-        location,
-        description,
-        imageUrl,
-      },
+      user: {...userPatch},
     };
   }
   getConfigs () {

@@ -64,6 +64,20 @@ export default class CreateOrganizationMemberMutation extends Relay.Mutation {
           '': 'append',
         },
       },
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [
+          Relay.QL`
+            fragment on CreateOrganizationMemberPayload {
+              organizationMemberEdge {
+                node {
+                  id,
+                }
+              },
+            }
+          `,
+        ],
+      },
     ];
   }
 }

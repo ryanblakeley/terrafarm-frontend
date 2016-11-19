@@ -1,18 +1,7 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
-import {blue600} from 'material-ui/styles/colors';
+import FlatButton from 'material-ui/FlatButton';
 import IoIosSearch from 'react-icons/lib/io/ios-search';
 import classNames from '../styles/BrowseButtonStylesheet.css';
-
-const styles = {
-  button: {
-    width: 58,
-    height: 58,
-  },
-  icon: {
-    color: blue600,
-  },
-};
 
 export default class BrowseButton extends React.Component {
   static contextTypes = {
@@ -25,15 +14,18 @@ export default class BrowseButton extends React.Component {
     router.push('/browse');
   }
   render () {
+    const {router} = this.context;
+    const disabled = router.isActive('browse');
+
     return <div className={classNames.this}>
-      <IconButton
-        style={styles.button}
-        iconStyle={styles.icon}
+      <FlatButton
+        onClick={this.handleBrowse}
         onTouchTap={this.handleBrowse}
-        touch
-      >
-        <IoIosSearch className={classNames.icon} />
-      </IconButton>
+        label={'Browse'}
+        className={classNames.button}
+        icon={<IoIosSearch style={{color: ''}} className={classNames.icon} />}
+        disabled={disabled}
+      />
     </div>;
   }
 }

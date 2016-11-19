@@ -5,9 +5,6 @@ export default class DeleteTaskMutation extends Relay.Mutation {
     task: () => Relay.QL`
       fragment on Task {
         id,
-        projectByProjectId {
-          id,
-        },
       }
     `,
     query: () => Relay.QL`
@@ -29,9 +26,6 @@ export default class DeleteTaskMutation extends Relay.Mutation {
       fragment on DeleteTaskPayload {
         deletedTaskId,
         userByAuthorId,
-        projectByProjectId {
-          tasksByProjectId,
-        },
         query {
           allTasks,
         },
@@ -45,13 +39,6 @@ export default class DeleteTaskMutation extends Relay.Mutation {
         parentName: 'query',
         parentID: this.props.query.id,
         connectionName: 'allTasks',
-        deletedIDFieldName: 'deletedTaskId',
-      },
-      {
-        type: 'NODE_DELETE',
-        parentName: 'projectByProjectId',
-        parentID: this.props.task.projectByProjectId.id,
-        connectionName: 'tasksByProjectId',
         deletedIDFieldName: 'deletedTaskId',
       },
     ];

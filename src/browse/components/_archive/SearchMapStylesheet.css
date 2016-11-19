@@ -1,0 +1,10 @@
+.this {
+  position: relative; width: 100%; height: 60vh;
+  box-sizing: initial;
+  border-color: rgb(120, 144, 156);
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 2px;
+  background-color: rgb(207, 216, 220);
+}
+

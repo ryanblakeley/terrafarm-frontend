@@ -28,6 +28,7 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
       header={{icon: <IoPerson />, title: 'Profile'}}
       list={[
         { icon: <IoPlus />, title: 'New Resource', url: 'new-resource' },
+        { icon: <IoPlus />, title: 'New Task', url: 'new-task' },
         { icon: <IoPlus />, title: 'New Organization', url: 'new-organization' },
         { icon: <IoEdit />, title: 'Edit', url: 'edit' },
       ]}
@@ -38,14 +39,14 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
         panels={[
           {
             header: {
-              icon: <IoIosBriefcase />,
-              label: 'Organizations',
+              icon: <IoCube />,
+              label: 'Resources',
             },
             body: <RelationshipList
-              listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
-                name: edge.node.organizationByOrganizationId.name,
-                itemId: edge.node.organizationByOrganizationId.rowId,
-                itemUrl: 'organization',
+              listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
+                name: edge.node.name,
+                itemId: edge.node.rowId,
+                itemUrl: 'resource',
               }))}
             />,
           },
@@ -64,14 +65,14 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
           },
           {
             header: {
-              icon: <IoCube />,
-              label: 'Resources',
+              icon: <IoIosBriefcase />,
+              label: 'Organizations',
             },
             body: <RelationshipList
-              listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
-                name: edge.node.name,
-                itemId: edge.node.rowId,
-                itemUrl: 'resource',
+              listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
+                name: edge.node.organizationByOrganizationId.name,
+                itemId: edge.node.organizationByOrganizationId.rowId,
+                itemUrl: 'organization',
               }))}
             />,
           },
@@ -79,7 +80,7 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
       />}
       left={<div>
         <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
-        <ContentSubheader text={props.user.location} />
+        <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} />
         <ContentBodyText text={props.user.description} />
         <HeroImage image={props.user.imageUrl} />
       </div>}
@@ -107,9 +108,11 @@ export default Relay.createContainer(ProfileContainer, {
     user: () => Relay.QL`
       fragment on User {
         name,
-        location
         imageUrl,
         description,
+        placeByPlaceId {
+          address,
+        },
         organizationMembersByMemberId(first: 5) {
           edges {
             node {

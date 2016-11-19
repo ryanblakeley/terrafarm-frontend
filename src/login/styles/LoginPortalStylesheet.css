@@ -1,10 +1,10 @@
-.this {}
-.medium {
-  font-size: 32px;
-}
+.this { display: none; }
+.button {}
 .icon {
   composes: icon from '../../shared/styles/_typography.css';
+  font-size: 22px;
 }
-.small {
-  font-size: 16px;
+
+@media only screen and (min-width: 550px) {
+  .this { display: initial; }
 }

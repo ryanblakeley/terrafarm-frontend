@@ -1,20 +1,9 @@
 // Vendor
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
-import {red200, blue500} from 'material-ui/styles/colors';
+import FlatButton from 'material-ui/FlatButton';
 import IoLogIn from 'react-icons/lib/io/log-in';
-import IoLogOut from 'react-icons/lib/io/log-out';
-import classNames from 'classnames/bind';
-
-// Styles
-import classNamesContext from '../styles/LoginPortalStylesheet.css';
-
-const cx = classNames.bind(classNamesContext);
-const styles = {
-  medium: { width: 58, height: 58 },
-  small: { padding: 6, width: 36, height: 36 },
-  icon: { color: '' },
-};
+import IoIosArrowThinRight from 'react-icons/lib/io/ios-arrow-thin-right';
+import classNames from '../styles/LoginPortalStylesheet.css';
 
 export default class LoginPortal extends React.Component {
   static contextTypes = {
@@ -23,30 +12,27 @@ export default class LoginPortal extends React.Component {
     setLoggedIn: React.PropTypes.func.isRequired,
   };
   getIcon () {
-    const { loggedIn } = this.context;
-
-    styles.icon.color = loggedIn ? red200 : blue500;
+    const { loggedIn, router } = this.context;
+    const disabled = router.isActive('login');
 
     if (loggedIn) {
-      return <IconButton
-        style={styles.small}
-        iconStyle={styles.icon}
+      return <FlatButton
         onClick={this.handleSignOut}
         onTouchTap={this.handleSignOut}
-        touch
-      >
-        <IoLogOut className={cx({icon: true, small: true})} />
-      </IconButton>;
+        label={'Logout'}
+        className={classNames.button}
+        icon={<IoIosArrowThinRight style={{color: ''}} className={classNames.icon} />}
+        disabled={disabled}
+      />;
     }
-    return <IconButton
-      style={styles.medium}
-      iconStyle={styles.icon}
+    return <FlatButton
       onClick={this.handleSignIn}
       onTouchTap={this.handleSignIn}
-      touch
-    >
-      <IoLogIn className={cx({icon: true, medium: true})} />
-    </IconButton>;
+      label={'Login'}
+      className={classNames.button}
+      icon={<IoLogIn style={{color: ''}} className={classNames.icon} />}
+      disabled={disabled}
+    />;
   }
   handleSignIn = () => {
     const { router } = this.context;
@@ -65,7 +51,7 @@ export default class LoginPortal extends React.Component {
   render () {
     const icon = this.getIcon();
 
-    return <div className={cx({this: true})}>
+    return <div className={classNames.this}>
       {icon}
     </div>;
   }

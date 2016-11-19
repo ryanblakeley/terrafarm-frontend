@@ -1,0 +1,8 @@
+.this {  }
+.flexColumn { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.flexRow { display: flex; align-items: center; justify-content: center; }
+.icon { composes: icon from '../../shared/styles/_typography.css'; }
+/*
+- move classes flex* to /shared/styles/_layout.css
+- new classes .form, .buttons compose the flex classes
+*/

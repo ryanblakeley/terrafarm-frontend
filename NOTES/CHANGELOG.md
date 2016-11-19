@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 1.0.6 2016 Nov 29
+
+- new browse feature: form, map, list
+- remove projects
+
 ### 1.0.5 2016 Nov 18
 
 - chaos monkey

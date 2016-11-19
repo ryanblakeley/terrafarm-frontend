@@ -4,7 +4,6 @@ import Relay from 'react-relay';
 import IoEdit from 'react-icons/lib/io/edit';
 import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
-import GoRepo from 'react-icons/lib/go/repo';
 import IoPerson from 'react-icons/lib/io/person';
 import IoCube from 'react-icons/lib/io/cube';
 // Components
@@ -40,25 +39,12 @@ const TaskContainer = (props, context) => (!props.task
           panels={[
             {
               header: {
-                icon: <GoRepo />,
-                label: 'Parent Project',
-              },
-              body: <RelationshipList
-                listItems={[{
-                  name: props.task.projectByProjectId.name,
-                  itemId: props.task.projectByProjectId.rowId,
-                  itemUrl: 'project',
-                }]}
-              />,
-            },
-            {
-              header: {
                 icon: <IoPerson />,
                 label: 'Author',
               },
               body: <RelationshipList
                 listItems={[{
-                  name: props.task.userByAuthorId.name,
+                  name: props.task.userByAuthorId && props.task.userByAuthorId.name,
                   itemId: props.task.userByAuthorId.rowId,
                   itemUrl: 'user',
                 }]}
@@ -119,10 +105,6 @@ export default Relay.createContainer(TaskContainer, {
         rowId,
         name,
         description,
-        projectByProjectId {
-          rowId,
-          name,
-        },
         userByAuthorId {
           rowId,
           name,

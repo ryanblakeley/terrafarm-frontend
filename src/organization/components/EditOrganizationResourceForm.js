@@ -110,7 +110,7 @@ class EditOrganizationResourceForm extends React.Component {
           (status === 'ACCEPTED' || status === 'DECLINED')
             && (isMember || isOwner)
         )
-    ) && this.handleDelete;
+    ) ? this.handleDelete : null;
 
     return <ActionPanelForm
       title={`Resource ${status.toLowerCase()}`}

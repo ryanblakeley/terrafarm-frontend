@@ -8,19 +8,19 @@ const HowItWorks = props => <div className={classNames.this}>
       Post resources: land, labor, equipment, and materials.
     </li>
     <li className={classNames.listItem}>
-      Create tasks, projects, and organizations.
+      Create tasks and organizations.
     </li>
     <li className={classNames.listItem}>
-      Allocate resources to tasks, projects, and organizations.
+      Allocate resources to tasks and organizations.
     </li>
   </ul>
   <h3 className={classNames.heading}>Resource Allocation</h3>
   <ul className={classNames.listNumbered}>
     <li className={classNames.listItem}>
-      Resource owners offer resources to tasks, projects, and organizations.
+      Resource owners offer resources to tasks and organizations.
     </li>
     <li className={classNames.listItem}>
-      Task authors, project authors, and organization members request resources.
+      Task authors and organization members request resources.
     </li>
     <li className={classNames.listItem}>
       The corresponding party accepts or declines the offer or request.

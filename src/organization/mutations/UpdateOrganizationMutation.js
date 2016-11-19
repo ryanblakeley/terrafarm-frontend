@@ -16,7 +16,7 @@ export default class UpdateOrganizationMutation extends Relay.Mutation {
       fragment on UpdateOrganizationPayload {
         organization {
           name,
-          location,
+          placeByPlaceId,
           description,
           imageUrl,
         },
@@ -25,15 +25,9 @@ export default class UpdateOrganizationMutation extends Relay.Mutation {
   }
   getOptimisticResponse () {
     const {organizationPatch} = this.props;
-    const {name, location, description, imageUrl} = organizationPatch;
 
     return {
-      organization: {
-        name,
-        location,
-        description,
-        imageUrl,
-      },
+      organization: {...organizationPatch},
     };
   }
   getConfigs () {

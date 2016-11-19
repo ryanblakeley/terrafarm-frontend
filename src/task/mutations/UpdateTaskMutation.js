@@ -22,20 +22,15 @@ export default class UpdateTaskMutation extends Relay.Mutation {
       fragment on UpdateTaskPayload {
         task,
         userByAuthorId,
-        projectByProjectId,
         query,
       }
     `;
   }
   getOptimisticResponse () {
     const {taskPatch} = this.props;
-    const {name, description} = taskPatch;
 
     return {
-      task: {
-        name,
-        description,
-      },
+      task: taskPatch,
     };
   }
   getConfigs () {

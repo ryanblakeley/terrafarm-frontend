@@ -14,7 +14,7 @@ import routes from './routes';
 import networkLayer from './shared/utils/networkLayer';
 
 injectTapEventPlugin();
-ReactGA.initialize(process.env.GA_TRACKING_ID);
+ReactGA.initialize(process.env.GOOGLE_ANALYTICS_KEY);
 Relay.injectNetworkLayer(networkLayer);
 
 function logPageView () {
