@@ -34,7 +34,8 @@ const ResourceContainer = (props, context) => (!props.resource
         disabled={!context.loggedIn}
         list={[
           {
-            icon: props.currentPerson.id
+            icon: props.currentPerson
+              && props.currentPerson.id
               && props.resource.resourceStarsByResourceId
                 .edges.find(edge => edge.node.userByUserId.id === props.currentPerson.id)
                 ? <IoIosStar />
