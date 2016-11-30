@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import Radio from '../../shared/components/Radio';
 import RadioGroup from '../../shared/components/RadioGroup';
+import ContactCard from '../../shared/components/ContactCard';
 import UpdateOrganizationResourceMutation from '../mutations/UpdateOrganizationResourceMutation';
 import DeleteOrganizationResourceMutation from '../mutations/DeleteOrganizationResourceMutation';
 
@@ -98,7 +99,7 @@ class EditOrganizationResourceForm extends React.Component {
   render () {
     const {isMember, isOwner, error} = this.state;
     const {organizationResource, notifyClose} = this.props;
-    const {status, resourceByResourceId} = organizationResource;
+    const {status, contact, resourceByResourceId} = organizationResource;
     const showForm = (
       (isMember && status === 'OFFERED')
         || (isOwner && status === 'REQUESTED')
@@ -114,11 +115,14 @@ class EditOrganizationResourceForm extends React.Component {
 
     return <ActionPanelForm
       title={`Resource ${status.toLowerCase()}`}
-      bodyText={<p className={classNames.text}>
-        <Link to={`/resource/${resourceByResourceId.rowId}`} className={classNames.link}>
-          {resourceByResourceId.name}
-        </Link>
-      </p>}
+      bodyText={<div>
+        <p className={classNames.text}>
+          <Link to={`/resource/${resourceByResourceId.rowId}`} className={classNames.link}>
+            {resourceByResourceId.name}
+          </Link>
+        </p>
+        {contact && <ContactCard text={contact} />}
+      </div>}
       showForm={showForm}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
@@ -141,6 +145,7 @@ export default Relay.createContainer(EditOrganizationResourceForm, {
     organizationResource: () => Relay.QL`
       fragment on OrganizationResource {
         status,
+        contact,
         resourceByResourceId {
           rowId,
           name,

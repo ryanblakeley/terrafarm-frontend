@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import Radio from '../../shared/components/Radio';
 import RadioGroup from '../../shared/components/RadioGroup';
+import ContactCard from '../../shared/components/ContactCard';
 import UpdateTaskResourceMutation from '../mutations/UpdateTaskResourceMutation';
 import DeleteTaskResourceMutation from '../mutations/DeleteTaskResourceMutation';
 
@@ -89,7 +90,7 @@ class EditTaskResourceForm extends React.Component {
   render () {
     const {isOwner, error} = this.state;
     const {taskResource, notifyClose} = this.props;
-    const {status, resourceByResourceId} = taskResource;
+    const {status, contact, resourceByResourceId} = taskResource;
     const showForm = (isOwner && status === 'REQUESTED') || null;
     const onDelete = (
       (isOwner && status === 'OFFERED')
@@ -101,11 +102,14 @@ class EditTaskResourceForm extends React.Component {
 
     return <ActionPanelForm
       title={`Resource ${status.toLowerCase()}`}
-      bodyText={<p className={classNames.text}>
-        <Link to={`/resource/${resourceByResourceId.rowId}`} className={classNames.link}>
-          {resourceByResourceId.name}
-        </Link>
-      </p>}
+      bodyText={<div>
+        <p className={classNames.text}>
+          <Link to={`/resource/${resourceByResourceId.rowId}`} className={classNames.link}>
+            {resourceByResourceId.name}
+          </Link>
+        </p>
+        {contact && <ContactCard text={contact} />}
+      </div>}
       showForm={showForm}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
@@ -128,6 +132,7 @@ export default Relay.createContainer(EditTaskResourceForm, {
     taskResource: () => Relay.QL`
       fragment on TaskResource {
         status,
+        contact,
         resourceByResourceId {
           rowId,
           name,
