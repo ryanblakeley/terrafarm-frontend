@@ -40,7 +40,7 @@ export class Container extends React.Component {
     location: React.PropTypes.object,
   };
   state = {
-    zoom: 3,
+    zoom: 4,
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},

@@ -99,12 +99,9 @@ class RequestResourceForm extends React.Component {
       </RadioGroup>
       {submitFor === 'organization'
         && <div>
-          <p className={classNames.text}>
-            Organizations you are a member of
-          </p>
           <SelectInput
             name={'organization'}
-            label={'Organizations'}
+            label={'Organizations you are a member of'}
             required
           >
             {organizationMembersByMemberId.edges.map(edge => (
@@ -119,12 +116,9 @@ class RequestResourceForm extends React.Component {
       }
       {submitFor === 'task'
         && <div>
-          <p className={classNames.text}>
-            Tasks you created.
-          </p>
           <SelectInput
             name={'task'}
-            label={'Tasks'}
+            label={'Tasks you created'}
             required
           >
             {tasksToConsider.map(edge => (
