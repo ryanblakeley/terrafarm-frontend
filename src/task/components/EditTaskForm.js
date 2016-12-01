@@ -10,6 +10,7 @@ import DeleteTaskMutation from '../mutations/DeleteTaskMutation';
 class Container extends React.Component {
   static propTypes = {
     task: React.PropTypes.object,
+    currentPerson: React.PropTypes.object,
     query: React.PropTypes.object,
     google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
@@ -23,7 +24,13 @@ class Container extends React.Component {
     error: false,
     placeReady: false,
     formData: {},
+    authorized: false,
   };
+  componentWillMount () {
+    const {task, currentPerson} = this.props;
+    const authorized = task.authorId === currentPerson.rowId;
+    this.setState({authorized});
+  }
   componentWillReceiveProps (props, context) {
     const {location} = context;
     const {formData, placeReady} = this.state;
@@ -120,14 +127,15 @@ class Container extends React.Component {
   }
   render () {
     const {task, notifyClose, children} = this.props;
-    const { error } = this.state;
+    const { error, authorized } = this.state;
 
     return <ActionPanelForm
       title={'Edit Task'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
-      onDelete={this.handleDelete}
+      onDelete={authorized ? this.handleDelete : null}
       error={error}
+      showForm={authorized}
     >
       <TextInput
         name={'name'}
@@ -172,6 +180,7 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
         rowId,
         name,
         description,
+        authorId,
         placeByPlaceId {
           address,
         },
@@ -182,6 +191,11 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
     query: () => Relay.QL`
       fragment on Query {
         ${DeleteTaskMutation.getFragment('query')},
+      }
+    `,
+    currentPerson: () => Relay.QL`
+      fragment on User {
+        rowId,
       }
     `,
   },

@@ -31,8 +31,8 @@ export class Container extends React.Component {
   static defaultProps = {
     google: window.google,
     initialCenter: {
-      lat: 45,
-      lng: -117,
+      lat: 39.06637007877095,
+      lng: -95.37890625,
     },
     mapType: 'terrain',
   };

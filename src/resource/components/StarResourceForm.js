@@ -74,7 +74,6 @@ class StarResourceForm extends React.Component {
     return <ActionPanelForm
       title={'Star Resource'}
       notifyClose={notifyClose}
-      showForm={false}
       bodyText={<div className={classNames.this}>
         <IconButton className={classNames.button} onClick={this.handleClick}>
           {starred
@@ -84,6 +83,8 @@ class StarResourceForm extends React.Component {
         </IconButton>
       </div>}
       error={error}
+      showForm={false}
+      formBlockedMessage={''}
     />;
   }
 }

@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### HEAD
+
+- fix authorization to show correct form options
+
 ### 1.0.6 2016 Nov 29
 
 - new browse feature: form, map, list

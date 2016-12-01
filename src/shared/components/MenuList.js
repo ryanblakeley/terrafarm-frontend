@@ -11,7 +11,7 @@ const MenuList = props => <div
   onMouseLeave={_ => props.handleClose()}
   onTouchTap={_ => props.handleCloseImmediate()}
 >
-  {props.list.map(item => <MenuListItem
+  {props.list.map(item => !item.disabled && <MenuListItem
     {...item}
     key={item.title}
     baseUrl={props.baseUrl}
@@ -23,6 +23,7 @@ MenuList.propTypes = {
     icon: React.PropTypes.element,
     title: React.PropTypes.string,
     url: React.PropTypes.string,
+    disabled: React.PropTypes.bool,
   })),
   baseUrl: React.PropTypes.string,
   open: React.PropTypes.bool,

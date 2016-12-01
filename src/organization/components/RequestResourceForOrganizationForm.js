@@ -3,7 +3,6 @@ import Relay from 'react-relay';
 import MenuItem from 'material-ui/MenuItem';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import SelectInput from '../../shared/components/SelectInput';
-// import SelectInputItem from '../../shared/components/SelectInputItem';
 import CreateOrganizationResourceMutation from '../mutations/CreateOrganizationResourceMutation';
 
 class RequestResourceForOrganizationForm extends React.Component {
@@ -14,7 +13,15 @@ class RequestResourceForOrganizationForm extends React.Component {
   };
   state = {
     error: false,
+    authorized: false,
   };
+  componentWillMount () {
+    const {organization, currentPerson} = this.props;
+    const authorized = !!organization.organizationMembersByOrganizationId.edges.findIndex(edge => (
+      edge.node.userByMemberId.rowId === currentPerson.rowId
+    )) > -1;
+    this.setState({authorized});
+  }
   handleSubmit = data => {
     const {organization} = this.props;
 
@@ -38,7 +45,7 @@ class RequestResourceForOrganizationForm extends React.Component {
   }
   render () {
     const {currentPerson, notifyClose} = this.props;
-    const {error} = this.state;
+    const {error, authorized} = this.state;
 
     return <ActionPanelForm
       title={'Request Resource'}
@@ -46,6 +53,7 @@ class RequestResourceForOrganizationForm extends React.Component {
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}
       error={error}
+      showForm={authorized}
     >
       <SelectInput
         name={'resource'}
@@ -69,11 +77,21 @@ export default Relay.createContainer(RequestResourceForOrganizationForm, {
   fragments: {
     organization: () => Relay.QL`
       fragment on Organization {
+        organizationMembersByOrganizationId(first: 10) {
+          edges {
+            node {
+              userByMemberId {
+                rowId,
+              }
+            }
+          }
+        },
         ${CreateOrganizationResourceMutation.getFragment('organization')},
       }
     `,
     currentPerson: () => Relay.QL`
       fragment on User {
+        rowId,
         resourceStarsByUserId(first: 10) {
           edges {
             node {

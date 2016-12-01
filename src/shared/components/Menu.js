@@ -15,6 +15,7 @@ class Menu extends React.Component {
       icon: React.PropTypes.element,
       title: React.PropTypes.string,
       url: React.PropTypes.string,
+      disabled: React.PropTypes.bool,
     })),
     notifyReset: React.PropTypes.func,
     disabled: React.PropTypes.bool,

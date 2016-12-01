@@ -30,9 +30,27 @@ const OrganizationContainer = (props, context) => (!props.organization
         header={{icon: <IoBriefcase />, title: 'Organization'}}
         disabled={!context.loggedIn}
         list={[
-          { icon: <IoCube />, title: 'Offer Resource', url: 'offer-resource' },
-          { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
-          { icon: <IoEdit />, title: 'Edit', url: 'edit' },
+          {
+            icon: <IoAndroidRadioButtonOn />,
+            title: 'Request Resource',
+            url: 'request-resource',
+            disabled: !props.organization.organizationMembersByOrganizationId.edges.find(edge => (
+              edge.node.userByMemberId.rowId === context.userId
+            )),
+          },
+          {
+            icon: <IoCube />,
+            title: 'Offer Resource',
+            url: 'offer-resource',
+          },
+          {
+            icon: <IoEdit />,
+            title: 'Edit',
+            url: 'edit',
+            disabled: !props.organization.organizationMembersByOrganizationId.edges.find(edge => (
+              edge.node.userByMemberId.rowId === context.userId
+            )),
+          },
         ]}
       />
       <ContentHeader text={props.organization.name} />
@@ -103,11 +121,13 @@ OrganizationContainer.propTypes = {
 OrganizationContainer.contextTypes = {
   loggedIn: React.PropTypes.bool,
   router: React.PropTypes.object,
+  userId: React.PropTypes.string,
 };
 
 export default Relay.createContainer(OrganizationContainer, {
   initialVariables: {
     organizationId: null,
+    userId: null,
   },
   fragments: {
     organization: () => Relay.QL`

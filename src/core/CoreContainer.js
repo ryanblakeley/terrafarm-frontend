@@ -22,6 +22,7 @@ export class CoreContainer extends Component {
     location: PropTypes.object,
     loggedIn: PropTypes.bool,
     setLoggedIn: PropTypes.func,
+    userId: PropTypes.string,
     setUserId: PropTypes.func,
   };
   state = {
@@ -35,6 +36,7 @@ export class CoreContainer extends Component {
       location: this.props.location,
       loggedIn: this.state.loggedIn,
       setLoggedIn: loggedIn => this.setLoggedIn(loggedIn),
+      userId: this.state.userId,
       setUserId: userId => this.setUserId(userId),
     };
   }
@@ -46,7 +48,7 @@ export class CoreContainer extends Component {
         && idToken
         && idToken !== window.anonymousToken
         && idToken !== window.registrarToken) {
-      this.setState({ idToken, loggedIn: true });
+      this.setState({ loggedIn: true, userId });
     } else {
       this.setState({ loggedIn: false });
     }

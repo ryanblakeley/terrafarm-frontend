@@ -1,5 +1,4 @@
 import React from 'react';
-import Relay from 'react-relay';
 import IoBriefcase from 'react-icons/lib/io/briefcase';
 import IoCube from 'react-icons/lib/io/cube';
 import IoPerson from 'react-icons/lib/io/person';
@@ -31,7 +30,6 @@ const BrowseContainer = (props, context) => <TransitionWrapper>
 
 BrowseContainer.propTypes = {
   query: React.PropTypes.object,
-  relay: React.PropTypes.object,
   children: React.PropTypes.oneOfType([
     React.PropTypes.object, React.PropTypes.array,
   ]),
@@ -42,15 +40,4 @@ BrowseContainer.contextTypes = {
   router: React.PropTypes.object,
 };
 
-export default Relay.createContainer(BrowseContainer, {
-  initialVariables: {
-    search: '',
-  },
-  fragments: {
-    query: () => Relay.QL`
-      fragment on Query {
-        id,
-      }
-    `,
-  },
-});
+export default BrowseContainer;

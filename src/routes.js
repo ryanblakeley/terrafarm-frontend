@@ -32,7 +32,7 @@ import EditResourceForm from './resource/components/EditResourceForm';
 import RequestResourceForm from './resource/components/RequestResourceForm';
 import StarResourceForm from './resource/components/StarResourceForm';
 import ResourceQueries from './resource/ResourceQueries';
-import ResourceQueryQueries from './resource/ResourceQueryQueries';
+import EditResourceQueries from './resource/EditResourceQueries';
 import ResourceCurrentPersonQueries from './resource/ResourceCurrentPersonQueries';
 
 import OrganizationContainer from './organization/OrganizationContainer';
@@ -43,7 +43,7 @@ import OfferResourceToOrganizationForm
 import EditOrganizationForm from './organization/components/EditOrganizationForm';
 import EditOrganizationResourceForm from './organization/components/EditOrganizationResourceForm';
 import OrganizationQueries from './organization/OrganizationQueries';
-import OrganizationQueryQueries from './organization/OrganizationQueryQueries';
+import EditOrganizationQueries from './organization/EditOrganizationQueries';
 import OrganizationResourceQueries from './organization/OrganizationResourceQueries';
 import OrganizationCurrentPersonQueries from './organization/OrganizationCurrentPersonQueries';
 
@@ -55,7 +55,7 @@ import OfferResourceToTaskForm
 import EditTaskForm from './task/components/EditTaskForm';
 import EditTaskResourceForm from './task/components/EditTaskResourceForm';
 import TaskQueries from './task/TaskQueries';
-import TaskQueryQueries from './task/TaskQueryQueries';
+import EditTaskQueries from './task/EditTaskQueries';
 import TaskResourceQueries from './task/TaskResourceQueries';
 import TaskCurrentPersonQueries from './task/TaskCurrentPersonQueries';
 
@@ -65,7 +65,7 @@ import PlaceQueries from './place/PlaceQueries';
 function prepareProfileParams (params, {location}) {
   return {
     ...params,
-    userId: localStorage.getItem('user_uuid'),
+    userId: localStorage.getItem('user_uuid') || '',
   };
 }
 
@@ -185,8 +185,6 @@ const routes = (
     <Route
       path={'browse'}
       component={BrowseContainer}
-      queries={QueryQueries}
-      onEnter={ensurePublicAccess}
       renderLoading={renderLoading}
     >
       <IndexRedirect to={'resources'} />
@@ -194,24 +192,28 @@ const routes = (
         path={'resources'}
         component={PerformSearchResources}
         queries={QueryQueries}
+        onEnter={ensurePublicAccess}
         renderLoading={renderLoading}
       />
       <Route
         path={'organizations'}
         component={PerformSearchOrganizations}
         queries={QueryQueries}
+        onEnter={ensurePublicAccess}
         renderLoading={renderLoading}
       />
       <Route
         path={'tasks'}
         component={PerformSearchTasks}
         queries={QueryQueries}
+        onEnter={ensurePublicAccess}
         renderLoading={renderLoading}
       />
       <Route
         path={'users'}
         component={PerformSearchUsers}
         queries={QueryQueries}
+        onEnter={ensurePublicAccess}
         renderLoading={renderLoading}
       />
     </Route>
@@ -223,14 +225,19 @@ const routes = (
         renderLoading={renderLoading}
       />
     </Route>
-    <Route path={'resource'} onEnter={ensurePublicAccess} >
+    <Route path={'resource'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
       <Route
         path={':resourceId'}
         component={ResourceContainer}
         queries={ResourceQueries}
         renderLoading={renderLoading}
       >
-        <Route path={'edit'} component={EditResourceForm} queries={ResourceQueryQueries} >
+        <Route
+          path={'edit'}
+          component={EditResourceForm}
+          queries={EditResourceQueries}
+          onEnter={loginBouncer}
+        >
           <Route path={'place-registry'}>
             <Route
               path={':placeId'}
@@ -240,11 +247,21 @@ const routes = (
             />
           </Route>
         </Route>
-        <Route path={'request-resource'} component={RequestResourceForm} queries={ResourceCurrentPersonQueries} />
-        <Route path={'star'} component={StarResourceForm} queries={ResourceCurrentPersonQueries} />
+        <Route
+          path={'request-resource'}
+          component={RequestResourceForm}
+          queries={ResourceCurrentPersonQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'star'}
+          component={StarResourceForm}
+          queries={ResourceCurrentPersonQueries}
+          onEnter={loginBouncer}
+        />
       </Route>
     </Route>
-    <Route path={'organization'} onEnter={ensurePublicAccess} >
+    <Route path={'organization'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
       <Route
         path={':organizationId'}
         component={OrganizationContainer}
@@ -266,7 +283,7 @@ const routes = (
         <Route
           path={'edit'}
           component={EditOrganizationForm}
-          queries={OrganizationQueryQueries}
+          queries={EditOrganizationQueries}
           onEnter={loginBouncer}
         >
           <Route path={'place-registry'}>
@@ -288,7 +305,7 @@ const routes = (
         </Route>
       </Route>
     </Route>
-    <Route path={'task'} onEnter={ensurePublicAccess} >
+    <Route path={'task'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
       <Route
         path={':taskId'}
         component={TaskContainer}
@@ -310,7 +327,7 @@ const routes = (
         <Route
           path={'edit'}
           component={EditTaskForm}
-          queries={TaskQueryQueries}
+          queries={EditTaskQueries}
           onEnter={loginBouncer}
         >
           <Route path={'place-registry'}>

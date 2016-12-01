@@ -16,7 +16,7 @@ class PerformSearchUsers extends React.Component {
     relayVariables: {
       count: 5,
       search: '',
-      bounds: '((42,-125),(49,-110))',
+      bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
     },
     searchResultIds: [],
   };
@@ -80,7 +80,7 @@ export default Relay.createContainer(PerformSearchUsers, {
   initialVariables: {
     count: 5,
     search: '',
-    bounds: '((42,-125),(49,-110))',
+    bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
   },
   fragments: {
     query: () => Relay.QL`

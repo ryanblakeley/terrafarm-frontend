@@ -28,9 +28,23 @@ const TaskContainer = (props, context) => (!props.task
         header={{icon: <IoIosPaperOutline />, title: 'Task'}}
         disabled={!context.loggedIn}
         list={[
-          { icon: <IoCube />, title: 'Offer Resource', url: 'offer-resource' },
-          { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
-          { icon: <IoEdit />, title: 'Edit', url: 'edit' },
+          {
+            icon: <IoAndroidRadioButtonOn />,
+            title: 'Request Resource',
+            url: 'request-resource',
+            disabled: props.task.userByAuthorId.rowId !== context.userId,
+          },
+          {
+            icon: <IoCube />,
+            title: 'Offer Resource',
+            url: 'offer-resource',
+          },
+          {
+            icon: <IoEdit />,
+            title: 'Edit',
+            url: 'edit',
+            disabled: props.task.userByAuthorId.rowId !== context.userId,
+          },
         ]}
       />
       <ContentHeader text={props.task.name} />
@@ -93,6 +107,7 @@ TaskContainer.propTypes = {
 TaskContainer.contextTypes = {
   loggedIn: React.PropTypes.bool,
   router: React.PropTypes.object,
+  userId: React.PropTypes.string,
 };
 
 export default Relay.createContainer(TaskContainer, {

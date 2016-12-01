@@ -23,7 +23,11 @@ const HowItWorks = props => <div className={classNames.this}>
       Task authors and organization members request resources.
     </li>
     <li className={classNames.listItem}>
-      The corresponding party accepts or declines the offer or request.
+      Offers and requests include a "contact card" which is only shared with the
+      person on the other end.
+    </li>
+    <li className={classNames.listItem}>
+      Communication is established and the proposal is evaluated and decided on.
     </li>
   </ul>
 </div>;

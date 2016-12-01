@@ -17,9 +17,10 @@ class EditOrganizationResourceForm extends React.Component {
     notifyClose: React.PropTypes.func,
   };
   state = {
-    isMember: false,
-    isOwner: false,
     error: false,
+    authorized: false,
+    isOwner: false,
+    isMember: false,
   };
   componentWillMount () {
     const {currentPerson, organizationResource} = this.props;
@@ -33,8 +34,9 @@ class EditOrganizationResourceForm extends React.Component {
     const isOwner = organizationResource.resourceByResourceId.ownerId === currentPerson.rowId;
 
     this.setState({
-      isMember,
+      authorized: isOwner || isMember,
       isOwner,
+      isMember,
     });
   }
   handleSubmit = data => {
@@ -97,33 +99,31 @@ class EditOrganizationResourceForm extends React.Component {
     );
   }
   render () {
-    const {isMember, isOwner, error} = this.state;
+    const {authorized, isOwner, isMember, error} = this.state;
     const {organizationResource, notifyClose} = this.props;
     const {status, contact, resourceByResourceId} = organizationResource;
-    const showForm = (
-      (isMember && status === 'OFFERED')
-        || (isOwner && status === 'REQUESTED')
-    ) || null;
-    const onDelete = (
-      (status === 'OFFERED' && isOwner)
-        || (status === 'REQUESTED' && isMember)
-        || (
-          (status === 'ACCEPTED' || status === 'DECLINED')
-            && (isMember || isOwner)
-        )
+    const showForm = (authorized
+      && ((isMember && status === 'OFFERED')
+        || (isOwner && status === 'REQUESTED'))
+    );
+    const onDelete = (authorized
+      && ((isOwner && status === 'OFFERED')
+        || (isMember && status === 'REQUESTED')
+        || (status === 'ACCEPTED' || status === 'DECLINED'))
     ) ? this.handleDelete : null;
 
     return <ActionPanelForm
       title={`Resource ${status.toLowerCase()}`}
-      bodyText={<div>
+      bodyText={authorized ? <div>
         <p className={classNames.text}>
           <Link to={`/resource/${resourceByResourceId.rowId}`} className={classNames.link}>
             {resourceByResourceId.name}
           </Link>
         </p>
         {contact && <ContactCard text={contact} />}
-      </div>}
+      </div> : null}
       showForm={showForm}
+      formBlockedMessage={''}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={onDelete}

@@ -10,6 +10,7 @@ import DeleteOrganizationMutation from '../mutations/DeleteOrganizationMutation'
 class Container extends React.Component {
   static propTypes = {
     organization: React.PropTypes.object,
+    currentPerson: React.PropTypes.object,
     query: React.PropTypes.object,
     google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
@@ -23,7 +24,15 @@ class Container extends React.Component {
     error: false,
     placeReady: false,
     formData: {},
+    authorized: false,
   };
+  componentWillMount () {
+    const {organization, currentPerson} = this.props;
+    const authorized = organization.organizationMembersByOrganizationId.edges.findIndex(edge => (
+      edge.node.userByMemberId.rowId === currentPerson.rowId
+    )) > -1;
+    this.setState({authorized});
+  }
   componentWillReceiveProps (props, context) {
     const {location} = context;
     const {formData, placeReady} = this.state;
@@ -120,13 +129,15 @@ class Container extends React.Component {
   }
   render () {
     const {organization, notifyClose, children} = this.props;
-    const { error } = this.state;
+    const { error, authorized } = this.state;
+
     return <ActionPanelForm
       title={'Edit Organization'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
-      onDelete={this.handleDelete}
+      onDelete={authorized ? this.handleDelete : null}
       error={error}
+      showForm={authorized}
     >
       <TextInput
         name={'name'}
@@ -181,6 +192,15 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
         placeByPlaceId {
           address,
         },
+        organizationMembersByOrganizationId(first: 10) {
+          edges {
+            node {
+              userByMemberId {
+                rowId,
+              }
+            }
+          }
+        },
         ${UpdateOrganizationMutation.getFragment('organization')},
         ${DeleteOrganizationMutation.getFragment('organization')},
       }
@@ -188,6 +208,11 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
     query: () => Relay.QL`
       fragment on Query {
         ${DeleteOrganizationMutation.getFragment('query')},
+      }
+    `,
+    currentPerson: () => Relay.QL`
+      fragment on User {
+        rowId,
       }
     `,
   },

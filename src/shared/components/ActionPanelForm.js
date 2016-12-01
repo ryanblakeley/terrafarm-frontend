@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import CloseButton from '../../shared/components/CloseButton';
 import FormError from '../../shared/components/FormError';
+import NotAuthorized from '../../shared/components/NotAuthorized';
 import classNames from '../styles/ActionPanelFormStylesheet.css';
 
 class ActionPanelForm extends React.Component {
@@ -27,6 +28,7 @@ class ActionPanelForm extends React.Component {
     showForm: true,
     error: false,
     errorMessage: 'Internal server error.',
+    formBlockedMessage: <NotAuthorized />,
   };
   state = {
     canSubmit: false,

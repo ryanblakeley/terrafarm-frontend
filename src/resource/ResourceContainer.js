@@ -34,9 +34,14 @@ const ResourceContainer = (props, context) => (!props.resource
         header={{icon: <IoCube />, title: 'Resource'}}
         disabled={!context.loggedIn}
         list={[
-          { icon: <IoIosStar />, title: 'Star', url: 'star' },
           { icon: <IoAndroidRadioButtonOn />, title: 'Request Resource', url: 'request-resource' },
-          { icon: <IoEdit />, title: 'Edit', url: 'edit' },
+          { icon: <IoIosStar />, title: 'Star', url: 'star' },
+          {
+            icon: <IoEdit />,
+            title: 'Edit',
+            url: 'edit',
+            disabled: props.resource.userByOwnerId.rowId !== context.userId,
+          },
         ]}
       />
       <ContentHeader text={props.resource.name} />
@@ -122,6 +127,7 @@ ResourceContainer.propTypes = {
 ResourceContainer.contextTypes = {
   router: React.PropTypes.object,
   loggedIn: React.PropTypes.bool,
+  userId: React.PropTypes.string,
 };
 
 export default Relay.createContainer(ResourceContainer, {

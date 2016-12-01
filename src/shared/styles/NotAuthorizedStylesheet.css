@@ -1,0 +1,2 @@
+.this { composes: center from './_layout.css'; }
+.text { composes: bodyText from './_typography.css'; }

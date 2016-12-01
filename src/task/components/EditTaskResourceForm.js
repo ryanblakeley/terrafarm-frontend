@@ -17,15 +17,20 @@ class EditTaskResourceForm extends React.Component {
     notifyClose: React.PropTypes.func,
   };
   state = {
-    isOwner: false,
     error: false,
+    authorized: false,
+    isOwner: false,
+    isAuthor: false,
   };
   componentWillMount () {
     const {currentPerson, taskResource} = this.props;
     const isOwner = taskResource.resourceByResourceId.ownerId === currentPerson.rowId;
+    const isAuthor = taskResource.taskByTaskId.authorId === currentPerson.rowId;
 
     this.setState({
+      authorized: isOwner || isAuthor,
       isOwner,
+      isAuthor,
     });
   }
   handleSubmit = data => {
@@ -88,29 +93,31 @@ class EditTaskResourceForm extends React.Component {
     this.setState({ error: !!error });
   }
   render () {
-    const {isOwner, error} = this.state;
+    const {isOwner, isAuthor, error, authorized} = this.state;
     const {taskResource, notifyClose} = this.props;
     const {status, contact, resourceByResourceId} = taskResource;
-    const showForm = (isOwner && status === 'REQUESTED') || null;
-    const onDelete = (
-      (isOwner && status === 'OFFERED')
-        || (
-          (status === 'ACCEPTED' || status === 'DECLINED')
-            && isOwner
-        )
+    const showForm = (authorized
+      && ((isAuthor && status === 'OFFERED')
+        || (isOwner && status === 'REQUESTED'))
+    );
+    const onDelete = (authorized
+      && ((isOwner && status === 'OFFERED')
+        || (isAuthor && status === 'REQUESTED')
+        || (status === 'ACCEPTED' || status === 'DECLINED'))
     ) ? this.handleDelete : null;
 
     return <ActionPanelForm
       title={`Resource ${status.toLowerCase()}`}
-      bodyText={<div>
+      bodyText={authorized ? <div>
         <p className={classNames.text}>
           <Link to={`/resource/${resourceByResourceId.rowId}`} className={classNames.link}>
             {resourceByResourceId.name}
           </Link>
         </p>
         {contact && <ContactCard text={contact} />}
-      </div>}
+      </div> : null}
       showForm={showForm}
+      formBlockedMessage={''}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={onDelete}
@@ -137,6 +144,9 @@ export default Relay.createContainer(EditTaskResourceForm, {
           rowId,
           name,
           ownerId,
+        },
+        taskByTaskId {
+          authorId,
         },
         ${UpdateTaskResourceMutation.getFragment('taskResource')},
         ${DeleteTaskResourceMutation.getFragment('taskResource')},

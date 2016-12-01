@@ -3,7 +3,6 @@ import Relay from 'react-relay';
 import MenuItem from 'material-ui/MenuItem';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import SelectInput from '../../shared/components/SelectInput';
-// import SelectInputItem from '../../shared/components/SelectInputItem';
 import CreateTaskResourceMutation from '../mutations/CreateTaskResourceMutation';
 
 class RequestResourceForTaskForm extends React.Component {
@@ -14,7 +13,13 @@ class RequestResourceForTaskForm extends React.Component {
   };
   state = {
     error: false,
+    authorized: false,
   };
+  componentWillMount () {
+    const {task, currentPerson} = this.props;
+    const authorized = task.authorId === currentPerson.rowId;
+    this.setState({authorized});
+  }
   handleSubmit = data => {
     const {task} = this.props;
 
@@ -38,13 +43,14 @@ class RequestResourceForTaskForm extends React.Component {
   }
   render () {
     const {currentPerson, notifyClose} = this.props;
-    const { error } = this.state;
+    const { error, authorized } = this.state;
 
     return <ActionPanelForm
       title={'Request Resource'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       error={error}
+      showForm={authorized}
     >
       <SelectInput
         name={'resource'}
@@ -68,11 +74,13 @@ export default Relay.createContainer(RequestResourceForTaskForm, {
   fragments: {
     task: () => Relay.QL`
       fragment on Task {
+        authorId,
         ${CreateTaskResourceMutation.getFragment('task')},
       }
     `,
     currentPerson: () => Relay.QL`
       fragment on User {
+        rowId,
         resourceStarsByUserId(first: 10) {
           edges {
             node {
