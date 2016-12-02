@@ -1,7 +1,7 @@
 import React from 'react';
 import IoArrowRightA from 'react-icons/lib/io/arrow-right-a';
 import Accordion from '../../shared/components/Accordion';
-import RelationshipList from '../../shared/components/RelationshipList';
+import ResultsList from '../../shared/components/ResultsList';
 
 class BrowseList extends React.Component {
   static propTypes = {
@@ -14,8 +14,15 @@ class BrowseList extends React.Component {
         lng: React.PropTypes.number,
       }),
     })),
+    activeResultItemId: React.PropTypes.string,
+    setActiveResultItemId: React.PropTypes.func,
     setSearchParams: React.PropTypes.func,
   };
+  handleResultItemClick = itemId => {
+    const {setActiveResultItemId} = this.props;
+    setActiveResultItemId(itemId);
+    // this.changeMapCenter(result.coords);
+  }
   changeMapCenter = coords => {
     const {setSearchParams} = this.props;
 
@@ -25,7 +32,7 @@ class BrowseList extends React.Component {
     });
   }
   render () {
-    const {searchResults} = this.props;
+    const {searchResults, activeResultItemId} = this.props;
 
     return <Accordion
       panels={[
@@ -34,12 +41,13 @@ class BrowseList extends React.Component {
             icon: <IoArrowRightA />,
             label: 'Results',
           },
-          body: <RelationshipList
+          body: <ResultsList
             listItems={searchResults.map(result => ({
               name: result.name,
               itemId: result.rowId,
               itemUrl: result.url,
-              onSetActive: _ => this.changeMapCenter(result.coords),
+              active: activeResultItemId === result.rowId,
+              setActive: this.handleResultItemClick,
             }))}
           />,
         },

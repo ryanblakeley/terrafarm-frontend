@@ -16,28 +16,33 @@ class RelationshipListItem extends React.Component {
     status: React.PropTypes.string,
     isAdmin: React.PropTypes.bool,
   };
+  static contextTypes = {
+    loggedIn: React.PropTypes.bool,
+  };
   render () {
     const {
       baseUrl, baseId, itemUrl, itemId, name, status, relationshipId, isAdmin,
     } = this.props;
-    const statusElement = status
-      ? isAdmin
-        ? <Link
-          className={cx({
-            status: true,
-            attention: status === 'REQUESTED' || status === 'OFFERED',
-          })}
-          to={`/${baseUrl}/${baseId}/review-allocation/${relationshipId}`}
-        >
-          [{status}]
-        </Link>
-        : <span className={cx({status: true})} >
-          [{status}]
-        </span>
-      : null;
+    const {loggedIn} = this.context;
+    let statusElem;
+    if (loggedIn && isAdmin) {
+      statusElem = <Link
+        className={cx({
+          status: true,
+          attention: status === 'REQUESTED' || status === 'OFFERED',
+        })}
+        to={`/${baseUrl}/${baseId}/review-allocation/${relationshipId}`}
+      >
+        [{status}]
+      </Link>;
+    } else {
+      statusElem = <span className={cx({status: true})} >
+        [{status}]
+      </span>;
+    }
 
-    return <div className={classNames.this} onMouseLeave={this.handleClose}>
-      {statusElement}
+    return <div className={classNames.this} >
+      {status && statusElem}
       <Link to={`/${itemUrl}/${itemId}`} className={classNames.link} >
         {name}
       </Link>

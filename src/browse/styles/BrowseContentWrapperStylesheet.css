@@ -11,7 +11,7 @@
 .right { margin: 15px 0 0 0; }
 .resultsPanel { margin-top: 15px; }
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 800px) {
   .flexWrapper {
     flex-direction: initial;
     align-items: initial;
@@ -22,7 +22,8 @@
   .left { width: 33%; }
   .right { margin: 0 0 0 15px; width: 58%; }
 }
-
+/*
 @media only screen and (min-width: 880px) {
   .left { width: 29%; }
 }
+*/

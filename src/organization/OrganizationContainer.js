@@ -88,9 +88,10 @@ const OrganizationContainer = (props, context) => (!props.organization
                     relationshipId: edge.node.id,
                     status: edge.node.status,
                     isAdmin: context.userId === edge.node.resourceByResourceId.ownerId
-                      || props.organization.organizationMembersByOrganizationId.edges.findIndex(edge2 => (
-                        context.userId === edge2.node.memberId
-                      )),
+                      || props.organization.organizationMembersByOrganizationId
+                        .edges.findIndex(edge2 => (
+                          context.userId === edge2.node.memberId
+                        )) > -1,
                   }))
                 }
               />,

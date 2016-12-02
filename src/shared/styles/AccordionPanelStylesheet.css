@@ -6,4 +6,5 @@
 .labelWrapper {}
 .label {
   composes: articleSubheading from './_typography.css';
+  text-transform: uppercase;
 }

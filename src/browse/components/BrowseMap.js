@@ -1,5 +1,6 @@
 import React from 'react';
-import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {Map, Marker, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
+import InfoWindowContent from './InfoWindowContent';
 import {stringifyBounds} from '../../shared/utils/parse-coords';
 import classNames from '../styles/BrowseMapStylesheet.css';
 
@@ -26,6 +27,8 @@ export class Container extends React.Component {
         lng: React.PropTypes.number,
       }),
     })),
+    setActiveResultItemId: React.PropTypes.func,
+    activeResultItemId: React.PropTypes.string,
     setSearchParams: React.PropTypes.func,
   };
   static defaultProps = {
@@ -42,14 +45,29 @@ export class Container extends React.Component {
   state = {
     zoom: 4,
     showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
+    activeMarker: null,
+    markers: [],
+    infoName: '',
     mapCenter: {
       lat: '',
       lng: '',
     },
     boundsChangedTimeoutId: null,
+    boundsListener: null,
   };
+  componentWillMount () {
+    const {searchResults, activeResultItemId} = this.props;
+    this.prepareMarkers(searchResults, activeResultItemId);
+  }
+  componentWillReceiveProps (nextProps) {
+    const {searchResults, activeResultItemId} = nextProps;
+    this.prepareMarkers(searchResults, activeResultItemId);
+  }
+  componentWillUnmount () {
+    const {google} = this.props;
+    const {boundsListener} = this.state;
+    google.maps.event.removeListener(boundsListener);
+  }
   getBoundsString = rawBounds => {
     const boundsObj = {
       sw: {
@@ -65,11 +83,34 @@ export class Container extends React.Component {
 
     return bounds;
   }
+  prepareMarkers (searchResults, activeId) {
+    const markers = searchResults.map((result, i) => {
+      const m = <Marker
+        name={result.name}
+        position={result.coords}
+        onClick={this.handleMarkerClick}
+        key={result.rowId}
+        itemId={result.rowId}
+        ref={elem => (this[`marker${result.rowId}`] = elem)}
+      />;
+
+      if (result.rowId === activeId) {
+        this.setState({
+          activeMarker: this[`marker${result.rowId}`].marker,
+          infoName: result.name,
+          showingInfoWindow: true,
+        });
+      }
+
+      return m;
+    });
+    this.setState({markers});
+  }
   handleReady = (mapProps, map) => {
     const {google, setSearchParams} = this.props;
     let timeoutId = null;
 
-    google.maps.event.addListener(map, 'bounds_changed', () => {
+    const boundsListener = google.maps.event.addListener(map, 'bounds_changed', () => {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
@@ -82,12 +123,18 @@ export class Container extends React.Component {
         setSearchParams({bounds, lat, lng});
       }, 100);
     });
+    this.setState({boundsListener});
   }
   handleMapClick = (mapProps, map, clickEvent) => {
-    if (this.state.showingInfoWindow) {
+    const {setActiveResultItemId} = this.props;
+    const {showingInfoWindow} = this.state;
+
+    if (showingInfoWindow) {
+      setActiveResultItemId('');
       this.setState({
-        showingInfoWindow: false,
         activeMarker: null,
+        showingInfoWindow: false,
+        infoName: '',
       });
     }
   }
@@ -95,14 +142,17 @@ export class Container extends React.Component {
     // ...
   }
   handleMarkerClick = (props, marker, e) => {
+    const {setActiveResultItemId} = this.props;
+
+    setActiveResultItemId(props.itemId);
     this.setState({
-      selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
+      infoName: props.name,
     });
   }
   handleMarkerMouseover = (props, marker, e) => {
-    console.log('hover marker, props:', props);
+    // console.log('hover marker, props:', props);
   }
   handleCurrentLocation = () => {
     // get users current location
@@ -134,9 +184,9 @@ export class Container extends React.Component {
     // - count
   }
   render () {
-    const {google, initialCenter, mapType, searchResults} = this.props;
+    const {google, initialCenter, mapType } = this.props;
     const {location} = this.context;
-    const {zoom} = this.state;
+    const {zoom, markers, activeMarker, showingInfoWindow, infoName} = this.state;
     const center = location.query.lat && location.query.lng
       ? { lat: location.query.lat, lng: location.query.lng }
       : initialCenter;
@@ -154,11 +204,10 @@ export class Container extends React.Component {
         onDragend={this.handleMapMoved}
         containerStyle={styles.map}
       >
-        {searchResults.map(result => <Marker
-          name={result.name}
-          position={result.coords}
-          key={result.rowId}
-        />)}
+        {markers}
+        <InfoWindow marker={activeMarker} visible={showingInfoWindow} >
+          <InfoWindowContent name={infoName} />
+        </InfoWindow>
       </Map>
     </div>;
   }

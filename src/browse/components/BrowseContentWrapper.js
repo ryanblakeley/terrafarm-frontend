@@ -21,6 +21,7 @@ class BrowseContentWrapper extends React.Component {
     bounds: '',
     count: 5,
     searchResults: [],
+    activeResultItemId: null,
   };
   getChildContext () {
     return {
@@ -29,6 +30,9 @@ class BrowseContentWrapper extends React.Component {
   }
   setSearchResults = results => {
     this.setState({searchResults: results});
+  }
+  setActiveResultItemId = id => {
+    this.setState({activeResultItemId: id});
   }
   setSearchParams = (patch, statePatch) => {
     const {router, location} = this.context;
@@ -42,16 +46,26 @@ class BrowseContentWrapper extends React.Component {
   }
   render () {
     const {children} = this.props;
-    const {searchResults} = this.state;
+    const {searchResults, activeResultItemId} = this.state;
 
     return <div className={classNames.this}>
       <div className={classNames.flexWrapper}>
         <div className={classNames.left}>
           <BrowseForm setSearchParams={this.setSearchParams} />
-          <BrowseList setSearchParams={this.setSearchParams} searchResults={searchResults} />
+          <BrowseList
+            setSearchParams={this.setSearchParams}
+            searchResults={searchResults}
+            setActiveResultItemId={this.setActiveResultItemId}
+            activeResultItemId={activeResultItemId}
+          />
         </div>
         <div className={classNames.right}>
-          <BrowseMap setSearchParams={this.setSearchParams} searchResults={searchResults} />
+          <BrowseMap
+            setSearchParams={this.setSearchParams}
+            searchResults={searchResults}
+            setActiveResultItemId={this.setActiveResultItemId}
+            activeResultItemId={activeResultItemId}
+          />
         </div>
       </div>
       {children}

@@ -1,0 +1,1 @@
+.name { composes: bodyText from '../../shared/styles/_typography.css'; }

@@ -1,14 +1,12 @@
 .this {
-  margin-bottom: 2em;
-  text-align: left;
+  composes: page--gutter from '../../shared/styles/_layout.css';
+  max-width: 470px;
 }
 .heading {
   composes: contentSubheading from '../../shared/styles/_typography.css';
+  text-align: left;
 }
 .text {
   composes: bodyText from '../../shared/styles/_typography.css';
-}
-.link {
-  composes: link from '../../shared/styles/_typography.css';
-  text-decoration: underline;
+  text-align: left;
 }
