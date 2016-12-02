@@ -11,6 +11,7 @@ import NotFoundPage from '../not-found/NotFoundPage';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import MainContentWrapper from '../shared/components/MainContentWrapper';
 import ContentHeader from '../shared/components/ContentHeader';
+import ContentSubheader from '../shared/components/ContentSubheader';
 import RelationshipList from '../shared/components/RelationshipList';
 import Menu from '../shared/components/Menu';
 import ActionPanel from '../shared/components/ActionPanel';
@@ -91,6 +92,7 @@ const TaskContainer = (props, context) => (!props.task
               context.router.replace(`/task/${props.task.rowId}`)
             )}
           />
+          <ContentSubheader text={props.task.placeByPlaceId && props.task.placeByPlaceId.address} />
           <ContentBodyText text={props.task.description} />
         </div>}
       />
@@ -123,6 +125,9 @@ export default Relay.createContainer(TaskContainer, {
         userByAuthorId {
           rowId,
           name,
+        },
+        placeByPlaceId {
+          address,
         },
         taskResourcesByTaskId(first: 10) {
           edges {
