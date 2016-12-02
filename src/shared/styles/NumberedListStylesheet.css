@@ -1,12 +1,10 @@
+.this { text-align: left; }
 .heading {
   composes: contentSubheading from '../../shared/styles/_typography.css';
 }
 .listNumbered {
   composes: bulletList from '../../shared/styles/_typography.css';
   list-style-type: decimal;
-}
-.list {
-  composes: bulletList from '../../shared/styles/_typography.css';
 }
 .listItem {
   composes: bodyText from '../../shared/styles/_typography.css';

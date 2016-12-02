@@ -14,4 +14,8 @@ ContactCard.propTypes = {
   text: React.PropTypes.string.isRequired,
 };
 
+ContactCard.defaultProps = {
+  text: '(none)',
+};
+
 export default ContactCard;

@@ -87,7 +87,10 @@ const OrganizationContainer = (props, context) => (!props.organization
                     baseUrl: 'organization',
                     relationshipId: edge.node.id,
                     status: edge.node.status,
-                    isAdmin: context.loggedIn,
+                    isAdmin: context.userId === edge.node.resourceByResourceId.ownerId
+                      || props.organization.organizationMembersByOrganizationId.edges.findIndex(edge2 => (
+                        context.userId === edge2.node.memberId
+                      )),
                   }))
                 }
               />,
@@ -127,7 +130,6 @@ OrganizationContainer.contextTypes = {
 export default Relay.createContainer(OrganizationContainer, {
   initialVariables: {
     organizationId: null,
-    userId: null,
   },
   fragments: {
     organization: () => Relay.QL`
@@ -147,6 +149,7 @@ export default Relay.createContainer(OrganizationContainer, {
               resourceByResourceId {
                 rowId,
                 name,
+                ownerId,
               },
             }
           }

@@ -5,6 +5,7 @@
 ### HEAD
 
 - fix authorization to show correct form options
+- requests and offers have contact info
 
 ### 1.0.6 2016 Nov 29
 

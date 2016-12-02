@@ -5,7 +5,7 @@ import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import Radio from '../../shared/components/Radio';
 import RadioGroup from '../../shared/components/RadioGroup';
 import SelectInput from '../../shared/components/SelectInput';
-// import SelectInputItem from '../../shared/components/SelectInputItem';
+import TextInput from '../../shared/components/TextInput';
 import CreateOrganizationResourceMutation from '../../organization/mutations/CreateOrganizationResourceMutation';
 import CreateTaskResourceMutation from '../../task/mutations/CreateTaskResourceMutation';
 
@@ -38,6 +38,7 @@ class RequestResourceForm extends React.Component {
       new CreateOrganizationResourceMutation({
         resource: this.props.resource,
         organization: data.organization,
+        contact: data.contact,
         status: 'REQUESTED',
       }), {
         onSuccess: this.handleSuccess,
@@ -129,6 +130,14 @@ class RequestResourceForm extends React.Component {
               />
             ))}
           </SelectInput>
+          <TextInput
+            name={'contact'}
+            label={'Contact Info'}
+            validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+            required
+            multiLine
+            rows={3}
+          />
         </div>
       }
     </ActionPanelForm>;

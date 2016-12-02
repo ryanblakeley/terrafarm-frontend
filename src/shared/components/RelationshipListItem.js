@@ -25,18 +25,13 @@ class RelationshipListItem extends React.Component {
         ? <Link
           className={cx({
             status: true,
-            bright: status === 'REQUESTED' || status === 'OFFERED',
+            attention: status === 'REQUESTED' || status === 'OFFERED',
           })}
           to={`/${baseUrl}/${baseId}/review-allocation/${relationshipId}`}
         >
           [{status}]
         </Link>
-        : <span
-          className={cx({
-            status: true,
-            bright: status === 'REQUESTED' || status === 'OFFERED',
-          })}
-        >
+        : <span className={cx({status: true})} >
           [{status}]
         </span>
       : null;

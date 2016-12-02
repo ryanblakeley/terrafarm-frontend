@@ -24,6 +24,7 @@ export default class CreateTaskResourceMutation extends Relay.Mutation {
         taskId: this.props.task.rowId,
         resourceId: this.props.resource.rowId,
         status: this.props.status,
+        contact: this.props.contact,
       },
     };
   }

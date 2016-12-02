@@ -79,7 +79,8 @@ const TaskContainer = (props, context) => (!props.task
                   baseUrl: 'task',
                   relationshipId: edge.node.id,
                   status: edge.node.status,
-                  isAdmin: context.loggedIn,
+                  isAdmin: context.userId === props.task.authorId
+                    || context.userId === edge.node.resourceByResourceId.ownerId,
                 }))}
               />,
             },
@@ -122,6 +123,7 @@ export default Relay.createContainer(TaskContainer, {
         rowId,
         name,
         description,
+        authorId,
         userByAuthorId {
           rowId,
           name,
@@ -137,6 +139,7 @@ export default Relay.createContainer(TaskContainer, {
               resourceByResourceId {
                 rowId,
                 name,
+                ownerId,
               },
             }
           }

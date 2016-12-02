@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import MenuItem from 'material-ui/MenuItem';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import SelectInput from '../../shared/components/SelectInput';
+import TextInput from '../../shared/components/TextInput';
 import CreateTaskResourceMutation from '../mutations/CreateTaskResourceMutation';
 
 class RequestResourceForTaskForm extends React.Component {
@@ -27,6 +28,7 @@ class RequestResourceForTaskForm extends React.Component {
       new CreateTaskResourceMutation({
         task,
         resource: data.resource,
+        contact: data.contact,
         status: 'REQUESTED',
       }), {
         onSuccess: this.handleSuccess,
@@ -63,6 +65,14 @@ class RequestResourceForTaskForm extends React.Component {
           primaryText={edge.node.resourceByResourceId.name}
         />)}
       </SelectInput>
+      <TextInput
+        name={'contact'}
+        label={'Contact Info'}
+        validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+        required
+        multiLine
+        rows={3}
+      />
     </ActionPanelForm>;
   }
 }

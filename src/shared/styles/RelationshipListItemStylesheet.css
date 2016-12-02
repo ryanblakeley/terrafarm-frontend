@@ -10,7 +10,7 @@
   text-transform: lowercase;
   font-size: 0.9rem;
 }
-.status.bright {
+.status.attention {
   color:rgba(230,74,25 ,1);
 }
 .link {

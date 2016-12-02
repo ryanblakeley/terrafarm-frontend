@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import MenuItem from 'material-ui/MenuItem';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import SelectInput from '../../shared/components/SelectInput';
+import TextInput from '../../shared/components/TextInput';
 import CreateOrganizationResourceMutation from '../mutations/CreateOrganizationResourceMutation';
 
 class RequestResourceForOrganizationForm extends React.Component {
@@ -29,6 +30,7 @@ class RequestResourceForOrganizationForm extends React.Component {
       new CreateOrganizationResourceMutation({
         organization,
         resource: data.resource,
+        contact: data.contact,
         status: 'REQUESTED',
       }), {
         onSuccess: this.handleSuccess,
@@ -66,6 +68,14 @@ class RequestResourceForOrganizationForm extends React.Component {
           primaryText={edge.node.resourceByResourceId.name}
         />)}
       </SelectInput>
+      <TextInput
+        name={'contact'}
+        label={'Contact Info'}
+        validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+        required
+        multiLine
+        rows={3}
+      />
     </ActionPanelForm>;
   }
 }

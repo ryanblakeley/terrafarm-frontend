@@ -5,6 +5,7 @@ import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import Radio from '../../shared/components/Radio';
 import RadioGroup from '../../shared/components/RadioGroup';
 import ContactCard from '../../shared/components/ContactCard';
+import NotAuthorized from '../../shared/components/NotAuthorized';
 import UpdateOrganizationResourceMutation from '../mutations/UpdateOrganizationResourceMutation';
 import DeleteOrganizationResourceMutation from '../mutations/DeleteOrganizationResourceMutation';
 
@@ -114,16 +115,16 @@ class EditOrganizationResourceForm extends React.Component {
 
     return <ActionPanelForm
       title={`Resource ${status.toLowerCase()}`}
-      bodyText={authorized ? <div>
+      bodyText={<div>
         <p className={classNames.text}>
           <Link to={`/resource/${resourceByResourceId.rowId}`} className={classNames.link}>
             {resourceByResourceId.name}
           </Link>
         </p>
-        {contact && <ContactCard text={contact} />}
-      </div> : null}
+        {authorized && <ContactCard text={contact || '(not provided)'} />}
+      </div>}
       showForm={showForm}
-      formBlockedMessage={''}
+      formBlockedMessage={authorized ? null : <NotAuthorized />}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={onDelete}

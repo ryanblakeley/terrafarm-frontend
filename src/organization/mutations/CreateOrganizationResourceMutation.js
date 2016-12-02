@@ -24,6 +24,7 @@ export default class CreateOrganizationResourceMutation extends Relay.Mutation {
         organizationId: this.props.organization.rowId,
         resourceId: this.props.resource.rowId,
         status: this.props.status,
+        contact: this.props.contact,
       },
     };
   }
