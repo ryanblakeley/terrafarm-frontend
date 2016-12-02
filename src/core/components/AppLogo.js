@@ -13,7 +13,7 @@ class AppLogo extends React.Component {
     text: React.PropTypes.string,
   };
   static contextTypes = {
-    location: React.PropTypes.object,
+    loggedIn: React.PropTypes.bool,
   };
   static defaultProps = {
     stacked: false,
@@ -28,6 +28,7 @@ class AppLogo extends React.Component {
     this.setState({showLabel: false});
   }
   render () {
+    const {loggedIn} = this.context;
     const {showLabel} = this.state;
 
     return <div
@@ -37,7 +38,7 @@ class AppLogo extends React.Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       />
-      {showLabel
+      {loggedIn && showLabel
         ? <PageHeading text={'PROFILE'} />
         : <AppLogoName />
       }
