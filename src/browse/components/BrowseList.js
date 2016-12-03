@@ -1,7 +1,7 @@
 import React from 'react';
 import IoArrowRightA from 'react-icons/lib/io/arrow-right-a';
 import Accordion from '../../shared/components/Accordion';
-import ResultsList from '../../shared/components/ResultsList';
+import ResultsList from './ResultsList';
 
 class BrowseList extends React.Component {
   static propTypes = {

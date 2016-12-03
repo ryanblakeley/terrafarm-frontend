@@ -43,7 +43,7 @@ export class Container extends React.Component {
     location: React.PropTypes.object,
   };
   state = {
-    zoom: 4,
+    zoom: 6,
     showingInfoWindow: false,
     activeMarker: null,
     markers: [],
@@ -91,13 +91,18 @@ export class Container extends React.Component {
         onClick={this.handleMarkerClick}
         key={result.rowId}
         itemId={result.rowId}
+        itemUrl={result.url}
         ref={elem => (this[`marker${result.rowId}`] = elem)}
       />;
 
       if (result.rowId === activeId) {
         this.setState({
           activeMarker: this[`marker${result.rowId}`].marker,
-          infoName: result.name,
+          activeResult: {
+            name: result.name,
+            url: result.url,
+            rowId: result.rowId,
+          },
           showingInfoWindow: true,
         });
       }
@@ -134,7 +139,7 @@ export class Container extends React.Component {
       this.setState({
         activeMarker: null,
         showingInfoWindow: false,
-        infoName: '',
+        activeResult: null,
       });
     }
   }
@@ -148,7 +153,11 @@ export class Container extends React.Component {
     this.setState({
       activeMarker: marker,
       showingInfoWindow: true,
-      infoName: props.name,
+      activeResult: {
+        name: props.name,
+        url: props.url,
+        rowId: props.rowId,
+      },
     });
   }
   handleMarkerMouseover = (props, marker, e) => {
@@ -186,7 +195,7 @@ export class Container extends React.Component {
   render () {
     const {google, initialCenter, mapType } = this.props;
     const {location} = this.context;
-    const {zoom, markers, activeMarker, showingInfoWindow, infoName} = this.state;
+    const {zoom, markers, activeMarker, showingInfoWindow, activeResult} = this.state;
     const center = location.query.lat && location.query.lng
       ? { lat: location.query.lat, lng: location.query.lng }
       : initialCenter;
@@ -199,6 +208,7 @@ export class Container extends React.Component {
         center={center}
         mapType={mapType}
         visible
+        centerAroundCurrentLocation
         onReady={this.handleReady}
         onClick={this.handleMapClick}
         onDragend={this.handleMapMoved}
@@ -206,7 +216,7 @@ export class Container extends React.Component {
       >
         {markers}
         <InfoWindow marker={activeMarker} visible={showingInfoWindow} >
-          <InfoWindowContent name={infoName} />
+          {activeResult ? <InfoWindowContent resultItem={activeResult} /> : <div />}
         </InfoWindow>
       </Map>
     </div>;

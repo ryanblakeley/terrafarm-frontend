@@ -1,1 +1,2 @@
 .name { composes: bodyText from '../../shared/styles/_typography.css'; }
+.link { composes: link from '../../shared/styles/_typography.css'; }

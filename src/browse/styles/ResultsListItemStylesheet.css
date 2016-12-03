@@ -1,0 +1,11 @@
+.this {
+  composes: bodyText from '../../shared/styles/_typography.css';
+  composes: truncate from '../../shared/styles/_typography.css';
+  display: flex; align-items: center;
+  /* height: 36px; */
+}
+.this.active { background: rgba(187,222,251,0.92); }
+.icon { composes: icon from '../../shared/styles/_typography.css'; }
+.this.active .icon {
+  color:rgba(230,74,25 ,1);
+}
