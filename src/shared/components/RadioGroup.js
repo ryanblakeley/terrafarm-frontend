@@ -13,6 +13,7 @@ const RadioGroup = props => <FormsyRadioGroup
   name={props.name}
   required={props.required}
   defaultSelected={props.defaultSelected}
+  valueSelected={props.valueSelected}
   onChange={props.onChange}
 >
   {props.children.map((child, i) => (
@@ -28,6 +29,7 @@ RadioGroup.propTypes = {
   required: React.PropTypes.bool,
   children: React.PropTypes.array,
   defaultSelected: React.PropTypes.string,
+  valueSelected: React.PropTypes.string,
   onChange: React.PropTypes.func,
 };
 

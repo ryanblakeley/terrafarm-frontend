@@ -21,6 +21,7 @@ import Menu from '../shared/components/Menu';
 import ActionPanel from '../shared/components/ActionPanel';
 import Accordion from '../shared/components/Accordion';
 import ContentSubheader from '../shared/components/ContentSubheader';
+import ContentResourceType from './components/ContentResourceType';
 import ContentBodyText from '../shared/components/ContentBodyText';
 
 import classNames from './styles/ResourceContainerStylesheet.css';
@@ -108,6 +109,7 @@ const ResourceContainer = (props, context) => (!props.resource
             text={props.resource.placeByPlaceId
               && props.resource.placeByPlaceId.address}
           />
+          <ContentResourceType rawText={props.resource.type} />
           <ContentBodyText text={props.resource.description} />
           <HeroImage image={props.resource.imageUrl} />
         </div>}
@@ -139,6 +141,7 @@ export default Relay.createContainer(ResourceContainer, {
       fragment on Resource {
         rowId,
         name,
+        type,
         imageUrl,
         description,
         userByOwnerId {

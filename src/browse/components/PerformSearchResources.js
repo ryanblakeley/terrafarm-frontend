@@ -17,6 +17,7 @@ class PerformSearchResources extends React.Component {
       count: 5,
       search: '',
       bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
+      category: 'LAND',
     },
     searchResultIds: [],
   };
@@ -29,19 +30,25 @@ class PerformSearchResources extends React.Component {
       coords: parsePoint(edge.node.placeByPlaceId.coords),
       url: 'resource',
     }));
+    const newVars = Object.assign({
+      category: this.state.relayVariables.category,
+    }, location.query);
 
-    this.changeRelayVars(location.query);
+    this.changeRelayVars(newVars);
     setSearchResults(resultsSet);
   }
   componentWillReceiveProps (nextProps, nextContext) {
     const nextSearchResources = nextProps.query.searchResources;
     const {location, setSearchResults} = this.context;
-    const {searchResultIds} = this.state;
+    const {searchResultIds, relayVariables} = this.state;
     const {query} = location || {};
     const nextQuery = nextContext.location.query || {};
     const nextSearchResultIds = nextSearchResources.edges.map(edge => edge.node.rowId);
+    const newVars = Object.assign({
+      category: relayVariables.category,
+    }, Object.assign(query, nextQuery));
 
-    this.changeRelayVars(Object.assign(query, nextQuery));
+    this.changeRelayVars(newVars);
 
     const difference = searchResultIds.length !== nextSearchResultIds.length
       || nextSearchResultIds.find(x => searchResultIds.indexOf(x) < 0)
@@ -65,6 +72,7 @@ class PerformSearchResources extends React.Component {
       search: patch.search || relayVariables.search,
       count: patch.count || relayVariables.count,
       bounds: patch.bounds || relayVariables.bounds,
+      category: patch.category || relayVariables.category,
     };
 
     if (!equal(relayVariables, newVariables)) {
@@ -82,11 +90,12 @@ export default Relay.createContainer(PerformSearchResources, {
     count: 5,
     search: '',
     bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
+    category: 'LAND',
   },
   fragments: {
     query: () => Relay.QL`
       fragment on Query {
-        searchResources(first:$count,search:$search,bounds:$bounds) {
+        searchResources(first:$count,search:$search,bounds:$bounds,category:$category) {
           edges {
             node {
               name,

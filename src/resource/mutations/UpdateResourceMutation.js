@@ -23,6 +23,7 @@ export default class UpdateResourceMutation extends Relay.Mutation {
         resource {
           name,
           placeByPlaceId,
+          type,
           description,
           imageUrl,
         },

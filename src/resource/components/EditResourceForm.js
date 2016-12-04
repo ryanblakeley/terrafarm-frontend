@@ -1,9 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {GoogleApiWrapper} from 'google-maps-react';
+import MenuItem from 'material-ui/MenuItem';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import TextInput from '../../shared/components/TextInput';
 import formatAddress from '../../shared/utils/formatAddress';
+import SelectInput from '../../shared/components/SelectInput';
 import UpdateResourceMutation from '../mutations/UpdateResourceMutation';
 import DeleteResourceMutation from '../mutations/DeleteResourceMutation';
 
@@ -14,11 +16,20 @@ class Container extends React.Component {
     query: React.PropTypes.object,
     google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
+    resourceTypes: React.PropTypes.array,
     children: React.PropTypes.object,
   };
   static contextTypes = {
     router: React.PropTypes.object,
     location: React.PropTypes.object,
+  };
+  static defaultProps = {
+    resourceTypes: [
+      { display: 'Land', value: 'LAND' },
+      { display: 'Labor', value: 'LABOR' },
+      { display: 'Equipment', value: 'EQUIPMENT' },
+      { display: 'Raw Materials', value: 'RAW_MATERIALS' },
+    ],
   };
   state = {
     error: false,
@@ -126,7 +137,7 @@ class Container extends React.Component {
     Geocoder.geocode(request, callback);
   }
   render () {
-    const {resource, notifyClose, children} = this.props;
+    const {resource, notifyClose, resourceTypes, children} = this.props;
     const {error, authorized} = this.state;
 
     return <ActionPanelForm
@@ -151,6 +162,20 @@ class Container extends React.Component {
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
         required
       />
+      <SelectInput
+        name={'type'}
+        label={'Type'}
+        value={resource.type}
+        required
+      >
+        {resourceTypes.map(type => (
+          <MenuItem
+            value={type.value}
+            key={type.value}
+            primaryText={type.display}
+          />
+        ))}
+      </SelectInput>
       <TextInput
         name={'description'}
         label={'Description'}
@@ -189,6 +214,7 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
         placeByPlaceId {
           address,
         },
+        type,
         description,
         imageUrl,
         ${UpdateResourceMutation.getFragment('resource')},

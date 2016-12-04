@@ -17,9 +17,6 @@ class BrowseContentWrapper extends React.Component {
     setSearchResults: React.PropTypes.func,
   };
   state = {
-    search: '',
-    bounds: '',
-    count: 5,
     searchResults: [],
     activeResultItemId: null,
   };

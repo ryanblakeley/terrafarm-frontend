@@ -12,11 +12,16 @@ class MenuListItem extends React.Component {
   };
   static contextTypes = {
     router: React.PropTypes.object,
+    location: React.PropTypes.object,
   };
   handleClick = _ => {
     const {baseUrl, url, closeImmediate} = this.props;
-    const {router} = this.context;
-    router.push(`${baseUrl}/${url}`);
+    const {router, location} = this.context;
+    router.push({
+      pathname: `${baseUrl}/${url}`,
+      query: location.query,
+      state: location.state,
+    });
     closeImmediate();
   }
   render () {

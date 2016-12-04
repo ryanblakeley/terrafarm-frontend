@@ -1,9 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {GoogleApiWrapper} from 'google-maps-react';
+import MenuItem from 'material-ui/MenuItem';
 import formatAddress from '../../shared/utils/formatAddress';
 import ActionPanelForm from '../../shared/components/ActionPanelForm';
 import TextInput from '../../shared/components/TextInput';
+import SelectInput from '../../shared/components/SelectInput';
 import CreateResourceMutation from '../mutations/CreateResourceMutation';
 
 class Container extends React.Component {
@@ -12,11 +14,20 @@ class Container extends React.Component {
     query: React.PropTypes.object,
     google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
+    resourceTypes: React.PropTypes.array,
     children: React.PropTypes.object,
   };
   static contextTypes = {
     router: React.PropTypes.object,
     location: React.PropTypes.object,
+  };
+  static defaultProps = {
+    resourceTypes: [
+      { display: 'Land', value: 'LAND' },
+      { display: 'Labor', value: 'LABOR' },
+      { display: 'Equipment', value: 'EQUIPMENT' },
+      { display: 'Raw Materials', value: 'RAW_MATERIALS' },
+    ],
   };
   state = {
     error: false,
@@ -105,7 +116,7 @@ class Container extends React.Component {
     Geocoder.geocode(request, callback);
   }
   render () {
-    const {children} = this.props;
+    const {resourceTypes, children} = this.props;
 
     return <ActionPanelForm
       title={'New Resource'}
@@ -124,6 +135,19 @@ class Container extends React.Component {
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
         required
       />
+      <SelectInput
+        name={'type'}
+        label={'Type'}
+        required
+      >
+        {resourceTypes.map(type => (
+          <MenuItem
+            value={type.value}
+            key={type.value}
+            primaryText={type.display}
+          />
+        ))}
+      </SelectInput>
       <TextInput
         name={'description'}
         label={'Description'}
