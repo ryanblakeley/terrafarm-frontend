@@ -118,7 +118,7 @@ class Container extends React.Component {
     >
       <TextInput
         name={'name'}
-        label={'Headline'}
+        label={'Name'}
         validations={{matchRegexp: /[A-Za-z,\.0-9]*/}}
         required
       />

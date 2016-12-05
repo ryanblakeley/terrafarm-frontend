@@ -22,10 +22,10 @@ class Container extends React.Component {
     google: window.google,
     initialAddress: '45,-117',
     resourceTypes: [
-      { display: 'Land', value: 'LAND' },
-      { display: 'Labor', value: 'LABOR' },
-      { display: 'Equipment', value: 'EQUIPMENT' },
       { display: 'Raw Materials', value: 'RAW_MATERIALS' },
+      { display: 'Equipment', value: 'EQUIPMENT' },
+      { display: 'Labor', value: 'LABOR' },
+      { display: 'Land', value: 'LAND' },
     ],
   };
   static contextTypes = {
@@ -43,7 +43,7 @@ class Container extends React.Component {
     const showResourceType = router.isActive('/browse/resources');
 
     if (showResourceType && !location.query.category) {
-      this.changeSearchParams({category: 'LAND'});
+      this.changeSearchParams({category: 'RAW_MATERIALS'});
     }
     this.setState({showResourceType});
   }
@@ -52,13 +52,13 @@ class Container extends React.Component {
     const showResourceType = router.isActive('/browse/resources');
 
     if (showResourceType && !location.query.category) {
-      this.changeSearchParams({category: 'LAND'});
+      this.changeSearchParams({category: 'RAW_MATERIALS'});
     }
 
     this.setState({showResourceType});
   }
-  handleRadioChange = _ => {
-    this.handleSubmit(this.form.getCurrentValues());
+  handleRadioChange = (event, value) => {
+    this.handleSubmit({resourceType: value});
   }
   handleValid = () => {
     this.setState({ canSubmit: true });

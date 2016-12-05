@@ -25,7 +25,9 @@ import ProfileQueryQueries from './profile/ProfileQueryQueries';
 import JoinOrganizationQueries from './profile/JoinOrganizationQueries';
 
 import UserContainer from './user/UserContainer';
+import StarUserForm from './user/components/StarUserForm';
 import UserQueries from './user/UserQueries';
+import UserCurrentPersonQueries from './user/UserCurrentPersonQueries';
 
 import ResourceContainer from './resource/ResourceContainer';
 import EditResourceForm from './resource/components/EditResourceForm';
@@ -40,12 +42,15 @@ import RequestResourceForOrganizationForm
   from './organization/components/RequestResourceForOrganizationForm';
 import OfferResourceToOrganizationForm
   from './organization/components/OfferResourceToOrganizationForm';
+import OfferMemberForm from './organization/components/OfferMemberForm';
+import EditMemberForm from './organization/components/EditMemberForm';
 import EditOrganizationForm from './organization/components/EditOrganizationForm';
 import EditOrganizationResourceForm from './organization/components/EditOrganizationResourceForm';
 import OrganizationQueries from './organization/OrganizationQueries';
 import EditOrganizationQueries from './organization/EditOrganizationQueries';
 import OrganizationResourceQueries from './organization/OrganizationResourceQueries';
 import OrganizationCurrentPersonQueries from './organization/OrganizationCurrentPersonQueries';
+import MemberQueries from './organization/MemberQueries';
 
 import TaskContainer from './task/TaskContainer';
 import RequestResourceForTaskForm
@@ -223,7 +228,14 @@ const routes = (
         component={UserContainer}
         queries={UserQueries}
         renderLoading={renderLoading}
-      />
+      >
+        <Route
+          path={'star'}
+          component={StarUserForm}
+          queries={UserCurrentPersonQueries}
+          onEnter={loginBouncer}
+        />
+      </Route>
     </Route>
     <Route path={'resource'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
       <Route
@@ -281,6 +293,12 @@ const routes = (
           onEnter={loginBouncer}
         />
         <Route
+          path={'new-member'}
+          component={OfferMemberForm}
+          queries={OrganizationCurrentPersonQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
           path={'edit'}
           component={EditOrganizationForm}
           queries={EditOrganizationQueries}
@@ -300,6 +318,14 @@ const routes = (
             path={':organizationResourceId'}
             component={EditOrganizationResourceForm}
             queries={OrganizationResourceQueries}
+            onEnter={loginBouncer}
+          />
+        </Route>
+        <Route path={'review-membership'}>
+          <Route
+            path={':organizationMemberId'}
+            component={EditMemberForm}
+            queries={MemberQueries}
             onEnter={loginBouncer}
           />
         </Route>

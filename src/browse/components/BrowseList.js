@@ -21,15 +21,6 @@ class BrowseList extends React.Component {
   handleResultItemClick = itemId => {
     const {setActiveResultItemId} = this.props;
     setActiveResultItemId(itemId);
-    // this.changeMapCenter(result.coords);
-  }
-  changeMapCenter = coords => {
-    const {setSearchParams} = this.props;
-
-    setSearchParams({
-      lat: coords.lat,
-      lng: coords.lng,
-    });
   }
   render () {
     const {searchResults, activeResultItemId} = this.props;

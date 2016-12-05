@@ -4,10 +4,10 @@ import classNames from '../styles/RelationshipListStylesheet.css';
 
 const RelationshipList = props => <div className={classNames.this}>
   <div className={classNames.list}>
-    {props.listItems.length
-      ? props.listItems.map(item => (item.itemId && <RelationshipListItem
+    {props.listItems.length > -1
+      ? props.listItems.map(item => (item.id && <RelationshipListItem
         {...item}
-        key={item.itemId}
+        key={item.id}
       />))
       : <div className={classNames.emptyListItem}>
         <p className={classNames.emptyWarning}>{props.emptyWarning}</p>
@@ -19,14 +19,12 @@ const RelationshipList = props => <div className={classNames.this}>
 RelationshipList.propTypes = {
   emptyWarning: React.PropTypes.string,
   listItems: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.string,
     name: React.PropTypes.string,
     itemUrl: React.PropTypes.string,
-    itemId: React.PropTypes.string,
-    baseUrl: React.PropTypes.string,
-    baseId: React.PropTypes.string,
-    relationshipId: React.PropTypes.string,
+    actionUrl: React.PropTypes.string,
     status: React.PropTypes.string,
-    isAdmin: React.PropTypes.bool,
+    authorized: React.PropTypes.bool,
   })),
 };
 

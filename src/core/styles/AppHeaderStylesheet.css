@@ -1,6 +1,6 @@
 .this {
+  composes: page from '../../shared/styles/_layout.css';
   display: flex; align-items: center; justify-content: space-between;
-  margin: 0 auto; max-width: 100%;
   transition: margin 180ms linear, max-width 180ms linear;
 }
 
@@ -9,5 +9,5 @@
 }
 
 @media only screen and (min-width: 800px) {
-  .this { padding-top: 15px; max-width: 880px; }
+  .this { padding-top: 15px; }
 }

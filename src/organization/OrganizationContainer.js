@@ -6,6 +6,7 @@ import IoBriefcase from 'react-icons/lib/io/briefcase';
 import IoCube from 'react-icons/lib/io/cube';
 import IoPerson from 'react-icons/lib/io/person';
 import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
+import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 // Components
 import NotFoundPage from '../not-found/NotFoundPage';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
@@ -44,6 +45,11 @@ const OrganizationContainer = (props, context) => (!props.organization
             url: 'offer-resource',
           },
           {
+            icon: <IoPerson />,
+            title: 'New Member',
+            url: 'new-member',
+          },
+          {
             icon: <IoEdit />,
             title: 'Edit',
             url: 'edit',
@@ -65,9 +71,16 @@ const OrganizationContainer = (props, context) => (!props.organization
               body: <RelationshipList
                 listItems={props.organization
                   .organizationMembersByOrganizationId.edges.map(edge => ({
+                    id: edge.node.id,
                     name: edge.node.userByMemberId.name,
                     itemId: edge.node.userByMemberId.rowId,
-                    itemUrl: 'user',
+                    itemUrl: `/user/${edge.node.userByMemberId.rowId}`,
+                    actionUrl: `/organization/${props.organization.rowId}/review-membership/${edge.node.id}`,
+                    status: edge.node.status === 'OFFERED'
+                      ? edge.node.status
+                      : null,
+                    authorized: edge.node.memberId === context.userId,
+
                   }))
                 }
               />,
@@ -80,20 +93,31 @@ const OrganizationContainer = (props, context) => (!props.organization
               body: <RelationshipList
                 listItems={props.organization
                   .organizationResourcesByOrganizationId.edges.map(edge => ({
+                    id: edge.node.id,
                     name: edge.node.resourceByResourceId.name,
-                    itemId: edge.node.resourceByResourceId.rowId,
-                    itemUrl: 'resource',
-                    baseId: props.organization.rowId,
-                    baseUrl: 'organization',
-                    relationshipId: edge.node.id,
+                    itemUrl: `/resource/${edge.node.resourceByResourceId.rowId}`,
+                    actionUrl: `/organization/${props.organization.rowId}/review-allocation/${edge.node.id}`,
                     status: edge.node.status,
-                    isAdmin: context.userId === edge.node.resourceByResourceId.ownerId
+                    authorized: context.userId === edge.node.resourceByResourceId.ownerId
                       || props.organization.organizationMembersByOrganizationId
                         .edges.findIndex(edge2 => (
                           context.userId === edge2.node.memberId
                         )) > -1,
                   }))
                 }
+              />,
+            },
+            {
+              header: {
+                icon: <IoIosPaperOutline />,
+                label: 'Tasks',
+              },
+              body: <RelationshipList
+                listItems={props.organization.organizationTasksByOrganizationId.edges.map(edge => ({
+                  id: edge.node.id,
+                  name: edge.node.taskByTaskId.name,
+                  itemUrl: `/task/${edge.node.taskByTaskId.rowId}`,
+                }))}
               />,
             },
           ]}
@@ -158,6 +182,9 @@ export default Relay.createContainer(OrganizationContainer, {
         organizationMembersByOrganizationId(first: 10) {
           edges {
             node {
+              id,
+              status,
+              memberId,
               userByMemberId {
                 rowId,
                 name,
@@ -165,6 +192,17 @@ export default Relay.createContainer(OrganizationContainer, {
             }
           }
         },
+        organizationTasksByOrganizationId(first: 10) {
+          edges {
+            node {
+              id,
+              taskByTaskId {
+                name,
+                rowId,
+              }
+            }
+          }
+        }
       }
     `,
   },

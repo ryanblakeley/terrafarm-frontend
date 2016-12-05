@@ -84,6 +84,7 @@ class Container extends React.Component {
       pathname: `/profile/join-organization/${organizationId}`,
       state: {
         isAdmin: true,
+        memberStatus: 'ACCEPTED',
       },
     });
   }

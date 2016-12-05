@@ -3,7 +3,7 @@ import classNames from '../styles/ContentResourceTypeStylesheet.css';
 
 const ContentResourceType = props => <div className={classNames.this}>
   <h5 className={classNames.text}>
-    {props.rawText.toLowerCase().replace('_', ' ')}
+    [{props.rawText.toLowerCase().replace('_', ' ')}]
   </h5>
 </div>;
 

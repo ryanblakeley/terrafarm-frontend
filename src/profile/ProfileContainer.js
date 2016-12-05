@@ -44,9 +44,9 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
             },
             body: <RelationshipList
               listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
+                id: edge.node.id,
                 name: edge.node.name,
-                itemId: edge.node.rowId,
-                itemUrl: 'resource',
+                itemUrl: `/resource/${edge.node.rowId}`,
               }))}
             />,
           },
@@ -57,9 +57,9 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
             },
             body: <RelationshipList
               listItems={props.user.tasksByAuthorId.edges.map(edge => ({
+                id: edge.node.id,
                 name: edge.node.name,
-                itemId: edge.node.rowId,
-                itemUrl: 'task',
+                itemUrl: `/task/${edge.node.rowId}`,
               }))}
             />,
           },
@@ -70,9 +70,14 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
             },
             body: <RelationshipList
               listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
+                id: edge.node.id,
                 name: edge.node.organizationByOrganizationId.name,
-                itemId: edge.node.organizationByOrganizationId.rowId,
-                itemUrl: 'organization',
+                itemUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}`,
+                actionUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}/review-membership/${edge.node.id}`,
+                status: edge.node.status === 'OFFERED'
+                  ? edge.node.status
+                  : null,
+                authorized: true,
               }))}
             />,
           },
@@ -116,6 +121,8 @@ export default Relay.createContainer(ProfileContainer, {
         organizationMembersByMemberId(first: 5) {
           edges {
             node {
+              id,
+              status,
               organizationByOrganizationId {
                 rowId,
                 name,
@@ -126,6 +133,7 @@ export default Relay.createContainer(ProfileContainer, {
         resourcesByOwnerId(first: 25) {
           edges {
             node {
+              id,
               rowId,
               name,
             }
@@ -134,6 +142,7 @@ export default Relay.createContainer(ProfileContainer, {
         tasksByAuthorId(first: 10) {
           edges {
             node {
+              id,
               rowId,
               name,
             }

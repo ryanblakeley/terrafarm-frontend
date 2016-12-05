@@ -20,6 +20,7 @@ class JoinOrganizationContainer extends React.Component {
         user,
         organization,
         isAdmin: !!location.state.isAdmin,
+        status: location.state.memberStatus || 'REQUESTED',
       }), {
         onSuccess: response => {
           router.replace(`/organization/${organization.rowId}`);

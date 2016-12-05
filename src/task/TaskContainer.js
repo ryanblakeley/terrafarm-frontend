@@ -6,6 +6,7 @@ import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
 import IoPerson from 'react-icons/lib/io/person';
 import IoCube from 'react-icons/lib/io/cube';
+import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 // Components
 import NotFoundPage from '../not-found/NotFoundPage';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
@@ -59,9 +60,9 @@ const TaskContainer = (props, context) => (!props.task
               },
               body: <RelationshipList
                 listItems={[{
-                  name: props.task.userByAuthorId && props.task.userByAuthorId.name,
-                  itemId: props.task.userByAuthorId.rowId,
-                  itemUrl: 'user',
+                  id: props.task.userByAuthorId.id,
+                  name: props.task.userByAuthorId.name,
+                  itemUrl: `/user/${props.task.userByAuthorId.rowId}`,
                 }]}
               />,
             },
@@ -72,15 +73,26 @@ const TaskContainer = (props, context) => (!props.task
               },
               body: <RelationshipList
                 listItems={props.task.taskResourcesByTaskId.edges.map(edge => ({
+                  id: edge.node.id,
                   name: edge.node.resourceByResourceId.name,
-                  itemId: edge.node.resourceByResourceId.rowId,
-                  itemUrl: 'resource',
-                  baseId: props.task.rowId,
-                  baseUrl: 'task',
-                  relationshipId: edge.node.id,
+                  itemUrl: `/resource/${edge.node.resourceByResourceId.rowId}`,
+                  actionUrl: `/task/${props.task.rowId}/review-allocation/${edge.node.id}`,
                   status: edge.node.status,
-                  isAdmin: context.userId === props.task.authorId
+                  authorized: context.userId === props.task.authorId
                     || context.userId === edge.node.resourceByResourceId.ownerId,
+                }))}
+              />,
+            },
+            {
+              header: {
+                icon: <IoIosBriefcase />,
+                label: 'Organizations',
+              },
+              body: <RelationshipList
+                listItems={props.task.organizationTasksByTaskId.edges.map(edge => ({
+                  id: edge.node.id,
+                  name: edge.node.organizationByOrganizationId.name,
+                  itemUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}`,
                 }))}
               />,
             },
@@ -120,11 +132,13 @@ export default Relay.createContainer(TaskContainer, {
   fragments: {
     task: () => Relay.QL`
       fragment on Task {
+        id,
         rowId,
         name,
         description,
         authorId,
         userByAuthorId {
+          id,
           rowId,
           name,
         },
@@ -141,6 +155,17 @@ export default Relay.createContainer(TaskContainer, {
                 name,
                 ownerId,
               },
+            }
+          }
+        },
+        organizationTasksByTaskId(first: 10) {
+          edges {
+            node {
+              id,
+              organizationByOrganizationId {
+                name,
+                rowId,
+              }
             }
           }
         },

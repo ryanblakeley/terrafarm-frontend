@@ -1,10 +1,13 @@
 import React from 'react';
 import Relay from 'react-relay';
+
 // Icons
 import IoPerson from 'react-icons/lib/io/person';
 import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 import IoCube from 'react-icons/lib/io/cube';
+import IoIosStar from 'react-icons/lib/io/ios-star';
+
 // Components
 import NotFoundPage from '../not-found/NotFoundPage';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
@@ -13,21 +16,22 @@ import MainContentWrapper from '../shared/components/MainContentWrapper';
 import HeroImage from '../shared/components/HeroImage';
 import RelationshipList from '../shared/components/RelationshipList';
 import Menu from '../shared/components/Menu';
+import ActionPanel from '../shared/components/ActionPanel';
 import Accordion from '../shared/components/Accordion';
 import ContentSubheader from '../shared/components/ContentSubheader';
 import ContentBodyText from '../shared/components/ContentBodyText';
 
 import classNames from './styles/UserContainerStylesheet.css';
 
-const UserContainer = props => (!props.user
+const UserContainer = (props, context) => (!props.user
   ? <NotFoundPage message={'User not found.'} />
   : <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
-        baseUrl={`/props.user/${props.user.rowId}`}
+        baseUrl={`/user/${props.user.rowId}`}
         header={{icon: <IoPerson />, title: 'User'}}
-        list={[]}
-        disabled
+        disabled={!context.loggedIn}
+        list={[{ icon: <IoIosStar />, title: 'Star', url: 'star' }]}
       />
       <ContentHeader text={props.user.name} />
       <MainContentWrapper
@@ -40,9 +44,9 @@ const UserContainer = props => (!props.user
               },
               body: <RelationshipList
                 listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
+                  id: edge.node.id,
                   name: edge.node.organizationByOrganizationId.name,
-                  itemId: edge.node.organizationByOrganizationId.rowId,
-                  itemUrl: 'organization',
+                  itemUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}`,
                 }))}
               />,
             },
@@ -53,9 +57,9 @@ const UserContainer = props => (!props.user
               },
               body: <RelationshipList
                 listItems={props.user.tasksByAuthorId.edges.map(edge => ({
+                  id: edge.node.id,
                   name: edge.node.name,
-                  itemId: edge.node.rowId,
-                  itemUrl: 'task',
+                  itemUrl: `/task/${edge.node.rowId}`,
                 }))}
               />,
             },
@@ -66,15 +70,19 @@ const UserContainer = props => (!props.user
               },
               body: <RelationshipList
                 listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
+                  id: edge.node.id,
                   name: edge.node.name,
-                  itemId: edge.node.rowId,
-                  itemUrl: 'resource',
+                  itemUrl: `/resource/${edge.node.rowId}`,
                 }))}
               />,
             },
           ]}
         />}
         left={<div>
+          <ActionPanel
+            children={props.children}
+            notifyClose={() => context.router.replace(`/user/${props.user.rowId}`)}
+          />
           <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} />
           <ContentBodyText text={props.user.description} />
           <HeroImage image={props.user.imageUrl} />
@@ -97,6 +105,12 @@ UserContainer.propTypes = {
     resourcesByOwnerId: React.PropTypes.object,
     tasksByAuthorId: React.PropTypes.object,
   }),
+  children: React.PropTypes.object,
+};
+
+UserContainer.contextTypes = {
+  loggedIn: React.PropTypes.bool,
+  router: React.PropTypes.object,
 };
 
 export default Relay.createContainer(UserContainer, {
@@ -116,6 +130,7 @@ export default Relay.createContainer(UserContainer, {
         organizationMembersByMemberId(first: 5) {
           edges {
             node {
+              id,
               organizationByOrganizationId {
                 rowId,
                 name,
@@ -126,6 +141,7 @@ export default Relay.createContainer(UserContainer, {
         resourcesByOwnerId(first: 10) {
           edges {
             node {
+              id,
               rowId,
               name,
             }
@@ -134,6 +150,7 @@ export default Relay.createContainer(UserContainer, {
         tasksByAuthorId(first: 10) {
           edges {
             node {
+              id,
               rowId,
               name,
             }

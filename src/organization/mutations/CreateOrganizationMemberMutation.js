@@ -24,6 +24,7 @@ export default class CreateOrganizationMemberMutation extends Relay.Mutation {
         organizationId: this.props.organization.rowId,
         memberId: this.props.user.rowId,
         isAdmin: this.props.isAdmin,
+        status: this.props.status,
       },
     };
   }

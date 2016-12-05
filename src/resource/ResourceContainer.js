@@ -56,9 +56,9 @@ const ResourceContainer = (props, context) => (!props.resource
               },
               body: <RelationshipList
                 listItems={[{
+                  id: props.resource.userByOwnerId.id,
                   name: props.resource.userByOwnerId.name,
-                  itemId: props.resource.userByOwnerId.rowId,
-                  itemUrl: 'user',
+                  itemUrl: `/user/${props.resource.userByOwnerId.rowId}`,
                 }]}
               />,
             },
@@ -69,14 +69,12 @@ const ResourceContainer = (props, context) => (!props.resource
               },
               body: <RelationshipList
                 listItems={props.resource.taskResourcesByResourceId.edges.map(edge => ({
+                  id: edge.node.id,
                   name: edge.node.taskByTaskId.name,
-                  itemId: edge.node.taskByTaskId.rowId,
-                  itemUrl: 'task',
-                  baseId: edge.node.taskByTaskId.rowId,
-                  baseUrl: 'task',
-                  relationshipId: edge.node.id,
+                  itemUrl: `/task/${edge.node.taskByTaskId.rowId}`,
+                  actionUrl: `/task/${edge.node.taskByTaskId.rowId}/resource-allocation/${edge.node.id}`,
                   status: edge.node.status,
-                  isAdmin: context.loggedIn,
+                  authorized: context.loggedIn,
                 }))}
               />,
             },
@@ -87,14 +85,12 @@ const ResourceContainer = (props, context) => (!props.resource
               },
               body: <RelationshipList
                 listItems={props.resource.organizationResourcesByResourceId.edges.map(edge => ({
+                  id: edge.node.id,
                   name: edge.node.organizationByOrganizationId.name,
-                  itemId: edge.node.organizationByOrganizationId.rowId,
-                  itemUrl: 'organization',
-                  baseId: edge.node.organizationByOrganizationId.rowId,
-                  baseUrl: 'organization',
-                  relationshipId: edge.node.id,
+                  itemUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}`,
+                  actionUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}/resource-allocation/${edge.node.id}`,
                   status: edge.node.status,
-                  isAdmin: context.loggedIn,
+                  authorized: context.loggedIn,
                 }))}
               />,
             },
@@ -145,6 +141,7 @@ export default Relay.createContainer(ResourceContainer, {
         imageUrl,
         description,
         userByOwnerId {
+          id,
           rowId,
           name,
         },

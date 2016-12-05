@@ -1,0 +1,13 @@
+.this {
+  margin-bottom: 2em;
+  text-align: left;
+}
+.heading {
+  composes: contentSubheading from '../../shared/styles/_typography.css';
+}
+.text {
+  composes: bodyText from '../../shared/styles/_typography.css';
+}
+.link {
+  composes: link from '../../shared/styles/_typography.css';
+}

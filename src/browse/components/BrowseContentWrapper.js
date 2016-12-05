@@ -31,7 +31,7 @@ class BrowseContentWrapper extends React.Component {
   setActiveResultItemId = id => {
     this.setState({activeResultItemId: id});
   }
-  setSearchParams = (patch, statePatch) => {
+  setSearchParams = patch => {
     const {router, location} = this.context;
 
     router.replace({

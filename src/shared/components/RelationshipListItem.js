@@ -7,31 +7,23 @@ const cx = classNamesContext.bind(classNames);
 
 class RelationshipListItem extends React.Component {
   static propTypes = {
-    itemUrl: React.PropTypes.string,
-    itemId: React.PropTypes.string,
-    baseUrl: React.PropTypes.string,
-    baseId: React.PropTypes.string,
+    id: React.PropTypes.string,
     name: React.PropTypes.string,
-    relationshipId: React.PropTypes.string,
+    itemUrl: React.PropTypes.string,
+    actionUrl: React.PropTypes.string,
     status: React.PropTypes.string,
-    isAdmin: React.PropTypes.bool,
-  };
-  static contextTypes = {
-    loggedIn: React.PropTypes.bool,
+    authorized: React.PropTypes.bool,
   };
   render () {
-    const {
-      baseUrl, baseId, itemUrl, itemId, name, status, relationshipId, isAdmin,
-    } = this.props;
-    const {loggedIn} = this.context;
+    const { name, itemUrl, actionUrl, status, authorized } = this.props;
     let statusElem;
-    if (loggedIn && isAdmin) {
+    if (authorized) {
       statusElem = <Link
         className={cx({
           status: true,
           attention: status === 'REQUESTED' || status === 'OFFERED',
         })}
-        to={`/${baseUrl}/${baseId}/review-allocation/${relationshipId}`}
+        to={actionUrl}
       >
         [{status}]
       </Link>;
@@ -43,7 +35,7 @@ class RelationshipListItem extends React.Component {
 
     return <div className={classNames.this} >
       {status && statusElem}
-      <Link to={`/${itemUrl}/${itemId}`} className={classNames.link} >
+      <Link to={itemUrl} className={classNames.link} >
         {name}
       </Link>
     </div>;

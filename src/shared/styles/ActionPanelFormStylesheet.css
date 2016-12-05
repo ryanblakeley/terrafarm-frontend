@@ -1,4 +1,7 @@
-.title { composes: articleHeading from './_typography.css'; }
+.title {
+  composes: articleHeading from './_typography.css';
+  text-transform: capitalize;
+}
 .buttons { composes: center from './_layout.css'; margin-top: 25px; }
 .bodyText {
   composes: bodyText from './_typography.css';
