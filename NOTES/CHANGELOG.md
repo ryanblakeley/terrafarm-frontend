@@ -2,10 +2,15 @@
 
 ## Changelog
 
-### HEAD
+### 1.1.0 2016 Dec 7
 
 - fix authorization to show correct form options
 - requests and offers have contact info
+- patch browse feature
+- add member to organization
+- resource categories and filter in browse
+- contact info on resource allocations
+- authorization patterns
 
 ### 1.0.6 2016 Nov 29
 
