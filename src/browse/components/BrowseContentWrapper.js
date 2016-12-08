@@ -14,6 +14,7 @@ class BrowseContentWrapper extends React.Component {
     location: React.PropTypes.object,
   };
   static childContextTypes = {
+    setSearchParams: React.PropTypes.func,
     setSearchResults: React.PropTypes.func,
   };
   state = {
@@ -22,6 +23,7 @@ class BrowseContentWrapper extends React.Component {
   };
   getChildContext () {
     return {
+      setSearchParams: this.setSearchParams,
       setSearchResults: this.setSearchResults,
     };
   }

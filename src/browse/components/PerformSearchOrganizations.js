@@ -10,11 +10,12 @@ class PerformSearchOrganizations extends React.Component {
   };
   static contextTypes = {
     location: React.PropTypes.object,
+    setSearchParams: React.PropTypes.func,
     setSearchResults: React.PropTypes.func,
   };
   state = {
     relayVariables: {
-      count: 5,
+      count: 3,
       search: '',
       bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
     },
@@ -22,7 +23,7 @@ class PerformSearchOrganizations extends React.Component {
   };
   componentWillMount () {
     const {query} = this.props;
-    const {location, setSearchResults} = this.context;
+    const {location, setSearchParams, setSearchResults} = this.context;
     const resultsSet = query.searchOrganizations.edges.map(edge => ({
       rowId: edge.node.rowId,
       name: edge.node.name,
@@ -30,18 +31,41 @@ class PerformSearchOrganizations extends React.Component {
       url: 'organization',
     }));
 
-    this.changeRelayVars(location.query);
+    if (query.searchOrganizations.totalCount > this.state.count) {
+      setSearchParams({count: query.searchOrganizations.totalCount});
+      this.setState({count: query.searchOrganizations.totalCount});
+      this.changeRelayVars(Object.assign(location.query, {
+        count: Number(query.searchOrganizations.totalCount),
+      }));
+    }
     setSearchResults(resultsSet);
   }
   componentWillReceiveProps (nextProps, nextContext) {
     const nextSearchOrganizations = nextProps.query.searchOrganizations;
-    const {location, setSearchResults} = this.context;
-    const {searchResultIds} = this.state;
+    const {location, setSearchParams, setSearchResults} = this.context;
+    const {count, searchResultIds} = this.state;
     const {query} = location || {};
     const nextQuery = nextContext.location.query || {};
     const nextSearchResultIds = nextSearchOrganizations.edges.map(edge => edge.node.rowId);
 
-    this.changeRelayVars(Object.assign(query, nextQuery));
+    let nextVars;
+
+    if (count !== nextSearchOrganizations.totalCount) {
+      setSearchParams({count: nextSearchOrganizations.totalCount});
+      this.setState({count: nextSearchOrganizations.totalCount});
+
+      nextVars = Object.assign(nextQuery, {
+        count: Number(nextSearchOrganizations.totalCount),
+      });
+    } else {
+      nextVars = Object.assign(nextQuery, {
+        count: Number(query.count),
+      });
+    }
+
+    nextVars = Object.assign(query, nextVars);
+    console.log('next vars:', nextVars);
+    this.changeRelayVars(nextVars);
 
     const difference = searchResultIds.length !== nextSearchResultIds.length
       || nextSearchResultIds.find(x => searchResultIds.indexOf(x) < 0)
@@ -78,7 +102,7 @@ class PerformSearchOrganizations extends React.Component {
 
 export default Relay.createContainer(PerformSearchOrganizations, {
   initialVariables: {
-    count: 5,
+    count: 3,
     search: '',
     bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
   },
@@ -86,6 +110,7 @@ export default Relay.createContainer(PerformSearchOrganizations, {
     query: () => Relay.QL`
       fragment on Query {
         searchOrganizations(first:$count,search:$search,bounds:$bounds) {
+          totalCount,
           edges {
             node {
               name,
