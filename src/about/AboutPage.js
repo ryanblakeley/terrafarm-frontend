@@ -17,7 +17,7 @@ const AboutPage = () => <div className={classNames.this}>
       'Add scheduling features for tasks.',
       'Add an activity feed.',
       'Add email and text message notifications.',
-      'Allow users to describe task outputs as new resources.',
+      'Allow users to register task outputs as new resources.',
     ]}
   />
   <Acknowledgements />
