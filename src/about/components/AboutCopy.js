@@ -10,7 +10,7 @@ const AboutCopy = () => <div className={classNames.this}>
   <NumberedList
     title={'How It Works'}
     listItems={[
-      'Post resources: land, labor, equipment, and materials.',
+      'Post resources: land, labor, equipment, and raw materials.',
       'Create tasks and organizations.',
       'Allocate resources to tasks and organizations.',
     ]}
@@ -18,12 +18,21 @@ const AboutCopy = () => <div className={classNames.this}>
   <NumberedList
     title={'Resource Allocation'}
     listItems={[
-      'Resource owners offer resources to tasks and organizations.',
-      'Task authors and organization members request resources.',
-      'Offers and requests have text inputs for contact info which is only shared with the person on the other end.',
-      'Users establish communication however they want, then review and decide on the proposal.',
+      'Offer resources that you own to tasks and organizations.',
+      'Task creators and organization members request resources.',
+      'Offers and requests include space for contact info which is only shared with the person on the other end.',
+      'Users establish communication and review the situation.',
+      'Setting the network features aside, this app can be used as an internal tool for planning and tracking resource engagement in a stand-alone system.',
     ]}
+    dash
   />
+  <h3 className={classNames.heading}>Privacy</h3>
+  <p className={classNames.text}>
+    Your profile will not be public until you edit it and add a location.
+    Having a location puts it on the browse map; otherwise it does not show
+    up anywhere in the app. This also applies to resources, tasks, and organizations.
+    A location can be a vague description, like a state, country, etc..
+  </p>
 </div>;
 
 export default AboutCopy;

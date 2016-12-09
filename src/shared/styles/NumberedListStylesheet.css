@@ -2,6 +2,16 @@
 .heading {
   composes: contentSubheading from '../../shared/styles/_typography.css';
 }
+.listDash {
+  composes: bulletList from '../../shared/styles/_typography.css';
+  list-style: none;
+}
+.listDash li:before {
+  content: '\2014';
+  position: absolute;
+  padding-right: 5px;
+  text-indent: -1.67em;
+}
 .listNumbered {
   composes: bulletList from '../../shared/styles/_typography.css';
   list-style-type: decimal;

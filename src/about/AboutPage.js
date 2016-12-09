@@ -12,7 +12,6 @@ const AboutPage = () => <div className={classNames.this}>
   <NumberedList
     title={'Roadmap'}
     listItems={[
-      'Allow tasks to connect to organizations so members can delegate organization resources to tasks.',
       'Add availability features for resources.',
       'Add scheduling features for tasks.',
       'Add an activity feed.',
