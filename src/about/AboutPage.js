@@ -1,6 +1,7 @@
 import React from 'react';
 import Notice from './components/Notice';
 import Contact from './components/Contact';
+import Privacy from './components/Privacy';
 import CompanyInfo from './components/CompanyInfo';
 import Acknowledgements from './components/Acknowledgements';
 import NumberedList from '../shared/components/NumberedList';
@@ -9,6 +10,7 @@ import classNames from './styles/AboutPageStylesheet.css';
 const AboutPage = () => <div className={classNames.this}>
   <Notice />
   <Contact />
+  <Privacy />
   <NumberedList
     title={'Roadmap'}
     listItems={[
