@@ -10,45 +10,59 @@ class PerformSearchResources extends React.Component {
   };
   static contextTypes = {
     location: React.PropTypes.object,
+    setSearchParams: React.PropTypes.func,
     setSearchResults: React.PropTypes.func,
   };
   state = {
     relayVariables: {
-      count: 5,
+      count: 3,
       search: '',
       bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
-      category: 'LAND',
+      category: 'RAW_MATERIALS',
     },
     searchResultIds: [],
   };
   componentWillMount () {
     const {query} = this.props;
-    const {location, setSearchResults} = this.context;
+    const {location, setSearchParams, setSearchResults} = this.context;
     const resultsSet = query.searchResources.edges.map(edge => ({
       rowId: edge.node.rowId,
       name: edge.node.name,
       coords: parsePoint(edge.node.placeByPlaceId.coords),
       url: 'resource',
     }));
-    const newVars = Object.assign({
-      category: this.state.relayVariables.category,
-    }, location.query);
 
-    this.changeRelayVars(newVars);
+    if (query.searchResources.totalCount > this.state.relayVariables.count) {
+      setSearchParams({count: query.searchResources.totalCount});
+      this.changeRelayVars(Object.assign(location.query, {
+        count: Number(query.searchResources.totalCount),
+      }));
+    }
     setSearchResults(resultsSet);
   }
   componentWillReceiveProps (nextProps, nextContext) {
     const nextSearchResources = nextProps.query.searchResources;
-    const {location, setSearchResults} = this.context;
-    const {searchResultIds, relayVariables} = this.state;
+    const {location, setSearchParams, setSearchResults} = this.context;
+    const {relayVariables, searchResultIds} = this.state;
     const {query} = location || {};
     const nextQuery = nextContext.location.query || {};
     const nextSearchResultIds = nextSearchResources.edges.map(edge => edge.node.rowId);
-    const newVars = Object.assign({
-      category: relayVariables.category,
-    }, Object.assign(query, nextQuery));
 
-    this.changeRelayVars(newVars);
+    let nextVars;
+
+    if (relayVariables.count !== nextSearchResources.totalCount
+      && nextSearchResources.totalCount > 3) {
+      setSearchParams({count: nextSearchResources.totalCount});
+      nextVars = Object.assign(nextQuery, {
+        count: Number(nextSearchResources.totalCount),
+      });
+    } else {
+      nextVars = Object.assign(nextQuery, {
+        count: Number(nextQuery.count),
+      });
+    }
+
+    this.changeRelayVars(Object.assign(query, nextVars));
 
     const difference = searchResultIds.length !== nextSearchResultIds.length
       || nextSearchResultIds.find(x => searchResultIds.indexOf(x) < 0)
@@ -87,15 +101,16 @@ class PerformSearchResources extends React.Component {
 
 export default Relay.createContainer(PerformSearchResources, {
   initialVariables: {
-    count: 5,
+    count: 3,
     search: '',
     bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
-    category: 'LAND',
+    category: 'RAW_MATERIALS',
   },
   fragments: {
     query: () => Relay.QL`
       fragment on Query {
         searchResources(first:$count,search:$search,bounds:$bounds,category:$category) {
+          totalCount,
           edges {
             node {
               name,

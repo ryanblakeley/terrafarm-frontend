@@ -31,9 +31,8 @@ class PerformSearchOrganizations extends React.Component {
       url: 'organization',
     }));
 
-    if (query.searchOrganizations.totalCount > this.state.count) {
+    if (query.searchOrganizations.totalCount > this.state.relayVariables.count) {
       setSearchParams({count: query.searchOrganizations.totalCount});
-      this.setState({count: query.searchOrganizations.totalCount});
       this.changeRelayVars(Object.assign(location.query, {
         count: Number(query.searchOrganizations.totalCount),
       }));
@@ -43,29 +42,26 @@ class PerformSearchOrganizations extends React.Component {
   componentWillReceiveProps (nextProps, nextContext) {
     const nextSearchOrganizations = nextProps.query.searchOrganizations;
     const {location, setSearchParams, setSearchResults} = this.context;
-    const {count, searchResultIds} = this.state;
+    const {relayVariables, searchResultIds} = this.state;
     const {query} = location || {};
     const nextQuery = nextContext.location.query || {};
     const nextSearchResultIds = nextSearchOrganizations.edges.map(edge => edge.node.rowId);
 
     let nextVars;
 
-    if (count !== nextSearchOrganizations.totalCount) {
+    if (relayVariables.count !== nextSearchOrganizations.totalCount
+      && nextSearchOrganizations.totalCount > 3) {
       setSearchParams({count: nextSearchOrganizations.totalCount});
-      this.setState({count: nextSearchOrganizations.totalCount});
-
       nextVars = Object.assign(nextQuery, {
         count: Number(nextSearchOrganizations.totalCount),
       });
     } else {
       nextVars = Object.assign(nextQuery, {
-        count: Number(query.count),
+        count: Number(nextQuery.count),
       });
     }
 
-    nextVars = Object.assign(query, nextVars);
-    console.log('next vars:', nextVars);
-    this.changeRelayVars(nextVars);
+    this.changeRelayVars(Object.assign(query, nextVars));
 
     const difference = searchResultIds.length !== nextSearchResultIds.length
       || nextSearchResultIds.find(x => searchResultIds.indexOf(x) < 0)

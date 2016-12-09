@@ -10,11 +10,12 @@ class PerformSearchUsers extends React.Component {
   };
   static contextTypes = {
     location: React.PropTypes.object,
+    setSearchParams: React.PropTypes.func,
     setSearchResults: React.PropTypes.func,
   };
   state = {
     relayVariables: {
-      count: 5,
+      count: 3,
       search: '',
       bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
     },
@@ -22,7 +23,7 @@ class PerformSearchUsers extends React.Component {
   };
   componentWillMount () {
     const {query} = this.props;
-    const {location, setSearchResults} = this.context;
+    const {location, setSearchParams, setSearchResults} = this.context;
     const resultsSet = query.searchUsers.edges.map(edge => ({
       rowId: edge.node.rowId,
       name: edge.node.name,
@@ -30,18 +31,37 @@ class PerformSearchUsers extends React.Component {
       url: 'user',
     }));
 
-    this.changeRelayVars(location.query);
+    if (query.searchUsers.totalCount > this.state.relayVariables.count) {
+      setSearchParams({count: query.searchUsers.totalCount});
+      this.changeRelayVars(Object.assign(location.query, {
+        count: Number(query.searchUsers.totalCount),
+      }));
+    }
     setSearchResults(resultsSet);
   }
   componentWillReceiveProps (nextProps, nextContext) {
     const nextSearchUsers = nextProps.query.searchUsers;
-    const {location, setSearchResults} = this.context;
-    const {searchResultIds} = this.state;
+    const {location, setSearchParams, setSearchResults} = this.context;
+    const {relayVariables, searchResultIds} = this.state;
     const {query} = location || {};
     const nextQuery = nextContext.location.query || {};
     const nextSearchResultIds = nextSearchUsers.edges.map(edge => edge.node.rowId);
 
-    this.changeRelayVars(Object.assign(query, nextQuery));
+    let nextVars;
+
+    if (relayVariables.count !== nextSearchUsers.totalCount
+      && nextSearchUsers.totalCount > 3) {
+      setSearchParams({count: nextSearchUsers.totalCount});
+      nextVars = Object.assign(nextQuery, {
+        count: Number(nextSearchUsers.totalCount),
+      });
+    } else {
+      nextVars = Object.assign(nextQuery, {
+        count: Number(nextQuery.count),
+      });
+    }
+
+    this.changeRelayVars(Object.assign(query, nextVars));
 
     const difference = searchResultIds.length !== nextSearchResultIds.length
       || nextSearchResultIds.find(x => searchResultIds.indexOf(x) < 0)
@@ -78,7 +98,7 @@ class PerformSearchUsers extends React.Component {
 
 export default Relay.createContainer(PerformSearchUsers, {
   initialVariables: {
-    count: 5,
+    count: 3,
     search: '',
     bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
   },
@@ -86,6 +106,7 @@ export default Relay.createContainer(PerformSearchUsers, {
     query: () => Relay.QL`
       fragment on Query {
         searchUsers(first:$count,search:$search,bounds:$bounds) {
+          totalCount,
           edges {
             node {
               name,
