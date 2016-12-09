@@ -28,10 +28,9 @@ const AboutCopy = () => <div className={classNames.this}>
   />
   <h3 className={classNames.heading}>Privacy</h3>
   <p className={classNames.text}>
-    Your profile will not be public until you edit it and add a location.
-    Having a location puts it on the browse map; otherwise it does not show
-    up anywhere in the app. This also applies to resources, tasks, and organizations.
-    A location can be a vague description, like a state, country, etc..
+    Your profile, resources, tasks, and organizations will not show up in the
+    browse feature unless you edit them to have a location. A location can be a
+    vague description, like a state, country, etc..
   </p>
 </div>;
 
