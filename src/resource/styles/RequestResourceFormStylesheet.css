@@ -1,5 +1,0 @@
-.text {
-  composes: articleSubheading from '../../shared/styles/_typography.css';
-  margin: 0 auto 15px;
-  width: 256px;
-}

@@ -7,7 +7,7 @@
 }
 .break { display: block; }
 
-@media only screen and (min-width: 520px) {
+@media only screen and (min-width: 800px) {
   .break { display: inline; }
   .break:before { display: inline; content: ' '; }
 }

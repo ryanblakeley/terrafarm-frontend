@@ -1,9 +1,0 @@
-.text {
-  composes: bodyText from '../../shared/styles/_typography.css';
-  composes: center from '../../shared/styles/_layout.css';
-  margin: 1em 0;
-}
-.link {
-  composes: link from '../../shared/styles/_typography.css';
-  text-decoration: underline;
-}

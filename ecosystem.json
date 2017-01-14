@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "frontend-alpha",
+      "name": "csa-frontend-alpha",
       "script": "./build/dist/server.js"
     }
   ],
@@ -10,8 +10,8 @@
       "user": "git",
       "host": "138.68.14.104",
       "ref" : "origin/master",
-      "repo": "git@github.com:rojobuffalo/terrafarm-frontend.git",
-      "path": "/srv/repo/terrafarm-frontend-alpha",
+      "repo": "git@github.com:rojobuffalo/terrafarm-csa-frontend.git",
+      "path": "/srv/repo/terrafarm-csa-frontend-alpha",
       "pre-deploy-local" : "echo 'Preparing to deploy to production...'",
       "post-deploy": "npm install ; npm run build ; pm2 startOrRestart ecosystem.json --env production",
       "env": {

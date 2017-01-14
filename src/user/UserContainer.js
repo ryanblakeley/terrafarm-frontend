@@ -4,8 +4,6 @@ import Relay from 'react-relay';
 // Icons
 import IoPerson from 'react-icons/lib/io/person';
 import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
-import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
-import IoCube from 'react-icons/lib/io/cube';
 import IoIosStar from 'react-icons/lib/io/ios-star';
 
 // Components
@@ -50,32 +48,6 @@ const UserContainer = (props, context) => (!props.user
                 }))}
               />,
             },
-            {
-              header: {
-                icon: <IoIosPaperOutline />,
-                label: 'Tasks',
-              },
-              body: <RelationshipList
-                listItems={props.user.tasksByAuthorId.edges.map(edge => ({
-                  id: edge.node.id,
-                  name: edge.node.name,
-                  itemUrl: `/task/${edge.node.rowId}`,
-                }))}
-              />,
-            },
-            {
-              header: {
-                icon: <IoCube />,
-                label: 'Resources',
-              },
-              body: <RelationshipList
-                listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
-                  id: edge.node.id,
-                  name: edge.node.name,
-                  itemUrl: `/resource/${edge.node.rowId}`,
-                }))}
-              />,
-            },
           ]}
         />}
         left={<div>
@@ -102,8 +74,6 @@ UserContainer.propTypes = {
     description: React.PropTypes.string,
     imageUrl: React.PropTypes.string,
     organizationMembersByMemberId: React.PropTypes.object,
-    resourcesByOwnerId: React.PropTypes.object,
-    tasksByAuthorId: React.PropTypes.object,
   }),
   children: React.PropTypes.object,
 };
@@ -135,24 +105,6 @@ export default Relay.createContainer(UserContainer, {
                 rowId,
                 name,
               }
-            }
-          }
-        },
-        resourcesByOwnerId(first: 10) {
-          edges {
-            node {
-              id,
-              rowId,
-              name,
-            }
-          }
-        },
-        tasksByAuthorId(first: 10) {
-          edges {
-            node {
-              id,
-              rowId,
-              name,
             }
           }
         },

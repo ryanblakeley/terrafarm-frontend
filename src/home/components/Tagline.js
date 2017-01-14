@@ -4,9 +4,10 @@ import classNames from '../styles/TaglineStylesheet.css';
 
 const Tagline = () => <div className={classNames.this}>
   <p className={classNames.text}>
-    Resource-based<span className={classNames.break} />
-    collaboration
+    Community Shared Agriculture (CSA)
   </p>
 </div>;
 
 export default Tagline;
+
+// <span className={classNames.break} />

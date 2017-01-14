@@ -9,16 +9,12 @@ import LoginPage from './login/LoginPage';
 import NotFound from './not-found/NotFoundPage';
 
 import BrowseContainer from './browse/BrowseContainer';
-import PerformSearchResources from './browse/components/PerformSearchResources';
-import PerformSearchTasks from './browse/components/PerformSearchTasks';
 import PerformSearchOrganizations from './browse/components/PerformSearchOrganizations';
 import PerformSearchUsers from './browse/components/PerformSearchUsers';
 import QueryQueries from './shared/QueryQueries';
 
 import ProfileContainer from './profile/ProfileContainer';
 import JoinOrganizationContainer from './profile/JoinOrganizationContainer';
-import CreateResourceForm from './profile/components/CreateResourceForm';
-import CreateTaskForm from './profile/components/CreateTaskForm';
 import CreateOrganizationForm from './profile/components/CreateOrganizationForm';
 import EditProfileForm from './profile/components/EditProfileForm';
 import ProfileQueryQueries from './profile/ProfileQueryQueries';
@@ -29,40 +25,14 @@ import StarUserForm from './user/components/StarUserForm';
 import UserQueries from './user/UserQueries';
 import UserCurrentPersonQueries from './user/UserCurrentPersonQueries';
 
-import ResourceContainer from './resource/ResourceContainer';
-import EditResourceForm from './resource/components/EditResourceForm';
-import RequestResourceForm from './resource/components/RequestResourceForm';
-import StarResourceForm from './resource/components/StarResourceForm';
-import ResourceQueries from './resource/ResourceQueries';
-import EditResourceQueries from './resource/EditResourceQueries';
-import ResourceCurrentPersonQueries from './resource/ResourceCurrentPersonQueries';
-
 import OrganizationContainer from './organization/OrganizationContainer';
-import RequestResourceForOrganizationForm
-  from './organization/components/RequestResourceForOrganizationForm';
-import OfferResourceToOrganizationForm
-  from './organization/components/OfferResourceToOrganizationForm';
 import OfferMemberForm from './organization/components/OfferMemberForm';
 import EditMemberForm from './organization/components/EditMemberForm';
 import EditOrganizationForm from './organization/components/EditOrganizationForm';
-import EditOrganizationResourceForm from './organization/components/EditOrganizationResourceForm';
 import OrganizationQueries from './organization/OrganizationQueries';
 import EditOrganizationQueries from './organization/EditOrganizationQueries';
-import OrganizationResourceQueries from './organization/OrganizationResourceQueries';
 import OrganizationCurrentPersonQueries from './organization/OrganizationCurrentPersonQueries';
 import MemberQueries from './organization/MemberQueries';
-
-import TaskContainer from './task/TaskContainer';
-import RequestResourceForTaskForm
-  from './task/components/RequestResourceForTaskForm';
-import OfferResourceToTaskForm
-  from './task/components/OfferResourceToTaskForm';
-import EditTaskForm from './task/components/EditTaskForm';
-import EditTaskResourceForm from './task/components/EditTaskResourceForm';
-import TaskQueries from './task/TaskQueries';
-import EditTaskQueries from './task/EditTaskQueries';
-import TaskResourceQueries from './task/TaskResourceQueries';
-import TaskCurrentPersonQueries from './task/TaskCurrentPersonQueries';
 
 import PlaceRegistryContainer from './place/PlaceRegistryContainer';
 import PlaceQueries from './place/PlaceQueries';
@@ -156,26 +126,6 @@ const routes = (
           />
         </Route>
       </Route>
-      <Route path={'new-resource'} component={CreateResourceForm} queries={ProfileQueryQueries} >
-        <Route path={'place-registry'}>
-          <Route
-            path={':placeId'}
-            component={PlaceRegistryContainer}
-            queries={PlaceQueries}
-            renderLoading={renderLoading}
-          />
-        </Route>
-      </Route>
-      <Route path={'new-task'} component={CreateTaskForm} queries={ProfileQueryQueries} >
-        <Route path={'place-registry'}>
-          <Route
-            path={':placeId'}
-            component={PlaceRegistryContainer}
-            queries={PlaceQueries}
-            renderLoading={renderLoading}
-          />
-        </Route>
-      </Route>
       <Route path={'new-organization'} component={CreateOrganizationForm} queries={ProfileQueryQueries} >
         <Route path={'place-registry'}>
           <Route
@@ -192,24 +142,10 @@ const routes = (
       component={BrowseContainer}
       renderLoading={renderLoading}
     >
-      <IndexRedirect to={'resources'} />
-      <Route
-        path={'resources'}
-        component={PerformSearchResources}
-        queries={QueryQueries}
-        onEnter={ensurePublicAccess}
-        renderLoading={renderLoading}
-      />
+      <IndexRedirect to={'organizations'} />
       <Route
         path={'organizations'}
         component={PerformSearchOrganizations}
-        queries={QueryQueries}
-        onEnter={ensurePublicAccess}
-        renderLoading={renderLoading}
-      />
-      <Route
-        path={'tasks'}
-        component={PerformSearchTasks}
         queries={QueryQueries}
         onEnter={ensurePublicAccess}
         renderLoading={renderLoading}
@@ -237,42 +173,6 @@ const routes = (
         />
       </Route>
     </Route>
-    <Route path={'resource'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
-      <Route
-        path={':resourceId'}
-        component={ResourceContainer}
-        queries={ResourceQueries}
-        renderLoading={renderLoading}
-      >
-        <Route
-          path={'edit'}
-          component={EditResourceForm}
-          queries={EditResourceQueries}
-          onEnter={loginBouncer}
-        >
-          <Route path={'place-registry'}>
-            <Route
-              path={':placeId'}
-              component={PlaceRegistryContainer}
-              queries={PlaceQueries}
-              renderLoading={renderLoading}
-            />
-          </Route>
-        </Route>
-        <Route
-          path={'request-resource'}
-          component={RequestResourceForm}
-          queries={ResourceCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
-        <Route
-          path={'star'}
-          component={StarResourceForm}
-          queries={ResourceCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
-      </Route>
-    </Route>
     <Route path={'organization'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
       <Route
         path={':organizationId'}
@@ -280,18 +180,6 @@ const routes = (
         queries={OrganizationQueries}
         renderLoading={renderLoading}
       >
-        <Route
-          path={'request-resource'}
-          component={RequestResourceForOrganizationForm}
-          queries={OrganizationCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
-        <Route
-          path={'offer-resource'}
-          component={OfferResourceToOrganizationForm}
-          queries={OrganizationCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
         <Route
           path={'new-member'}
           component={OfferMemberForm}
@@ -313,63 +201,11 @@ const routes = (
             />
           </Route>
         </Route>
-        <Route path={'review-allocation'}>
-          <Route
-            path={':organizationResourceId'}
-            component={EditOrganizationResourceForm}
-            queries={OrganizationResourceQueries}
-            onEnter={loginBouncer}
-          />
-        </Route>
         <Route path={'review-membership'}>
           <Route
             path={':organizationMemberId'}
             component={EditMemberForm}
             queries={MemberQueries}
-            onEnter={loginBouncer}
-          />
-        </Route>
-      </Route>
-    </Route>
-    <Route path={'task'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
-      <Route
-        path={':taskId'}
-        component={TaskContainer}
-        queries={TaskQueries}
-        renderLoading={renderLoading}
-      >
-        <Route
-          path={'request-resource'}
-          component={RequestResourceForTaskForm}
-          queries={TaskCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
-        <Route
-          path={'offer-resource'}
-          component={OfferResourceToTaskForm}
-          queries={TaskCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
-        <Route
-          path={'edit'}
-          component={EditTaskForm}
-          queries={EditTaskQueries}
-          onEnter={loginBouncer}
-        >
-          <Route path={'place-registry'}>
-            <Route
-              path={':placeId'}
-              component={PlaceRegistryContainer}
-              queries={PlaceQueries}
-              renderLoading={renderLoading}
-            />
-          </Route>
-        </Route>
-        <Route path={'review-allocation'}>
-          <Route
-            path={':taskResourceId'}
-            component={EditTaskResourceForm}
-            queries={TaskResourceQueries}
             onEnter={loginBouncer}
           />
         </Route>

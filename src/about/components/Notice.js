@@ -6,7 +6,7 @@ const Notice = props => <div className={classNames.this}>
     Notice
   </h3>
   <p className={classNames.text}>
-    This app is currently released as an alpha demo. While we try to make progress as quickly as possible, things may break. If you catch a bug or some undesireable behavior, please report it.
+    This is an alpha product. Things may change or break at any time.
   </p>
 </div>;
 

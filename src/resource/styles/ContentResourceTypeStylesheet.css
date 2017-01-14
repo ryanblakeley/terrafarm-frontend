@@ -1,6 +1,0 @@
-.this {}
-.text {
-  composes: articleHeading from '../../shared/styles/_typography.css';
-  text-transform: capitalize;
-  text-align: left;
-}

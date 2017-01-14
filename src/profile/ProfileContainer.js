@@ -5,8 +5,6 @@ import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
 import IoPlus from 'react-icons/lib/io/plus';
 import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
-import IoCube from 'react-icons/lib/io/cube';
-import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 // Components
 import TransitionWrapper from '../shared/components/TransitionWrapper';
 import MainContentWrapper from '../shared/components/MainContentWrapper';
@@ -27,8 +25,6 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
       baseUrl={'/profile'}
       header={{icon: <IoPerson />, title: 'Profile'}}
       list={[
-        { icon: <IoPlus />, title: 'New Resource', url: 'new-resource' },
-        { icon: <IoPlus />, title: 'New Task', url: 'new-task' },
         { icon: <IoPlus />, title: 'New Organization', url: 'new-organization' },
         { icon: <IoEdit />, title: 'Edit', url: 'edit' },
       ]}
@@ -37,32 +33,6 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
     <MainContentWrapper
       right={<Accordion
         panels={[
-          {
-            header: {
-              icon: <IoCube />,
-              label: 'Resources',
-            },
-            body: <RelationshipList
-              listItems={props.user.resourcesByOwnerId.edges.map(edge => ({
-                id: edge.node.id,
-                name: edge.node.name,
-                itemUrl: `/resource/${edge.node.rowId}`,
-              }))}
-            />,
-          },
-          {
-            header: {
-              icon: <IoIosPaperOutline />,
-              label: 'Tasks',
-            },
-            body: <RelationshipList
-              listItems={props.user.tasksByAuthorId.edges.map(edge => ({
-                id: edge.node.id,
-                name: edge.node.name,
-                itemUrl: `/task/${edge.node.rowId}`,
-              }))}
-            />,
-          },
           {
             header: {
               icon: <IoIosBriefcase />,
@@ -127,24 +97,6 @@ export default Relay.createContainer(ProfileContainer, {
                 rowId,
                 name,
               }
-            }
-          }
-        },
-        resourcesByOwnerId(first: 25) {
-          edges {
-            node {
-              id,
-              rowId,
-              name,
-            }
-          }
-        },
-        tasksByAuthorId(first: 10) {
-          edges {
-            node {
-              id,
-              rowId,
-              name,
             }
           }
         },

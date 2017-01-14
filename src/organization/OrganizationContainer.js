@@ -3,10 +3,7 @@ import Relay from 'react-relay';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
 import IoBriefcase from 'react-icons/lib/io/briefcase';
-import IoCube from 'react-icons/lib/io/cube';
 import IoPerson from 'react-icons/lib/io/person';
-import IoAndroidRadioButtonOn from 'react-icons/lib/io/android-radio-button-on';
-import IoIosPaperOutline from 'react-icons/lib/io/ios-paper-outline';
 // Components
 import NotFoundPage from '../not-found/NotFoundPage';
 import TransitionWrapper from '../shared/components/TransitionWrapper';
@@ -31,19 +28,6 @@ const OrganizationContainer = (props, context) => (!props.organization
         header={{icon: <IoBriefcase />, title: 'Organization'}}
         disabled={!context.loggedIn}
         list={[
-          {
-            icon: <IoAndroidRadioButtonOn />,
-            title: 'Request Resource',
-            url: 'request-resource',
-            disabled: !props.organization.organizationMembersByOrganizationId.edges.find(edge => (
-              edge.node.userByMemberId.rowId === context.userId
-            )),
-          },
-          {
-            icon: <IoCube />,
-            title: 'Offer Resource',
-            url: 'offer-resource',
-          },
           {
             icon: <IoPerson />,
             title: 'New Member',
@@ -83,41 +67,6 @@ const OrganizationContainer = (props, context) => (!props.organization
 
                   }))
                 }
-              />,
-            },
-            {
-              header: {
-                icon: <IoCube />,
-                label: 'Resources',
-              },
-              body: <RelationshipList
-                listItems={props.organization
-                  .organizationResourcesByOrganizationId.edges.map(edge => ({
-                    id: edge.node.id,
-                    name: edge.node.resourceByResourceId.name,
-                    itemUrl: `/resource/${edge.node.resourceByResourceId.rowId}`,
-                    actionUrl: `/organization/${props.organization.rowId}/review-allocation/${edge.node.id}`,
-                    status: edge.node.status,
-                    authorized: context.userId === edge.node.resourceByResourceId.ownerId
-                      || props.organization.organizationMembersByOrganizationId
-                        .edges.findIndex(edge2 => (
-                          context.userId === edge2.node.memberId
-                        )) > -1,
-                  }))
-                }
-              />,
-            },
-            {
-              header: {
-                icon: <IoIosPaperOutline />,
-                label: 'Tasks',
-              },
-              body: <RelationshipList
-                listItems={props.organization.organizationTasksByOrganizationId.edges.map(edge => ({
-                  id: edge.node.id,
-                  name: edge.node.taskByTaskId.name,
-                  itemUrl: `/task/${edge.node.taskByTaskId.rowId}`,
-                }))}
               />,
             },
           ]}
@@ -166,19 +115,6 @@ export default Relay.createContainer(OrganizationContainer, {
         placeByPlaceId {
           address,
         },
-        organizationResourcesByOrganizationId(first: 10) {
-          edges {
-            node {
-              id,
-              status,
-              resourceByResourceId {
-                rowId,
-                name,
-                ownerId,
-              },
-            }
-          }
-        },
         organizationMembersByOrganizationId(first: 10) {
           edges {
             node {
@@ -192,17 +128,6 @@ export default Relay.createContainer(OrganizationContainer, {
             }
           }
         },
-        organizationTasksByOrganizationId(first: 10) {
-          edges {
-            node {
-              id,
-              taskByTaskId {
-                name,
-                rowId,
-              }
-            }
-          }
-        }
       }
     `,
   },

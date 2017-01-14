@@ -47,7 +47,7 @@ const config = {
     // new webpack.HotModuleReplacementPlugin(),
     // new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Terrafarm',
+      title: 'Terrafarm CSA',
       filename: 'index.html',
       template: 'src/index.template.html',
       inject: true,

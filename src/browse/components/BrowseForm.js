@@ -2,12 +2,8 @@ import React from 'react';
 import Formsy from 'formsy-react';
 import {GoogleApiWrapper} from 'google-maps-react'; // eslint-disable-line
 import IoIosSearch from 'react-icons/lib/io/ios-search';
-// import IoIosCloseEmpty from 'react-icons/lib/io/ios-close-empty';
-// import {stringifyBounds} from '../../shared/utils/parse-coords';
 import FormError from '../../shared/components/FormError';
 import TextInput from '../../shared/components/TextInput';
-import Radio from '../../shared/components/Radio';
-import RadioGroup from '../../shared/components/RadioGroup';
 import IconButton from '../../shared/components/IconButton';
 import classNames from '../styles/BrowseFormStylesheet.css';
 
@@ -21,12 +17,6 @@ class Container extends React.Component {
   static defaultProps = {
     google: window.google,
     initialAddress: '45,-117',
-    resourceTypes: [
-      { display: 'Raw Materials', value: 'RAW_MATERIALS' },
-      { display: 'Equipment', value: 'EQUIPMENT' },
-      { display: 'Labor', value: 'LABOR' },
-      { display: 'Land', value: 'LAND' },
-    ],
   };
   static contextTypes = {
     router: React.PropTypes.object,
@@ -36,30 +26,7 @@ class Container extends React.Component {
     canSubmit: false,
     error: null,
     mapCenterAddress: '',
-    showResourceType: false,
   };
-  componentWillMount () {
-    const {router, location} = this.context;
-    const showResourceType = router.isActive('/browse/resources');
-
-    if (showResourceType && !location.query.category) {
-      this.changeSearchParams({category: 'RAW_MATERIALS'});
-    }
-    this.setState({showResourceType});
-  }
-  componentWillReceiveProps (nextProps, nextContext) {
-    const {router, location} = nextContext;
-    const showResourceType = router.isActive('/browse/resources');
-
-    if (showResourceType && !location.query.category) {
-      this.changeSearchParams({category: 'RAW_MATERIALS'});
-    }
-
-    this.setState({showResourceType});
-  }
-  handleRadioChange = (event, value) => {
-    this.handleSubmit({resourceType: value});
-  }
   handleValid = () => {
     this.setState({ canSubmit: true });
   }
@@ -74,7 +41,7 @@ class Container extends React.Component {
     console.error('Form error:', data);
   }
   handleSubmit = data => {
-    const {canSubmit, mapCenterAddress, showResourceType} = this.state;
+    const {canSubmit, mapCenterAddress} = this.state;
     const address = data.location;
 
     if (!canSubmit) {
@@ -89,11 +56,6 @@ class Container extends React.Component {
           this.handleGeocodeResultAndFormData(results[0], data);
         }
       });
-    } else if (showResourceType) {
-      this.changeSearchParams({
-        search: data.searchText,
-        category: data.resourceType,
-      });
     } else {
       this.changeSearchParams({
         search: data.searchText,
@@ -101,24 +63,14 @@ class Container extends React.Component {
     }
   }
   handleGeocodeResultAndFormData = (result, formData) => {
-    const {showResourceType} = this.state;
     const lat = result.geometry.location.lat();
     const lng = result.geometry.location.lng();
 
-    if (showResourceType) {
-      this.changeSearchParams({
-        search: formData.searchText,
-        category: formData.resourceType,
-        lat,
-        lng,
-      });
-    } else {
-      this.changeSearchParams({
-        search: formData.searchText,
-        lat,
-        lng,
-      });
-    }
+    this.changeSearchParams({
+      search: formData.searchText,
+      lat,
+      lng,
+    });
 
     this.setState({mapCenterAddress: formData.location});
   }
@@ -133,11 +85,9 @@ class Container extends React.Component {
     Geocoder.geocode(request, callback);
   }
   render () {
-    const {resourceTypes} = this.props;
     const {location} = this.context;
-    const {canSubmit, error, mapCenterAddress, showResourceType} = this.state;
+    const {canSubmit, error, mapCenterAddress} = this.state;
     const {search} = location.query || '';
-    const resourceType = location.query.category || '';
 
     return <div className={classNames.this}>
       <Formsy.Form
@@ -166,20 +116,6 @@ class Container extends React.Component {
             ref={input => (this.location = input)}
           />
         </div>
-        {showResourceType && <div className={`${classNames.flexRow} ${classNames.radio}`}>
-          <RadioGroup
-            name={'resourceType'}
-            defaultSelected={resourceType}
-            onChange={this.handleRadioChange}
-            required
-          >
-            {resourceTypes.map(type => <Radio
-              value={type.value}
-              key={type.value}
-              label={type.display}
-            />)}
-          </RadioGroup>
-        </div>}
         <div className={classNames.flexRow}>
           <IconButton
             type={'submit'}
@@ -197,12 +133,3 @@ class Container extends React.Component {
 export default GoogleApiWrapper({ // eslint-disable-line
   apiKey: process.env.GOOGLE_MAPS_KEY,
 })(Container);
-
-/*
-          <IconButton
-            onTouchTap={this.handleClearSearch}
-            disabled={!canSubmit}
-          >
-            <IoIosCloseEmpty className={classNames.icon} />
-          </IconButton>
-*/
