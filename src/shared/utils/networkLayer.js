@@ -3,7 +3,7 @@ import { RelayNetworkLayer, urlMiddleware, authMiddleware } from 'react-relay-ne
 
 const networkLayer = new RelayNetworkLayer([
   urlMiddleware({
-    url: req => '/graphql',
+    url: _ => '/graphql',
     // when postgraphql supports batch
     // batchUrl: req => '/graphql',
   }),

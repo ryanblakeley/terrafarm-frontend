@@ -1,8 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CreatePlaceMutation from './mutations/CreatePlaceMutation';
+import CreatePlaceMutation from '../mutations/CreatePlaceMutation';
 
-class PlaceRegistryContainer extends React.Component {
+class PlaceLookupContainer extends React.Component {
   static propTypes = {
     place: React.PropTypes.object,
     parentPath: React.PropTypes.string,
@@ -58,7 +58,7 @@ class PlaceRegistryContainer extends React.Component {
   }
 }
 
-export default Relay.createContainer(PlaceRegistryContainer, {
+export default Relay.createContainer(PlaceLookupContainer, {
   initialVariables: {
     placeId: null,
   },

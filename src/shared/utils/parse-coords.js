@@ -13,8 +13,8 @@ export function parsePoint (coordsString) {
 
 // input: '((100,-80),(140,-40))'
 // output: {sw:{lat: 100, lng: -80},ne:{lat: 140, lng: -40}}
-export function parseBounds (boundsString) {
-}
+// export function parseBounds (boundsString) {
+// }
 
 // input: {sw:{lat: 100, lng: -80},ne:{lat: 140, lng: -40}}
 // output: '((100,-80),(140,-40))'

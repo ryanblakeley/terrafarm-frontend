@@ -2,7 +2,7 @@ import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 import transitionNames from '../styles/_transitions.css';
-/*
+
 const TransitionWrapper = props => <CSSTransitionGroup
   transitionName={transitionNames}
   transitionAppear
@@ -12,11 +12,12 @@ const TransitionWrapper = props => <CSSTransitionGroup
 >
   {props.children}
 </CSSTransitionGroup>;
-*/
-const TransitionWrapper = props => <div>
+
+/*
+const TransitionWrapper = props => <CSSTransitionGroup>
   {props.children}
 </div>;
-
+*/
 TransitionWrapper.propTypes = {
   children: React.PropTypes.object,
 };

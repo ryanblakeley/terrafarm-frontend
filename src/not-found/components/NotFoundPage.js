@@ -1,7 +1,6 @@
 import React from 'react';
-import TransitionWrapper from '../shared/components/TransitionWrapper';
-
-import classNames from './styles/NotFoundPageStylesheet.css';
+import TransitionWrapper from 'shared/components/TransitionWrapper';
+import classNames from '../styles/NotFoundPageStylesheet.css';
 
 /* eslint no-useless-escape: 0 */
 const NotFoundPage = props => <TransitionWrapper>

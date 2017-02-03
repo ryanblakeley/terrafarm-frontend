@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from '../styles/ContactStylesheet.css';
 
-const Contact = props => {
+const Contact = _ => {
   const emailLink = <a
     className={classNames.link}
     href={'mailto:info@terra.farm'}

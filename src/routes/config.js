@@ -1,43 +1,43 @@
 import React from 'react';
 import {Route, IndexRoute, IndexRedirect} from 'react-router';
 
-import CoreContainerTheme from './core/CoreContainer';
-import Loading from './core/components/Loading';
-import HomePage from './home/HomePage';
-import AboutPage from './about/AboutPage';
-import LoginPage from './login/LoginPage';
-import NotFound from './not-found/NotFoundPage';
+// Components
+import CoreContainerTheme from 'core/components/CorePage';
+import Loading from 'core/components/Loading';
+import HomePage from 'home/components/HomePage';
+import AboutPage from 'about/components/AboutPage';
+import LoginPage from 'login/components/LoginPage';
+import NotFound from 'not-found/components/NotFoundPage';
+import BrowsePage from 'browse/components/BrowsePage';
 
-import BrowseContainer from './browse/BrowseContainer';
-import PerformSearchOrganizations from './browse/components/PerformSearchOrganizations';
-import PerformSearchUsers from './browse/components/PerformSearchUsers';
-import QueryQueries from './shared/QueryQueries';
+// Containers
+import ProfileContainer from 'profile/containers/ProfileContainer';
+import JoinOrganizationContainer from 'profile/containers/JoinOrganizationContainer';
+import CreateOrganizationForm from 'profile/containers/CreateOrganizationForm';
+import EditProfileForm from 'profile/containers/EditProfileForm';
+import StarUserForm from 'user/containers/StarUserForm';
+import UserContainer from 'user/containers/UserContainer';
+import OrganizationContainer from 'organization/containers/OrganizationContainer';
+import OfferMemberForm from 'organization/containers/OfferMemberForm';
+import EditMemberForm from 'organization/containers/EditMemberForm';
+import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
+import PlaceLookupContainer from 'place/containers/PlaceLookupContainer';
+import SearchOrganizationsContainer from 'browse/containers/SearchOrganizationsContainer';
+import SearchUsersContainer from 'browse/containers/SearchUsersContainer';
 
-import ProfileContainer from './profile/ProfileContainer';
-import JoinOrganizationContainer from './profile/JoinOrganizationContainer';
-import CreateOrganizationForm from './profile/components/CreateOrganizationForm';
-import EditProfileForm from './profile/components/EditProfileForm';
-import ProfileQueryQueries from './profile/ProfileQueryQueries';
-import JoinOrganizationQueries from './profile/JoinOrganizationQueries';
+// Queries
+import QueryQueries from './QueryQueries';
+import ProfileQueryQueries from './ProfileQueryQueries';
+import JoinOrganizationQueries from './JoinOrganizationQueries';
+import UserQueries from './UserQueries';
+import UserCurrentPersonQueries from './UserCurrentPersonQueries';
+import OrganizationQueries from './OrganizationQueries';
+import EditOrganizationQueries from './EditOrganizationQueries';
+import OrganizationCurrentPersonQueries from './OrganizationCurrentPersonQueries';
+import MemberQueries from './MemberQueries';
+import PlaceQueries from './PlaceQueries';
 
-import UserContainer from './user/UserContainer';
-import StarUserForm from './user/components/StarUserForm';
-import UserQueries from './user/UserQueries';
-import UserCurrentPersonQueries from './user/UserCurrentPersonQueries';
-
-import OrganizationContainer from './organization/OrganizationContainer';
-import OfferMemberForm from './organization/components/OfferMemberForm';
-import EditMemberForm from './organization/components/EditMemberForm';
-import EditOrganizationForm from './organization/components/EditOrganizationForm';
-import OrganizationQueries from './organization/OrganizationQueries';
-import EditOrganizationQueries from './organization/EditOrganizationQueries';
-import OrganizationCurrentPersonQueries from './organization/OrganizationCurrentPersonQueries';
-import MemberQueries from './organization/MemberQueries';
-
-import PlaceRegistryContainer from './place/PlaceRegistryContainer';
-import PlaceQueries from './place/PlaceQueries';
-
-function prepareProfileParams (params, {location}) {
+function prepareProfileParams (params) {
   return {
     ...params,
     userId: localStorage.getItem('user_uuid') || '',
@@ -70,7 +70,7 @@ function loginBouncer (nextState, replace) {
   }
 }
 
-function ensurePublicAccess (nextState, replace) {
+function ensurePublicAccess () {
   const idToken = localStorage.getItem('id_token');
   if (!idToken
       || idToken === window.registrarToken) {
@@ -120,7 +120,7 @@ const routes = (
         <Route path={'place-registry'}>
           <Route
             path={':placeId'}
-            component={PlaceRegistryContainer}
+            component={PlaceLookupContainer}
             queries={PlaceQueries}
             renderLoading={renderLoading}
           />
@@ -130,7 +130,7 @@ const routes = (
         <Route path={'place-registry'}>
           <Route
             path={':placeId'}
-            component={PlaceRegistryContainer}
+            component={PlaceLookupContainer}
             queries={PlaceQueries}
             renderLoading={renderLoading}
           />
@@ -139,20 +139,20 @@ const routes = (
     </Route>
     <Route
       path={'browse'}
-      component={BrowseContainer}
+      component={BrowsePage}
       renderLoading={renderLoading}
     >
       <IndexRedirect to={'organizations'} />
       <Route
         path={'organizations'}
-        component={PerformSearchOrganizations}
+        component={SearchOrganizationsContainer}
         queries={QueryQueries}
         onEnter={ensurePublicAccess}
         renderLoading={renderLoading}
       />
       <Route
         path={'users'}
-        component={PerformSearchUsers}
+        component={SearchUsersContainer}
         queries={QueryQueries}
         onEnter={ensurePublicAccess}
         renderLoading={renderLoading}
@@ -195,7 +195,7 @@ const routes = (
           <Route path={'place-registry'}>
             <Route
               path={':placeId'}
-              component={PlaceRegistryContainer}
+              component={PlaceLookupContainer}
               queries={PlaceQueries}
               renderLoading={renderLoading}
             />

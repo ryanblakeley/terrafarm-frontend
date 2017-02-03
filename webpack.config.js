@@ -28,8 +28,10 @@ const registrarToken = jwt.sign({
 }, JWT_PRIVATE_KEY);
 
 const PATHS = {
+  root: path.join(__dirname),
   src: path.join(__dirname, 'src'),
   build: path.join(__dirname, 'build', 'public'),
+  shared: path.join(__dirname, 'src', 'shared'),
   fonts: path.join(__dirname, 'src', 'shared', 'fonts'),
 };
 
@@ -95,6 +97,12 @@ const config = {
         loader: 'url?limit=50000',
       },
     ],
+  },
+  resolve: {
+    root: PATHS.root,
+    alias: {
+      shared: PATHS.shared,
+    },
   },
 };
 

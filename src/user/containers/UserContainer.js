@@ -7,19 +7,19 @@ import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import IoIosStar from 'react-icons/lib/io/ios-star';
 
 // Components
-import NotFoundPage from '../not-found/NotFoundPage';
-import TransitionWrapper from '../shared/components/TransitionWrapper';
-import ContentHeader from '../shared/components/ContentHeader';
-import MainContentWrapper from '../shared/components/MainContentWrapper';
-import HeroImage from '../shared/components/HeroImage';
-import RelationshipList from '../shared/components/RelationshipList';
-import Menu from '../shared/components/Menu';
-import ActionPanel from '../shared/components/ActionPanel';
-import Accordion from '../shared/components/Accordion';
-import ContentSubheader from '../shared/components/ContentSubheader';
-import ContentBodyText from '../shared/components/ContentBodyText';
+import NotFoundPage from 'not-found/components/NotFoundPage';
+import TransitionWrapper from 'shared/components/TransitionWrapper';
+import ContentHeader from 'shared/components/ContentHeader';
+import MainContentWrapper from 'shared/components/MainContentWrapper';
+import HeroImage from 'shared/components/HeroImage';
+import RelationshipList from 'shared/components/RelationshipList';
+import Menu from 'shared/components/Menu';
+import ActionPanel from 'shared/components/ActionPanel';
+import Accordion from 'shared/components/Accordion';
+import ContentSubheader from 'shared/components/ContentSubheader';
+import ContentBodyText from 'shared/components/ContentBodyText';
 
-import classNames from './styles/UserContainerStylesheet.css';
+import classNames from '../styles/UserContainerStylesheet.css';
 
 const UserContainer = (props, context) => (!props.user
   ? <NotFoundPage message={'User not found.'} />

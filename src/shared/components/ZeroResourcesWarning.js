@@ -9,7 +9,7 @@ const LinkToGuide = _ => <Link
   here
 </Link>;
 
-const ZeroResourcesWarning = props => <div className={classNames.this}>
+const ZeroResourcesWarning = _ => <div className={classNames.this}>
   <p className={classNames.text}>
     You have not posted any resources. To post a resource, check <LinkToGuide />.
   </p>

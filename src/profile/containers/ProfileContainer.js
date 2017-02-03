@@ -6,18 +6,18 @@ import IoPerson from 'react-icons/lib/io/person';
 import IoPlus from 'react-icons/lib/io/plus';
 import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 // Components
-import TransitionWrapper from '../shared/components/TransitionWrapper';
-import MainContentWrapper from '../shared/components/MainContentWrapper';
-import ContentHeader from '../shared/components/ContentHeader';
-import HeroImage from '../shared/components/HeroImage';
-import RelationshipList from '../shared/components/RelationshipList';
-import Menu from '../shared/components/Menu';
-import ActionPanel from '../shared/components/ActionPanel';
-import Accordion from '../shared/components/Accordion';
-import ContentSubheader from '../shared/components/ContentSubheader';
-import ContentBodyText from '../shared/components/ContentBodyText';
+import TransitionWrapper from 'shared/components/TransitionWrapper';
+import MainContentWrapper from 'shared/components/MainContentWrapper';
+import ContentHeader from 'shared/components/ContentHeader';
+import HeroImage from 'shared/components/HeroImage';
+import RelationshipList from 'shared/components/RelationshipList';
+import Menu from 'shared/components/Menu';
+import ActionPanel from 'shared/components/ActionPanel';
+import Accordion from 'shared/components/Accordion';
+import ContentSubheader from 'shared/components/ContentSubheader';
+import ContentBodyText from 'shared/components/ContentBodyText';
 
-import classNames from './styles/ProfileContainerStylesheet.css';
+import classNames from '../styles/ProfileContainerStylesheet.css';
 
 const ProfileContainer = (props, context) => <TransitionWrapper>
   <div className={classNames.this}>

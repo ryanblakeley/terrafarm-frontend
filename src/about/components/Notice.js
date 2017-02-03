@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from '../styles/NoticeStylesheet.css';
 
-const Notice = props => <div className={classNames.this}>
+const Notice = _ => <div className={classNames.this}>
   <h3 className={classNames.heading}>
     Notice
   </h3>

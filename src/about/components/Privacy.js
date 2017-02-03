@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from '../styles/NoticeStylesheet.css';
 
-const Privacy = props => <div className={classNames.this}>
+const Privacy = _ => <div className={classNames.this}>
   <h3 className={classNames.heading}>
     Privacy
   </h3>

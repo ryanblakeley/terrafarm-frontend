@@ -1,9 +1,9 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {GoogleApiWrapper} from 'google-maps-react';
-import ActionPanelForm from '../../shared/components/ActionPanelForm';
-import TextInput from '../../shared/components/TextInput';
-import formatAddress from '../../shared/utils/formatAddress';
+import ActionPanelForm from 'shared/components/ActionPanelForm';
+import TextInput from 'shared/components/TextInput';
+import formatAddress from 'shared/utils/formatAddress';
 import UpdateOrganizationMutation from '../mutations/UpdateOrganizationMutation';
 import DeleteOrganizationMutation from '../mutations/DeleteOrganizationMutation';
 
@@ -143,7 +143,7 @@ class Container extends React.Component {
         name={'name'}
         label={'Name'}
         initialValue={organization.name}
-        validations={{matchRegexp: /[A-Za-z,\.0-9]*/}}
+        validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
         required
       />
       <TextInput
@@ -157,7 +157,7 @@ class Container extends React.Component {
         name={'description'}
         label={'Description'}
         initialValue={organization.description}
-        validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+        validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
         required
         multiLine
         rows={3}

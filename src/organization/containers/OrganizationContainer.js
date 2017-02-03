@@ -5,19 +5,19 @@ import IoEdit from 'react-icons/lib/io/edit';
 import IoBriefcase from 'react-icons/lib/io/briefcase';
 import IoPerson from 'react-icons/lib/io/person';
 // Components
-import NotFoundPage from '../not-found/NotFoundPage';
-import TransitionWrapper from '../shared/components/TransitionWrapper';
-import Menu from '../shared/components/Menu';
-import ContentHeader from '../shared/components/ContentHeader';
-import MainContentWrapper from '../shared/components/MainContentWrapper';
-import HeroImage from '../shared/components/HeroImage';
-import Accordion from '../shared/components/Accordion';
-import RelationshipList from '../shared/components/RelationshipList';
-import ActionPanel from '../shared/components/ActionPanel';
-import ContentSubheader from '../shared/components/ContentSubheader';
-import ContentBodyText from '../shared/components/ContentBodyText';
+import NotFoundPage from 'not-found/components/NotFoundPage';
+import TransitionWrapper from 'shared/components/TransitionWrapper';
+import Menu from 'shared/components/Menu';
+import ContentHeader from 'shared/components/ContentHeader';
+import MainContentWrapper from 'shared/components/MainContentWrapper';
+import HeroImage from 'shared/components/HeroImage';
+import Accordion from 'shared/components/Accordion';
+import RelationshipList from 'shared/components/RelationshipList';
+import ActionPanel from 'shared/components/ActionPanel';
+import ContentSubheader from 'shared/components/ContentSubheader';
+import ContentBodyText from 'shared/components/ContentBodyText';
 
-import classNames from './styles/OrganizationContainerStylesheet.css';
+import classNames from '../styles/OrganizationContainerStylesheet.css';
 
 const OrganizationContainer = (props, context) => (!props.organization
   ? <NotFoundPage message={'Organization not found.'} />

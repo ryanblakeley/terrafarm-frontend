@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import LoginForm from './components/LoginForm';
-import NewUserForm from './components/NewUserForm';
-import classNames from './styles/LoginPageStylesheet.css';
+import LoginForm from './LoginForm';
+import NewUserForm from './NewUserForm';
+import classNames from '../styles/LoginPageStylesheet.css';
 
 export default class LoginPage extends Component {
   static contextTypes = {

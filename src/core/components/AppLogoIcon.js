@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames/bind';
-import LogoIcon from '../../shared/components/LogoIcon';
+import LogoIcon from 'shared/components/LogoIcon';
 import classNamesContext from '../styles/AppLogoIconStylesheet.css';
 
 const cx = classnames.bind(classNamesContext);
@@ -31,7 +31,7 @@ export default class AppLogoIcon extends React.Component {
   }
   render () {
     const {loggedIn} = this.context;
-
+    /* eslint jsx-a11y/no-static-element-interactions: 0 */
     return <div
       className={cx({this: true})}
       onClick={this.handleProfile}

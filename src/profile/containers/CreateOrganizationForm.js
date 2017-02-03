@@ -1,15 +1,16 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {GoogleApiWrapper} from 'google-maps-react';
-import ActionPanelForm from '../../shared/components/ActionPanelForm';
-import TextInput from '../../shared/components/TextInput';
-import formatAddress from '../../shared/utils/formatAddress';
-import UpdateUserMutation from '../mutations/UpdateUserMutation';
-import DeleteUserMutation from '../mutations/DeleteUserMutation';
+import formatAddress from 'shared/utils/formatAddress';
+import ActionPanelForm from 'shared/components/ActionPanelForm';
+import TextInput from 'shared/components/TextInput';
+import CreateOrganizationMemberMutation from 'organization/mutations/CreateOrganizationMemberMutation';
+import CreateOrganizationMutation from '../mutations/CreateOrganizationMutation';
 
 class Container extends React.Component {
   static propTypes = {
     user: React.PropTypes.object,
+    query: React.PropTypes.object,
     google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
     children: React.PropTypes.object,
@@ -29,11 +30,17 @@ class Container extends React.Component {
     const placeData = location.state && location.state.placeData;
     const placeStatus = location.state && location.state.placeStatus;
 
+    // listens for the right conditions in context and state to call the function
+    // which calls the mutation.
     if (placeData
       && placeStatus === 'READY'
       && placeReady) {
-      this.setState({placeReady: false});
-      this.updateUser(Object.assign(formData, {
+      this.setState({placeReady: null});
+
+      // the form data has a `location` input which was resolved into a `placeId`
+      // we need to drop the location key from the data object so before passing it on.
+      delete formData.location;
+      this.createOrganization(Object.assign(formData, {
         placeId: placeData.rowId,
       }));
     }
@@ -60,7 +67,7 @@ class Container extends React.Component {
     const lng = geocodeResult.geometry.location.lng();
 
     router.replace({
-      pathname: `/profile/edit/place-registry/${geocodeResult.place_id}`,
+      pathname: `/profile/new-organization/place-registry/${geocodeResult.place_id}`,
       state: {
         placeData: {
           rowId: geocodeResult.place_id,
@@ -71,23 +78,28 @@ class Container extends React.Component {
     });
   }
   handleSuccess = response => {
-    this.props.notifyClose();
+    const {router} = this.context;
+    const organizationId = response.createOrganization.organizationEdge.node.rowId;
+    router.push({
+      pathname: `/profile/join-organization/${organizationId}`,
+      state: {
+        isAdmin: true,
+        memberStatus: 'ACCEPTED',
+      },
+    });
   }
   handleFailure = transaction => {
     const error = transaction.getError() || new Error('Mutation failed.');
     this.setState({ error: !!error });
   }
-  updateUser (patch) {
-    const { user } = this.props;
-    // the form data has a `location` input which was resolved into a `placeId`
-    // we need to drop the location key from the data object so we can use the
-    // otherwise intact patch object for the update.
-    delete patch.location; // eslint-disable-line
+  createOrganization (data) {
+    const {user, query} = this.props;
 
     Relay.Store.commitUpdate(
-      new UpdateUserMutation({
-        userPatch: patch,
+      new CreateOrganizationMutation({
+        organizationData: data,
         user,
+        query,
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
@@ -100,35 +112,31 @@ class Container extends React.Component {
     Geocoder.geocode(request, callback);
   }
   render () {
-    const {user, notifyClose, children} = this.props;
     const {error} = this.state;
+    const {children} = this.props;
 
     return <ActionPanelForm
-      title={'Edit Profile'}
-      notifyClose={notifyClose}
+      title={'New Organization'}
+      notifyClose={this.props.notifyClose}
       onValidSubmit={this.handleSubmit}
       error={error}
     >
       <TextInput
         name={'name'}
         label={'Name'}
-        initialValue={user.name}
-        validations={{matchRegexp: /[A-Za-z,\.0-9]*/}}
+        validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
         required
       />
       <TextInput
         name={'location'}
         label={'Location'}
-        initialValue={user.placeByPlaceId && user.placeByPlaceId.address}
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
-        onChange={this.handleChangeLocation}
         required
       />
       <TextInput
         name={'description'}
         label={'Description'}
-        initialValue={user.description}
-        validations={{matchRegexp: /[A-Za-z,\.0-9]*/, maxLength: 500}}
+        validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
         required
         multiLine
         rows={3}
@@ -136,7 +144,6 @@ class Container extends React.Component {
       <TextInput
         name={'imageUrl'}
         label={'Image'}
-        initialValue={user.imageUrl}
         validations={'isUrl'}
       />
       {children}
@@ -155,37 +162,14 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
-        id,
-        name,
-        description,
-        imageUrl,
-        placeByPlaceId {
-          rowId,
-          address,
-        },
-        ${UpdateUserMutation.getFragment('user')},
-        ${DeleteUserMutation.getFragment('user')},
+        ${CreateOrganizationMutation.getFragment('user')},
+        ${CreateOrganizationMemberMutation.getFragment('user')},
+      }
+    `,
+    query: () => Relay.QL`
+      fragment on Query {
+        ${CreateOrganizationMutation.getFragment('query')},
       }
     `,
   },
 });
-
-  /* not implemented yet
-  handleDelete = () => {
-    const {user} = this.props;
-    const {router} = this.context;
-
-    Relay.Store.commitUpdate(
-      new DeleteUserMutation({user}), {
-        onSuccess: this.handleSuccess,
-        onFailure: this.handleFailure,
-      }
-    );
-
-    this.handleClose();
-
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('user_uuid');
-    router.replace('/');
-  }
-  */

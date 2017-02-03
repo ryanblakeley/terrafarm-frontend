@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from '../styles/AcknowledgementsStylesheet.css';
 
-const Acknowledgements = props => {
+const Acknowledgements = _ => {
   const caleba = <a href={'http://calebmer.com'} className={classNames.link}>@calebmer</a>;
   const g2ia = <a href={'http://www.g2idev.com/'} className={classNames.link}>G2i</a>;
   const darina = <a href={'https://github.com/dphaener'} className={classNames.link}>@dphaener</a>;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CreateOrganizationMemberMutation from './mutations/CreateOrganizationMemberMutation';
+import CreateOrganizationMemberMutation from '../mutations/CreateOrganizationMemberMutation';
 
 class JoinOrganizationContainer extends React.Component {
   static propTypes = {

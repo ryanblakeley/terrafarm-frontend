@@ -2,11 +2,11 @@ import React from 'react';
 import IoBriefcase from 'react-icons/lib/io/briefcase';
 import IoPerson from 'react-icons/lib/io/person';
 import IoIosSearch from 'react-icons/lib/io/ios-search';
-import TransitionWrapper from '../shared/components/TransitionWrapper';
-import Menu from '../shared/components/Menu';
-import BrowseContentWrapper from './components/BrowseContentWrapper';
-import BrowsePageHeading from './components/BrowsePageHeading';
-import classNames from './styles/BrowseContainerStylesheet.css';
+import TransitionWrapper from 'shared/components/TransitionWrapper';
+import Menu from 'shared/components/Menu';
+import BrowseContentWrapper from './BrowseContentWrapper';
+import BrowsePageHeading from './BrowsePageHeading';
+import classNames from '../styles/BrowseContainerStylesheet.css';
 
 const BrowseContainer = (props, context) => <TransitionWrapper>
   <div className={classNames.this} >

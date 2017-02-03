@@ -1,13 +1,11 @@
-/* eslint no-unused-vars: 0 */
 import React, { PropTypes, Component } from 'react';
-import Relay from 'react-relay';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppHeader from './components/AppHeader';
-import AppFooter from './components/AppFooter';
-import TerrafarmRawTheme from '../shared/utils/terrafarm-raw-theme';
-import '../shared/styles/_base.css';
-import classNames from './styles/CoreContainerStylesheet.css';
+import TerrafarmRawTheme from 'shared/utils/terrafarm-raw-theme';
+import 'shared/styles/_base.css';
+import AppHeader from './AppHeader';
+import AppFooter from './AppFooter';
+import classNames from '../styles/CoreContainerStylesheet.css';
 
 export class CoreContainer extends Component {
   static propTypes = {

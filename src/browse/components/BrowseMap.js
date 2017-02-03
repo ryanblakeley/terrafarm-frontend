@@ -84,7 +84,7 @@ export class Container extends React.Component {
     return bounds;
   }
   prepareMarkers (searchResults, activeId) {
-    const markers = searchResults.map((result, i) => {
+    const markers = searchResults.map(result => {
       const m = <Marker
         name={result.name}
         position={result.coords}
@@ -130,7 +130,8 @@ export class Container extends React.Component {
     });
     this.setState({boundsListener});
   }
-  handleMapClick = (mapProps, map, clickEvent) => {
+  handleMapClick = _ => {
+    // args: (mapProps, map, clickEvent)
     const {setActiveResultItemId} = this.props;
     const {showingInfoWindow} = this.state;
 
@@ -143,10 +144,7 @@ export class Container extends React.Component {
       });
     }
   }
-  handleMapMoved = (mapProps, map) => {
-    // ...
-  }
-  handleMarkerClick = (props, marker, e) => {
+  handleMarkerClick = (props, marker) => {
     const {setActiveResultItemId} = this.props;
 
     setActiveResultItemId(props.itemId);
@@ -160,13 +158,9 @@ export class Container extends React.Component {
       },
     });
   }
-  handleMarkerMouseover = (props, marker, e) => {
-    // console.log('hover marker, props:', props);
-  }
-  handleCurrentLocation = () => {
-    // get users current location
-    // this.changeMapCenter(result point)
-  }
+  // handleMapMoved
+  // handleMarkerMouseover
+  // handleCurrentLocation
   changeMapCenter = coords => {
     const {setSearchParams} = this.props;
 
@@ -211,7 +205,6 @@ export class Container extends React.Component {
         centerAroundCurrentLocation
         onReady={this.handleReady}
         onClick={this.handleMapClick}
-        onDragend={this.handleMapMoved}
         containerStyle={styles.map}
       >
         {markers}

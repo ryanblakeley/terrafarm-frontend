@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-import classNames from './styles/TEMPLATEContainerStylesheet.css';
+import classNames from '../styles/TEMPLATEContainerStylesheet.css';
 
 class TEMPLATEContainer extends React.Component {
   static propTypes = {

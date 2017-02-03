@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from '../styles/CompanyInfoStylesheet.css';
 
-const CompanyInfo = props => {
+const CompanyInfo = _ => {
   // const ryana = <a href={'http://rojobuffalo.com'} className={classNames.link}>single-person</a>;
   const ryana = <a href={'mailto:ryan@terra.farm'} className={classNames.link}>Ryan Blakeley</a>;
   return <div className={classNames.this}>

@@ -3,10 +3,9 @@ import Relay from 'react-relay';
 import IconButton from 'material-ui/IconButton';
 import IoIosStar from 'react-icons/lib/io/ios-star';
 import IoIosStarOutline from 'react-icons/lib/io/ios-star-outline';
-import ActionPanelForm from '../../shared/components/ActionPanelForm';
+import ActionPanelForm from 'shared/components/ActionPanelForm';
 import CreateUserStarMutation from '../mutations/CreateUserStarMutation';
 import DeleteUserStarMutation from '../mutations/DeleteUserStarMutation';
-
 import classNames from '../styles/StarUserFormStylesheet.css';
 
 class StarUserForm extends React.Component {
@@ -25,7 +24,7 @@ class StarUserForm extends React.Component {
 
     this.setState({starred: !!starEdge, starEdge});
   }
-  componentWillReceiveProps (nextProps, nextContext) {
+  componentWillReceiveProps (nextProps) {
     const {user, currentPerson} = nextProps;
     const starEdge = currentPerson.userStarsByFollowerId
       .edges.find(edge => edge.node.userByFollowingId.id === user.id);
@@ -66,9 +65,9 @@ class StarUserForm extends React.Component {
       }
     );
   }
-  handleSuccess = response => {
+  handleSuccess = _ => {
     this.setState({
-      closeTimeoutId: setTimeout(_ => this.props.notifyClose(), 1000),
+      closeTimeoutId: setTimeout(_1 => this.props.notifyClose(), 1000),
     });
   }
   handleFailure = transaction => {

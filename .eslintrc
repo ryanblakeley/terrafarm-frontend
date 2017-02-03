@@ -18,13 +18,20 @@ env:
 globals:
     Auth0Lock: true
 
+settings:
+    import/resolver: babel-module
+
 rules:
     # ERRORS
     strict: [2, "never"]  # disable "use strict" rules
 
     # DISABLE
     eol-last: 2
-    no-unused-vars: [1, args: none]
+    no-unused-vars: [1, {
+        varsIgnorePattern: "^_",
+        args: "none", # "after-used"
+        argsIgnorePattern: "^_",
+    }]
     quotes: [1, single, avoid-escape]  # allow single quotes for strings
     no-multi-spaces: 2
 
