@@ -1,7 +1,7 @@
 import React from 'react';
 import IoBriefcase from 'react-icons/lib/io/briefcase';
 import IoPerson from 'react-icons/lib/io/person';
-import IoIosSearch from 'react-icons/lib/io/ios-search';
+import IoIosMore from 'react-icons/lib/io/ios-more';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import BrowseContentWrapper from './BrowseContentWrapper';
@@ -12,10 +12,10 @@ const BrowseContainer = (props, context) => <TransitionWrapper>
   <div className={classNames.this} >
     <Menu
       baseUrl={'/browse'}
-      header={{icon: <IoIosSearch />, title: 'Browse'}}
+      header={{icon: <IoIosMore />, title: 'Browse'}}
       disabled={false}
       list={[
-        { icon: <IoBriefcase />, title: 'Organizations', url: 'organizations' },
+        { icon: <IoBriefcase />, title: 'Farms', url: 'farms' },
         { icon: <IoPerson />, title: 'Users', url: 'users' },
       ]}
     />

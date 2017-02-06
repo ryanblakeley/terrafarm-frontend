@@ -71,7 +71,7 @@ class Container extends React.Component {
     const lng = geocodeResult.geometry.location.lng();
 
     router.replace({
-      pathname: `/organization/${organization.rowId}/edit/place-registry/${geocodeResult.place_id}`,
+      pathname: `/farm/${organization.rowId}/edit/place-lookup/${geocodeResult.place_id}`,
       state: {
         placeData: {
           rowId: geocodeResult.place_id,
@@ -132,7 +132,7 @@ class Container extends React.Component {
     const { error, authorized } = this.state;
 
     return <ActionPanelForm
-      title={'Edit Organization'}
+      title={'Edit Farm'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={authorized ? this.handleDelete : null}

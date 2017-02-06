@@ -25,8 +25,8 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
       baseUrl={'/profile'}
       header={{icon: <IoPerson />, title: 'Profile'}}
       list={[
-        { icon: <IoPlus />, title: 'New Organization', url: 'new-organization' },
-        { icon: <IoEdit />, title: 'Edit', url: 'edit' },
+        { icon: <IoEdit />, title: 'Edit Profile', url: 'edit' },
+        { icon: <IoPlus />, title: 'Create Farm', url: 'create-farm' },
       ]}
     />
     <ContentHeader text={props.user.name} />
@@ -36,14 +36,14 @@ const ProfileContainer = (props, context) => <TransitionWrapper>
           {
             header: {
               icon: <IoIosBriefcase />,
-              label: 'Organizations',
+              label: 'Farms',
             },
             body: <RelationshipList
               listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
                 id: edge.node.id,
                 name: edge.node.organizationByOrganizationId.name,
-                itemUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}`,
-                actionUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}/review-membership/${edge.node.id}`,
+                itemUrl: `/farm/${edge.node.organizationByOrganizationId.rowId}`,
+                actionUrl: `/farm/${edge.node.organizationByOrganizationId.rowId}/review-membership/${edge.node.id}`,
                 status: edge.node.status === 'OFFERED'
                   ? edge.node.status
                   : null,

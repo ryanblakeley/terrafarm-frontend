@@ -28,7 +28,7 @@ class PerformSearchOrganizations extends React.Component {
       rowId: edge.node.rowId,
       name: edge.node.name,
       coords: parsePoint(edge.node.placeByPlaceId.coords),
-      url: 'organization',
+      url: 'farm',
     }));
 
     if (query.searchOrganizations.totalCount > this.state.relayVariables.count) {
@@ -72,7 +72,7 @@ class PerformSearchOrganizations extends React.Component {
         rowId: edge.node.rowId,
         name: edge.node.name,
         coords: parsePoint(edge.node.placeByPlaceId.coords),
-        url: 'organization',
+        url: 'farm',
       })));
       this.setState({searchResultIds: nextSearchResultIds});
     }

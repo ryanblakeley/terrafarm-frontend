@@ -42,7 +42,7 @@ class Container extends React.Component {
     // form submits `data` and we pass the `location` input to the geocoder
     // to get a standardized response about that geographical location.
     //
-    // The top result from the geocoder is passed to our `place-registry` container
+    // The top result from the geocoder is passed to our `place-lookup` container
     // This container looks up if we have the `placeId` registered in our db.
     // An entry is created if it is new. The router returns to the form with the
     // place data store in `context.location.state`
@@ -60,7 +60,7 @@ class Container extends React.Component {
     const lng = geocodeResult.geometry.location.lng();
 
     router.replace({
-      pathname: `/profile/edit/place-registry/${geocodeResult.place_id}`,
+      pathname: `/profile/edit/place-lookup/${geocodeResult.place_id}`,
       state: {
         placeData: {
           rowId: geocodeResult.place_id,

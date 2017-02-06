@@ -108,7 +108,7 @@ const routes = (
       onEnter={loginBouncer}
       renderLoading={renderLoading}
     >
-      <Route path={'join-organization'}>
+      <Route path={'join-farm'}>
         <Route
           path={':organizationId'}
           component={JoinOrganizationContainer}
@@ -117,7 +117,7 @@ const routes = (
         />
       </Route>
       <Route path={'edit'} component={EditProfileForm} queries={UserQueries} >
-        <Route path={'place-registry'}>
+        <Route path={'place-lookup'}>
           <Route
             path={':placeId'}
             component={PlaceLookupContainer}
@@ -126,8 +126,8 @@ const routes = (
           />
         </Route>
       </Route>
-      <Route path={'new-organization'} component={CreateOrganizationForm} queries={ProfileQueryQueries} >
-        <Route path={'place-registry'}>
+      <Route path={'create-farm'} component={CreateOrganizationForm} queries={ProfileQueryQueries} >
+        <Route path={'place-lookup'}>
           <Route
             path={':placeId'}
             component={PlaceLookupContainer}
@@ -142,9 +142,9 @@ const routes = (
       component={BrowsePage}
       renderLoading={renderLoading}
     >
-      <IndexRedirect to={'organizations'} />
+      <IndexRedirect to={'farms'} />
       <Route
-        path={'organizations'}
+        path={'farms'}
         component={SearchOrganizationsContainer}
         queries={QueryQueries}
         onEnter={ensurePublicAccess}
@@ -173,7 +173,7 @@ const routes = (
         />
       </Route>
     </Route>
-    <Route path={'organization'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
+    <Route path={'farm'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
       <Route
         path={':organizationId'}
         component={OrganizationContainer}
@@ -192,7 +192,7 @@ const routes = (
           queries={EditOrganizationQueries}
           onEnter={loginBouncer}
         >
-          <Route path={'place-registry'}>
+          <Route path={'place-lookup'}>
             <Route
               path={':placeId'}
               component={PlaceLookupContainer}

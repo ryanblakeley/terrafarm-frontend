@@ -1,12 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
-import ActionPanelForm from '../../shared/components/ActionPanelForm';
-import Radio from '../../shared/components/Radio';
-import RadioGroup from '../../shared/components/RadioGroup';
-import NotAuthorized from '../../shared/components/NotAuthorized';
+import ActionPanelForm from 'shared/components/ActionPanelForm';
+import Radio from 'shared/components/Radio';
+import RadioGroup from 'shared/components/RadioGroup';
+import NotAuthorized from 'shared/components/NotAuthorized';
 import UpdateOrganizationMemberMutation from '../mutations/UpdateOrganizationMemberMutation';
-
 import classNames from '../styles/EditMemberFormStylesheet.css';
 
 class EditMemberForm extends React.Component {
@@ -82,7 +81,7 @@ class EditMemberForm extends React.Component {
       title={`Membership ${status.toLowerCase()}`}
       bodyText={<div>
         <p className={classNames.text}>
-          <Link to={`/organization/${organizationByOrganizationId.rowId}`} className={classNames.link}>
+          <Link to={`/farm/${organizationByOrganizationId.rowId}`} className={classNames.link}>
             {organizationByOrganizationId.name}
           </Link>
         </p>

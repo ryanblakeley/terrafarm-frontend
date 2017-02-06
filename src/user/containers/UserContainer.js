@@ -38,13 +38,13 @@ const UserContainer = (props, context) => (!props.user
             {
               header: {
                 icon: <IoIosBriefcase />,
-                label: 'Organizations',
+                label: 'Farms',
               },
               body: <RelationshipList
                 listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
                   id: edge.node.id,
                   name: edge.node.organizationByOrganizationId.name,
-                  itemUrl: `/organization/${edge.node.organizationByOrganizationId.rowId}`,
+                  itemUrl: `/farm/${edge.node.organizationByOrganizationId.rowId}`,
                 }))}
               />,
             },

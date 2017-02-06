@@ -20,12 +20,12 @@ import ContentBodyText from 'shared/components/ContentBodyText';
 import classNames from '../styles/OrganizationContainerStylesheet.css';
 
 const OrganizationContainer = (props, context) => (!props.organization
-  ? <NotFoundPage message={'Organization not found.'} />
+  ? <NotFoundPage message={'Farm not found.'} />
   : <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
-        baseUrl={`/organization/${props.organization.rowId}`}
-        header={{icon: <IoBriefcase />, title: 'Organization'}}
+        baseUrl={`/farm/${props.organization.rowId}`}
+        header={{icon: <IoBriefcase />, title: 'Farm'}}
         disabled={!context.loggedIn}
         list={[
           {
