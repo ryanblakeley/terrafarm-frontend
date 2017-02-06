@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router';
 import classNames from '../styles/AboutPageStylesheet.css';
 
 const AboutPage = () => {
@@ -21,7 +20,7 @@ const AboutPage = () => {
       About
     </h3>
     <p className={classNames.text}>
-      <Link to={'/'} className={classNames.link}>Terrafarm</Link> exists to improve food system sustainability. This CSA app is for seasonal subscriptions to local farm products.
+      <a href={'https://terra.farm'} className={classNames.link}>Terrafarm</a> exists to improve food system sustainability.
     </p>
     <h3 className={classNames.heading}>
       Content Library

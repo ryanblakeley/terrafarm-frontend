@@ -1,6 +1,10 @@
-.this {
-  margin-top: 15px;
+.this { margin-top: 25px; }
+.button:first-of-type { margin-right: 15px; }
+.text {
+  margin-top: 25px;
+  composes: bodyText from 'shared/styles/_typography.css';
 }
-.link:first-of-type {
-  margin-right: 15px;
+.link {
+  composes: link from 'shared/styles/_typography.css';
+  text-decoration: underline;
 }

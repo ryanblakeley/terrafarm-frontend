@@ -1,4 +1,6 @@
 .this {
-  composes: page--gutter from '../../shared/styles/_layout.css';
+  composes: page--gutter from 'shared/styles/_layout.css';
   max-width: 470px;
 }
+.link { composes: link from 'shared/styles/_typography.css'; text-decoration: underline; }
+.text { composes: bodyText from 'shared/styles/_typography.css'; }

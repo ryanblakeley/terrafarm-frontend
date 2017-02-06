@@ -1,6 +1,4 @@
 .this {
   display: flex; align-items: center; cursor: pointer;
-}
-.stacked {
-  flex-direction: column;
+  height: 80px;
 }

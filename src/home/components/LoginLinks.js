@@ -19,26 +19,36 @@ class LoginLinks extends React.Component {
   render () {
     const {loggedIn} = this.context;
     const link1 = !loggedIn
-      ? <Link to={'/login'} className={classNames.link}>
-        <RaisedButton label={'Login'} primary className={classNames.button} />
+      ? <Link to={'/login'} className={classNames.button}>
+        <RaisedButton label={'Login'} />
       </Link>
-      : <Link to={'/profile'} className={classNames.link}>
-        <RaisedButton label={'Profile'} primary className={classNames.button} />
+      : <Link to={'/profile'} className={classNames.button}>
+        <RaisedButton label={'Profile'} />
       </Link>;
 
     const link2 = !loggedIn
-      ? <Link to={{ pathname: '/login', state: {newUser: true} }} >
-        <RaisedButton label={'New User'} className={classNames.button} />
+      ? <Link
+        to={{ pathname: '/login', state: {newUser: true} }}
+        className={classNames.button}
+      >
+        <RaisedButton label={'New User'} primary />
       </Link>
       : <RaisedButton
         label={'Logout'}
-        className={classNames.button}
         onTouchTap={this.handleSignOut}
+        className={classNames.button}
+        primary
       />;
+    const browseLink = <Link to={'/browse'} className={classNames.link}>Browse</Link>;
+    const farmsLink = <Link to={'/browse/farms'} className={classNames.link}>farms</Link>;
+    const productsLink = <Link to={'/browse/products'} className={classNames.link}>products</Link>;
 
     return <div className={classNames.this}>
-      {link1}
       {link2}
+      {link1}
+      <p className={classNames.text}>
+        Just looking around? {browseLink} farms and products.
+      </p>
     </div>;
   }
 }

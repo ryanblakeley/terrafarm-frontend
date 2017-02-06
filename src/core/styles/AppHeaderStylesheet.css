@@ -1,11 +1,7 @@
 .this {
-  composes: page from '../../shared/styles/_layout.css';
+  composes: page from 'shared/styles/_layout.css';
   display: flex; align-items: center; justify-content: space-between;
   transition: margin 180ms linear, max-width 180ms linear;
-}
-
-@media only screen and (min-width: 680px) {
-  .home { margin: 0 auto; padding-top: 75px; max-width: 75%; }
 }
 
 @media only screen and (min-width: 800px) {
