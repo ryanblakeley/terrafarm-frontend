@@ -3,7 +3,10 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import IoLogIn from 'react-icons/lib/io/log-in';
 import IoIosArrowThinRight from 'react-icons/lib/io/ios-arrow-thin-right';
-import classNames from '../styles/LoginPortalStylesheet.css';
+import classnames from 'classnames/bind';
+import classNamesContext from '../styles/LoginPortalStylesheet.css';
+
+const cx = classnames.bind(classNamesContext);
 
 export default class LoginPortal extends React.Component {
   static contextTypes = {
@@ -13,25 +16,28 @@ export default class LoginPortal extends React.Component {
   };
   getIcon () {
     const { loggedIn, router } = this.context;
-    const disabled = router.isActive('login');
 
-    if (loggedIn) {
+    if (loggedIn && router.isActive('profile')) {
       return <FlatButton
         onClick={this.handleSignOut}
         onTouchTap={this.handleSignOut}
         label={'Logout'}
-        className={classNames.button}
-        icon={<IoIosArrowThinRight style={{color: ''}} className={classNames.icon} />}
-        disabled={disabled}
+        className={cx({button: true})}
+        icon={<IoIosArrowThinRight
+          style={{color: ''}}
+          className={classNamesContext.icon}
+        />}
       />;
+    } else if (loggedIn) {
+      return null;
     }
     return <FlatButton
       onClick={this.handleSignIn}
       onTouchTap={this.handleSignIn}
       label={'Login'}
-      className={classNames.button}
-      icon={<IoLogIn style={{color: ''}} className={classNames.icon} />}
-      disabled={disabled}
+      className={cx({button: true})}
+      icon={<IoLogIn style={{color: ''}} className={cx({icon: true})} />}
+      disabled={router.isActive('login')}
     />;
   }
   handleSignIn = () => {
@@ -51,7 +57,7 @@ export default class LoginPortal extends React.Component {
   render () {
     const icon = this.getIcon();
 
-    return <div className={classNames.this}>
+    return <div className={classNamesContext.this}>
       {icon}
     </div>;
   }

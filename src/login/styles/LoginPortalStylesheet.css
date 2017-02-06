@@ -1,10 +1,14 @@
-.this { display: none; }
+.this { }
 .button {}
 .icon {
-  composes: icon from '../../shared/styles/_typography.css';
+  composes: icon from 'shared/styles/_typography.css';
   font-size: 22px;
 }
 
+.wideOnly {
+  display: none;
+}
+
 @media only screen and (min-width: 550px) {
-  .this { display: initial; }
+  .wideOnly { display: initial; }
 }

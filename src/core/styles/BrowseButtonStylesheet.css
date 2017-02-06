@@ -1,5 +1,10 @@
-.this {}
+/*.this { display: none; }*/
 .icon {
-  composes: icon from '../../shared/styles/_typography.css';
+  composes: icon from 'shared/styles/_typography.css';
   font-size: 22px;
 }
+/*
+@media only screen and (min-width: 440px) {
+  .this { display: block; }
+}
+*/
