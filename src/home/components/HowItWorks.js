@@ -1,5 +1,5 @@
 import React from 'react';
-import NumberedList from '../../shared/components/NumberedList';
+import NumberedList from 'shared/components/NumberedList';
 import classNames from '../styles/HowItWorksStylesheet.css';
 
 const HowItWorks = () => <div className={classNames.this}>
