@@ -1,5 +1,5 @@
 .this {
-  display: flex; align-items: center;
+  display: flex; align-items: center; cursor: pointer;
 }
 .stacked {
   flex-direction: column;

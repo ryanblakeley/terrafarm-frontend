@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import AppLogoIcon from './AppLogoIcon';
 import AppLogoName from './AppLogoName';
-import PageHeading from './PageHeading';
 import classNamesContext from '../styles/AppLogoStylesheet.css';
 
 const cx = classNames.bind(classNamesContext);
@@ -10,40 +9,34 @@ const cx = classNames.bind(classNamesContext);
 class AppLogo extends React.Component {
   static propTypes = {
     stacked: React.PropTypes.bool,
-    text: React.PropTypes.string,
   };
   static contextTypes = {
-    loggedIn: React.PropTypes.bool,
+    router: React.PropTypes.object,
   };
   static defaultProps = {
     stacked: false,
   };
-  state = {
-    showLabel: false,
-  };
-  handleMouseEnter = _ => {
-    this.setState({showLabel: true});
-  }
-  handleMouseLeave = _ => {
-    this.setState({showLabel: false});
+  handleClick = _ => {
+    const {router} = this.context;
+    router.push('/');
   }
   render () {
-    const {loggedIn} = this.context;
-    const {showLabel} = this.state;
-
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return <div
       className={cx({this: true, stacked: this.props.stacked})}
+      onClick={this.handleClick}
     >
-      <AppLogoIcon
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-      />
-      {loggedIn && showLabel
-        ? <PageHeading text={'PROFILE'} />
-        : <AppLogoName />
-      }
+      <AppLogoIcon />
+      <AppLogoName />
     </div>;
   }
 }
 
 export default AppLogo;
+
+/*
+      {loggedIn && showLabel
+        ? <PageHeading text={'PROFILE'} />
+        : <AppLogoName />
+      }
+*/
