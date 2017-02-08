@@ -40,15 +40,13 @@ class LoginLinks extends React.Component {
         primary
       />;
     const browseLink = <Link to={'/browse'} className={classNames.link}>Browse</Link>;
-    const farmsLink = <Link to={'/browse/farms'} className={classNames.link}>farms</Link>;
-    const productsLink = <Link to={'/browse/products'} className={classNames.link}>products</Link>;
 
     return <div className={classNames.this}>
       {link2}
       {link1}
-      <p className={classNames.text}>
+      {!loggedIn && <p className={classNames.text}>
         Just looking around? {browseLink} farms and products.
-      </p>
+      </p>}
     </div>;
   }
 }
