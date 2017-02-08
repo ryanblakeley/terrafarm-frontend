@@ -41,7 +41,7 @@ class PlaceLookupContainer extends React.Component {
 
     router.replace({
       pathname: location.pathname.substring(0,
-        location.pathname.indexOf('/place-registry')),
+        location.pathname.indexOf('/place-lookup')),
       state: {
         placeData: response.createPlace.place,
         placeStatus: 'READY',

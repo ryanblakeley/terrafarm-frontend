@@ -12,29 +12,30 @@ import BrowsePage from 'browse/components/BrowsePage';
 
 // Containers
 import ProfileContainer from 'profile/containers/ProfileContainer';
-import JoinOrganizationContainer from 'profile/containers/JoinOrganizationContainer';
 import CreateOrganizationForm from 'profile/containers/CreateOrganizationForm';
 import EditProfileForm from 'profile/containers/EditProfileForm';
 import StarUserForm from 'user/containers/StarUserForm';
 import UserContainer from 'user/containers/UserContainer';
 import OrganizationContainer from 'organization/containers/OrganizationContainer';
-import OfferMemberForm from 'organization/containers/OfferMemberForm';
-import EditMemberForm from 'organization/containers/EditMemberForm';
 import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
+import CreateProductForm from 'organization/containers/CreateProductForm';
+import ProductContainer from 'product/containers/ProductContainer';
+import EditProductForm from 'product/containers/EditProductForm';
 import PlaceLookupContainer from 'place/containers/PlaceLookupContainer';
 import SearchOrganizationsContainer from 'browse/containers/SearchOrganizationsContainer';
 import SearchUsersContainer from 'browse/containers/SearchUsersContainer';
+import SearchProductsContainer from 'browse/containers/SearchProductsContainer';
 
 // Queries
 import QueryQueries from './QueryQueries';
 import ProfileQueryQueries from './ProfileQueryQueries';
-import JoinOrganizationQueries from './JoinOrganizationQueries';
 import UserQueries from './UserQueries';
 import UserCurrentPersonQueries from './UserCurrentPersonQueries';
 import OrganizationQueries from './OrganizationQueries';
 import EditOrganizationQueries from './EditOrganizationQueries';
-import OrganizationCurrentPersonQueries from './OrganizationCurrentPersonQueries';
-import MemberQueries from './MemberQueries';
+import OrganizationQueryQueries from './OrganizationQueryQueries';
+import ProductQueries from './ProductQueries';
+import EditProductQueries from './EditProductQueries';
 import PlaceQueries from './PlaceQueries';
 
 function prepareProfileParams (params) {
@@ -108,14 +109,6 @@ const routes = (
       onEnter={loginBouncer}
       renderLoading={renderLoading}
     >
-      <Route path={'join-farm'}>
-        <Route
-          path={':organizationId'}
-          component={JoinOrganizationContainer}
-          queries={JoinOrganizationQueries}
-          renderLoading={renderLoading}
-        />
-      </Route>
       <Route path={'edit'} component={EditProfileForm} queries={UserQueries} >
         <Route path={'place-lookup'}>
           <Route
@@ -151,6 +144,13 @@ const routes = (
         renderLoading={renderLoading}
       />
       <Route
+        path={'products'}
+        component={SearchProductsContainer}
+        queries={QueryQueries}
+        onEnter={ensurePublicAccess}
+        renderLoading={renderLoading}
+      />
+      <Route
         path={'users'}
         component={SearchUsersContainer}
         queries={QueryQueries}
@@ -180,12 +180,7 @@ const routes = (
         queries={OrganizationQueries}
         renderLoading={renderLoading}
       >
-        <Route
-          path={'new-member'}
-          component={OfferMemberForm}
-          queries={OrganizationCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
+        <Route path={'create-product'} component={CreateProductForm} queries={OrganizationQueryQueries} />
         <Route
           path={'edit'}
           component={EditOrganizationForm}
@@ -201,14 +196,21 @@ const routes = (
             />
           </Route>
         </Route>
-        <Route path={'review-membership'}>
-          <Route
-            path={':organizationMemberId'}
-            component={EditMemberForm}
-            queries={MemberQueries}
-            onEnter={loginBouncer}
-          />
-        </Route>
+      </Route>
+    </Route>
+    <Route path={'product'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
+      <Route
+        path={':productId'}
+        component={ProductContainer}
+        queries={ProductQueries}
+        renderLoading={renderLoading}
+      >
+        <Route
+          path={'edit'}
+          component={EditProductForm}
+          queries={EditProductQueries}
+          onEnter={loginBouncer}
+        />
       </Route>
     </Route>
     <Route path={'*'} component={NotFound} />

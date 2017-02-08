@@ -19,49 +19,66 @@ import ContentBodyText from 'shared/components/ContentBodyText';
 
 import classNames from '../styles/ProfileContainerStylesheet.css';
 
-const ProfileContainer = (props, context) => <TransitionWrapper>
-  <div className={classNames.this}>
-    <Menu
-      baseUrl={'/profile'}
-      header={{icon: <IoPerson />, title: 'Profile'}}
-      list={[
-        { icon: <IoEdit />, title: 'Edit Profile', url: 'edit' },
-        { icon: <IoPlus />, title: 'Create Farm', url: 'create-farm' },
-      ]}
-    />
-    <ContentHeader text={props.user.name} />
-    <MainContentWrapper
-      right={<Accordion
-        panels={[
-          {
-            header: {
-              icon: <IoIosBriefcase />,
-              label: 'Farms',
+const ProfileContainer = (props, context) => {
+  const menuList = [
+    { icon: <IoEdit />, title: 'Edit Profile', url: 'edit' },
+  ];
+  if (!props.user.organizationsByOwnerId.edges.length > 0) {
+    menuList.push({ icon: <IoPlus />, title: 'Create Farm', url: 'create-farm' });
+  }
+  return <TransitionWrapper>
+    <div className={classNames.this}>
+      <Menu
+        baseUrl={'/profile'}
+        header={{icon: <IoPerson />, title: 'Profile'}}
+        list={menuList}
+      />
+      <ContentHeader text={props.user.name} />
+      <MainContentWrapper
+        right={<Accordion
+          panels={[
+            {
+              header: {
+                icon: <IoIosBriefcase />,
+                label: 'Farm',
+              },
+              body: <RelationshipList
+                listItems={props.user.organizationsByOwnerId.edges.map(edge => ({
+                  id: edge.node.id,
+                  name: edge.node.name,
+                  itemUrl: `/farm/${edge.node.rowId}`,
+                }))}
+              />,
             },
-            body: <RelationshipList
-              listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
-                id: edge.node.id,
-                name: edge.node.organizationByOrganizationId.name,
-                itemUrl: `/farm/${edge.node.organizationByOrganizationId.rowId}`,
-                actionUrl: `/farm/${edge.node.organizationByOrganizationId.rowId}/review-membership/${edge.node.id}`,
-                status: edge.node.status === 'OFFERED'
-                  ? edge.node.status
-                  : null,
-                authorized: true,
-              }))}
-            />,
-          },
-        ]}
-      />}
-      left={<div>
-        <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
-        <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} />
-        <ContentBodyText text={props.user.description} />
-        <HeroImage image={props.user.imageUrl} />
-      </div>}
-    />
-  </div>
-</TransitionWrapper>;
+            {
+              header: {
+                icon: <IoIosBriefcase />,
+                label: 'Shares',
+              },
+              body: <RelationshipList
+                listItems={props.user.sharesByUserId.edges.length > 0
+                  ? props.user.sharesByUserId.edges.map(edge => ({
+                    id: edge.node.productByProductId.id,
+                    name: edge.node.productByProductId.name,
+                    itemId: edge.node.productByProductId.rowId,
+                    itemUrl: `/product/${edge.node.productByProductId.rowId}`,
+                  }))
+                  : []
+                }
+              />,
+            },
+          ]}
+        />}
+        left={<div>
+          <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
+          <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} />
+          <ContentBodyText text={props.user.description} />
+          <HeroImage image={props.user.imageUrl} />
+        </div>}
+      />
+    </div>
+  </TransitionWrapper>;
+};
 
 ProfileContainer.propTypes = {
   user: React.PropTypes.object,
@@ -88,12 +105,20 @@ export default Relay.createContainer(ProfileContainer, {
         placeByPlaceId {
           address,
         },
-        organizationMembersByMemberId(first: 5) {
+        organizationsByOwnerId(first: 2) {
           edges {
             node {
               id,
-              status,
-              organizationByOrganizationId {
+              rowId,
+              name,
+            }
+          }
+        },
+        sharesByUserId(first: 8) {
+          edges {
+            node {
+              productByProductId {
+                id,
                 rowId,
                 name,
               }

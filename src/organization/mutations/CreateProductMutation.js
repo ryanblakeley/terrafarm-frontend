@@ -1,9 +1,9 @@
 import Relay from 'react-relay';
 
-export default class CreateOrganizationMutation extends Relay.Mutation {
+export default class CreateProductMutation extends Relay.Mutation {
   static fragments = {
-    user: () => Relay.QL`
-      fragment on User {
+    organization: () => Relay.QL`
+      fragment on Organization {
         rowId,
       }
     `,
@@ -14,27 +14,27 @@ export default class CreateOrganizationMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{createOrganization}`;
+    return Relay.QL`mutation{createProduct}`;
   }
   getVariables () {
     return {
-      organization: Object.assign({
-        ownerId: this.props.user.rowId,
-      }, this.props.organizationData),
+      product: Object.assign({
+        organizationId: this.props.organization.rowId,
+      }, this.props.productData),
     };
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on CreateOrganizationPayload {
-        organization { rowId },
-        organizationEdge {
+      fragment on CreateProductPayload {
+        product { rowId },
+        productEdge {
           node {
             id,
             rowId,
           }
         },
         query {
-          allOrganizations,
+          allProducts,
         },
       }
     `;
@@ -45,8 +45,8 @@ export default class CreateOrganizationMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'query',
         parentID: this.props.query.id,
-        connectionName: 'allOrganizations',
-        edgeName: 'organizationEdge',
+        connectionName: 'allProducts',
+        edgeName: 'productEdge',
         rangeBehaviors: {
           '': 'append',
         },
@@ -55,8 +55,8 @@ export default class CreateOrganizationMutation extends Relay.Mutation {
         type: 'REQUIRED_CHILDREN',
         children: [
           Relay.QL`
-            fragment on CreateOrganizationPayload {
-              organizationEdge {
+            fragment on CreateProductPayload {
+              productEdge {
                 node {
                   id,
                   rowId,

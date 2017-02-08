@@ -28,9 +28,7 @@ class Container extends React.Component {
   };
   componentWillMount () {
     const {organization, currentPerson} = this.props;
-    const authorized = organization.organizationMembersByOrganizationId.edges.findIndex(edge => (
-      edge.node.userByMemberId.rowId === currentPerson.rowId
-    )) > -1;
+    const authorized = organization.userByOwnerId.rowId === currentPerson.rowId;
     this.setState({authorized});
   }
   componentWillReceiveProps (props, context) {
@@ -192,15 +190,9 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
         placeByPlaceId {
           address,
         },
-        organizationMembersByOrganizationId(first: 10) {
-          edges {
-            node {
-              userByMemberId {
-                rowId,
-              }
-            }
-          }
-        },
+        userByOwnerId {
+          rowId,
+        }
         ${UpdateOrganizationMutation.getFragment('organization')},
         ${DeleteOrganizationMutation.getFragment('organization')},
       }

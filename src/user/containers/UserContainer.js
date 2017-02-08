@@ -38,14 +38,31 @@ const UserContainer = (props, context) => (!props.user
             {
               header: {
                 icon: <IoIosBriefcase />,
-                label: 'Farms',
+                label: 'Farm',
               },
               body: <RelationshipList
-                listItems={props.user.organizationMembersByMemberId.edges.map(edge => ({
+                listItems={props.user.organizationsByOwnerId.edges.map(edge => ({
                   id: edge.node.id,
-                  name: edge.node.organizationByOrganizationId.name,
-                  itemUrl: `/farm/${edge.node.organizationByOrganizationId.rowId}`,
+                  name: edge.node.name,
+                  itemUrl: `/farm/${edge.node.rowId}`,
                 }))}
+              />,
+            },
+            {
+              header: {
+                icon: <IoIosBriefcase />,
+                label: 'Shares',
+              },
+              body: <RelationshipList
+                listItems={props.user.sharesByUserId.edges.length > 0
+                  ? props.user.sharesByUserId.edges.map(edge => ({
+                    id: edge.node.productByProductId.id,
+                    name: edge.node.productByProductId.name,
+                    itemId: edge.node.productByProductId.rowId,
+                    itemUrl: `/product/${edge.node.productByProductId.rowId}`,
+                  }))
+                  : []
+                }
               />,
             },
           ]}
@@ -73,7 +90,8 @@ UserContainer.propTypes = {
     }),
     description: React.PropTypes.string,
     imageUrl: React.PropTypes.string,
-    organizationMembersByMemberId: React.PropTypes.object,
+    organizationsByOwnerId: React.PropTypes.object,
+    sharesByUserId: React.PropTypes.object,
   }),
   children: React.PropTypes.object,
 };
@@ -97,11 +115,20 @@ export default Relay.createContainer(UserContainer, {
         placeByPlaceId {
           address,
         },
-        organizationMembersByMemberId(first: 5) {
+        organizationsByOwnerId(first: 2) {
           edges {
             node {
               id,
-              organizationByOrganizationId {
+              rowId
+              name,
+            }
+          }
+        },
+        sharesByUserId(first: 8) {
+          edges {
+            node {
+              productByProductId {
+                id,
                 rowId,
                 name,
               }

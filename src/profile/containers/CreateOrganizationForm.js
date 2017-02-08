@@ -4,7 +4,6 @@ import {GoogleApiWrapper} from 'google-maps-react';
 import formatAddress from 'shared/utils/formatAddress';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
-import CreateOrganizationMemberMutation from 'organization/mutations/CreateOrganizationMemberMutation';
 import CreateOrganizationMutation from '../mutations/CreateOrganizationMutation';
 
 class Container extends React.Component {
@@ -42,6 +41,7 @@ class Container extends React.Component {
       delete formData.location;
       this.createOrganization(Object.assign(formData, {
         placeId: placeData.rowId,
+        ownerId: props.user.rowId,
       }));
     }
   }
@@ -67,7 +67,7 @@ class Container extends React.Component {
     const lng = geocodeResult.geometry.location.lng();
 
     router.replace({
-      pathname: `/profile/new-organization/place-lookup/${geocodeResult.place_id}`,
+      pathname: `/profile/new-farm/place-lookup/${geocodeResult.place_id}`,
       state: {
         placeData: {
           rowId: geocodeResult.place_id,
@@ -80,13 +80,7 @@ class Container extends React.Component {
   handleSuccess = response => {
     const {router} = this.context;
     const organizationId = response.createOrganization.organizationEdge.node.rowId;
-    router.push({
-      pathname: `/profile/join-organization/${organizationId}`,
-      state: {
-        isAdmin: true,
-        memberStatus: 'ACCEPTED',
-      },
-    });
+    router.push(`/organization/${organizationId}`);
   }
   handleFailure = transaction => {
     const error = transaction.getError() || new Error('Mutation failed.');
@@ -163,7 +157,6 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
     user: () => Relay.QL`
       fragment on User {
         ${CreateOrganizationMutation.getFragment('user')},
-        ${CreateOrganizationMemberMutation.getFragment('user')},
       }
     `,
     query: () => Relay.QL`

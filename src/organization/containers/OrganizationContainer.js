@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
 import IoBriefcase from 'react-icons/lib/io/briefcase';
+import IoPlus from 'react-icons/lib/io/plus';
 import IoPerson from 'react-icons/lib/io/person';
 // Components
 import NotFoundPage from 'not-found/components/NotFoundPage';
@@ -29,18 +30,12 @@ const OrganizationContainer = (props, context) => (!props.organization
         disabled={!context.loggedIn}
         list={[
           {
-            icon: <IoPerson />,
-            title: 'New Member',
-            url: 'new-member',
-          },
-          {
             icon: <IoEdit />,
-            title: 'Edit',
+            title: 'Edit Farm',
             url: 'edit',
-            disabled: !props.organization.organizationMembersByOrganizationId.edges.find(edge => (
-              edge.node.userByMemberId.rowId === context.userId
-            )),
+            disabled: !props.organization.userByOwnerId.rowId === context.userId,
           },
+          { icon: <IoPlus />, title: 'Create Product', url: 'create-product' },
         ]}
       />
       <ContentHeader text={props.organization.name} />
@@ -50,21 +45,28 @@ const OrganizationContainer = (props, context) => (!props.organization
             {
               header: {
                 icon: <IoPerson />,
-                label: 'Members',
+                label: 'Owner',
               },
               body: <RelationshipList
-                listItems={props.organization
-                  .organizationMembersByOrganizationId.edges.map(edge => ({
+                listItems={[{
+                  id: props.organization.userByOwnerId.id,
+                  name: props.organization.userByOwnerId.name,
+                  itemId: props.organization.userByOwnerId.rowId,
+                  itemUrl: `/user/${props.organization.userByOwnerId.rowId}`,
+                }]}
+              />,
+            },
+            {
+              header: {
+                icon: <IoBriefcase />,
+                label: 'Products',
+              },
+              body: <RelationshipList
+                listItems={props.organization.productsByOrganizationId
+                  .edges.map(edge => ({
                     id: edge.node.id,
-                    name: edge.node.userByMemberId.name,
-                    itemId: edge.node.userByMemberId.rowId,
-                    itemUrl: `/user/${edge.node.userByMemberId.rowId}`,
-                    actionUrl: `/organization/${props.organization.rowId}/review-membership/${edge.node.id}`,
-                    status: edge.node.status === 'OFFERED'
-                      ? edge.node.status
-                      : null,
-                    authorized: edge.node.memberId === context.userId,
-
+                    name: edge.node.name,
+                    itemUrl: `/product/${edge.node.rowId}`,
                   }))
                 }
               />,
@@ -75,7 +77,7 @@ const OrganizationContainer = (props, context) => (!props.organization
           <ActionPanel
             children={props.children}
             notifyClose={() => {
-              context.router.replace(`/organization/${props.organization.rowId}`);
+              context.router.replace(`/farm/${props.organization.rowId}`);
             }}
           />
           <ContentSubheader
@@ -115,16 +117,17 @@ export default Relay.createContainer(OrganizationContainer, {
         placeByPlaceId {
           address,
         },
-        organizationMembersByOrganizationId(first: 10) {
+        userByOwnerId {
+          id,
+          rowId,
+          name,
+        },
+        productsByOrganizationId(first: 3) {
           edges {
             node {
               id,
-              status,
-              memberId,
-              userByMemberId {
-                rowId,
-                name,
-              }
+              rowId,
+              name,
             }
           }
         },
