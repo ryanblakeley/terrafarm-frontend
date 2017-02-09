@@ -16,6 +16,7 @@ const BrowseContainer = (props, context) => <TransitionWrapper>
       disabled={false}
       list={[
         { icon: <IoBriefcase />, title: 'Farms', url: 'farms' },
+        { icon: <IoBriefcase />, title: 'Products', url: 'products' },
         { icon: <IoPerson />, title: 'Users', url: 'users' },
       ]}
     />

@@ -21,6 +21,7 @@ import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
 import CreateProductForm from 'organization/containers/CreateProductForm';
 import ProductContainer from 'product/containers/ProductContainer';
 import EditProductForm from 'product/containers/EditProductForm';
+import OrderShareForm from 'product/containers/OrderShareForm';
 import PlaceLookupContainer from 'place/containers/PlaceLookupContainer';
 import SearchOrganizationsContainer from 'browse/containers/SearchOrganizationsContainer';
 import SearchUsersContainer from 'browse/containers/SearchUsersContainer';
@@ -35,6 +36,7 @@ import OrganizationQueries from './OrganizationQueries';
 import EditOrganizationQueries from './EditOrganizationQueries';
 import OrganizationQueryQueries from './OrganizationQueryQueries';
 import ProductQueries from './ProductQueries';
+import UserProductQueryQueries from './UserProductQueryQueries';
 import EditProductQueries from './EditProductQueries';
 import PlaceQueries from './PlaceQueries';
 
@@ -211,6 +213,7 @@ const routes = (
           queries={EditProductQueries}
           onEnter={loginBouncer}
         />
+        <Route path={'order-share'} component={OrderShareForm} queries={UserProductQueryQueries} />
       </Route>
     </Route>
     <Route path={'*'} component={NotFound} />

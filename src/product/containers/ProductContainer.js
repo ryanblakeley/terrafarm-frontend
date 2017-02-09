@@ -30,10 +30,17 @@ const ProductContainer = (props, context) => (!props.product
         list={[
           {
             icon: <IoEdit />,
+            title: 'Order share',
+            url: 'order-share',
+            disabled: props.product.organizationByOrganizationId.userByOwnerId.rowId
+              === context.userId,
+          },
+          {
+            icon: <IoEdit />,
             title: 'Edit',
             url: 'edit',
-            disabled: !props.product.organizationByOrganizationId.userByOwnerId.rowId
-              === context.userId,
+            disabled: props.product.organizationByOrganizationId.userByOwnerId.rowId
+              !== context.userId,
           },
         ]}
       />
@@ -49,10 +56,18 @@ const ProductContainer = (props, context) => (!props.product
               body: <RelationshipList
                 listItems={props.product.sharesByProductId.edges.length > 0
                   ? props.product.sharesByProductId.edges.map(edge => ({
-                    id: edge.node.userByUserId.id,
-                    name: edge.node.userByUserId.name,
-                    itemId: edge.node.userByUserId.rowId,
-                    itemUrl: `/user/${edge.node.userByUserId.rowId}`,
+                    id: (edge.node.userByUserId
+                      && edge.node.userByUserId.id)
+                      || edge.node.id,
+                    name: (edge.node.userByUserId
+                      && edge.node.userByUserId.name)
+                      || edge.node.customerName,
+                    itemId: (edge.node.userByUserId
+                      && edge.node.userByUserId.rowId)
+                      || 'not-a-user',
+                    itemUrl: (edge.node.userByUserId
+                      && `/user/${edge.node.userByUserId.rowId}`)
+                      || '',
                   }))
                   : []
                 }
@@ -111,6 +126,8 @@ export default Relay.createContainer(ProductContainer, {
         sharesByProductId(first: 8) {
           edges {
             node {
+              id,
+              customerName,
               userByUserId {
                 id,
                 rowId,

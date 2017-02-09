@@ -10,7 +10,6 @@ class Container extends React.Component {
     product: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
     query: React.PropTypes.object,
-    google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
     children: React.PropTypes.object,
   };
