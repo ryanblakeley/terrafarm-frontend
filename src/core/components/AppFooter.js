@@ -11,8 +11,8 @@ const AppFooter = () => <footer className={classNames.this}>
   >
     <img src={logoImage} className={classNames.logoImage} alt={'Terrafarm'} />
   </Link>
-  <HelpButton />
   <h6 className={classNames.text}>&copy; 2017 Terrafarm LLC</h6>
+  <HelpButton />
 </footer>;
 
 export default AppFooter;
