@@ -17,6 +17,7 @@ import RelationshipList from 'shared/components/RelationshipList';
 import ActionPanel from 'shared/components/ActionPanel';
 import ContentSubheader from 'shared/components/ContentSubheader';
 import ContentBodyText from 'shared/components/ContentBodyText';
+import BarnIcon from '../components/BarnIcon';
 
 import classNames from '../styles/OrganizationContainerStylesheet.css';
 
@@ -26,7 +27,7 @@ const OrganizationContainer = (props, context) => (!props.organization
     <div className={classNames.this}>
       <Menu
         baseUrl={`/farm/${props.organization.rowId}`}
-        header={{icon: <IoBriefcase />, title: 'Farm'}}
+        header={{icon: <BarnIcon />, title: 'Farm'}}
         disabled={!context.loggedIn}
         list={[
           {
