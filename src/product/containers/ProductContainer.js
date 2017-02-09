@@ -21,9 +21,15 @@ import ContentBodyText from 'shared/components/ContentBodyText';
 
 import classNames from '../styles/ProductContainerStylesheet.css';
 
-const ProductContainer = (props, context) => (!props.product
-  ? <NotFoundPage message={'Product not found.'} />
-  : <TransitionWrapper>
+const ProductContainer = (props, context) => {
+  if (!props.product) {
+    return <NotFoundPage message={'Product not found.'} />;
+  }
+  const price = props.product.sharePrice
+    ? `$${props.product.sharePrice} per share`
+    : 'Price not provided';
+
+  return <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
         baseUrl={`/product/${props.product.rowId}`}
@@ -93,13 +99,16 @@ const ProductContainer = (props, context) => (!props.product
               text={props.product.organizationByOrganizationId.name}
             />
           </Link>
+          <h5 className={classNames.articleHeading}>{props.product.startDate} &mdash; {props.product.endDate}</h5>
+          <h5 className={classNames.articleHeading}>{price}</h5>
+          <h5 className={classNames.articleHeading}>Maximum {props.product.maxShares} shares</h5>
           <ContentBodyText text={props.product.description} />
           <HeroImage image={props.product.imageUrl} />
         </div>}
       />
     </div>
-  </TransitionWrapper>
-);
+  </TransitionWrapper>;
+};
 
 ProductContainer.propTypes = {
   product: React.PropTypes.object,
@@ -123,6 +132,10 @@ export default Relay.createContainer(ProductContainer, {
         name,
         imageUrl,
         description,
+        sharePrice,
+        maxShares,
+        startDate,
+        endDate,
         organizationByOrganizationId {
           id,
           rowId,
@@ -132,6 +145,7 @@ export default Relay.createContainer(ProductContainer, {
           },
         },
         sharesByProductId(first: 8) {
+          totalCount,
           edges {
             node {
               id,

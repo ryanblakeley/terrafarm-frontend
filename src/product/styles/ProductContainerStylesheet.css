@@ -5,6 +5,10 @@
   composes: contentSubheading from 'shared/styles/_typography.css';
   font-size: 1.08em;
 }
+.articleHeading {
+  composes: articleHeading from 'shared/styles/_typography.css';
+  text-align: left;
+}
 .link { composes: link from 'shared/styles/_typography.css'; }
 .location {
   composes: articleSubheading from 'shared/styles/_typography.css';
