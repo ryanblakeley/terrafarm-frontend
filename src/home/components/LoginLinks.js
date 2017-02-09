@@ -18,32 +18,30 @@ class LoginLinks extends React.Component {
   }
   render () {
     const {loggedIn} = this.context;
-    const link1 = !loggedIn
-      ? <Link to={'/login'} className={classNames.button}>
-        <RaisedButton label={'Login'} />
-      </Link>
-      : <Link to={'/profile'} className={classNames.button}>
-        <RaisedButton label={'Profile'} />
-      </Link>;
-
-    const link2 = !loggedIn
+    const browseLink = <Link to={'/browse'} className={classNames.link}>Browse</Link>;
+    const leftLink = !loggedIn
       ? <Link
         to={{ pathname: '/login', state: {newUser: true} }}
         className={classNames.button}
       >
         <RaisedButton label={'New User'} primary />
       </Link>
+      : <Link to={'/profile'} className={classNames.button}>
+        <RaisedButton label={'Profile'} primary />
+      </Link>;
+    const rightLink = !loggedIn
+      ? <Link to={'/login'} className={classNames.button}>
+        <RaisedButton label={'Login'} />
+      </Link>
       : <RaisedButton
         label={'Logout'}
         onTouchTap={this.handleSignOut}
         className={classNames.button}
-        primary
       />;
-    const browseLink = <Link to={'/browse'} className={classNames.link}>Browse</Link>;
 
     return <div className={classNames.this}>
-      {link2}
-      {link1}
+      {leftLink}
+      {rightLink}
       {!loggedIn && <p className={classNames.text}>
         Just looking around? {browseLink} farms and products.
       </p>}
