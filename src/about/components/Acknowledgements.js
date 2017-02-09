@@ -12,6 +12,9 @@ const Acknowledgements = _ => {
     <p className={classNames.text}>
       Special thanks to {caleba}, {darina}, and {g2ia} for their contributions to the code base.
     </p>
+    <p className={classNames.text}>
+      Barn icon created by Ron Scott from the Noun Project.
+    </p>
   </div>;
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Acknowledgements from './Acknowledgements';
 import classNames from '../styles/AboutPageStylesheet.css';
 
 const AboutPage = () => {
@@ -14,10 +15,22 @@ const AboutPage = () => {
   >
     Ryan Blakeley
   </a>;
+  const stackshareLink = <a
+    href={'https://stackshare.io/terrafarm/terrafarm'}
+    className={classNames.link}
+  >
+    Stackshare
+  </a>;
 
   return <div className={classNames.this}>
-    <h3 className={classNames.pageHeading}>
+    <h2 className={classNames.pageHeading}>
       About
+    </h2>
+    <p className={classNames.text}>
+      People buy-in to crops and crop rotations before the growing season to own a share of the future harvest. This helps farmers market products, raise operating cash, and de-risk.
+    </p>
+    <h3 className={classNames.heading}>
+      Company
     </h3>
     <p className={classNames.text}>
       <a href={'https://terra.farm'} className={classNames.link}>Terrafarm</a> exists to improve food system sustainability.
@@ -38,10 +51,11 @@ const AboutPage = () => {
       Technical
     </h3>
     <p className={classNames.text}>
-      Check out the Terrafarm CSA software stack on <a href={'https://stackshare.io/terrafarm/terrafarm'}>Stackshare</a>.
+      Check out the Terrafarm CSA software stack on {stackshareLink}.
     </p>
+    <Acknowledgements />
     <h3 className={classNames.heading}>
-      Built by
+      Owned and built by
     </h3>
     <p className={classNames.text}>{ryana}</p>
   </div>;
