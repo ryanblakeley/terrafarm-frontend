@@ -1,9 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
 import IoBriefcase from 'react-icons/lib/io/briefcase';
 import IoPerson from 'react-icons/lib/io/person';
+import BarnIcon from 'organization/components/BarnIcon';
 // Components
 import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
@@ -82,9 +84,15 @@ const ProductContainer = (props, context) => (!props.product
               context.router.replace(`/product/${props.product.rowId}`);
             }}
           />
-          <ContentSubheader
-            text={props.product.organizationByOrganizationId.name}
-          />
+          <Link
+            to={`/farm/${props.product.organizationByOrganizationId.rowId}`}
+            className={classNames.link}
+          >
+            <ContentSubheader
+              icon={<BarnIcon width={24} height={24} />}
+              text={props.product.organizationByOrganizationId.name}
+            />
+          </Link>
           <ContentBodyText text={props.product.description} />
           <HeroImage image={props.product.imageUrl} />
         </div>}
