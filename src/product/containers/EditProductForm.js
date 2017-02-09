@@ -24,7 +24,8 @@ class Container extends React.Component {
   };
   componentWillMount () {
     const {product, currentPerson} = this.props;
-    const authorized = product.organizationByOrganizationId.userByOwnerId.rowId === currentPerson.rowId;
+    const authorized = product.organizationByOrganizationId.userByOwnerId.rowId
+      === currentPerson.rowId;
     this.setState({authorized});
   }
   handleSubmit = data => {
@@ -97,6 +98,22 @@ class Container extends React.Component {
         rows={3}
       />
       <TextInput
+        name={'maxShares'}
+        label={'Number of Shares'}
+        initialValue={product.maxShares}
+        validations={'isNumeric'}
+        required
+      />
+      <TextInput
+        name={'sharePrice'}
+        label={'Share Price'}
+        initialValue={product.sharePrice}
+        validations={{
+          // currency
+          matchRegex: /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/,
+        }}
+      />
+      <TextInput
         name={'imageUrl'}
         label={'Image'}
         initialValue={product.imageUrl}
@@ -119,6 +136,8 @@ export default Relay.createContainer(Container, {
         name,
         description,
         imageUrl,
+        sharePrice,
+        maxShares,
         organizationByOrganizationId {
           userByOwnerId {
             rowId

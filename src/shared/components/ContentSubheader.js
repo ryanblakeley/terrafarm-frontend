@@ -7,12 +7,13 @@ const cx = classNamesContext.bind(classNames);
 
 const ContentSubheader = props => <div className={classNames.this}>
   {React.cloneElement(props.icon, {className: classNames.icon})}
-  <h4 className={cx({text: true, emptyWarning: !props.text})}>{props.text || '(Location not provided)'}</h4>
+  <h4 className={cx({text: true, light: props.light, emptyWarning: !props.text})}>{props.text || '(Location not provided)'}</h4>
 </div>;
 
 ContentSubheader.propTypes = {
   icon: React.PropTypes.element,
   text: React.PropTypes.string,
+  light: React.PropTypes.bool,
 };
 
 ContentSubheader.defaultProps = {

@@ -1,10 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
-import IoBriefcase from 'react-icons/lib/io/briefcase';
 import IoPlus from 'react-icons/lib/io/plus';
 import IoPerson from 'react-icons/lib/io/person';
+import BarnIcon from 'organization/components/BarnIcon';
+import WheatIcon from 'product/components/WheatIcon';
 // Components
 import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
@@ -17,7 +19,7 @@ import RelationshipList from 'shared/components/RelationshipList';
 import ActionPanel from 'shared/components/ActionPanel';
 import ContentSubheader from 'shared/components/ContentSubheader';
 import ContentBodyText from 'shared/components/ContentBodyText';
-import BarnIcon from '../components/BarnIcon';
+
 
 import classNames from '../styles/OrganizationContainerStylesheet.css';
 
@@ -45,21 +47,7 @@ const OrganizationContainer = (props, context) => (!props.organization
           panels={[
             {
               header: {
-                icon: <IoPerson />,
-                label: 'Owner',
-              },
-              body: <RelationshipList
-                listItems={[{
-                  id: props.organization.userByOwnerId.id,
-                  name: props.organization.userByOwnerId.name,
-                  itemId: props.organization.userByOwnerId.rowId,
-                  itemUrl: `/user/${props.organization.userByOwnerId.rowId}`,
-                }]}
-              />,
-            },
-            {
-              header: {
-                icon: <IoBriefcase />,
+                icon: <WheatIcon />,
                 label: 'Products',
               },
               body: <RelationshipList
@@ -84,7 +72,17 @@ const OrganizationContainer = (props, context) => (!props.organization
           <ContentSubheader
             text={props.organization.placeByPlaceId
               && props.organization.placeByPlaceId.address}
+            light
           />
+          <Link
+            to={`/user/${props.organization.userByOwnerId.rowId}`}
+            className={classNames.link}
+          >
+            <ContentSubheader
+              icon={<IoPerson />}
+              text={props.organization.userByOwnerId.name}
+            />
+          </Link>
           <ContentBodyText text={props.organization.description} />
           <HeroImage image={props.organization.imageUrl} />
         </div>}

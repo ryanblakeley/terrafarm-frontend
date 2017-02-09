@@ -1,9 +1,10 @@
-.this { display: flex; align-items: center; }
+.this { display: flex; align-items: center; margin: 0.67em 0; }
 .text {
   composes: contentSubheading from './_typography.css';
   display: inline-block;
   margin: 0 0 0 15px;
 }
+.text.light { font-weight: 400; }
 .icon {
   composes: icon from './_typography.css';
 }

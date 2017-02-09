@@ -1,10 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
 import IoPlus from 'react-icons/lib/io/plus';
-import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
+import BarnIcon from 'organization/components/BarnIcon';
+import WheatIcon from 'product/components/WheatIcon';
 // Components
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
@@ -39,21 +41,8 @@ const ProfileContainer = (props, context) => {
           panels={[
             {
               header: {
-                icon: <IoIosBriefcase />,
-                label: 'Farm',
-              },
-              body: <RelationshipList
-                listItems={props.user.organizationsByOwnerId.edges.map(edge => ({
-                  id: edge.node.id,
-                  name: edge.node.name,
-                  itemUrl: `/farm/${edge.node.rowId}`,
-                }))}
-              />,
-            },
-            {
-              header: {
-                icon: <IoIosBriefcase />,
-                label: 'Shares',
+                icon: <WheatIcon />,
+                label: 'Product Shares',
               },
               body: <RelationshipList
                 listItems={props.user.sharesByUserId.edges.length > 0
@@ -71,7 +60,17 @@ const ProfileContainer = (props, context) => {
         />}
         left={<div>
           <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
-          <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} />
+          <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} light />
+          {props.user.organizationsByOwnerId.edges.map(edge => <Link
+            to={`/farm/${edge.node.rowId}`}
+            className={classNames.link}
+            key={edge.node.id}
+          >
+            <ContentSubheader
+              icon={<BarnIcon width={24} height={24} />}
+              text={edge.node.name}
+            />
+          </Link>)}
           <ContentBodyText text={props.user.description} />
           <HeroImage image={props.user.imageUrl} />
         </div>}

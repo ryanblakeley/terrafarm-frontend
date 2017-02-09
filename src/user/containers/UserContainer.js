@@ -1,10 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 
 // Icons
 import IoPerson from 'react-icons/lib/io/person';
-import IoIosBriefcase from 'react-icons/lib/io/ios-briefcase';
 import IoIosStar from 'react-icons/lib/io/ios-star';
+import BarnIcon from 'organization/components/BarnIcon';
+import WheatIcon from 'product/components/WheatIcon';
 
 // Components
 import NotFoundPage from 'not-found/components/NotFoundPage';
@@ -37,21 +39,8 @@ const UserContainer = (props, context) => (!props.user
           panels={[
             {
               header: {
-                icon: <IoIosBriefcase />,
-                label: 'Farm',
-              },
-              body: <RelationshipList
-                listItems={props.user.organizationsByOwnerId.edges.map(edge => ({
-                  id: edge.node.id,
-                  name: edge.node.name,
-                  itemUrl: `/farm/${edge.node.rowId}`,
-                }))}
-              />,
-            },
-            {
-              header: {
-                icon: <IoIosBriefcase />,
-                label: 'Shares',
+                icon: <WheatIcon />,
+                label: 'Product Shares',
               },
               body: <RelationshipList
                 listItems={props.user.sharesByUserId.edges.length > 0
@@ -72,7 +61,17 @@ const UserContainer = (props, context) => (!props.user
             children={props.children}
             notifyClose={() => context.router.replace(`/user/${props.user.rowId}`)}
           />
-          <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} />
+          <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} light />
+          {props.user.organizationsByOwnerId.edges.map(edge => <Link
+            to={`/farm/${edge.node.rowId}`}
+            className={classNames.link}
+            key={edge.node.id}
+          >
+            <ContentSubheader
+              icon={<BarnIcon width={24} height={24} />}
+              text={edge.node.name}
+            />
+          </Link>)}
           <ContentBodyText text={props.user.description} />
           <HeroImage image={props.user.imageUrl} />
         </div>}

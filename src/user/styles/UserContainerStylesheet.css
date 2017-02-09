@@ -5,6 +5,7 @@
   composes: contentSubheading from '../../shared/styles/_typography.css';
   font-size: 1.08em;
 }
+.link { composes: link from 'shared/styles/_typography.css'; }
 .location {
   composes: articleSubheading from '../../shared/styles/_typography.css';
 }

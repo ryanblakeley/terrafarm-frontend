@@ -3,8 +3,10 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
-import IoBriefcase from 'react-icons/lib/io/briefcase';
-import IoPerson from 'react-icons/lib/io/person';
+import IoDollar from 'react-icons/lib/io/social-usd-outline';
+import IoIosCalendar from 'react-icons/lib/io/ios-calendar-outline';
+import IoIosPeople from 'react-icons/lib/io/ios-people';
+import WheatIcon from 'product/components/WheatIcon';
 import BarnIcon from 'organization/components/BarnIcon';
 // Components
 import NotFoundPage from 'not-found/components/NotFoundPage';
@@ -26,14 +28,17 @@ const ProductContainer = (props, context) => {
     return <NotFoundPage message={'Product not found.'} />;
   }
   const price = props.product.sharePrice
-    ? `$${props.product.sharePrice} per share`
+    ? `${props.product.sharePrice} per share`
     : 'Price not provided';
+  const dates = props.product.startDate
+    ? `${props.product.startDate} to ${props.product.endDate}`
+    : 'Dates not provided';
 
   return <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
         baseUrl={`/product/${props.product.rowId}`}
-        header={{icon: <IoBriefcase />, title: 'Product'}}
+        header={{icon: <WheatIcon />, title: 'Product'}}
         disabled={!context.loggedIn}
         list={[
           {
@@ -58,7 +63,7 @@ const ProductContainer = (props, context) => {
           panels={[
             {
               header: {
-                icon: <IoPerson />,
+                icon: <IoIosPeople />,
                 label: 'Shareholders',
               },
               body: <RelationshipList
@@ -99,9 +104,9 @@ const ProductContainer = (props, context) => {
               text={props.product.organizationByOrganizationId.name}
             />
           </Link>
-          <h5 className={classNames.articleHeading}>{props.product.startDate} &mdash; {props.product.endDate}</h5>
-          <h5 className={classNames.articleHeading}>{price}</h5>
-          <h5 className={classNames.articleHeading}>Maximum {props.product.maxShares} shares</h5>
+          <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
+          <ContentSubheader icon={<IoDollar />} text={price} light />
+          <ContentSubheader icon={<IoIosPeople />} text={`${props.product.maxShares} shares max`} light />
           <ContentBodyText text={props.product.description} />
           <HeroImage image={props.product.imageUrl} />
         </div>}

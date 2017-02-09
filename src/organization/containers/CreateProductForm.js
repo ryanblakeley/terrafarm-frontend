@@ -80,7 +80,10 @@ class Container extends React.Component {
       <TextInput
         name={'sharePrice'}
         label={'Share Price'}
-        validations={'isCurrency'}
+        validations={{
+          // currency
+          matchRegex: /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/,
+        }}
       />
       <TextInput
         name={'startDate'}
