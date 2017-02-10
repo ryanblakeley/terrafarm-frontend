@@ -30,15 +30,18 @@ const OrganizationContainer = (props, context) => (!props.organization
       <Menu
         baseUrl={`/farm/${props.organization.rowId}`}
         header={{icon: <BarnIcon />, title: 'Farm'}}
-        disabled={!context.loggedIn}
+        disabled={props.organization.userByOwnerId.rowId !== context.userId}
         list={[
           {
             icon: <IoEdit />,
             title: 'Edit Farm',
             url: 'edit',
-            disabled: !props.organization.userByOwnerId.rowId === context.userId,
           },
-          { icon: <IoPlus />, title: 'Create Product', url: 'create-product' },
+          {
+            icon: <IoPlus />,
+            title: 'Create Product',
+            url: 'create-product',
+          },
         ]}
       />
       <ContentHeader text={props.organization.name} />

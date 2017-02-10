@@ -2,7 +2,8 @@ import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
-import CreateProductMutation from '../mutations/CreateProductMutation';
+import CreateProductMutation from 'organization/mutations/CreateProductMutation';
+import validations from 'shared/utils/validations';
 
 class Container extends React.Component {
   static propTypes = {
@@ -60,13 +61,13 @@ class Container extends React.Component {
       <TextInput
         name={'name'}
         label={'Name'}
-        validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
+        validations={{matchRegexp: validations.matchAlphanumeric}}
         required
       />
       <TextInput
         name={'description'}
         label={'Description'}
-        validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
+        validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
         required
         multiLine
         rows={3}
@@ -81,20 +82,23 @@ class Container extends React.Component {
         name={'sharePrice'}
         label={'Share Price'}
         validations={{
-          // currency
-          matchRegex: /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/,
+          matchRegexp: validations.matchCurrency,
         }}
       />
       <TextInput
         name={'startDate'}
         label={'Start Date'}
-        validations={'isDate'}
+        validations={{
+          matchRegexp: validations.matchDate,
+        }}
         required
       />
       <TextInput
         name={'endDate'}
         label={'End Date'}
-        validations={'isDate'}
+        validations={{
+          matchRegexp: validations.matchDate,
+        }}
         required
       />
       <TextInput

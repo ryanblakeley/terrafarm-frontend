@@ -2,6 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
+import validations from 'shared/utils/validations';
 import UpdateProductMutation from '../mutations/UpdateProductMutation';
 import DeleteProductMutation from '../mutations/DeleteProductMutation';
 
@@ -85,33 +86,30 @@ class Container extends React.Component {
         name={'name'}
         label={'Name'}
         initialValue={product.name}
-        validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
+        validations={{matchRegexp: validations.matchAlphanumeric}}
         required
       />
       <TextInput
         name={'description'}
         label={'Description'}
         initialValue={product.description}
-        validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
+        validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
         required
         multiLine
         rows={3}
       />
       <TextInput
         name={'maxShares'}
-        label={'Number of Shares'}
-        initialValue={product.maxShares}
+        label={'Max Shares'}
+        initialValue={String(product.maxShares)}
         validations={'isNumeric'}
         required
       />
       <TextInput
         name={'sharePrice'}
         label={'Share Price'}
-        initialValue={product.sharePrice}
-        validations={{
-          // currency
-          matchRegex: /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/,
-        }}
+        initialValue={String(product.sharePrice)}
+        validations={{matchRegexp: validations.matchCurrency}}
       />
       <TextInput
         name={'imageUrl'}

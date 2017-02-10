@@ -9,6 +9,7 @@ class MenuListItem extends React.Component {
     url: React.PropTypes.string,
     baseUrl: React.PropTypes.string,
     closeImmediate: React.PropTypes.func,
+    disabled: React.PropTypes.bool,
   };
   static contextTypes = {
     router: React.PropTypes.object,

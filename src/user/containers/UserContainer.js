@@ -30,7 +30,7 @@ const UserContainer = (props, context) => (!props.user
       <Menu
         baseUrl={`/user/${props.user.rowId}`}
         header={{icon: <IoPerson />, title: 'User'}}
-        disabled={!context.loggedIn}
+        disabled={props.user.rowId === context.userId}
         list={[{ icon: <IoIosStar />, title: 'Star', url: 'star' }]}
       />
       <ContentHeader text={props.user.name} />
@@ -96,7 +96,7 @@ UserContainer.propTypes = {
 };
 
 UserContainer.contextTypes = {
-  loggedIn: React.PropTypes.bool,
+  userId: React.PropTypes.string,
   router: React.PropTypes.object,
 };
 
