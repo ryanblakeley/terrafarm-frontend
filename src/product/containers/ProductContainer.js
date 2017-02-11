@@ -27,6 +27,25 @@ const ProductContainer = (props, context) => {
   if (!props.product) {
     return <NotFoundPage message={'Product not found.'} />;
   }
+
+  const shareHolders = props.product.sharesByProductId.edges
+    && props.product.sharesByProductId.edges.map(edge => {
+      const customerName = edge.node.customerName;
+      const user = edge.node.userByUserId;
+      if (user) {
+        return {
+          id: user.id,
+          name: user.name,
+          itemId: user.rowId,
+          itemUrl: `/user/${user.rowId}`,
+        };
+      }
+      return {
+        id: customerName,
+        name: customerName,
+      };
+    });
+
   const price = props.product.sharePrice
     ? `${props.product.sharePrice} per share`
     : 'Price not provided';
@@ -66,25 +85,7 @@ const ProductContainer = (props, context) => {
                 icon: <IoIosPeople />,
                 label: 'Shareholders',
               },
-              body: <RelationshipList
-                listItems={props.product.sharesByProductId.edges.length > 0
-                  ? props.product.sharesByProductId.edges.map(edge => ({
-                    id: (edge.node.userByUserId
-                      && edge.node.userByUserId.id)
-                      || edge.node.id,
-                    name: (edge.node.userByUserId
-                      && edge.node.userByUserId.name)
-                      || edge.node.customerName,
-                    itemId: (edge.node.userByUserId
-                      && edge.node.userByUserId.rowId)
-                      || 'not-a-user',
-                    itemUrl: (edge.node.userByUserId
-                      && `/user/${edge.node.userByUserId.rowId}`)
-                      || '',
-                  }))
-                  : []
-                }
-              />,
+              body: <RelationshipList listItems={shareHolders} />,
             },
           ]}
         />}
