@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, IndexRoute, IndexRedirect} from 'react-router';
 
-// Components
+// Static pages
 import CoreContainerTheme from 'core/components/CorePage';
 import Loading from 'core/components/Loading';
 import HomePage from 'home/components/HomePage';
@@ -12,32 +12,47 @@ import BrowsePage from 'browse/components/BrowsePage';
 
 // Containers
 import ProfileContainer from 'profile/containers/ProfileContainer';
-import CreateOrganizationForm from 'profile/containers/CreateOrganizationForm';
-import EditProfileForm from 'profile/containers/EditProfileForm';
-import StarUserForm from 'user/containers/StarUserForm';
 import UserContainer from 'user/containers/UserContainer';
 import OrganizationContainer from 'organization/containers/OrganizationContainer';
-import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
-import CreateProductForm from 'organization/containers/CreateProductForm';
 import ProductContainer from 'product/containers/ProductContainer';
-import EditProductForm from 'product/containers/EditProductForm';
+import ProductShareContainer from 'product-share/containers/ProductShareContainer';
+import DistributionContainer from 'distribution/containers/DistributionContainer';
+
+import CreateOrganizationForm from 'profile/containers/CreateOrganizationForm';
+import CreateProductForm from 'organization/containers/CreateProductForm';
 import OrderShareForm from 'product/containers/OrderShareForm';
-import PlaceLookupContainer from 'place/containers/PlaceLookupContainer';
+import AssignShareForm from 'product/containers/AssignShareForm';
+import CreateDistributionForm from 'product-share/containers/CreateDistributionForm';
+
+import EditProfileForm from 'profile/containers/EditProfileForm';
+import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
+import EditProductForm from 'product/containers/EditProductForm';
+import EditProductShareForm from 'product-share/containers/EditProductShareForm';
+import EditDistributionForm from 'distribution/containers/EditDistributionForm';
+
 import SearchOrganizationsContainer from 'browse/containers/SearchOrganizationsContainer';
 import SearchUsersContainer from 'browse/containers/SearchUsersContainer';
 import SearchProductsContainer from 'browse/containers/SearchProductsContainer';
+import PlaceLookupContainer from 'place/containers/PlaceLookupContainer';
+import StarUserForm from 'user/containers/StarUserForm';
 
 // Queries
 import QueryQueries from './QueryQueries';
 import ProfileQueryQueries from './ProfileQueryQueries';
 import UserQueries from './UserQueries';
 import UserCurrentPersonQueries from './UserCurrentPersonQueries';
+import UserProductQueryQueries from './UserProductQueryQueries';
 import OrganizationQueries from './OrganizationQueries';
-import EditOrganizationQueries from './EditOrganizationQueries';
 import OrganizationQueryQueries from './OrganizationQueryQueries';
 import ProductQueries from './ProductQueries';
-import UserProductQueryQueries from './UserProductQueryQueries';
+import ProductQueryQueries from './ProductQueryQueries';
+import ProductShareQueries from './ProductShareQueries';
+import ProductShareQueryQueries from './ProductShareQueryQueries';
+import DistributionQueries from './DistributionQueries';
+import EditOrganizationQueries from './EditOrganizationQueries';
 import EditProductQueries from './EditProductQueries';
+import EditProductShareQueries from './EditProductShareQueries';
+import EditDistributionQueries from './EditDistributionQueries';
 import PlaceQueries from './PlaceQueries';
 
 function prepareProfileParams (params) {
@@ -213,7 +228,54 @@ const routes = (
           queries={EditProductQueries}
           onEnter={loginBouncer}
         />
-        <Route path={'order-share'} component={OrderShareForm} queries={UserProductQueryQueries} />
+        <Route
+          path={'order-punch-card'}
+          component={OrderShareForm}
+          queries={UserProductQueryQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'assign-punch-card'}
+          component={AssignShareForm}
+          queries={ProductQueryQueries}
+          onEnter={loginBouncer}
+        />
+      </Route>
+    </Route>
+    <Route path={'punch-card'} onEnter={loginBouncer} >
+      <Route
+        path={':shareId'}
+        component={ProductShareContainer}
+        queries={ProductShareQueries}
+        renderLoading={renderLoading}
+      >
+        <Route
+          path={'edit'}
+          component={EditProductShareForm}
+          queries={EditProductShareQueries}
+          onEnter={loginBouncer}
+        />
+        <Route
+          path={'new-punch'}
+          component={CreateDistributionForm}
+          queries={ProductShareQueryQueries}
+          onEnter={loginBouncer}
+        />
+      </Route>
+    </Route>
+    <Route path={'distribution'} onEnter={loginBouncer} >
+      <Route
+        path={':distributionId'}
+        component={DistributionContainer}
+        queries={DistributionQueries}
+        renderLoading={renderLoading}
+      >
+        <Route
+          path={'edit'}
+          component={EditDistributionForm}
+          queries={EditDistributionQueries}
+          onEnter={loginBouncer}
+        />
       </Route>
     </Route>
     <Route path={'*'} component={NotFound} />

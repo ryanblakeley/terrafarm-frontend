@@ -1,12 +1,7 @@
 import Relay from 'react-relay';
 
-export default class OrderShareMutation extends Relay.Mutation {
+export default class AssignShareMutation extends Relay.Mutation {
   static fragments = {
-    user: () => Relay.QL`
-      fragment on User {
-        rowId,
-      }
-    `,
     product: () => Relay.QL`
       fragment on Product {
         rowId,
@@ -24,9 +19,7 @@ export default class OrderShareMutation extends Relay.Mutation {
   getVariables () {
     return {
       share: Object.assign({
-        userId: this.props.user.rowId,
         productId: this.props.product.rowId,
-        status: 'RESERVED',
       }, this.props.shareData),
     };
   }

@@ -42,15 +42,15 @@ const ProfileContainer = (props, context) => {
             {
               header: {
                 icon: <WheatIcon />,
-                label: 'Product Shares',
+                label: 'Punch Cards',
               },
               body: <RelationshipList
                 listItems={props.user.sharesByUserId.edges.length > 0
                   ? props.user.sharesByUserId.edges.map(edge => ({
-                    id: edge.node.productByProductId.id,
-                    name: edge.node.productByProductId.name,
-                    itemId: edge.node.productByProductId.rowId,
-                    itemUrl: `/product/${edge.node.productByProductId.rowId}`,
+                    id: edge.node.id,
+                    name: edge.node.productName,
+                    itemId: edge.node.rowId,
+                    itemUrl: `/punch-card/${edge.node.rowId}`,
                   }))
                   : []
                 }
@@ -60,7 +60,10 @@ const ProfileContainer = (props, context) => {
         />}
         left={<div>
           <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
-          <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} light />
+          <ContentSubheader
+            text={props.user.placeByPlaceId && props.user.placeByPlaceId.address}
+            light
+          />
           {props.user.organizationsByOwnerId.edges.map(edge => <Link
             to={`/farm/${edge.node.rowId}`}
             className={classNames.link}
@@ -68,7 +71,7 @@ const ProfileContainer = (props, context) => {
           >
             <ContentSubheader
               icon={<BarnIcon width={24} height={24} />}
-              text={edge.node.name}
+              text={`farm: ${edge.node.name}`}
             />
           </Link>)}
           <ContentBodyText text={props.user.description} />
@@ -116,11 +119,9 @@ export default Relay.createContainer(ProfileContainer, {
         sharesByUserId(first: 8) {
           edges {
             node {
-              productByProductId {
-                id,
-                rowId,
-                name,
-              }
+              id,
+              productName,
+              rowId,
             }
           }
         },

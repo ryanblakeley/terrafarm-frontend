@@ -1,14 +1,9 @@
 import Relay from 'react-relay';
 
-export default class OrderShareMutation extends Relay.Mutation {
+export default class CreateDistributionMutation extends Relay.Mutation {
   static fragments = {
-    user: () => Relay.QL`
-      fragment on User {
-        rowId,
-      }
-    `,
-    product: () => Relay.QL`
-      fragment on Product {
+    share: () => Relay.QL`
+      fragment on Share {
         rowId,
       }
     `,
@@ -19,30 +14,27 @@ export default class OrderShareMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{createShare}`;
+    return Relay.QL`mutation{createDistribution}`;
   }
   getVariables () {
     return {
-      share: Object.assign({
-        userId: this.props.user.rowId,
-        productId: this.props.product.rowId,
-        status: 'RESERVED',
-      }, this.props.shareData),
+      distribution: Object.assign({
+        shareId: this.props.share.rowId,
+      }, this.props.distributionData),
     };
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on CreateSharePayload {
-        share { rowId },
-        shareEdge {
+      fragment on CreateDistributionPayload {
+        shareByShareId { distributionsByShareId },
+        distribution { rowId },
+        distributionEdge {
           node {
             id,
             rowId,
           }
         },
-        query {
-          allShares,
-        },
+        query { allDistributions },
       }
     `;
   }
@@ -52,8 +44,8 @@ export default class OrderShareMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'query',
         parentID: this.props.query.id,
-        connectionName: 'allShares',
-        edgeName: 'shareEdge',
+        connectionName: 'allDistributions',
+        edgeName: 'distributionEdge',
         rangeBehaviors: {
           '': 'append',
         },
@@ -62,8 +54,8 @@ export default class OrderShareMutation extends Relay.Mutation {
         type: 'REQUIRED_CHILDREN',
         children: [
           Relay.QL`
-            fragment on CreateSharePayload {
-              shareEdge {
+            fragment on CreateDistributionPayload {
+              distributionEdge {
                 node {
                   id,
                   rowId,

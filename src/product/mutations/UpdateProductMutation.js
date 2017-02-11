@@ -17,8 +17,11 @@ export default class UpdateProductMutation extends Relay.Mutation {
         product {
           name,
           description,
-          maxShares,
           sharePrice,
+          creditsInitial,
+          maxShares,
+          startDate,
+          endDate,
           imageUrl,
         },
       }

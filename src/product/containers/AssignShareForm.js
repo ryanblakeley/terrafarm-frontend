@@ -2,11 +2,12 @@ import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
-import OrderShareMutation from '../mutations/OrderShareMutation';
+import SelectInput from 'shared/components/SelectInput';
+import MenuItem from 'material-ui/MenuItem';
+import AssignShareMutation from '../mutations/AssignShareMutation';
 
 class Container extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object,
     product: React.PropTypes.object,
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
@@ -22,8 +23,7 @@ class Container extends React.Component {
   };
   handleSubmit = data => {
     this.setState({ formData: data });
-    this.orderShare(Object.assign(data, {
-      userId: this.props.user.rowId,
+    this.assignShare(Object.assign(data, {
       productId: this.props.product.rowId,
     }));
   }
@@ -36,11 +36,11 @@ class Container extends React.Component {
     const error = transaction.getError() || new Error('Mutation failed.');
     this.setState({ error: !!error });
   }
-  orderShare (data) {
-    const {user, product, query} = this.props;
+  assignShare (data) {
+    const {product, query} = this.props;
     // flattens product details as a snapshot and stores them as props on the product-share
     Relay.Store.commitUpdate(
-      new OrderShareMutation({
+      new AssignShareMutation({
         shareData: {
           ...data,
           startDate: product.startDate,
@@ -52,7 +52,6 @@ class Container extends React.Component {
           creditsInitial: product.creditsInitial,
           creditsRemaining: product.creditsInitial,
         },
-        user,
         product,
         query,
       }), {
@@ -63,34 +62,45 @@ class Container extends React.Component {
   }
   render () {
     const {error} = this.state;
-    const {user, children} = this.props;
+    const {children} = this.props;
+
+    // radio button status: reserved, purchased
 
     return <ActionPanelForm
-      title={'Order punch card'}
+      title={'Assign punch card'}
       notifyClose={this.props.notifyClose}
       onValidSubmit={this.handleSubmit}
       error={error}
     >
       <TextInput
         name={'customerName'}
-        label={'Your Name'}
+        label={'Customer Name'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
-        initialValue={user.name}
         required
       />
       <TextInput
         name={'customerContact'}
-        label={'Your contact info'}
+        label={'Customer Contact'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
         required
       />
       <TextInput
         name={'customerNotes'}
-        label={'Note to farmer'}
+        label={'Customer Notes'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
         multiLine
         rows={3}
       />
+      <SelectInput
+        name={'status'}
+        label={'Status'}
+        validations={'isExisty'}
+        initialValue={'RESERVED'}
+        required
+      >
+        <MenuItem value={'RESERVED'} primaryText={'Reserved'} />
+        <MenuItem value={'PURCHASED'} primaryText={'Purchased'} />
+      </SelectInput>
       {children}
     </ActionPanelForm>;
   }
@@ -98,33 +108,24 @@ class Container extends React.Component {
 
 export default Relay.createContainer(Container, {
   initialVariables: {
-    userId: null,
     productId: null,
   },
   fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        name,
-        rowId,
-        ${OrderShareMutation.getFragment('user')},
-      }
-    `,
     product: () => Relay.QL`
       fragment on Product {
         rowId,
-        name,
         startDate,
         endDate,
-        description,
         sharePrice,
         name,
+        description,
         creditsInitial,
-        ${OrderShareMutation.getFragment('product')},
+        ${AssignShareMutation.getFragment('product')},
       }
     `,
     query: () => Relay.QL`
       fragment on Query {
-        ${OrderShareMutation.getFragment('query')},
+        ${AssignShareMutation.getFragment('query')},
       }
     `,
   },

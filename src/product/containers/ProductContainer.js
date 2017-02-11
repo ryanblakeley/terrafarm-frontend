@@ -6,6 +6,8 @@ import IoEdit from 'react-icons/lib/io/edit';
 import IoDollar from 'react-icons/lib/io/social-usd-outline';
 import IoIosCalendar from 'react-icons/lib/io/ios-calendar-outline';
 import IoIosPeople from 'react-icons/lib/io/ios-people';
+import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
+import IoIosTagOutline from 'react-icons/lib/io/ios-pricetag-outline';
 import WheatIcon from 'product/components/WheatIcon';
 import BarnIcon from 'organization/components/BarnIcon';
 // Components
@@ -27,52 +29,75 @@ const ProductContainer = (props, context) => {
   if (!props.product) {
     return <NotFoundPage message={'Product not found.'} />;
   }
-
+  const isOwner = props.product.organizationByOrganizationId.userByOwnerId.rowId
+    === context.userId;
+  let isShareholder = false;
   const shareHolders = props.product.sharesByProductId.edges
     && props.product.sharesByProductId.edges.map(edge => {
       const customerName = edge.node.customerName;
       const user = edge.node.userByUserId;
+      let itemUrl = null;
+
+      if (edge.node.status === 'AVAILABLE'
+        || edge.node.status === 'EXPIRED'
+        || edge.node.status === 'CANCELED'
+        || edge.node.status === 'EMPTY') {
+        return null;
+      }
+      if (edge.node.userId === context.userId) {
+        itemUrl = `/punch-card/${edge.node.rowId}`;
+        isShareholder = true;
+      } else if (isOwner) {
+        itemUrl = `/punch-card/${edge.node.rowId}`;
+      } else if (user) {
+        itemUrl = `/user/${user.rowId}`;
+      }
       if (user) {
         return {
           id: user.id,
           name: user.name,
           itemId: user.rowId,
-          itemUrl: `/user/${user.rowId}`,
+          itemUrl,
         };
       }
       return {
         id: customerName,
         name: customerName,
+        itemUrl,
       };
     });
 
   const price = props.product.sharePrice
-    ? `${props.product.sharePrice} per share`
-    : 'Price not provided';
+    ? `${props.product.sharePrice}`
+    : 'price not provided';
   const dates = props.product.startDate
-    ? `${props.product.startDate} to ${props.product.endDate}`
-    : 'Dates not provided';
+    ? `from ${props.product.startDate} to ${props.product.endDate}`
+    : 'dates not provided';
 
   return <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
         baseUrl={`/product/${props.product.rowId}`}
         header={{icon: <WheatIcon />, title: 'Product'}}
-        disabled={!context.loggedIn}
+        disabled={!context.loggedIn || (!isOwner && isShareholder)}
         list={[
           {
-            icon: <IoEdit />,
-            title: 'Order share',
-            url: 'order-share',
-            disabled: props.product.organizationByOrganizationId.userByOwnerId.rowId
-              === context.userId,
+            icon: <IoDollar />,
+            title: 'Order punch card',
+            url: 'order-punch-card',
+            disabled: isOwner || isShareholder,
           },
           {
             icon: <IoEdit />,
             title: 'Edit',
             url: 'edit',
-            disabled: props.product.organizationByOrganizationId.userByOwnerId.rowId
-              !== context.userId,
+            disabled: !isOwner,
+          },
+          {
+            icon: <IoIosTagsOutline />,
+            title: 'Assign punch card',
+            url: 'assign-punch-card',
+            disabled: !isOwner,
           },
         ]}
       />
@@ -82,8 +107,8 @@ const ProductContainer = (props, context) => {
           panels={[
             {
               header: {
-                icon: <IoIosPeople />,
-                label: 'Shareholders',
+                icon: <IoIosPeople width={58} height={40} />,
+                label: 'Card holders',
               },
               body: <RelationshipList listItems={shareHolders} />,
             },
@@ -102,12 +127,12 @@ const ProductContainer = (props, context) => {
           >
             <ContentSubheader
               icon={<BarnIcon width={24} height={24} />}
-              text={props.product.organizationByOrganizationId.name}
+              text={`farm: ${props.product.organizationByOrganizationId.name}`}
             />
           </Link>
+          <ContentSubheader icon={<IoDollar />} text={`${price} / card`} light />
+          <ContentSubheader icon={<IoIosTagOutline />} text={`${props.product.creditsInitial} distributions / card`} light />
           <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
-          <ContentSubheader icon={<IoDollar />} text={price} light />
-          <ContentSubheader icon={<IoIosPeople />} text={`${props.product.maxShares} shares max`} light />
           <ContentBodyText text={props.product.description} />
           <HeroImage image={props.product.imageUrl} />
         </div>}
@@ -139,6 +164,7 @@ export default Relay.createContainer(ProductContainer, {
         imageUrl,
         description,
         sharePrice,
+        creditsInitial,
         maxShares,
         startDate,
         endDate,
@@ -154,7 +180,8 @@ export default Relay.createContainer(ProductContainer, {
           totalCount,
           edges {
             node {
-              id,
+              rowId,
+              userId,
               customerName,
               userByUserId {
                 id,

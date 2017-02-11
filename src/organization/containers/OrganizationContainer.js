@@ -83,7 +83,7 @@ const OrganizationContainer = (props, context) => (!props.organization
           >
             <ContentSubheader
               icon={<IoPerson />}
-              text={props.organization.userByOwnerId.name}
+              text={`owner: ${props.organization.userByOwnerId.name}`}
             />
           </Link>
           <ContentBodyText text={props.organization.description} />

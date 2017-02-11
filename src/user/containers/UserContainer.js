@@ -40,7 +40,7 @@ const UserContainer = (props, context) => (!props.user
             {
               header: {
                 icon: <WheatIcon />,
-                label: 'Product Shares',
+                label: 'Punch Cards',
               },
               body: <RelationshipList
                 listItems={props.user.sharesByUserId.edges.length > 0
@@ -61,7 +61,10 @@ const UserContainer = (props, context) => (!props.user
             children={props.children}
             notifyClose={() => context.router.replace(`/user/${props.user.rowId}`)}
           />
-          <ContentSubheader text={props.user.placeByPlaceId && props.user.placeByPlaceId.address} light />
+          <ContentSubheader
+            light
+            text={props.user.placeByPlaceId && props.user.placeByPlaceId.address}
+          />
           {props.user.organizationsByOwnerId.edges.map(edge => <Link
             to={`/farm/${edge.node.rowId}`}
             className={classNames.link}
@@ -69,7 +72,7 @@ const UserContainer = (props, context) => (!props.user
           >
             <ContentSubheader
               icon={<BarnIcon width={24} height={24} />}
-              text={edge.node.name}
+              text={`farm: ${edge.node.name}`}
             />
           </Link>)}
           <ContentBodyText text={props.user.description} />

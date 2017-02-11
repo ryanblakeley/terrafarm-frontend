@@ -13,10 +13,6 @@
 .location {
   composes: articleSubheading from 'shared/styles/_typography.css';
 }
-.text {
-  composes: bodyText from 'shared/styles/_typography.css';
-}
-
 .description {
   composes: bodyText from 'shared/styles/_typography.css';
   composes: description from 'shared/styles/_layout.css';

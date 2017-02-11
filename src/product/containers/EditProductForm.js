@@ -99,17 +99,42 @@ class Container extends React.Component {
         rows={3}
       />
       <TextInput
+        name={'sharePrice'}
+        label={'Punch Card Price'}
+        initialValue={String(product.sharePrice)}
+        validations={{matchRegexp: validations.matchCurrency}}
+      />
+      <TextInput
+        name={'creditsInitial'}
+        label={'Distributions / Card'}
+        initialValue={String(product.creditsInitial)}
+        validations={'isNumeric'}
+        required
+      />
+      <TextInput
         name={'maxShares'}
-        label={'Max Shares'}
+        label={'Max Cards'}
         initialValue={String(product.maxShares)}
         validations={'isNumeric'}
         required
       />
       <TextInput
-        name={'sharePrice'}
-        label={'Share Price'}
-        initialValue={String(product.sharePrice)}
-        validations={{matchRegexp: validations.matchCurrency}}
+        name={'startDate'}
+        label={'Start Date'}
+        initialValue={product.startDate}
+        validations={{
+          matchRegexp: validations.matchDate,
+        }}
+        required
+      />
+      <TextInput
+        name={'endDate'}
+        label={'End Date'}
+        initialValue={product.endDate}
+        validations={{
+          matchRegexp: validations.matchDate,
+        }}
+        required
       />
       <TextInput
         name={'imageUrl'}
@@ -135,7 +160,10 @@ export default Relay.createContainer(Container, {
         description,
         imageUrl,
         sharePrice,
+        creditsInitial,
         maxShares,
+        startDate,
+        endDate,
         organizationByOrganizationId {
           userByOwnerId {
             rowId
