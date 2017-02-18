@@ -40,7 +40,7 @@ const UserContainer = (props, context) => (!props.user
             {
               header: {
                 icon: <WheatIcon />,
-                label: 'Punch Cards',
+                label: 'Shares',
               },
               body: <RelationshipList
                 listItems={props.user.sharesByUserId.edges.length > 0

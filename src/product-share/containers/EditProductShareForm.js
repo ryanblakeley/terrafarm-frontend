@@ -60,7 +60,7 @@ class Container extends React.Component {
     const {error, isProductOwner, isCardHolder} = this.state;
 
     return <ActionPanelForm
-      title={'Edit Punch Card'}
+      title={'Edit Share'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={null}
@@ -75,7 +75,7 @@ class Container extends React.Component {
       />
       <TextInput
         name={'customerNotes'}
-        label={'Customer Notes'}
+        label={'Comments'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
         initialValue={share.customerNotes}
         multiLine

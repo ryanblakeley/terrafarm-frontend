@@ -229,20 +229,20 @@ const routes = (
           onEnter={loginBouncer}
         />
         <Route
-          path={'order-punch-card'}
+          path={'order-share'}
           component={OrderShareForm}
           queries={UserProductQueryQueries}
           onEnter={loginBouncer}
         />
         <Route
-          path={'assign-punch-card'}
+          path={'assign-share'}
           component={AssignShareForm}
           queries={ProductQueryQueries}
           onEnter={loginBouncer}
         />
       </Route>
     </Route>
-    <Route path={'punch-card'} onEnter={loginBouncer} >
+    <Route path={'share'} onEnter={loginBouncer} >
       <Route
         path={':shareId'}
         component={ProductShareContainer}
@@ -256,14 +256,14 @@ const routes = (
           onEnter={loginBouncer}
         />
         <Route
-          path={'new-punch'}
+          path={'create-voucher'}
           component={CreateDistributionForm}
           queries={ProductShareQueryQueries}
           onEnter={loginBouncer}
         />
       </Route>
     </Route>
-    <Route path={'distribution'} onEnter={loginBouncer} >
+    <Route path={'voucher'} onEnter={loginBouncer} >
       <Route
         path={':distributionId'}
         component={DistributionContainer}

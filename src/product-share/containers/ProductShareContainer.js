@@ -2,13 +2,13 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 // Icons
-import IoIosCalendar from 'react-icons/lib/io/ios-calendar';
+import IoIosCalendar from 'react-icons/lib/io/ios-calendar-outline';
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
-import IoPlus from 'react-icons/lib/io/plus';
 import IoIosArrowRight from 'react-icons/lib/io/ios-arrow-thin-right';
 import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
 import IoAsterisk from 'react-icons/lib/io/asterisk';
+import IoIosEmail from 'react-icons/lib/io/ios-email-outline';
 import WheatIcon from 'product/components/WheatIcon';
 // Components
 import Accordion from 'shared/components/Accordion';
@@ -34,14 +34,14 @@ const ProductShareContainer = (props, context) => {
   const dates = props.share.startDate
     ? `from ${props.share.startDate} to ${props.share.endDate}`
     : 'dates not provided';
-  const credits = `${props.share.creditsRemaining} distributions remaining`;
+  const credits = `${props.share.creditsRemaining} credits remaining`;
   const distributions = props.share.distributionsByShareId.edges.map(edge => ({
     id: edge.node.id,
     status: edge.node.status,
     name: edge.node.description || '(No description)',
     itemId: edge.node.rowId,
-    itemUrl: `/distribution/${edge.node.rowId}`,
-    actionUrl: `/distribution/${edge.node.rowId}`,
+    itemUrl: `/voucher/${edge.node.rowId}`,
+    actionUrl: `/voucher/${edge.node.rowId}`,
     authorized: isOwner || isCardholder,
   }));
 
@@ -53,33 +53,33 @@ const ProductShareContainer = (props, context) => {
     >
       <ContentSubheader
         icon={<IoPerson width={24} height={24} />}
-        text={`person: ${props.share.userByUserId.name}`}
+        text={`shareholder: ${props.share.userByUserId.name}`}
       />
     </Link>;
   } else {
     userElem = <ContentSubheader
       icon={<IoPerson width={24} height={24} />}
-      text={`person: ${props.share.customerName}`}
+      text={`shareholder: ${props.share.customerName}`}
     />;
   }
 
   return <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
-        baseUrl={`/punch-card/${props.share.rowId}`}
-        header={{icon: <IoIosTagsOutline />, title: 'Punch Card'}}
+        baseUrl={`/share/${props.share.rowId}`}
+        header={{icon: <IoIosTagsOutline />, title: 'Share'}}
         disabled={!isOwner && !isCardholder}
         list={[
           {
-            icon: <IoEdit />,
-            title: 'Edit',
-            url: 'edit',
+            icon: <IoAsterisk />,
+            title: 'Create Voucher',
+            url: 'create-voucher',
             disabled: !isOwner && !isCardholder,
           },
           {
-            icon: <IoPlus />,
-            title: 'New punch',
-            url: 'new-punch',
+            icon: <IoEdit />,
+            title: 'Edit Share',
+            url: 'edit',
             disabled: !isOwner && !isCardholder,
           },
         ]}
@@ -91,7 +91,7 @@ const ProductShareContainer = (props, context) => {
             ? [{
               header: {
                 icon: <IoAsterisk width={58} height={40} />,
-                label: 'Punches',
+                label: 'Vouchers',
               },
               body: <RelationshipList listItems={distributions} />,
             }]
@@ -102,7 +102,7 @@ const ProductShareContainer = (props, context) => {
           <ActionPanel
             children={props.children}
             notifyClose={() => {
-              context.router.replace(`/punch-card/${props.share.rowId}`);
+              context.router.replace(`/share/${props.share.rowId}`);
             }}
           />
           <Link
@@ -116,13 +116,13 @@ const ProductShareContainer = (props, context) => {
           </Link>
           {userElem}
           <ContentSubheader
-            icon={<IoIosArrowRight />}
+            icon={<IoIosEmail />}
             text={`contact: ${props.share.customerContact}`}
             light
           />
           <ContentSubheader
             icon={<IoIosArrowRight />}
-            text={`notes: ${props.share.customerNotes}`}
+            text={`comments: ${props.share.customerNotes}`}
             light
           />
           <ContentSubheader icon={<IoIosArrowRight />} text={`status: ${props.share.status}`} light />

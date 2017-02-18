@@ -27,7 +27,7 @@ const AboutPage = () => {
       About
     </h2>
     <p className={classNames.text}>
-      People buy-in to crops and crop rotations before the growing season to own a share of the future harvest. This helps farmers market products, raise operating cash, and de-risk.
+      This <a href={'https://terra.farm/snippets/csa'} className={classNames.link}>snippet</a> explains the CSA concept in more detail.
     </p>
     <h3 className={classNames.heading}>
       Company

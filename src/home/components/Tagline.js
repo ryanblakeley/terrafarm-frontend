@@ -6,6 +6,9 @@ const Tagline = () => <div className={classNames.this}>
   <p className={classNames.text}>
     Community Shared Agriculture
   </p>
+  <p className={classNames.text2}>
+    Pay-in-advance for local farm products.
+  </p>
 </div>;
 
 export default Tagline;

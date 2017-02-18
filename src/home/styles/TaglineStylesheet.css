@@ -1,8 +1,12 @@
 .this {
-  composes: center from '../../shared/styles/_layout.css';
+  composes: center from 'shared/styles/_layout.css';
 }
 .text {
-  composes: largeBodyText from '../../shared/styles/_typography.css';
+  composes: largeBodyText from 'shared/styles/_typography.css';
+  margin: 0 auto; padding: 0.67em 0;
+}
+.text2 {
+  composes: bodyText from 'shared/styles/_typography.css';
   margin: 0 auto; padding: 0.67em 0;
 }
 .break { display: block; }

@@ -31,7 +31,7 @@ class Container extends React.Component {
   handleSuccess = response => {
     const {router} = this.context;
     const distributionId = response.createDistribution.distributionEdge.node.rowId;
-    router.push(`/distribution/${distributionId}`);
+    router.push(`/voucher/${distributionId}`);
   }
   handleFailure = transaction => {
     const error = transaction.getError() || new Error('Mutation failed.');
@@ -62,7 +62,7 @@ class Container extends React.Component {
     const isCardholder = share.userId && userId === share.userId;
 
     return <ActionPanelForm
-      title={'New Punch'}
+      title={'Create Voucher'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       error={error}

@@ -34,8 +34,8 @@ export class Container extends React.Component {
   static defaultProps = {
     google: window.google,
     initialCenter: {
-      lat: 39.06637007877095,
-      lng: -95.37890625,
+      lat: 40.1756401,
+      lng: -95.5318750,
     },
     mapType: 'terrain',
   };
@@ -43,7 +43,7 @@ export class Container extends React.Component {
     location: React.PropTypes.object,
   };
   state = {
-    zoom: 6,
+    zoom: 4,
     showingInfoWindow: false,
     activeMarker: null,
     markers: [],
@@ -201,8 +201,8 @@ export class Container extends React.Component {
         initialCenter={center}
         center={center}
         mapType={mapType}
-        visible
         centerAroundCurrentLocation
+        visible
         onReady={this.handleReady}
         onClick={this.handleMapClick}
         containerStyle={styles.map}

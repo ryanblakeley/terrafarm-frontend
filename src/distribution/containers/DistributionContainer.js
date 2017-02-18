@@ -4,9 +4,10 @@ import {Link} from 'react-router';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
+import IoKey from 'react-icons/lib/io/key';
+import IoIosArrowLeft from 'react-icons/lib/io/ios-arrow-thin-left';
 import IoIosArrowRight from 'react-icons/lib/io/ios-arrow-thin-right';
-import IoIosTagOutline from 'react-icons/lib/io/ios-pricetag-outline';
-import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
+import IoAsterisk from 'react-icons/lib/io/asterisk';
 import WheatIcon from 'product/components/WheatIcon';
 // Components
 import NotFoundPage from 'not-found/components/NotFoundPage';
@@ -21,14 +22,13 @@ import classNames from '../styles/DistributionContainerStylesheet.css';
 
 const DistributionContainer = (props, context) => {
   if (!props.distribution) {
-    return <NotFoundPage message={'Distribution not found.'} />;
+    return <NotFoundPage message={'Voucher not found.'} />;
   }
   const isOwner = props.distribution.shareByShareId.productByProductId
     .organizationByOrganizationId.userByOwnerId.rowId === context.userId;
   const isCardholder = props.distribution.shareByShareId.userId === context.userId;
-
-  console.log('owner:', isOwner, 'cardholder:', isCardholder);
   let userElem;
+
   if (props.distribution.shareByShareId.userByUserId) {
     userElem = <Link
       to={`/user/${props.distribution.shareByShareId.userByUserId.rowId}`}
@@ -36,26 +36,26 @@ const DistributionContainer = (props, context) => {
     >
       <ContentSubheader
         icon={<IoPerson width={24} height={24} />}
-        text={`cardholder: ${props.distribution.shareByShareId.userByUserId.name}`}
+        text={`shareholder: ${props.distribution.shareByShareId.userByUserId.name}`}
       />
     </Link>;
   } else {
     userElem = <ContentSubheader
       icon={<IoPerson width={24} height={24} />}
-      text={`cardholder: ${props.distribution.shareByShareId.customerName}`}
+      text={`shareholder: ${props.distribution.shareByShareId.customerName}`}
     />;
   }
 
   return <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
-        baseUrl={`/distribution/${props.distribution.rowId}`}
-        header={{icon: <IoIosTagOutline />, title: 'Distribution'}}
+        baseUrl={`/voucher/${props.distribution.rowId}`}
+        header={{icon: <IoAsterisk />, title: 'Voucher'}}
         disabled={!isOwner && !isCardholder}
         list={[
           {
             icon: <IoEdit />,
-            title: 'Edit',
+            title: 'Edit Voucher',
             url: 'edit',
             disabled: !isOwner && !isCardholder,
           },
@@ -68,7 +68,7 @@ const DistributionContainer = (props, context) => {
           <ActionPanel
             children={props.children}
             notifyClose={() => {
-              context.router.replace(`/distribution/${props.distribution.rowId}`);
+              context.router.replace(`/voucher/${props.distribution.rowId}`);
             }}
           />
           <Link
@@ -82,23 +82,23 @@ const DistributionContainer = (props, context) => {
           </Link>
           {userElem}
           {isCardholder && <ContentSubheader
-            icon={<IoIosTagsOutline />}
+            icon={<IoKey />}
             text={`token: ${props.distribution.token}`}
             light
           />}
           <Link
-            to={`/punch-card/${props.distribution.shareByShareId.rowId}`}
+            to={`/share/${props.distribution.shareByShareId.rowId}`}
             className={classNames.link}
           >
             <ContentSubheader
-              icon={<IoIosTagsOutline />}
-              text={'punch card'}
+              icon={<IoIosArrowLeft />}
+              text={'back to share'}
               light
             />
           </Link>
           {props.distribution.description && <ContentSubheader
             icon={<IoIosArrowRight />}
-            text={props.distribution.description}
+            text={`comments: ${props.distribution.description}`}
             light
           />}
         </div>}

@@ -17,7 +17,7 @@ class PerformSearchOrganizations extends React.Component {
     relayVariables: {
       count: 3,
       search: '',
-      bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
+      bounds: '((25.1613432,-125.1510156),(52.4802030,-65.9127343))',
     },
     searchResultIds: [],
   };
@@ -100,7 +100,7 @@ export default Relay.createContainer(PerformSearchOrganizations, {
   initialVariables: {
     count: 3,
     search: '',
-    bounds: '((23.850975392563722,-126.052734375),(51.594339962808384,-64.705078125))',
+    bounds: '((25.1613432,-125.1510156),(52.4802030,-65.9127343))',
   },
   fragments: {
     query: () => Relay.QL`

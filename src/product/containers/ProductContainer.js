@@ -7,7 +7,7 @@ import IoDollar from 'react-icons/lib/io/social-usd-outline';
 import IoIosCalendar from 'react-icons/lib/io/ios-calendar-outline';
 import IoIosPeople from 'react-icons/lib/io/ios-people';
 import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
-import IoIosTagOutline from 'react-icons/lib/io/ios-pricetag-outline';
+import IoAsterisk from 'react-icons/lib/io/asterisk';
 import WheatIcon from 'product/components/WheatIcon';
 import BarnIcon from 'organization/components/BarnIcon';
 // Components
@@ -45,10 +45,10 @@ const ProductContainer = (props, context) => {
         return null;
       }
       if (edge.node.userId === context.userId) {
-        itemUrl = `/punch-card/${edge.node.rowId}`;
+        itemUrl = `/share/${edge.node.rowId}`;
         isShareholder = true;
       } else if (isOwner) {
-        itemUrl = `/punch-card/${edge.node.rowId}`;
+        itemUrl = `/share/${edge.node.rowId}`;
       } else if (user) {
         itemUrl = `/user/${user.rowId}`;
       }
@@ -82,21 +82,21 @@ const ProductContainer = (props, context) => {
         disabled={!context.loggedIn || (!isOwner && isShareholder)}
         list={[
           {
-            icon: <IoDollar />,
-            title: 'Order punch card',
-            url: 'order-punch-card',
+            icon: <IoIosTagsOutline />,
+            title: 'Order share',
+            url: 'order-share',
             disabled: isOwner || isShareholder,
           },
           {
-            icon: <IoEdit />,
-            title: 'Edit',
-            url: 'edit',
+            icon: <IoIosTagsOutline />,
+            title: 'Assign share',
+            url: 'assign-share',
             disabled: !isOwner,
           },
           {
-            icon: <IoIosTagsOutline />,
-            title: 'Assign punch card',
-            url: 'assign-punch-card',
+            icon: <IoEdit />,
+            title: 'Edit Product',
+            url: 'edit',
             disabled: !isOwner,
           },
         ]}
@@ -108,7 +108,7 @@ const ProductContainer = (props, context) => {
             {
               header: {
                 icon: <IoIosPeople width={58} height={40} />,
-                label: 'Card holders',
+                label: 'Shareholders',
               },
               body: <RelationshipList listItems={shareHolders} />,
             },
@@ -130,8 +130,8 @@ const ProductContainer = (props, context) => {
               text={`farm: ${props.product.organizationByOrganizationId.name}`}
             />
           </Link>
-          <ContentSubheader icon={<IoDollar />} text={`${price} / card`} light />
-          <ContentSubheader icon={<IoIosTagOutline />} text={`${props.product.creditsInitial} distributions / card`} light />
+          <ContentSubheader icon={<IoDollar />} text={`${price} / share`} light />
+          <ContentSubheader icon={<IoAsterisk />} text={`${props.product.creditsInitial} credits / share`} light />
           <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
           <ContentBodyText text={props.product.description} />
           <HeroImage image={props.product.imageUrl} />

@@ -30,7 +30,7 @@ class Container extends React.Component {
   handleSuccess = response => {
     const {router} = this.context;
     const shareId = response.createShare.shareEdge.node.rowId;
-    router.push(`/punch-card/${shareId}`);
+    router.push(`/share/${shareId}`);
   }
   handleFailure = transaction => {
     const error = transaction.getError() || new Error('Mutation failed.');
@@ -66,7 +66,7 @@ class Container extends React.Component {
     const {user, children} = this.props;
 
     return <ActionPanelForm
-      title={'Order punch card'}
+      title={'Order share'}
       notifyClose={this.props.notifyClose}
       onValidSubmit={this.handleSubmit}
       error={error}
@@ -80,13 +80,13 @@ class Container extends React.Component {
       />
       <TextInput
         name={'customerContact'}
-        label={'Your contact info'}
+        label={'Your Contact Info'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
         required
       />
       <TextInput
         name={'customerNotes'}
-        label={'Note to farmer'}
+        label={'Comments'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
         multiLine
         rows={3}

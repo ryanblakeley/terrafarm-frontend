@@ -42,7 +42,7 @@ const ProfileContainer = (props, context) => {
             {
               header: {
                 icon: <WheatIcon />,
-                label: 'Punch Cards',
+                label: 'Shares',
               },
               body: <RelationshipList
                 listItems={props.user.sharesByUserId.edges.length > 0
@@ -50,7 +50,7 @@ const ProfileContainer = (props, context) => {
                     id: edge.node.id,
                     name: edge.node.productName,
                     itemId: edge.node.rowId,
-                    itemUrl: `/punch-card/${edge.node.rowId}`,
+                    itemUrl: `/share/${edge.node.rowId}`,
                   }))
                   : []
                 }

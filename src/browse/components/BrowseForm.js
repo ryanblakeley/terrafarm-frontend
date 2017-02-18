@@ -16,7 +16,7 @@ class Container extends React.Component {
   };
   static defaultProps = {
     google: window.google,
-    initialAddress: '45,-117',
+    initialAddress: '23.3988813,-125.898086',
   };
   static contextTypes = {
     router: React.PropTypes.object,
@@ -107,7 +107,7 @@ class Container extends React.Component {
             ref={input => (this.search = input)}
           />
         </div>
-        <div className={classNames.flexRow}>
+        <div className={`${classNames.flexRow} ${classNames.hidden}`}>
           <TextInput
             name={'location'}
             label={'Location'}

@@ -1,7 +1,8 @@
 import React from 'react';
-import IoBriefcase from 'react-icons/lib/io/briefcase';
 import IoPerson from 'react-icons/lib/io/person';
 import IoIosMore from 'react-icons/lib/io/ios-more';
+import BarnIcon from 'organization/components/BarnIcon';
+import WheatIcon from 'product/components/WheatIcon';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import BrowseContentWrapper from './BrowseContentWrapper';
@@ -15,8 +16,8 @@ const BrowseContainer = (props, context) => <TransitionWrapper>
       header={{icon: <IoIosMore />, title: 'Browse'}}
       disabled={false}
       list={[
-        { icon: <IoBriefcase />, title: 'Farms', url: 'farms' },
-        { icon: <IoBriefcase />, title: 'Products', url: 'products' },
+        { icon: <BarnIcon />, title: 'Farms', url: 'farms' },
+        { icon: <WheatIcon />, title: 'Products', url: 'products' },
         { icon: <IoPerson />, title: 'Users', url: 'users' },
       ]}
     />

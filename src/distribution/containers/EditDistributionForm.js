@@ -59,21 +59,13 @@ class Container extends React.Component {
     const {error, isOwner, isCardholder} = this.state;
 
     return <ActionPanelForm
-      title={'Edit Distribution'}
+      title={'Edit Voucher'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={null}
       error={error}
       showForm={isOwner || isCardholder}
     >
-      <TextInput
-        name={'description'}
-        label={'Description'}
-        validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
-        initialValue={distribution.description}
-        multiLine
-        rows={3}
-      />
       {(distribution.status === 'RECEIVED'
         || distribution.status === 'DONATED'
         || distribution.status === 'CANCELED')
@@ -82,7 +74,7 @@ class Container extends React.Component {
           name={'status'}
           label={'Status'}
           validations={'isExisty'}
-          initialValue={distribution.status}
+          value={distribution.status}
           required
         >
           {distribution.status === 'PLANNED' && <MenuItem value={'PLANNED'} primaryText={'Planned'} />}
@@ -96,6 +88,14 @@ class Container extends React.Component {
             && <MenuItem value={'CANCELED'} primaryText={'Canceled'} />}
         </SelectInput>
       }
+      <TextInput
+        name={'description'}
+        label={'Notes'}
+        validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
+        initialValue={distribution.description}
+        multiLine
+        rows={3}
+      />
       {children}
     </ActionPanelForm>;
   }

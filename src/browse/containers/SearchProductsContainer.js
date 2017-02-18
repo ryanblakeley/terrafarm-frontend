@@ -1,6 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import equal from 'deep-equal';
+import {parsePoint} from 'shared/utils/parse-coords';
 
 class PerformSearchProducts extends React.Component {
   static propTypes = {
@@ -25,6 +26,7 @@ class PerformSearchProducts extends React.Component {
     const resultsSet = query.searchProducts.edges.map(edge => ({
       rowId: edge.node.rowId,
       name: edge.node.name,
+      coords: parsePoint(edge.node.organizationByOrganizationId.placeByPlaceId.coords),
       url: 'product',
     }));
 
@@ -68,6 +70,7 @@ class PerformSearchProducts extends React.Component {
       setSearchResults(nextSearchProducts.edges.map(edge => ({
         rowId: edge.node.rowId,
         name: edge.node.name,
+        coords: parsePoint(edge.node.organizationByOrganizationId.placeByPlaceId.coords),
         url: 'product',
       })));
       this.setState({searchResultIds: nextSearchResultIds});
@@ -105,6 +108,11 @@ export default Relay.createContainer(PerformSearchProducts, {
             node {
               name,
               rowId,
+              organizationByOrganizationId {
+                placeByPlaceId {
+                  coords,
+                }
+              },
             }
           }
         },

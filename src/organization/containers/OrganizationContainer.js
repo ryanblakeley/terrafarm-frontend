@@ -3,7 +3,6 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
-import IoPlus from 'react-icons/lib/io/plus';
 import IoPerson from 'react-icons/lib/io/person';
 import BarnIcon from 'organization/components/BarnIcon';
 import WheatIcon from 'product/components/WheatIcon';
@@ -33,14 +32,14 @@ const OrganizationContainer = (props, context) => (!props.organization
         disabled={props.organization.userByOwnerId.rowId !== context.userId}
         list={[
           {
+            icon: <WheatIcon />,
+            title: 'Create Product',
+            url: 'create-product',
+          },
+          {
             icon: <IoEdit />,
             title: 'Edit Farm',
             url: 'edit',
-          },
-          {
-            icon: <IoPlus />,
-            title: 'Create Product',
-            url: 'create-product',
           },
         ]}
       />

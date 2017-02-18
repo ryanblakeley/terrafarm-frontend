@@ -99,22 +99,22 @@ class Container extends React.Component {
         rows={3}
       />
       <TextInput
+        name={'maxShares'}
+        label={'Max # of Shares'}
+        initialValue={String(product.maxShares)}
+        validations={'isNumeric'}
+        required
+      />
+      <TextInput
         name={'sharePrice'}
-        label={'Punch Card Price'}
+        label={'Share Price'}
         initialValue={String(product.sharePrice)}
         validations={{matchRegexp: validations.matchCurrency}}
       />
       <TextInput
         name={'creditsInitial'}
-        label={'Distributions / Card'}
+        label={'# of Credits / Share'}
         initialValue={String(product.creditsInitial)}
-        validations={'isNumeric'}
-        required
-      />
-      <TextInput
-        name={'maxShares'}
-        label={'Max Cards'}
-        initialValue={String(product.maxShares)}
         validations={'isNumeric'}
         required
       />
