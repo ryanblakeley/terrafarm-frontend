@@ -28,7 +28,7 @@ class Container extends React.Component {
     const {share, currentPerson} = this.props;
     const isProductOwner = share.productByProductId.organizationByOrganizationId.userByOwnerId.rowId
       === currentPerson.rowId;
-    const isCardHolder = share.userByUserId.rowId === currentPerson.rowId;
+    const isCardHolder = share.userId === currentPerson.rowId;
     this.setState({isProductOwner, isCardHolder});
   }
   handleSubmit = data => {
@@ -86,7 +86,7 @@ class Container extends React.Component {
           name={'status'}
           label={'Status'}
           validations={'isExisty'}
-          initialValue={share.status}
+          value={share.status}
           required
         >
           <MenuItem value={'RESERVED'} primaryText={'Reserved'} />
@@ -107,12 +107,10 @@ export default Relay.createContainer(Container, {
       fragment on Share {
         id,
         rowId,
+        userId,
         customerNotes,
         customerContact,
         status,
-        userByUserId {
-          rowId,
-        },
         productByProductId {
           organizationByOrganizationId {
             userByOwnerId {

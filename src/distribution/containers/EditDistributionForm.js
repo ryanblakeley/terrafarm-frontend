@@ -27,7 +27,7 @@ class Container extends React.Component {
     const {distribution, currentPerson} = this.props;
     const isOwner = distribution.shareByShareId.productByProductId
       .organizationByOrganizationId.userByOwnerId.rowId === currentPerson.rowId;
-    const isCardholder = distribution.shareByShareId.userByUserId.rowId === currentPerson.rowId;
+    const isCardholder = distribution.shareByShareId.userId === currentPerson.rowId;
     this.setState({isOwner, isCardholder});
   }
   handleSubmit = data => {
@@ -78,7 +78,7 @@ class Container extends React.Component {
           required
         >
           {distribution.status === 'PLANNED' && <MenuItem value={'PLANNED'} primaryText={'Planned'} />}
-          {distribution.status === 'PLANNED' && isOwner
+          {isOwner && (distribution.status === 'PLANNED' || distribution.status === 'HARVESTED')
             && <MenuItem value={'HARVESTED'} primaryText={'Harvested'} />}
           {(distribution.status === 'PLANNED' || distribution.status === 'HARVESTED')
             && isCardholder && <MenuItem value={'RECEIVED'} primaryText={'Received'} />}
@@ -111,9 +111,7 @@ export default Relay.createContainer(Container, {
         status,
         description,
         shareByShareId {
-          userByUserId {
-            rowId,
-          },
+          userId,
           productByProductId {
             organizationByOrganizationId {
               userByOwnerId {

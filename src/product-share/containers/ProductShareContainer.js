@@ -34,7 +34,11 @@ const ProductShareContainer = (props, context) => {
   const dates = props.share.startDate
     ? `from ${props.share.startDate} to ${props.share.endDate}`
     : 'dates not provided';
-  const credits = `${props.share.creditsRemaining} credits remaining`;
+  const creditsRemaining = props.share.creditsInitial - props.share
+    .distributionsByShareId.edges.filter(edge => (
+      edge.node.status === 'RECEIVED' || edge.node.status === 'DONATED'
+    )).length;
+  const credits = `${creditsRemaining} credits remaining / ${props.share.creditsInitial}`;
   const distributions = props.share.distributionsByShareId.edges.map(edge => ({
     id: edge.node.id,
     status: edge.node.status,
@@ -84,7 +88,7 @@ const ProductShareContainer = (props, context) => {
           },
         ]}
       />
-      <ContentHeader text={credits} />
+      <ContentHeader text={`share status: ${props.share.status}`} />
       <MainContentWrapper
         right={<Accordion
           panels={isOwner || isCardholder
@@ -115,6 +119,8 @@ const ProductShareContainer = (props, context) => {
             />
           </Link>
           {userElem}
+          <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
+          <ContentSubheader icon={<IoIosArrowRight />} text={credits} light />
           <ContentSubheader
             icon={<IoIosEmail />}
             text={`contact: ${props.share.customerContact}`}
@@ -125,8 +131,6 @@ const ProductShareContainer = (props, context) => {
             text={`comments: ${props.share.customerNotes}`}
             light
           />
-          <ContentSubheader icon={<IoIosArrowRight />} text={`status: ${props.share.status}`} light />
-          <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
         </div>}
       />
     </div>
@@ -159,7 +163,6 @@ export default Relay.createContainer(ProductShareContainer, {
         endDate,
         price,
         status,
-        creditsRemaining,
         creditsInitial,
         productByProductId {
           rowId,

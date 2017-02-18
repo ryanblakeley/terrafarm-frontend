@@ -71,7 +71,7 @@ class Container extends React.Component {
         name={'status'}
         label={'Status'}
         validations={'isExisty'}
-        initialValue={'PLANNED'}
+        value={'PLANNED'}
         required
       >
         <MenuItem value={'PLANNED'} primaryText={'Planned'} />

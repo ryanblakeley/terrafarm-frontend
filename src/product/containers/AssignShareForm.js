@@ -95,7 +95,7 @@ class Container extends React.Component {
         name={'status'}
         label={'Status'}
         validations={'isExisty'}
-        initialValue={'RESERVED'}
+        value={'RESERVED'}
         required
       >
         <MenuItem value={'RESERVED'} primaryText={'Reserved'} />
