@@ -2,8 +2,6 @@ import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
-import SelectInput from 'shared/components/SelectInput';
-import MenuItem from 'material-ui/MenuItem';
 import UpdateProductShareMutation from '../mutations/UpdateProductShareMutation';
 
 class Container extends React.Component {
@@ -81,18 +79,6 @@ class Container extends React.Component {
         multiLine
         rows={3}
       />
-      {share.status === 'RESERVED' && isProductOwner
-        && <SelectInput
-          name={'status'}
-          label={'Status'}
-          validations={'isExisty'}
-          value={share.status}
-          required
-        >
-          <MenuItem value={'RESERVED'} primaryText={'Reserved'} />
-          <MenuItem value={'PURCHASED'} primaryText={'Purchased'} />
-        </SelectInput>
-      }
       {children}
     </ActionPanelForm>;
   }

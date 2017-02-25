@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
-import OrderShareMutation from '../mutations/OrderShareMutation';
+import ReserveShareMutation from '../mutations/ReserveShareMutation';
 
 class Container extends React.Component {
   static propTypes = {
@@ -22,7 +22,7 @@ class Container extends React.Component {
   };
   handleSubmit = data => {
     this.setState({ formData: data });
-    this.orderShare(Object.assign(data, {
+    this.reserveShare(Object.assign(data, {
       userId: this.props.user.rowId,
       productId: this.props.product.rowId,
     }));
@@ -36,11 +36,11 @@ class Container extends React.Component {
     const error = transaction.getError() || new Error('Mutation failed.');
     this.setState({ error: !!error });
   }
-  orderShare (data) {
+  reserveShare (data) {
     const {user, product, query} = this.props;
     // flattens product details as a snapshot and stores them as props on the product-share
     Relay.Store.commitUpdate(
-      new OrderShareMutation({
+      new ReserveShareMutation({
         shareData: {
           ...data,
           startDate: product.startDate,
@@ -66,7 +66,7 @@ class Container extends React.Component {
     const {user, children} = this.props;
 
     return <ActionPanelForm
-      title={'Order share'}
+      title={'Reserve share'}
       notifyClose={this.props.notifyClose}
       onValidSubmit={this.handleSubmit}
       error={error}
@@ -106,7 +106,7 @@ export default Relay.createContainer(Container, {
       fragment on User {
         name,
         rowId,
-        ${OrderShareMutation.getFragment('user')},
+        ${ReserveShareMutation.getFragment('user')},
       }
     `,
     product: () => Relay.QL`
@@ -119,12 +119,12 @@ export default Relay.createContainer(Container, {
         sharePrice,
         name,
         creditsInitial,
-        ${OrderShareMutation.getFragment('product')},
+        ${ReserveShareMutation.getFragment('product')},
       }
     `,
     query: () => Relay.QL`
       fragment on Query {
-        ${OrderShareMutation.getFragment('query')},
+        ${ReserveShareMutation.getFragment('query')},
       }
     `,
   },

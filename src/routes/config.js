@@ -19,7 +19,7 @@ import ProductShareContainer from 'product-share/containers/ProductShareContaine
 import DistributionContainer from 'distribution/containers/DistributionContainer';
 import CreateOrganizationForm from 'profile/containers/CreateOrganizationForm';
 import CreateProductForm from 'organization/containers/CreateProductForm';
-import OrderShareForm from 'product/containers/OrderShareForm';
+import ReserveShareForm from 'product/containers/ReserveShareForm';
 import AssignShareForm from 'product/containers/AssignShareForm';
 import CreateDistributionForm from 'product-share/containers/CreateDistributionForm';
 import EditProfileForm from 'profile/containers/EditProfileForm';
@@ -27,8 +27,11 @@ import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
 import EditProductForm from 'product/containers/EditProductForm';
 import EditProductShareForm from 'product-share/containers/EditProductShareForm';
 import EditDistributionForm from 'distribution/containers/EditDistributionForm';
-import ValidateTokenForm from 'distribution/containers/ValidateTokenForm';
-import ProcessTokenContainer from 'distribution/containers/ProcessTokenContainer';
+import LookupDistributionForm from 'distribution/containers/LookupDistributionForm';
+import ProcessDistributionTokenContainer from 'distribution/containers/ProcessDistributionTokenContainer';
+import ForwardDistributionTokenContainer from 'distribution/containers/ForwardDistributionTokenContainer';
+import ValidateShareForm from 'product-share/containers/ValidateShareForm';
+import ProcessShareTokenContainer from 'product-share/containers/ProcessShareTokenContainer';
 import SearchOrganizationsContainer from 'browse/containers/SearchOrganizationsContainer';
 import SearchUsersContainer from 'browse/containers/SearchUsersContainer';
 import SearchProductsContainer from 'browse/containers/SearchProductsContainer';
@@ -52,8 +55,11 @@ import EditOrganizationQueries from './EditOrganizationQueries';
 import EditProductQueries from './EditProductQueries';
 import EditProductShareQueries from './EditProductShareQueries';
 import EditDistributionQueries from './EditDistributionQueries';
-import ValidateTokenQueries from './ValidateTokenQueries';
-import ProcessTokenQueries from './ProcessTokenQueries';
+import LookupDistributionQueries from './LookupDistributionQueries';
+import ProcessDistributionTokenQueries from './ProcessDistributionTokenQueries';
+import ForwardDistributionTokenQueries from './ForwardDistributionTokenQueries';
+import ValidateShareQueries from './ValidateShareQueries';
+import ProcessShareTokenQueries from './ProcessShareTokenQueries';
 import PlaceQueries from './PlaceQueries';
 
 function prepareProfileParams (params) {
@@ -86,6 +92,14 @@ function loginBouncer (nextState, replace) {
       || idToken === window.anonymousToken
       || idToken === window.registrarToken) {
     replace('/login');
+  }
+}
+
+function bounceToProfile (nextState, replace) {
+  const userId = localStorage.getItem('user_uuid');
+
+  if (userId === nextState.params.userId) {
+    replace('/profile');
   }
 }
 
@@ -181,6 +195,7 @@ const routes = (
         path={':userId'}
         component={UserContainer}
         queries={UserQueries}
+        onEnter={bounceToProfile}
         renderLoading={renderLoading}
       >
         <Route
@@ -215,15 +230,15 @@ const routes = (
           </Route>
         </Route>
         <Route
-          path={'validate-token'}
-          component={ValidateTokenForm}
-          queries={ValidateTokenQueries}
+          path={'accept-voucher'}
+          component={LookupDistributionForm}
+          queries={LookupDistributionQueries}
           onEnter={loginBouncer}
         >
           <Route
             path={':distributionToken'}
-            component={ProcessTokenContainer}
-            queries={ProcessTokenQueries}
+            component={ForwardDistributionTokenContainer}
+            queries={ForwardDistributionTokenQueries}
             renderLoading={renderLoading}
           />
         </Route>
@@ -244,7 +259,7 @@ const routes = (
         />
         <Route
           path={'reserve-share'}
-          component={OrderShareForm}
+          component={ReserveShareForm}
           queries={UserProductQueryQueries}
           onEnter={loginBouncer}
         />
@@ -275,6 +290,19 @@ const routes = (
           queries={ProductShareQueryQueries}
           onEnter={loginBouncer}
         />
+        <Route
+          path={'validate-token'}
+          component={ValidateShareForm}
+          queries={ValidateShareQueries}
+          onEnter={loginBouncer}
+        >
+          <Route
+            path={':shareToken'}
+            component={ProcessShareTokenContainer}
+            queries={ProcessShareTokenQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
       </Route>
     </Route>
     <Route path={'voucher'} onEnter={loginBouncer} >
@@ -290,6 +318,14 @@ const routes = (
           queries={EditDistributionQueries}
           onEnter={loginBouncer}
         />
+        <Route path={'process-token'}>
+          <Route
+            path={':distributionToken'}
+            component={ProcessDistributionTokenContainer}
+            queries={ProcessDistributionTokenQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
       </Route>
     </Route>
     <Route path={'*'} component={NotFound} />

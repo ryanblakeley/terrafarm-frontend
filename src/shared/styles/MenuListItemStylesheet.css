@@ -14,7 +14,7 @@
 .iconWrapper {
   display: flex;
   align-items: center; justify-content: center;
-  width: 112px;
+  width: 88px;
   padding: 12px;
 }
 .icon { composes: icon from './_typography.css'; }
@@ -29,4 +29,8 @@
   font-size: 1.3rem;
   font-weight: 400;
   text-transform: uppercase;
+}
+
+@media only screen and (min-width: 800px) {
+  .iconWrapper { width: 112px; }
 }

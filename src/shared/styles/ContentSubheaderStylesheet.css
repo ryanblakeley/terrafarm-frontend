@@ -2,7 +2,7 @@
 .text {
   composes: contentSubheading from './_typography.css';
   display: inline-block;
-  margin: 0 0 0 15px;
+  margin: 0 0 0 18px;
 }
 .text.light { font-weight: 400; }
 .icon {

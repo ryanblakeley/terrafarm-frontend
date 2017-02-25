@@ -72,7 +72,7 @@ const UserContainer = (props, context) => (!props.user
           >
             <ContentSubheader
               icon={<BarnIcon width={24} height={24} />}
-              text={`farm: ${edge.node.name}`}
+              text={edge.node.name}
             />
           </Link>)}
           <ContentBodyText text={props.user.description} />

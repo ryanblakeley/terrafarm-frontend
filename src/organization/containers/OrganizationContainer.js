@@ -34,8 +34,8 @@ const OrganizationContainer = (props, context) => (!props.organization
         list={[
           {
             icon: <IoAsterisk />,
-            title: 'Validate Token',
-            url: 'validate-token',
+            title: 'Accept Voucher',
+            url: 'accept-voucher',
           },
           {
             icon: <WheatIcon />,
@@ -88,7 +88,7 @@ const OrganizationContainer = (props, context) => (!props.organization
           >
             <ContentSubheader
               icon={<IoPerson />}
-              text={`owner: ${props.organization.userByOwnerId.name}`}
+              text={props.organization.userByOwnerId.name}
             />
           </Link>
           <ContentBodyText text={props.organization.description} />

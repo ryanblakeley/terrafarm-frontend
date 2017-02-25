@@ -6,7 +6,7 @@ import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
 import IoKey from 'react-icons/lib/io/key';
 import IoIosArrowLeft from 'react-icons/lib/io/ios-arrow-thin-left';
-import IoIosArrowRight from 'react-icons/lib/io/ios-arrow-thin-right';
+import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
 import IoAsterisk from 'react-icons/lib/io/asterisk';
 import WheatIcon from 'product/components/WheatIcon';
 // Components
@@ -24,6 +24,7 @@ const DistributionContainer = (props, context) => {
   if (!props.distribution) {
     return <NotFoundPage message={'Voucher not found.'} />;
   }
+  const organizationId = props.distribution.shareByShareId.productByProductId.organizationId;
   const isOwner = props.distribution.shareByShareId.productByProductId
     .organizationByOrganizationId.userByOwnerId.rowId === context.userId;
   const isCardholder = props.distribution.shareByShareId.userId === context.userId;
@@ -36,27 +37,39 @@ const DistributionContainer = (props, context) => {
     >
       <ContentSubheader
         icon={<IoPerson width={24} height={24} />}
-        text={`shareholder: ${props.distribution.shareByShareId.userByUserId.name}`}
+        text={props.distribution.shareByShareId.userByUserId.name}
       />
     </Link>;
   } else {
     userElem = <ContentSubheader
       icon={<IoPerson width={24} height={24} />}
-      text={`shareholder: ${props.distribution.shareByShareId.customerName}`}
+      text={props.distribution.shareByShareId.customerName}
     />;
   }
 
   return <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
-        baseUrl={`/voucher/${props.distribution.rowId}`}
+        baseUrl={''}
         header={{icon: <IoAsterisk />, title: 'Voucher'}}
         disabled={!isOwner && !isCardholder}
         list={[
           {
+            icon: <IoAsterisk />,
+            title: 'Validate Voucher',
+            url: `voucher/${props.distribution.rowId}/process-token/${props.distribution.token}`,
+            disabled: !isCardholder || props.distribution.status === 'RECEIVED',
+          },
+          {
+            icon: <IoAsterisk />,
+            title: 'Validate Voucher',
+            url: `farm/${organizationId}/voucher-lookup`,
+            disabled: !isOwner || props.distribution.status === 'RECEIVED',
+          },
+          {
             icon: <IoEdit />,
             title: 'Edit Voucher',
-            url: 'edit',
+            url: `voucher/${props.distribution.rowId}/edit`,
             disabled: !isOwner && !isCardholder,
           },
         ]}
@@ -71,19 +84,24 @@ const DistributionContainer = (props, context) => {
               context.router.replace(`/voucher/${props.distribution.rowId}`);
             }}
           />
+          {isCardholder && <ContentSubheader
+            icon={<IoKey />}
+            text={`token: ${props.distribution.token}`}
+            light
+          />}
+          {userElem}
           <Link
             to={`/product/${props.distribution.shareByShareId.productId}`}
             className={classNames.link}
           >
             <ContentSubheader
               icon={<WheatIcon width={24} height={24} />}
-              text={`product: ${props.distribution.shareByShareId.productName}`}
+              text={props.distribution.shareByShareId.productName}
             />
           </Link>
-          {userElem}
-          {isCardholder && <ContentSubheader
-            icon={<IoKey />}
-            text={`token: ${props.distribution.token}`}
+          {props.distribution.description && <ContentSubheader
+            icon={<IoIosChatBubble />}
+            text={props.distribution.description}
             light
           />}
           <Link
@@ -96,11 +114,6 @@ const DistributionContainer = (props, context) => {
               light
             />
           </Link>
-          {props.distribution.description && <ContentSubheader
-            icon={<IoIosArrowRight />}
-            text={`comments: ${props.distribution.description}`}
-            light
-          />}
         </div>}
       />
     </div>
@@ -140,6 +153,7 @@ export default Relay.createContainer(DistributionContainer, {
             name,
           },
           productByProductId {
+            organizationId,
             organizationByOrganizationId {
               userByOwnerId {
                 rowId,

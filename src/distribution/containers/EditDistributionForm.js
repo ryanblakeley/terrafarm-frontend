@@ -2,8 +2,6 @@ import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
-import SelectInput from 'shared/components/SelectInput';
-import MenuItem from 'material-ui/MenuItem';
 import UpdateDistributionMutation from '../mutations/UpdateDistributionMutation';
 
 class Container extends React.Component {
@@ -66,28 +64,6 @@ class Container extends React.Component {
       error={error}
       showForm={isOwner || isCardholder}
     >
-      {(distribution.status === 'RECEIVED'
-        || distribution.status === 'DONATED'
-        || distribution.status === 'CANCELED')
-        ? ''
-        : <SelectInput
-          name={'status'}
-          label={'Status'}
-          validations={'isExisty'}
-          value={distribution.status}
-          required
-        >
-          {distribution.status === 'PLANNED' && <MenuItem value={'PLANNED'} primaryText={'Planned'} />}
-          {isOwner && (distribution.status === 'PLANNED' || distribution.status === 'HARVESTED')
-            && <MenuItem value={'HARVESTED'} primaryText={'Harvested'} />}
-          {(distribution.status === 'PLANNED' || distribution.status === 'HARVESTED')
-            && isCardholder && <MenuItem value={'RECEIVED'} primaryText={'Received'} />}
-          {(distribution.status === 'PLANNED' || distribution.status === 'HARVESTED')
-            && isCardholder && <MenuItem value={'DONATED'} primaryText={'Donated'} />}
-          {(distribution.status === 'PLANNED' || distribution.status === 'HARVESTED')
-            && <MenuItem value={'CANCELED'} primaryText={'Canceled'} />}
-        </SelectInput>
-      }
       <TextInput
         name={'description'}
         label={'Notes'}
@@ -108,7 +84,6 @@ export default Relay.createContainer(Container, {
   fragments: {
     distribution: () => Relay.QL`
       fragment on Distribution {
-        status,
         description,
         shareByShareId {
           userId,

@@ -29,6 +29,7 @@ const ProductContainer = (props, context) => {
   if (!props.product) {
     return <NotFoundPage message={'Product not found.'} />;
   }
+  let currentPersonShareId = '';
   const isOwner = props.product.organizationByOrganizationId.userByOwnerId.rowId
     === context.userId;
   const shareHolderIds = [];
@@ -38,10 +39,14 @@ const ProductContainer = (props, context) => {
       const user = edge.node.userByUserId;
       let itemUrl = null;
 
-      if (shareHolderIds.indexOf(user.id || customerName) > -1) {
+      if (shareHolderIds.indexOf((user && user.id) || customerName) > -1) {
         return {};
       }
-      shareHolderIds.push(user.id || customerName);
+      shareHolderIds.push((user && user.id) || customerName);
+
+      if (edge.node.userId && edge.node.userId === context.userId) {
+        currentPersonShareId = edge.node.rowId;
+      }
 
       if (edge.node.status === 'AVAILABLE'
         || edge.node.status === 'EXPIRED'
@@ -83,26 +88,32 @@ const ProductContainer = (props, context) => {
   return <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
-        baseUrl={`/product/${props.product.rowId}`}
+        baseUrl={''}
         header={{icon: <WheatIcon />, title: 'Product'}}
         disabled={!context.loggedIn}
         list={[
           {
             icon: <IoIosTagsOutline />,
             title: 'Reserve share',
-            url: 'reserve-share',
-            disabled: isOwner,
+            url: `product/${props.product.rowId}/reserve-share`,
+            disabled: isOwner || currentPersonShareId,
+          },
+          {
+            icon: <IoIosTagsOutline />,
+            title: 'My share',
+            url: `share/${currentPersonShareId}`,
+            disabled: !currentPersonShareId,
           },
           {
             icon: <IoIosTagsOutline />,
             title: 'Assign share',
-            url: 'assign-share',
+            url: `product/${props.product.rowId}/assign-share`,
             disabled: !isOwner,
           },
           {
             icon: <IoEdit />,
             title: 'Edit Product',
-            url: 'edit',
+            url: `product/${props.product.rowId}/edit`,
             disabled: !isOwner,
           },
         ]}
@@ -133,11 +144,11 @@ const ProductContainer = (props, context) => {
           >
             <ContentSubheader
               icon={<BarnIcon width={24} height={24} />}
-              text={`farm: ${props.product.organizationByOrganizationId.name}`}
+              text={props.product.organizationByOrganizationId.name}
             />
           </Link>
           <ContentSubheader icon={<IoDollar />} text={`${price}`} light />
-          <ContentSubheader icon={<IoAsterisk />} text={`${props.product.creditsInitial} credits`} light />
+          <ContentSubheader icon={<IoAsterisk />} text={`${props.product.creditsInitial} vouchers / share`} light />
           <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
           <ContentBodyText text={props.product.description} />
           <HeroImage image={props.product.imageUrl} />

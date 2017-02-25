@@ -5,6 +5,7 @@ import {Link} from 'react-router';
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
 import IoPlus from 'react-icons/lib/io/plus';
+import IoAsterisk from 'react-icons/lib/io/asterisk';
 import BarnIcon from 'organization/components/BarnIcon';
 import WheatIcon from 'product/components/WheatIcon';
 // Components
@@ -28,6 +29,18 @@ const ProfileContainer = (props, context) => {
   if (!props.user.organizationsByOwnerId.edges.length > 0) {
     menuList.push({ icon: <IoPlus />, title: 'Create Farm', url: 'create-farm' });
   }
+  let vouchersList = props.user.sharesByUserId.edges.map(edge => (
+    edge.node.distributionsByShareId.edges.map(distributionEdge => ({
+      id: distributionEdge.node.id,
+      status: distributionEdge.node.status,
+      name: distributionEdge.node.description || '(No description)',
+      itemId: distributionEdge.node.rowId,
+      itemUrl: `/voucher/${distributionEdge.node.rowId}`,
+      actionUrl: `/voucher/${distributionEdge.node.rowId}`,
+    }))
+  ));
+  vouchersList = [].concat(...vouchersList);
+
   return <TransitionWrapper>
     <div className={classNames.this}>
       <Menu
@@ -39,6 +52,13 @@ const ProfileContainer = (props, context) => {
       <MainContentWrapper
         right={<Accordion
           panels={[
+            {
+              header: {
+                icon: <IoAsterisk width={58} />,
+                label: 'Vouchers',
+              },
+              body: <RelationshipList listItems={vouchersList} />,
+            },
             {
               header: {
                 icon: <WheatIcon />,
@@ -71,7 +91,7 @@ const ProfileContainer = (props, context) => {
           >
             <ContentSubheader
               icon={<BarnIcon width={24} height={24} />}
-              text={`farm: ${edge.node.name}`}
+              text={edge.node.name}
             />
           </Link>)}
           <ContentBodyText text={props.user.description} />
@@ -122,6 +142,16 @@ export default Relay.createContainer(ProfileContainer, {
               id,
               productName,
               rowId,
+              distributionsByShareId(first: 8) {
+                edges {
+                  node {
+                    id,
+                    rowId,
+                    status,
+                    description,
+                  }
+                }
+              },
             }
           }
         },

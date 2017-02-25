@@ -100,27 +100,27 @@ class Container extends React.Component {
       />
       <TextInput
         name={'maxShares'}
-        label={'Max # of Shares'}
+        label={'Max # of shares'}
         initialValue={String(product.maxShares)}
         validations={'isNumeric'}
         required
       />
       <TextInput
         name={'sharePrice'}
-        label={'Share Price'}
+        label={'Share price'}
         initialValue={String(product.sharePrice)}
         validations={{matchRegexp: validations.matchCurrency}}
       />
       <TextInput
         name={'creditsInitial'}
-        label={'# of Credits / Share'}
+        label={'# of vouchers / share'}
         initialValue={String(product.creditsInitial)}
         validations={'isNumeric'}
         required
       />
       <TextInput
         name={'startDate'}
-        label={'Start Date'}
+        label={'Start date'}
         initialValue={product.startDate}
         validations={{
           matchRegexp: validations.matchDate,
@@ -129,7 +129,7 @@ class Container extends React.Component {
       />
       <TextInput
         name={'endDate'}
-        label={'End Date'}
+        label={'End date'}
         initialValue={product.endDate}
         validations={{
           matchRegexp: validations.matchDate,

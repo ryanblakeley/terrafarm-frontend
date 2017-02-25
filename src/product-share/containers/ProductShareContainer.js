@@ -5,9 +5,10 @@ import {Link} from 'react-router';
 import IoIosCalendar from 'react-icons/lib/io/ios-calendar-outline';
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
-import IoIosArrowRight from 'react-icons/lib/io/ios-arrow-thin-right';
+import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
 import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
 import IoAsterisk from 'react-icons/lib/io/asterisk';
+import IoKey from 'react-icons/lib/io/key';
 import IoIosEmail from 'react-icons/lib/io/ios-email-outline';
 import WheatIcon from 'product/components/WheatIcon';
 // Components
@@ -29,8 +30,8 @@ const ProductShareContainer = (props, context) => {
   }
   let isCardholder = false;
   let userElem;
-  const isOwner = props.share.productByProductId.organizationByOrganizationId.userByOwnerId.rowId
-    === context.userId;
+  const isFarmOwner = props.share.productByProductId
+    .organizationByOrganizationId.userByOwnerId.rowId === context.userId;
   const dates = props.share.startDate
     ? `from ${props.share.startDate} to ${props.share.endDate}`
     : 'dates not provided';
@@ -46,7 +47,7 @@ const ProductShareContainer = (props, context) => {
     itemId: edge.node.rowId,
     itemUrl: `/voucher/${edge.node.rowId}`,
     actionUrl: `/voucher/${edge.node.rowId}`,
-    authorized: isOwner || isCardholder,
+    authorized: isFarmOwner || isCardholder,
   }));
 
   if (props.share.userByUserId) {
@@ -57,13 +58,13 @@ const ProductShareContainer = (props, context) => {
     >
       <ContentSubheader
         icon={<IoPerson width={24} height={24} />}
-        text={`shareholder: ${props.share.userByUserId.name}`}
+        text={props.share.userByUserId.name}
       />
     </Link>;
   } else {
     userElem = <ContentSubheader
       icon={<IoPerson width={24} height={24} />}
-      text={`shareholder: ${props.share.customerName}`}
+      text={props.share.customerName}
     />;
   }
 
@@ -72,26 +73,32 @@ const ProductShareContainer = (props, context) => {
       <Menu
         baseUrl={`/share/${props.share.rowId}`}
         header={{icon: <IoIosTagsOutline />, title: 'Share'}}
-        disabled={!isOwner && !isCardholder}
+        disabled={!isFarmOwner && !isCardholder}
         list={[
+          {
+            icon: <IoAsterisk />,
+            title: 'Activate Share',
+            url: 'validate-token',
+            disabled: (!isFarmOwner && !isCardholder) || props.share.status === 'PURCHASED',
+          },
           {
             icon: <IoAsterisk />,
             title: 'Create Voucher',
             url: 'create-voucher',
-            disabled: !isOwner && !isCardholder,
+            disabled: !isFarmOwner && !isCardholder,
           },
           {
             icon: <IoEdit />,
             title: 'Edit Share',
             url: 'edit',
-            disabled: !isOwner && !isCardholder,
+            disabled: !isFarmOwner && !isCardholder,
           },
         ]}
       />
-      <ContentHeader text={`share status: ${props.share.status}`} />
+      <ContentHeader text={`status: ${props.share.status}`} />
       <MainContentWrapper
         right={<Accordion
-          panels={isOwner || isCardholder
+          panels={isFarmOwner || isCardholder
             ? [{
               header: {
                 icon: <IoAsterisk width={58} height={40} />,
@@ -109,26 +116,32 @@ const ProductShareContainer = (props, context) => {
               context.router.replace(`/share/${props.share.rowId}`);
             }}
           />
+          {isFarmOwner && <ContentSubheader
+            icon={<IoKey />}
+            text={`token: ${props.share.token}`}
+            light
+          />}
+          {userElem}
           <Link
             to={`/product/${props.share.productByProductId.rowId}`}
             className={classNames.link}
           >
             <ContentSubheader
               icon={<WheatIcon width={24} height={24} />}
-              text={`product: ${props.share.productByProductId.name}`}
+              text={props.share.productByProductId.name}
             />
           </Link>
-          {userElem}
           <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
-          <ContentSubheader icon={<IoIosArrowRight />} text={credits} light />
+          {props.share.status === 'PURCHASED'
+            && <ContentSubheader icon={<IoAsterisk />} text={credits} light />}
           <ContentSubheader
             icon={<IoIosEmail />}
-            text={`contact: ${props.share.customerContact}`}
+            text={props.share.customerContact}
             light
           />
           <ContentSubheader
-            icon={<IoIosArrowRight />}
-            text={`comments: ${props.share.customerNotes}`}
+            icon={<IoIosChatBubble />}
+            text={props.share.customerNotes}
             light
           />
         </div>}
@@ -161,7 +174,7 @@ export default Relay.createContainer(ProductShareContainer, {
         customerNotes,
         startDate,
         endDate,
-        price,
+        token,
         status,
         creditsInitial,
         productByProductId {

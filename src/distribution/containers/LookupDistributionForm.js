@@ -22,15 +22,15 @@ class Container extends React.Component {
   };
   componentWillMount () {
     const {organization, currentPerson} = this.props;
-    // const shareholderId = query.validateToken
-      // && query.validateToken.shareByShareId.userId;
+    // const shareholderId = query.distributionByDistributionToken
+      // && query.distributionByDistributionToken.shareByShareId.userId;
     const authorized = organization.ownerId === currentPerson.rowId;
       // || shareholderId === currentPerson.rowId;
 
     this.setState({authorized});
   }
   handleSubmit = data => {
-    this.validateToken(Object.assign(data, {}));
+    this.goLookupVoucher(data);
   }
   handleSuccess = response => {
     this.props.notifyClose();
@@ -39,31 +39,32 @@ class Container extends React.Component {
     const error = transaction.getError() || new Error('Mutation failed.');
     this.setState({ error: !!error });
   }
-  validateToken (formData) {
+  goLookupVoucher (formData) {
     const { organization } = this.props;
     const { router } = this.context;
     const { distributionToken } = formData;
-    router.push(`/farm/${organization.rowId}/validate-token/${distributionToken}`);
+    router.push(`/farm/${organization.rowId}/accept-voucher/${distributionToken}`);
   }
   render () {
     const {notifyClose, children} = this.props;
     const { error, authorized } = this.state;
 
-    return <ActionPanelForm
-      title={'Validate Token'}
-      notifyClose={notifyClose}
-      onValidSubmit={this.handleSubmit}
-      error={error}
-      showForm={authorized}
-    >
-      <TextInput
-        name={'distributionToken'}
-        label={'Voucher Token'}
-        validations={'isExisty'}
-        required
-      />
-      {children}
-    </ActionPanelForm>;
+    return children
+      ? <div>{React.Children.map(children, child => React.cloneElement(child, {notifyClose}))}</div>
+      : <ActionPanelForm
+        title={'Accept Voucher'}
+        notifyClose={notifyClose}
+        onValidSubmit={this.handleSubmit}
+        error={error}
+        showForm={authorized}
+      >
+        <TextInput
+          name={'distributionToken'}
+          label={'Voucher Token'}
+          validations={'isExisty'}
+          required
+        />
+      </ActionPanelForm>;
   }
 }
 

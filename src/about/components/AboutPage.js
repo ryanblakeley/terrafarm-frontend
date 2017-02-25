@@ -33,7 +33,7 @@ const AboutPage = () => {
       Company
     </h3>
     <p className={classNames.text}>
-      <a href={'https://terra.farm'} className={classNames.link}>Terrafarm</a> focuses on equitable food systems.
+      <a href={'https://terra.farm'} className={classNames.link}>Terrafarm</a>&rsquo;s focus is equitable food systems.
     </p>
     <h3 className={classNames.heading}>
       Content Library

@@ -1,5 +1,6 @@
 .this {
-  composes: center from 'shared/styles/_layout.css';
+  composes: page--gutter from 'shared/styles/_layout.css';
+  max-width: 470px;
 }
 .text {
   composes: largeBodyText from 'shared/styles/_typography.css';
