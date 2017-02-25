@@ -4,7 +4,7 @@ import classNames from '../styles/TaglineStylesheet.css';
 
 const Tagline = () => <div className={classNames.this}>
   <p className={classNames.text}>
-    Pay&mdash;in&mdash;advance for seasonal<span className={classNames.break} />farm products
+    Pay in advance for<span className={classNames.break} />seasonal farm products.
   </p>
   {/*
   <p className={classNames.text2}>
