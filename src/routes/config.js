@@ -27,7 +27,8 @@ import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
 import EditProductForm from 'product/containers/EditProductForm';
 import EditProductShareForm from 'product-share/containers/EditProductShareForm';
 import EditDistributionForm from 'distribution/containers/EditDistributionForm';
-// import ValidateTokenForm from 'distribution/containers/ValidateTokenForm';
+import ValidateTokenForm from 'distribution/containers/ValidateTokenForm';
+import ProcessTokenContainer from 'distribution/containers/ProcessTokenContainer';
 import SearchOrganizationsContainer from 'browse/containers/SearchOrganizationsContainer';
 import SearchUsersContainer from 'browse/containers/SearchUsersContainer';
 import SearchProductsContainer from 'browse/containers/SearchProductsContainer';
@@ -51,6 +52,8 @@ import EditOrganizationQueries from './EditOrganizationQueries';
 import EditProductQueries from './EditProductQueries';
 import EditProductShareQueries from './EditProductShareQueries';
 import EditDistributionQueries from './EditDistributionQueries';
+import ValidateTokenQueries from './ValidateTokenQueries';
+import ProcessTokenQueries from './ProcessTokenQueries';
 import PlaceQueries from './PlaceQueries';
 
 function prepareProfileParams (params) {
@@ -211,6 +214,19 @@ const routes = (
             />
           </Route>
         </Route>
+        <Route
+          path={'validate-token'}
+          component={ValidateTokenForm}
+          queries={ValidateTokenQueries}
+          onEnter={loginBouncer}
+        >
+          <Route
+            path={':distributionToken'}
+            component={ProcessTokenContainer}
+            queries={ProcessTokenQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
       </Route>
     </Route>
     <Route path={'product'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
@@ -238,14 +254,6 @@ const routes = (
           queries={ProductQueryQueries}
           onEnter={loginBouncer}
         />
-        {/*
-        <Route
-          path={'validate-token'}
-          component={ValidateTokenForm}
-          queries={DistributionQueries}
-          onEnter={loginBouncer}
-        />
-        */}
       </Route>
     </Route>
     <Route path={'share'} onEnter={loginBouncer} >

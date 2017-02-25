@@ -7,7 +7,6 @@ class Container extends React.Component {
   static propTypes = {
     organization: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
-    query: React.PropTypes.object,
     relay: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
     children: React.PropTypes.object,
@@ -22,34 +21,16 @@ class Container extends React.Component {
     authorized: false,
   };
   componentWillMount () {
-    const {organization, currentPerson, query} = this.props;
-    const shareholderId = query.allDistributions.edges[0]
-      && query.allDistributions.edges[0].node.shareByShareId.userId;
-    const authorized = organization.ownerId === currentPerson.rowId
-      || shareholderId === currentPerson.rowId;
-
-    console.log('shareholder id:', shareholderId, 'owner id:', organization.ownerId, 'current person id:', currentPerson.rowId);
-    console.log('AUTHORIZED:', authorized);
+    const {organization, currentPerson} = this.props;
+    // const shareholderId = query.validateToken
+      // && query.validateToken.shareByShareId.userId;
+    const authorized = organization.ownerId === currentPerson.rowId;
+      // || shareholderId === currentPerson.rowId;
 
     this.setState({authorized});
   }
-  componentWillReceiveProps (nextProps) {
-    const {organization, query} = nextProps;
-    const distributionId = query.allDistributions.edges[0] && query.allDistributions.edges[0].node.rowId;
-    if (this.state.authorized && distributionId) {
-      router.push(`/distribution/${distributionId}`);
-    }
-  }
   handleSubmit = data => {
-    // form submits `data` and we pass the `location` input to the geocoder
-    // to get a standardized response about that geographical location.
-    //
-    // The top result from the geocoder is passed to our `place-registry` container
-    // This container looks up if we have the `placeId` registered in our db.
-    // An entry is created if it is new. The router returns to the form with the
-    // place data store in `context.location.state`
-    this.validateToken(Object.assign(data, {
-    }));
+    this.validateToken(Object.assign(data, {}));
   }
   handleSuccess = response => {
     this.props.notifyClose();
@@ -59,28 +40,13 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   validateToken (formData) {
-    const { organization, relay } = this.props;
+    const { organization } = this.props;
+    const { router } = this.context;
     const { distributionToken } = formData;
-    relay.setVariables({
-      distributionToken,
-    });
-    /*
-     * or first router.push to distribution page with edit panel open and status "RECEIVED" and "DONATED" enabled with the former being selected
-     * save buton enabled
-     *
-    Relay.Store.commitUpdate(
-      new UpdateOrganizationMutation({
-        organizationPatch: patch,
-        organization,
-      }), {
-        onSuccess: this.handleSuccess,
-        onFailure: this.handleFailure,
-      }
-    );
-    */
+    router.push(`/farm/${organization.rowId}/validate-token/${distributionToken}`);
   }
   render () {
-    const {organization, notifyClose, children} = this.props;
+    const {notifyClose, children} = this.props;
     const { error, authorized } = this.state;
 
     return <ActionPanelForm
@@ -104,7 +70,6 @@ class Container extends React.Component {
 export default Relay.createContainer(Container, {
   initialVariables: {
     organizationId: null,
-    distributionToken: null,
   },
   fragments: {
     organization: () => Relay.QL`
@@ -114,23 +79,6 @@ export default Relay.createContainer(Container, {
         ownerId,
       }
     `,
-    query: () => Relay.QL`
-      fragment on Query {
-        allDistributions(condition:{token:$distributionToken}) {
-          edges {
-            node {
-              id,
-              rowId,
-              shareByShareId {
-                productByProductId {
-                  organizationId
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
     currentPerson: () => Relay.QL`
       fragment on User {
         rowId,
@@ -138,3 +86,9 @@ export default Relay.createContainer(Container, {
     `,
   },
 });
+
+/*
+* or first router.push to distribution page with edit panel open and status "RECEIVED"
+* and "DONATED" enabled with the former being selected
+* save buton enabled
+*/
