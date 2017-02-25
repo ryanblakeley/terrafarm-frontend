@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, IndexRoute, IndexRedirect} from 'react-router';
 
-// Static pages
+// Components
 import CoreContainerTheme from 'core/components/CorePage';
 import Loading from 'core/components/Loading';
 import HomePage from 'home/components/HomePage';
@@ -17,19 +17,17 @@ import OrganizationContainer from 'organization/containers/OrganizationContainer
 import ProductContainer from 'product/containers/ProductContainer';
 import ProductShareContainer from 'product-share/containers/ProductShareContainer';
 import DistributionContainer from 'distribution/containers/DistributionContainer';
-
 import CreateOrganizationForm from 'profile/containers/CreateOrganizationForm';
 import CreateProductForm from 'organization/containers/CreateProductForm';
 import OrderShareForm from 'product/containers/OrderShareForm';
 import AssignShareForm from 'product/containers/AssignShareForm';
 import CreateDistributionForm from 'product-share/containers/CreateDistributionForm';
-
 import EditProfileForm from 'profile/containers/EditProfileForm';
 import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
 import EditProductForm from 'product/containers/EditProductForm';
 import EditProductShareForm from 'product-share/containers/EditProductShareForm';
 import EditDistributionForm from 'distribution/containers/EditDistributionForm';
-
+// import ValidateTokenForm from 'distribution/containers/ValidateTokenForm';
 import SearchOrganizationsContainer from 'browse/containers/SearchOrganizationsContainer';
 import SearchUsersContainer from 'browse/containers/SearchUsersContainer';
 import SearchProductsContainer from 'browse/containers/SearchProductsContainer';
@@ -229,7 +227,7 @@ const routes = (
           onEnter={loginBouncer}
         />
         <Route
-          path={'order-share'}
+          path={'reserve-share'}
           component={OrderShareForm}
           queries={UserProductQueryQueries}
           onEnter={loginBouncer}
@@ -240,6 +238,14 @@ const routes = (
           queries={ProductQueryQueries}
           onEnter={loginBouncer}
         />
+        {/*
+        <Route
+          path={'validate-token'}
+          component={ValidateTokenForm}
+          queries={DistributionQueries}
+          onEnter={loginBouncer}
+        />
+        */}
       </Route>
     </Route>
     <Route path={'share'} onEnter={loginBouncer} >

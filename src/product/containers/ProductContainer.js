@@ -31,27 +31,34 @@ const ProductContainer = (props, context) => {
   }
   const isOwner = props.product.organizationByOrganizationId.userByOwnerId.rowId
     === context.userId;
-  let isShareholder = false;
+  const shareHolderIds = [];
   const shareHolders = props.product.sharesByProductId.edges
     && props.product.sharesByProductId.edges.map(edge => {
       const customerName = edge.node.customerName;
       const user = edge.node.userByUserId;
       let itemUrl = null;
 
+      if (shareHolderIds.indexOf(user.id || customerName) > -1) {
+        return {};
+      }
+      shareHolderIds.push(user.id || customerName);
+
       if (edge.node.status === 'AVAILABLE'
         || edge.node.status === 'EXPIRED'
         || edge.node.status === 'CANCELED'
         || edge.node.status === 'EMPTY') {
-        return null;
+        return {};
       }
+      // mark these share items as links to shares instead of products
       if (edge.node.userId === context.userId) {
         itemUrl = `/share/${edge.node.rowId}`;
-        isShareholder = true;
+        // let isShareholder = true;
       } else if (isOwner) {
         itemUrl = `/share/${edge.node.rowId}`;
       } else if (user) {
         itemUrl = `/user/${user.rowId}`;
       }
+
       if (user) {
         return {
           id: user.id,
@@ -66,7 +73,6 @@ const ProductContainer = (props, context) => {
         itemUrl,
       };
     });
-
   const price = props.product.sharePrice
     ? `${props.product.sharePrice}`
     : 'price not provided';
@@ -79,13 +85,13 @@ const ProductContainer = (props, context) => {
       <Menu
         baseUrl={`/product/${props.product.rowId}`}
         header={{icon: <WheatIcon />, title: 'Product'}}
-        disabled={!context.loggedIn || (!isOwner && isShareholder)}
+        disabled={!context.loggedIn}
         list={[
           {
             icon: <IoIosTagsOutline />,
-            title: 'Order share',
-            url: 'order-share',
-            disabled: isOwner || isShareholder,
+            title: 'Reserve share',
+            url: 'reserve-share',
+            disabled: isOwner,
           },
           {
             icon: <IoIosTagsOutline />,
@@ -130,8 +136,8 @@ const ProductContainer = (props, context) => {
               text={`farm: ${props.product.organizationByOrganizationId.name}`}
             />
           </Link>
-          <ContentSubheader icon={<IoDollar />} text={`${price} / share`} light />
-          <ContentSubheader icon={<IoAsterisk />} text={`${props.product.creditsInitial} credits / share`} light />
+          <ContentSubheader icon={<IoDollar />} text={`${price}`} light />
+          <ContentSubheader icon={<IoAsterisk />} text={`${props.product.creditsInitial} credits`} light />
           <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
           <ContentBodyText text={props.product.description} />
           <HeroImage image={props.product.imageUrl} />

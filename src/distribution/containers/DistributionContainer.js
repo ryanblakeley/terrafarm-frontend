@@ -61,7 +61,7 @@ const DistributionContainer = (props, context) => {
           },
         ]}
       />
-      <ContentHeader text={`distribution status: ${props.distribution.status}`} />
+      <ContentHeader text={`status: ${props.distribution.status}`} />
       <MainContentWrapper
         right={<div />}
         left={<div>

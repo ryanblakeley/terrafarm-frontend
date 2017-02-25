@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
+import IoAsterisk from 'react-icons/lib/io/asterisk';
 import BarnIcon from 'organization/components/BarnIcon';
 import WheatIcon from 'product/components/WheatIcon';
 // Components
@@ -31,6 +32,11 @@ const OrganizationContainer = (props, context) => (!props.organization
         header={{icon: <BarnIcon />, title: 'Farm'}}
         disabled={props.organization.userByOwnerId.rowId !== context.userId}
         list={[
+          {
+            icon: <IoAsterisk />,
+            title: 'Validate Token',
+            url: 'validate-token',
+          },
           {
             icon: <WheatIcon />,
             title: 'Create Product',
