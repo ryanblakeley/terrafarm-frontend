@@ -29,9 +29,10 @@ const ProductContainer = (props, context) => {
   if (!props.product) {
     return <NotFoundPage message={'Product not found.'} />;
   }
-  let currentPersonShareId = '';
   const isOwner = props.product.organizationByOrganizationId.userByOwnerId.rowId
     === context.userId;
+  let isShareholder = false;
+  let currentPersonShareId = '';
   const shareHolderIds = [];
   const shareHolders = props.product.sharesByProductId.edges
     && props.product.sharesByProductId.edges.map(edge => {
@@ -44,21 +45,19 @@ const ProductContainer = (props, context) => {
       }
       shareHolderIds.push((user && user.id) || customerName);
 
-      if (edge.node.userId && edge.node.userId === context.userId) {
-        currentPersonShareId = edge.node.rowId;
-      }
-
       if (edge.node.status === 'AVAILABLE'
         || edge.node.status === 'EXPIRED'
         || edge.node.status === 'CANCELED'
         || edge.node.status === 'EMPTY') {
         return {};
       }
-      // mark these share items as links to shares instead of products
-      if (edge.node.userId === context.userId) {
-        itemUrl = `/share/${edge.node.rowId}`;
-        // let isShareholder = true;
-      } else if (isOwner) {
+
+      if (edge.node.userId && edge.node.userId === context.userId) {
+        isShareholder = true;
+        currentPersonShareId = edge.node.rowId;
+      }
+
+      if (isOwner) {
         itemUrl = `/share/${edge.node.rowId}`;
       } else if (user) {
         itemUrl = `/user/${user.rowId}`;
@@ -96,13 +95,13 @@ const ProductContainer = (props, context) => {
             icon: <IoIosTagsOutline />,
             title: 'Reserve share',
             url: `product/${props.product.rowId}/reserve-share`,
-            disabled: isOwner || currentPersonShareId,
+            disabled: isOwner || isShareholder,
           },
           {
             icon: <IoIosTagsOutline />,
             title: 'My share',
             url: `share/${currentPersonShareId}`,
-            disabled: !currentPersonShareId,
+            disabled: !isShareholder,
           },
           {
             icon: <IoIosTagsOutline />,

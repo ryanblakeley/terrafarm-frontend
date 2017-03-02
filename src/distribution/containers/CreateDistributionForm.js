@@ -1,9 +1,9 @@
 import React from 'react';
 import Relay from 'react-relay';
+import MenuItem from 'material-ui/MenuItem';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
 import SelectInput from 'shared/components/SelectInput';
-import MenuItem from 'material-ui/MenuItem';
 import CreateDistributionMutation from '../mutations/CreateDistributionMutation';
 
 class Container extends React.Component {

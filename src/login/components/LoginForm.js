@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextInput from '../../shared/components/TextInput';
-import FormError from '../../shared/components/FormError';
+import TextInput from 'shared/components/TextInput';
+import FormError from 'shared/components/FormError';
 import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
 import classNames from '../styles/LoginFormStylesheet.css';
 

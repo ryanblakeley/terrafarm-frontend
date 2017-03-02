@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import ReactGA from 'react-ga';
 
 import networkLayer from 'shared/utils/networkLayer';
-import routes from './routes/config';
+import routes from './routes';
 
 injectTapEventPlugin();
 ReactGA.initialize(process.env.GOOGLE_ANALYTICS_KEY);

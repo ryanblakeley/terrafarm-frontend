@@ -4,7 +4,7 @@ import classNames from '../styles/TaglineStylesheet.css';
 
 const Tagline = () => <div className={classNames.this}>
   <p className={classNames.text}>
-    A platform for farmers to sell paid-in-advance vouchers directly to consumers.
+    A platform for CSAs with vouchers, multi-farm trades, and charitable donations.
   </p>
 </div>;
 

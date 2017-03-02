@@ -2,8 +2,8 @@ import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import TextInput from 'shared/components/TextInput';
-import CreateProductMutation from 'organization/mutations/CreateProductMutation';
 import validations from 'shared/utils/validations';
+import CreateProductMutation from '../mutations/CreateProductMutation';
 
 class Container extends React.Component {
   static propTypes = {

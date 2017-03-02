@@ -1,6 +1,18 @@
-# Terrafarm Frontend Notes
+# Terrafarm CSA Frontend Notes
 
 ## Changelog
+
+### 2.0.1 2017 March 1
+
+- create and edit farms, users, products, shares, vouchers
+- reserve shares and activate shares with tokens
+- create vouchers and validate vouchers with tokens
+- redirect user page for current person to profile
+- new icons and copy
+
+### 2.0.0 2017 Feb 4
+
+- redesign as a CSA platform
 
 ### 1.1.0 2016 Dec 7
 
@@ -106,15 +118,12 @@
 
 ### 0.3 2016 January
 
-#### Stories
 - user authentication
 - liking a group enables user to offer a resource
 - group admins
   - make decisions on resource offers
   - edit the group details
 - resource offer includes user email so admin can correspond
-
-#### Frontend
 - added fields to users, resources, and groups forms and pages
   - email
   - categories
@@ -122,18 +131,13 @@
 - likes on resources and groups
 - admin badge
 - forms and form components
-
-#### Resilience
 - shrinkwrap
 - chaos monkey
 
-## 0.2 2016 January
+### 0.2 2016 January
 
-#### Documentation
 - gh-pages
 - Heroku free hosting
-
-#### Frontend
 - Home Page
 - About Page
 - Main Menu
@@ -147,7 +151,6 @@
 - material components
 - route transitions
 
-#### Database
 - migrated to Fieldbook
 - item api
 - `./.env` db keys
@@ -155,7 +158,6 @@
 
 ### 0.1 2015 December
 
-#### Documentation
 - core [practices](https://github.com/linuxfoundation/cii-best-practices-badge) and standards.
 - app description
 - installation
@@ -165,16 +167,12 @@
 - license
 - roadmap
 - change log
-
-#### Frontend
 - tech and architecture
 - basic user stories
 - typography
 - index page with stateful login component
 - icons
 - color coded relationships between users, groups, and resources
-
-#### Database
 - mock database
 - basic types
 - basic mutations
