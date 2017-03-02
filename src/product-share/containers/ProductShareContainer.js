@@ -78,7 +78,7 @@ const ProductShareContainer = (props, context) => {
           {
             icon: <IoAsterisk />,
             title: 'Activate Share',
-            url: 'validate-token',
+            url: isFarmOwner ? `validate-token/${props.share.token}` : 'validate-token',
             disabled: (!isFarmOwner && !isCardholder) || props.share.status === 'PURCHASED',
           },
           {

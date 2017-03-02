@@ -15,6 +15,7 @@ export default class UpdateProductShareMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateSharePayload {
         share {
+          customerContact,
           customerNotes,
           status,
         },

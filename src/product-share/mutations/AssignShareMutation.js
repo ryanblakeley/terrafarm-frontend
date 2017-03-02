@@ -4,6 +4,7 @@ export default class AssignShareMutation extends Relay.Mutation {
   static fragments = {
     product: () => Relay.QL`
       fragment on Product {
+        id,
         rowId,
       }
     `,
@@ -33,6 +34,9 @@ export default class AssignShareMutation extends Relay.Mutation {
             rowId,
           }
         },
+        productByProductId {
+          sharesByProductId,
+        },
         query {
           allShares,
         },
@@ -46,6 +50,16 @@ export default class AssignShareMutation extends Relay.Mutation {
         parentName: 'query',
         parentID: this.props.query.id,
         connectionName: 'allShares',
+        edgeName: 'shareEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
+      },
+      {
+        type: 'RANGE_ADD',
+        parentName: 'productByProductId',
+        parentID: this.props.product.id,
+        connectionName: 'sharesByProductId',
         edgeName: 'shareEdge',
         rangeBehaviors: {
           '': 'append',

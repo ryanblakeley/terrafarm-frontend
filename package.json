@@ -1,7 +1,7 @@
 {
   "name": "terrafarm-csa-frontend",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Frontend client and server code for Terrafarm CSA app",
   "repository": "rojobuffalo/terrafarm-csa-frontend",
   "author": "rojobuffalo",

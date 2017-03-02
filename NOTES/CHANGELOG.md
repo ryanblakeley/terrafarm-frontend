@@ -5,7 +5,7 @@
 ### 2.0.1 2017 March 1
 
 - create and edit farms, users, products, shares, vouchers
-- reserve shares and activate shares with tokens
+- assing and reserve shares and activate shares with tokens
 - create vouchers and validate vouchers with tokens
 - redirect user page for current person to profile
 - new icons and copy
