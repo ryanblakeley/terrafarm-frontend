@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 2.0.2 2017 March 2
+
+- fix links, queries, fields
+- change token icon
+
 ### 2.0.1 2017 March 1
 
 - create and edit farms, users, products, shares, vouchers
