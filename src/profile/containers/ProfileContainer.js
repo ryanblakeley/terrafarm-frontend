@@ -26,10 +26,10 @@ const ProfileContainer = (props, context) => {
   const menuList = [
     { icon: <IoEdit />, title: 'Edit Profile', url: 'edit' },
   ];
-  if (!props.user.organizationsByOwnerId.edges.length > 0) {
+  if (!props.currentPerson.organizationsByOwnerId.edges.length > 0) {
     menuList.push({ icon: <IoPlus />, title: 'Create Farm', url: 'create-farm' });
   }
-  let vouchersList = props.user.sharesByUserId.edges.map(edge => (
+  let vouchersList = props.currentPerson.sharesByUserId.edges.map(edge => (
     edge.node.distributionsByShareId.edges.map(distributionEdge => ({
       id: distributionEdge.node.id,
       status: distributionEdge.node.status,
@@ -48,7 +48,7 @@ const ProfileContainer = (props, context) => {
         header={{icon: <IoPerson />, title: 'Profile'}}
         list={menuList}
       />
-      <ContentHeader text={props.user.name} />
+      <ContentHeader text={props.currentPerson.name} />
       <MainContentWrapper
         right={<Accordion
           panels={[
@@ -65,8 +65,8 @@ const ProfileContainer = (props, context) => {
                 label: 'Shares',
               },
               body: <RelationshipList
-                listItems={props.user.sharesByUserId.edges.length > 0
-                  ? props.user.sharesByUserId.edges.map(edge => ({
+                listItems={props.currentPerson.sharesByUserId.edges.length > 0
+                  ? props.currentPerson.sharesByUserId.edges.map(edge => ({
                     id: edge.node.id,
                     name: edge.node.productName,
                     itemId: edge.node.rowId,
@@ -81,10 +81,10 @@ const ProfileContainer = (props, context) => {
         left={<div>
           <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
           <ContentSubheader
-            text={props.user.placeByPlaceId && props.user.placeByPlaceId.address}
+            text={props.currentPerson.placeByPlaceId && props.currentPerson.placeByPlaceId.address}
             light
           />
-          {props.user.organizationsByOwnerId.edges.map(edge => <Link
+          {props.currentPerson.organizationsByOwnerId.edges.map(edge => <Link
             to={`/farm/${edge.node.rowId}`}
             className={classNames.link}
             key={edge.node.id}
@@ -94,8 +94,8 @@ const ProfileContainer = (props, context) => {
               text={edge.node.name}
             />
           </Link>)}
-          <ContentBodyText text={props.user.description} />
-          <HeroImage image={props.user.imageUrl} />
+          <ContentBodyText text={props.currentPerson.description} />
+          <HeroImage image={props.currentPerson.imageUrl} />
         </div>}
       />
     </div>
@@ -103,7 +103,7 @@ const ProfileContainer = (props, context) => {
 };
 
 ProfileContainer.propTypes = {
-  user: React.PropTypes.object,
+  currentPerson: React.PropTypes.object,
   children: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.array,
@@ -115,11 +115,9 @@ ProfileContainer.contextTypes = {
 };
 
 export default Relay.createContainer(ProfileContainer, {
-  initialVariables: {
-    userId: null,
-  },
+  initialVariables: {},
   fragments: {
-    user: () => Relay.QL`
+    currentPerson: () => Relay.QL`
       fragment on User {
         name,
         imageUrl,

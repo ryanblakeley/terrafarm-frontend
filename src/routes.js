@@ -39,6 +39,7 @@ import SearchProductsContainer from 'browse/containers/SearchProductsContainer';
 import PlaceLookupContainer from 'place/containers/PlaceLookupContainer';
 
 // Queries
+import ProfileQueries from 'profile/queries/ProfileQueries';
 import ProfileQueryQueries from 'profile/queries/ProfileQueryQueries';
 import UserQueries from 'user/queries/UserQueries';
 import UserCurrentPersonQueries from 'user/queries/UserCurrentPersonQueries';
@@ -136,12 +137,12 @@ const routes = (
     <Route
       path={'profile'}
       component={ProfileContainer}
-      queries={UserQueries}
+      queries={ProfileQueries}
       prepareParams={prepareProfileParams}
       onEnter={loginBouncer}
       renderLoading={renderLoading}
     >
-      <Route path={'edit'} component={EditProfileForm} queries={UserQueries} >
+      <Route path={'edit'} component={EditProfileForm} queries={ProfileQueries} >
         <Route path={'place-lookup'}>
           <Route
             path={':placeId'}

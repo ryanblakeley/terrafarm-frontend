@@ -8,7 +8,7 @@ import CreateOrganizationMutation from '../mutations/CreateOrganizationMutation'
 
 class Container extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object,
+    currentPerson: React.PropTypes.object,
     query: React.PropTypes.object,
     google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
@@ -41,7 +41,7 @@ class Container extends React.Component {
       delete formData.location;
       this.createOrganization(Object.assign(formData, {
         placeId: placeData.rowId,
-        ownerId: props.user.rowId,
+        ownerId: props.currentPerson.rowId,
       }));
     }
   }
@@ -87,12 +87,12 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   createOrganization (data) {
-    const {user, query} = this.props;
+    const {currentPerson, query} = this.props;
 
     Relay.Store.commitUpdate(
       new CreateOrganizationMutation({
         organizationData: data,
-        user,
+        user: currentPerson,
         query,
       }), {
         onSuccess: this.handleSuccess,
@@ -150,12 +150,11 @@ const GoogleAPIWrappedContainer = GoogleApiWrapper({ // eslint-disable-line
 })(Container);
 
 export default Relay.createContainer(GoogleAPIWrappedContainer, {
-  initialVariables: {
-    userId: null,
-  },
+  initialVariables: {},
   fragments: {
-    user: () => Relay.QL`
+    currentPerson: () => Relay.QL`
       fragment on User {
+        rowId,
         ${CreateOrganizationMutation.getFragment('user')},
       }
     `,

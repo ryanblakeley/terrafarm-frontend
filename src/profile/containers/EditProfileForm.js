@@ -9,7 +9,7 @@ import DeleteUserMutation from '../mutations/DeleteUserMutation';
 
 class Container extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object,
+    currentPerson: React.PropTypes.object,
     google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
     children: React.PropTypes.object,
@@ -78,7 +78,7 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   updateUser (patch) {
-    const { user } = this.props;
+    const {currentPerson} = this.props;
     // the form data has a `location` input which was resolved into a `placeId`
     // we need to drop the location key from the data object so we can use the
     // otherwise intact patch object for the update.
@@ -87,7 +87,7 @@ class Container extends React.Component {
     Relay.Store.commitUpdate(
       new UpdateUserMutation({
         userPatch: patch,
-        user,
+        user: currentPerson,
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
@@ -100,7 +100,7 @@ class Container extends React.Component {
     Geocoder.geocode(request, callback);
   }
   render () {
-    const {user, notifyClose, children} = this.props;
+    const {currentPerson, notifyClose, children} = this.props;
     const {error} = this.state;
 
     return <ActionPanelForm
@@ -112,14 +112,14 @@ class Container extends React.Component {
       <TextInput
         name={'name'}
         label={'Name'}
-        initialValue={user.name}
+        initialValue={currentPerson.name}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
         required
       />
       <TextInput
         name={'location'}
         label={'Location'}
-        initialValue={user.placeByPlaceId && user.placeByPlaceId.address}
+        initialValue={currentPerson.placeByPlaceId && currentPerson.placeByPlaceId.address}
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
         onChange={this.handleChangeLocation}
         required
@@ -127,7 +127,7 @@ class Container extends React.Component {
       <TextInput
         name={'description'}
         label={'Description'}
-        initialValue={user.description}
+        initialValue={currentPerson.description}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
         required
         multiLine
@@ -136,7 +136,7 @@ class Container extends React.Component {
       <TextInput
         name={'imageUrl'}
         label={'Image'}
-        initialValue={user.imageUrl}
+        initialValue={currentPerson.imageUrl}
         validations={'isUrl'}
       />
       {children}
@@ -149,11 +149,9 @@ const GoogleAPIWrappedContainer = GoogleApiWrapper({ // eslint-disable-line
 })(Container);
 
 export default Relay.createContainer(GoogleAPIWrappedContainer, {
-  initialVariables: {
-    userId: null,
-  },
+  initialVariables: {},
   fragments: {
-    user: () => Relay.QL`
+    currentPerson: () => Relay.QL`
       fragment on User {
         id,
         name,

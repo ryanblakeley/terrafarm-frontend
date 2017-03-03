@@ -8,7 +8,7 @@ import IoPerson from 'react-icons/lib/io/person';
 import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
 import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
 import IoAsterisk from 'react-icons/lib/io/asterisk';
-import IoKey from 'react-icons/lib/io/key';
+import IoKey from 'react-icons/lib/io/lock-combination';
 import IoIosEmail from 'react-icons/lib/io/ios-email-outline';
 import WheatIcon from 'product/components/WheatIcon';
 // Components
@@ -116,11 +116,13 @@ const ProductShareContainer = (props, context) => {
               context.router.replace(`/share/${props.share.rowId}`);
             }}
           />
-          {isFarmOwner && <ContentSubheader
-            icon={<IoKey />}
-            text={`token: ${props.share.token}`}
-            light
-          />}
+          {isFarmOwner
+            && props.share.status === 'RESERVED'
+            && <ContentSubheader
+              icon={<IoKey />}
+              text={props.share.token}
+              light
+            />}
           {userElem}
           <Link
             to={`/product/${props.share.productByProductId.rowId}`}

@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 // Icons
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
-import IoKey from 'react-icons/lib/io/key';
+import IoKey from 'react-icons/lib/io/lock-combination';
 import IoIosArrowLeft from 'react-icons/lib/io/ios-arrow-thin-left';
 import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
 import IoAsterisk from 'react-icons/lib/io/asterisk';
@@ -84,11 +84,13 @@ const DistributionContainer = (props, context) => {
               context.router.replace(`/voucher/${props.distribution.rowId}`);
             }}
           />
-          {isCardholder && <ContentSubheader
-            icon={<IoKey />}
-            text={`token: ${props.distribution.token}`}
-            light
-          />}
+          {isCardholder
+            && (props.distribution.status === 'PLANNED' || props.distribution.status === 'HARVESTED')
+            && <ContentSubheader
+              icon={<IoKey />}
+              text={props.distribution.token}
+              light
+            />}
           {userElem}
           <Link
             to={`/product/${props.distribution.shareByShareId.productId}`}
