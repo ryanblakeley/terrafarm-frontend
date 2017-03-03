@@ -139,11 +139,12 @@ const ProductShareContainer = (props, context) => {
             text={props.share.customerContact}
             light
           />
-          <ContentSubheader
-            icon={<IoIosChatBubble />}
-            text={props.share.customerNotes}
-            light
-          />
+          {props.share.customerNotes
+            && <ContentSubheader
+              icon={<IoIosChatBubble />}
+              text={props.share.customerNotes}
+              light
+            />}
         </div>}
       />
     </div>

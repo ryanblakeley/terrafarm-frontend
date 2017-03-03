@@ -50,7 +50,6 @@ class Container extends React.Component {
           productName: product.name,
           productDescription: product.description,
           creditsInitial: product.creditsInitial,
-          creditsRemaining: product.creditsInitial,
         },
         product,
         query,
