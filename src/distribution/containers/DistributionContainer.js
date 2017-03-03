@@ -63,7 +63,7 @@ const DistributionContainer = (props, context) => {
           {
             icon: <IoAsterisk />,
             title: 'Validate Voucher',
-            url: `farm/${organizationId}/voucher-lookup`,
+            url: `farm/${organizationId}/accept-voucher`,
             disabled: !isOwner || props.distribution.status === 'RECEIVED',
           },
           {

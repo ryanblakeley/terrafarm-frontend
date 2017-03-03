@@ -72,6 +72,16 @@ class Container extends React.Component {
       onValidSubmit={this.handleSubmit}
       error={error}
     >
+      <SelectInput
+        name={'status'}
+        label={'Status'}
+        validations={'isExisty'}
+        value={'RESERVED'}
+        required
+      >
+        <MenuItem value={'RESERVED'} primaryText={'Reserved'} />
+        <MenuItem value={'PURCHASED'} primaryText={'Purchased'} />
+      </SelectInput>
       <TextInput
         name={'customerName'}
         label={'Customer Name'}
@@ -91,16 +101,6 @@ class Container extends React.Component {
         multiLine
         rows={3}
       />
-      <SelectInput
-        name={'status'}
-        label={'Status'}
-        validations={'isExisty'}
-        value={'RESERVED'}
-        required
-      >
-        <MenuItem value={'RESERVED'} primaryText={'Reserved'} />
-        <MenuItem value={'PURCHASED'} primaryText={'Purchased'} />
-      </SelectInput>
       {children}
     </ActionPanelForm>;
   }
