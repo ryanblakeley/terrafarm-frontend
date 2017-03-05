@@ -28,9 +28,10 @@ const DistributionContainer = (props, context) => {
   const isOwner = props.distribution.shareByShareId.productByProductId
     .organizationByOrganizationId.userByOwnerId.rowId === context.userId;
   const isCardholder = props.distribution.shareByShareId.userId === context.userId;
+  const shareholderIsUser = !!props.distribution.shareByShareId.userByUserId;
   let userElem;
 
-  if (props.distribution.shareByShareId.userByUserId) {
+  if (shareholderIsUser) {
     userElem = <Link
       to={`/user/${props.distribution.shareByShareId.userByUserId.rowId}`}
       className={classNames.link}
@@ -58,7 +59,7 @@ const DistributionContainer = (props, context) => {
             icon: <IoAsterisk />,
             title: 'Validate Voucher',
             url: `voucher/${props.distribution.rowId}/process-token/${props.distribution.token}`,
-            disabled: !isCardholder || props.distribution.status === 'RECEIVED',
+            disabled: (!isCardholder && shareholderIsUser) || props.distribution.status === 'RECEIVED',
           },
           {
             icon: <IoAsterisk />,

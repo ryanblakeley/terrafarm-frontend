@@ -73,8 +73,32 @@ class Container extends React.Component {
         rows={3}
       />
       <TextInput
+        name={'startDate'}
+        label={'Start Date'}
+        placeholder={'2017-05-15'}
+        validations={{
+          matchRegexp: validations.matchDate,
+        }}
+        required
+      />
+      <TextInput
+        name={'endDate'}
+        label={'End Date'}
+        placeholder={'2017-08-30'}
+        validations={{
+          matchRegexp: validations.matchDate,
+        }}
+        required
+      />
+      <TextInput
+        name={'creditsInitial'}
+        label={'Number of distributions / share'}
+        validations={'isNumeric'}
+        required
+      />
+      <TextInput
         name={'maxShares'}
-        label={'Number of Shares'}
+        label={'Maximum number of shares'}
         validations={'isNumeric'}
         required
       />
@@ -84,22 +108,6 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchCurrency,
         }}
-      />
-      <TextInput
-        name={'startDate'}
-        label={'Start Date'}
-        validations={{
-          matchRegexp: validations.matchDate,
-        }}
-        required
-      />
-      <TextInput
-        name={'endDate'}
-        label={'End Date'}
-        validations={{
-          matchRegexp: validations.matchDate,
-        }}
-        required
       />
       <TextInput
         name={'imageUrl'}

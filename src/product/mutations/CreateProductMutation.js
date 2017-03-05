@@ -4,6 +4,7 @@ export default class CreateProductMutation extends Relay.Mutation {
   static fragments = {
     organization: () => Relay.QL`
       fragment on Organization {
+        id,
         rowId,
       }
     `,
@@ -33,6 +34,9 @@ export default class CreateProductMutation extends Relay.Mutation {
             rowId,
           }
         },
+        organizationByOrganizationId {
+          productsByOrganizationId,
+        },
         query {
           allProducts,
         },
@@ -46,6 +50,16 @@ export default class CreateProductMutation extends Relay.Mutation {
         parentName: 'query',
         parentID: this.props.query.id,
         connectionName: 'allProducts',
+        edgeName: 'productEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
+      },
+      {
+        type: 'RANGE_ADD',
+        parentName: 'organizationByOrganizationId',
+        parentID: this.props.organization.id,
+        connectionName: 'productsByOrganizationId',
         edgeName: 'productEdge',
         rangeBehaviors: {
           '': 'append',

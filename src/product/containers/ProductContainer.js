@@ -147,7 +147,7 @@ const ProductContainer = (props, context) => {
             />
           </Link>
           <ContentSubheader icon={<IoDollar />} text={`${price}`} light />
-          <ContentSubheader icon={<IoAsterisk />} text={`${props.product.creditsInitial} vouchers / share`} light />
+          <ContentSubheader icon={<IoAsterisk />} text={`${props.product.creditsInitial} distributions / share`} light />
           <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
           <ContentBodyText text={props.product.description} />
           <HeroImage image={props.product.imageUrl} />

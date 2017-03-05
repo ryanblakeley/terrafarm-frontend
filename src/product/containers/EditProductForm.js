@@ -99,26 +99,6 @@ class Container extends React.Component {
         rows={3}
       />
       <TextInput
-        name={'maxShares'}
-        label={'Max # of shares'}
-        initialValue={String(product.maxShares)}
-        validations={'isNumeric'}
-        required
-      />
-      <TextInput
-        name={'sharePrice'}
-        label={'Share price'}
-        initialValue={String(product.sharePrice)}
-        validations={{matchRegexp: validations.matchCurrency}}
-      />
-      <TextInput
-        name={'creditsInitial'}
-        label={'# of vouchers / share'}
-        initialValue={String(product.creditsInitial)}
-        validations={'isNumeric'}
-        required
-      />
-      <TextInput
         name={'startDate'}
         label={'Start date'}
         initialValue={product.startDate}
@@ -135,6 +115,26 @@ class Container extends React.Component {
           matchRegexp: validations.matchDate,
         }}
         required
+      />
+      <TextInput
+        name={'creditsInitial'}
+        label={'Number of distributions / share'}
+        initialValue={String(product.creditsInitial)}
+        validations={'isNumeric'}
+        required
+      />
+      <TextInput
+        name={'maxShares'}
+        label={'Maximum number of shares'}
+        initialValue={String(product.maxShares)}
+        validations={'isNumeric'}
+        required
+      />
+      <TextInput
+        name={'sharePrice'}
+        label={'Share price'}
+        initialValue={String(product.sharePrice)}
+        validations={{matchRegexp: validations.matchCurrency}}
       />
       <TextInput
         name={'imageUrl'}
@@ -158,12 +158,12 @@ export default Relay.createContainer(Container, {
         rowId,
         name,
         description,
-        imageUrl,
-        sharePrice,
-        creditsInitial,
-        maxShares,
         startDate,
         endDate,
+        creditsInitial,
+        maxShares,
+        sharePrice,
+        imageUrl,
         organizationByOrganizationId {
           userByOwnerId {
             rowId

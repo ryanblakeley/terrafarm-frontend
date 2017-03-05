@@ -79,7 +79,7 @@ class Container extends React.Component {
       />
       <TextInput
         name={'customerContact'}
-        label={'Your Contact Info'}
+        label={'Your Contact'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
         required
       />
