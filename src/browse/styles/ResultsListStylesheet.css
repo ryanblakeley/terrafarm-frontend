@@ -1,14 +1,10 @@
 .this { position: relative; margin: 0 auto; max-width: 350px; }
-.list {
-  composes: bulletList from '../../shared/styles/_typography.css';
-  margin: 0;
-  padding: 0;
-}
+.list { margin: 0; padding: 0; }
 .emptyListItem {
   height: 36px;
 }
 .emptyWarning {
-  composes: bodyText from '../../shared/styles/_typography.css';
+  composes: bodyText from 'shared/styles/_typography.css';
   margin: 0;
   font-style: italic;
   opacity: 0.88;

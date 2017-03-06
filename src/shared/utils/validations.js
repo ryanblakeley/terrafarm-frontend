@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len, no-useless-escape */
 const validations = {
   matchAlphanumeric: /[A-Za-z,.0-9]*/,
   matchCurrency: /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/,

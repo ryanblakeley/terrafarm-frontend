@@ -1,41 +1,36 @@
 import React from 'react';
-import IoPerson from 'react-icons/lib/io/person';
-import IoIosMore from 'react-icons/lib/io/ios-more';
-import BarnIcon from 'organization/components/BarnIcon';
-import WheatIcon from 'product/components/WheatIcon';
+import {MoreIcon, BarnIcon} from 'shared/components/Icons';
+import Layout from 'shared/components/Layout';
+import {H3} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import BrowseContentWrapper from './BrowseContentWrapper';
-import BrowsePageHeading from './BrowsePageHeading';
-import classNames from '../styles/BrowseContainerStylesheet.css';
 
-const BrowseContainer = (props, context) => <TransitionWrapper>
-  <div className={classNames.this} >
+const BrowsePage = (props, context) => <TransitionWrapper>
+  <Layout>
     <Menu
       baseUrl={'/browse'}
-      header={{icon: <IoIosMore />, title: 'Browse'}}
-      disabled={false}
+      header={{icon: <MoreIcon />, title: 'Browse'}}
+      disabled
       list={[
         { icon: <BarnIcon />, title: 'Farms', url: 'farms' },
-        { icon: <WheatIcon />, title: 'Products', url: 'products' },
-        { icon: <IoPerson />, title: 'Users', url: 'users' },
       ]}
     />
-    <BrowsePageHeading />
+    <H3>{context.location.pathname.split('/')[2]}</H3>
     <BrowseContentWrapper children={props.children} />
-  </div>
+  </Layout>
 </TransitionWrapper>;
 
-BrowseContainer.propTypes = {
+BrowsePage.propTypes = {
   query: React.PropTypes.object,
   children: React.PropTypes.oneOfType([
     React.PropTypes.object, React.PropTypes.array,
   ]),
 };
 
-BrowseContainer.contextTypes = {
+BrowsePage.contextTypes = {
   location: React.PropTypes.object,
   router: React.PropTypes.object,
 };
 
-export default BrowseContainer;
+export default BrowsePage;

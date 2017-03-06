@@ -18,8 +18,10 @@ class Container extends React.Component {
     const isFarmProduct = distributionByDistributionToken
       && organization.rowId === distributionByDistributionToken
         .shareByShareId.productByProductId.organizationId;
-    const valid = distributionByDistributionToken.status === 'PLANNED'
-      || distributionByDistributionToken.status === 'HARVESTED';
+    const valid = distributionByDistributionToken
+      && (distributionByDistributionToken.status === 'PLANNED'
+      || distributionByDistributionToken.status === 'HARVESTED'
+      || distributionByDistributionToken.status === 'READY');
 
     if (valid && isFarmOwner && isFarmProduct) {
       this.forwardVoucherAndToken();
@@ -31,7 +33,7 @@ class Container extends React.Component {
     const { distributionByDistributionToken } = this.props;
     const {router} = this.context;
 
-    router.replace(`/voucher/${distributionByDistributionToken.rowId}/process-token/${distributionByDistributionToken.token}`);
+    router.replace(`/voucher/${distributionByDistributionToken.rowId}/validate/${distributionByDistributionToken.token}`);
   }
   returnToLookupVoucher () {
     const {organization} = this.props;

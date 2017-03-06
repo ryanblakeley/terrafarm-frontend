@@ -1,5 +1,1 @@
-.this {}
-.icon {
-  composes: icon from 'shared/styles/_typography.css';
-  font-size: 22px;
-}
+.icon { font-size: 22px; }

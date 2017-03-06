@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
+import {TextInput} from 'shared/components/Form';
 import ReserveShareMutation from '../mutations/ReserveShareMutation';
 
 class Container extends React.Component {
@@ -74,7 +74,7 @@ class Container extends React.Component {
         name={'customerName'}
         label={'Your Name'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
-        initialValue={user.name}
+        value={user.name}
         required
       />
       <TextInput

@@ -1,9 +1,7 @@
 import React from 'react';
+import Layout from 'shared/components/Layout';
+import {P} from 'shared/components/Typography';
 
-import classNames from '../styles/LoadingStylesheet.css';
-
-const Loading = _ => <div className={classNames.this}>
-  <div className={classNames.text}>Loading...</div>
-</div>;
+const Loading = _ => <Layout page><P>Loading...</P></Layout>;
 
 export default Loading;

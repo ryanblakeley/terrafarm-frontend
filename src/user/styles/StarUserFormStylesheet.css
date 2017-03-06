@@ -1,3 +1,0 @@
-.this { composes: center from '../../shared/styles/_layout.css'; }
-.icon { composes: icon from '../../shared/styles/_typography.css'; }
-/* .button { composes: button from '../../shared/styles/_typography.css'; } */

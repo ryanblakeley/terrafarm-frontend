@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import Formsy from 'formsy-react';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextInput from 'shared/components/TextInput';
+import Layout from 'shared/components/Layout';
+import {Form, TextInput} from 'shared/components/Form';
+import {RaisedButton} from 'shared/components/Material';
 import FormError from 'shared/components/FormError';
 import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
 import classNames from '../styles/LoginFormStylesheet.css';
@@ -39,7 +39,7 @@ export default class LoginForm extends Component {
     const { loginError, canSubmit } = this.state;
 
     return (
-      <Formsy.Form
+      <Form
         onValid={this.handleValid}
         onInvalid={this.handleInvalid}
         onValidSubmit={this.loginUser}
@@ -61,16 +61,16 @@ export default class LoginForm extends Component {
             required
           />
           { loginError && <FormError text={loginError} /> }
-          <div className={classNames.buttons}>
+          <Layout center topSmall>
             <RaisedButton
               type={'submit'}
               label={'Submit'}
               disabled={!canSubmit}
               fullWidth
             />
-          </div>
+          </Layout>
         </div>
-      </Formsy.Form>
+      </Form>
     );
   }
 }

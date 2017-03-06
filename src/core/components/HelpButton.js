@@ -1,7 +1,7 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
+import {IconButton} from 'shared/components/Material';
 import {blueGrey500} from 'material-ui/styles/colors';
-import IoInformationCircled from 'react-icons/lib/io/ios-help-outline';
+import {InformationIcon} from 'shared/components/Icons';
 import classNames from '../styles/HelpButtonStylesheet.css';
 
 const styles = {
@@ -22,7 +22,7 @@ const HelpButton = (_, context) => <div className={classNames.this}>
     onTouchTap={() => context.router.push('/about')}
     touch
   >
-    <IoInformationCircled className={classNames.icon} />
+    <InformationIcon className={classNames.icon} />
   </IconButton>
 </div>;
 

@@ -1,6 +1,0 @@
-.this {
-  composes: page--fullWidth from '../../shared/styles/_layout.css';
-}
-.pageHeading {
-  composes: pageHeading from '../../shared/styles/_typography.css';
-}

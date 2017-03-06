@@ -1,6 +1,1 @@
-.this {
-  composes: page from '../../shared/styles/_layout.css';
-}
-.tabs {
-  margin: 15px auto 0; width: 256px;
-}
+.tabs { margin: 15px auto 0; width: 256px; }

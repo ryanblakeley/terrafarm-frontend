@@ -1,10 +1,9 @@
 import React from 'react';
-import Formsy from 'formsy-react';
-import {GoogleApiWrapper} from 'google-maps-react'; // eslint-disable-line
-import IoIosSearch from 'react-icons/lib/io/ios-search';
-import FormError from '../../shared/components/FormError';
-import TextInput from '../../shared/components/TextInput';
-import IconButton from '../../shared/components/IconButton';
+import {GoogleApiWrapper} from 'google-maps-react';
+import {SearchIcon} from 'shared/components/Icons';
+import {Form, TextInput} from 'shared/components/Form';
+import FormError from 'shared/components/FormError';
+import IconButton from 'shared/components/IconButton';
 import classNames from '../styles/BrowseFormStylesheet.css';
 
 class Container extends React.Component {
@@ -90,7 +89,7 @@ class Container extends React.Component {
     const {search} = location.query || '';
 
     return <div className={classNames.this}>
-      <Formsy.Form
+      <Form
         onValid={this.handleValid}
         onInvalid={this.handleInvalid}
         onValidSubmit={this.handleSubmit}
@@ -103,7 +102,7 @@ class Container extends React.Component {
             name={'searchText'}
             label={'Search'}
             validations={{matchRegexp: /[A-Za-z,0-9]*/}}
-            initialValue={search}
+            value={search}
             ref={input => (this.search = input)}
           />
         </div>
@@ -112,7 +111,7 @@ class Container extends React.Component {
             name={'location'}
             label={'Location'}
             validations={{matchRegexp: /[A-Za-z,0-9]*/}}
-            initialValue={mapCenterAddress}
+            value={mapCenterAddress}
             ref={input => (this.location = input)}
           />
         </div>
@@ -121,11 +120,11 @@ class Container extends React.Component {
             type={'submit'}
             disabled={!canSubmit}
           >
-            <IoIosSearch className={classNames.icon} />
+            <SearchIcon />
           </IconButton>
         </div>
         {error && <FormError text={error} /> }
-      </Formsy.Form>
+      </Form>
     </div>;
   }
 }

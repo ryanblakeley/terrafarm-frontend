@@ -16,7 +16,10 @@ env:
     node: true
 
 globals:
-    Auth0Lock: true
+    describe: true
+    it: true
+    expect: true
+    context: true
 
 settings:
     import/resolver: babel-module

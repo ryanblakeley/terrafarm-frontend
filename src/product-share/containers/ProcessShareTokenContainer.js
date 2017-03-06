@@ -2,14 +2,8 @@ import React from 'react';
 import Relay from 'react-relay';
 import validations from 'shared/utils/validations';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
-import SelectInput from 'shared/components/SelectInput';
-import MenuItem from 'material-ui/MenuItem';
+import {TextInput} from 'shared/components/Form';
 import UpdateShareMutation from 'product-share/mutations/UpdateProductShareMutation';
-
-// @TODO:
-// add checkmark icon to button
-// fix button width
 
 class Container extends React.Component {
   static propTypes = {
@@ -40,7 +34,9 @@ class Container extends React.Component {
 
     this.setState({ formData: data });
     if (sharesMatch && (isShareholder || isFarmOwner)) {
-      this.changeShare(data);
+      this.changeShare(Object.assign(data, {
+        status: 'ACTIVE',
+      }));
     }
   }
   handleSuccess = response => {
@@ -75,20 +71,10 @@ class Container extends React.Component {
       error={error}
       showForm={sharesMatch && (isShareholder || isFarmOwner)}
     >
-      <SelectInput
-        name={'status'}
-        label={'Status'}
-        validations={'isExisty'}
-        value={'PURCHASED'}
-        required
-      >
-        <MenuItem value={'RESERVED'} primaryText={'Reserved'} />
-        <MenuItem value={'PURCHASED'} primaryText={'Purchased'} />
-      </SelectInput>
       <TextInput
         name={'customerNotes'}
         label={'Comments'}
-        initialValue={share.customerNotes}
+        value={share.customerNotes}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
         multiLine
         rows={3}

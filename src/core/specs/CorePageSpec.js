@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, no-unused-expressions */
 import React, { PropTypes } from 'react';
 import Relay from 'react-relay';
 import { expect } from 'chai';
@@ -5,35 +6,35 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
 // Import the component that is NOT wrapped in a theme for testing
-import { CoreContainer } from 'core/CoreContainer';
+import { CorePage } from 'core/components/CorePage';
 
-function renderContainer(props, isActive) {
+function renderContainer (props, isActive) {
   const activeFunc = isActive || (() => false);
 
   return shallow(
-    <CoreContainer {...props} />,
+    <CorePage {...props} />,
     {
       context: {
         router: {
-          isActive: activeFunc
-        }
-      }
+          isActive: activeFunc,
+        },
+      },
     }
   );
 }
 
-describe('<CoreContainer />', () => {
+describe('<CorePage />', () => {
   // Test that we have the correct propTypes defined.
   describe('.propTypes', () => {
     describe('location', () => {
       it('should be an object', () => {
-        expect(CoreContainer.propTypes.location).to.eq(PropTypes.object);
+        expect(CorePage.propTypes.location).to.eq(PropTypes.object);
       });
     });
 
     describe('children', () => {
       it('should be an object', () => {
-        expect(CoreContainer.propTypes.children).to.eq(PropTypes.object);
+        expect(CorePage.propTypes.children).to.eq(PropTypes.object);
       });
     });
   });
@@ -42,7 +43,7 @@ describe('<CoreContainer />', () => {
   describe('.contextTypes', () => {
     describe('router', () => {
       it('should be a required object', () => {
-        expect(CoreContainer.contextTypes.router).to.eq(PropTypes.object.isRequired);
+        expect(CorePage.contextTypes.router).to.eq(PropTypes.object.isRequired);
       });
     });
   });
@@ -51,43 +52,43 @@ describe('<CoreContainer />', () => {
   describe('.childContextTypes', () => {
     describe('router', () => {
       it('should be an object', () => {
-        expect(CoreContainer.childContextTypes.router).to.eq(PropTypes.object);
+        expect(CorePage.childContextTypes.router).to.eq(PropTypes.object);
       });
     });
 
     describe('location', () => {
       it('should be an object', () => {
-        expect(CoreContainer.childContextTypes.location).to.eq(PropTypes.object);
+        expect(CorePage.childContextTypes.location).to.eq(PropTypes.object);
       });
     });
 
     describe('loggedIn', () => {
       it('should be an boolean', () => {
-        expect(CoreContainer.childContextTypes.loggedIn).to.eq(PropTypes.bool);
+        expect(CorePage.childContextTypes.loggedIn).to.eq(PropTypes.bool);
       });
     });
 
     describe('setLoggedIn', () => {
       it('should be a function', () => {
-        expect(CoreContainer.childContextTypes.setLoggedIn).to.eq(PropTypes.func);
+        expect(CorePage.childContextTypes.setLoggedIn).to.eq(PropTypes.func);
       });
     });
   });
 
   // Test that we initialize the component with the proper state
   describe('default state', () => {
-    const container = new CoreContainer();
+    const container = new CorePage();
 
     describe('loggedIn', () => {
-      it('should be false', () => {
-        expect(container.state.loggedIn).to.be.false;
-      });
+      it('should be false', () => (
+        expect(container.state.loggedIn).to.be.false
+      ));
     });
 
     describe('idToken', () => {
-      it('should be null', () => {
-        expect(container.state.idToken).to.be.null;
-      });
+      it('should be null', () => (
+        expect(container.state.idToken).to.be.null
+      ));
     });
   });
 
@@ -100,8 +101,8 @@ describe('<CoreContainer />', () => {
         router: { isActive: () => false },
         location: { foo: 'Foo' },
         loggedIn: false,
-        setLoggedIn: (loggedIn) => container.instance().setLoggedIn(loggedIn),
-        refresh: container.instance().forceRefresh
+        setLoggedIn: loggedIn => container.instance().setLoggedIn(loggedIn),
+        refresh: container.instance().forceRefresh,
       };
       const context = container.instance().getChildContext();
 

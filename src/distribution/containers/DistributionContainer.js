@@ -1,19 +1,20 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {Link} from 'react-router';
-// Icons
-import IoEdit from 'react-icons/lib/io/edit';
-import IoPerson from 'react-icons/lib/io/person';
-import IoKey from 'react-icons/lib/io/lock-combination';
-import IoIosArrowLeft from 'react-icons/lib/io/ios-arrow-thin-left';
-import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
-import IoAsterisk from 'react-icons/lib/io/asterisk';
-import WheatIcon from 'product/components/WheatIcon';
-// Components
+import {
+  EditIcon,
+  PersonIcon,
+  TokenIcon,
+  ArrowLeftIcon,
+  ChatBubbleIcon,
+  AsteriskIcon,
+  WheatIcon,
+  CheckmarkIcon,
+  TrashIcon,
+} from 'shared/components/Icons';
+import {H3, Link} from 'shared/components/Typography';
 import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-import ContentHeader from 'shared/components/ContentHeader';
 import ActionPanel from 'shared/components/ActionPanel';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import ContentSubheader from 'shared/components/ContentSubheader';
@@ -37,13 +38,13 @@ const DistributionContainer = (props, context) => {
       className={classNames.link}
     >
       <ContentSubheader
-        icon={<IoPerson width={24} height={24} />}
+        icon={<PersonIcon width={24} height={24} />}
         text={props.distribution.shareByShareId.userByUserId.name}
       />
     </Link>;
   } else {
     userElem = <ContentSubheader
-      icon={<IoPerson width={24} height={24} />}
+      icon={<PersonIcon width={24} height={24} />}
       text={props.distribution.shareByShareId.customerName}
     />;
   }
@@ -52,30 +53,42 @@ const DistributionContainer = (props, context) => {
     <div className={classNames.this}>
       <Menu
         baseUrl={''}
-        header={{icon: <IoAsterisk />, title: 'Voucher'}}
+        header={{icon: <AsteriskIcon />, title: 'Voucher'}}
         disabled={!isOwner && !isCardholder}
         list={[
           {
-            icon: <IoAsterisk />,
+            icon: <CheckmarkIcon />,
             title: 'Validate Voucher',
-            url: `voucher/${props.distribution.rowId}/process-token/${props.distribution.token}`,
-            disabled: (!isCardholder && shareholderIsUser) || props.distribution.status === 'RECEIVED',
+            url: `voucher/${props.distribution.rowId}/validate/${props.distribution.token}`,
+            disabled: (!isCardholder && shareholderIsUser)
+              || props.distribution.status === 'VALIDATED'
+              || props.distribution.status === 'CANCELED',
           },
           {
-            icon: <IoAsterisk />,
+            icon: <CheckmarkIcon />,
             title: 'Validate Voucher',
             url: `farm/${organizationId}/accept-voucher`,
-            disabled: !isOwner || props.distribution.status === 'RECEIVED',
+            disabled: !shareholderIsUser || !isOwner
+              || props.distribution.status === 'VALIDATED'
+              || props.distribution.status === 'CANCELED',
           },
           {
-            icon: <IoEdit />,
+            icon: <TrashIcon />,
+            title: 'Cancel Voucher',
+            url: `voucher/${props.distribution.rowId}/cancel`,
+            disabled: (!isCardholder && !isOwner)
+              || props.distribution.status === 'VALIDATED'
+              || props.distribution.status === 'CANCELED',
+          },
+          {
+            icon: <EditIcon />,
             title: 'Edit Voucher',
             url: `voucher/${props.distribution.rowId}/edit`,
             disabled: !isOwner && !isCardholder,
           },
         ]}
       />
-      <ContentHeader text={`status: ${props.distribution.status}`} />
+      <H3>{`status: ${props.distribution.status}`}</H3>
       <MainContentWrapper
         right={<div />}
         left={<div>
@@ -86,9 +99,11 @@ const DistributionContainer = (props, context) => {
             }}
           />
           {isCardholder
-            && (props.distribution.status === 'PLANNED' || props.distribution.status === 'HARVESTED')
+            && (props.distribution.status === 'PLANNED'
+            || props.distribution.status === 'HARVESTED'
+            || props.distribution.status === 'READY')
             && <ContentSubheader
-              icon={<IoKey />}
+              icon={<TokenIcon />}
               text={props.distribution.token}
               light
             />}
@@ -103,7 +118,7 @@ const DistributionContainer = (props, context) => {
             />
           </Link>
           {props.distribution.description && <ContentSubheader
-            icon={<IoIosChatBubble />}
+            icon={<ChatBubbleIcon />}
             text={props.distribution.description}
             light
           />}
@@ -112,7 +127,7 @@ const DistributionContainer = (props, context) => {
             className={classNames.link}
           >
             <ContentSubheader
-              icon={<IoIosArrowLeft />}
+              icon={<ArrowLeftIcon />}
               text={'back to share'}
               light
             />

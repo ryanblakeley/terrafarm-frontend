@@ -1,7 +1,23 @@
 import React from 'react';
-import {Link} from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
+import {Link} from 'shared/components/Typography';
+import {RaisedButton, FlatButton} from 'shared/components/Material';
 import classNames from '../styles/LoginLinksStylesheet.css';
+
+const browseLink = <Link to={'/browse'}>
+  <FlatButton label={'Browse Farms'} fullWidth smallTop secondary />
+</Link>;
+
+const newUserLink = <Link to={{ pathname: '/login', state: {newUser: true} }}>
+  <RaisedButton label={'New User'} primary smallRight />
+</Link>;
+
+const profileLink = <Link to={'/profile'}>
+  <RaisedButton label={'Profile'} primary smallRight />
+</Link>;
+
+const loginLink = <Link to={'/login'}>
+  <RaisedButton label={'Login'} />
+</Link>;
 
 class LoginLinks extends React.Component {
   static contextTypes = {
@@ -18,35 +34,17 @@ class LoginLinks extends React.Component {
   }
   render () {
     const {loggedIn} = this.context;
-    const browseLink = <Link to={'/browse'} className={classNames.link}>Browse</Link>;
-    const leftLink = !loggedIn
-      ? <Link
-        to={{ pathname: '/login', state: {newUser: true} }}
-        className={classNames.button}
-      >
-        <RaisedButton label={'New User'} primary />
-      </Link>
-      : <Link to={'/profile'} className={classNames.button}>
-        <RaisedButton label={'Profile'} primary />
-      </Link>;
-    const rightLink = !loggedIn
-      ? <Link to={'/login'} className={classNames.button}>
-        <RaisedButton label={'Login'} />
-      </Link>
-      : <RaisedButton
-        label={'Logout'}
-        onTouchTap={this.handleSignOut}
-        className={classNames.button}
-      />;
+    const leftLink = !loggedIn ? newUserLink : profileLink;
+    const rightLink = !loggedIn ? loginLink : <RaisedButton
+      label={'Logout'}
+      onTouchTap={this.handleSignOut}
+    />;
 
     return <div className={classNames.this}>
       {leftLink}
       {rightLink}
-      {!loggedIn && <p className={classNames.text}>
-        Just looking around? {browseLink} farms and products.
-      </p>}
+      {!loggedIn && browseLink}
     </div>;
   }
 }
-
 export default LoginLinks;

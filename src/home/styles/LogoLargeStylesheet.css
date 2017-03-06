@@ -1,16 +1,9 @@
-/*
-.icon {
-  composes: icon from 'shared/styles/_typography.css';
-  font-size: 90px;
-}
-*/
-.appTitle {
-  composes: appTitle from 'shared/styles/_typography.css';
+.appName {
   margin: 0;
   font-size: 1em;
   font-weight: 600;
 }
-.logoImage { width: 292px; }
+.logoImage { width: 292px; height: auto; }
 
 @media only screen and (min-width: 550px) {
   .logoImage { width: 312px; }

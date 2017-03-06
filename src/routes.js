@@ -14,7 +14,6 @@ import BrowsePage from 'browse/components/BrowsePage';
 import ProfileContainer from 'profile/containers/ProfileContainer';
 import EditProfileForm from 'profile/containers/EditProfileForm';
 import UserContainer from 'user/containers/UserContainer';
-import StarUserForm from 'user/containers/StarUserForm';
 import OrganizationContainer from 'organization/containers/OrganizationContainer';
 import CreateOrganizationForm from 'organization/containers/CreateOrganizationForm';
 import EditOrganizationForm from 'organization/containers/EditOrganizationForm';
@@ -27,22 +26,21 @@ import ReserveShareForm from 'product-share/containers/ReserveShareForm';
 import AssignShareForm from 'product-share/containers/AssignShareForm';
 import ValidateShareForm from 'product-share/containers/ValidateShareForm';
 import ProcessShareTokenContainer from 'product-share/containers/ProcessShareTokenContainer';
+import CancelShareForm from 'product-share/containers/CancelShareForm';
 import DistributionContainer from 'distribution/containers/DistributionContainer';
 import CreateDistributionForm from 'distribution/containers/CreateDistributionForm';
 import EditDistributionForm from 'distribution/containers/EditDistributionForm';
 import LookupDistributionForm from 'distribution/containers/LookupDistributionForm';
 import ProcessDistributionTokenContainer from 'distribution/containers/ProcessDistributionTokenContainer';
 import ForwardDistributionTokenContainer from 'distribution/containers/ForwardDistributionTokenContainer';
+import CancelDistributionForm from 'distribution/containers/CancelDistributionForm';
 import SearchOrganizationsContainer from 'browse/containers/SearchOrganizationsContainer';
-import SearchUsersContainer from 'browse/containers/SearchUsersContainer';
-import SearchProductsContainer from 'browse/containers/SearchProductsContainer';
 import PlaceLookupContainer from 'place/containers/PlaceLookupContainer';
 
 // Queries
 import ProfileQueries from 'profile/queries/ProfileQueries';
 import ProfileQueryQueries from 'profile/queries/ProfileQueryQueries';
 import UserQueries from 'user/queries/UserQueries';
-import UserCurrentPersonQueries from 'user/queries/UserCurrentPersonQueries';
 import UserProductQueryQueries from 'user/queries/UserProductQueryQueries';
 import OrganizationQueries from 'organization/queries/OrganizationQueries';
 import OrganizationQueryQueries from 'organization/queries/OrganizationQueryQueries';
@@ -55,11 +53,13 @@ import ProductShareQueryQueries from 'product-share/queries/ProductShareQueryQue
 import EditProductShareQueries from 'product-share/queries/EditProductShareQueries';
 import ValidateShareQueries from 'product-share/queries/ValidateShareQueries';
 import ProcessShareTokenQueries from 'product-share/queries/ProcessShareTokenQueries';
+import CancelShareQueries from 'product-share/queries/CancelShareQueries';
 import DistributionQueries from 'distribution/queries/DistributionQueries';
 import EditDistributionQueries from 'distribution/queries/EditDistributionQueries';
 import LookupDistributionQueries from 'distribution/queries/LookupDistributionQueries';
 import ProcessDistributionTokenQueries from 'distribution/queries/ProcessDistributionTokenQueries';
 import ForwardDistributionTokenQueries from 'distribution/queries/ForwardDistributionTokenQueries';
+import CancelDistributionQueries from 'distribution/queries/CancelDistributionQueries';
 import QueryQueries from 'browse/queries/QueryQueries';
 import PlaceQueries from 'place/queries/PlaceQueries';
 
@@ -176,20 +176,6 @@ const routes = (
         onEnter={ensurePublicAccess}
         renderLoading={renderLoading}
       />
-      <Route
-        path={'products'}
-        component={SearchProductsContainer}
-        queries={QueryQueries}
-        onEnter={ensurePublicAccess}
-        renderLoading={renderLoading}
-      />
-      <Route
-        path={'users'}
-        component={SearchUsersContainer}
-        queries={QueryQueries}
-        onEnter={ensurePublicAccess}
-        renderLoading={renderLoading}
-      />
     </Route>
     <Route path={'user'} onEnter={ensurePublicAccess} >
       <Route
@@ -198,14 +184,15 @@ const routes = (
         queries={UserQueries}
         onEnter={bounceToProfile}
         renderLoading={renderLoading}
-      >
+      />
+      {/*
         <Route
           path={'star'}
           component={StarUserForm}
           queries={UserCurrentPersonQueries}
           onEnter={loginBouncer}
         />
-      </Route>
+      */}
     </Route>
     <Route path={'farm'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
       <Route
@@ -292,7 +279,7 @@ const routes = (
           onEnter={loginBouncer}
         />
         <Route
-          path={'validate-token'}
+          path={'activate'}
           component={ValidateShareForm}
           queries={ValidateShareQueries}
           onEnter={loginBouncer}
@@ -304,6 +291,12 @@ const routes = (
             renderLoading={renderLoading}
           />
         </Route>
+        <Route
+          path={'cancel'}
+          component={CancelShareForm}
+          queries={CancelShareQueries}
+          onEnter={loginBouncer}
+        />
       </Route>
     </Route>
     <Route path={'voucher'} onEnter={loginBouncer} >
@@ -319,7 +312,7 @@ const routes = (
           queries={EditDistributionQueries}
           onEnter={loginBouncer}
         />
-        <Route path={'process-token'}>
+        <Route path={'validate'}>
           <Route
             path={':distributionToken'}
             component={ProcessDistributionTokenContainer}
@@ -327,6 +320,12 @@ const routes = (
             renderLoading={renderLoading}
           />
         </Route>
+        <Route
+          path={'cancel'}
+          component={CancelDistributionForm}
+          queries={CancelDistributionQueries}
+          onEnter={loginBouncer}
+        />
       </Route>
     </Route>
     <Route path={'*'} component={NotFound} />

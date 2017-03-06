@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import {GoogleApiWrapper} from 'google-maps-react';
 import formatAddress from 'shared/utils/formatAddress';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
+import {TextInput} from 'shared/components/Form';
 import CreateOrganizationMutation from '../mutations/CreateOrganizationMutation';
 
 class Container extends React.Component {

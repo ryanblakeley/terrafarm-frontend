@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import Formsy from 'formsy-react';
-import RaisedButton from 'material-ui/RaisedButton';
-import Popover from 'material-ui/Popover';
-import IoIosCheckmarkOutline from 'react-icons/lib/io/ios-checkmark-outline';
-import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
-import TextInput from '../../shared/components/TextInput';
-import FormError from '../../shared/components/FormError';
+import Layout from 'shared/components/Layout';
+import {H3, UL, LI} from 'shared/components/Typography';
+import {Form, TextInput} from 'shared/components/Form';
+import {RaisedButton, Popover} from 'shared/components/Material';
+import {CloseIcon, CheckmarkIcon} from 'shared/components/Icons';
+import FormError from 'shared/components/FormError';
 import SignUpUserMutation from '../mutations/SignUpUserMutation';
 import classNames from '../styles/NewUserFormStylesheet.css';
 
@@ -53,15 +52,15 @@ export default class NewUserForm extends Component {
   }
   lengthCheckIcon = () => {
     if (this.state.passwordLengthValid) {
-      return <IoIosCheckmarkOutline style={{ color: 'green' }} />;
+      return <CheckmarkIcon style={{ color: 'green' }} />;
     }
-    return <IoIosCloseOutline style={{ color: 'red' }} />;
+    return <CloseIcon style={{ color: 'red' }} />;
   }
   strengthCheckIcon = () => {
     if (this.state.passwordStrengthValid) {
-      return <IoIosCheckmarkOutline style={{ color: 'green' }} />;
+      return <CheckmarkIcon style={{ color: 'green' }} />;
     }
-    return <IoIosCloseOutline style={{ color: 'red' }} />;
+    return <CloseIcon style={{ color: 'red' }} />;
   }
   checkPassword = event => {
     const password = event.target.value;
@@ -79,7 +78,7 @@ export default class NewUserForm extends Component {
     } = this.state;
 
     return (
-      <Formsy.Form
+      <Form
         onValid={this.handleValid}
         onInvalid={this.handleInvalid}
         onValidSubmit={this.signUpUser}
@@ -117,23 +116,23 @@ export default class NewUserForm extends Component {
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
           >
             <div className={classNames.password}>
-              <h3 className={classNames.passheader}>Password must contain</h3>
-              <ul className={classNames.passwordlist}>
-                <li>{this.lengthCheckIcon()} 6 characters</li>
-                <li>{this.strengthCheckIcon()} 1 letter and 1 number</li>
-              </ul>
+              <H3 className={classNames.passheader}>Password must contain</H3>
+              <UL className={classNames.passwordlist}>
+                <LI>{this.lengthCheckIcon()} 6 characters</LI>
+                <LI>{this.strengthCheckIcon()} 1 letter and 1 number</LI>
+              </UL>
             </div>
           </Popover>
-          <div className={classNames.buttons}>
+          <Layout center topSmall>
             <RaisedButton
               type={'submit'}
               label={'Sign Up'}
               disabled={!canSubmit}
               fullWidth
             />
-          </div>
+          </Layout>
         </div>
-      </Formsy.Form>
+      </Form>
     );
   }
 }

@@ -1,33 +1,32 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {Link} from 'react-router';
-// Icons
-import IoEdit from 'react-icons/lib/io/edit';
-import IoPerson from 'react-icons/lib/io/person';
-import IoPlus from 'react-icons/lib/io/plus';
-import IoAsterisk from 'react-icons/lib/io/asterisk';
-import BarnIcon from 'organization/components/BarnIcon';
-import WheatIcon from 'product/components/WheatIcon';
-// Components
+import {
+  EditIcon,
+  PersonIcon,
+  PlusIcon,
+  AsteriskIcon,
+  BarnIcon,
+  WheatIcon,
+  LocationOutlineIcon,
+} from 'shared/components/Icons';
+import {H3, P, Link} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
-import ContentHeader from 'shared/components/ContentHeader';
 import HeroImage from 'shared/components/HeroImage';
 import RelationshipList from 'shared/components/RelationshipList';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
 import Accordion from 'shared/components/Accordion';
 import ContentSubheader from 'shared/components/ContentSubheader';
-import ContentBodyText from 'shared/components/ContentBodyText';
 
 import classNames from '../styles/ProfileContainerStylesheet.css';
 
 const ProfileContainer = (props, context) => {
   const menuList = [
-    { icon: <IoEdit />, title: 'Edit Profile', url: 'edit' },
+    { icon: <EditIcon />, title: 'Edit Profile', url: 'edit' },
   ];
   if (!props.currentPerson.organizationsByOwnerId.edges.length > 0) {
-    menuList.push({ icon: <IoPlus />, title: 'Create Farm', url: 'create-farm' });
+    menuList.push({ icon: <PlusIcon />, title: 'Create Farm', url: 'create-farm' });
   }
   let vouchersList = props.currentPerson.sharesByUserId.edges.map(edge => (
     edge.node.distributionsByShareId.edges.map(distributionEdge => ({
@@ -45,16 +44,16 @@ const ProfileContainer = (props, context) => {
     <div className={classNames.this}>
       <Menu
         baseUrl={'/profile'}
-        header={{icon: <IoPerson />, title: 'Profile'}}
+        header={{icon: <PersonIcon />, title: 'Profile'}}
         list={menuList}
       />
-      <ContentHeader text={props.currentPerson.name} />
+      <H3>{props.currentPerson.name}</H3>
       <MainContentWrapper
         right={<Accordion
           panels={[
             {
               header: {
-                icon: <IoAsterisk width={58} />,
+                icon: <AsteriskIcon width={58} />,
                 label: 'Vouchers',
               },
               body: <RelationshipList listItems={vouchersList} />,
@@ -81,6 +80,7 @@ const ProfileContainer = (props, context) => {
         left={<div>
           <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
           <ContentSubheader
+            icon={<LocationOutlineIcon />}
             text={props.currentPerson.placeByPlaceId && props.currentPerson.placeByPlaceId.address}
             light
           />
@@ -94,7 +94,7 @@ const ProfileContainer = (props, context) => {
               text={edge.node.name}
             />
           </Link>)}
-          <ContentBodyText text={props.currentPerson.description} />
+          <P>{props.currentPerson.description}</P>
           <HeroImage image={props.currentPerson.imageUrl} />
         </div>}
       />

@@ -2,14 +2,8 @@ import React from 'react';
 import Relay from 'react-relay';
 import validations from 'shared/utils/validations';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
-import SelectInput from 'shared/components/SelectInput';
-import MenuItem from 'material-ui/MenuItem';
+import {TextInput} from 'shared/components/Form';
 import UpdateDistributionMutation from 'distribution/mutations/UpdateDistributionMutation';
-
-// @TODO:
-// add checkmark icon to button
-// fix button width
 
 class Container extends React.Component {
   static propTypes = {
@@ -38,7 +32,9 @@ class Container extends React.Component {
 
     this.setState({ formData: data });
     if (authorized) {
-      this.changeVoucher(data);
+      this.changeVoucher(Object.assign(data, {
+        status: 'VALIDATED',
+      }));
     }
   }
   handleSuccess = response => {
@@ -72,20 +68,10 @@ class Container extends React.Component {
       error={error}
       showForm={authorized}
     >
-      <SelectInput
-        name={'status'}
-        label={'Status'}
-        validations={'isExisty'}
-        value={'RECEIVED'}
-        required
-      >
-        <MenuItem value={'RECEIVED'} primaryText={'Received'} />
-        <MenuItem value={'CANCELED'} primaryText={'Canceled'} />
-      </SelectInput>
       <TextInput
         name={'description'}
         label={'Comments'}
-        initialValue={distribution.description}
+        value={distribution.description}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
         multiLine
         rows={3}

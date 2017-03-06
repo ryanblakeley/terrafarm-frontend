@@ -1,8 +1,2 @@
-.this {
-  margin: 17px auto 0;
-}
-.icon {
-  composes: icon from '../../shared/styles/_typography.css';
-  font-size: 26px;
-  color: inherit;
-}
+.this { margin: 17px auto 0; }
+.icon { font-size: 26px; color: inherit; }

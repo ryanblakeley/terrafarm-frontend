@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import Layout from 'shared/components/Layout';
+import {Tabs, Tab} from 'shared/components/Material';
 import LoginForm from './LoginForm';
 import NewUserForm from './NewUserForm';
 import classNames from '../styles/LoginPageStylesheet.css';
@@ -32,7 +33,7 @@ export default class LoginPage extends Component {
     const {initialSelectedIndex} = this.state;
 
     return (
-      <div className={classNames.this}>
+      <Layout center>
         <div className={classNames.tabs}>
           <Tabs initialSelectedIndex={initialSelectedIndex} >
             <Tab label={'Login'}>
@@ -43,7 +44,7 @@ export default class LoginPage extends Component {
             </Tab>
           </Tabs>
         </div>
-      </div>
+      </Layout>
     );
   }
 }

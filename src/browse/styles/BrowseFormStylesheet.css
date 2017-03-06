@@ -7,12 +7,11 @@
   background-color: rgba(232,234,246 ,0.92);
 }
 .flexColumn { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.flexRow { 
+.flexRow {
   display: flex; align-items: center; justify-content: center;
   max-width: 100%;
 }
 .hidden { display: none; }
-.icon { composes: icon from '../../shared/styles/_typography.css'; }
 .radio { margin-top: 15px; }
 /*
 - move classes flex* to /shared/styles/_layout.css

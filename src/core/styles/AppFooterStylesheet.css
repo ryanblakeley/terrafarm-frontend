@@ -10,11 +10,7 @@
   background-color: #d7ccc8;
   border-color: #8d6e63;
 }
-.logoImage { width: 40px; }
-.text {
-  composes: appName from '../../shared/styles/_typography.css';
-  /* position: absolute;
-  bottom: 25px; */
+.copyright {
   margin: 0;
   padding: 4px 0;
   width: 100%;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
+import {TextInput} from 'shared/components/Form';
 import validations from 'shared/utils/validations';
 import CreateProductMutation from '../mutations/CreateProductMutation';
 

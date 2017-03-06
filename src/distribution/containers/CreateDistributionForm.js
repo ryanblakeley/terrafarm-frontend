@@ -1,9 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
-import MenuItem from 'material-ui/MenuItem';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
-import SelectInput from 'shared/components/SelectInput';
+import {MenuItem} from 'shared/components/Material';
+import {TextInput, SelectInput} from 'shared/components/Form';
 import CreateDistributionMutation from '../mutations/CreateDistributionMutation';
 
 class Container extends React.Component {
@@ -76,8 +75,8 @@ class Container extends React.Component {
       >
         <MenuItem value={'PLANNED'} primaryText={'Planned'} />
         {isOwner && <MenuItem value={'HARVESTED'} primaryText={'Harvested'} />}
-        {isCardholder && <MenuItem value={'RECEIVED'} primaryText={'Received'} />}
-        {isCardholder && <MenuItem value={'DONATED'} primaryText={'Donated'} />}
+        {isOwner && <MenuItem value={'READY'} primaryText={'Ready'} />}
+        {isCardholder && <MenuItem value={'VALIDATED'} primaryText={'Validated'} />}
       </SelectInput>
       <TextInput
         name={'description'}

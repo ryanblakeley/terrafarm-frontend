@@ -1,18 +1,11 @@
-.this {
-  composes: page--gutter from 'shared/styles/_layout.css';
-  max-width: 470px;
-}
+.this { width: 100%; }
 .text {
   composes: largeBodyText from 'shared/styles/_typography.css';
   margin: 0 auto; padding: 0.67em 0;
 }
-.text2 {
-  composes: bodyText from 'shared/styles/_typography.css';
-  margin: 0 auto; padding: 0.67em 0;
-}
-.break { display: block; }
+.break800 { display: block; }
 
 @media only screen and (min-width: 800px) {
-  .break { display: inline; }
-  .break:before { display: inline; content: ' '; }
+  .break800 { display: inline; }
+  .break800:before { display: inline; content: ' '; }
 }

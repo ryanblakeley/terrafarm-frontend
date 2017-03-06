@@ -1,8 +1,0 @@
-.pageHeading {
-  composes: pageHeading from '../../shared/styles/_typography.css';
-  margin: 2px 0 0 6px;
-  font-size: 1.25em;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  border-bottom: none;
-}

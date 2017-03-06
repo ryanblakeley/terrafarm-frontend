@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {GoogleApiWrapper} from 'google-maps-react';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
+import {TextInput} from 'shared/components/Form';
 import formatAddress from 'shared/utils/formatAddress';
 import UpdateOrganizationMutation from '../mutations/UpdateOrganizationMutation';
 import DeleteOrganizationMutation from '../mutations/DeleteOrganizationMutation';
@@ -140,21 +140,21 @@ class Container extends React.Component {
       <TextInput
         name={'name'}
         label={'Name'}
-        initialValue={organization.name}
+        value={organization.name}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
         required
       />
       <TextInput
         name={'location'}
         label={'Location'}
-        initialValue={organization.placeByPlaceId && organization.placeByPlaceId.address}
+        value={organization.placeByPlaceId && organization.placeByPlaceId.address}
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
         required
       />
       <TextInput
         name={'description'}
         label={'Description'}
-        initialValue={organization.description}
+        value={organization.description}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
         required
         multiLine
@@ -163,7 +163,7 @@ class Container extends React.Component {
       <TextInput
         name={'imageUrl'}
         label={'Image'}
-        initialValue={organization.imageUrl}
+        value={organization.imageUrl}
         validations={'isUrl'}
       />
       {children}

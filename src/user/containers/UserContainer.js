@@ -1,17 +1,14 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {Link} from 'react-router';
-
-// Icons
-import IoPerson from 'react-icons/lib/io/person';
-import IoIosStar from 'react-icons/lib/io/ios-star';
-import BarnIcon from 'organization/components/BarnIcon';
-import WheatIcon from 'product/components/WheatIcon';
-
-// Components
+import {
+  PersonIcon,
+  BarnIcon,
+  WheatIcon,
+  LocationOutlineIcon,
+} from 'shared/components/Icons';
+import {H3, P, Link} from 'shared/components/Typography';
 import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
-import ContentHeader from 'shared/components/ContentHeader';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
 import RelationshipList from 'shared/components/RelationshipList';
@@ -19,7 +16,6 @@ import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
 import Accordion from 'shared/components/Accordion';
 import ContentSubheader from 'shared/components/ContentSubheader';
-import ContentBodyText from 'shared/components/ContentBodyText';
 
 import classNames from '../styles/UserContainerStylesheet.css';
 
@@ -29,11 +25,10 @@ const UserContainer = (props, context) => (!props.user
     <div className={classNames.this}>
       <Menu
         baseUrl={`/user/${props.user.rowId}`}
-        header={{icon: <IoPerson />, title: 'User'}}
-        disabled={props.user.rowId === context.userId}
-        list={[{ icon: <IoIosStar />, title: 'Star', url: 'star' }]}
+        header={{icon: <PersonIcon />, title: 'User'}}
+        disabled
       />
-      <ContentHeader text={props.user.name} />
+      <H3>{props.user.name}</H3>
       <MainContentWrapper
         right={<Accordion
           panels={[
@@ -62,8 +57,9 @@ const UserContainer = (props, context) => (!props.user
             notifyClose={() => context.router.replace(`/user/${props.user.rowId}`)}
           />
           <ContentSubheader
-            light
+            icon={<LocationOutlineIcon />}
             text={props.user.placeByPlaceId && props.user.placeByPlaceId.address}
+            light
           />
           {props.user.organizationsByOwnerId.edges.map(edge => <Link
             to={`/farm/${edge.node.rowId}`}
@@ -75,7 +71,7 @@ const UserContainer = (props, context) => (!props.user
               text={edge.node.name}
             />
           </Link>)}
-          <ContentBodyText text={props.user.description} />
+          <P>{props.user.description}</P>
           <HeroImage image={props.user.imageUrl} />
         </div>}
       />

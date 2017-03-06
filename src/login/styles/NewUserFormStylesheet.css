@@ -5,18 +5,6 @@
   justify-content: space-around;
   margin: 15px auto;
 }
-.password {
-  font-size: 0.8em;
-  padding: 3px 10px 0 10px;
-}
-.passheader {
-  font-size: 1.3em;
-  margin: 5px;
-}
-.passwordlist {
-  margin-left: 5px;
-}
-.buttons {
-  composes: center from '../../shared/styles/_layout.css';
-  margin-top: 15px;
-}
+.password { font-size: 0.8em; padding: 3px 10px 0 10px; }
+.passheader { font-size: 1.3em; margin: 5px; }
+.passwordlist { margin-left: 5px; }

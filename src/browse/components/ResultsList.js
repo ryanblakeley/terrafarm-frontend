@@ -1,9 +1,10 @@
 import React from 'react';
+import {UL} from 'shared/components/Typography';
 import ResultsListItem from './ResultsListItem';
 import classNames from '../styles/ResultsListStylesheet.css';
 
 const ResultsList = props => <div className={classNames.this}>
-  <div className={classNames.list}>
+  <UL className={classNames.list}>
     {props.listItems.length
       ? props.listItems.map(item => (item.itemId && <ResultsListItem
         {...item}
@@ -13,7 +14,7 @@ const ResultsList = props => <div className={classNames.this}>
         <p className={classNames.emptyWarning}>{props.emptyWarning}</p>
       </div>
     }
-  </div>
+  </UL>
 </div>;
 
 ResultsList.propTypes = {

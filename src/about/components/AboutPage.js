@@ -1,92 +1,41 @@
 import React from 'react';
-import Acknowledgements from './Acknowledgements';
-import classNames from '../styles/AboutPageStylesheet.css';
+import Layout from 'shared/components/Layout';
+import {H2, H4, P, A} from 'shared/components/Typography';
 
-const AboutPage = () => {
-  const emailLink = <a
-    className={classNames.link}
-    href={'mailto:info@terra.farm'}
-  >
-    email
-  </a>;
-  const ryana = <a
-    href={'http://rojobuffalo.com'}
-    className={classNames.link}
-  >
-    Ryan Blakeley
-  </a>;
-  const stackshareLink = <a
-    href={'https://stackshare.io/terrafarm/terrafarm'}
-    className={classNames.link}
-  >
-    Stackshare
-  </a>;
+const emailLink = <A href={'mailto:info@terra.farm'}>email</A>;
+const ryanLink = <A href={'http://rojobuffalo.com'}>Ryan Blakeley</A>;
+const stackshareLink = <A href={'https://stackshare.io/terrafarm/terrafarm'}>Stackshare</A>;
+const snippetLink = <A href={'https://terra.farm/snippets/csa'}>snippet</A>;
+const terrafarmLink = <A href={'https://terra.farm'}>Terrafarm</A>;
+const blogLink = <A href={'https://terra.farm/blog'}>blog</A>;
+const wikiLink = <A href={'https://terra.farm/wiki'}>wiki</A>;
+const calebLink = <A href={'http://calebmer.com'}>@calebmer</A>;
+const g2iLink = <A href={'http://www.g2idev.com/'}>G2i</A>;
+const darinLink = <A href={'https://github.com/dphaener'}>@dphaener</A>;
 
-  return <div className={classNames.this}>
-    <h2 className={classNames.pageHeading}>
-      About
-    </h2>
-    <p className={classNames.text}>
-      This <a href={'https://terra.farm/snippets/csa'} className={classNames.link}>snippet</a> explains the CSA concept in more detail.
-    </p>
-    <h3 className={classNames.heading}>
-      Company
-    </h3>
-    <p className={classNames.text}>
-      <a href={'https://terra.farm'} className={classNames.link}>Terrafarm</a>&rsquo;s focus is equitable food systems.
-    </p>
-    <h3 className={classNames.heading}>
-      Content Library
-    </h3>
-    <p className={classNames.text}>
-      A <a href={'https://terra.farm/blog'} className={classNames.link}>blog</a> and <a href={'https://terra.farm/wiki'} className={classNames.link}>wiki</a> companion site.
-    </p>
-    <h3 className={classNames.heading}>
-      Contact
-    </h3>
-    <p className={classNames.text}>
-      If you have any questions or feedback, please reach out via {emailLink}.
-    </p>
-    <h3 className={classNames.heading}>
-      Technical
-    </h3>
-    <p className={classNames.text}>
-      Check out the Terrafarm CSA software stack on {stackshareLink}.
-    </p>
-    <Acknowledgements />
-    <h3 className={classNames.heading}>
-      Owned and built by
-    </h3>
-    <p className={classNames.text}>{ryana}</p>
-  </div>;
-};
+
+const AboutPage = () => <Layout smallPage>
+  <H2>About</H2>
+  <P>This {snippetLink} explains the CSA concept in more detail.</P>
+  <H4>Company</H4>
+  <P>{terrafarmLink}&rsquo;s mission is to build positive food systems.</P>
+  <H4>Content Library</H4>
+  <P>A {blogLink} and {wikiLink} companion site.</P>
+  <H4>Contact</H4>
+  <P>If you have any questions or feedback, please reach out via {emailLink}.</P>
+  <H4>Technical</H4>
+  <P>Check out the Terrafarm CSA software stack on {stackshareLink}.</P>
+  <H4>Acknowledgements</H4>
+  <P>
+    Special thanks to {calebLink}, {darinLink}, and {g2iLink} for their
+    contributions to the code base.
+  </P>
+  <P>
+    Barn icon created by Ron Scott from the Noun Project. Wheat icon created by
+    anbileru adaleru from the Noun Project.
+  </P>
+  <H4>Built and owned by</H4>
+  <P>{ryanLink}</P>
+</Layout>;
 
 export default AboutPage;
-
-/*
-    <ul className={classNames.list}>
-      <li className={classNames.text}>
-        <Link to={'/blog'} className={classNames.link}>Blog</Link>
-      </li>
-      <li className={classNames.text}>
-        <Link to={'/wiki'} className={classNames.link}>
-          Wiki
-        </Link>: a catalog of people, organizations, apps, videos, podcasts, articles, and books
-      </li>
-      <li className={classNames.text}>
-        <a href={'/snippets'} className={classNames.link}>
-          Snippets
-        </a>
-      </li>
-      <li className={classNames.text}>
-        <Link to={'/tags'} className={classNames.link}>
-          Tags
-        </Link>: core topics are economics, engineering, and ecology
-      </li>
-      <li className={classNames.text}>
-        <Link href={'/search'} className={classNames.link}>
-          Search
-        </Link>
-      </li>
-    </ul>
-*/

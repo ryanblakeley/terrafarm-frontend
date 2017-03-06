@@ -1,11 +1,7 @@
 import React from 'react';
-import classNames from '../styles/InfoWindowContentStylesheet.css';
+import {P} from 'shared/components/Typography';
 
-const InfoWindowContent = props => <div className={classNames.this}>
-  <p className={classNames.name}>
-    {props.resultItem.name}
-  </p>
-</div>;
+const InfoWindowContent = props => <P>{props.resultItem.name}</P>;
 
 InfoWindowContent.propTypes = {
   resultItem: React.PropTypes.shape({

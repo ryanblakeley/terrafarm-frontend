@@ -1,7 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
+import {MenuItem} from 'shared/components/Material';
+import {TextInput, SelectInput} from 'shared/components/Form';
 import UpdateDistributionMutation from '../mutations/UpdateDistributionMutation';
 
 class Container extends React.Component {
@@ -64,11 +65,22 @@ class Container extends React.Component {
       error={error}
       showForm={isOwner || isCardholder}
     >
+      {isOwner && <SelectInput
+        name={'status'}
+        label={'Status'}
+        validations={'isExisty'}
+        value={distribution.status}
+        required
+      >
+        <MenuItem value={'PLANNED'} primaryText={'Planned'} />
+        <MenuItem value={'HARVESTED'} primaryText={'Harvested'} />
+        <MenuItem value={'READY'} primaryText={'Ready'} />
+      </SelectInput>}
       <TextInput
         name={'description'}
         label={'Notes'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
-        initialValue={distribution.description}
+        value={distribution.description}
         multiLine
         rows={3}
       />
@@ -85,6 +97,7 @@ export default Relay.createContainer(Container, {
     distribution: () => Relay.QL`
       fragment on Distribution {
         description,
+        status,
         shareByShareId {
           userId,
           productByProductId {

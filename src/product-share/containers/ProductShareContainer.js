@@ -1,23 +1,24 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {Link} from 'react-router';
-// Icons
-import IoIosCalendar from 'react-icons/lib/io/ios-calendar-outline';
-import IoEdit from 'react-icons/lib/io/edit';
-import IoPerson from 'react-icons/lib/io/person';
-import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
-import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
-import IoAsterisk from 'react-icons/lib/io/asterisk';
-import IoKey from 'react-icons/lib/io/lock-combination';
-import IoIosEmail from 'react-icons/lib/io/ios-email-outline';
-import WheatIcon from 'product/components/WheatIcon';
-// Components
+import {
+  CalendarIcon,
+  EditIcon,
+  PersonIcon,
+  ChatBubbleIcon,
+  TagsIcon,
+  AsteriskIcon,
+  TokenIcon,
+  EmailIcon,
+  WheatIcon,
+  CheckmarkIcon,
+  TrashIcon,
+} from 'shared/components/Icons';
+import {H3, Link} from 'shared/components/Typography';
 import Accordion from 'shared/components/Accordion';
 import RelationshipList from 'shared/components/RelationshipList';
 import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-import ContentHeader from 'shared/components/ContentHeader';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
 import ContentSubheader from 'shared/components/ContentSubheader';
@@ -37,7 +38,7 @@ const ProductShareContainer = (props, context) => {
     : 'dates not provided';
   const creditsRemaining = props.share.creditsInitial - props.share
     .distributionsByShareId.edges.filter(edge => (
-      edge.node.status === 'RECEIVED' || edge.node.status === 'DONATED'
+      edge.node.status === 'RECEIVED' || edge.node.status === 'VALIDATED'
     )).length;
   const credits = `${creditsRemaining} credits remaining / ${props.share.creditsInitial}`;
   const distributions = props.share.distributionsByShareId.edges.map(edge => ({
@@ -57,13 +58,13 @@ const ProductShareContainer = (props, context) => {
       className={classNames.link}
     >
       <ContentSubheader
-        icon={<IoPerson width={24} height={24} />}
+        icon={<PersonIcon width={24} height={24} />}
         text={props.share.userByUserId.name}
       />
     </Link>;
   } else {
     userElem = <ContentSubheader
-      icon={<IoPerson width={24} height={24} />}
+      icon={<PersonIcon width={24} height={24} />}
       text={props.share.customerName}
     />;
   }
@@ -72,36 +73,45 @@ const ProductShareContainer = (props, context) => {
     <div className={classNames.this}>
       <Menu
         baseUrl={`/share/${props.share.rowId}`}
-        header={{icon: <IoIosTagsOutline />, title: 'Share'}}
+        header={{icon: <TagsIcon />, title: 'Share'}}
         disabled={!isFarmOwner && !isCardholder}
         list={[
           {
-            icon: <IoAsterisk />,
+            icon: <CheckmarkIcon />,
             title: 'Activate Share',
-            url: isFarmOwner ? `validate-token/${props.share.token}` : 'validate-token',
-            disabled: (!isFarmOwner && !isCardholder) || props.share.status === 'PURCHASED',
+            url: isFarmOwner ? `activate/${props.share.token}` : 'activate',
+            disabled: (!isFarmOwner && !isCardholder)
+              || props.share.status !== 'RESERVED',
           },
           {
-            icon: <IoAsterisk />,
+            icon: <TrashIcon />,
+            title: 'Cancel Share',
+            url: 'cancel',
+            disabled: (!isFarmOwner && !isCardholder)
+              || props.share.status !== 'RESERVED',
+          },
+          {
+            icon: <AsteriskIcon />,
             title: 'Create Voucher',
             url: 'create-voucher',
-            disabled: !isFarmOwner && !isCardholder,
+            disabled: (!isFarmOwner && !isCardholder)
+              || props.share.status !== 'ACTIVE',
           },
           {
-            icon: <IoEdit />,
+            icon: <EditIcon />,
             title: 'Edit Share',
             url: 'edit',
             disabled: !isFarmOwner && !isCardholder,
           },
         ]}
       />
-      <ContentHeader text={`status: ${props.share.status}`} />
+      <H3>{`status: ${props.share.status}`}</H3>
       <MainContentWrapper
         right={<Accordion
           panels={isFarmOwner || isCardholder
             ? [{
               header: {
-                icon: <IoAsterisk width={58} height={40} />,
+                icon: <AsteriskIcon width={58} height={40} />,
                 label: 'Vouchers',
               },
               body: <RelationshipList listItems={distributions} />,
@@ -119,7 +129,7 @@ const ProductShareContainer = (props, context) => {
           {isFarmOwner
             && props.share.status === 'RESERVED'
             && <ContentSubheader
-              icon={<IoKey />}
+              icon={<TokenIcon />}
               text={props.share.token}
               light
             />}
@@ -133,17 +143,17 @@ const ProductShareContainer = (props, context) => {
               text={props.share.productByProductId.name}
             />
           </Link>
-          <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
+          <ContentSubheader icon={<CalendarIcon />} text={dates} light />
           {props.share.status === 'PURCHASED'
-            && <ContentSubheader icon={<IoAsterisk />} text={credits} light />}
+            && <ContentSubheader icon={<AsteriskIcon />} text={credits} light />}
           <ContentSubheader
-            icon={<IoIosEmail />}
+            icon={<EmailIcon />}
             text={props.share.customerContact}
             light
           />
           {props.share.customerNotes
             && <ContentSubheader
-              icon={<IoIosChatBubble />}
+              icon={<ChatBubbleIcon />}
               text={props.share.customerNotes}
               light
             />}

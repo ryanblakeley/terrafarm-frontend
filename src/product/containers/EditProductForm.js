@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
+import {TextInput} from 'shared/components/Form';
 import validations from 'shared/utils/validations';
 import UpdateProductMutation from '../mutations/UpdateProductMutation';
 import DeleteProductMutation from '../mutations/DeleteProductMutation';
@@ -85,14 +85,14 @@ class Container extends React.Component {
       <TextInput
         name={'name'}
         label={'Name'}
-        initialValue={product.name}
+        value={product.name}
         validations={{matchRegexp: validations.matchAlphanumeric}}
         required
       />
       <TextInput
         name={'description'}
         label={'Description'}
-        initialValue={product.description}
+        value={product.description}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
         required
         multiLine
@@ -101,7 +101,7 @@ class Container extends React.Component {
       <TextInput
         name={'startDate'}
         label={'Start date'}
-        initialValue={product.startDate}
+        value={product.startDate}
         validations={{
           matchRegexp: validations.matchDate,
         }}
@@ -110,7 +110,7 @@ class Container extends React.Component {
       <TextInput
         name={'endDate'}
         label={'End date'}
-        initialValue={product.endDate}
+        value={product.endDate}
         validations={{
           matchRegexp: validations.matchDate,
         }}
@@ -119,27 +119,27 @@ class Container extends React.Component {
       <TextInput
         name={'creditsInitial'}
         label={'Number of distributions / share'}
-        initialValue={String(product.creditsInitial)}
+        value={String(product.creditsInitial)}
         validations={'isNumeric'}
         required
       />
       <TextInput
         name={'maxShares'}
         label={'Maximum number of shares'}
-        initialValue={String(product.maxShares)}
+        value={String(product.maxShares)}
         validations={'isNumeric'}
         required
       />
       <TextInput
         name={'sharePrice'}
         label={'Share price'}
-        initialValue={String(product.sharePrice)}
+        value={String(product.sharePrice)}
         validations={{matchRegexp: validations.matchCurrency}}
       />
       <TextInput
         name={'imageUrl'}
         label={'Image'}
-        initialValue={product.imageUrl}
+        value={product.imageUrl}
         validations={'isUrl'}
       />
       {children}

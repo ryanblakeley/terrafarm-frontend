@@ -1,12 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay';
 import IconButton from 'material-ui/IconButton';
-import IoIosStar from 'react-icons/lib/io/ios-star';
-import IoIosStarOutline from 'react-icons/lib/io/ios-star-outline';
+import {StarIcon, StarOutlineIcon} from 'shared/components/Icons';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import CreateUserStarMutation from '../mutations/CreateUserStarMutation';
 import DeleteUserStarMutation from '../mutations/DeleteUserStarMutation';
-import classNames from '../styles/StarUserFormStylesheet.css';
 
 class StarUserForm extends React.Component {
   static propTypes = {
@@ -81,14 +79,12 @@ class StarUserForm extends React.Component {
     return <ActionPanelForm
       title={'Star User'}
       notifyClose={notifyClose}
-      bodyText={<div className={classNames.this}>
-        <IconButton className={classNames.button} onClick={this.handleClick}>
-          {starred
-            ? <IoIosStar className={classNames.icon} />
-            : <IoIosStarOutline className={classNames.icon} />
-          }
-        </IconButton>
-      </div>}
+      bodyText={<IconButton onClick={this.handleClick}>
+        {starred
+          ? <StarIcon />
+          : <StarOutlineIcon />
+        }
+      </IconButton>}
       error={error}
       showForm={false}
       formBlockedMessage={''}

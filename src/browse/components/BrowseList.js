@@ -1,6 +1,6 @@
 import React from 'react';
-import IoArrowRightA from 'react-icons/lib/io/arrow-right-a';
-import Accordion from '../../shared/components/Accordion';
+import {ArrowRightThickIcon} from 'shared/components/Icons';
+import Accordion from 'shared/components/Accordion';
 import ResultsList from './ResultsList';
 
 class BrowseList extends React.Component {
@@ -29,7 +29,7 @@ class BrowseList extends React.Component {
       panels={[
         {
           header: {
-            icon: <IoArrowRightA />,
+            icon: <ArrowRightThickIcon />,
             label: 'Results',
           },
           body: <ResultsList

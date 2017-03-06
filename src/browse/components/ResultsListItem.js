@@ -1,8 +1,10 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
-import IoIosLocation from 'react-icons/lib/io/ios-location';
-import IoIosLocationOutline from 'react-icons/lib/io/ios-locatoutline';
-import IoLink from 'react-icons/lib/io/link';
+import {
+  LocationIcon,
+  LocationOutlineIcon,
+  LinkIcon,
+} from 'shared/components/Icons';
+import {IconButton} from 'shared/components/Material';
 import classNamesContext from 'classnames/bind';
 import classNames from '../styles/ResultsListItemStylesheet.css';
 
@@ -38,20 +40,16 @@ class ResultsListItem extends React.Component {
     const { name, active } = this.props;
 
     return <div className={cx({this: true, active})}>
-      {active
-        ? <IconButton style={styles.button} onClick={this.handleClick}>
-          <IoIosLocation className={classNames.icon} />
-        </IconButton>
-        : <IconButton style={styles.button} onClick={this.handleClick}>
-          <IoIosLocationOutline className={classNames.icon} />
-        </IconButton>
-      }
-      <IconButton onClick={this.handleLink}>
-        <IoLink className={classNames.icon} />
+      <IconButton style={styles.button} onClick={this.handleClick}>
+        {active
+          ? <LocationIcon className={classNames.icon} />
+          : <LocationOutlineIcon className={classNames.icon} />
+        }
       </IconButton>
-      <span className={classNames.name}>
-        {name}
-      </span>
+      <IconButton onClick={this.handleLink}>
+        <LinkIcon className={classNames.icon} />
+      </IconButton>
+      <span>{name}</span>
     </div>;
   }
 }

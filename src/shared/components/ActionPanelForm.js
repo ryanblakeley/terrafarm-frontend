@@ -1,10 +1,11 @@
 import React from 'react';
-import Formsy from 'formsy-react';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import CloseButton from '../../shared/components/CloseButton';
-import FormError from '../../shared/components/FormError';
-import NotAuthorized from '../../shared/components/NotAuthorized';
+import Layout from 'shared/components/Layout';
+import {H5, P} from 'shared/components/Typography';
+import {Form} from 'shared/components/Form';
+import {FlatButton, RaisedButton} from 'shared/components/Material';
+import CloseButton from 'shared/components/CloseButton';
+import FormError from 'shared/components/FormError';
+import NotAuthorized from 'shared/components/NotAuthorized';
 import classNames from '../styles/ActionPanelFormStylesheet.css';
 
 class ActionPanelForm extends React.Component {
@@ -79,14 +80,12 @@ class ActionPanelForm extends React.Component {
 
     return <div className={classNames.this}>
       {notifyClose && <CloseButton notifyClose={this.handleClose} />}
-      {title && <h5 className={classNames.title}>{title}</h5>}
-      {bodyText && <div className={classNames.bodyText}>
-        {bodyText}
-      </div>}
+      {title && <H5>{title}</H5>}
+      {bodyText && <Layout center><P>{bodyText}</P></Layout>}
       {!showForm && formBlockedMessage && <div>
         {formBlockedMessage}
       </div>}
-      <Formsy.Form
+      <Form
         onValid={this.handleValid}
         onInvalid={this.handleInvalid}
         onValidSubmit={this.handleSubmit}
@@ -94,7 +93,7 @@ class ActionPanelForm extends React.Component {
       >
         {showForm && children}
         {error && <FormError text={errorMessage} /> }
-        <div className={classNames.buttons}>
+        <Layout center topMedium>
           {onDelete && <FlatButton
             label={'Delete'}
             onTouchTap={this.handleDelete}
@@ -110,8 +109,8 @@ class ActionPanelForm extends React.Component {
             type={'submit'}
             disabled={!canSubmit}
           />}
-        </div>
-      </Formsy.Form>
+        </Layout>
+      </Form>
     </div>;
   }
 }

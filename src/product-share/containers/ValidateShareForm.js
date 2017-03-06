@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
+import {TextInput} from 'shared/components/Form';
 
 class Container extends React.Component {
   static propTypes = {
@@ -43,7 +43,7 @@ class Container extends React.Component {
     const { share } = this.props;
     const { router } = this.context;
     const { shareToken } = formData;
-    router.push(`/share/${share.rowId}/validate-token/${shareToken}`);
+    router.push(`/share/${share.rowId}/activate/${shareToken}`);
   }
   render () {
     const { share, notifyClose, children } = this.props;
@@ -62,7 +62,7 @@ class Container extends React.Component {
           name={'shareToken'}
           label={'Token'}
           validations={'isExisty'}
-          initialValue={isFarmOwner ? share.token : ''}
+          value={isFarmOwner ? share.token : ''}
           required
         />
       </ActionPanelForm>;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Map, Marker, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
+import {stringifyBounds} from 'shared/utils/parse-coords';
 import InfoWindowContent from './InfoWindowContent';
-import {stringifyBounds} from '../../shared/utils/parse-coords';
 import classNames from '../styles/BrowseMapStylesheet.css';
 
 const styles = {
@@ -34,8 +34,8 @@ export class Container extends React.Component {
   static defaultProps = {
     google: window.google,
     initialCenter: {
-      lat: 40.1756401,
-      lng: -95.5318750,
+      lat: 38.8207731,
+      lng: -95.53187495,
     },
     mapType: 'terrain',
   };
@@ -45,7 +45,7 @@ export class Container extends React.Component {
   state = {
     zoom: 4,
     showingInfoWindow: false,
-    activeMarker: null,
+    activeMarker: {},
     markers: [],
     infoName: '',
     mapCenter: {
@@ -55,7 +55,7 @@ export class Container extends React.Component {
     boundsChangedTimeoutId: null,
     boundsListener: null,
   };
-  componentWillMount () {
+  componentDidMount () {
     const {searchResults, activeResultItemId} = this.props;
     this.prepareMarkers(searchResults, activeResultItemId);
   }
@@ -163,7 +163,7 @@ export class Container extends React.Component {
   // handleCurrentLocation
   changeMapCenter = coords => {
     const {setSearchParams} = this.props;
-
+    console.log('change map center.');
     setSearchParams({
       lat: coords.lat,
       lng: coords.lng,

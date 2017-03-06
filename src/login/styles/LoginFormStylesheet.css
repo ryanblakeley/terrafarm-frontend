@@ -5,7 +5,4 @@
   justify-content: space-around;
   margin: 15px auto;
 }
-.buttons {
-  composes: center from '../../shared/styles/_layout.css';
-  margin-top: 15px;
-}
+.buttons { margin-top: 15px; }

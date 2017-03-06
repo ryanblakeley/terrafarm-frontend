@@ -5,9 +5,9 @@ import TerrafarmRawTheme from 'shared/utils/terrafarm-raw-theme';
 import 'shared/styles/_base.css';
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
-import classNames from '../styles/CoreContainerStylesheet.css';
+import classNames from '../styles/CorePageStylesheet.css';
 
-export class CoreContainer extends Component {
+export class CorePage extends Component {
   static propTypes = {
     location: PropTypes.object,
     children: PropTypes.object,
@@ -72,11 +72,11 @@ export class CoreContainer extends Component {
   }
 }
 
-/* eslint new-cap: 0 */
-const CoreContainerTheme = props => (
+/* eslint-disable new-cap */
+const CorePageTheme = props => (
   <MuiThemeProvider muiTheme={getMuiTheme(TerrafarmRawTheme)}>
-    <CoreContainer {...props} />
+    <CorePage {...props} />
   </MuiThemeProvider>
 );
 
-export default CoreContainerTheme;
+export default CorePageTheme;

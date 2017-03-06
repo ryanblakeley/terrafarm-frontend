@@ -1,27 +1,25 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {Link} from 'react-router';
-// Icons
-import IoEdit from 'react-icons/lib/io/edit';
-import IoDollar from 'react-icons/lib/io/social-usd-outline';
-import IoIosCalendar from 'react-icons/lib/io/ios-calendar-outline';
-import IoIosPeople from 'react-icons/lib/io/ios-people';
-import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
-import IoAsterisk from 'react-icons/lib/io/asterisk';
-import WheatIcon from 'product/components/WheatIcon';
-import BarnIcon from 'organization/components/BarnIcon';
-// Components
+import {
+  EditIcon,
+  DollarIcon,
+  CalendarIcon,
+  PeopleIcon,
+  TagsIcon,
+  AsteriskIcon,
+  WheatIcon,
+  BarnIcon,
+} from 'shared/components/Icons';
+import {H3, P, Link} from 'shared/components/Typography';
 import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-import ContentHeader from 'shared/components/ContentHeader';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
 import Accordion from 'shared/components/Accordion';
 import RelationshipList from 'shared/components/RelationshipList';
 import ActionPanel from 'shared/components/ActionPanel';
 import ContentSubheader from 'shared/components/ContentSubheader';
-import ContentBodyText from 'shared/components/ContentBodyText';
 
 import classNames from '../styles/ProductContainerStylesheet.css';
 
@@ -92,38 +90,38 @@ const ProductContainer = (props, context) => {
         disabled={!context.loggedIn}
         list={[
           {
-            icon: <IoIosTagsOutline />,
+            icon: <TagsIcon />,
             title: 'Reserve share',
             url: `product/${props.product.rowId}/reserve-share`,
             disabled: isOwner || isShareholder,
           },
           {
-            icon: <IoIosTagsOutline />,
+            icon: <TagsIcon />,
             title: 'My share',
             url: `share/${currentPersonShareId}`,
             disabled: !isShareholder,
           },
           {
-            icon: <IoIosTagsOutline />,
+            icon: <TagsIcon />,
             title: 'Assign share',
             url: `product/${props.product.rowId}/assign-share`,
             disabled: !isOwner,
           },
           {
-            icon: <IoEdit />,
+            icon: <EditIcon />,
             title: 'Edit Product',
             url: `product/${props.product.rowId}/edit`,
             disabled: !isOwner,
           },
         ]}
       />
-      <ContentHeader text={props.product.name} />
+      <H3>{props.product.name}</H3>
       <MainContentWrapper
         right={<Accordion
           panels={[
             {
               header: {
-                icon: <IoIosPeople width={58} height={40} />,
+                icon: <PeopleIcon />,
                 label: 'Shareholders',
               },
               body: <RelationshipList listItems={shareHolders} />,
@@ -146,10 +144,10 @@ const ProductContainer = (props, context) => {
               text={props.product.organizationByOrganizationId.name}
             />
           </Link>
-          <ContentSubheader icon={<IoDollar />} text={`${price}`} light />
-          <ContentSubheader icon={<IoAsterisk />} text={`${props.product.creditsInitial} distributions / share`} light />
-          <ContentSubheader icon={<IoIosCalendar />} text={dates} light />
-          <ContentBodyText text={props.product.description} />
+          <ContentSubheader icon={<DollarIcon />} text={`${price}`} light />
+          <ContentSubheader icon={<AsteriskIcon />} text={`${props.product.creditsInitial} distributions / share`} light />
+          <ContentSubheader icon={<CalendarIcon />} text={dates} light />
+          <P>{props.product.description}</P>
           <HeroImage image={props.product.imageUrl} />
         </div>}
       />

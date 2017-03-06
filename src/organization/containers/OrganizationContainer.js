@@ -1,25 +1,23 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {Link} from 'react-router';
-// Icons
-import IoEdit from 'react-icons/lib/io/edit';
-import IoPerson from 'react-icons/lib/io/person';
-import IoAsterisk from 'react-icons/lib/io/asterisk';
-import BarnIcon from 'organization/components/BarnIcon';
-import WheatIcon from 'product/components/WheatIcon';
-// Components
+import {
+  EditIcon,
+  PersonIcon,
+  AsteriskIcon,
+  BarnIcon,
+  WheatIcon,
+  LocationOutlineIcon,
+} from 'shared/components/Icons';
 import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-import ContentHeader from 'shared/components/ContentHeader';
+import {H3, P, Link} from 'shared/components/Typography';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
 import Accordion from 'shared/components/Accordion';
 import RelationshipList from 'shared/components/RelationshipList';
 import ActionPanel from 'shared/components/ActionPanel';
 import ContentSubheader from 'shared/components/ContentSubheader';
-import ContentBodyText from 'shared/components/ContentBodyText';
-
 
 import classNames from '../styles/OrganizationContainerStylesheet.css';
 
@@ -33,7 +31,7 @@ const OrganizationContainer = (props, context) => (!props.organization
         disabled={props.organization.userByOwnerId.rowId !== context.userId}
         list={[
           {
-            icon: <IoAsterisk />,
+            icon: <AsteriskIcon />,
             title: 'Accept Voucher',
             url: 'accept-voucher',
           },
@@ -43,13 +41,13 @@ const OrganizationContainer = (props, context) => (!props.organization
             url: 'create-product',
           },
           {
-            icon: <IoEdit />,
+            icon: <EditIcon />,
             title: 'Edit Farm',
             url: 'edit',
           },
         ]}
       />
-      <ContentHeader text={props.organization.name} />
+      <H3>{props.organization.name}</H3>
       <MainContentWrapper
         right={<Accordion
           panels={[
@@ -78,6 +76,7 @@ const OrganizationContainer = (props, context) => (!props.organization
             }}
           />
           <ContentSubheader
+            icon={<LocationOutlineIcon />}
             text={props.organization.placeByPlaceId
               && props.organization.placeByPlaceId.address}
             light
@@ -87,11 +86,11 @@ const OrganizationContainer = (props, context) => (!props.organization
             className={classNames.link}
           >
             <ContentSubheader
-              icon={<IoPerson />}
+              icon={<PersonIcon />}
               text={props.organization.userByOwnerId.name}
             />
           </Link>
-          <ContentBodyText text={props.organization.description} />
+          <P>{props.organization.description}</P>
           <HeroImage image={props.organization.imageUrl} />
         </div>}
       />

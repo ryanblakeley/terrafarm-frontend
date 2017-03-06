@@ -1,5 +1,5 @@
-/* eslint-disable react/prefer-stateless-function */
-/*
+/* eslint-disable react/prefer-stateless-function
+ *
  * because menu item in material-ui and formsy uses `ref`
  * which is not available in stateless component
 */

@@ -1,5 +1,0 @@
-.this {}
-.title {
-  composes: contentHeading from './_typography.css';
-  text-transform: capitalize;
-}

@@ -1,13 +1,13 @@
 import React from 'react';
-import IoIosLocationOutline from 'react-icons/lib/io/ios-locatoutline';
+import {H4} from 'shared/components/Typography';
 import classNamesContext from 'classnames/bind';
 import classNames from '../styles/ContentSubheaderStylesheet.css';
 
 const cx = classNamesContext.bind(classNames);
 
 const ContentSubheader = props => <div className={classNames.this}>
-  {React.cloneElement(props.icon, {className: classNames.icon})}
-  <h4 className={cx({text: true, light: props.light, emptyWarning: !props.text})}>{props.text || '(Location not provided)'}</h4>
+  {props.icon}
+  <H4 className={cx({text: true, light: props.light, emptyWarning: !props.text})}>{props.text}</H4>
 </div>;
 
 ContentSubheader.propTypes = {
@@ -16,8 +16,6 @@ ContentSubheader.propTypes = {
   light: React.PropTypes.bool,
 };
 
-ContentSubheader.defaultProps = {
-  icon: <IoIosLocationOutline />,
-};
+ContentSubheader.defaultProps = { text: '(Not provided)' };
 
 export default ContentSubheader;

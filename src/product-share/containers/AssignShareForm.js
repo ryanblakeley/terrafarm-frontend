@@ -1,9 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import TextInput from 'shared/components/TextInput';
-import SelectInput from 'shared/components/SelectInput';
-import MenuItem from 'material-ui/MenuItem';
+import {TextInput, SelectInput} from 'shared/components/Form';
+import {MenuItem} from 'shared/components/Material';
 import AssignShareMutation from '../mutations/AssignShareMutation';
 
 class Container extends React.Component {
@@ -79,7 +78,7 @@ class Container extends React.Component {
         required
       >
         <MenuItem value={'RESERVED'} primaryText={'Reserved'} />
-        <MenuItem value={'PURCHASED'} primaryText={'Purchased'} />
+        <MenuItem value={'ACTIVE'} primaryText={'Active'} />
       </SelectInput>
       <TextInput
         name={'customerName'}

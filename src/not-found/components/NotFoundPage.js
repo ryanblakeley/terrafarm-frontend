@@ -1,14 +1,17 @@
 import React from 'react';
+import Layout from 'shared/components/Layout';
+import {H2, H3, P} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
-import classNames from '../styles/NotFoundPageStylesheet.css';
 
 /* eslint no-useless-escape: 0 */
 const NotFoundPage = props => <TransitionWrapper>
-  <div className={classNames.this}>
-    <h2 className={classNames.pageHeading}>404</h2>
-    <h3 className={classNames.contentHeading}>¯\_(ツ)_/¯</h3>
-    <p className={classNames.bodyText}>{props.message}</p>
-  </div>
+  <Layout page>
+    <H2>404</H2>
+    <H3>¯\_(ツ)_/¯</H3>
+    <Layout center>
+      <P>{props.message}</P>
+    </Layout>
+  </Layout>
 </TransitionWrapper>;
 
 NotFoundPage.propTypes = {

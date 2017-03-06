@@ -1,13 +1,6 @@
 .this { display: flex; align-items: center; margin: 0.67em 0; }
-.text {
-  composes: contentSubheading from './_typography.css';
-  display: inline-block;
-  margin: 0 0 0 18px;
-}
+.text { display: inline-block; margin: 0 0 0 18px; }
 .text.light { font-weight: 400; }
-.icon {
-  composes: icon from './_typography.css';
-}
 .text.emptyWarning {
   font-style: italic;
   font-weight: 400;
