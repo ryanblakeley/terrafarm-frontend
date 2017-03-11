@@ -2,6 +2,13 @@
 
 ## Changelog
 
+### 2.0.3
+
+- remove redundant styles
+- fix content subheader width of link hit area
+- fix relay renderer api to use render callback
+- fix index redirects on pages missing required rowId
+
 ### 2.0.2 2017 March 10
 
 - fix links, queries, fields
