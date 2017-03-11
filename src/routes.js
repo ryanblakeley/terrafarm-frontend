@@ -190,6 +190,7 @@ const routes = (
       />
     </Route>
     <Route path={'user'} onEnter={ensurePublicAccess} >
+      <IndexRoute component={NotFound} />
       <Route
         path={':userId'}
         component={UserContainer}
@@ -199,6 +200,7 @@ const routes = (
       />
     </Route>
     <Route path={'farm'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
+      <IndexRoute component={NotFound} />
       <Route
         path={':organizationId'}
         component={OrganizationContainer}
@@ -235,6 +237,7 @@ const routes = (
       </Route>
     </Route>
     <Route path={'product'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
+      <IndexRoute component={NotFound} />
       <Route
         path={':productId'}
         component={ProductContainer}
@@ -262,6 +265,7 @@ const routes = (
       </Route>
     </Route>
     <Route path={'share'} onEnter={loginBouncer} >
+      <IndexRoute component={NotFound} />
       <Route
         path={':shareId'}
         component={ProductShareContainer}
@@ -301,6 +305,7 @@ const routes = (
       </Route>
     </Route>
     <Route path={'voucher'} onEnter={loginBouncer} >
+      <IndexRoute component={NotFound} />
       <Route
         path={':distributionId'}
         component={DistributionContainer}
