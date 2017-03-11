@@ -3,7 +3,7 @@ import {GoogleApiWrapper} from 'google-maps-react';
 import {SearchIcon} from 'shared/components/Icons';
 import {Form, TextInput} from 'shared/components/Form';
 import FormError from 'shared/components/FormError';
-import IconButton from 'shared/components/IconButton';
+import {IconButton} from 'shared/components/Material';
 import classNames from '../styles/BrowseFormStylesheet.css';
 
 class Container extends React.Component {

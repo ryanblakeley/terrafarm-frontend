@@ -2,11 +2,7 @@ import React from 'react';
 import {Link} from 'shared/components/Typography';
 import {RaisedButton, FlatButton} from 'shared/components/Material';
 import Layout from 'shared/components/Layout';
-import classNames from '../styles/LoginLinksStylesheet.css';
-
-const browseLink = <Link to={'/browse'}>
-  <FlatButton label={'Browse Farms'} secondary />
-</Link>;
+// import classNames from '../styles/HomeButtonsStylesheet.css';
 
 const newUserLink = <Link to={{ pathname: '/login', state: {newUser: true} }}>
   <RaisedButton label={'New User'} primary />
@@ -20,7 +16,15 @@ const loginLink = <Link to={'/login'}>
   <RaisedButton label={'Login'} />
 </Link>;
 
-class LoginLinks extends React.Component {
+const browseLink = <Link to={'/browse'}>
+  <FlatButton
+    label={'Team up with local farms'}
+    secondary
+    labelStyle={{fontSize: 18}}
+  />
+</Link>;
+
+class HomeButtons extends React.Component {
   static contextTypes = {
     loggedIn: React.PropTypes.bool,
     setLoggedIn: React.PropTypes.func,
@@ -43,13 +47,13 @@ class LoginLinks extends React.Component {
       onTouchTap={this.handleSignOut}
     />;
 
-    return <div className={classNames.this}>
+    return <Layout topMedium>
       {leftLink}
       {rightLink}
-      {!loggedIn && <Layout topSmall>
+      <Layout topMedium>
         {browseLink}
-      </Layout>}
-    </div>;
+      </Layout>
+    </Layout>;
   }
 }
-export default LoginLinks;
+export default HomeButtons;

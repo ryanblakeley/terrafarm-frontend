@@ -1,5 +1,5 @@
 import React from 'react';
-import {MoreIcon, BarnIcon} from 'shared/components/Icons';
+import {CrosshairIcon, BarnIcon} from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import {H3} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
@@ -10,7 +10,7 @@ const BrowsePage = (props, context) => <TransitionWrapper>
   <Layout>
     <Menu
       baseUrl={'/browse'}
-      header={{icon: <MoreIcon />, title: 'Browse'}}
+      header={{icon: <CrosshairIcon />, title: 'Browse'}}
       disabled
       list={[
         { icon: <BarnIcon />, title: 'Farms', url: 'farms' },

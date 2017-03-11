@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatButton} from 'shared/components/Material';
-import {SearchIcon, PersonIcon, LoginIcon, ArrowRightIcon} from 'shared/components/Icons';
+import {CrosshairIcon, PersonIcon, LoginIcon, ArrowRightIcon} from 'shared/components/Icons';
 import {Link} from 'shared/components/Typography';
 import classNames from '../styles/AppHeaderButtonsStylesheet.css';
 
@@ -17,7 +17,7 @@ const BrowseButton = (props, context) => <Link
 >
   <FlatButton
     label={'Browse'}
-    icon={<SearchIcon />}
+    icon={<CrosshairIcon />}
     disabled={context.router.isActive('browse')}
   />
 </Link>;

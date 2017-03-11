@@ -3,7 +3,7 @@ import TransitionWrapper from 'shared/components/TransitionWrapper';
 import LogoLarge from './LogoLarge';
 import Tagline from './Tagline';
 import HowItWorks from './HowItWorks';
-import LoginLinks from './LoginLinks';
+import HomeButtons from './HomeButtons';
 import classNames from '../styles/HomePageStylesheet.css';
 
 const HomePage = props => <TransitionWrapper>
@@ -11,7 +11,7 @@ const HomePage = props => <TransitionWrapper>
     <LogoLarge />
     <Tagline />
     <HowItWorks />
-    <LoginLinks />
+    <HomeButtons />
   </div>
 </TransitionWrapper>;
 

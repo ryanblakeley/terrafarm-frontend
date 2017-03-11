@@ -5,8 +5,18 @@ import MaterialIconButton from 'material-ui/IconButton';
 import MaterialMenuItem from 'material-ui/MenuItem';
 import {Tabs as MaterialTabs, Tab as MaterialTab} from 'material-ui/Tabs';
 import MaterialPopover from 'material-ui/Popover';
+import Layout from './Layout';
+import classNames from '../styles/MaterialStylesheet.css';
 
-const FlatButton = props => <MaterialFlatButton {...props} />;
+const FlatButton = props => {
+  const {icon, ...rest} = props;
+  return <MaterialFlatButton
+    icon={icon && <Layout leftSmall inline>
+      {React.cloneElement(icon, {className: classNames.buttonIcon})}
+    </Layout>}
+    {...rest}
+  />;
+};
 const RaisedButton = props => <MaterialRaisedButton {...props} />;
 const IconButton = props => <MaterialIconButton {...props} />;
 /* eslint-disable react/prefer-stateless-function */
@@ -29,7 +39,9 @@ const defaultPropTypes = {
   ]),
 };
 
-FlatButton.propTypes = Object.assign(defaultPropTypes, {});
+FlatButton.propTypes = Object.assign(defaultPropTypes, {
+  icon: React.PropTypes.element,
+});
 RaisedButton.propTypes = Object.assign(defaultPropTypes, {});
 IconButton.propTypes = defaultPropTypes;
 MenuItem.propTypes = defaultPropTypes;
