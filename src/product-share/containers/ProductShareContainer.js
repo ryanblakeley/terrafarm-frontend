@@ -16,7 +16,6 @@ import {
 import {H3, Link} from 'shared/components/Typography';
 import Accordion from 'shared/components/Accordion';
 import RelationshipList from 'shared/components/RelationshipList';
-import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
@@ -26,9 +25,6 @@ import ContentSubheader from 'shared/components/ContentSubheader';
 import classNames from '../styles/ProductShareContainerStylesheet.css';
 
 const ProductShareContainer = (props, context) => {
-  if (!props.share) {
-    return <NotFoundPage message={'Punch card not found.'} />;
-  }
   let isCardholder = false;
   let userElem;
   const isFarmOwner = props.share.productByProductId

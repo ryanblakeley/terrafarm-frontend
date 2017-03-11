@@ -11,7 +11,6 @@ import {
   BarnIcon,
 } from 'shared/components/Icons';
 import {H3, P, Link} from 'shared/components/Typography';
-import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
@@ -24,9 +23,6 @@ import ContentSubheader from 'shared/components/ContentSubheader';
 import classNames from '../styles/ProductContainerStylesheet.css';
 
 const ProductContainer = (props, context) => {
-  if (!props.product) {
-    return <NotFoundPage message={'Product not found.'} />;
-  }
   const isOwner = props.product.organizationByOrganizationId.userByOwnerId.rowId
     === context.userId;
   let isShareholder = false;

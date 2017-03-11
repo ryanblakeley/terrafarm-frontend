@@ -121,12 +121,27 @@ function setRegistrarToken () {
   localStorage.setItem('user_uuid', '');
 }
 
-function renderLoading () {
-  return <Loading />;
+function renderCallback ({done, error, props, retry, stale}, container) {
+  if (error) {
+    console.error(`Relay renderer ${error}`);
+    return <NotFound />;
+  } else if (props) {
+    return React.cloneElement(container, {...props});
+  } else { // eslint-disable-line
+    return <Loading />;
+  }
 }
 
+renderCallback.propTypes = {
+  done: React.PropTypes.bool,
+  error: React.PropTypes.object,
+  props: React.PropTypes.object,
+  retry: React.PropTypes.func,
+  stale: React.PropTypes.bool,
+};
+
 const routes = (
-  <Route path={'/'} component={CoreContainerTheme} >
+  <Route path={'/'} component={CoreContainerTheme}>
     <IndexRoute component={HomePage} />
     <Route path={'about'} component={AboutPage} />
     <Route
@@ -140,7 +155,7 @@ const routes = (
       queries={ProfileQueries}
       prepareParams={prepareProfileParams}
       onEnter={loginBouncer}
-      renderLoading={renderLoading}
+      render={renderArgs => renderCallback(renderArgs, <ProfileContainer />)}
     >
       <Route path={'edit'} component={EditProfileForm} queries={ProfileQueries} >
         <Route path={'place-lookup'}>
@@ -148,7 +163,6 @@ const routes = (
             path={':placeId'}
             component={PlaceLookupContainer}
             queries={PlaceQueries}
-            renderLoading={renderLoading}
           />
         </Route>
       </Route>
@@ -158,7 +172,6 @@ const routes = (
             path={':placeId'}
             component={PlaceLookupContainer}
             queries={PlaceQueries}
-            renderLoading={renderLoading}
           />
         </Route>
       </Route>
@@ -166,7 +179,6 @@ const routes = (
     <Route
       path={'browse'}
       component={BrowsePage}
-      renderLoading={renderLoading}
     >
       <IndexRedirect to={'farms'} />
       <Route
@@ -174,7 +186,7 @@ const routes = (
         component={SearchOrganizationsContainer}
         queries={QueryQueries}
         onEnter={ensurePublicAccess}
-        renderLoading={renderLoading}
+        render={renderArgs => renderCallback(renderArgs, <SearchOrganizationsContainer />)}
       />
     </Route>
     <Route path={'user'} onEnter={ensurePublicAccess} >
@@ -183,23 +195,15 @@ const routes = (
         component={UserContainer}
         queries={UserQueries}
         onEnter={bounceToProfile}
-        renderLoading={renderLoading}
+        render={renderArgs => renderCallback(renderArgs, <UserContainer />)}
       />
-      {/*
-        <Route
-          path={'star'}
-          component={StarUserForm}
-          queries={UserCurrentPersonQueries}
-          onEnter={loginBouncer}
-        />
-      */}
     </Route>
     <Route path={'farm'} onEnter={ensurePublicAccess} prepareParams={prepareProfileParams} >
       <Route
         path={':organizationId'}
         component={OrganizationContainer}
         queries={OrganizationQueries}
-        renderLoading={renderLoading}
+        render={renderArgs => renderCallback(renderArgs, <OrganizationContainer />)}
       >
         <Route path={'create-product'} component={CreateProductForm} queries={OrganizationQueryQueries} />
         <Route
@@ -213,7 +217,6 @@ const routes = (
               path={':placeId'}
               component={PlaceLookupContainer}
               queries={PlaceQueries}
-              renderLoading={renderLoading}
             />
           </Route>
         </Route>
@@ -227,7 +230,6 @@ const routes = (
             path={':distributionToken'}
             component={ForwardDistributionTokenContainer}
             queries={ForwardDistributionTokenQueries}
-            renderLoading={renderLoading}
           />
         </Route>
       </Route>
@@ -237,7 +239,7 @@ const routes = (
         path={':productId'}
         component={ProductContainer}
         queries={ProductQueries}
-        renderLoading={renderLoading}
+        render={renderArgs => renderCallback(renderArgs, <ProductContainer />)}
       >
         <Route
           path={'edit'}
@@ -264,7 +266,7 @@ const routes = (
         path={':shareId'}
         component={ProductShareContainer}
         queries={ProductShareQueries}
-        renderLoading={renderLoading}
+        render={renderArgs => renderCallback(renderArgs, <ProductShareContainer />)}
       >
         <Route
           path={'edit'}
@@ -288,7 +290,6 @@ const routes = (
             path={':shareToken'}
             component={ProcessShareTokenContainer}
             queries={ProcessShareTokenQueries}
-            renderLoading={renderLoading}
           />
         </Route>
         <Route
@@ -304,7 +305,7 @@ const routes = (
         path={':distributionId'}
         component={DistributionContainer}
         queries={DistributionQueries}
-        renderLoading={renderLoading}
+        render={renderArgs => renderCallback(renderArgs, <DistributionContainer />)}
       >
         <Route
           path={'edit'}
@@ -317,7 +318,6 @@ const routes = (
             path={':distributionToken'}
             component={ProcessDistributionTokenContainer}
             queries={ProcessDistributionTokenQueries}
-            renderLoading={renderLoading}
           />
         </Route>
         <Route

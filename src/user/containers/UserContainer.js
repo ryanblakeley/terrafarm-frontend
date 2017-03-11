@@ -7,7 +7,6 @@ import {
   LocationOutlineIcon,
 } from 'shared/components/Icons';
 import {H3, P, Link} from 'shared/components/Typography';
-import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
@@ -19,65 +18,62 @@ import ContentSubheader from 'shared/components/ContentSubheader';
 
 import classNames from '../styles/UserContainerStylesheet.css';
 
-const UserContainer = (props, context) => (!props.user
-  ? <NotFoundPage message={'User not found.'} />
-  : <TransitionWrapper>
-    <div className={classNames.this}>
-      <Menu
-        baseUrl={`/user/${props.user.rowId}`}
-        header={{icon: <PersonIcon />, title: 'User'}}
-        disabled
-      />
-      <H3>{props.user.name}</H3>
-      <MainContentWrapper
-        right={<Accordion
-          panels={[
-            {
-              header: {
-                icon: <WheatIcon />,
-                label: 'Shares',
-              },
-              body: <RelationshipList
-                listItems={props.user.sharesByUserId.edges.length > 0
-                  ? props.user.sharesByUserId.edges.map(edge => ({
-                    id: edge.node.productByProductId.id,
-                    name: edge.node.productByProductId.name,
-                    itemId: edge.node.productByProductId.rowId,
-                    itemUrl: `/product/${edge.node.productByProductId.rowId}`,
-                  }))
-                  : []
-                }
-              />,
+const UserContainer = (props, context) => <TransitionWrapper>
+  <div className={classNames.this}>
+    <Menu
+      baseUrl={`/user/${props.user.rowId}`}
+      header={{icon: <PersonIcon />, title: 'User'}}
+      disabled
+    />
+    <H3>{props.user.name}</H3>
+    <MainContentWrapper
+      right={<Accordion
+        panels={[
+          {
+            header: {
+              icon: <WheatIcon />,
+              label: 'Shares',
             },
-          ]}
-        />}
-        left={<div>
-          <ActionPanel
-            children={props.children}
-            notifyClose={() => context.router.replace(`/user/${props.user.rowId}`)}
-          />
+            body: <RelationshipList
+              listItems={props.user.sharesByUserId.edges.length > 0
+                ? props.user.sharesByUserId.edges.map(edge => ({
+                  id: edge.node.productByProductId.id,
+                  name: edge.node.productByProductId.name,
+                  itemId: edge.node.productByProductId.rowId,
+                  itemUrl: `/product/${edge.node.productByProductId.rowId}`,
+                }))
+                : []
+              }
+            />,
+          },
+        ]}
+      />}
+      left={<div>
+        <ActionPanel
+          children={props.children}
+          notifyClose={() => context.router.replace(`/user/${props.user.rowId}`)}
+        />
+        <ContentSubheader
+          icon={<LocationOutlineIcon />}
+          text={props.user.placeByPlaceId && props.user.placeByPlaceId.address}
+          light
+        />
+        {props.user.organizationsByOwnerId.edges.map(edge => <Link
+          to={`/farm/${edge.node.rowId}`}
+          className={classNames.link}
+          key={edge.node.id}
+        >
           <ContentSubheader
-            icon={<LocationOutlineIcon />}
-            text={props.user.placeByPlaceId && props.user.placeByPlaceId.address}
-            light
+            icon={<BarnIcon width={24} height={24} />}
+            text={edge.node.name}
           />
-          {props.user.organizationsByOwnerId.edges.map(edge => <Link
-            to={`/farm/${edge.node.rowId}`}
-            className={classNames.link}
-            key={edge.node.id}
-          >
-            <ContentSubheader
-              icon={<BarnIcon width={24} height={24} />}
-              text={edge.node.name}
-            />
-          </Link>)}
-          <P>{props.user.description}</P>
-          <HeroImage image={props.user.imageUrl} />
-        </div>}
-      />
-    </div>
-  </TransitionWrapper>
-);
+        </Link>)}
+        <P>{props.user.description}</P>
+        <HeroImage image={props.user.imageUrl} />
+      </div>}
+    />
+  </div>
+</TransitionWrapper>;
 
 UserContainer.propTypes = {
   user: React.PropTypes.shape({

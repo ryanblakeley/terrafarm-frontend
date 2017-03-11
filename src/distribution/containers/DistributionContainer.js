@@ -12,7 +12,6 @@ import {
   TrashIcon,
 } from 'shared/components/Icons';
 import {H3, Link} from 'shared/components/Typography';
-import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
@@ -22,9 +21,6 @@ import ContentSubheader from 'shared/components/ContentSubheader';
 import classNames from '../styles/DistributionContainerStylesheet.css';
 
 const DistributionContainer = (props, context) => {
-  if (!props.distribution) {
-    return <NotFoundPage message={'Voucher not found.'} />;
-  }
   const organizationId = props.distribution.shareByShareId.productByProductId.organizationId;
   const isOwner = props.distribution.shareByShareId.productByProductId
     .organizationByOrganizationId.userByOwnerId.rowId === context.userId;

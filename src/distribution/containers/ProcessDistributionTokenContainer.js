@@ -62,7 +62,7 @@ class Container extends React.Component {
     const {error, authorized} = this.state;
 
     return <ActionPanelForm
-      title={'Confirm Change'}
+      title={'Confirm Validation'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       error={error}

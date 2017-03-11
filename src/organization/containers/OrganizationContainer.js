@@ -8,7 +8,6 @@ import {
   WheatIcon,
   LocationOutlineIcon,
 } from 'shared/components/Icons';
-import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import {H3, P, Link} from 'shared/components/Typography';
@@ -21,82 +20,79 @@ import ContentSubheader from 'shared/components/ContentSubheader';
 
 import classNames from '../styles/OrganizationContainerStylesheet.css';
 
-const OrganizationContainer = (props, context) => (!props.organization
-  ? <NotFoundPage message={'Farm not found.'} />
-  : <TransitionWrapper>
-    <div className={classNames.this}>
-      <Menu
-        baseUrl={`/farm/${props.organization.rowId}`}
-        header={{icon: <BarnIcon />, title: 'Farm'}}
-        disabled={props.organization.userByOwnerId.rowId !== context.userId}
-        list={[
+const OrganizationContainer = (props, context) => <TransitionWrapper>
+  <div className={classNames.this}>
+    <Menu
+      baseUrl={`/farm/${props.organization.rowId}`}
+      header={{icon: <BarnIcon />, title: 'Farm'}}
+      disabled={props.organization.userByOwnerId.rowId !== context.userId}
+      list={[
+        {
+          icon: <AsteriskIcon />,
+          title: 'Accept Voucher',
+          url: 'accept-voucher',
+        },
+        {
+          icon: <WheatIcon />,
+          title: 'Create Product',
+          url: 'create-product',
+        },
+        {
+          icon: <EditIcon />,
+          title: 'Edit Farm',
+          url: 'edit',
+        },
+      ]}
+    />
+    <H3>{props.organization.name}</H3>
+    <MainContentWrapper
+      right={<Accordion
+        panels={[
           {
-            icon: <AsteriskIcon />,
-            title: 'Accept Voucher',
-            url: 'accept-voucher',
-          },
-          {
-            icon: <WheatIcon />,
-            title: 'Create Product',
-            url: 'create-product',
-          },
-          {
-            icon: <EditIcon />,
-            title: 'Edit Farm',
-            url: 'edit',
+            header: {
+              icon: <WheatIcon />,
+              label: 'Products',
+            },
+            body: <RelationshipList
+              listItems={props.organization.productsByOrganizationId
+                .edges.map(edge => ({
+                  id: edge.node.id,
+                  name: edge.node.name,
+                  itemUrl: `/product/${edge.node.rowId}`,
+                }))
+              }
+            />,
           },
         ]}
-      />
-      <H3>{props.organization.name}</H3>
-      <MainContentWrapper
-        right={<Accordion
-          panels={[
-            {
-              header: {
-                icon: <WheatIcon />,
-                label: 'Products',
-              },
-              body: <RelationshipList
-                listItems={props.organization.productsByOrganizationId
-                  .edges.map(edge => ({
-                    id: edge.node.id,
-                    name: edge.node.name,
-                    itemUrl: `/product/${edge.node.rowId}`,
-                  }))
-                }
-              />,
-            },
-          ]}
-        />}
-        left={<div>
-          <ActionPanel
-            children={props.children}
-            notifyClose={() => {
-              context.router.replace(`/farm/${props.organization.rowId}`);
-            }}
-          />
+      />}
+      left={<div>
+        <ActionPanel
+          children={props.children}
+          notifyClose={() => {
+            context.router.replace(`/farm/${props.organization.rowId}`);
+          }}
+        />
+        <ContentSubheader
+          icon={<LocationOutlineIcon />}
+          text={props.organization.placeByPlaceId
+            && props.organization.placeByPlaceId.address}
+          light
+        />
+        <Link
+          to={`/user/${props.organization.userByOwnerId.rowId}`}
+          className={classNames.link}
+        >
           <ContentSubheader
-            icon={<LocationOutlineIcon />}
-            text={props.organization.placeByPlaceId
-              && props.organization.placeByPlaceId.address}
-            light
+            icon={<PersonIcon />}
+            text={props.organization.userByOwnerId.name}
           />
-          <Link
-            to={`/user/${props.organization.userByOwnerId.rowId}`}
-            className={classNames.link}
-          >
-            <ContentSubheader
-              icon={<PersonIcon />}
-              text={props.organization.userByOwnerId.name}
-            />
-          </Link>
-          <P>{props.organization.description}</P>
-          <HeroImage image={props.organization.imageUrl} />
-        </div>}
-      />
-    </div>
-  </TransitionWrapper>
-);
+        </Link>
+        <P>{props.organization.description}</P>
+        <HeroImage image={props.organization.imageUrl} />
+      </div>}
+    />
+  </div>
+</TransitionWrapper>;
 
 OrganizationContainer.propTypes = {
   organization: React.PropTypes.object,
