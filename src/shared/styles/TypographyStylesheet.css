@@ -12,6 +12,7 @@
 .paragraph { composes: bodyText from './_typography.css'; }
 .internalLink { composes: link from './_typography.css'; }
 .externalLink { composes: link from './_typography.css'; text-decoration: underline; }
+.disabledLink { pointer-events: none; }
 .list { composes: bulletList from './_typography.css'; }
 .listItem { composes: bodyText from './_typography.css'; }
 .icon { composes: icon from './_typography.css'; }

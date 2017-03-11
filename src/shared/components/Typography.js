@@ -41,8 +41,9 @@ const A = props => <a
 />;
 const Link = props => <InternalLink
   to={props.to}
-  className={`${props.className ? props.className : ''} ${classNames.internalLink}`}
+  className={`${props.className ? props.className : ''} ${classNames.internalLink} ${props.disabled ? classNames.disabledLink : ''}`}
   children={props.children}
+  disabled={props.disabled}
 />;
 const UL = props => <ul
   className={`${props.className ? props.className : ''} ${classNames.list}`}
@@ -90,6 +91,7 @@ Link.propTypes = Object.assign(defaultPropTypes, {
     React.PropTypes.string,
     React.PropTypes.object,
   ]),
+  disabled: React.PropTypes.bool,
 });
 UL.propTypes = defaultPropTypes;
 LI.propTypes = defaultPropTypes;

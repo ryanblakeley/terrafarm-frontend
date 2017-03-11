@@ -4,3 +4,5 @@
 .center { composes: center from './_layout.css'; }
 .topSmall { margin-top: 15px; }
 .topMedium { margin-top: 25px; }
+.rightSmall { margin-right: 15px; }
+.inline { display: inline; }

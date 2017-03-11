@@ -1,18 +1,19 @@
 import React from 'react';
 import {Link} from 'shared/components/Typography';
 import {RaisedButton, FlatButton} from 'shared/components/Material';
+import Layout from 'shared/components/Layout';
 import classNames from '../styles/LoginLinksStylesheet.css';
 
 const browseLink = <Link to={'/browse'}>
-  <FlatButton label={'Browse Farms'} fullWidth smallTop secondary />
+  <FlatButton label={'Browse Farms'} secondary />
 </Link>;
 
 const newUserLink = <Link to={{ pathname: '/login', state: {newUser: true} }}>
-  <RaisedButton label={'New User'} primary smallRight />
+  <RaisedButton label={'New User'} primary />
 </Link>;
 
 const profileLink = <Link to={'/profile'}>
-  <RaisedButton label={'Profile'} primary smallRight />
+  <RaisedButton label={'Profile'} primary />
 </Link>;
 
 const loginLink = <Link to={'/login'}>
@@ -34,7 +35,9 @@ class LoginLinks extends React.Component {
   }
   render () {
     const {loggedIn} = this.context;
-    const leftLink = !loggedIn ? newUserLink : profileLink;
+    const leftLink = <Layout inline rightSmall>
+      {!loggedIn ? newUserLink : profileLink}
+    </Layout>;
     const rightLink = !loggedIn ? loginLink : <RaisedButton
       label={'Logout'}
       onTouchTap={this.handleSignOut}
@@ -43,7 +46,9 @@ class LoginLinks extends React.Component {
     return <div className={classNames.this}>
       {leftLink}
       {rightLink}
-      {!loggedIn && browseLink}
+      {!loggedIn && <Layout topSmall>
+        {browseLink}
+      </Layout>}
     </div>;
   }
 }

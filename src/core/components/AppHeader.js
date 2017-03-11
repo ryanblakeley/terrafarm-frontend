@@ -1,11 +1,11 @@
 import React from 'react';
 import AppLogo from './AppLogo';
-import AppHeaderNav from './AppHeaderNav';
+import AppHeaderButtons from './AppHeaderButtons';
 import classNames from '../styles/AppHeaderStylesheet.css';
 
 const AppHeader = _ => <div className={classNames.this} >
   <AppLogo />
-  <AppHeaderNav />
+  <AppHeaderButtons />
 </div>;
 
 export default AppHeader;
