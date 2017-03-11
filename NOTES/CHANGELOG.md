@@ -2,10 +2,15 @@
 
 ## Changelog
 
-### 2.0.2 2017 March 2
+### 2.0.2 2017 March 10
 
 - fix links, queries, fields
 - change token icon
+- fix share status change pathways
+- remove users and products from browse
+- add base components for Material, Layout, Form, Typography, Icons
+- add "number of distributions" to product
+- fix Relay range_add on new product and organization
 
 ### 2.0.1 2017 March 1
 
