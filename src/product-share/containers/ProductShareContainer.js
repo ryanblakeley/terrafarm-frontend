@@ -13,7 +13,8 @@ import {
   CheckmarkIcon,
   TrashIcon,
 } from 'shared/components/Icons';
-import {H3, Link} from 'shared/components/Typography';
+import Layout from 'shared/components/Layout';
+import {H3} from 'shared/components/Typography';
 import Accordion from 'shared/components/Accordion';
 import RelationshipList from 'shared/components/RelationshipList';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
@@ -21,8 +22,6 @@ import Menu from 'shared/components/Menu';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
 import ContentSubheader from 'shared/components/ContentSubheader';
-
-import classNames from '../styles/ProductShareContainerStylesheet.css';
 
 const ProductShareContainer = (props, context) => {
   let isCardholder = false;
@@ -49,15 +48,11 @@ const ProductShareContainer = (props, context) => {
 
   if (props.share.userByUserId) {
     isCardholder = props.share.userByUserId.rowId === context.userId;
-    userElem = <Link
-      to={`/user/${props.share.userByUserId.rowId}`}
-      className={classNames.link}
-    >
-      <ContentSubheader
-        icon={<PersonIcon width={24} height={24} />}
-        text={props.share.userByUserId.name}
-      />
-    </Link>;
+    userElem = <ContentSubheader
+      icon={<PersonIcon width={24} height={24} />}
+      text={props.share.userByUserId.name}
+      url={`/user/${props.share.userByUserId.rowId}`}
+    />;
   } else {
     userElem = <ContentSubheader
       icon={<PersonIcon width={24} height={24} />}
@@ -66,7 +61,7 @@ const ProductShareContainer = (props, context) => {
   }
 
   return <TransitionWrapper>
-    <div className={classNames.this}>
+    <Layout page>
       <Menu
         baseUrl={`/share/${props.share.rowId}`}
         header={{icon: <TagsIcon />, title: 'Share'}}
@@ -130,15 +125,11 @@ const ProductShareContainer = (props, context) => {
               light
             />}
           {userElem}
-          <Link
-            to={`/product/${props.share.productByProductId.rowId}`}
-            className={classNames.link}
-          >
-            <ContentSubheader
-              icon={<WheatIcon width={24} height={24} />}
-              text={props.share.productByProductId.name}
-            />
-          </Link>
+          <ContentSubheader
+            icon={<WheatIcon width={24} height={24} />}
+            text={props.share.productByProductId.name}
+            url={`/product/${props.share.productByProductId.rowId}`}
+          />
           <ContentSubheader icon={<CalendarIcon />} text={dates} light />
           {props.share.status === 'PURCHASED'
             && <ContentSubheader icon={<AsteriskIcon />} text={credits} light />}
@@ -155,7 +146,7 @@ const ProductShareContainer = (props, context) => {
             />}
         </div>}
       />
-    </div>
+    </Layout>
   </TransitionWrapper>;
 };
 

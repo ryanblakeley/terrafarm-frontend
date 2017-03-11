@@ -9,7 +9,8 @@ import {
   WheatIcon,
   LocationOutlineIcon,
 } from 'shared/components/Icons';
-import {H3, P, Link} from 'shared/components/Typography';
+import Layout from 'shared/components/Layout';
+import {H3, P} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
@@ -18,8 +19,6 @@ import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
 import Accordion from 'shared/components/Accordion';
 import ContentSubheader from 'shared/components/ContentSubheader';
-
-import classNames from '../styles/ProfileContainerStylesheet.css';
 
 const ProfileContainer = (props, context) => {
   const menuList = [
@@ -41,7 +40,7 @@ const ProfileContainer = (props, context) => {
   vouchersList = [].concat(...vouchersList);
 
   return <TransitionWrapper>
-    <div className={classNames.this}>
+    <Layout page>
       <Menu
         baseUrl={'/profile'}
         header={{icon: <PersonIcon />, title: 'Profile'}}
@@ -84,21 +83,17 @@ const ProfileContainer = (props, context) => {
             text={props.currentPerson.placeByPlaceId && props.currentPerson.placeByPlaceId.address}
             light
           />
-          {props.currentPerson.organizationsByOwnerId.edges.map(edge => <Link
-            to={`/farm/${edge.node.rowId}`}
-            className={classNames.link}
+          {props.currentPerson.organizationsByOwnerId.edges.map(edge => <ContentSubheader
+            icon={<BarnIcon width={24} height={24} />}
+            text={edge.node.name}
+            url={`/farm/${edge.node.rowId}`}
             key={edge.node.id}
-          >
-            <ContentSubheader
-              icon={<BarnIcon width={24} height={24} />}
-              text={edge.node.name}
-            />
-          </Link>)}
+          />)}
           <P>{props.currentPerson.description}</P>
           <HeroImage image={props.currentPerson.imageUrl} />
         </div>}
       />
-    </div>
+    </Layout>
   </TransitionWrapper>;
 };
 

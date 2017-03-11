@@ -11,14 +11,13 @@ import {
   CheckmarkIcon,
   TrashIcon,
 } from 'shared/components/Icons';
-import {H3, Link} from 'shared/components/Typography';
+import Layout from 'shared/components/Layout';
+import {H3} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import ContentSubheader from 'shared/components/ContentSubheader';
-
-import classNames from '../styles/DistributionContainerStylesheet.css';
 
 const DistributionContainer = (props, context) => {
   const organizationId = props.distribution.shareByShareId.productByProductId.organizationId;
@@ -29,15 +28,11 @@ const DistributionContainer = (props, context) => {
   let userElem;
 
   if (shareholderIsUser) {
-    userElem = <Link
-      to={`/user/${props.distribution.shareByShareId.userByUserId.rowId}`}
-      className={classNames.link}
-    >
-      <ContentSubheader
-        icon={<PersonIcon width={24} height={24} />}
-        text={props.distribution.shareByShareId.userByUserId.name}
-      />
-    </Link>;
+    userElem = <ContentSubheader
+      icon={<PersonIcon width={24} height={24} />}
+      text={props.distribution.shareByShareId.userByUserId.name}
+      url={`/user/${props.distribution.shareByShareId.userByUserId.rowId}`}
+    />;
   } else {
     userElem = <ContentSubheader
       icon={<PersonIcon width={24} height={24} />}
@@ -46,7 +41,7 @@ const DistributionContainer = (props, context) => {
   }
 
   return <TransitionWrapper>
-    <div className={classNames.this}>
+    <Layout page>
       <Menu
         baseUrl={''}
         header={{icon: <AsteriskIcon />, title: 'Voucher'}}
@@ -104,33 +99,25 @@ const DistributionContainer = (props, context) => {
               light
             />}
           {userElem}
-          <Link
-            to={`/product/${props.distribution.shareByShareId.productId}`}
-            className={classNames.link}
-          >
-            <ContentSubheader
-              icon={<WheatIcon width={24} height={24} />}
-              text={props.distribution.shareByShareId.productName}
-            />
-          </Link>
+          <ContentSubheader
+            icon={<WheatIcon width={24} height={24} />}
+            text={props.distribution.shareByShareId.productName}
+            url={`/product/${props.distribution.shareByShareId.productId}`}
+          />
           {props.distribution.description && <ContentSubheader
             icon={<ChatBubbleIcon />}
             text={props.distribution.description}
             light
           />}
-          <Link
-            to={`/share/${props.distribution.shareByShareId.rowId}`}
-            className={classNames.link}
-          >
-            <ContentSubheader
-              icon={<ArrowLeftIcon />}
-              text={'back to share'}
-              light
-            />
-          </Link>
+          <ContentSubheader
+            icon={<ArrowLeftIcon />}
+            text={'back to share'}
+            url={`/share/${props.distribution.shareByShareId.rowId}`}
+            light
+          />
         </div>}
       />
-    </div>
+    </Layout>
   </TransitionWrapper>;
 };
 

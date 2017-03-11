@@ -10,7 +10,8 @@ import {
   WheatIcon,
   BarnIcon,
 } from 'shared/components/Icons';
-import {H3, P, Link} from 'shared/components/Typography';
+import Layout from 'shared/components/Layout';
+import {H3, P} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
@@ -19,8 +20,6 @@ import Accordion from 'shared/components/Accordion';
 import RelationshipList from 'shared/components/RelationshipList';
 import ActionPanel from 'shared/components/ActionPanel';
 import ContentSubheader from 'shared/components/ContentSubheader';
-
-import classNames from '../styles/ProductContainerStylesheet.css';
 
 const ProductContainer = (props, context) => {
   const isOwner = props.product.organizationByOrganizationId.userByOwnerId.rowId
@@ -79,7 +78,7 @@ const ProductContainer = (props, context) => {
     : 'dates not provided';
 
   return <TransitionWrapper>
-    <div className={classNames.this}>
+    <Layout page>
       <Menu
         baseUrl={''}
         header={{icon: <WheatIcon />, title: 'Product'}}
@@ -131,15 +130,11 @@ const ProductContainer = (props, context) => {
               context.router.replace(`/product/${props.product.rowId}`);
             }}
           />
-          <Link
-            to={`/farm/${props.product.organizationByOrganizationId.rowId}`}
-            className={classNames.link}
-          >
-            <ContentSubheader
-              icon={<BarnIcon width={24} height={24} />}
-              text={props.product.organizationByOrganizationId.name}
-            />
-          </Link>
+          <ContentSubheader
+            icon={<BarnIcon width={24} height={24} />}
+            text={props.product.organizationByOrganizationId.name}
+            url={`/farm/${props.product.organizationByOrganizationId.rowId}`}
+          />
           <ContentSubheader icon={<DollarIcon />} text={`${price}`} light />
           <ContentSubheader icon={<AsteriskIcon />} text={`${props.product.creditsInitial} distributions / share`} light />
           <ContentSubheader icon={<CalendarIcon />} text={dates} light />
@@ -147,7 +142,7 @@ const ProductContainer = (props, context) => {
           <HeroImage image={props.product.imageUrl} />
         </div>}
       />
-    </div>
+    </Layout>
   </TransitionWrapper>;
 };
 

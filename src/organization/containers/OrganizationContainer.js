@@ -8,9 +8,10 @@ import {
   WheatIcon,
   LocationOutlineIcon,
 } from 'shared/components/Icons';
+import Layout from 'shared/components/Layout';
+import {H3, P} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-import {H3, P, Link} from 'shared/components/Typography';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
 import Accordion from 'shared/components/Accordion';
@@ -18,10 +19,8 @@ import RelationshipList from 'shared/components/RelationshipList';
 import ActionPanel from 'shared/components/ActionPanel';
 import ContentSubheader from 'shared/components/ContentSubheader';
 
-import classNames from '../styles/OrganizationContainerStylesheet.css';
-
 const OrganizationContainer = (props, context) => <TransitionWrapper>
-  <div className={classNames.this}>
+  <Layout page>
     <Menu
       baseUrl={`/farm/${props.organization.rowId}`}
       header={{icon: <BarnIcon />, title: 'Farm'}}
@@ -78,20 +77,16 @@ const OrganizationContainer = (props, context) => <TransitionWrapper>
             && props.organization.placeByPlaceId.address}
           light
         />
-        <Link
-          to={`/user/${props.organization.userByOwnerId.rowId}`}
-          className={classNames.link}
-        >
-          <ContentSubheader
-            icon={<PersonIcon />}
-            text={props.organization.userByOwnerId.name}
-          />
-        </Link>
+        <ContentSubheader
+          icon={<PersonIcon />}
+          text={props.organization.userByOwnerId.name}
+          url={`/user/${props.organization.userByOwnerId.rowId}`}
+        />
         <P>{props.organization.description}</P>
         <HeroImage image={props.organization.imageUrl} />
       </div>}
     />
-  </div>
+  </Layout>
 </TransitionWrapper>;
 
 OrganizationContainer.propTypes = {

@@ -6,7 +6,8 @@ import {
   WheatIcon,
   LocationOutlineIcon,
 } from 'shared/components/Icons';
-import {H3, P, Link} from 'shared/components/Typography';
+import Layout from 'shared/components/Layout';
+import {H3, P} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
@@ -16,10 +17,8 @@ import ActionPanel from 'shared/components/ActionPanel';
 import Accordion from 'shared/components/Accordion';
 import ContentSubheader from 'shared/components/ContentSubheader';
 
-import classNames from '../styles/UserContainerStylesheet.css';
-
 const UserContainer = (props, context) => <TransitionWrapper>
-  <div className={classNames.this}>
+  <Layout page>
     <Menu
       baseUrl={`/user/${props.user.rowId}`}
       header={{icon: <PersonIcon />, title: 'User'}}
@@ -58,21 +57,17 @@ const UserContainer = (props, context) => <TransitionWrapper>
           text={props.user.placeByPlaceId && props.user.placeByPlaceId.address}
           light
         />
-        {props.user.organizationsByOwnerId.edges.map(edge => <Link
-          to={`/farm/${edge.node.rowId}`}
-          className={classNames.link}
+        {props.user.organizationsByOwnerId.edges.map(edge => <ContentSubheader
+          icon={<BarnIcon width={24} height={24} />}
+          text={edge.node.name}
+          url={`/farm/${edge.node.rowId}`}
           key={edge.node.id}
-        >
-          <ContentSubheader
-            icon={<BarnIcon width={24} height={24} />}
-            text={edge.node.name}
-          />
-        </Link>)}
+        />)}
         <P>{props.user.description}</P>
         <HeroImage image={props.user.imageUrl} />
       </div>}
     />
-  </div>
+  </Layout>
 </TransitionWrapper>;
 
 UserContainer.propTypes = {
