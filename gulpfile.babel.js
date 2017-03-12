@@ -72,12 +72,12 @@ gulp.task('load-schema', () => {
   }).then(res => res.json()).then(schemaJSON => {
     fs.writeFileSync(
       `${PATHS.schema}.json`,
-      JSON.stringify(schemaJSON, null, 2)
+      JSON.stringify(schemaJSON, null, 2),
     );
     const graphQLSchema = buildClientSchema(schemaJSON.data);
     fs.writeFileSync(
       `${PATHS.schema}.graphql`,
-      printSchema(graphQLSchema)
+      printSchema(graphQLSchema),
     );
   });
 });

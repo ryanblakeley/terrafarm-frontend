@@ -1,3 +1,1 @@
-.this { composes: center from '../../shared/styles/_layout.css'; max-width: 90%; }
-.title { composes: contentSubheading from '../../shared/styles/_typography.css'; }
-.text { composes: bodyText from '../../shared/styles/_typography.css'; }
+.this { max-width: 90%; }

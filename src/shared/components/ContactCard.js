@@ -1,14 +1,12 @@
 import React from 'react';
+import Layout from './Layout';
+import {H5, P} from './Typography';
 import classNames from '../styles/ContactCardStylesheet.css';
 
-const ContactCard = props => <div className={classNames.this}>
-  <h5 className={classNames.title}>
-    Contact Info
-  </h5>
-  <p className={classNames.text}>
-    {props.text}
-  </p>
-</div>;
+const ContactCard = props => <Layout center className={classNames.this}>
+  <H5>Contact Info</H5>
+  <P>{props.text}</P>
+</Layout>;
 
 ContactCard.propTypes = {
   text: React.PropTypes.string.isRequired,

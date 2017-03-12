@@ -1,7 +1,9 @@
 .page { composes: page from './_layout.css'; }
 .smallPage { composes: page--gutter from './_layout.css'; max-width: 470px; }
 .fullPage { composes: page--fullWidth from './_layout.css'; }
+.smallPageFixed { composes: page--smallWidth from './_layout.css'; }
 .center { composes: center from './_layout.css'; }
+.left { text-align: left; }
 .topSmall { margin-top: 15px; }
 .topMedium { margin-top: 25px; }
 .rightSmall { margin-right: 15px; }

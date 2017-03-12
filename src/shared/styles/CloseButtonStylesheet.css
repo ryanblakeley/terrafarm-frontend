@@ -1,7 +1,1 @@
-.this {
-  composes: center from '../../shared/styles/_layout.css';
-}
-.icon {
-  composes: icon from '../../shared/styles/_typography.css';
-  font-size: 36px;
-}
+.icon { font-size: 36px; }

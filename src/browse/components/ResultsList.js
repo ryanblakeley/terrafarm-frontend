@@ -1,21 +1,22 @@
 import React from 'react';
-import {UL} from 'shared/components/Typography';
+import Layout from 'shared/components/Layout';
+import {UL, WarningMessage} from 'shared/components/Typography';
 import ResultsListItem from './ResultsListItem';
 import classNames from '../styles/ResultsListStylesheet.css';
 
-const ResultsList = props => <div className={classNames.this}>
-  <UL className={classNames.list}>
+const ResultsList = props => <Layout smallPageFixed>
+  <UL plumb>
     {props.listItems.length
       ? props.listItems.map(item => (item.itemId && <ResultsListItem
         {...item}
         key={item.itemId}
       />))
-      : <div className={classNames.emptyListItem}>
-        <p className={classNames.emptyWarning}>{props.emptyWarning}</p>
-      </div>
+      : <ResultsListItem>
+        <WarningMessage>{props.emptyWarning}</WarningMessage>
+      </ResultsListItem>
     }
   </UL>
-</div>;
+</Layout>;
 
 ResultsList.propTypes = {
   emptyWarning: React.PropTypes.string,

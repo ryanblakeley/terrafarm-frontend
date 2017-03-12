@@ -1,7 +1,7 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
-import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
-
+import {IconButton} from './Material';
+import {CloseIcon} from './Icons';
+import Layout from './Layout';
 import classNames from '../styles/CloseButtonStylesheet.css';
 
 const styles = {
@@ -10,15 +10,14 @@ const styles = {
   },
 };
 
-const CloseButton = props => <div className={classNames.this}>
+const CloseButton = props => <Layout center>
   <IconButton
-    className={classNames.button}
     onTouchTap={_ => props.notifyClose()}
     style={styles.closeButton}
   >
-    <IoIosCloseOutline className={classNames.icon} />
+    <CloseIcon className={classNames.icon} />
   </IconButton>
-</div>;
+</Layout>;
 
 CloseButton.propTypes = {
   notifyClose: React.PropTypes.func.isRequired,

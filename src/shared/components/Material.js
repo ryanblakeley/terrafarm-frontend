@@ -19,13 +19,7 @@ const FlatButton = props => {
 };
 const RaisedButton = props => <MaterialRaisedButton {...props} />;
 const IconButton = props => <MaterialIconButton {...props} />;
-/* eslint-disable react/prefer-stateless-function */
-// form component uses this element and uses refs so can't be a stateless function
-class MenuItem extends React.Component {
-  render () {
-    return <MaterialMenuItem {...this.props} />;
-  }
-}
+const MenuItem = MaterialMenuItem;
 const Tabs = MaterialTabs;
 const Tab = MaterialTab;
 const Popover = props => <MaterialPopover {...props} />;

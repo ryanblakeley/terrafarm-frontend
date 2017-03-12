@@ -5,6 +5,7 @@ import {
   LinkIcon,
 } from 'shared/components/Icons';
 import {IconButton} from 'shared/components/Material';
+import {Span, LI} from 'shared/components/Typography';
 import classNamesContext from 'classnames/bind';
 import classNames from '../styles/ResultsListItemStylesheet.css';
 
@@ -39,7 +40,7 @@ class ResultsListItem extends React.Component {
   render () {
     const { name, active } = this.props;
 
-    return <div className={cx({this: true, active})}>
+    return <LI truncate className={cx({this: true, active})}>
       <IconButton style={styles.button} onClick={this.handleClick}>
         {active
           ? <LocationIcon className={classNames.icon} />
@@ -49,8 +50,8 @@ class ResultsListItem extends React.Component {
       <IconButton onClick={this.handleLink}>
         <LinkIcon className={classNames.icon} />
       </IconButton>
-      <span>{name}</span>
-    </div>;
+      <Span>{name}</Span>
+    </LI>;
   }
 }
 

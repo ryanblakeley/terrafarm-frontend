@@ -1,7 +1,3 @@
-.this {
-  composes: bodyText from 'shared/styles/_typography.css';
-  composes: truncate from 'shared/styles/_typography.css';
-  display: flex; align-items: center;
-}
+.this { display: flex; align-items: center; }
 .this.active { background: rgba(187,222,251,0.92); }
 .this.active .icon { color: rgba(230,74,25 ,1); }

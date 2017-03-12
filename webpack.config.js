@@ -1,9 +1,10 @@
 import webpack from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import validate from 'webpack-validator';
 import env from 'gulp-env';
 import jwt from 'jsonwebtoken';
+
+// process.traceDeprecation = true;
 
 if (!process.env.JWT_PRIVATE_KEY) {
   env({file: './.env', type: 'ini'});
@@ -47,7 +48,13 @@ const config = {
   },
   plugins: [
     // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(NODE_ENV),
+        GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
+        GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
+      },
+    }),
     new HtmlWebpackPlugin({
       title: 'Terrafarm CSA',
       filename: 'index.html',
@@ -56,54 +63,62 @@ const config = {
       anonymousToken,
       registrarToken,
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(NODE_ENV),
-        GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
-        GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
-      },
-    }),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: PATHS.src,
-        loaders: [`babel-loader?plugins[]=${path.join(__dirname, 'relayPlugin')}`],
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
         include: PATHS.src,
-        loader: 'style-loader!css-loader?modules',
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
         include: PATHS.src,
-        loader: 'url-loader?limit=10000',
+        use: [
+          { loader: 'url-loader', options: { limit: 10000 } },
+        ],
       },
       {
         test: /\.png$/,
         include: PATHS.src,
-        loader: 'url-loader?limit=65000',
+        use: [
+          { loader: 'url-loader', options: { limit: 65000 } },
+        ],
       },
       {
         test: /\.(woff|woff2)$/,
         include: PATHS.fonts,
-        query: {
+        loader: 'url-loader',
+        options: {
           name: 'font/[hash].[ext]',
-          limit: 5000,
+          limit: 50000,
           mimetype: 'application/font-woff',
         },
-        loader: 'url?limit=50000',
       },
     ],
   },
   resolve: {
-    root: PATHS.root,
+    modules: [
+      PATHS.src,
+      'node_modules',
+    ],
     alias: {
-      shared: PATHS.shared,
+      root: PATHS.root,
     },
   },
 };
 
-export default validate(config, { quiet: true });
+export default config;

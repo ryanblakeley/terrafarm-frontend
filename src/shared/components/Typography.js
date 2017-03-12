@@ -112,4 +112,4 @@ Icon.propTypes = Object.assign(defaultPropTypes, {
 ErrorMessage.propTypes = defaultPropTypes;
 WarningMessage.propTypes = defaultPropTypes;
 
-export {H1, H2, H3, H4, H5, H6, AppName, P, Span, A, Link, UL, LI, Icon};
+export {H1, H2, H3, H4, H5, H6, AppName, P, Span, A, Link, UL, LI, Icon, WarningMessage};

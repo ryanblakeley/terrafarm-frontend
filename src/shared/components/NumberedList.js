@@ -1,14 +1,16 @@
 import React from 'react';
+import Layout from './Layout';
+import {H4, UL, LI} from './Typography';
 import classNames from '../styles/NumberedListStylesheet.css';
 
-const NumberedList = props => <div className={classNames.this}>
-  {props.title && <h3 className={classNames.heading}>{props.title}</h3>}
-  <ul className={props.dash ? classNames.listDash : classNames.listNumbered}>
-    {props.listItems.map((text, i) => <li className={classNames.listItem} key={i} >
+const NumberedList = props => <Layout left>
+  {props.title && <H4>{props.title}</H4>}
+  <UL className={props.dash ? classNames.listDash : classNames.listNumbered}>
+    {props.listItems.map((text, i) => <LI className={classNames.listItem} key={i} >
       {text}
-    </li>)}
-  </ul>
-</div>;
+    </LI>)}
+  </UL>
+</Layout>;
 
 NumberedList.propTypes = {
   title: React.PropTypes.string,

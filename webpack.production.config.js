@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import validate from 'webpack-validator';
 import env from 'gulp-env';
 import jwt from 'jsonwebtoken';
 
@@ -28,6 +27,7 @@ const registrarToken = jwt.sign({
 }, JWT_PRIVATE_KEY);
 
 const PATHS = {
+  root: path.join(__dirname),
   src: path.join(__dirname, 'src'),
   build: path.join(__dirname, 'build', 'public'),
 };
@@ -42,6 +42,21 @@ const prodConfig = {
     publicPath: '/',
   },
   plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(NODE_ENV),
+        GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
+        GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
+      },
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+      },
+    }),
+    // new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       title: 'Terrafarm CSA',
       filename: 'index.html',
@@ -50,48 +65,62 @@ const prodConfig = {
       anonymousToken,
       registrarToken,
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(NODE_ENV),
-        GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
-        GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
-      },
-    }),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: PATHS.src,
-        loaders: [`babel-loader?plugins[]=${path.join(__dirname, 'relayPlugin')}`],
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
         include: PATHS.src,
-        loader: 'style-loader!css-loader?modules',
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
         include: PATHS.src,
-        loader: 'url-loader?limit=10000',
+        use: [
+          { loader: 'url-loader', options: { limit: 10000 } },
+        ],
       },
       {
         test: /\.png$/,
         include: PATHS.src,
-        loader: 'url-loader?limit=65000',
+        use: [
+          { loader: 'url-loader', options: { limit: 65000 } },
+        ],
       },
       {
         test: /\.(woff|woff2)$/,
         include: PATHS.fonts,
-        query: {
+        loader: 'url-loader',
+        options: {
           name: 'font/[hash].[ext]',
-          limit: 5000,
+          limit: 50000,
           mimetype: 'application/font-woff',
         },
-        loader: 'url?limit=50000',
       },
     ],
   },
+  resolve: {
+    modules: [
+      PATHS.src,
+      'node_modules',
+    ],
+    alias: {
+      root: PATHS.root,
+    },
+  },
 };
 
-export default validate(prodConfig, { quiet: true });
+export default prodConfig;
