@@ -6,3 +6,5 @@
   font-weight: 400;
   opacity: 0.88;
 }
+.iconWrapper { width: 24px; text-align: center; }
+.iconSize { width: auto; height: auto; max-width: 24px; max-height: 26px; }

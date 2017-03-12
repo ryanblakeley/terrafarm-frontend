@@ -131,7 +131,7 @@ const ProductContainer = (props, context) => {
             }}
           />
           <ContentSubheader
-            icon={<BarnIcon width={24} height={24} />}
+            icon={<BarnIcon />}
             text={props.product.organizationByOrganizationId.name}
             url={`/farm/${props.product.organizationByOrganizationId.rowId}`}
           />

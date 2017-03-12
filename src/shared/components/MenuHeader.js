@@ -48,9 +48,7 @@ class MenuHeader extends React.Component {
         onMouseLeave={this.handleLeave}
         onTouchTap={this.toggleOpen}
       >
-        {React.cloneElement(icon, {
-          className: cx({icon: true, largeIcon: true}),
-        })}
+        {React.cloneElement(icon, {className: cx({iconSize: true})})}
         {!disabled && <ArrowDownIcon width={24} height={24} />}
       </div>
       <div className={classNames.titleWrapper}>

@@ -84,7 +84,7 @@ const ProfileContainer = (props, context) => {
             light
           />
           {props.currentPerson.organizationsByOwnerId.edges.map(edge => <ContentSubheader
-            icon={<BarnIcon width={24} height={24} />}
+            icon={<BarnIcon />}
             text={edge.node.name}
             url={`/farm/${edge.node.rowId}`}
             key={edge.node.id}

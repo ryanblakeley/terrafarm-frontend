@@ -1,15 +1,5 @@
 .this { position: relative; margin: 0 auto; max-width: 350px; }
-.list {
-  composes: bulletList from './_typography.css';
-  margin: 0;
-  padding: 0;
-}
-.emptyListItem {
-  height: 36px;
-}
-.emptyWarning {
-  composes: bodyText from './_typography.css';
-  margin: 0;
-  font-style: italic;
-  opacity: 0.88;
-}
+.listItem { height: 36px; }
+.statusWrapper { width: 80px; }
+.status { text-transform: lowercase; font-size: 0.9rem; }
+.status.alert { color: rgba(230,74,25 ,1); }

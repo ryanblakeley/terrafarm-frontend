@@ -7,4 +7,4 @@
 .rightSmall { margin-right: 15px; }
 .bottomMedium { margin-bottom: 25px; }
 .leftSmall { margin-left: 8px; }
-.inline { display: inline; }
+.inline { display: inline-block; }

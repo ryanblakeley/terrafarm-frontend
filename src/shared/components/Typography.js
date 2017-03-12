@@ -34,6 +34,10 @@ const P = props => <p
   className={`${props.className ? props.className : ''} ${props.large ? classNames.paragraphLarge : classNames.paragraph}`}
   children={props.children}
 />;
+const Span = props => <span
+  className={`${props.className ? props.className : ''} ${classNames.span}`}
+  children={props.children}
+/>;
 const A = props => <a
   href={props.href}
   className={`${props.className ? props.className : ''} ${classNames.externalLink}`}
@@ -46,11 +50,11 @@ const Link = props => <InternalLink
   disabled={props.disabled}
 />;
 const UL = props => <ul
-  className={`${props.className ? props.className : ''} ${classNames.list}`}
+  className={`${props.className ? props.className : ''} ${classNames.list} ${props.plumb ? classNames.plumb : ''}`}
   children={props.children}
 />;
 const LI = props => <li
-  className={`${props.className ? props.className : ''} ${classNames.listItem}`}
+  className={`${props.className ? props.className : ''} ${classNames.listItem} ${props.noBullet ? classNames.noBullet : ''} ${props.truncate ? classNames.truncate : ''}`}
   children={props.children}
 />;
 const Icon = props => React.cloneElement(props.icon, {
@@ -85,6 +89,7 @@ AppName.propTypes = defaultPropTypes;
 P.propTypes = Object.assign(defaultPropTypes, {
   large: React.PropTypes.bool,
 });
+Span.propTypes = defaultPropTypes;
 A.propTypes = Object.assign(defaultPropTypes, {
   href: React.PropTypes.string,
 });
@@ -95,12 +100,16 @@ Link.propTypes = Object.assign(defaultPropTypes, {
   ]),
   disabled: React.PropTypes.bool,
 });
-UL.propTypes = defaultPropTypes;
-LI.propTypes = defaultPropTypes;
+UL.propTypes = Object.assign(defaultPropTypes, {
+  plumb: React.PropTypes.bool,
+});
+LI.propTypes = Object.assign(defaultPropTypes, {
+  noBullet: React.PropTypes.bool,
+});
 Icon.propTypes = Object.assign(defaultPropTypes, {
   icon: React.PropTypes.element,
 });
 ErrorMessage.propTypes = defaultPropTypes;
 WarningMessage.propTypes = defaultPropTypes;
 
-export {H1, H2, H3, H4, H5, H6, AppName, P, A, Link, UL, LI, Icon};
+export {H1, H2, H3, H4, H5, H6, AppName, P, Span, A, Link, UL, LI, Icon};

@@ -7,16 +7,20 @@
 .h3 { composes: contentHeading from './_typography.css'; text-transform: capitalize; }
 .h4 { composes: contentSubheading from './_typography.css'; }
 .h5 { composes: articleHeading from './_typography.css'; text-transform: capitalize; }
-.h6 { composes: articleSubheading from './_typography.css'; text-transform: capitalize; }
+.h6 { composes: articleSubheading from './_typography.css'; text-transform: capitalize; margin: 0; }
 .appName { composes: appName from './_typography.css'; }
 .paragraph { composes: bodyText from './_typography.css'; }
 .paragraphLarge { composes: largeBodyText from './_typography.css'; }
+.span { composes: bodyText from './_typography.css'; }
 .internalLink { composes: link from './_typography.css'; }
 .externalLink { composes: link from './_typography.css'; text-decoration: underline; }
 .disabledLink { pointer-events: none; }
 .list { composes: bulletList from './_typography.css'; }
+.list.plumb { margin: 0; padding: 0; }
 .listItem { composes: bodyText from './_typography.css'; }
+.listItem.noBullet { list-style-type: none; }
 .icon { composes: icon from './_typography.css'; }
+.truncate { composes: truncate from './_typography.css'; }
 .errorMessage {
   composes: bodyText from './_typography.css';
   margin: 1em auto;
@@ -31,7 +35,7 @@
 }
 
 /*
-.pageHeading or contentHeading?
+does .pageHeading or contentHeading still need this?
   margin: 2px 0 0 6px;
   font-size: 1.25em;
   font-weight: 600;

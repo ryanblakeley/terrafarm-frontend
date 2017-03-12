@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {H2} from 'shared/components/Typography';
 import classNames from '../styles/MenuListItemStylesheet.css';
 
 class MenuListItem extends React.Component {
@@ -30,12 +30,10 @@ class MenuListItem extends React.Component {
     return <div className={classNames.this} onTouchTap={this.handleClick} >
       <div className={classNames.flexWrapper}>
         <div className={classNames.iconWrapper}>
-          {React.cloneElement(icon, {
-            className: `${classNames.icon}`,
-          })}
+          {React.cloneElement(icon, {className: classNames.iconSize})}
         </div>
         <div className={classNames.titleWrapper}>
-          <h4 className={classNames.title}>{title}</h4>
+          <H2 className={classNames.title}>{title}</H2>
         </div>
       </div>
     </div>;

@@ -35,7 +35,7 @@ const DistributionContainer = (props, context) => {
     />;
   } else {
     userElem = <ContentSubheader
-      icon={<PersonIcon width={24} height={24} />}
+      icon={<PersonIcon />}
       text={props.distribution.shareByShareId.customerName}
     />;
   }

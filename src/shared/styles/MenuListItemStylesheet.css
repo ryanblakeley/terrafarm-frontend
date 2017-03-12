@@ -3,27 +3,17 @@
   border-bottom: 3px solid rgb(55,71,79);
   cursor: pointer;
 }
-.this:hover {
-  background-color: rgba(255, 255, 255, 0.92);
-}
+.this:hover { background-color: rgba(255, 255, 255, 0.92); }
 .this:last-of-type { border-bottom: none; }
-.this.disabled { }
-.flexWrapper {
-  display: flex; width: 100%;
-}
+.flexWrapper { display: flex; width: 100%; }
 .iconWrapper {
-  display: flex;
-  align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   width: 88px;
   padding: 12px;
 }
-.icon { composes: icon from './_typography.css'; }
-.smallIcon { font-size: 16px; }
-.largeIcon { font-size: 64px; }
-.disabled .icon { }
+.iconSize { width: auto; height: 34px; max-width: 26px; }
 .titleWrapper { flex-grow: 1; }
 .title {
-  composes: pageHeading from './_typography.css';
   margin: 0;
   line-height: 60px;
   font-size: 1.3rem;

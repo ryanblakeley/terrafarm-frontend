@@ -5,7 +5,7 @@ import classNamesContext from '../styles/LayoutStylesheet.css';
 const cx = classnames.bind(classNamesContext);
 
 const Layout = props => <div
-  className={cx({
+  className={`${cx({
     page: props.page,
     smallPage: props.smallPage,
     fullPage: props.fullPage,
@@ -16,7 +16,7 @@ const Layout = props => <div
     bottomMedium: props.bottomMedium,
     leftSmall: props.leftSmall,
     inline: props.inline,
-  })}
+  })} ${props.className ? props.className : ''}`}
 >
   {props.children}
 </div>;
@@ -26,6 +26,7 @@ Layout.propTypes = {
     React.PropTypes.array,
     React.PropTypes.object,
   ]),
+  className: React.PropTypes.string,
   page: React.PropTypes.bool,
   smallPage: React.PropTypes.bool,
   fullPage: React.PropTypes.bool,

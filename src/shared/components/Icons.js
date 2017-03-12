@@ -73,8 +73,14 @@ const CrosshairIcon = props => <Icon icon={<IoPinPoint />} {...props} />;
 const commonPropTypes = {
   className: React.PropTypes.string,
   style: React.PropTypes.object,
-  width: React.PropTypes.number,
-  height: React.PropTypes.number,
+  width: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string,
+  ]),
+  height: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string,
+  ]),
 };
 const commonDefaultProps = {width: 40, height: 40};
 
@@ -113,8 +119,8 @@ CrosshairIcon.propTypes = commonPropTypes;
 LogoIcon.defaultProps = commonDefaultProps;
 LogoFullIcon.defaultProps = commonDefaultProps;
 LogoNameIcon.defaultProps = commonDefaultProps;
-WheatIcon.defaultProps = commonDefaultProps;
-BarnIcon.defaultProps = commonDefaultProps;
+WheatIcon.defaultProps = { width: 26, height: 49 };
+BarnIcon.defaultProps = { width: 82, height: 79 };
 PeopleIcon.defaultProps = commonDefaultProps;
 
 export {

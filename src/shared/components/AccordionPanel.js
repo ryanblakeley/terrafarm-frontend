@@ -1,18 +1,14 @@
 import React from 'react';
-
+import {H6} from 'shared/components/Typography';
 import classNames from '../styles/AccordionPanelStylesheet.css';
 
-const AccordionPanel = props => <div className={classNames.this}>
+const AccordionPanel = props => <div>
   <div className={classNames.header}>
     <div className={classNames.iconWrapper}>
-      {React.cloneElement(props.header.icon, {
-        className: classNames.icon,
-      })}
+      {React.cloneElement(props.header.icon, {className: classNames.iconSize})}
     </div>
     <div className={classNames.labelWrapper}>
-      <h5 className={classNames.label}>
-        {props.header.label}
-      </h5>
+      <H6>{props.header.label}</H6>
     </div>
   </div>
   <div className={classNames.body}>

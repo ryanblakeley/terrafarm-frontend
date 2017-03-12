@@ -1,10 +1,3 @@
-.header { display: flex; align-items: center; }
-.iconWrapper { margin: -4px 15px 0 0; }
-.icon {
-  composes: icon from './_typography.css';
-}
-.labelWrapper {}
-.label {
-  composes: articleSubheading from './_typography.css';
-  text-transform: uppercase;
-}
+.header { display: flex; align-items: center; margin: 2em 0; }
+.iconWrapper { margin: -4px 0 0 0; width: 50px; text-align: center; }
+.iconSize { width: auto; height: 34px; }

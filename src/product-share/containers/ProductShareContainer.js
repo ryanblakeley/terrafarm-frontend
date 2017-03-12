@@ -49,13 +49,13 @@ const ProductShareContainer = (props, context) => {
   if (props.share.userByUserId) {
     isCardholder = props.share.userByUserId.rowId === context.userId;
     userElem = <ContentSubheader
-      icon={<PersonIcon width={24} height={24} />}
+      icon={<PersonIcon />}
       text={props.share.userByUserId.name}
       url={`/user/${props.share.userByUserId.rowId}`}
     />;
   } else {
     userElem = <ContentSubheader
-      icon={<PersonIcon width={24} height={24} />}
+      icon={<PersonIcon />}
       text={props.share.customerName}
     />;
   }

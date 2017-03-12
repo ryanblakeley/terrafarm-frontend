@@ -11,7 +11,9 @@ const ContentSubheader = props => {
     children={props.text}
   />;
   return <div className={classNames.this}>
-    {props.icon}
+    <div className={classNames.iconWrapper}>
+      {React.cloneElement(props.icon, {className: cx({iconSize: true})})}
+    </div>
     {props.url ? <Link to={props.url} children={text} /> : text}
   </div>;
 };

@@ -58,7 +58,7 @@ const UserContainer = (props, context) => <TransitionWrapper>
           light
         />
         {props.user.organizationsByOwnerId.edges.map(edge => <ContentSubheader
-          icon={<BarnIcon width={24} height={24} />}
+          icon={<BarnIcon />}
           text={edge.node.name}
           url={`/farm/${edge.node.rowId}`}
           key={edge.node.id}
