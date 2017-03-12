@@ -12,15 +12,16 @@ const wikiLink = <A href={'https://terra.farm/wiki'}>wiki</A>;
 const calebLink = <A href={'http://calebmer.com'}>@calebmer</A>;
 // const g2iLink = <A href={'http://www.g2idev.com/'}>G2i</A>;
 const darinLink = <A href={'https://github.com/dphaener'}>@dphaener</A>;
+const fairpixelsLink = <A href={'http://fairpixels.co/'}>Fairpixels</A>;
 
-
+/* eslint-disable max-len */
 const AboutPage = () => <Layout smallPage>
   <H2>About</H2>
   <P>This {snippetLink} explains the CSA concept in more detail.</P>
   <H4>Company</H4>
   <P>{terrafarmLink}&rsquo;s mission is to add momentum to sustainable farms.</P>
   <H4>Content Library</H4>
-  <P>A {blogLink} and {wikiLink} companion site.</P>
+  <P>A {wikiLink} and {blogLink} companion site.</P>
   <H4>Contact</H4>
   <P>If you have any questions or feedback, please reach out via {emailLink}.</P>
   <H4>Technical</H4>
@@ -29,7 +30,10 @@ const AboutPage = () => <Layout smallPage>
     Thanks to {calebLink} and {darinLink} for their contributions to the code base.
   </P>
   <P>
-    Barn icon and Wheat icon come from the Noun Project. Created by Ron Scott and anbileru adaleru.
+    The barn icon and wheat icon were created by Ron Scott and anbileru adaleruw with the Noun Project.
+  </P>
+  <P>
+    Thanks to {fairpixelsLink} for the logo.
   </P>
   <H4>Built and owned by</H4>
   <P>{ryanLink}</P>
