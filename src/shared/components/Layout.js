@@ -13,6 +13,7 @@ const Layout = props => <div
     topSmall: props.topSmall,
     topMedium: props.topMedium,
     rightSmall: props.rightSmall,
+    bottomMedium: props.bottomMedium,
     leftSmall: props.leftSmall,
     inline: props.inline,
   })}
@@ -32,6 +33,7 @@ Layout.propTypes = {
   topSmall: React.PropTypes.bool,
   topMedium: React.PropTypes.bool,
   rightSmall: React.PropTypes.bool,
+  bottomMedium: React.PropTypes.bool,
   leftSmall: React.PropTypes.bool,
   inline: React.PropTypes.bool,
 };

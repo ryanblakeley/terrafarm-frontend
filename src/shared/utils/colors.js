@@ -1,4 +1,5 @@
-import {
+export {
+  blueGrey500,
   brown400,
   cyan400,
   grey800,
@@ -6,8 +7,8 @@ import {
   orange400,
   red400,
 } from 'material-ui/styles/colors';
-
-export default function createColorChart (ids) {
+/*
+function createColorChart (ids) {
   const colorOptions = [
     red400,
     cyan400,
@@ -24,4 +25,4 @@ export default function createColorChart (ids) {
 
   return colorChart;
 }
-
+*/

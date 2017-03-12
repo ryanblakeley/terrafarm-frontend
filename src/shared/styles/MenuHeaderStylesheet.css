@@ -17,20 +17,11 @@
   border-right-color: rgb(55,71,79);
   cursor: pointer;
 }
-.iconWrapper.disabled { cursor: default; }
-.icon { composes: icon from './_typography.css'; }
+.iconWrapper.disabled { cursor: default; border-right: none; }
 .smallIcon { composes: smallIcon from './_typography.css'; }
 .largeIcon { composes: largeIcon from './_typography.css'; }
-.disabled .icon { }
-.downArrow { width: 24px; height: 24px; }
 .titleWrapper { flex-grow: 1; }
-.title {
-  composes: pageHeading from './_typography.css';
-  margin: 0;
-  line-height: 88px;
-  text-transform: uppercase;
-}
-.link { composes: link from './_typography.css'; }
+.label { margin: 0; line-height: 88px; }
 
 @media only screen and (min-width: 800px) {
   .iconWrapper {

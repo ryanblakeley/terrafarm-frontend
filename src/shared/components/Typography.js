@@ -31,7 +31,7 @@ const AppName = props => <h1
   children={props.children}
 />;
 const P = props => <p
-  className={`${props.className ? props.className : ''} ${classNames.paragraph}`}
+  className={`${props.className ? props.className : ''} ${props.large ? classNames.paragraphLarge : classNames.paragraph}`}
   children={props.children}
 />;
 const A = props => <a
@@ -82,7 +82,9 @@ H4.propTypes = defaultPropTypes;
 H5.propTypes = defaultPropTypes;
 H6.propTypes = defaultPropTypes;
 AppName.propTypes = defaultPropTypes;
-P.propTypes = defaultPropTypes;
+P.propTypes = Object.assign(defaultPropTypes, {
+  large: React.PropTypes.bool,
+});
 A.propTypes = Object.assign(defaultPropTypes, {
   href: React.PropTypes.string,
 });

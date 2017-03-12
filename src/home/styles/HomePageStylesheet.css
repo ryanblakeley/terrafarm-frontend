@@ -1,5 +1,11 @@
-.this {
-  composes: page from 'shared/styles/_layout.css';
-  margin-bottom: 25px;
-  text-align: center;
+.appName {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 600;
 }
+.logoImage { width: 292px; height: auto; }
+
+@media only screen and (min-width: 550px) {
+  .logoImage { width: 312px; }
+}
+

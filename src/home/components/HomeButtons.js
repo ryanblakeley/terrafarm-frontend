@@ -18,7 +18,7 @@ const loginLink = <Link to={'/login'}>
 
 const browseLink = <Link to={'/browse'}>
   <FlatButton
-    label={'Team up with local farms'}
+    label={'Team up with local farmers'}
     secondary
     labelStyle={{fontSize: 18}}
   />

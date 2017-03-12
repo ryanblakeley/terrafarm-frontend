@@ -10,6 +10,7 @@
 .h6 { composes: articleSubheading from './_typography.css'; text-transform: capitalize; }
 .appName { composes: appName from './_typography.css'; }
 .paragraph { composes: bodyText from './_typography.css'; }
+.paragraphLarge { composes: largeBodyText from './_typography.css'; }
 .internalLink { composes: link from './_typography.css'; }
 .externalLink { composes: link from './_typography.css'; text-decoration: underline; }
 .disabledLink { pointer-events: none; }

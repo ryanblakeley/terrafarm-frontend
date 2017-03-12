@@ -1,7 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router';
-import IoArrowDownB from 'react-icons/lib/io/arrow-down-b';
-
+import {H2, Link} from 'shared/components/Typography';
+import {ArrowDownIcon} from 'shared/components/Icons';
 import classNamesContext from 'classnames/bind';
 import classNames from '../styles/MenuHeaderStylesheet.css';
 
@@ -52,14 +51,12 @@ class MenuHeader extends React.Component {
         {React.cloneElement(icon, {
           className: cx({icon: true, largeIcon: true}),
         })}
-        {!disabled && <div className={classNames.downArrow}>
-          <IoArrowDownB className={classNames.icon} />
-        </div>}
+        {!disabled && <ArrowDownIcon width={24} height={24} />}
       </div>
       <div className={classNames.titleWrapper}>
-        <h3 className={classNames.title}>
-          <Link to={url} className={classNames.link}>{title}</Link>
-        </h3>
+        <H2 className={classNames.label}>
+          <Link to={url}>{title}</Link>
+        </H2>
       </div>
     </div>;
   }
