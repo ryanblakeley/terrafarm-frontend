@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React, { PropTypes } from 'react';
 import sinon from 'sinon';
 
-import SignUp from 'login/components/SignUp';
+import SignUp from 'login/components/NewUserForm';
 
 describe('<SignUp />', () => {
   const comp = shallow(<SignUp loginUser={() => 'foo'} />);

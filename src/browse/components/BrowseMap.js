@@ -1,6 +1,7 @@
 import React from 'react';
-import {Map, Marker, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
+import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 import {stringifyBounds} from 'shared/utils/parse-coords';
+import Marker from './Marker';
 import InfoWindowContent from './InfoWindowContent';
 import classNames from '../styles/BrowseMapStylesheet.css';
 
@@ -56,12 +57,16 @@ export class Container extends React.Component {
     boundsListener: null,
   };
   componentDidMount () {
-    const {searchResults, activeResultItemId} = this.props;
-    this.prepareMarkers(searchResults, activeResultItemId);
+    const {searchResults, activeResultItemId, google} = this.props;
+    if (google) {
+      this.prepareMarkers(searchResults, activeResultItemId);
+    }
   }
   componentWillReceiveProps (nextProps) {
-    const {searchResults, activeResultItemId} = nextProps;
-    this.prepareMarkers(searchResults, activeResultItemId);
+    const {searchResults, activeResultItemId, google} = nextProps;
+    if (google) {
+      this.prepareMarkers(searchResults, activeResultItemId);
+    }
   }
   componentWillUnmount () {
     const {google} = this.props;
@@ -163,7 +168,7 @@ export class Container extends React.Component {
   // handleCurrentLocation
   changeMapCenter = coords => {
     const {setSearchParams} = this.props;
-    console.log('change map center.');
+
     setSearchParams({
       lat: coords.lat,
       lng: coords.lng,
@@ -194,6 +199,7 @@ export class Container extends React.Component {
       ? { lat: location.query.lat, lng: location.query.lng }
       : initialCenter;
 
+    if (!google) return null;
     return <div className={classNames.this}>
       <Map
         google={google}

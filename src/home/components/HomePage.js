@@ -2,13 +2,14 @@ import React from 'react';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import NumberedList from 'shared/components/NumberedList';
 import Layout from 'shared/components/Layout';
-import {AppName, P} from 'shared/components/Typography';
+import {FlatButton} from 'shared/components/Material';
+import {AppName, P, Link} from 'shared/components/Typography';
 import {LogoFullIcon} from 'shared/components/Icons';
 import HomeButtons from './HomeButtons';
 import classNames from '../styles/HomePageStylesheet.css';
 
 const LogoLarge = props => <AppName className={classNames.appName}>
-  <LogoFullIcon className={classNames.logoImage} />
+  <LogoFullIcon className={classNames.logoImage} width={'auto'} height={'auto'} />
 </AppName>;
 
 const Tagline = () => <Layout>
@@ -18,6 +19,14 @@ const Tagline = () => <Layout>
     and trade in vouchers.
   </P>
 </Layout>;
+
+const browseLink = <Link to={'/browse'}>
+  <FlatButton
+    label={'Team up with local farmers'}
+    secondary
+    labelStyle={{fontSize: 18}}
+  />
+</Link>;
 
 const HowItWorks = () => <Layout smallPage>
   <NumberedList
@@ -35,6 +44,9 @@ const HomePage = props => <TransitionWrapper>
   <Layout page center bottomMedium>
     <LogoLarge />
     <Tagline />
+    <Layout topMedium>
+      {browseLink}
+    </Layout>
     <HowItWorks />
     <HomeButtons />
   </Layout>

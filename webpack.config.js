@@ -10,7 +10,6 @@ if (!process.env.JWT_PRIVATE_KEY) {
   env({file: './.env', type: 'ini'});
 }
 const {
-  NODE_ENV,
   JWT_PRIVATE_KEY,
   GOOGLE_ANALYTICS_KEY,
   GOOGLE_MAPS_KEY,
@@ -31,26 +30,30 @@ const registrarToken = jwt.sign({
 const PATHS = {
   root: path.join(__dirname),
   src: path.join(__dirname, 'src'),
-  build: path.join(__dirname, 'build', 'public'),
+  public: path.join(__dirname, 'build', 'public'),
   shared: path.join(__dirname, 'src', 'shared'),
   fonts: path.join(__dirname, 'src', 'shared', 'fonts'),
 };
 
 const config = {
   devtool: 'eval-source-map',
-  entry: {
-    src: PATHS.src,
-  },
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/dev-server',
+    PATHS.src,
+  ],
   output: {
-    path: PATHS.build,
+    path: PATHS.public,
     filename: 'bundle.js',
     publicPath: '/',
   },
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(NODE_ENV),
+        NODE_ENV: JSON.stringify('development'),
         GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
         GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
       },

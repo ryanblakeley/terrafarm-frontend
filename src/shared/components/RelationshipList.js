@@ -18,8 +18,8 @@ const RelationshipListItem = props => <LI noBullet truncate className={className
     }
   </Layout>}
   {props.itemUrl
-    ? <Link to={props.itemUrl} children={props.name} />
-    : <Span children={props.name} />}
+    ? <Link to={props.itemUrl}>{props.name}</Link>
+    : <Span>{props.name}</Span>}
 </LI>;
 
 const RelationshipList = props => <div className={classNames.this}>

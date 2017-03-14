@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
 // Import the component that is NOT wrapped in a theme for testing
-import { AboutPage } from 'about/components/AboutPage';
+import AboutPage from 'about/components/AboutPage';
 
 function renderContainer (props) {
   return shallow(

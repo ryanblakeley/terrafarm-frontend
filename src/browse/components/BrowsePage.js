@@ -17,7 +17,7 @@ const BrowsePage = (props, context) => <TransitionWrapper>
       ]}
     />
     <H3>{context.location.pathname.split('/')[2]}</H3>
-    <BrowseContentWrapper children={props.children} />
+    <BrowseContentWrapper>{props.children}</BrowseContentWrapper>
   </Layout>
 </TransitionWrapper>;
 

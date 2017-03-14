@@ -8,7 +8,6 @@ if (!process.env.JWT_PRIVATE_KEY) {
   env({file: './.env', type: 'ini'});
 }
 const {
-  NODE_ENV,
   JWT_PRIVATE_KEY,
   GOOGLE_ANALYTICS_KEY,
   GOOGLE_MAPS_KEY,
@@ -33,6 +32,7 @@ const PATHS = {
 };
 
 const prodConfig = {
+  devtool: 'source-map',
   entry: {
     src: PATHS.src,
   },
@@ -42,10 +42,9 @@ const prodConfig = {
     publicPath: '/',
   },
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(NODE_ENV),
+        NODE_ENV: JSON.stringify('production'),
         GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
         GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
       },
@@ -56,7 +55,7 @@ const prodConfig = {
         screw_ie8: true,
       },
     }),
-    // new webpack.NoErrorsPlugin(),
+    new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       title: 'Terrafarm CSA',
       filename: 'index.html',

@@ -7,7 +7,7 @@
 .h3 { composes: contentHeading from './_typography.css'; text-transform: capitalize; }
 .h4 { composes: contentSubheading from './_typography.css'; }
 .h5 { composes: articleHeading from './_typography.css'; text-transform: capitalize; }
-.h6 { composes: articleSubheading from './_typography.css'; text-transform: capitalize; margin: 0; }
+.h6 { composes: articleSubheading from './_typography.css'; text-transform: uppercase; margin: 0; }
 .appName { composes: appName from './_typography.css'; }
 .paragraph { composes: bodyText from './_typography.css'; }
 .paragraphLarge { composes: largeBodyText from './_typography.css'; }

@@ -86,7 +86,9 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
   const server = new WebpackDevServer(webpack(config), {
     contentBase: PATHS.public,
     hot: true,
-    noInfo: true,
+    // publicPath: '/',
+    // inline: true,
+    // noInfo: true,
     stats: { colors: true, chunks: false },
     historyApiFallback: true,
     proxy: {

@@ -4,15 +4,14 @@ import React, { PropTypes } from 'react';
 import Relay from 'react-relay';
 import sinon from 'sinon';
 
-import LoginPage from 'login/LoginPage';
-import * as fetchers from 'shared/utils/fetch';
+import LoginPage from 'login/components/LoginPage';
 
 const replaceStub = sinon.stub();
 const pushStub = sinon.stub();
 const setLoggedInStub = sinon.stub();
 const setUserIdStub = sinon.stub();
 
-function renderComponent(loggedIn = false) {
+function renderComponent (loggedIn = false) {
   return shallow(
     <LoginPage
       viewer={{ foo: 'bar' }}
@@ -21,15 +20,16 @@ function renderComponent(loggedIn = false) {
     />,
     {
       context: {
-        loggedIn: loggedIn,
+        loggedIn,
         setLoggedIn: setLoggedInStub,
         setUserId: setUserIdStub,
         router: {
           replace: replaceStub,
           push: pushStub,
         },
+        location: {},
       },
-    }
+    },
   );
 }
 
@@ -38,6 +38,7 @@ describe('<LoginPage />', () => {
     it('should have the correct contextTypes', () => {
       expect(LoginPage.contextTypes).to.eql({
         router: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
         loggedIn: PropTypes.bool,
         setLoggedIn: PropTypes.func.isRequired,
         setUserId: PropTypes.func.isRequired,
@@ -73,7 +74,6 @@ describe('<LoginPage />', () => {
 
   describe('#loginUser', () => {
     const component = renderComponent();
-    let injectStub;
 
     before(() => {
       localStorage.removeItem('id_token');

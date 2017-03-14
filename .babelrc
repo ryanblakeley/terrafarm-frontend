@@ -1,11 +1,12 @@
 {
   "presets": ["airbnb"],
   "plugins": [
+    "react-hot-loader/babel",
     "transform-decorators-legacy",
     "transform-class-properties",
     "./relayPlugin",
     ["module-resolver", {
       "root": ["./src", "./spec"]
-    }]
+    }],
   ]
 }
