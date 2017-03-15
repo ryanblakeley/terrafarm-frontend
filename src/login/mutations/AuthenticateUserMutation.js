@@ -16,7 +16,7 @@ export default class AuthenticateUserMutation extends Relay.Mutation {
         authenticateUserResult {
           jwtToken,
           userId,
-        }
+        },
       }
     `;
   }
@@ -30,7 +30,7 @@ export default class AuthenticateUserMutation extends Relay.Mutation {
               authenticateUserResult {
                 jwtToken,
                 userId,
-              }
+              },
             }
           `,
         ],

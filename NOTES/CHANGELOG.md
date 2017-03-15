@@ -8,6 +8,14 @@
 - fix content subheader width of link hit area
 - fix relay renderer api to use render callback
 - fix index redirects on pages missing required rowId
+- finish refactor Material shared components
+- fix Icon shared component
+- fix Google Map errors
+- bump all deps
+- add dev hot reload
+- refactor color utils
+- clean up Typography and Layout shared components
+- move special-use sub-components to parent page file
 
 ### 2.0.2 2017 March 10
 

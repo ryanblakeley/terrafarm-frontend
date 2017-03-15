@@ -27,9 +27,7 @@ export default class LoginForm extends Component {
   loginUser = ({ email, password }) => {
     Relay.Store.commitUpdate(
       new AuthenticateUserMutation({ email, password }),
-      {
-        onSuccess: this.processLogin,
-      }
+      { onSuccess: this.processLogin },
     );
   }
   handleValid = () => this.setState({ canSubmit: true });

@@ -24,13 +24,13 @@ const RelationshipListItem = props => <LI noBullet truncate className={className
 
 const RelationshipList = props => <div className={classNames.this}>
   <UL plumb>
-    {props.listItems.length > -1
+    {props.listItems.length > 0
       ? props.listItems.map(item => (item.id && <RelationshipListItem
         {...item}
         key={item.id}
       />))
       : <RelationshipListItem
-        name={<WarningMessage>{props.emptyWarning}</WarningMessage>}
+        name={<WarningMessage>{props.warningText}</WarningMessage>}
       />
     }
   </UL>
@@ -38,17 +38,21 @@ const RelationshipList = props => <div className={classNames.this}>
 
 RelationshipListItem.propTypes = {
   id: React.PropTypes.string,
-  name: React.PropTypes.string,
+  name: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.element,
+  ]),
   itemUrl: React.PropTypes.string,
   actionUrl: React.PropTypes.string,
   status: React.PropTypes.string,
   authorized: React.PropTypes.bool,
 };
 RelationshipList.propTypes = {
-  emptyWarning: React.PropTypes.string,
+  warningText: React.PropTypes.string,
   listItems: React.PropTypes.arrayOf(React.PropTypes.shape({
     id: React.PropTypes.string,
     name: React.PropTypes.string,
+
     itemUrl: React.PropTypes.string,
     actionUrl: React.PropTypes.string,
     status: React.PropTypes.string,
@@ -57,7 +61,7 @@ RelationshipList.propTypes = {
 };
 
 RelationshipList.defaultProps = {
-  emptyWarning: '(none)',
+  warningText: '(empty)',
 };
 
 export default RelationshipList;

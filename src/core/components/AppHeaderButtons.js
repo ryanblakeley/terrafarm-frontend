@@ -34,8 +34,14 @@ const ProfileButton = (props, context) => <Link
 </Link>;
 
 const LogoutButton = (props, context) => <FlatButton
-  onClick={_ => handleSignout(context.setLoggedIn, context.router.replace)}
-  onTouchTap={_ => handleSignout(context.setLoggedIn, context.router.replace)}
+  onClick={_ => {
+    context.logout();
+    handleSignout(context.setLoggedIn, context.router.replace);
+  }}
+  onTouchTap={_ => {
+    context.logout();
+    handleSignout(context.setLoggedIn, context.router.replace);
+  }}
   label={'Logout'}
   icon={<ArrowRightIcon />}
   disabled={!context.loggedIn || !context.router.isActive('profile')}
@@ -68,6 +74,7 @@ BrowseButton.contextTypes = commonContextTypes;
 ProfileButton.contextTypes = commonContextTypes;
 LogoutButton.contextTypes = Object.assign(commonContextTypes, {
   setLoggedIn: React.PropTypes.func.isRequired,
+  logout: React.PropTypes.func.isRequired,
 });
 LoginButton.contextTypes = commonContextTypes;
 AppHeaderButtons.contextTypes = commonContextTypes;

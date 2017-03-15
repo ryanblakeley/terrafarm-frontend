@@ -64,7 +64,7 @@ const ErrorMessage = props => <p
   className={`${props.className ? props.className : ''} ${classNames.errorMessage}`}
   children={props.children}
 />;
-const WarningMessage = props => <p
+const WarningMessage = props => <span
   className={`${props.className ? props.className : ''} ${classNames.warningMessage}`}
   children={props.children}
 />;
