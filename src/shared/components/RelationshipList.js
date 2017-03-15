@@ -51,8 +51,10 @@ RelationshipList.propTypes = {
   warningText: React.PropTypes.string,
   listItems: React.PropTypes.arrayOf(React.PropTypes.shape({
     id: React.PropTypes.string,
-    name: React.PropTypes.string,
-
+    name: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element,
+    ]),
     itemUrl: React.PropTypes.string,
     actionUrl: React.PropTypes.string,
     status: React.PropTypes.string,

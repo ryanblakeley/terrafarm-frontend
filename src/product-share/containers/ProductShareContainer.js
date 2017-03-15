@@ -14,7 +14,7 @@ import {
   TrashIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3} from 'shared/components/Typography';
+import {H3, WarningMessage} from 'shared/components/Typography';
 import Accordion from 'shared/components/Accordion';
 import RelationshipList from 'shared/components/RelationshipList';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
@@ -39,7 +39,7 @@ const ProductShareContainer = (props, context) => {
   const distributions = props.share.distributionsByShareId.edges.map(edge => ({
     id: edge.node.id,
     status: edge.node.status,
-    name: edge.node.description || '(No description)',
+    name: edge.node.description || <WarningMessage>(No description)</WarningMessage>,
     itemId: edge.node.rowId,
     itemUrl: `/voucher/${edge.node.rowId}`,
     actionUrl: `/voucher/${edge.node.rowId}`,

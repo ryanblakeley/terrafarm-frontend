@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from 'shared/components/Layout';
 import {UL, WarningMessage} from 'shared/components/Typography';
 import ResultsListItem from './ResultsListItem';
-import classNames from '../styles/ResultsListStylesheet.css';
+// import classNames from '../styles/ResultsListStylesheet.css';
 
 const ResultsList = props => <Layout smallPageFixed>
   <UL plumb>
@@ -11,17 +11,18 @@ const ResultsList = props => <Layout smallPageFixed>
         {...item}
         key={item.itemId}
       />))
-      : <ResultsListItem>
-        <WarningMessage>{props.emptyWarning}</WarningMessage>
-      </ResultsListItem>
+      : <WarningMessage>{props.warningText}</WarningMessage>
     }
   </UL>
 </Layout>;
 
 ResultsList.propTypes = {
-  emptyWarning: React.PropTypes.string,
+  warningText: React.PropTypes.string,
   listItems: React.PropTypes.arrayOf(React.PropTypes.shape({
-    name: React.PropTypes.string,
+    name: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element,
+    ]),
     itemUrl: React.PropTypes.string,
     itemId: React.PropTypes.string,
     active: React.PropTypes.bool,
@@ -31,7 +32,7 @@ ResultsList.propTypes = {
 };
 
 ResultsList.defaultProps = {
-  emptyWarning: '(none)',
+  warningText: '(empty)',
 };
 
 export default ResultsList;

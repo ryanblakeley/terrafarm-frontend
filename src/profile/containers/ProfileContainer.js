@@ -10,7 +10,7 @@ import {
   LocationOutlineIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P} from 'shared/components/Typography';
+import {H3, P, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
@@ -31,13 +31,20 @@ const ProfileContainer = (props, context) => {
     edge.node.distributionsByShareId.edges.map(distributionEdge => ({
       id: distributionEdge.node.id,
       status: distributionEdge.node.status,
-      name: distributionEdge.node.description || '(No description)',
+      name: distributionEdge.node.description
+        || <WarningMessage>(No description)</WarningMessage>,
       itemId: distributionEdge.node.rowId,
       itemUrl: `/voucher/${distributionEdge.node.rowId}`,
       actionUrl: `/voucher/${distributionEdge.node.rowId}`,
     }))
   ));
   vouchersList = [].concat(...vouchersList);
+  const sharesList = props.currentPerson.sharesByUserId.edges.map(edge => ({
+    id: edge.node.id,
+    name: edge.node.productName,
+    itemId: edge.node.rowId,
+    itemUrl: `/share/${edge.node.rowId}`,
+  }));
 
   return <TransitionWrapper>
     <Layout page>
@@ -52,27 +59,17 @@ const ProfileContainer = (props, context) => {
           panels={[
             {
               header: {
+                icon: <WheatIcon />,
+                label: 'Shares',
+              },
+              body: <RelationshipList listItems={sharesList} />,
+            },
+            {
+              header: {
                 icon: <AsteriskIcon width={58} />,
                 label: 'Vouchers',
               },
               body: <RelationshipList listItems={vouchersList} />,
-            },
-            {
-              header: {
-                icon: <WheatIcon />,
-                label: 'Shares',
-              },
-              body: <RelationshipList
-                listItems={props.currentPerson.sharesByUserId.edges.length > 0
-                  ? props.currentPerson.sharesByUserId.edges.map(edge => ({
-                    id: edge.node.id,
-                    name: edge.node.productName,
-                    itemId: edge.node.rowId,
-                    itemUrl: `/share/${edge.node.rowId}`,
-                  }))
-                  : []
-                }
-              />,
             },
           ]}
         />}
