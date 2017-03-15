@@ -6,6 +6,7 @@ import UpdateProductShareMutation from '../mutations/UpdateProductShareMutation'
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     share: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
     query: React.PropTypes.object,
@@ -41,16 +42,16 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   updateShare (patch) {
-    const { share } = this.props;
+    const { share, relay } = this.props;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new UpdateProductShareMutation({
         sharePatch: patch,
         share,
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   render () {

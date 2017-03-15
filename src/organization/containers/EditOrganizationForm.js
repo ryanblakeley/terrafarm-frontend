@@ -9,6 +9,7 @@ import DeleteOrganizationMutation from '../mutations/DeleteOrganizationMutation'
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     organization: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
     query: React.PropTypes.object,
@@ -80,16 +81,16 @@ class Container extends React.Component {
     });
   }
   handleDelete = () => {
-    const {organization, query} = this.props;
+    const {organization, query, relay} = this.props;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new DeleteOrganizationMutation({
         organization,
         query,
       }), {
         onSuccess: this.handleSuccessDelete,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   handleSuccess = response => {
@@ -104,20 +105,20 @@ class Container extends React.Component {
     router.replace('/profile');
   }
   updateOrganization (patch) {
-    const { organization } = this.props;
+    const { organization, relay } = this.props;
     // the form data has a `location` input which was resolved into a `placeId`
     // we need to drop the location key from the data object so we can use the
     // otherwise intact patch object for the update.
     delete patch.location; // eslint-disable-line
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new UpdateOrganizationMutation({
         organizationPatch: patch,
         organization,
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   geocode = (request, callback) => {

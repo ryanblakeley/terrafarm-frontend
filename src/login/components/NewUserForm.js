@@ -35,7 +35,7 @@ export default class NewUserForm extends Component {
   signUpUser = ({ name, email, password }) => {
     Relay.Store.commitUpdate(
       new SignUpUserMutation({ name, password, email }),
-      { onSuccess: this.processSignUp, onFailure: this.handleFailure }
+      { onSuccess: this.processSignUp, onFailure: this.handleFailure },
     );
   }
   handleFailure = () => {

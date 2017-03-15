@@ -7,6 +7,7 @@ import UpdateDistributionMutation from 'distribution/mutations/UpdateDistributio
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     distributionByDistributionToken: React.PropTypes.object,
     distribution: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
@@ -45,16 +46,16 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   changeVoucher (patch) {
-    const {distribution} = this.props;
+    const {distribution, relay} = this.props;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new UpdateDistributionMutation({
         distributionPatch: patch,
         distribution,
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   render () {

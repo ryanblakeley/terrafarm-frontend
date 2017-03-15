@@ -8,6 +8,7 @@ import DeleteProductMutation from '../mutations/DeleteProductMutation';
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     product: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
     query: React.PropTypes.object,
@@ -34,16 +35,16 @@ class Container extends React.Component {
     this.updateProduct(data);
   }
   handleDelete = () => {
-    const {product, query} = this.props;
+    const {product, query, relay} = this.props;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new DeleteProductMutation({
         product,
         query,
       }), {
         onSuccess: this.handleSuccessDelete,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   handleSuccess = response => {
@@ -58,16 +59,16 @@ class Container extends React.Component {
     router.replace('/profile');
   }
   updateProduct (patch) {
-    const { product } = this.props;
+    const { product, relay } = this.props;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new UpdateProductMutation({
         productPatch: patch,
         product,
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   render () {

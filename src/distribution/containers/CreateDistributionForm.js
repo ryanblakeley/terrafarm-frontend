@@ -7,6 +7,7 @@ import CreateDistributionMutation from '../mutations/CreateDistributionMutation'
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     share: React.PropTypes.object,
     query: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
@@ -37,8 +38,8 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   createDistribution (data) {
-    const {share, query} = this.props;
-    Relay.Store.commitUpdate(
+    const {share, query, relay} = this.props;
+    relay.commitUpdate(
       new CreateDistributionMutation({
         distributionData: {
           ...data,
@@ -49,7 +50,7 @@ class Container extends React.Component {
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   render () {

@@ -6,6 +6,7 @@ import ReserveShareMutation from '../mutations/ReserveShareMutation';
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     user: React.PropTypes.object,
     product: React.PropTypes.object,
     query: React.PropTypes.object,
@@ -37,9 +38,9 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   reserveShare (data) {
-    const {user, product, query} = this.props;
+    const {user, product, query, relay} = this.props;
     // flattens product details as a snapshot and stores them as props on the product-share
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new ReserveShareMutation({
         shareData: {
           ...data,
@@ -57,7 +58,7 @@ class Container extends React.Component {
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   render () {
@@ -123,6 +124,7 @@ export default Relay.createContainer(Container, {
     `,
     query: () => Relay.QL`
       fragment on Query {
+        id,
         ${ReserveShareMutation.getFragment('query')},
       }
     `,

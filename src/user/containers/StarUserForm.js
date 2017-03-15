@@ -8,6 +8,7 @@ import DeleteUserStarMutation from '../mutations/DeleteUserStarMutation';
 
 class StarUserForm extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     user: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
@@ -39,9 +40,9 @@ class StarUserForm extends React.Component {
     }
   }
   handleStar = _ => {
-    const {user, currentPerson} = this.props;
+    const {user, currentPerson, relay} = this.props;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new CreateUserStarMutation({
         user,
         currentPerson,
@@ -52,9 +53,10 @@ class StarUserForm extends React.Component {
     );
   }
   handleUnstar = _ => {
+    const {relay} = this.props;
     const {starEdge} = this.state;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new DeleteUserStarMutation({
         userStar: starEdge.node,
       }), {

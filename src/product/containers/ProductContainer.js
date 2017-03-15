@@ -11,7 +11,7 @@ import {
   BarnIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P} from 'shared/components/Typography';
+import {H3, P, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
@@ -72,10 +72,10 @@ const ProductContainer = (props, context) => {
     });
   const price = props.product.sharePrice
     ? `${props.product.sharePrice}`
-    : 'price not provided';
+    : <WarningMessage />;
   const dates = props.product.startDate
     ? `from ${props.product.startDate} to ${props.product.endDate}`
-    : 'dates not provided';
+    : <WarningMessage />;
 
   return <TransitionWrapper>
     <Layout page>

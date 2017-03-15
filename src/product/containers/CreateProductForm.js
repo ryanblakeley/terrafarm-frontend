@@ -7,6 +7,7 @@ import CreateProductMutation from '../mutations/CreateProductMutation';
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     organization: React.PropTypes.object,
     query: React.PropTypes.object,
     google: React.PropTypes.object,
@@ -35,9 +36,9 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   createProduct (data) {
-    const {organization, query} = this.props;
+    const {organization, query, relay} = this.props;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new CreateProductMutation({
         productData: data,
         organization,
@@ -45,7 +46,7 @@ class Container extends React.Component {
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   render () {

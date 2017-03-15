@@ -32,7 +32,7 @@ const ProfileContainer = (props, context) => {
       id: distributionEdge.node.id,
       status: distributionEdge.node.status,
       name: distributionEdge.node.description
-        || <WarningMessage>(No description)</WarningMessage>,
+        || <WarningMessage />,
       itemId: distributionEdge.node.rowId,
       itemUrl: `/voucher/${distributionEdge.node.rowId}`,
       actionUrl: `/voucher/${distributionEdge.node.rowId}`,
@@ -74,10 +74,15 @@ const ProfileContainer = (props, context) => {
           ]}
         />}
         left={<div>
-          <ActionPanel children={props.children} notifyClose={() => context.router.replace('/profile')} />
+          <ActionPanel notifyClose={() => context.router.replace('/profile')}>
+            {props.children}
+          </ActionPanel>
           <ContentSubheader
             icon={<LocationOutlineIcon />}
-            text={props.currentPerson.placeByPlaceId && props.currentPerson.placeByPlaceId.address}
+            text={(props.currentPerson.placeByPlaceId
+              && props.currentPerson.placeByPlaceId.address)
+              || <WarningMessage />
+            }
             light
           />
           {props.currentPerson.organizationsByOwnerId.edges.map(edge => <ContentSubheader

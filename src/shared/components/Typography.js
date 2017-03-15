@@ -69,7 +69,7 @@ const WarningMessage = props => <span
   children={props.children}
 />;
 
-const defaultPropTypes = {
+const commonPropTypes = {
   children: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.array,
@@ -78,38 +78,42 @@ const defaultPropTypes = {
   className: React.PropTypes.string,
 };
 
-H1.propTypes = defaultPropTypes;
-H2.propTypes = defaultPropTypes;
-H2.propTypes = defaultPropTypes;
-H3.propTypes = defaultPropTypes;
-H4.propTypes = defaultPropTypes;
-H5.propTypes = defaultPropTypes;
-H6.propTypes = defaultPropTypes;
-AppName.propTypes = defaultPropTypes;
-P.propTypes = Object.assign(defaultPropTypes, {
+H1.propTypes = commonPropTypes;
+H2.propTypes = commonPropTypes;
+H2.propTypes = commonPropTypes;
+H3.propTypes = commonPropTypes;
+H4.propTypes = commonPropTypes;
+H5.propTypes = commonPropTypes;
+H6.propTypes = commonPropTypes;
+AppName.propTypes = commonPropTypes;
+P.propTypes = Object.assign(commonPropTypes, {
   large: React.PropTypes.bool,
 });
-Span.propTypes = defaultPropTypes;
-A.propTypes = Object.assign(defaultPropTypes, {
+Span.propTypes = commonPropTypes;
+A.propTypes = Object.assign(commonPropTypes, {
   href: React.PropTypes.string,
 });
-Link.propTypes = Object.assign(defaultPropTypes, {
+Link.propTypes = Object.assign(commonPropTypes, {
   to: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.object,
   ]),
   disabled: React.PropTypes.bool,
 });
-UL.propTypes = Object.assign(defaultPropTypes, {
+UL.propTypes = Object.assign(commonPropTypes, {
   plumb: React.PropTypes.bool,
 });
-LI.propTypes = Object.assign(defaultPropTypes, {
+LI.propTypes = Object.assign(commonPropTypes, {
   noBullet: React.PropTypes.bool,
 });
-Icon.propTypes = Object.assign(defaultPropTypes, {
+Icon.propTypes = Object.assign(commonPropTypes, {
   icon: React.PropTypes.element,
 });
-ErrorMessage.propTypes = defaultPropTypes;
-WarningMessage.propTypes = defaultPropTypes;
+ErrorMessage.propTypes = commonPropTypes;
+WarningMessage.propTypes = commonPropTypes;
+
+WarningMessage.defaultProps = {
+  children: '(not provided)',
+};
 
 export {H1, H2, H3, H4, H5, H6, AppName, P, Span, A, Link, UL, LI, Icon, WarningMessage};

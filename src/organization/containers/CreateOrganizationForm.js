@@ -8,6 +8,7 @@ import CreateOrganizationMutation from '../mutations/CreateOrganizationMutation'
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
     query: React.PropTypes.object,
     google: React.PropTypes.object,
@@ -67,7 +68,7 @@ class Container extends React.Component {
     const lng = geocodeResult.geometry.location.lng();
 
     router.replace({
-      pathname: `/profile/new-farm/place-lookup/${geocodeResult.place_id}`,
+      pathname: `/profile/create-farm/place-lookup/${geocodeResult.place_id}`,
       state: {
         placeData: {
           rowId: geocodeResult.place_id,
@@ -87,9 +88,9 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   createOrganization (data) {
-    const {currentPerson, query} = this.props;
+    const {currentPerson, query, relay} = this.props;
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new CreateOrganizationMutation({
         organizationData: data,
         user: currentPerson,
@@ -97,7 +98,7 @@ class Container extends React.Component {
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   geocode = (request, callback) => {

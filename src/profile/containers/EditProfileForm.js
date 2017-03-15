@@ -9,6 +9,7 @@ import DeleteUserMutation from '../mutations/DeleteUserMutation';
 
 class Container extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     currentPerson: React.PropTypes.object,
     google: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
@@ -78,20 +79,20 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   updateUser (patch) {
-    const {currentPerson} = this.props;
+    const {currentPerson, relay} = this.props;
     // the form data has a `location` input which was resolved into a `placeId`
     // we need to drop the location key from the data object so we can use the
     // otherwise intact patch object for the update.
     delete patch.location; // eslint-disable-line
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new UpdateUserMutation({
         userPatch: patch,
         user: currentPerson,
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   geocode = (request, callback) => {

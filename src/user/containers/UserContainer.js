@@ -7,7 +7,7 @@ import {
   LocationOutlineIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P} from 'shared/components/Typography';
+import {H3, P, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
@@ -54,7 +54,9 @@ const UserContainer = (props, context) => <TransitionWrapper>
         />
         <ContentSubheader
           icon={<LocationOutlineIcon />}
-          text={props.user.placeByPlaceId && props.user.placeByPlaceId.address}
+          text={(props.user.placeByPlaceId && props.user.placeByPlaceId.address)
+            || <WarningMessage />
+          }
           light
         />
         {props.user.organizationsByOwnerId.edges.map(edge => <ContentSubheader

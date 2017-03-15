@@ -30,10 +30,10 @@ const ProductShareContainer = (props, context) => {
     .organizationByOrganizationId.userByOwnerId.rowId === context.userId;
   const dates = props.share.startDate
     ? `from ${props.share.startDate} to ${props.share.endDate}`
-    : 'dates not provided';
+    : <WarningMessage />;
   const creditsRemaining = props.share.creditsInitial - props.share
     .distributionsByShareId.edges.filter(edge => (
-      edge.node.status === 'RECEIVED' || edge.node.status === 'VALIDATED'
+      edge.node.status === 'VALIDATED' // || edge.node.status === 'RECEIVED'
     )).length;
   const credits = `${creditsRemaining} credits remaining / ${props.share.creditsInitial}`;
   const distributions = props.share.distributionsByShareId.edges.map(edge => ({
@@ -131,7 +131,7 @@ const ProductShareContainer = (props, context) => {
             url={`/product/${props.share.productByProductId.rowId}`}
           />
           <ContentSubheader icon={<CalendarIcon />} text={dates} light />
-          {props.share.status === 'PURCHASED'
+          {(props.share.status === 'ACTIVE' || props.share.status === 'RENEWED')
             && <ContentSubheader icon={<AsteriskIcon />} text={credits} light />}
           <ContentSubheader
             icon={<EmailIcon />}

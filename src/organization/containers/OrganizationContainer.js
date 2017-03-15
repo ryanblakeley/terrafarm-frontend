@@ -9,7 +9,7 @@ import {
   LocationOutlineIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P} from 'shared/components/Typography';
+import {H3, P, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
@@ -73,8 +73,10 @@ const OrganizationContainer = (props, context) => <TransitionWrapper>
         />
         <ContentSubheader
           icon={<LocationOutlineIcon />}
-          text={props.organization.placeByPlaceId
-            && props.organization.placeByPlaceId.address}
+          text={(props.organization.placeByPlaceId
+            && props.organization.placeByPlaceId.address)
+            || <WarningMessage />
+          }
           light
         />
         <ContentSubheader
