@@ -1,5 +1,5 @@
 import React from 'react';
-import {blueGrey100, blueGrey400} from 'material-ui/styles/colors';
+import {blueGrey100, blueGrey400} from 'shared/utils/colors';
 import classNames from '../styles/HeroImageStylesheet.css';
 
 const styles = {

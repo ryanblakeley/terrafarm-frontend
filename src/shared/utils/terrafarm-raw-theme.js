@@ -1,4 +1,6 @@
+import {Spacing} from 'shared/components/Material';
 import {
+  fade,
   blueGrey50,
   blueGrey300,
   blueGrey500,
@@ -8,11 +10,7 @@ import {
   green500,
   green700,
   lightBlack,
-  // limeGreen800,
-  // deepOrange700,
-} from 'material-ui/styles/colors';
-import {fade} from 'material-ui/utils/colorManipulator';
-import Spacing from 'material-ui/styles/spacing';
+} from './colors';
 
 const TerrafarmRawTheme = {
   spacing: Spacing,

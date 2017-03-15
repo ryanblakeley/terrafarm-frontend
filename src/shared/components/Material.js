@@ -1,4 +1,7 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Spacing from 'material-ui/styles/spacing';
 import MaterialFlatButton from 'material-ui/FlatButton';
 import MaterialRaisedButton from 'material-ui/RaisedButton';
 import MaterialIconButton from 'material-ui/IconButton';
@@ -43,4 +46,11 @@ Tabs.propTypes = defaultPropTypes;
 Tab.propTypes = defaultPropTypes;
 Popover.propTypes = defaultPropTypes;
 
-export {FlatButton, RaisedButton, IconButton, MenuItem, Tabs, Tab, Popover};
+export {
+  MuiThemeProvider, getMuiTheme,
+  FlatButton, RaisedButton, IconButton,
+  MenuItem,
+  Popover,
+  Spacing,
+  Tabs, Tab,
+};

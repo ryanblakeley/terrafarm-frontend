@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {MuiThemeProvider, getMuiTheme} from 'shared/components/Material';
 import TerrafarmRawTheme from 'shared/utils/terrafarm-raw-theme';
-import 'shared/styles/_base.css';
+import 'shared/styles/_base.css'; // puts base styles directly into the HTML document
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
 import classNames from '../styles/CorePageStylesheet.css';

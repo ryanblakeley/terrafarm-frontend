@@ -3,7 +3,7 @@ import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 import FormsyCheckbox from 'formsy-material-ui/lib/FormsyCheckbox';
-import {blueGrey900} from 'material-ui/styles/colors';
+import {blueGrey900} from 'shared/utils/colors';
 import classNames from '../styles/FormStylesheet.css';
 
 const Form = props => <Formsy.Form {...props} />;

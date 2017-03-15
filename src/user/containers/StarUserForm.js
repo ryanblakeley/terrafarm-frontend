@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import IconButton from 'material-ui/IconButton';
+import {IconButton} from 'shared/components/Material';
 import {StarIcon, StarOutlineIcon} from 'shared/components/Icons';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import CreateUserStarMutation from '../mutations/CreateUserStarMutation';
@@ -48,7 +48,7 @@ class StarUserForm extends React.Component {
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   handleUnstar = _ => {
@@ -60,7 +60,7 @@ class StarUserForm extends React.Component {
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   handleSuccess = _ => {
