@@ -89,7 +89,7 @@ const DistributionContainer = (props, context) => {
               context.router.replace(`/voucher/${props.distribution.rowId}`);
             }}
           />
-          {isCardholder
+          {(isCardholder || (isOwner && !shareholderIsUser))
             && (props.distribution.status === 'PLANNED'
             || props.distribution.status === 'HARVESTED'
             || props.distribution.status === 'READY')

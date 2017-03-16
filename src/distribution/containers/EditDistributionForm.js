@@ -51,7 +51,7 @@ class Container extends React.Component {
       }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   render () {
@@ -66,7 +66,7 @@ class Container extends React.Component {
       error={error}
       showForm={isOwner || isCardholder}
     >
-      {isOwner && <SelectInput
+      {isOwner && distribution.status !== 'VALIDATED' && <SelectInput
         name={'status'}
         label={'Status'}
         validations={'isExisty'}
