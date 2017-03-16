@@ -4,6 +4,10 @@
 
 ### 2.0.3
 
+- fix relationship list item status and link urls
+- switch to props.relay.commitUpdate API instead of Relay.Store.commitUpdate
+- fix default messages to render when fields are empty
+- switch to new Relay.Environment API with better logout procedure
 - remove redundant styles
 - fix content subheader width of link hit area
 - fix relay renderer api to use render callback
