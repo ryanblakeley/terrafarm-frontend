@@ -32,6 +32,12 @@ const SelectInput = props => {
   </div>;
 };
 const Checkbox = props => <FormsyCheckbox {...props} />;
+const validationErrors = {
+  url: 'Should be a url, e.x. http://imgur.com/abc123',
+  maxLength: 'Character limit reached.',
+  textArea: '500 character limit.',
+  location: 'Should be a valid address',
+};
 
 Form.propTypes = {
   children: React.PropTypes.oneOfType([
@@ -51,6 +57,8 @@ TextInput.propTypes = {
   ]),
   required: React.PropTypes.bool,
   updateImmediately: React.PropTypes.bool,
+  validationError: React.PropTypes.string,
+  maxLength: React.PropTypes.number,
 };
 SelectInput.propTypes = {
   name: React.PropTypes.string,
@@ -83,6 +91,7 @@ TextInput.defaultProps = {
     margin: '0 auto',
     fontFamily: 'Simonetta, serif',
   },
+  maxLength: 60,
 };
 SelectInput.defaultProps = {
   required: false,
@@ -96,4 +105,4 @@ Checkbox.defaultProps = {
   },
 };
 
-export {Form, TextInput, SelectInput, Checkbox};
+export {Form, TextInput, SelectInput, Checkbox, validationErrors};

@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {GoogleApiWrapper} from 'google-maps-react';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import {TextInput} from 'shared/components/Form';
+import {TextInput, validationErrors} from 'shared/components/Form';
 import formatAddress from 'shared/utils/formatAddress';
 import UpdateUserMutation from '../mutations/UpdateUserMutation';
 import DeleteUserMutation from '../mutations/DeleteUserMutation';
@@ -122,6 +122,7 @@ class Container extends React.Component {
         label={'Location'}
         value={currentPerson.placeByPlaceId && currentPerson.placeByPlaceId.address}
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
+        validationError={validationErrors.location}
         onChange={this.handleChangeLocation}
         required
       />
@@ -130,6 +131,7 @@ class Container extends React.Component {
         label={'Description'}
         value={currentPerson.description}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
+        validationError={validationErrors.textArea}
         required
         multiLine
         rows={3}
@@ -139,6 +141,7 @@ class Container extends React.Component {
         label={'Image'}
         value={currentPerson.imageUrl}
         validations={'isUrl'}
+        validationError={validationErrors.url}
       />
       {children}
     </ActionPanelForm>;

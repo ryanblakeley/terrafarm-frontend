@@ -2,7 +2,10 @@ import React from 'react';
 import {FlatButton} from 'shared/components/Material';
 import {CrosshairIcon, PersonIcon, LoginIcon, ArrowRightIcon} from 'shared/components/Icons';
 import {Link} from 'shared/components/Typography';
+import classNamesBind from 'classnames/bind';
 import classNames from '../styles/AppHeaderButtonsStylesheet.css';
+
+const cx = classNamesBind.bind(classNames);
 
 function handleSignout (setLoggedIn, replace) {
   localStorage.setItem('id_token', window.anonymousToken);
@@ -14,6 +17,10 @@ function handleSignout (setLoggedIn, replace) {
 const BrowseButton = (props, context) => <Link
   to={'/browse'}
   disabled={context.router.isActive('browse')}
+  className={cx({
+    hideSmall: !context.router.isActive('/', true)
+      && !context.router.isActive('login'),
+  })}
 >
   <FlatButton
     label={'Browse'}

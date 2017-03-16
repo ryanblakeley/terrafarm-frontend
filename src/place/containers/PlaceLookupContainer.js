@@ -33,7 +33,7 @@ class PlaceLookupContainer extends React.Component {
       new CreatePlaceMutation({ placeData }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,
-      }
+      },
     );
   }
   handleSuccess = response => {
