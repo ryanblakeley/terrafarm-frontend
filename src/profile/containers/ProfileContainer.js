@@ -36,14 +36,18 @@ const ProfileContainer = (props, context) => {
       itemId: distributionEdge.node.rowId,
       itemUrl: `/voucher/${distributionEdge.node.rowId}`,
       actionUrl: `/voucher/${distributionEdge.node.rowId}`,
+      authorized: true,
     }))
   ));
   vouchersList = [].concat(...vouchersList);
   const sharesList = props.currentPerson.sharesByUserId.edges.map(edge => ({
     id: edge.node.id,
     name: edge.node.productName,
+    status: edge.node.status,
     itemId: edge.node.rowId,
-    itemUrl: `/share/${edge.node.rowId}`,
+    itemUrl: `/product/${edge.node.productId}`,
+    actionUrl: `/share/${edge.node.rowId}`,
+    authorized: true,
   }));
 
   return <TransitionWrapper>
@@ -135,6 +139,8 @@ export default Relay.createContainer(ProfileContainer, {
           edges {
             node {
               id,
+              status,
+              productId,
               productName,
               rowId,
               distributionsByShareId(first: 8) {

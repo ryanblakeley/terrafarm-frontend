@@ -6,10 +6,10 @@ import classNames from '../styles/RelationshipListStylesheet.css';
 
 const cx = classnamesContext.bind(classNames);
 
-const RelationshipListItem = props => <LI noBullet truncate className={classNames.listItem}>
+const RelationshipListItem = props => <LI noBullet truncate className={cx({listItem: true, alert: props.alert})}>
   {props.status && <Layout inline className={classNames.statusWrapper}>
     {props.authorized
-      ? <Link to={props.actionUrl} className={cx({status: true, alert})}>
+      ? <Link to={props.actionUrl} className={cx({status: true})}>
         [{props.status}]
       </Link>
       : <Span className={cx({status: true})} >
@@ -42,6 +42,7 @@ RelationshipListItem.propTypes = {
     React.PropTypes.string,
     React.PropTypes.element,
   ]),
+  alert: React.PropTypes.bool,
   itemUrl: React.PropTypes.string,
   actionUrl: React.PropTypes.string,
   status: React.PropTypes.string,

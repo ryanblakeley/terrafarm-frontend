@@ -31,17 +31,14 @@ const ProductContainer = (props, context) => {
     && props.product.sharesByProductId.edges.map(edge => {
       const customerName = edge.node.customerName;
       const user = edge.node.userByUserId;
-      let itemUrl = null;
 
       if (shareHolderIds.indexOf((user && user.id) || customerName) > -1) {
         return {};
       }
       shareHolderIds.push((user && user.id) || customerName);
 
-      if (edge.node.status === 'AVAILABLE'
-        || edge.node.status === 'EXPIRED'
-        || edge.node.status === 'CANCELED'
-        || edge.node.status === 'EMPTY') {
+      if (edge.node.status === 'CANCELED'
+        || edge.node.status === 'EXPIRED') {
         return {};
       }
 
@@ -50,24 +47,24 @@ const ProductContainer = (props, context) => {
         currentPersonShareId = edge.node.rowId;
       }
 
-      if (isOwner) {
-        itemUrl = `/share/${edge.node.rowId}`;
-      } else if (user) {
-        itemUrl = `/user/${user.rowId}`;
-      }
-
       if (user) {
         return {
           id: user.id,
           name: user.name,
+          actionUrl: `/share/${edge.node.rowId}`,
+          status: edge.node.status,
+          authorized: isOwner || isShareholder,
+          alert: currentPersonShareId === edge.node.rowId,
           itemId: user.rowId,
-          itemUrl,
+          itemUrl: `/user/${user.rowId}`,
         };
       }
       return {
         id: customerName,
         name: customerName,
-        itemUrl,
+        actionUrl: `/share/${edge.node.rowId}`,
+        status: edge.node.status,
+        authorized: isOwner,
       };
     });
   const price = props.product.sharePrice
@@ -186,6 +183,7 @@ export default Relay.createContainer(ProductContainer, {
           edges {
             node {
               rowId,
+              status,
               userId,
               customerName,
               userByUserId {
