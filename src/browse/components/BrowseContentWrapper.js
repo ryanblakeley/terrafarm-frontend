@@ -33,14 +33,15 @@ class BrowseContentWrapper extends React.Component {
   setActiveResultItemId = id => {
     this.setState({activeResultItemId: id});
   }
-  setSearchParams = patch => {
+  setSearchParams = (nextQuery, nextState) => {
     const {router, location} = this.context;
+    const currentQuery = location.query || {};
+    const currentState = location.state || {};
 
     router.replace({
       pathname: location.pathname,
-      query: Object.assign(location.query, patch),
-      state: location.state,
-      // state: Object.assign(location.state, statePatch),
+      query: Object.assign(currentQuery, nextQuery),
+      state: Object.assign(currentState, nextState),
     });
   }
   render () {

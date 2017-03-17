@@ -4,6 +4,7 @@ import CreatePlaceMutation from '../mutations/CreatePlaceMutation';
 
 class PlaceLookupContainer extends React.Component {
   static propTypes = {
+    relay: React.PropTypes.object,
     place: React.PropTypes.object,
     parentPath: React.PropTypes.string,
   };
@@ -15,7 +16,7 @@ class PlaceLookupContainer extends React.Component {
     error: React.PropTypes.string,
   };
   componentDidMount () {
-    const {place} = this.props;
+    const {place, relay} = this.props;
     const {location} = this.context;
     const placeData = location.state && location.state.placeData;
 
@@ -29,7 +30,7 @@ class PlaceLookupContainer extends React.Component {
       return;
     }
 
-    Relay.Store.commitUpdate(
+    relay.commitUpdate(
       new CreatePlaceMutation({ placeData }), {
         onSuccess: this.handleSuccess,
         onFailure: this.handleFailure,

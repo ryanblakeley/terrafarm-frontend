@@ -15,7 +15,7 @@ class PerformSearchProducts extends React.Component {
   };
   state = {
     relayVariables: {
-      count: 3,
+      count: 10,
       search: '',
     },
     searchResultIds: [],
@@ -96,7 +96,7 @@ class PerformSearchProducts extends React.Component {
 
 export default Relay.createContainer(PerformSearchProducts, {
   initialVariables: {
-    count: 3,
+    count: 10,
     search: '',
   },
   fragments: {

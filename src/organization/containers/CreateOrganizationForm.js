@@ -81,7 +81,7 @@ class Container extends React.Component {
   handleSuccess = response => {
     const {router} = this.context;
     const organizationId = response.createOrganization.organizationEdge.node.rowId;
-    router.push(`/organization/${organizationId}`);
+    router.push(`/farm/${organizationId}`);
   }
   handleFailure = transaction => {
     const error = transaction.getError() || new Error('Mutation failed.');
@@ -126,14 +126,14 @@ class Container extends React.Component {
         name={'location'}
         label={'Location'}
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
-        validationsError={validationErrors.location}
+        validationError={validationErrors.location}
         required
       />
       <TextInput
         name={'description'}
         label={'Description'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
-        validationErrors={validationErrors.textArea}
+        validationError={validationErrors.textArea}
         maxLength={500}
         required
         multiLine
@@ -143,7 +143,7 @@ class Container extends React.Component {
         name={'imageUrl'}
         label={'Image'}
         validations={'isUrl'}
-        validationErrors={validationErrors.url}
+        validationError={validationErrors.url}
       />
       {children}
     </ActionPanelForm>;
