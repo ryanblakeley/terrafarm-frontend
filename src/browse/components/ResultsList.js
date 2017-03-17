@@ -1,18 +1,11 @@
 import React from 'react';
 import Layout from 'shared/components/Layout';
 import {UL, WarningMessage} from 'shared/components/Typography';
-import {FlatButton} from 'shared/components/Material';
+import LoadMoreButton from 'shared/components/LoadMoreButton';
 import ResultsListItem from './ResultsListItem';
 // import classNames from '../styles/ResultsListStylesheet.css';
 
 const ResultsList = (props, context) => {
-  const loadMore = () => {
-    const newCount = (context.location.query.count || 8) + 8;
-    const newQuery = Object.assign(context.location.query, {count: newCount});
-    const newLocation = Object.assign(context.location, {query: newQuery});
-
-    context.router.replace(newLocation);
-  };
   const showLoadMoreButton = context.location.state && context.location.state.loadMore;
 
   return <Layout smallPageFixed>
@@ -25,14 +18,7 @@ const ResultsList = (props, context) => {
         : <WarningMessage>{props.warningText}</WarningMessage>
       }
     </UL>
-    {showLoadMoreButton && <Layout center topSmall>
-      <FlatButton
-        label={'Load more...'}
-        onClick={loadMore}
-        onTouchTap={loadMore}
-        disabled={!showLoadMoreButton}
-      />
-    </Layout>}
+    {showLoadMoreButton && <LoadMoreButton />}
   </Layout>;
 };
 

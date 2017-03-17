@@ -1,40 +1,48 @@
 import React from 'react';
 import {LI, Span, WarningMessage, UL, Link} from 'shared/components/Typography';
 import Layout from 'shared/components/Layout';
+import LoadMoreButton from 'shared/components/LoadMoreButton';
 import classnamesContext from 'classnames/bind';
 import classNames from '../styles/RelationshipListStylesheet.css';
 
 const cx = classnamesContext.bind(classNames);
 
-const RelationshipListItem = props => <LI noBullet truncate className={cx({listItem: true, alert: props.alert})}>
-  {props.status && <Layout inline className={classNames.statusWrapper}>
-    {props.authorized
-      ? <Link to={props.actionUrl} className={cx({status: true})}>
-        [{props.status}]
-      </Link>
-      : <Span className={cx({status: true})} >
-        [{props.status}]
-      </Span>
-    }
-  </Layout>}
-  {props.itemUrl
-    ? <Link to={props.itemUrl}>{props.name}</Link>
-    : <Span>{props.name}</Span>}
-</LI>;
+const RelationshipListItem = props => (
+  <LI noBullet truncate className={cx({listItem: true, alert: props.alert})}>
+    {props.status && <Layout inline className={classNames.statusWrapper}>
+      {props.authorized
+        ? <Link to={props.actionUrl} className={cx({status: true})}>
+          [{props.status}]
+        </Link>
+        : <Span className={cx({status: true})} >
+          [{props.status}]
+        </Span>
+      }
+    </Layout>}
+    {props.itemUrl
+      ? <Link to={props.itemUrl}>{props.name}</Link>
+      : <Span>{props.name}</Span>}
+  </LI>
+);
 
-const RelationshipList = props => <div className={classNames.this}>
-  <UL plumb>
-    {props.listItems.length > 0
-      ? props.listItems.map(item => (item.id && <RelationshipListItem
-        {...item}
-        key={item.id}
-      />))
-      : <RelationshipListItem
-        name={<WarningMessage>{props.warningText}</WarningMessage>}
-      />
-    }
-  </UL>
-</div>;
+const RelationshipList = (props, context) => {
+  const showLoadMoreButton = context.location.state && context.location.state.loadMore;
+
+  return <div className={classNames.this}>
+    <UL plumb>
+      {props.listItems.length > 0
+        ? props.listItems.map(item => (item.id && <RelationshipListItem
+          {...item}
+          key={item.id}
+        />))
+        : <RelationshipListItem
+          name={<WarningMessage>{props.warningText}</WarningMessage>}
+        />
+      }
+    </UL>
+    {showLoadMoreButton && <LoadMoreButton />}
+  </div>;
+};
 
 RelationshipListItem.propTypes = {
   id: React.PropTypes.string,
@@ -61,6 +69,10 @@ RelationshipList.propTypes = {
     status: React.PropTypes.string,
     authorized: React.PropTypes.bool,
   })),
+};
+
+RelationshipList.contextTypes = {
+  location: React.PropTypes.object,
 };
 
 RelationshipList.defaultProps = {

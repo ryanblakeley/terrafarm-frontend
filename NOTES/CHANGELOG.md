@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 2.0.4
+
+- fix place lookup and create place
+- add button to load more results on browse page
+
 ### 2.0.3
 
 - add form error messages

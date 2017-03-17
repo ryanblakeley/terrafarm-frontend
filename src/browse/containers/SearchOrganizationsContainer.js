@@ -15,7 +15,7 @@ class PerformSearchOrganizations extends React.Component {
   };
   state = {
     relayVariables: {
-      count: 8,
+      count: 1,
       search: '',
       bounds: '((25.1613432,-125.1510156),(52.4802030,-65.9127343))',
     },
@@ -90,7 +90,7 @@ class PerformSearchOrganizations extends React.Component {
 
 export default Relay.createContainer(PerformSearchOrganizations, {
   initialVariables: {
-    count: 8,
+    count: 1,
     search: '',
     bounds: '((25.1613432,-125.1510156),(52.4802030,-65.9127343))',
   },

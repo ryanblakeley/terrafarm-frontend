@@ -77,7 +77,7 @@ class Container extends React.Component {
         label={'Comments'}
         value={share.customerNotes}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
-        validationErrors={validationErrors.textArea}
+        validationError={validationErrors.textArea}
         maxLength={500}
         multiLine
         rows={3}

@@ -70,14 +70,14 @@ class Container extends React.Component {
         name={'customerContact'}
         label={'Customer Contact'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
-        validationErrors={validationErrors.contact}
+        validationError={validationErrors.contact}
         value={share.customerContact}
       />
       <TextInput
         name={'customerNotes'}
         label={'Comments'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
-        validationErrors={validationErrors.textArea}
+        validationError={validationErrors.textArea}
         maxLength={500}
         value={share.customerNotes}
         multiLine

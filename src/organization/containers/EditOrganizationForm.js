@@ -150,7 +150,7 @@ class Container extends React.Component {
         label={'Location'}
         value={organization.placeByPlaceId && organization.placeByPlaceId.address}
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
-        validationErrors={validationErrors.location}
+        validationError={validationErrors.location}
         required
       />
       <TextInput
@@ -158,7 +158,7 @@ class Container extends React.Component {
         label={'Description'}
         value={organization.description}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
-        validationErrors={validationErrors.textArea}
+        validationError={validationErrors.textArea}
         maxLength={500}
         required
         multiLine
@@ -169,7 +169,7 @@ class Container extends React.Component {
         label={'Image'}
         value={organization.imageUrl}
         validations={'isUrl'}
-        validationErrors={validationErrors.url}
+        validationError={validationErrors.url}
       />
       {children}
     </ActionPanelForm>;

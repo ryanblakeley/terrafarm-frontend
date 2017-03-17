@@ -69,7 +69,7 @@ class Container extends React.Component {
         name={'description'}
         label={'Description'}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
-        validationErrors={validationErrors.textArea}
+        validationError={validationErrors.textArea}
         maxLength={500}
         required
         multiLine
@@ -82,7 +82,7 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchDate,
         }}
-        validationErrors={validationErrors.date}
+        validationError={validationErrors.date}
         required
       />
       <TextInput
@@ -92,21 +92,21 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchDate,
         }}
-        validationErrors={validationErrors.date}
+        validationError={validationErrors.date}
         required
       />
       <TextInput
         name={'creditsInitial'}
         label={'Number of distributions / share'}
         validations={'isNumeric'}
-        validationErrors={validationErrors.number}
+        validationError={validationErrors.number}
         required
       />
       <TextInput
         name={'maxShares'}
         label={'Maximum number of shares'}
         validations={'isNumeric'}
-        validationErrors={validationErrors.number}
+        validationError={validationErrors.number}
         required
       />
       <TextInput
@@ -115,13 +115,13 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchCurrency,
         }}
-        validationErrors={validationErrors.currency}
+        validationError={validationErrors.currency}
       />
       <TextInput
         name={'imageUrl'}
         label={'Image'}
         validations={'isUrl'}
-        validationErrors={validationErrors.url}
+        validationError={validationErrors.url}
       />
       {children}
     </ActionPanelForm>;

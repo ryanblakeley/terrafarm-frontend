@@ -63,7 +63,7 @@ class Container extends React.Component {
           label={'Token'}
           validations={'isExisty'}
           value={isFarmOwner ? share.token : ''}
-          validationErrors={validationErrors.token}
+          validationError={validationErrors.token}
           required
         />
       </ActionPanelForm>;

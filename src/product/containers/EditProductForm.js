@@ -95,7 +95,7 @@ class Container extends React.Component {
         label={'Description'}
         value={product.description}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
-        validationErrors={validationErrors.textArea}
+        validationError={validationErrors.textArea}
         maxLength={500}
         required
         multiLine
@@ -108,7 +108,7 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchDate,
         }}
-        validationErrors={validationErrors.date}
+        validationError={validationErrors.date}
         required
       />
       <TextInput
@@ -118,7 +118,7 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchDate,
         }}
-        validationErrors={validationErrors.date}
+        validationError={validationErrors.date}
         required
       />
       <TextInput
@@ -126,7 +126,7 @@ class Container extends React.Component {
         label={'Number of distributions / share'}
         value={String(product.creditsInitial)}
         validations={'isNumeric'}
-        validationErrors={validationErrors.number}
+        validationError={validationErrors.number}
         required
       />
       <TextInput
@@ -134,7 +134,7 @@ class Container extends React.Component {
         label={'Maximum number of shares'}
         value={String(product.maxShares)}
         validations={'isNumeric'}
-        validationErrors={validationErrors.number}
+        validationError={validationErrors.number}
         required
       />
       <TextInput
@@ -142,7 +142,7 @@ class Container extends React.Component {
         label={'Share price'}
         value={String(product.sharePrice)}
         validations={{matchRegexp: validations.matchCurrency}}
-        validationErrors={validationErrors.currency}
+        validationError={validationErrors.currency}
       />
       <TextInput
         name={'imageUrl'}
