@@ -5,7 +5,8 @@
 ### 2.0.4
 
 - fix place lookup and create place
-- add button to load more results on browse page
+- add button to load more results on browse results list and relationship lists
+- fix validation error props
 
 ### 2.0.3
 
