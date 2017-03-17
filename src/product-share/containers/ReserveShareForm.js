@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import {TextInput} from 'shared/components/Form';
+import {TextInput, validationErrors} from 'shared/components/Form';
 import ReserveShareMutation from '../mutations/ReserveShareMutation';
 
 class Container extends React.Component {
@@ -82,12 +82,15 @@ class Container extends React.Component {
         name={'customerContact'}
         label={'Your Contact'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/}}
+        validationErrors={validationErrors.contact}
         required
       />
       <TextInput
         name={'customerNotes'}
         label={'Comments'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
+        validationErrors={validationErrors.textArea}
+        maxLength={500}
         multiLine
         rows={3}
       />

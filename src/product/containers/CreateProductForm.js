@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import {TextInput} from 'shared/components/Form';
+import {TextInput, validationErrors} from 'shared/components/Form';
 import validations from 'shared/utils/validations';
 import CreateProductMutation from '../mutations/CreateProductMutation';
 
@@ -69,6 +69,8 @@ class Container extends React.Component {
         name={'description'}
         label={'Description'}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
+        validationErrors={validationErrors.textArea}
+        maxLength={500}
         required
         multiLine
         rows={3}
@@ -80,6 +82,7 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchDate,
         }}
+        validationErrors={validationErrors.date}
         required
       />
       <TextInput
@@ -89,18 +92,21 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchDate,
         }}
+        validationErrors={validationErrors.date}
         required
       />
       <TextInput
         name={'creditsInitial'}
         label={'Number of distributions / share'}
         validations={'isNumeric'}
+        validationErrors={validationErrors.number}
         required
       />
       <TextInput
         name={'maxShares'}
         label={'Maximum number of shares'}
         validations={'isNumeric'}
+        validationErrors={validationErrors.number}
         required
       />
       <TextInput
@@ -109,11 +115,13 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchCurrency,
         }}
+        validationErrors={validationErrors.currency}
       />
       <TextInput
         name={'imageUrl'}
         label={'Image'}
         validations={'isUrl'}
+        validationErrors={validationErrors.url}
       />
       {children}
     </ActionPanelForm>;

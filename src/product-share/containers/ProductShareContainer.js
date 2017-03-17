@@ -36,15 +36,6 @@ const ProductShareContainer = (props, context) => {
       edge.node.status === 'VALIDATED' // || edge.node.status === 'RECEIVED'
     )).length;
   const credits = `${creditsRemaining} credits remaining / ${props.share.creditsInitial}`;
-  const distributions = props.share.distributionsByShareId.edges.map(edge => ({
-    id: edge.node.id,
-    status: edge.node.status,
-    name: edge.node.description || <WarningMessage>(No description)</WarningMessage>,
-    itemId: edge.node.rowId,
-    itemUrl: `/voucher/${edge.node.rowId}`,
-    actionUrl: `/voucher/${edge.node.rowId}`,
-    authorized: isFarmOwner || isCardholder,
-  }));
 
   if (props.share.userByUserId) {
     isCardholder = props.share.userByUserId.rowId === context.userId;
@@ -59,6 +50,16 @@ const ProductShareContainer = (props, context) => {
       text={props.share.customerName}
     />;
   }
+
+  const distributions = props.share.distributionsByShareId.edges.map(edge => ({
+    id: edge.node.id,
+    status: edge.node.status,
+    name: edge.node.description || <WarningMessage>(No description)</WarningMessage>,
+    itemId: edge.node.rowId,
+    itemUrl: `/voucher/${edge.node.rowId}`,
+    actionUrl: `/voucher/${edge.node.rowId}`,
+    authorized: isFarmOwner || isCardholder,
+  }));
 
   return <TransitionWrapper>
     <Layout page>

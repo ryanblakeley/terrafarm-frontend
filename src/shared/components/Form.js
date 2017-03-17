@@ -37,6 +37,11 @@ const validationErrors = {
   maxLength: 'Character limit reached.',
   textArea: '500 character limit.',
   location: 'Should be a valid address',
+  contact: 'Should be an email address or phone number.',
+  token: 'Not a valid token.',
+  date: 'Should be date in format YYYY-MM-DD',
+  number: 'Should be a number.',
+  currency: 'Should be a dollar amount.',
 };
 
 Form.propTypes = {

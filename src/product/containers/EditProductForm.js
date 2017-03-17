@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import {TextInput} from 'shared/components/Form';
+import {TextInput, validationErrors} from 'shared/components/Form';
 import validations from 'shared/utils/validations';
 import UpdateProductMutation from '../mutations/UpdateProductMutation';
 import DeleteProductMutation from '../mutations/DeleteProductMutation';
@@ -95,6 +95,8 @@ class Container extends React.Component {
         label={'Description'}
         value={product.description}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
+        validationErrors={validationErrors.textArea}
+        maxLength={500}
         required
         multiLine
         rows={3}
@@ -106,6 +108,7 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchDate,
         }}
+        validationErrors={validationErrors.date}
         required
       />
       <TextInput
@@ -115,6 +118,7 @@ class Container extends React.Component {
         validations={{
           matchRegexp: validations.matchDate,
         }}
+        validationErrors={validationErrors.date}
         required
       />
       <TextInput
@@ -122,6 +126,7 @@ class Container extends React.Component {
         label={'Number of distributions / share'}
         value={String(product.creditsInitial)}
         validations={'isNumeric'}
+        validationErrors={validationErrors.number}
         required
       />
       <TextInput
@@ -129,6 +134,7 @@ class Container extends React.Component {
         label={'Maximum number of shares'}
         value={String(product.maxShares)}
         validations={'isNumeric'}
+        validationErrors={validationErrors.number}
         required
       />
       <TextInput
@@ -136,6 +142,7 @@ class Container extends React.Component {
         label={'Share price'}
         value={String(product.sharePrice)}
         validations={{matchRegexp: validations.matchCurrency}}
+        validationErrors={validationErrors.currency}
       />
       <TextInput
         name={'imageUrl'}

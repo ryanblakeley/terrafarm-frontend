@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import {GoogleApiWrapper} from 'google-maps-react';
 import formatAddress from 'shared/utils/formatAddress';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import {TextInput} from 'shared/components/Form';
+import {TextInput, validationErrors} from 'shared/components/Form';
 import CreateOrganizationMutation from '../mutations/CreateOrganizationMutation';
 
 class Container extends React.Component {
@@ -126,12 +126,15 @@ class Container extends React.Component {
         name={'location'}
         label={'Location'}
         validations={{matchRegexp: /[A-Za-z,0-9]*/}}
+        validationsError={validationErrors.location}
         required
       />
       <TextInput
         name={'description'}
         label={'Description'}
         validations={{matchRegexp: /[A-Za-z,.0-9]*/, maxLength: 500}}
+        validationErrors={validationErrors.textArea}
+        maxLength={500}
         required
         multiLine
         rows={3}
@@ -140,6 +143,7 @@ class Container extends React.Component {
         name={'imageUrl'}
         label={'Image'}
         validations={'isUrl'}
+        validationErrors={validationErrors.url}
       />
       {children}
     </ActionPanelForm>;

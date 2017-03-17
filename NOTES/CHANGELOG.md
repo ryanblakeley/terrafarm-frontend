@@ -4,6 +4,7 @@
 
 ### 2.0.3
 
+- add form error messages
 - fix relationship list item status and link urls
 - switch to props.relay.commitUpdate API instead of Relay.Store.commitUpdate
 - fix default messages to render when fields are empty

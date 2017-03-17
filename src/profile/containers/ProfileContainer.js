@@ -45,7 +45,7 @@ const ProfileContainer = (props, context) => {
     name: edge.node.productName,
     status: edge.node.status,
     itemId: edge.node.rowId,
-    itemUrl: `/product/${edge.node.productId}`,
+    itemUrl: `/share/${edge.node.rowId}`,
     actionUrl: `/share/${edge.node.rowId}`,
     authorized: true,
   }));

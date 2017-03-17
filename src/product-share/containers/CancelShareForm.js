@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import validations from 'shared/utils/validations';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import {TextInput} from 'shared/components/Form';
+import {TextInput, validationErrors} from 'shared/components/Form';
 import UpdateShareMutation from 'product-share/mutations/UpdateProductShareMutation';
 
 class Container extends React.Component {
@@ -75,6 +75,7 @@ class Container extends React.Component {
         label={'Comments'}
         value={share.customerNotes}
         validations={{matchRegexp: validations.matchAlphanumeric, maxLength: 500}}
+        validationErrors={validationErrors.textArea}
         multiLine
         rows={3}
       />

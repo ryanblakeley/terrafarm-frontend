@@ -1,7 +1,7 @@
 {
   "name": "terrafarm-csa-frontend",
   "private": true,
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Frontend client and server code for Terrafarm CSA app",
   "repository": "rojobuffalo/terrafarm-csa-frontend",
   "author": "rojobuffalo",
@@ -21,8 +21,8 @@
     "deploy": ""
   },
   "engines": {
-    "node": "6.6.0",
-    "npm": "3.10.3"
+    "node": "6.10.0",
+    "npm": "3.10.10"
   },
   "dependencies": {
     "babel-polyfill": "^6.13.0",
