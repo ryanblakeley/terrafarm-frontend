@@ -7,9 +7,10 @@ import FormError from 'shared/components/FormError';
 import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
 import classNames from '../styles/LoginFormStylesheet.css';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   static propTypes = {
     loginUser: PropTypes.func.isRequired,
+    relay: PropTypes.object.isRequired,
   };
   state = {
     canSubmit: false,
@@ -25,7 +26,7 @@ export default class LoginForm extends Component {
     }
   }
   loginUser = ({ email, password }) => {
-    Relay.Store.commitUpdate(
+    this.props.relay.commitUpdate(
       new AuthenticateUserMutation({ email, password }),
       { onSuccess: this.processLogin },
     );
@@ -72,3 +73,7 @@ export default class LoginForm extends Component {
     );
   }
 }
+
+export default Relay.createContainer(LoginForm, {
+  fragments: {},
+});

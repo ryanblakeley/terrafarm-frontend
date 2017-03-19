@@ -9,7 +9,7 @@ if (!process.env.API_PORT) {
 const {
   NODE_ENV,
   PRIVATE_IP,
-  REVERSE_PROXY_PRIVATE_IP,
+  API_IP,
   PORT,
   API_PORT,
 } = process.env;
@@ -48,7 +48,7 @@ const serverProdConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify(NODE_ENV),
         PRIVATE_IP: JSON.stringify(PRIVATE_IP),
-        REVERSE_PROXY_PRIVATE_IP: JSON.stringify(REVERSE_PROXY_PRIVATE_IP),
+        API_IP: JSON.stringify(API_IP),
         PORT: Number(PORT),
         API_PORT: Number(API_PORT),
       },

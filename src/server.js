@@ -5,11 +5,11 @@ import httpProxy from 'http-proxy';
 
 const app = express();
 
-const { PRIVATE_IP, REVERSE_PROXY_PRIVATE_IP, PORT, API_PORT } = process.env;
+const { PRIVATE_IP, API_IP, PORT, API_PORT } = process.env;
 
 const publicPath = path.join(__dirname, '/..', 'public');
 const proxyOptions = {
-  target: `http://${REVERSE_PROXY_PRIVATE_IP}:${API_PORT}/graphql`,
+  target: `http://${API_IP}:${API_PORT}/csa-graphql`,
   ignorePath: true,
 };
 const proxy = httpProxy.createProxyServer({ ignorePath: true });
@@ -30,7 +30,7 @@ function getFromProxy (req, res) {
 
 app.use(express.static(publicPath));
 app.use(bodyParser.json({ limit: '1mb' }));
-app.use('/graphql', getFromProxy);
+app.use('/csa-graphql', getFromProxy);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));

@@ -11,9 +11,10 @@ import classNames from '../styles/NewUserFormStylesheet.css';
 
 const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,}/;
 
-export default class NewUserForm extends Component {
+class NewUserForm extends Component {
   static propTypes = {
     loginUser: PropTypes.func.isRequired,
+    relay: PropTypes.object.isRequired,
   };
   state = {
     canSubmit: false,
@@ -33,7 +34,7 @@ export default class NewUserForm extends Component {
     }
   }
   signUpUser = ({ name, email, password }) => {
-    Relay.Store.commitUpdate(
+    this.props.relay.commitUpdate(
       new SignUpUserMutation({ name, password, email }),
       { onSuccess: this.processSignUp, onFailure: this.handleFailure },
     );
@@ -136,3 +137,7 @@ export default class NewUserForm extends Component {
     );
   }
 }
+
+export default Relay.createContainer(NewUserForm, {
+  fragments: {},
+});

@@ -22,7 +22,7 @@ if (!process.env.API_PORT) {
   env({file: './.env', type: 'ini'});
 }
 const PRIVATE_IP = process.env.PRIVATE_IP;
-const REVERSE_PROXY_PRIVATE_IP = process.env.REVERSE_PROXY_PRIVATE_IP;
+const API_IP = process.env.API_IP;
 let PORT = process.env.PORT;
 let API_PORT = process.env.API_PORT;
 PORT = Number(PORT);
@@ -30,7 +30,7 @@ API_PORT = Number(API_PORT);
 const CHAOS_MONKEY = process.env.CHAOS_MONKEY;
 const PATHS = {
   schema: path.join(__dirname, 'data', 'schema'),
-  apiSrv: `http://${REVERSE_PROXY_PRIVATE_IP}:${API_PORT}`,
+  apiSrv: `http://${API_IP}:${API_PORT}`,
   public: path.join(__dirname, 'build', 'public'),
 };
 
@@ -62,7 +62,7 @@ function unleashChaosMonkey (req, res) {
 }
 
 gulp.task('load-schema', () => {
-  fetch(`${PATHS.apiSrv}/graphql`, {
+  fetch(`${PATHS.apiSrv}/csa-graphql`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -92,7 +92,7 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     stats: { colors: true, chunks: false },
     historyApiFallback: true,
     proxy: {
-      '/graphql': PATHS.apiSrv,
+      '/csa-graphql': PATHS.apiSrv,
     },
     setup: app => {
       app.all('/graphql', (req, res, next) => {
