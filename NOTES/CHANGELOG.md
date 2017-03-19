@@ -2,11 +2,17 @@
 
 ## Changelog
 
+### HEAD
+
 ### 2.0.4
 
 - fix place lookup and create place
 - add button to load more results on browse results list and relationship lists
 - fix validation error props
+- change namespace for graphql endpoint
+- refactor google maps as shared component to fix retired version warning
+- change copy
+- change route to defer /about to content library's /pages/about
 
 ### 2.0.3
 
