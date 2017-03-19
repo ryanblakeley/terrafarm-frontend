@@ -27,7 +27,7 @@ import ContentSubheader from 'shared/components/ContentSubheader';
 class ProductShareContainer extends React.Component {
   state = {
     relayVariables: {
-      count: 1,
+      count: 8,
     },
   };
   componentWillMount () {
@@ -217,7 +217,7 @@ ProductShareContainer.contextTypes = {
 export default Relay.createContainer(ProductShareContainer, {
   initialVariables: {
     shareId: null,
-    count: 1,
+    count: 8,
   },
   fragments: {
     share: () => Relay.QL`
