@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
+import {Map, InfoWindow, GoogleApiWrapper} from 'shared/components/GoogleMaps';
 import {stringifyBounds} from 'shared/utils/parse-coords';
 import Marker from './Marker';
 import InfoWindowContent from './InfoWindowContent';
@@ -222,6 +222,4 @@ export class Container extends React.Component {
   }
 }
 
-export default GoogleApiWrapper({ // eslint-disable-line
-  apiKey: process.env.GOOGLE_MAPS_KEY,
-})(Container);
+export default GoogleApiWrapper(Container);

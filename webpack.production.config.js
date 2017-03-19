@@ -11,6 +11,7 @@ const {
   JWT_PRIVATE_KEY,
   GOOGLE_ANALYTICS_KEY,
   GOOGLE_MAPS_KEY,
+  GOOGLE_MAPS_VERSION,
 } = process.env;
 
 const anonymousToken = jwt.sign({
@@ -47,6 +48,7 @@ const prodConfig = {
         NODE_ENV: JSON.stringify('production'),
         GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
         GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
+        GOOGLE_MAPS_VERSION: JSON.stringify(GOOGLE_MAPS_VERSION),
       },
     }),
     new webpack.optimize.UglifyJsPlugin({

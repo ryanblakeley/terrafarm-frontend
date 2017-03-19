@@ -1,5 +1,5 @@
 import React from 'react';
-import {GoogleApiWrapper} from 'google-maps-react';
+import {GoogleApiWrapper} from 'shared/components/GoogleMaps';
 import {SearchIcon} from 'shared/components/Icons';
 import {Form, TextInput} from 'shared/components/Form';
 import FormError from 'shared/components/FormError';
@@ -129,6 +129,4 @@ class Container extends React.Component {
   }
 }
 
-export default GoogleApiWrapper({ // eslint-disable-line
-  apiKey: process.env.GOOGLE_MAPS_KEY,
-})(Container);
+export default GoogleApiWrapper(Container);

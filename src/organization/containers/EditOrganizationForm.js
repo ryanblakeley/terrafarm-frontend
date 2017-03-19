@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {GoogleApiWrapper} from 'google-maps-react';
+import {GoogleApiWrapper} from 'shared/components/GoogleMaps';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import {TextInput, validationErrors} from 'shared/components/Form';
 import formatAddress from 'shared/utils/formatAddress';
@@ -176,9 +176,7 @@ class Container extends React.Component {
   }
 }
 
-const GoogleAPIWrappedContainer = GoogleApiWrapper({ // eslint-disable-line
-  apiKey: process.env.GOOGLE_MAPS_KEY,
-})(Container);
+const GoogleAPIWrappedContainer = GoogleApiWrapper(Container);
 
 export default Relay.createContainer(GoogleAPIWrappedContainer, {
   initialVariables: {

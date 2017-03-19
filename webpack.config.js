@@ -13,6 +13,7 @@ const {
   JWT_PRIVATE_KEY,
   GOOGLE_ANALYTICS_KEY,
   GOOGLE_MAPS_KEY,
+  GOOGLE_MAPS_VERSION,
 } = process.env;
 
 const anonymousToken = jwt.sign({
@@ -56,6 +57,7 @@ const config = {
         NODE_ENV: JSON.stringify('development'),
         GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
         GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
+        GOOGLE_MAPS_VERSION: JSON.stringify(GOOGLE_MAPS_VERSION),
       },
     }),
     new HtmlWebpackPlugin({
