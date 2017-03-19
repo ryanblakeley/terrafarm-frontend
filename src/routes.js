@@ -5,7 +5,7 @@ import {Route, IndexRoute, IndexRedirect} from 'react-router';
 import CoreContainerTheme from 'core/components/CorePage';
 import Loading from 'core/components/Loading';
 import HomePage from 'home/components/HomePage';
-import AboutPage from 'about/components/AboutPage';
+// import AboutPage from 'about/components/AboutPage';
 import LoginPage from 'login/components/LoginPage';
 import NotFound from 'not-found/components/NotFoundPage';
 import BrowsePage from 'browse/components/BrowsePage';
@@ -104,6 +104,10 @@ function bounceToProfile (nextState, replace) {
   }
 }
 
+function bounceToAbout (nextState, replace) {
+  replace('/pages/about');
+}
+
 function ensurePublicAccess () {
   const idToken = localStorage.getItem('id_token');
   if (!idToken
@@ -143,7 +147,7 @@ renderCallback.propTypes = {
 const routes = (
   <Route path={'/'} component={CoreContainerTheme}>
     <IndexRoute component={HomePage} />
-    <Route path={'about'} component={AboutPage} />
+    <Route path={'about'} onEnter={bounceToAbout} />
     <Route
       path={'login'}
       component={LoginPage}

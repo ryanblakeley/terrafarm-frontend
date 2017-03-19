@@ -14,15 +14,13 @@ const LogoLarge = props => <AppName className={classNames.appName}>
 
 const Tagline = () => <Layout>
   <P large>
-    Discover CSA products,<br />
-    register shareholders,<br />
-    and trade in vouchers.
+    Pay farmers up front for seasonal product credits, and keep track of distributions, trades, and donations.
   </P>
 </Layout>;
 
 const browseLink = <Link to={'/browse'}>
   <FlatButton
-    label={'Team up with local farmers'}
+    label={'Discover local farms'}
     secondary
     labelStyle={{fontSize: 18}}
   />
@@ -47,7 +45,6 @@ const HomePage = props => <TransitionWrapper>
     <Layout topMedium>
       {browseLink}
     </Layout>
-    <HowItWorks />
     <HomeButtons />
   </Layout>
 </TransitionWrapper>;
