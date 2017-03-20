@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 import React from 'react';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
-import NumberedList from 'shared/components/NumberedList';
+// import NumberedList from 'shared/components/NumberedList';
 import Layout from 'shared/components/Layout';
 import {FlatButton} from 'shared/components/Material';
 import {AppName, P, Link} from 'shared/components/Typography';
@@ -12,7 +13,7 @@ const LogoLarge = props => <AppName className={classNames.appName}>
   <LogoFullIcon className={classNames.logoImage} width={'auto'} height={'auto'} />
 </AppName>;
 
-const Tagline = () => <Layout>
+const Tagline = () => <Layout center smallPage>
   <P large>
     Pay farmers up front for seasonal product credits, and keep track of distributions, trades, and donations.
   </P>
@@ -25,7 +26,7 @@ const browseLink = <Link to={'/browse'}>
     labelStyle={{fontSize: 18}}
   />
 </Link>;
-
+/*
 const HowItWorks = () => <Layout smallPage>
   <NumberedList
     title={'How It Works'}
@@ -37,7 +38,7 @@ const HowItWorks = () => <Layout smallPage>
     ]}
   />
 </Layout>;
-
+*/
 const HomePage = props => <TransitionWrapper>
   <Layout page center bottomMedium>
     <LogoLarge />

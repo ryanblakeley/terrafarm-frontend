@@ -105,7 +105,7 @@ function bounceToProfile (nextState, replace) {
 }
 
 function bounceToAbout (nextState, replace) {
-  replace('/pages/about');
+  window.location.replace('https://terra.farm/pages/about');
 }
 
 function ensurePublicAccess () {
