@@ -13,15 +13,15 @@ const LogoLarge = props => <AppName className={classNames.appName}>
   <LogoFullIcon className={classNames.logoImage} width={'auto'} height={'auto'} />
 </AppName>;
 
-const Tagline = () => <Layout center smallPage>
+const Tagline = () => <Layout center style={{width: '90%', maxWidth: 410}}>
   <P large>
-    Pay farmers up front for seasonal product credits, and keep track of distributions, trades, and donations.
+    Pay farmers up front for seasonal product credits. When you have more than you can eat: trade and donate credits.
   </P>
 </Layout>;
 
 const browseLink = <Link to={'/browse'}>
   <FlatButton
-    label={'Discover local farms'}
+    label={'Powered by local farms'}
     secondary
     labelStyle={{fontSize: 18}}
   />

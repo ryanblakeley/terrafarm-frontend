@@ -20,22 +20,22 @@ class PlaceLookupContainer extends React.Component {
     const {location} = this.context;
     const placeData = location.state && location.state.placeData;
 
-    if (place) {
-      console.log('Place already exists.');
-      this.handleSuccess({
-        createPlace: {
-          place: placeData,
+    if (!place) {
+      // console.log('Place is new.');
+      relay.commitUpdate(
+        new CreatePlaceMutation({ placeData }), {
+          onSuccess: this.handleSuccess,
+          onFailure: this.handleFailure,
         },
-      });
+      );
       return;
     }
-
-    relay.commitUpdate(
-      new CreatePlaceMutation({ placeData }), {
-        onSuccess: this.handleSuccess,
-        onFailure: this.handleFailure,
+    // console.log('Place already exists.');
+    this.handleSuccess({
+      createPlace: {
+        place: placeData,
       },
-    );
+    });
   }
   handleSuccess = response => {
     const {router, location} = this.context;

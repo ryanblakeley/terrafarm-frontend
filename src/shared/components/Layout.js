@@ -19,6 +19,7 @@ const Layout = props => <div
     leftSmall: props.leftSmall,
     inline: props.inline,
   })} ${props.className ? props.className : ''}`}
+  style={props.style}
 >
   {props.children}
 </div>;
@@ -41,6 +42,7 @@ Layout.propTypes = {
   bottomMedium: React.PropTypes.bool,
   leftSmall: React.PropTypes.bool,
   inline: React.PropTypes.bool,
+  style: React.PropTypes.object,
 };
 
 export default Layout;

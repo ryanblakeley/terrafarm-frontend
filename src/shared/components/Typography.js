@@ -5,68 +5,84 @@ import classNames from '../styles/TypographyStylesheet.css';
 const H1 = props => <h1
   className={`${props.className ? props.className : ''} ${classNames.h1}`}
   children={props.children}
+  style={props.style}
 />;
 const H2 = props => <h2
   className={`${props.className ? props.className : ''} ${classNames.h2}`}
   children={props.children}
+  style={props.style}
 />;
 const H3 = props => <h3
   className={`${props.className ? props.className : ''} ${classNames.h3}`}
   children={props.children}
+  style={props.style}
 />;
 const H4 = props => <h4
   className={`${props.className ? props.className : ''} ${classNames.h4}`}
   children={props.children}
+  style={props.style}
 />;
 const H5 = props => <h5
   className={`${props.className ? props.className : ''} ${classNames.h5}`}
   children={props.children}
+  style={props.style}
 />;
 const H6 = props => <h6
   className={`${props.className ? props.className : ''} ${classNames.h6}`}
   children={props.children}
+  style={props.style}
 />;
 const AppName = props => <h1
   className={`${props.className ? props.className : ''} ${classNames.appName}`}
   children={props.children}
+  style={props.style}
 />;
 const P = props => <p
   className={`${props.className ? props.className : ''} ${props.large ? classNames.paragraphLarge : classNames.paragraph}`}
   children={props.children}
+  style={props.style}
 />;
 const Span = props => <span
   className={`${props.className ? props.className : ''} ${classNames.span}`}
   children={props.children}
+  style={props.style}
 />;
 const A = props => <a
   href={props.href}
   className={`${props.className ? props.className : ''} ${classNames.externalLink}`}
   children={props.children}
+  style={props.style}
 />;
 const Link = props => <InternalLink
   to={props.to}
   className={`${props.className ? props.className : ''} ${classNames.internalLink} ${props.disabled ? classNames.disabledLink : ''}`}
   children={props.children}
   disabled={props.disabled}
+  style={props.style}
 />;
 const UL = props => <ul
   className={`${props.className ? props.className : ''} ${classNames.list} ${props.plumb ? classNames.plumb : ''}`}
   children={props.children}
+  style={props.style}
 />;
 const LI = props => <li
   className={`${props.className ? props.className : ''} ${classNames.listItem} ${props.noBullet ? classNames.noBullet : ''} ${props.truncate ? classNames.truncate : ''}`}
   children={props.children}
+  style={props.style}
 />;
 const Icon = props => React.cloneElement(props.icon, {
   className: `${props.className ? props.className : ''} ${classNames.icon}`,
+  style: props.style,
 });
 const ErrorMessage = props => <p
   className={`${props.className ? props.className : ''} ${classNames.errorMessage}`}
   children={props.children}
+  style={props.style}
 />;
 const WarningMessage = props => <span
   className={`${props.className ? props.className : ''} ${classNames.warningMessage}`}
   children={props.children}
+  style={props.style}
 />;
 
 const commonPropTypes = {
@@ -76,6 +92,7 @@ const commonPropTypes = {
     React.PropTypes.object,
   ]),
   className: React.PropTypes.string,
+  style: React.PropTypes.object,
 };
 
 H1.propTypes = commonPropTypes;
