@@ -44,7 +44,7 @@ export class Container extends React.Component {
     location: React.PropTypes.object,
   };
   state = {
-    zoom: 4,
+    zoom: 5,
     showingInfoWindow: false,
     activeMarker: {},
     markers: [],
