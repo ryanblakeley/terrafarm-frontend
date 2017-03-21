@@ -33,9 +33,6 @@ ul {
 
 @media only screen and (min-width: 320px) { :root { font-size: 13px; } }
 @media only screen and (min-width: 375px) { :root { font-size: 14px; } }
-@media only screen and (min-width: 500px) { :root { font-size: 15px; } }
-/*
-@media only screen and (min-width: 680px) { html { font-size: 18px; } }
-@media only screen and (min-width: 950px) { html { font-size: 19px; } }
-@media only screen and (min-width: 1280px) { html { font-size: 20px; } }
-*/
+@media only screen and (min-width: 600px) { :root { font-size: 15px; } }
+/* @media only screen and (min-width: 950px) { html { font-size: 19px; } } */
+/* @media only screen and (min-width: 1280px) { html { font-size: 20px; } } */

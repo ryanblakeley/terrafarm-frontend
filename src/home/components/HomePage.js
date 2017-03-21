@@ -1,10 +1,9 @@
 /* eslint-disable max-len */
 import React from 'react';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
-// import NumberedList from 'shared/components/NumberedList';
+import NumberedList from 'shared/components/NumberedList';
 import Layout from 'shared/components/Layout';
-import {FlatButton} from 'shared/components/Material';
-import {AppName, P, Link} from 'shared/components/Typography';
+import {AppName, H4, P} from 'shared/components/Typography';
 import {LogoFullIcon} from 'shared/components/Icons';
 import HomeButtons from './HomeButtons';
 import classNames from '../styles/HomePageStylesheet.css';
@@ -13,40 +12,43 @@ const LogoLarge = props => <AppName className={classNames.appName}>
   <LogoFullIcon className={classNames.logoImage} width={'auto'} height={'auto'} />
 </AppName>;
 
-const Tagline = () => <Layout center style={{width: '90%', maxWidth: 410}}>
+const Tagline = () => <Layout center style={{width: '90%', maxWidth: 550}}>
   <P large>
-    Pay farmers up front for seasonal product credits. When you have more than you can eat: trade and donate credits.
+    Pay farmers up-front for seasonal products.
   </P>
 </Layout>;
 
-const browseLink = <Link to={'/browse'}>
-  <FlatButton
-    label={'Powered by local farms'}
-    secondary
-    labelStyle={{fontSize: 18}}
-  />
-</Link>;
-/*
-const HowItWorks = () => <Layout smallPage>
+// Trade and donate credits when you have extra.
+// ** Soon it will be also be possible to trade and donate credits.
+
+const HowItWorks = () => <Layout smallPage left>
   <NumberedList
-    title={'How It Works'}
+    title={'How does it work?'}
     listItems={[
-      'Farmer A lists a scheduled product.',
-      'Customer R reserves a product share.',
-      'Farmer A approves shareholder R and vouchers are issued.',
-      'When product is distributed, shareholder R trades in a voucher token which farmer A validates.',
+      'A farmer lists a product that will be harvested later in the season.',
+      'A customer reserves a product share which has a set number of distribution credits.',
+      'The farmer approves the shareholder when payment is received. *',
+      'Optionally, credits can be verified by the farmer when product is distributed.',
     ]}
   />
+  <P>* Face-to-face payments are encouraged and cash is ok. If we implement a payment system in the future, it will still be possible to use the app without it.</P>
 </Layout>;
-*/
+
+const WhyUseIt = () => <Layout smallPage left>
+  <H4>Why do this?</H4>
+  <P>When customers pay in-advance, the farmer ends up with more money early in the season to improve his or her production run.</P>
+  <P>During the harvest you might have 20-200 people getting periodic distributions that they already paid for. The farmer has the option of just going by the honor system or a spreadsheet. But using credits makes it possible for the farmer to do a quick scan to verify a distribution and have it automatically marked in a record-keeping system. It also enables consumers to coordinate trades and donations without the farmer having to deal with anything accept scanning a voucher to see if it is legit.</P>
+  <P>Using credits is an optional feature though. The primary reason to use this is that it gives the farmer a really easy way to promote a planned product and register shareholders.</P>
+</Layout>;
+
+
 const HomePage = props => <TransitionWrapper>
   <Layout page center bottomMedium>
     <LogoLarge />
     <Tagline />
-    <Layout topMedium>
-      {browseLink}
-    </Layout>
     <HomeButtons />
+    <HowItWorks />
+    <WhyUseIt />
   </Layout>
 </TransitionWrapper>;
 

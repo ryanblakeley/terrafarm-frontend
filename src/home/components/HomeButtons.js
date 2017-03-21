@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'shared/components/Typography';
-import {RaisedButton} from 'shared/components/Material';
+import {RaisedButton, FlatButton} from 'shared/components/Material';
 import Layout from 'shared/components/Layout';
 // import classNames from '../styles/HomeButtonsStylesheet.css';
 
@@ -14,6 +14,14 @@ const profileLink = <Link to={'/profile'}>
 
 const loginLink = <Link to={'/login'}>
   <RaisedButton label={'Login'} />
+</Link>;
+
+const browseLink = <Link to={'/browse'}>
+  <FlatButton
+    label={'Map of Farms'}
+    secondary
+    labelStyle={{fontSize: 18}}
+  />
 </Link>;
 
 class HomeButtons extends React.Component {
@@ -39,9 +47,14 @@ class HomeButtons extends React.Component {
       onTouchTap={this.handleSignOut}
     />;
 
-    return <Layout topMedium>
-      {leftLink}
-      {rightLink}
+    return <Layout>
+      <Layout topMedium>
+        {browseLink}
+      </Layout>
+      <Layout topMedium>
+        {leftLink}
+        {rightLink}
+      </Layout>
     </Layout>;
   }
 }
