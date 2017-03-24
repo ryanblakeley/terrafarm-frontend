@@ -32,7 +32,7 @@ class BrowseList extends React.Component {
             icon: <ArrowRightThickIcon />,
             label: 'Results',
           },
-          body: <ResultsList
+          body: (<ResultsList
             listItems={searchResults.map(result => ({
               name: result.name,
               itemId: result.rowId,
@@ -40,7 +40,7 @@ class BrowseList extends React.Component {
               active: activeResultItemId === result.rowId,
               setActive: this.handleResultItemClick,
             }))}
-          />,
+          />),
         },
       ]}
     />;
