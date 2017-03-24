@@ -45,7 +45,7 @@ class PerformSearchOrganizations extends React.Component {
     const loadMore = nextContext.location.state && nextContext.location.state.loadMore;
     const nextSearchResultIds = nextSearchOrganizations.edges.map(edge => edge.node.rowId);
     const nextVars = Object.assign(nextQuery, {
-      count: Number(nextQuery.count),
+      count: Number(nextQuery.count) || 0,
     });
 
     this.changeRelayVars(Object.assign(query, nextVars));

@@ -109,9 +109,11 @@ function bounceToAbout (nextState, replace) {
 }
 
 function ensurePublicAccess () {
+  const userId = localStorage.getItem('user_uuid');
   const idToken = localStorage.getItem('id_token');
-  if (!idToken
-      || idToken === window.registrarToken) {
+  const needsReset = !idToken || (!userId && idToken !== window.anonymousToken);
+
+  if (needsReset) {
     setAnonymousToken();
   }
 }
@@ -183,13 +185,13 @@ const routes = (
     <Route
       path={'browse'}
       component={BrowsePage}
+      onEnter={ensurePublicAccess}
     >
       <IndexRedirect to={'farms'} />
       <Route
         path={'farms'}
         component={SearchOrganizationsContainer}
         queries={QueryQueries}
-        onEnter={ensurePublicAccess}
         render={renderArgs => renderCallback(renderArgs, <SearchOrganizationsContainer />)}
       />
     </Route>

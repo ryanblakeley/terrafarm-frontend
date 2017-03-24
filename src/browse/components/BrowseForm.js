@@ -4,6 +4,7 @@ import {SearchIcon} from 'shared/components/Icons';
 import {Form, TextInput} from 'shared/components/Form';
 import FormError from 'shared/components/FormError';
 import {IconButton} from 'shared/components/Material';
+import validations from 'shared/utils/validations';
 import classNames from '../styles/BrowseFormStylesheet.css';
 
 class Container extends React.Component {
@@ -101,27 +102,28 @@ class Container extends React.Component {
           <TextInput
             name={'searchText'}
             label={'Search'}
-            validations={{matchRegexp: /[A-Za-z,0-9]*/}}
+            hintText={'Farm name'}
+            validations={{matchRegexp: validations.matchAlphanumeric}}
             value={search}
             ref={input => (this.search = input)}
           />
+          <div className={classNames.searchButton}>
+            <IconButton
+              type={'submit'}
+              disabled={!canSubmit}
+            >
+              <SearchIcon />
+            </IconButton>
+          </div>
         </div>
         <div className={`${classNames.flexRow} ${classNames.hidden}`}>
           <TextInput
             name={'location'}
             label={'Location'}
-            validations={{matchRegexp: /[A-Za-z,0-9]*/}}
+            validations={{matchRegexp: validations.matchAlphanumeric}}
             value={mapCenterAddress}
             ref={input => (this.location = input)}
           />
-        </div>
-        <div className={classNames.flexRow}>
-          <IconButton
-            type={'submit'}
-            disabled={!canSubmit}
-          >
-            <SearchIcon />
-          </IconButton>
         </div>
         {error && <FormError text={error} /> }
       </Form>

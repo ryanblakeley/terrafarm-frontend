@@ -13,6 +13,7 @@
 }
 .hidden { display: none; }
 .radio { margin-top: 15px; }
+.searchButton { margin-bottom: -25px; }
 /*
 - move classes flex* to /shared/styles/_layout.css
 - new classes .form, .buttons compose the flex classes
