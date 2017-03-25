@@ -4,6 +4,7 @@ import TerrafarmRawTheme from 'shared/utils/terrafarm-raw-theme';
 import 'shared/styles/_base.css'; // puts base styles directly into the HTML document
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
+import Banner from './Banner';
 import classNames from '../styles/CorePageStylesheet.css';
 
 export class CorePage extends Component {
@@ -62,6 +63,7 @@ export class CorePage extends Component {
     return (
       <div className={classNames.this}>
         <div className={classNames.main}>
+          <Banner />
           <AppHeader />
           {children}
         </div>

@@ -18,6 +18,7 @@ const Layout = props => <div
     bottomMedium: props.bottomMedium,
     leftSmall: props.leftSmall,
     inline: props.inline,
+    flexCenter: props.flexCenter,
   })} ${props.className ? props.className : ''}`}
   style={props.style}
 >
@@ -42,6 +43,7 @@ Layout.propTypes = {
   bottomMedium: React.PropTypes.bool,
   leftSmall: React.PropTypes.bool,
   inline: React.PropTypes.bool,
+  flexCenter: React.PropTypes.bool,
   style: React.PropTypes.object,
 };
 
