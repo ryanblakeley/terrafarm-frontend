@@ -27,6 +27,7 @@ import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
 import IoIosCheckmarkOutline from 'react-icons/lib/io/ios-checkmark-outline';
 import IoIosTrashOutline from 'react-icons/lib/io/ios-trash-outline';
 import IoPinPoint from 'react-icons/lib/io/pinpoint';
+import FaExternalLink from 'react-icons/lib/fa/external-link';
 
 import logoIcon from '../elements/logo_icon.svg';
 import logoFull from '../elements/logo_full_xlarge.png';
@@ -64,6 +65,7 @@ const StarOutlineIcon = props => <Icon icon={<IoIosStarOutline />} {...props} />
 const EmailIcon = props => <Icon icon={<IoIosEmail />} {...props} />;
 const ArrowRightThickIcon = props => <Icon icon={<IoArrowRightA />} {...props} />;
 const LinkIcon = props => <Icon icon={<IoLink />} {...props} />;
+const ExternalLinkIcon = props => <Icon icon={<FaExternalLink />} {...props} />;
 const InformationIcon = props => <Icon icon={<IoInformationCircled />} {...props} />;
 const CloseIcon = props => <Icon icon={<IoIosCloseOutline />} {...props} />;
 const CheckmarkIcon = props => <Icon icon={<IoIosCheckmarkOutline />} {...props} />;
@@ -110,6 +112,7 @@ StarOutlineIcon.propTypes = commonPropTypes;
 EmailIcon.propTypes = commonPropTypes;
 ArrowRightThickIcon.propTypes = commonPropTypes;
 LinkIcon.propTypes = commonPropTypes;
+ExternalLinkIcon.propTypes = commonPropTypes;
 InformationIcon.propTypes = commonPropTypes;
 CloseIcon.propTypes = commonPropTypes;
 CheckmarkIcon.propTypes = commonPropTypes;
@@ -152,6 +155,7 @@ export {
   EmailIcon,
   ArrowRightThickIcon,
   LinkIcon,
+  ExternalLinkIcon,
   InformationIcon,
   CloseIcon,
   CheckmarkIcon,

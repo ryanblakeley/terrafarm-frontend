@@ -23,6 +23,7 @@ export default class UpdateProductMutation extends Relay.Mutation {
           startDate,
           endDate,
           imageUrl,
+          url,
         },
       }
     `;

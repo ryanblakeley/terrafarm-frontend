@@ -52,6 +52,7 @@ const A = props => <a
   className={`${props.className ? props.className : ''} ${classNames.externalLink}`}
   children={props.children}
   style={props.style}
+  target={'_blank'}
 />;
 const Link = props => <InternalLink
   to={props.to}

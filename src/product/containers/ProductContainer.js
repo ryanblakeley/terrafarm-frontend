@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import equal from 'deep-equal';
 import {
   EditIcon,
+  ExternalLinkIcon,
   DollarIcon,
   CalendarIcon,
   PeopleIcon,
@@ -12,7 +13,7 @@ import {
   BarnIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P, WarningMessage} from 'shared/components/Typography';
+import {H3, P, A, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
@@ -184,6 +185,11 @@ class ProductContainer extends React.Component {
             <ContentSubheader icon={<DollarIcon />} text={`${price}`} light />
             <ContentSubheader icon={<AsteriskIcon />} text={`${props.product.creditsInitial} distributions / share`} light />
             <ContentSubheader icon={<CalendarIcon />} text={dates} light />
+            {props.product.url && <ContentSubheader
+              icon={<ExternalLinkIcon />}
+              text={<A href={props.product.url}>{props.product.url}</A>}
+              light
+            />}
             <P>{props.product.description}</P>
             <HeroImage image={props.product.imageUrl} />
           </div>}
@@ -223,6 +229,7 @@ export default Relay.createContainer(ProductContainer, {
         maxShares,
         startDate,
         endDate,
+        url,
         organizationByOrganizationId {
           id,
           rowId,

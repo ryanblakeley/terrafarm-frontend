@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import equal from 'deep-equal';
 import {
   EditIcon,
+  ExternalLinkIcon,
   PersonIcon,
   AsteriskIcon,
   BarnIcon,
@@ -10,7 +11,7 @@ import {
   LocationOutlineIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P, WarningMessage} from 'shared/components/Typography';
+import {H3, P, A, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
@@ -103,7 +104,7 @@ class OrganizationContainer extends React.Component {
                   icon: <WheatIcon />,
                   label: 'Products',
                 },
-                body: <RelationshipList
+                body: (<RelationshipList
                   listItems={props.organization.productsByOrganizationId
                     .edges.map(edge => ({
                       id: edge.node.id,
@@ -111,7 +112,7 @@ class OrganizationContainer extends React.Component {
                       itemUrl: `/product/${edge.node.rowId}`,
                     }))
                   }
-                />,
+                />),
               },
             ]}
           />}
@@ -135,6 +136,11 @@ class OrganizationContainer extends React.Component {
               text={props.organization.userByOwnerId.name}
               url={`/user/${props.organization.userByOwnerId.rowId}`}
             />
+            {props.organization.url && <ContentSubheader
+              icon={<ExternalLinkIcon />}
+              text={<A href={props.organization.url}>{props.organization.url}</A>}
+              light
+            />}
             <P>{props.organization.description}</P>
             <HeroImage image={props.organization.imageUrl} />
           </div>}
@@ -169,6 +175,7 @@ export default Relay.createContainer(OrganizationContainer, {
         name,
         imageUrl,
         description,
+        url,
         placeByPlaceId {
           address,
         },

@@ -167,7 +167,16 @@ class Container extends React.Component {
       <TextInput
         name={'imageUrl'}
         label={'Image'}
+        hintText={'http://i.imgur.com/vHqJ2os.png'}
         value={organization.imageUrl}
+        validations={'isUrl'}
+        validationError={validationErrors.url}
+      />
+      <TextInput
+        name={'url'}
+        label={'URL'}
+        hintText={'https://example.com'}
+        value={organization.url}
         validations={'isUrl'}
         validationError={validationErrors.url}
       />
@@ -190,6 +199,7 @@ export default Relay.createContainer(GoogleAPIWrappedContainer, {
         name,
         description,
         imageUrl,
+        url,
         placeByPlaceId {
           address,
         },

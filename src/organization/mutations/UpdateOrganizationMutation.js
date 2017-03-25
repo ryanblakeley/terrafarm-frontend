@@ -19,6 +19,7 @@ export default class UpdateOrganizationMutation extends Relay.Mutation {
           placeByPlaceId,
           description,
           imageUrl,
+          url,
         },
       }
     `;

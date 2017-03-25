@@ -5,13 +5,13 @@ import {
   EditIcon,
   PersonIcon,
   PlusIcon,
-  // AsteriskIcon,
+  ExternalLinkIcon,
   BarnIcon,
   WheatIcon,
   LocationOutlineIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P, WarningMessage} from 'shared/components/Typography';
+import {H3, P, A, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
@@ -148,6 +148,11 @@ class ProfileContainer extends React.Component {
               url={`/farm/${edge.node.rowId}`}
               key={edge.node.id}
             />)}
+            {props.currentPerson.url && <ContentSubheader
+              icon={<ExternalLinkIcon />}
+              text={<A href={props.currentPerson.url}>{props.currentPerson.url}</A>}
+              light
+            />}
             <P>{props.currentPerson.description}</P>
             <HeroImage image={props.currentPerson.imageUrl} />
           </div>}
@@ -180,6 +185,7 @@ export default Relay.createContainer(ProfileContainer, {
       fragment on User {
         name,
         imageUrl,
+        url,
         description,
         placeByPlaceId {
           address,
@@ -209,16 +215,3 @@ export default Relay.createContainer(ProfileContainer, {
     `,
   },
 });
-
-/*
-              distributionsByShareId(first: 8) {
-                edges {
-                  node {
-                    id,
-                    rowId,
-                    status,
-                    description,
-                  }
-                }
-              },
-*/

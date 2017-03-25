@@ -142,6 +142,14 @@ class Container extends React.Component {
       <TextInput
         name={'imageUrl'}
         label={'Image'}
+        hintText={'http://i.imgur.com/vHqJ2os.png'}
+        validations={'isUrl'}
+        validationError={validationErrors.url}
+      />
+      <TextInput
+        name={'url'}
+        label={'URL'}
+        hintText={'https://example.com'}
         validations={'isUrl'}
         validationError={validationErrors.url}
       />

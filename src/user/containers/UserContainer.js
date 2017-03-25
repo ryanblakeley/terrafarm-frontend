@@ -1,13 +1,14 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {
-  PersonIcon,
   BarnIcon,
-  WheatIcon,
+  ExternalLinkIcon,
   LocationOutlineIcon,
+  PersonIcon,
+  WheatIcon,
 } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P, WarningMessage} from 'shared/components/Typography';
+import {H3, P, A, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import MainContentWrapper from 'shared/components/MainContentWrapper';
 import HeroImage from 'shared/components/HeroImage';
@@ -33,7 +34,7 @@ const UserContainer = (props, context) => <TransitionWrapper>
               icon: <WheatIcon />,
               label: 'Shares',
             },
-            body: <RelationshipList
+            body: (<RelationshipList
               listItems={props.user.sharesByUserId.edges.length > 0
                 ? props.user.sharesByUserId.edges.map(edge => ({
                   id: edge.node.productByProductId.id,
@@ -43,7 +44,7 @@ const UserContainer = (props, context) => <TransitionWrapper>
                 }))
                 : []
               }
-            />,
+            />),
           },
         ]}
       />}
@@ -65,6 +66,11 @@ const UserContainer = (props, context) => <TransitionWrapper>
           url={`/farm/${edge.node.rowId}`}
           key={edge.node.id}
         />)}
+        {props.user.url && <ContentSubheader
+          icon={<ExternalLinkIcon />}
+          text={<A href={props.user.url}>{props.user.url}</A>}
+          light
+        />}
         <P>{props.user.description}</P>
         <HeroImage image={props.user.imageUrl} />
       </div>}
@@ -81,6 +87,7 @@ UserContainer.propTypes = {
     }),
     description: React.PropTypes.string,
     imageUrl: React.PropTypes.string,
+    url: React.PropTypes.string,
     organizationsByOwnerId: React.PropTypes.object,
     sharesByUserId: React.PropTypes.object,
   }),
@@ -103,6 +110,7 @@ export default Relay.createContainer(UserContainer, {
         name,
         imageUrl,
         description,
+        url,
         placeByPlaceId {
           address,
         },

@@ -147,8 +147,17 @@ class Container extends React.Component {
       <TextInput
         name={'imageUrl'}
         label={'Image'}
+        hintText={'http://i.imgur.com/vHqJ2os.png'}
         value={product.imageUrl}
         validations={'isUrl'}
+      />
+      <TextInput
+        name={'url'}
+        label={'URL'}
+        hintText={'https://example.com'}
+        value={product.url}
+        validations={'isUrl'}
+        validationError={validationErrors.url}
       />
       {children}
     </ActionPanelForm>;
@@ -172,6 +181,7 @@ export default Relay.createContainer(Container, {
         maxShares,
         sharePrice,
         imageUrl,
+        url,
         organizationByOrganizationId {
           userByOwnerId {
             rowId
