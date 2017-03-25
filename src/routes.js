@@ -282,19 +282,16 @@ const routes = (
           path={'edit'}
           component={EditProductShareForm}
           queries={EditProductShareQueries}
-          onEnter={loginBouncer}
         />
         <Route
           path={'create-voucher'}
           component={CreateDistributionForm}
           queries={ProductShareQueryQueries}
-          onEnter={loginBouncer}
         />
         <Route
           path={'activate'}
           component={ValidateShareForm}
           queries={ValidateShareQueries}
-          onEnter={loginBouncer}
         >
           <Route
             path={':shareToken'}
@@ -306,7 +303,6 @@ const routes = (
           path={'cancel'}
           component={CancelShareForm}
           queries={CancelShareQueries}
-          onEnter={loginBouncer}
         />
       </Route>
     </Route>
@@ -322,7 +318,6 @@ const routes = (
           path={'edit'}
           component={EditDistributionForm}
           queries={EditDistributionQueries}
-          onEnter={loginBouncer}
         />
         <Route path={'validate'}>
           <Route
@@ -335,7 +330,6 @@ const routes = (
           path={'cancel'}
           component={CancelDistributionForm}
           queries={CancelDistributionQueries}
-          onEnter={loginBouncer}
         />
       </Route>
     </Route>
