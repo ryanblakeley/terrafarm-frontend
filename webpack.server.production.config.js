@@ -1,6 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
-import validate from 'webpack-validator';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import env from 'gulp-env';
 
 if (!process.env.API_PORT) {
@@ -17,6 +17,8 @@ const {
 const PATHS = {
   src: path.join(__dirname, 'src', 'server.js'),
   build: path.join(__dirname, 'build', 'dist'),
+  public: path.join(__dirname, 'build', 'public'),
+  robots: path.join(__dirname, 'src', 'robots.txt'),
 };
 
 const serverProdConfig = {
@@ -53,6 +55,9 @@ const serverProdConfig = {
         API_PORT: Number(API_PORT),
       },
     }),
+    new CopyWebpackPlugin([
+      { from: PATHS.robots, to: PATHS.public },
+    ]),
   ],
   module: {
     loaders: [
@@ -61,8 +66,13 @@ const serverProdConfig = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
+      {
+        test: /\.txt$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader',
+      },
     ],
   },
 };
 
-export default validate(serverProdConfig, { quiet: true });
+export default serverProdConfig;

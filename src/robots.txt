@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /share/
+Disallow: /voucher/
+Disallow: /profile/
+Disallow: /farm/edit/
+Disallow: /farm/accept-voucher/
+Disallow: /product/edit/
+Disallow: /product/reserve-share/
+Disallow: /product/assign-share/
