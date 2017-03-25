@@ -4,6 +4,14 @@
 
 ### HEAD
 
+### 2.0.5
+
+- clean up browse page
+- add external link field to product, organization, user
+- add robots.txt
+- add notice about early stage development
+- change copy
+
 ### 2.0.4
 
 - fix place lookup and create place
