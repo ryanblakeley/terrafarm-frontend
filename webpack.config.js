@@ -61,7 +61,7 @@ const config = {
       },
     }),
     new HtmlWebpackPlugin({
-      title: 'Terrafarm CSA',
+      title: 'Terrafarm · CSA App',
       filename: 'index.html',
       template: 'src/index.template.html',
       inject: true,

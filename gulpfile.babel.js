@@ -52,13 +52,15 @@ function unleashChaosMonkey (req, res) {
   const randomStatusCode = statusCodes[
     Math.floor(Math.random() * statusCodes.length)
   ];
-  console.warn(monkey);
-  res.writeHead(randomStatusCode, {
-    'Content-Type': 'text/plain',
-    'Content-Length': monkey.length,
-  });
-  res.write(monkey);
-  res.end();
+  console.log(monkey);
+  setTimeout(_ => {
+    res.writeHead(randomStatusCode, {
+      'Content-Type': 'text/plain',
+      'Content-Length': monkey.length,
+    });
+    res.write(monkey);
+    res.end();
+  }, 1200);
 }
 
 gulp.task('load-schema', () => {
@@ -95,8 +97,8 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
       '/csa-graphql': PATHS.apiSrv,
     },
     setup: app => {
-      app.all('/graphql', (req, res, next) => {
-        if (CHAOS_MONKEY === true && (Math.random() < 0.04)) {
+      app.all('/csa-graphql', (req, res, next) => {
+        if (CHAOS_MONKEY && (Math.random() < 0.08)) {
           unleashChaosMonkey(req, res);
         } else {
           next();

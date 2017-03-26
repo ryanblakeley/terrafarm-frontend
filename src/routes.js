@@ -3,7 +3,8 @@ import {Route, IndexRoute, IndexRedirect} from 'react-router';
 
 // Components
 import CoreContainerTheme from 'core/components/CorePage';
-import Loading from 'core/components/Loading';
+import LoadingComponent from 'core/components/LoadingComponent';
+import ErrorComponent from 'core/components/ErrorComponent';
 import HomePage from 'home/components/HomePage';
 // import AboutPage from 'about/components/AboutPage';
 import LoginPage from 'login/components/LoginPage';
@@ -130,11 +131,11 @@ function setRegistrarToken () {
 function renderCallback ({done, error, props, retry, stale}, container) {
   if (error) {
     console.error(`Relay renderer ${error}`);
-    return <NotFound />;
+    return <ErrorComponent retry={retry} />;
   } else if (props) {
     return React.cloneElement(container, {...props});
   } else { // eslint-disable-line
-    return <Loading />;
+    return <LoadingComponent />;
   }
 }
 
