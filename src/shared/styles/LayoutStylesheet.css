@@ -1,5 +1,5 @@
 .page { composes: page from './_layout.css'; }
-.smallPage { composes: page--gutter from './_layout.css'; max-width: 470px; }
+.smallPage { composes: page--gutter from './_layout.css'; max-width: 505px; }
 .fullPage { composes: page--fullWidth from './_layout.css'; }
 .smallPageFixed { composes: page--smallWidth from './_layout.css'; }
 .center { composes: center from './_layout.css'; }
