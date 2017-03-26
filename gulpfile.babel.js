@@ -60,7 +60,7 @@ function unleashChaosMonkey (req, res) {
     });
     res.write(monkey);
     res.end();
-  }, 1200);
+  }, 1500);
 }
 
 gulp.task('load-schema', () => {
@@ -98,7 +98,7 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     },
     setup: app => {
       app.all('/csa-graphql', (req, res, next) => {
-        if (CHAOS_MONKEY && (Math.random() < 0.08)) {
+        if (CHAOS_MONKEY && (Math.random() < 0.15)) {
           unleashChaosMonkey(req, res);
         } else {
           next();
