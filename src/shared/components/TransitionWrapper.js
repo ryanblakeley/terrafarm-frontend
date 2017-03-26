@@ -6,9 +6,9 @@ import transitionNames from '../styles/_transitions.css';
 const TransitionWrapper = props => <CSSTransitionGroup
   transitionName={transitionNames}
   transitionAppear
+  transitionLeave={false}
   transitionAppearTimeout={350}
   transitionEnterTimeout={350}
-  transitionLeave={false}
 >
   {props.children}
 </CSSTransitionGroup>;
