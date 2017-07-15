@@ -1,22 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {
-  BarnIcon,
-  ExternalLinkIcon,
-  LocationOutlineIcon,
-  PersonIcon,
-  WheatIcon,
-} from 'shared/components/Icons';
+import {PersonIcon} from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import {H3, P, A, WarningMessage} from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
-import MainContentWrapper from 'shared/components/MainContentWrapper';
-import HeroImage from 'shared/components/HeroImage';
-import RelationshipList from 'shared/components/RelationshipList';
 import Menu from 'shared/components/Menu';
-import ActionPanel from 'shared/components/ActionPanel';
-import Accordion from 'shared/components/Accordion';
-import ContentSubheader from 'shared/components/ContentSubheader';
+import FoodSelectionJournal from 'food-selection/containers/FoodSelectionJournal';
+import JournalItem from 'food-selection/components/JournalItem';
 
 const UserContainer = (props, context) => <TransitionWrapper>
   <Layout page>
@@ -25,55 +14,11 @@ const UserContainer = (props, context) => <TransitionWrapper>
       header={{icon: <PersonIcon />, title: 'User'}}
       disabled
     />
-    <H3>{props.user.name}</H3>
-    <MainContentWrapper
-      right={<Accordion
-        panels={[
-          {
-            header: {
-              icon: <WheatIcon />,
-              label: 'Shares',
-            },
-            body: (<RelationshipList
-              listItems={props.user.sharesByUserId.edges.length > 0
-                ? props.user.sharesByUserId.edges.map(edge => ({
-                  id: edge.node.productByProductId.id,
-                  name: edge.node.productByProductId.name,
-                  itemId: edge.node.productByProductId.rowId,
-                  itemUrl: `/product/${edge.node.productByProductId.rowId}`,
-                }))
-                : []
-              }
-            />),
-          },
-        ]}
-      />}
-      left={<div>
-        <ActionPanel
-          children={props.children}
-          notifyClose={() => context.router.replace(`/user/${props.user.rowId}`)}
-        />
-        <ContentSubheader
-          icon={<LocationOutlineIcon />}
-          text={(props.user.placeByPlaceId && props.user.placeByPlaceId.address)
-            || <WarningMessage />
-          }
-          light
-        />
-        {props.user.organizationsByOwnerId.edges.map(edge => <ContentSubheader
-          icon={<BarnIcon />}
-          text={edge.node.name}
-          url={`/farm/${edge.node.rowId}`}
-          key={edge.node.id}
-        />)}
-        {props.user.url && <ContentSubheader
-          icon={<ExternalLinkIcon />}
-          text={<A href={props.user.url}>{props.user.url}</A>}
-          light
-        />}
-        <P>{props.user.description}</P>
-        <HeroImage image={props.user.imageUrl} />
-      </div>}
+    <FoodSelectionJournal
+      items={props.user.foodSelectionsByUserId.edges.map(s => (
+        <JournalItem foodSelection={s.node} />
+      ))}
+      children={props.children}
     />
   </Layout>
 </TransitionWrapper>;
@@ -81,15 +26,7 @@ const UserContainer = (props, context) => <TransitionWrapper>
 UserContainer.propTypes = {
   user: React.PropTypes.shape({
     rowId: React.PropTypes.string,
-    name: React.PropTypes.string,
-    placeByPlaceId: React.PropTypes.shape({
-      address: React.PropTypes.string,
-    }),
-    description: React.PropTypes.string,
-    imageUrl: React.PropTypes.string,
-    url: React.PropTypes.string,
-    organizationsByOwnerId: React.PropTypes.object,
-    sharesByUserId: React.PropTypes.object,
+    foodSelectionsByUserId: React.PropTypes.object,
   }),
   children: React.PropTypes.object,
 };
@@ -107,32 +44,21 @@ export default Relay.createContainer(UserContainer, {
     user: () => Relay.QL`
       fragment on User {
         rowId,
-        name,
-        imageUrl,
-        description,
-        url,
-        placeByPlaceId {
-          address,
-        },
-        organizationsByOwnerId(first: 2) {
+        foodSelectionsByUserId (orderBy: 'DATE_DESC', first: 40) {
           edges {
             node {
-              id,
-              rowId
-              name,
-            }
-          }
-        },
-        sharesByUserId(first: 8) {
-          edges {
-            node {
-              productByProductId {
-                id,
-                rowId,
-                name,
-              }
-            }
-          }
+              rowId,
+              foodDescription,
+              foodId,
+              foodIdSource,
+              mass,
+              massSource,
+              unitQuantity,
+              unitOfMeasureByUnitOfMeasureId {
+                fullName,
+              },
+            },
+          },
         },
       }
     `,

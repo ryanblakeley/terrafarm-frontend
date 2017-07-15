@@ -10,6 +10,8 @@ if (!process.env.JWT_PRIVATE_KEY) {
 const {
   JWT_PRIVATE_KEY,
   GOOGLE_ANALYTICS_KEY,
+  GOOGLE_MAPS_KEY,
+  GOOGLE_MAPS_VERSION,
 } = process.env;
 
 const anonymousToken = jwt.sign({

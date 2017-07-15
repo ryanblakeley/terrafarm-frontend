@@ -3,7 +3,7 @@ import { RelayNetworkLayer, urlMiddleware, authMiddleware } from 'react-relay-ne
 
 const networkLayer = new RelayNetworkLayer([
   urlMiddleware({
-    url: _ => '/csa-graphql',
+    url: _ => '/graphql-api',
   }),
   authMiddleware({
     token: () => localStorage.getItem('id_token'),
