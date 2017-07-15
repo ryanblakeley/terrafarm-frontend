@@ -78,10 +78,10 @@ function enterLogin (nextState, replace) {
   if (userId
       && idToken
       && idToken !== window.anonymousToken
-      && idToken !== window.registrarToken) {
+      && idToken !== window.authenticatorToken) {
     replace('/profile');
   } else {
-    setRegistrarToken();
+    setAuthenticatorToken();
   }
 }
 
@@ -92,7 +92,7 @@ function loginBouncer (nextState, replace) {
   if (!userId
       || !idToken
       || idToken === window.anonymousToken
-      || idToken === window.registrarToken) {
+      || idToken === window.authenticatorToken) {
     replace('/login');
   }
 }
@@ -123,8 +123,8 @@ function setAnonymousToken () {
   localStorage.setItem('id_token', window.anonymousToken);
 }
 
-function setRegistrarToken () {
-  localStorage.setItem('id_token', window.registrarToken);
+function setAuthenticatorToken () {
+  localStorage.setItem('id_token', window.authenticatorToken);
   localStorage.setItem('user_uuid', '');
 }
 

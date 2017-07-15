@@ -10,18 +10,16 @@ if (!process.env.JWT_PRIVATE_KEY) {
 const {
   JWT_PRIVATE_KEY,
   GOOGLE_ANALYTICS_KEY,
-  GOOGLE_MAPS_KEY,
-  GOOGLE_MAPS_VERSION,
 } = process.env;
 
 const anonymousToken = jwt.sign({
-  role: 'postgraphql_anonymous',
+  role: 'anonymous',
   sub: 'postgraphql',
   aud: 'postgraphql',
 }, JWT_PRIVATE_KEY);
 
-const registrarToken = jwt.sign({
-  role: 'postgraphql_registrar',
+const authenticatorToken = jwt.sign({
+  role: 'authenticator',
   sub: 'postgraphql',
   aud: 'postgraphql',
 }, JWT_PRIVATE_KEY);
@@ -59,12 +57,12 @@ const prodConfig = {
     }),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Terrafarm · CSA App',
+      title: 'Terrafarm · Personal nutrition tracking',
       filename: 'index.html',
       template: 'src/index.template.html',
       inject: true,
       anonymousToken,
-      registrarToken,
+      authenticatorToken,
     }),
   ],
   module: {

@@ -17,13 +17,13 @@ const {
 } = process.env;
 
 const anonymousToken = jwt.sign({
-  role: 'postgraphql_anonymous',
+  role: 'anonymous',
   sub: 'postgraphql',
   aud: 'postgraphql',
 }, JWT_PRIVATE_KEY);
 
-const registrarToken = jwt.sign({
-  role: 'postgraphql_registrar',
+const authenticatorToken = jwt.sign({
+  role: 'authenticator',
   sub: 'postgraphql',
   aud: 'postgraphql',
 }, JWT_PRIVATE_KEY);
@@ -61,12 +61,12 @@ const config = {
       },
     }),
     new HtmlWebpackPlugin({
-      title: 'Terrafarm · CSA App',
+      title: 'Terrafarm · Personal nutrition tracking',
       filename: 'index.html',
       template: 'src/index.template.html',
       inject: true,
       anonymousToken,
-      registrarToken,
+      authenticatorToken,
     }),
   ],
   module: {

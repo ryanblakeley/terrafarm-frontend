@@ -1,8 +1,12 @@
-# Terrafarm CSA Frontend Notes
+# Terrafarm Frontend Notes
 
 ## Changelog
 
 ### HEAD
+
+- switch over to design for nutrition tracking app
+- add loading spinner animation
+- DEPRECATE: overall approach as a CSA app
 
 ### 2.0.5
 

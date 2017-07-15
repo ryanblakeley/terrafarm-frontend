@@ -64,7 +64,7 @@ function unleashChaosMonkey (req, res) {
 }
 
 gulp.task('load-schema', () => {
-  fetch(`${PATHS.apiSrv}/csa-graphql`, {
+  fetch(`${PATHS.apiSrv}/graphql-api`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -94,10 +94,10 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     stats: { colors: true, chunks: false },
     historyApiFallback: true,
     proxy: {
-      '/csa-graphql': PATHS.apiSrv,
+      '/graphql-api': PATHS.apiSrv,
     },
     setup: app => {
-      app.all('/csa-graphql', (req, res, next) => {
+      app.all('/graphql-api', (req, res, next) => {
         if (CHAOS_MONKEY && (Math.random() < 0.15)) {
           unleashChaosMonkey(req, res);
         } else {

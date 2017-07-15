@@ -45,7 +45,7 @@ export class CorePage extends Component {
     if (userId
         && idToken
         && idToken !== window.anonymousToken
-        && idToken !== window.registrarToken) {
+        && idToken !== window.authenticatorToken) {
       this.setState({ loggedIn: true, userId });
     } else {
       this.setState({ loggedIn: false });

@@ -9,7 +9,7 @@ const { PRIVATE_IP, API_IP, PORT, API_PORT } = process.env;
 
 const publicPath = path.join(__dirname, '/..', 'public');
 const proxyOptions = {
-  target: `http://${API_IP}:${API_PORT}/csa-graphql`,
+  target: `http://${API_IP}:${API_PORT}/graphql-api`,
   ignorePath: true,
 };
 const proxy = httpProxy.createProxyServer({ ignorePath: true });
@@ -30,7 +30,7 @@ function getFromProxy (req, res) {
 
 app.use(express.static(publicPath));
 app.use(bodyParser.json({ limit: '1mb' }));
-app.use('/csa-graphql', getFromProxy);
+app.use('/graphql-api', getFromProxy);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
