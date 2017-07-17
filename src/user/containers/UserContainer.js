@@ -4,8 +4,6 @@ import {PersonIcon} from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-import FoodSelectionJournal from 'food-selection/containers/FoodSelectionJournal';
-import JournalItem from 'food-selection/components/JournalItem';
 
 const UserContainer = (props, context) => <TransitionWrapper>
   <Layout page>
@@ -14,20 +12,12 @@ const UserContainer = (props, context) => <TransitionWrapper>
       header={{icon: <PersonIcon />, title: 'User'}}
       disabled
     />
-    <FoodSelectionJournal
-      items={props.user.foodSelectionsByUserId.edges.map(s => (
-        <JournalItem foodSelection={s.node} />
-      ))}
-      children={props.children}
-    />
+    <Layout center children={props.children} />
   </Layout>
 </TransitionWrapper>;
 
 UserContainer.propTypes = {
-  user: React.PropTypes.shape({
-    rowId: React.PropTypes.string,
-    foodSelectionsByUserId: React.PropTypes.object,
-  }),
+  user: React.PropTypes.object,
   children: React.PropTypes.object,
 };
 
@@ -44,22 +34,6 @@ export default Relay.createContainer(UserContainer, {
     user: () => Relay.QL`
       fragment on User {
         rowId,
-        foodSelectionsByUserId (orderBy: 'DATE_DESC', first: 40) {
-          edges {
-            node {
-              rowId,
-              foodDescription,
-              foodId,
-              foodIdSource,
-              mass,
-              massSource,
-              unitQuantity,
-              unitOfMeasureByUnitOfMeasureId {
-                fullName,
-              },
-            },
-          },
-        },
       }
     `,
   },

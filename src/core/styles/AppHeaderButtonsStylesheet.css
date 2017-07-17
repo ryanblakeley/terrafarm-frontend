@@ -1,5 +1,0 @@
-.this { display: flex; align-items: center; }
-.hideSmall { display: none; }
- @media only screen and (min-width: 420px) {
-   .hideSmall { display: initial; }
- }

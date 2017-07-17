@@ -33,16 +33,12 @@ import IoRefreshOutline from 'react-icons/lib/io/ios-refresh-outline';
 import logoIcon from '../elements/logo_icon.svg';
 import logoFull from '../elements/logo_full_xlarge.png';
 import logoName from '../elements/logo_name.png';
-import wheatIcon from '../elements/wheat_icon.svg';
-import barnIcon from '../elements/barn_icon.svg';
 
 import {Icon} from './Typography';
 
 const LogoIcon = props => <img src={logoIcon} alt={'terrafarm_logo'} {...props} />;
 const LogoFullIcon = props => <img src={logoFull} alt={'Terrafarm'} {...props} />;
 const LogoNameIcon = props => <img src={logoName} alt={'Terrafarm'} {...props} />;
-const WheatIcon = props => <div children={<img src={wheatIcon} alt={'wheat_icon'} {...props} />} />;
-const BarnIcon = props => <div children={<img src={barnIcon} alt={'barn_icon'} {...props} />} />;
 const LoginIcon = props => <Icon icon={<IoLogIn />} {...props} />;
 const SearchIcon = props => <Icon icon={<IoIosSearch />} {...props} />;
 const MoreIcon = props => <Icon icon={<IoIosMore />} {...props} />;
@@ -89,8 +85,6 @@ const commonPropTypes = {
 const commonDefaultProps = {width: 40, height: 40};
 
 LogoIcon.propTypes = commonPropTypes;
-WheatIcon.propTypes = commonPropTypes;
-BarnIcon.propTypes = commonPropTypes;
 LoginIcon.propTypes = commonPropTypes;
 SearchIcon.propTypes = commonPropTypes;
 MoreIcon.propTypes = commonPropTypes;
@@ -125,16 +119,12 @@ ReloadIcon.propTypes = commonPropTypes;
 LogoIcon.defaultProps = commonDefaultProps;
 LogoFullIcon.defaultProps = commonDefaultProps;
 LogoNameIcon.defaultProps = commonDefaultProps;
-WheatIcon.defaultProps = { width: 26, height: 49 };
-BarnIcon.defaultProps = { width: 82, height: 79 };
 PeopleIcon.defaultProps = commonDefaultProps;
 
 export {
   LogoIcon,
   LogoFullIcon,
   LogoNameIcon,
-  WheatIcon,
-  BarnIcon,
   LoginIcon,
   SearchIcon,
   MoreIcon,

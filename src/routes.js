@@ -10,7 +10,12 @@ import NotFound from 'not-found/components/NotFoundPage';
 
 // user
 import UserContainer from 'user/containers/UserContainer';
+import JournalContainer from 'user/containers/JournalContainer';
 import UserQueries from 'user/queries/UserQueries';
+
+// food selection
+// import FoodSelectionPanelContainer from 'food-selection/containers/FoodSelectionPanelContainer';
+// import FoodSelectionQueries from 'food-selection/queries/FoodSelectionQueries';
 
 function bounceToAbout (nextState, replace) {
   window.location.replace('https://terra.farm/pages/about');
@@ -60,10 +65,27 @@ const routes = (
         component={UserContainer}
         queries={UserQueries}
         render={renderArgs => renderCallback(renderArgs, <UserContainer />)}
-      />
+      >
+        <Route
+          path={'journal'}
+          component={JournalContainer}
+          queries={UserQueries}
+          render={renderArgs => renderCallback(renderArgs, <JournalContainer />)}
+        />
+      </Route>
     </Route>
     <Route path={'*'} component={NotFound} />
   </Route>
 );
 
 export default routes;
+export {renderCallback};
+
+/*
+<Route
+  path={':foodSelectionId'}
+  component={FoodSelectionPanelContainer}
+  queries={FoodSelectionQueries}
+  render={renderArgs => renderCallback(renderArgs, <FoodSelectionPanelContainer />)}
+/>
+*/

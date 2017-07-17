@@ -1,9 +1,9 @@
 import Relay from 'react-relay';
 
-export default class DeleteProductMutation extends Relay.Mutation {
+export default class DeleteFoodSelectionMutation extends Relay.Mutation {
   static fragments = {
-    product: () => Relay.QL`
-      fragment on Product {
+    foodSelection: () => Relay.QL`
+      fragment on FoodSelection {
         id,
       }
     `,
@@ -14,20 +14,20 @@ export default class DeleteProductMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{deleteProduct}`;
+    return Relay.QL`mutation{deleteFoodSelection}`;
   }
   getVariables () {
     return {
-      id: this.props.product.id,
+      id: this.props.foodSelection.id,
     };
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on DeleteProductPayload {
-        deletedProductId,
-        product,
+      fragment on DeleteFoodSelectionPayload {
+        deletedFoodSelectionId,
+        foodSelection,
         query {
-          allProducts,
+          allFoodSelections,
         },
       }
     `;
@@ -38,8 +38,8 @@ export default class DeleteProductMutation extends Relay.Mutation {
         type: 'NODE_DELETE',
         parentName: 'query',
         parentID: this.props.query.id,
-        connectionName: 'allProducts',
-        deletedIDFieldName: 'deletedProductId',
+        connectionName: 'allFoodSelections',
+        deletedIDFieldName: 'deletedFoodSelectionId',
       },
     ];
   }

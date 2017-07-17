@@ -98,7 +98,7 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     },
     setup: app => {
       app.all('/graphql-api', (req, res, next) => {
-        if (CHAOS_MONKEY && (Math.random() < 0.15)) {
+        if (CHAOS_MONKEY === 'true' && (Math.random() < 0.15)) {
           unleashChaosMonkey(req, res);
         } else {
           next();

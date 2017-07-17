@@ -10,8 +10,6 @@ if (!process.env.JWT_PRIVATE_KEY) {
 const {
   JWT_PRIVATE_KEY,
   GOOGLE_ANALYTICS_KEY,
-  GOOGLE_MAPS_KEY,
-  GOOGLE_MAPS_VERSION,
 } = process.env;
 
 const anonymousToken = jwt.sign({
@@ -47,8 +45,6 @@ const prodConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
-        GOOGLE_MAPS_KEY: JSON.stringify(GOOGLE_MAPS_KEY),
-        GOOGLE_MAPS_VERSION: JSON.stringify(GOOGLE_MAPS_VERSION),
       },
     }),
     new webpack.optimize.UglifyJsPlugin({
@@ -59,7 +55,7 @@ const prodConfig = {
     }),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Terrafarm · Personal nutrition tracking',
+      title: 'Terrafarm · Personal nutrition assistant',
       filename: 'index.html',
       template: 'src/index.template.html',
       inject: true,
