@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
+import {P} from 'shared/components/Typography';
 import UserQueries from 'user/queries/UserQueries';
 import JournalDateContainer from 'user/containers/JournalDateContainer';
 
@@ -23,6 +24,9 @@ class JournalDateRootContainer extends React.Component {
   static contextTypes = {
     relayEnvironment: React.PropTypes.object,
   };
+  static childContextTypes = {
+    setNutritionForDate: React.PropTypes.func,
+  };
   constructor (props) {
     super(props);
 
@@ -44,7 +48,13 @@ class JournalDateRootContainer extends React.Component {
                   node {
                     rowId,
                     foodDescription,
-                    foodId,
+                    foodByFoodId {
+                      rowId,
+                      calories,
+                      protein,
+                      fat,
+                      carbs,
+                    },
                     foodIdSource,
                     mass,
                     massSource,
@@ -62,15 +72,41 @@ class JournalDateRootContainer extends React.Component {
       }),
     };
   }
+  getChildContext () {
+    return {
+      setNutritionForDate: nutrition => this.setNutritionForDate(nutrition),
+    };
+  }
+  setNutritionForDate (nutritionForDate) {
+    this.setState({
+      completeness: nutritionForDate.completeness,
+      calories: nutritionForDate.calories,
+      protein: nutritionForDate.protein,
+      fat: nutritionForDate.fat,
+      carbs: nutritionForDate.carbs,
+    });
+  }
   render () {
-    const {userRoute, journalDateContainer} = this.state;
+    const {date} = this.props;
+    const {
+      userRoute,
+      journalDateContainer,
+      completeness,
+      calories,
+      protein,
+      fat,
+      carbs,
+    } = this.state;
     const {relayEnvironment} = this.context;
 
-    return <Relay.Renderer
-      Container={journalDateContainer}
-      queryConfig={userRoute}
-      environment={relayEnvironment}
-    />;
+    return <div>
+      <P>{date} | {calories} | {protein}g | {fat}g | {carbs}g | {completeness}%</P>
+      <Relay.Renderer
+        Container={journalDateContainer}
+        queryConfig={userRoute}
+        environment={relayEnvironment}
+      />
+    </div>;
   }
 }
 

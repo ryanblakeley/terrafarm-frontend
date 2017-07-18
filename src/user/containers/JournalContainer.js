@@ -51,9 +51,6 @@ class JournalContainer extends React.Component {
       <JournalDateRootContainer userId={user.rowId} date={d} key={d} />
     ));
 
-    console.log('Latest journal date:', latestDate);
-    console.log('Dates:', dates);
-
     return <TransitionWrapper>
       <Layout center>
         <Layout>{children}</Layout>
