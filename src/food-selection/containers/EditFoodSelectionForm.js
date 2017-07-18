@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-// import ActionPanelForm from 'shared/components/ActionPanelForm';
+import ActionPanelForm from 'shared/components/ActionPanelForm';
 import {TextInput, validationErrors} from 'shared/components/Form';
 import validations from 'shared/utils/validations';
 import UpdateFoodSelectionMutation from '../mutations/UpdateFoodSelectionMutation';
