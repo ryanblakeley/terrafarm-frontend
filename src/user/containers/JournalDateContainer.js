@@ -1,8 +1,10 @@
 import React from 'react';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
+import {Link} from 'shared/components/Typography';
 
 // TODO:
+// - when foodSelections change (count, food_id, or mass) update nutritions
 // - import JournalDateHeader from 'user/components/JournalDateHeader';
 // - import JournalRowRootContainer from 'user/containers/JournalRowRootContainer';
 
@@ -18,31 +20,18 @@ class JournalDateContainer extends React.Component {
     setNutritionForDate: React.PropTypes.func,
   };
   componentDidMount () {
-    const {user} = this.props;
+    const {user, relay} = this.props;
+    const {setNutritionForDate} = this.context;
     const foodSelections = user && user.foodSelectionsByUserId;
     const sumMacros = this.sumMacros(foodSelections.edges.map(f => (
       this.calculateNutrition(f.node)
     )));
 
-    this.context.setNutritionForDate(sumMacros);
-/*
-    this.state = {
-      calories: sumMacros.calories,
-      protein: sumMacros.protein,
-      fat: sumMacros.fat,
-      carbs: sumMacros.carbs,
-    };
-*/
-  }
-  componentWillReceiveProps (nextProps) {
-    const {user, relay} = nextProps;
-    const foodSelections = user && user.foodSelectionsByUserId;
-
-    // TODO: compare foodSelectionIds, if changed call this.getNutritionTotals
-
     if (foodSelections.totalCount > relay.variables.count) {
       relay.setVariables({count: foodSelections.totalCount});
     }
+
+    setNutritionForDate(sumMacros);
   }
   calculateNutrition = foodSelection => {
     const {foodByFoodId: food, mass} = foodSelection;
@@ -89,12 +78,18 @@ class JournalDateContainer extends React.Component {
     const foodSelections = user && user.foodSelectionsByUserId.edges;
     const journalRowElements = foodSelections.map(f => {
       const {
+        rowId: foodSelectionId,
         foodDescription: label,
         unitQuantity: number,
         unitOfMeasureByUnitOfMeasureId: unit,
       } = f.node;
+      const url = `/user/${user.rowId}/journal/${foodSelectionId}`;
 
-      return <div key={f.node.rowId}>{label} {number} {unit && unit.fullName}</div>;
+      return <div key={f.node.rowId}>
+        <span>{label} </span>
+        <span>{number} {unit && unit.fullName} </span>
+        <Link to={url}>edit</Link>
+      </div>;
     });
 
     return <TransitionWrapper>

@@ -35,7 +35,7 @@ class JournalDateRootContainer extends React.Component {
       journalDateContainer: Relay.createContainer(JournalDateContainer, {
         initialVariables: {
           condition: {date: props.date},
-          count: 50,
+          count: 30,
           orderBy: 'CREATED_AT_DESC',
         },
         fragments: {
