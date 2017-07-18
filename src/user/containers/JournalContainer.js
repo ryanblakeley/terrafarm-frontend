@@ -2,6 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
+import ActionPanel from 'shared/components/ActionPanel';
 import JournalDateRootContainer from 'user/containers/JournalDateRootContainer';
 
 // TODO:
@@ -45,6 +46,7 @@ class JournalContainer extends React.Component {
   }
   render () {
     const {user, children} = this.props;
+    const {router} = this.context;
     const {latestDate, daysAgo} = this.state;
     const dates = this.datesByDaysAgo(latestDate, daysAgo);
     const journalDateContainers = dates.map(d => (
@@ -53,7 +55,10 @@ class JournalContainer extends React.Component {
 
     return <TransitionWrapper>
       <Layout center>
-        <Layout>{children}</Layout>
+        <ActionPanel
+          children={children}
+          notifyClose={_ => router.replace(`/user/${user.rowId}/food-journal`)}
+        />
         <Layout>{journalDateContainers}</Layout>
       </Layout>
     </TransitionWrapper>;
@@ -66,6 +71,10 @@ JournalContainer.propTypes = {
     foodSelectionsByUserId: React.PropTypes.object,
   }),
   children: React.PropTypes.object,
+};
+
+JournalContainer.contextTypes = {
+  router: React.PropTypes.object,
 };
 
 export default Relay.createContainer(JournalContainer, {
