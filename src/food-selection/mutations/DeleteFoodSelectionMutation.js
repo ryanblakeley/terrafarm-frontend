@@ -7,8 +7,8 @@ export default class DeleteFoodSelectionMutation extends Relay.Mutation {
         id,
       }
     `,
-    query: () => Relay.QL`
-      fragment on Query {
+    user: () => Relay.QL`
+      fragment on User {
         id,
       }
     `,
@@ -26,8 +26,8 @@ export default class DeleteFoodSelectionMutation extends Relay.Mutation {
       fragment on DeleteFoodSelectionPayload {
         deletedFoodSelectionId,
         foodSelection,
-        query {
-          allFoodSelections,
+        user {
+          foodSelectionsByUserId,
         },
       }
     `;
@@ -36,9 +36,9 @@ export default class DeleteFoodSelectionMutation extends Relay.Mutation {
     return [
       {
         type: 'NODE_DELETE',
-        parentName: 'query',
-        parentID: this.props.query.id,
-        connectionName: 'allFoodSelections',
+        parentName: 'user',
+        parentID: this.props.user.id,
+        connectionName: 'foodSelectionsByUserId',
         deletedIDFieldName: 'deletedFoodSelectionId',
       },
     ];
