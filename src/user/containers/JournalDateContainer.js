@@ -83,7 +83,7 @@ class JournalDateContainer extends React.Component {
         unitQuantity: number,
         unitOfMeasureByUnitOfMeasureId: unit,
       } = f.node;
-      const url = `/user/${user.rowId}/journal/${foodSelectionId}`;
+      const url = `/user/${user.rowId}/food-journal/edit/${foodSelectionId}`;
 
       return <div key={f.node.rowId}>
         <span>{label} </span>

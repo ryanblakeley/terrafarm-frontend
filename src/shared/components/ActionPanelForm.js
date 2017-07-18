@@ -5,7 +5,6 @@ import {Form} from 'shared/components/Form';
 import {FlatButton, RaisedButton} from 'shared/components/Material';
 import CloseButton from 'shared/components/CloseButton';
 import FormError from 'shared/components/FormError';
-import NotAuthorized from 'shared/components/NotAuthorized';
 import classNames from '../styles/ActionPanelFormStylesheet.css';
 
 class ActionPanelForm extends React.Component {
@@ -16,9 +15,6 @@ class ActionPanelForm extends React.Component {
     ]),
     bodyText: React.PropTypes.element,
     showForm: React.PropTypes.bool,
-    formBlockedMessage: React.PropTypes.oneOfType([
-      React.PropTypes.element, React.PropTypes.string,
-    ]),
     notifyClose: React.PropTypes.func,
     onValidSubmit: React.PropTypes.func,
     onDelete: React.PropTypes.func,
@@ -29,7 +25,6 @@ class ActionPanelForm extends React.Component {
     showForm: true,
     error: false,
     errorMessage: 'Internal server error.',
-    formBlockedMessage: <NotAuthorized />,
   };
   state = {
     canSubmit: false,
@@ -44,9 +39,9 @@ class ActionPanelForm extends React.Component {
     const {notifyClose} = this.props;
     if (notifyClose) notifyClose();
   }
-  // disabling the submit button should prevent this handler from ever being called
   handleFormError = data => {
     /*
+    disabling the submit button should prevent this handler from ever being called
     this.setState({
       errorMessage: 'Form error');
     });
@@ -59,10 +54,9 @@ class ActionPanelForm extends React.Component {
 
     if (!canSubmit) {
       console.warn('Form is not ready');
-      return;
     } else if (onValidSubmit) {
       onValidSubmit(data);
-      // delegate closing to the form, which can determine if it was successful or failed
+      // forms handles it's own closing based on success or failed submit
       // this.handleClose();
     }
   }
@@ -73,8 +67,14 @@ class ActionPanelForm extends React.Component {
   }
   render () {
     const {
-      title, children, onDelete, bodyText, showForm, formBlockedMessage, error,
-      errorMessage, notifyClose,
+      title,
+      children,
+      onDelete,
+      bodyText,
+      showForm,
+      error,
+      errorMessage,
+      notifyClose,
     } = this.props;
     const {canSubmit} = this.state;
 
@@ -82,9 +82,6 @@ class ActionPanelForm extends React.Component {
       {notifyClose && <CloseButton notifyClose={this.handleClose} />}
       {title && <H5>{title}</H5>}
       {bodyText && <Layout center><P>{bodyText}</P></Layout>}
-      {!showForm && formBlockedMessage && <div>
-        {formBlockedMessage}
-      </div>}
       <Form
         onValid={this.handleValid}
         onInvalid={this.handleInvalid}

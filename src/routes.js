@@ -14,8 +14,8 @@ import JournalContainer from 'user/containers/JournalContainer';
 import UserQueries from 'user/queries/UserQueries';
 
 // food selection
-// import FoodSelectionPanelContainer from 'food-selection/containers/FoodSelectionPanelContainer';
-// import FoodSelectionQueries from 'food-selection/queries/FoodSelectionQueries';
+import EditFoodSelectionForm from 'food-selection/containers/EditFoodSelectionForm';
+import FoodSelectionAndUserQueries from 'food-selection/queries/FoodSelectionAndUserQueries';
 
 function bounceToAbout (nextState, replace) {
   window.location.replace('https://terra.farm/pages/about');
@@ -58,19 +58,24 @@ const routes = (
   <Route path={'/'} component={CoreContainerTheme}>
     <IndexRoute component={HomePage} />
     <Route path={'about'} onEnter={bounceToAbout} />
-    <Route path={'user'} onEnter={ensurePublicAccess} >
-      <IndexRoute component={NotFound} />
+    <Route
+      path={'user/:userId'}
+      component={UserContainer}
+      queries={UserQueries}
+      render={renderArgs => renderCallback(renderArgs, <UserContainer />)}
+      onEnter={ensurePublicAccess}
+    >
       <Route
-        path={':userId'}
-        component={UserContainer}
+        path={'food-journal'}
+        component={JournalContainer}
         queries={UserQueries}
-        render={renderArgs => renderCallback(renderArgs, <UserContainer />)}
+        render={renderArgs => renderCallback(renderArgs, <JournalContainer />)}
       >
         <Route
-          path={'journal'}
-          component={JournalContainer}
-          queries={UserQueries}
-          render={renderArgs => renderCallback(renderArgs, <JournalContainer />)}
+          path={'edit/:foodSelectionId'}
+          component={EditFoodSelectionForm}
+          queries={FoodSelectionAndUserQueries}
+          render={renderArgs => renderCallback(renderArgs, <EditFoodSelectionForm />)}
         />
       </Route>
     </Route>
@@ -80,12 +85,3 @@ const routes = (
 
 export default routes;
 export {renderCallback};
-
-/*
-<Route
-  path={':foodSelectionId'}
-  component={FoodSelectionPanelContainer}
-  queries={FoodSelectionQueries}
-  render={renderArgs => renderCallback(renderArgs, <FoodSelectionPanelContainer />)}
-/>
-*/

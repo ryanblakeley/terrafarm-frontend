@@ -26,7 +26,7 @@ export default class DeleteFoodSelectionMutation extends Relay.Mutation {
       fragment on DeleteFoodSelectionPayload {
         deletedFoodSelectionId,
         foodSelection,
-        user {
+        userByUserId {
           foodSelectionsByUserId,
         },
       }

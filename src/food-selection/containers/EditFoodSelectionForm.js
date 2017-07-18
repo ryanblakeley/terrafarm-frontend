@@ -49,7 +49,7 @@ class Container extends React.Component {
   handleSuccessDelete = response => {
     const {user} = this.props;
     const {router} = this.context;
-    router.replace(`/user/${user.rowId}/journal`);
+    router.replace(`/user/${user.rowId}/food-journal`);
   }
   updateFoodSelection (patch) {
     const { foodSelection, relay } = this.props;
@@ -79,7 +79,7 @@ class Container extends React.Component {
       <TextInput
         name={'foodId'}
         label={'USDA Number'}
-        value={foodSelection.foodId}
+        value={String(foodSelection.foodId)}
         validations={{isNumeric: true, maxLength: 8}}
         validationError={validationErrors.number}
         maxLength={8}
