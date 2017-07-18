@@ -117,6 +117,7 @@ export default Relay.createContainer(Container, {
     `,
     user: () => Relay.QL`
       fragment on User {
+        rowId,
         ${DeleteFoodSelectionMutation.getFragment('user')},
       }
     `,

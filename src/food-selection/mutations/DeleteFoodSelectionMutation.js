@@ -36,7 +36,7 @@ export default class DeleteFoodSelectionMutation extends Relay.Mutation {
     return [
       {
         type: 'NODE_DELETE',
-        parentName: 'user',
+        parentName: 'userByUserId',
         parentID: this.props.user.id,
         connectionName: 'foodSelectionsByUserId',
         deletedIDFieldName: 'deletedFoodSelectionId',
