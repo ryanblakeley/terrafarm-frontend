@@ -4,9 +4,8 @@ import TransitionWrapper from 'shared/components/TransitionWrapper';
 import {P, Link} from 'shared/components/Typography';
 
 // TODO:
-// - when foodSelections change (count, food_id, or mass) update nutritions
 // - import JournalDateHeader from 'user/components/JournalDateHeader';
-// - import JournalRowRootContainer from 'user/containers/JournalRowRootContainer';
+// - import JournalItem from 'user/components/JournalItem';
 
 class JournalDateContainer extends React.Component {
   static propTypes = {
@@ -41,6 +40,21 @@ class JournalDateContainer extends React.Component {
     }
   }
   */
+  componentWillReceiveProps (nextProps) {
+    const {user} = nextProps;
+    const foodSelections = user && user.foodSelectionsByUserId;
+    const receiveLog = [];
+
+    // TODO: smarter condition for recalculating macros
+    this.sumMacros(foodSelections.edges.map(f => {
+      receiveLog.push([f.node.date, f.node.foodId]);
+
+      return this.calculateNutrition(f.node);
+    }));
+
+    // console.log('[RECEIVE]');
+    // console.log('>', receiveLog);
+  }
   calculateNutrition = foodSelection => {
     const {foodByFoodId: food, mass} = foodSelection;
 
@@ -85,7 +99,8 @@ class JournalDateContainer extends React.Component {
     const {user} = this.props;
     const {completeness, calories, protein, fat, carbs} = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
-    let date;
+    let date; // since we can't pass a simple prop from parent
+    const renderLog = [];
 
     const journalRowElements = foodSelections.map(f => {
       const {
@@ -95,14 +110,19 @@ class JournalDateContainer extends React.Component {
         unitOfMeasureByUnitOfMeasureId: unit,
       } = f.node;
       const url = `/user/${user.rowId}/food-journal/edit/${foodSelectionId}`;
-      date = f.node.date; // not ideal since all dates will be identical
+      date = f.node.date;
+
+      renderLog.push([f.node.date, f.node.foodId]);
 
       return <div key={f.node.rowId}>
-        <span>{label} </span>
-        <span>{number} {unit && unit.fullName} </span>
-        <Link to={url}>edit</Link>
+        <span>{label}, </span>
+        <span>{number}, {unit && unit.fullName}, </span>
+        <Link to={url}><b>edit</b></Link>
       </div>;
     });
+
+    // console.log('[RENDER]');
+    // console.log('>', renderLog);
 
     return <TransitionWrapper>
       <Layout center>

@@ -5,9 +5,6 @@ import TransitionWrapper from 'shared/components/TransitionWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
 import JournalDateRootContainer from 'user/containers/JournalDateRootContainer';
 
-// TODO:
-// - layout components for JournalDate and JournalPanel
-
 class JournalContainer extends React.Component {
   constructor (props) {
     super(props);
@@ -15,11 +12,11 @@ class JournalContainer extends React.Component {
     const {user} = props;
     const latestFoodSelection = user && user.foodSelectionsByUserId.edges[0];
     const latestFoodSelectionDate = latestFoodSelection && latestFoodSelection.node.date;
-    const daysAgo = 7;
+    const datesCount = 2;
 
     this.state = {
       latestDate: latestFoodSelectionDate,
-      daysAgo,
+      datesCount,
     };
   }
   componentWillReceiveProps (nextProps, nextState) {
@@ -31,9 +28,9 @@ class JournalContainer extends React.Component {
       this.setState({latestDate: latestFoodSelectionDate});
     }
   }
-  datesByDaysAgo (date, daysAgo) {
+  getDates (date, datesCount) {
     const dates = [];
-    for (let i = 0; i < daysAgo; i += 1) {
+    for (let i = 0; i < datesCount; i += 1) {
       dates[i] = this.dateByDaysAgo(date, i);
     }
 
@@ -47,11 +44,14 @@ class JournalContainer extends React.Component {
   render () {
     const {user, children} = this.props;
     const {router} = this.context;
-    const {latestDate, daysAgo} = this.state;
-    const dates = this.datesByDaysAgo(latestDate, daysAgo);
+    const {latestDate, datesCount} = this.state;
+    const dates = this.getDates(latestDate, datesCount);
     const journalDateContainers = dates.map(d => (
       <JournalDateRootContainer userId={user.rowId} date={d} key={d} />
     ));
+
+    console.log('[CONTAINER]');
+    console.log('>', user.foodSelectionsByUserId.edges[0].node, latestDate);
 
     return <TransitionWrapper>
       <Layout center>

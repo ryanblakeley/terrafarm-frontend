@@ -3,10 +3,6 @@ import Relay from 'react-relay';
 import UserQueries from 'user/queries/UserQueries';
 import JournalDateContainer from 'user/containers/JournalDateContainer';
 
-// TODO:
-// - componentWillReceiveProps if userId or date changes
-// - after implement root container for each food selection, move fragment params
-
 class UserRoute extends Relay.Route {
   static queries = UserQueries;
   static paramDefinitions = {
@@ -32,6 +28,8 @@ class JournalDateRootContainer extends React.Component {
     };
   }
   componentWillReceiveProps (nextProps) {
+    // Can't imagine these cases ever being true because the whole container
+    // should get dropped and a new one created if the date or user changes.
     const {userId, date} = this.props;
     const {userId: nextUserId, date: nextDate} = nextProps;
 
@@ -64,6 +62,7 @@ class JournalDateRootContainer extends React.Component {
                 node {
                   rowId,
                   foodDescription,
+                  foodId,
                   foodByFoodId {
                     rowId,
                     calories,

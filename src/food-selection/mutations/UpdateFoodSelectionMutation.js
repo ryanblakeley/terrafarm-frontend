@@ -15,10 +15,25 @@ export default class UpdateFoodSelectionMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateFoodSelectionPayload {
         foodSelection {
+          foodDescription,
           foodId,
+          foodByFoodId {
+            rowId,
+            calories,
+            protein,
+            fat,
+            carbs,
+          },
+          foodIdSource,
           mass,
+          massSource,
+          unitQuantity,
+          unitOfMeasureByUnitOfMeasureId {
+            fullName,
+          },
+          date,
         },
-      }
+      },
     `;
   }
   getOptimisticResponse () {
