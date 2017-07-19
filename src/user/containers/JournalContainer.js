@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
@@ -50,8 +50,8 @@ class JournalContainer extends React.Component {
       <JournalDateRootContainer userId={user.rowId} date={d} key={d} />
     ));
 
-    console.log('[CONTAINER]');
-    console.log('>', user.foodSelectionsByUserId.edges[0].node, latestDate);
+    // console.log('[CONTAINER]');
+    // console.log('>', user.foodSelectionsByUserId.edges[0].node, latestDate);
 
     return <TransitionWrapper>
       <Layout center>

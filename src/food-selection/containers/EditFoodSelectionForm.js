@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import {TextInput, validationErrors} from 'shared/components/Form';
 import validations from 'shared/utils/validations';

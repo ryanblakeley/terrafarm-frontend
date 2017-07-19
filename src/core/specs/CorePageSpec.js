@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 import React, { PropTypes } from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';

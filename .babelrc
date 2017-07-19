@@ -1,8 +1,8 @@
 {
-  "presets": ["airbnb"],
+  "presets": ["env", "airbnb"],
   "plugins": [
     "react-hot-loader/babel",
-    "transform-decorators-legacy",
+    "transform-decorators",
     "transform-class-properties",
     "./relayPlugin",
     ["module-resolver", {

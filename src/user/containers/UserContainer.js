@@ -1,5 +1,5 @@
 import React from 'react';
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import {PersonIcon} from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
