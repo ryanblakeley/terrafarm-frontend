@@ -1,5 +1,8 @@
 import React from 'react';
-import Relay from 'react-relay/classic';
+import {
+  createFragmentContainer,
+  graphql,
+} from 'react-relay/compat';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import {TextInput, validationErrors} from 'shared/components/Form';
 import validations from 'shared/utils/validations';
@@ -98,28 +101,28 @@ class Container extends React.Component {
   }
 }
 
-export default Relay.createContainer(Container, {
+export default createFragmentContainer(Container, {
+  /* TODO manually deal with:
   initialVariables: {
     foodSelectionId: null,
     userId: null,
-  },
-  fragments: {
-    foodSelection: () => Relay.QL`
-      fragment on FoodSelection {
-        id,
-        rowId,
-        foodDescription
-        foodId
-        date,
-        ${UpdateFoodSelectionMutation.getFragment('foodSelection')},
-        ${DeleteFoodSelectionMutation.getFragment('foodSelection')},
-      }
-    `,
-    user: () => Relay.QL`
-      fragment on User {
-        rowId,
-        ${DeleteFoodSelectionMutation.getFragment('user')},
-      }
-    `,
-  },
+  }
+  */
+  foodSelection: graphql`
+    fragment EditFoodSelectionForm_foodSelection on FoodSelection {
+      id,
+      rowId,
+      foodDescription
+      foodId
+      date,
+      ...UpdateFoodSelectionMutation_foodSelection,
+      ...DeleteFoodSelectionMutation_foodSelection,
+    }
+  `,
+  user: graphql`
+    fragment EditFoodSelectionForm_user on User {
+      rowId,
+      ...DeleteFoodSelectionMutation_user,
+    }
+  `,
 });

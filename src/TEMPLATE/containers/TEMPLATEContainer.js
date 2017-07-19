@@ -1,6 +1,4 @@
 import React from 'react';
-import Relay from 'react-relay/classic';
-
 import classNames from '../styles/TEMPLATEContainerStylesheet.css';
 
 class TEMPLATEContainer extends React.Component {
@@ -17,17 +15,18 @@ class TEMPLATEContainer extends React.Component {
   }
 }
 
-export default Relay.createContainer(TEMPLATEContainer, {
-  fragments: {
-    QUERY: () => Relay.QL`
-      fragment on QUERY {
-        edges {
-          node {
-            id,
-            name,
-          },
+export default TEMPLATEContainer;
+/*
+export default createFragmentContainer(TEMPLATEContainer, {
+  QUERY: graphql`
+    fragment TEMPLATEContainer_QUERY on QUERY {
+      edges {
+        node {
+          id,
+          name,
         },
       },
-    `,
-  },
+    },
+  `,
 });
+*/

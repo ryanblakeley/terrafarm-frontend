@@ -1,5 +1,8 @@
 import React from 'react';
-import Relay from 'react-relay/classic';
+import {
+  createFragmentContainer,
+  graphql,
+} from 'react-relay/compat';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
@@ -77,23 +80,23 @@ JournalContainer.contextTypes = {
   router: React.PropTypes.object,
 };
 
-export default Relay.createContainer(JournalContainer, {
+export default createFragmentContainer(JournalContainer, {
+  /* TODO manually deal with:
   initialVariables: {
     userId: null,
     orderBy: 'DATE_DESC',
-  },
-  fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        rowId,
-        foodSelectionsByUserId(orderBy: $orderBy, first: 1) {
-          edges {
-            node {
-              date,
-            },
+  }
+  */
+  user: graphql`
+    fragment JournalContainer_user on User {
+      rowId,
+      foodSelectionsByUserId(orderBy: "DATE_DESC", first: 1) {
+        edges {
+          node {
+            date,
           },
-        }
+        },
       }
-    `,
-  },
+    }
+  `,
 });

@@ -22,7 +22,7 @@ class Banner extends React.Component {
     if (!this.state.open) return null;
     return <Layout center flexCenter style={styles.this}>
       <IconButton onClick={this.handleClose}><CloseIcon /></IconButton>
-      <WarningMessage>Please note this is in early development stage.</WarningMessage>
+      <WarningMessage>Please note this is in early stage development.</WarningMessage>
     </Layout>;
   }
 }

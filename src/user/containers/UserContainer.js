@@ -1,5 +1,8 @@
 import React from 'react';
-import Relay from 'react-relay/classic';
+import {
+  createFragmentContainer,
+  graphql,
+} from 'react-relay/compat';
 import {PersonIcon} from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
@@ -26,15 +29,15 @@ UserContainer.contextTypes = {
   router: React.PropTypes.object,
 };
 
-export default Relay.createContainer(UserContainer, {
+export default createFragmentContainer(UserContainer, {
+  /* TODO manually deal with:
   initialVariables: {
     userId: null,
-  },
-  fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        rowId,
-      }
-    `,
-  },
+  }
+  */
+  user: graphql`
+    fragment UserContainer_user on User {
+      rowId,
+    }
+  `,
 });

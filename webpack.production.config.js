@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import RelayCompilerWebpackPlugin from 'relay-compiler-webpack-plugin';
 import env from 'gulp-env';
 import jwt from 'jsonwebtoken';
 
@@ -28,6 +29,7 @@ const PATHS = {
   root: path.join(__dirname),
   src: path.join(__dirname, 'src'),
   build: path.join(__dirname, 'build', 'public'),
+  graphql: path.join(__dirname, 'data', 'schema.graphql'),
 };
 
 const prodConfig = {
@@ -61,6 +63,10 @@ const prodConfig = {
       inject: true,
       anonymousToken,
       authenticatorToken,
+    }),
+    new RelayCompilerWebpackPlugin({
+      schema: PATHS.graphql,
+      src: PATHS.src,
     }),
   ],
   module: {

@@ -1,10 +1,13 @@
 {
   "presets": ["env", "airbnb"],
   "plugins": [
+    ["relay", {
+      "compat": true,
+      "schema": "./data/schema.graphql"
+    }],
     "react-hot-loader/babel",
     "transform-decorators",
     "transform-class-properties",
-    "./relayPlugin",
     ["module-resolver", {
       "root": ["./src", "./spec"]
     }],

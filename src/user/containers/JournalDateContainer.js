@@ -9,7 +9,7 @@ import {P, Link} from 'shared/components/Typography';
 
 class JournalDateContainer extends React.Component {
   static propTypes = {
-    user: React.PropTypes.shape({
+    userByRowId: React.PropTypes.shape({
       rowId: React.PropTypes.string,
       foodSelectionsByUserId: React.PropTypes.object,
     }),
@@ -26,11 +26,14 @@ class JournalDateContainer extends React.Component {
     };
   }
   componentWillMount () {
-    const {user} = this.props;
+    const {userByRowId: user} = this.props;
     const foodSelections = user && user.foodSelectionsByUserId;
-    this.sumMacros(foodSelections.edges.map(f => (
-      this.calculateNutrition(f.node)
-    )));
+
+    if (foodSelections) {
+      this.sumMacros(foodSelections.edges.map(f => (
+        this.calculateNutrition(f.node)
+      )));
+    }
   }
   /*
   componentDidMount () {
@@ -41,16 +44,19 @@ class JournalDateContainer extends React.Component {
   }
   */
   componentWillReceiveProps (nextProps) {
-    const {user} = nextProps;
+    const {userByRowId: user} = nextProps;
     const foodSelections = user && user.foodSelectionsByUserId;
     const receiveLog = [];
 
     // TODO: smarter condition for recalculating macros
-    this.sumMacros(foodSelections.edges.map(f => {
-      receiveLog.push([f.node.date, f.node.foodId]);
 
-      return this.calculateNutrition(f.node);
-    }));
+    if (foodSelections) {
+      this.sumMacros(foodSelections.edges.map(f => {
+        receiveLog.push([f.node.date, f.node.foodId]);
+
+        return this.calculateNutrition(f.node);
+      }));
+    }
 
     // console.log('[RECEIVE]');
     // console.log('>', receiveLog);
@@ -96,11 +102,11 @@ class JournalDateContainer extends React.Component {
     });
   }
   render () {
-    const {user} = this.props;
+    const {userByRowId: user} = this.props;
     const {completeness, calories, protein, fat, carbs} = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
+    const journalItems = [];
     let date; // since we can't pass a simple prop from parent
-    const renderLog = [];
 
     const journalRowElements = foodSelections.map(f => {
       const {
@@ -110,9 +116,9 @@ class JournalDateContainer extends React.Component {
         unitOfMeasureByUnitOfMeasureId: unit,
       } = f.node;
       const url = `/user/${user.rowId}/food-journal/edit/${foodSelectionId}`;
-      date = f.node.date;
 
-      renderLog.push([f.node.date, f.node.foodId]);
+      journalItems.push([f.node.date, f.node.foodId]);
+      date = f.node.date;
 
       return <div key={f.node.rowId}>
         <span>{label}, </span>
