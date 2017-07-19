@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
-import {Link} from 'shared/components/Typography';
+import {P, Link} from 'shared/components/Typography';
 
 // TODO:
 // - when foodSelections change (count, food_id, or mass) update nutritions
@@ -16,23 +16,31 @@ class JournalDateContainer extends React.Component {
     }),
     relay: React.PropTypes.object,
   };
-  static contextTypes = {
-    setNutritionForDate: React.PropTypes.func,
-  };
-  componentDidMount () {
-    const {user, relay} = this.props;
-    const {setNutritionForDate} = this.context;
+  constructor (props) {
+    super(props);
+    this.state = {
+      completeness: null,
+      calories: null,
+      protein: null,
+      fat: null,
+      carbs: null,
+    };
+  }
+  componentWillMount () {
+    const {user} = this.props;
     const foodSelections = user && user.foodSelectionsByUserId;
-    const sumMacros = this.sumMacros(foodSelections.edges.map(f => (
+    this.sumMacros(foodSelections.edges.map(f => (
       this.calculateNutrition(f.node)
     )));
-
+  }
+  /*
+  componentDidMount () {
+    const {relay} = this.props;
     if (foodSelections.totalCount > relay.variables.count) {
       relay.setVariables({count: foodSelections.totalCount});
     }
-
-    setNutritionForDate(sumMacros);
   }
+  */
   calculateNutrition = foodSelection => {
     const {foodByFoodId: food, mass} = foodSelection;
 
@@ -65,17 +73,20 @@ class JournalDateContainer extends React.Component {
       carbs += n.carbs;
     });
 
-    return {
+    this.setState({
       completeness: (completeCount / nutritions.length) * 100,
       calories,
       protein,
       fat,
       carbs,
-    };
+    });
   }
   render () {
     const {user} = this.props;
+    const {completeness, calories, protein, fat, carbs} = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
+    let date;
+
     const journalRowElements = foodSelections.map(f => {
       const {
         rowId: foodSelectionId,
@@ -84,6 +95,7 @@ class JournalDateContainer extends React.Component {
         unitOfMeasureByUnitOfMeasureId: unit,
       } = f.node;
       const url = `/user/${user.rowId}/food-journal/edit/${foodSelectionId}`;
+      date = f.node.date; // not ideal since all dates will be identical
 
       return <div key={f.node.rowId}>
         <span>{label} </span>
@@ -94,6 +106,7 @@ class JournalDateContainer extends React.Component {
 
     return <TransitionWrapper>
       <Layout center>
+        <P>{date} | {calories} | {protein}g | {fat}g | {carbs}g | {completeness}%</P>
         {journalRowElements}
       </Layout>
     </TransitionWrapper>;
