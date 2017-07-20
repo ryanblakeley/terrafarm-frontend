@@ -1,6 +1,6 @@
 # Custom
 data/schema.*
-__generated__/*
+**/__generated__/*
 
 # Build ...
 node_modules
