@@ -13,7 +13,6 @@ import routes from './routes';
 class Root extends React.Component {
   static childContextTypes = {
     logout: React.PropTypes.func,
-    relayEnvironment: React.PropTypes.object,
   };
   state = {
     environment: null,
@@ -21,7 +20,6 @@ class Root extends React.Component {
   getChildContext () {
     return {
       logout: _ => this.logout(),
-      relayEnvironment: this.state.environment,
     };
   }
   componentWillMount () {

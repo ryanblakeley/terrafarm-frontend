@@ -1,5 +1,36 @@
-import Relay from 'react-relay/classic';
+import {graphql} from 'react-relay';
 
+const UpdateFoodSelectionMutation = graphql`
+  mutation UpdateFoodSelectionMutation(
+    $input: UpdateFoodSelectionInput!
+  ) {
+    updateFoodSelection(input: $input) {
+      foodSelection {
+        foodDescription,
+        foodId,
+        foodByFoodId {
+          rowId,
+          calories,
+          protein,
+          fat,
+          carbs,
+        },
+        foodIdSource,
+        mass,
+        massSource,
+        unitQuantity,
+        unitOfMeasureByUnitOfMeasureId {
+          fullName,
+        },
+        date,
+      }
+    }
+  }
+`;
+
+export default UpdateFoodSelectionMutation;
+
+/*
 export default class UpdateFoodSelectionMutation extends Relay.Mutation {
   static fragments = {
     foodSelection: () => Relay.QL`
@@ -60,3 +91,4 @@ export default class UpdateFoodSelectionMutation extends Relay.Mutation {
     };
   }
 }
+*/

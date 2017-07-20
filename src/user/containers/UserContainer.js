@@ -1,12 +1,10 @@
 import React from 'react';
-import {
-  createFragmentContainer,
-  graphql,
-} from 'react-relay/compat';
+import {createFragmentContainer, graphql} from 'react-relay/compat';
 import {PersonIcon} from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
+import JournalRootContainer from 'user/containers/JournalRootContainer';
 
 const UserContainer = (props, context) => <TransitionWrapper>
   <Layout page>
@@ -15,13 +13,14 @@ const UserContainer = (props, context) => <TransitionWrapper>
       header={{icon: <PersonIcon />, title: 'User'}}
       disabled
     />
-    <Layout center children={props.children} />
+    <JournalRootContainer userId={props.user.rowId} environment={props.relay.environment} />
   </Layout>
 </TransitionWrapper>;
 
 UserContainer.propTypes = {
   user: React.PropTypes.object,
   children: React.PropTypes.object,
+  relay: React.PropTypes.object,
 };
 
 UserContainer.contextTypes = {

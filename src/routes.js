@@ -10,7 +10,7 @@ import NotFound from 'not-found/components/NotFoundPage';
 
 // user
 import UserContainer from 'user/containers/UserContainer';
-import JournalContainer from 'user/containers/JournalContainer';
+// import JournalContainer from 'user/containers/JournalContainer';
 import UserQueries from 'user/queries/UserQueries';
 
 // food selection
@@ -66,18 +66,11 @@ const routes = (
       onEnter={ensurePublicAccess}
     >
       <Route
-        path={'food-journal'}
-        component={JournalContainer}
-        queries={UserQueries}
-        render={renderArgs => renderCallback(renderArgs, <JournalContainer />)}
-      >
-        <Route
-          path={'edit/:foodSelectionId'}
-          component={EditFoodSelectionForm}
-          queries={FoodSelectionAndUserQueries}
-          render={renderArgs => renderCallback(renderArgs, <EditFoodSelectionForm />)}
-        />
-      </Route>
+        path={'edit/:foodSelectionId'}
+        component={EditFoodSelectionForm}
+        queries={FoodSelectionAndUserQueries}
+        render={renderArgs => renderCallback(renderArgs, <EditFoodSelectionForm />)}
+      />
     </Route>
     <Route path={'*'} component={NotFound} />
   </Route>

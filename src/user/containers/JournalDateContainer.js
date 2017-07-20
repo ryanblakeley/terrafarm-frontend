@@ -115,7 +115,7 @@ class JournalDateContainer extends React.Component {
         unitQuantity: number,
         unitOfMeasureByUnitOfMeasureId: unit,
       } = f.node;
-      const url = `/user/${user.rowId}/food-journal/edit/${foodSelectionId}`;
+      const url = `/user/${user.rowId}/edit/${foodSelectionId}`;
 
       journalItems.push([f.node.date, f.node.foodId]);
       date = f.node.date;

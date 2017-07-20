@@ -1,13 +1,14 @@
 import React from 'react';
 import {
   createFragmentContainer,
+  commitMutation,
   graphql,
 } from 'react-relay/compat';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import {TextInput, validationErrors} from 'shared/components/Form';
 import validations from 'shared/utils/validations';
 import UpdateFoodSelectionMutation from '../mutations/UpdateFoodSelectionMutation';
-import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
+// TODO import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
 
 class Container extends React.Component {
   static propTypes = {
@@ -30,6 +31,7 @@ class Container extends React.Component {
     this.updateFoodSelection(data);
   }
   handleDelete = () => {
+    /* TODO
     const {foodSelection, user, relay} = this.props;
 
     relay.commitUpdate(
@@ -41,29 +43,41 @@ class Container extends React.Component {
         onFailure: this.handleFailure,
       },
     );
+    */
   }
   handleSuccess = response => {
     this.props.notifyClose();
   }
-  handleFailure = transaction => {
-    const error = transaction.getError() || new Error('Mutation failed.');
+  handleFailure = error => {
     this.setState({ error: !!error });
   }
   handleSuccessDelete = response => {
     const {user} = this.props;
     const {router} = this.context;
-    router.replace(`/user/${user.rowId}/food-journal`);
+    router.replace(`/user/${user.rowId}`);
   }
   updateFoodSelection (patch) {
     const { foodSelection, relay } = this.props;
 
-    relay.commitUpdate(
-      new UpdateFoodSelectionMutation({
+    const optimisticResponse = _ => ({
+      foodSelection: Object.assign(foodSelection, patch),
+    });
+
+    const variables = {
+      input: {
+        id: foodSelection.id,
         foodSelectionPatch: patch,
-        foodSelection,
-      }), {
-        onSuccess: this.handleSuccess,
-        onFailure: this.handleFailure,
+      },
+    };
+
+    commitMutation(
+      relay.environment,
+      {
+        mutation: UpdateFoodSelectionMutation,
+        optimisticResponse,
+        variables,
+        onCompleted: this.handleSuccess,
+        onError: this.handleFailure,
       },
     );
   }
@@ -115,14 +129,11 @@ export default createFragmentContainer(Container, {
       foodDescription
       foodId
       date,
-      ...UpdateFoodSelectionMutation_foodSelection,
-      ...DeleteFoodSelectionMutation_foodSelection,
     }
   `,
   user: graphql`
     fragment EditFoodSelectionForm_user on User {
       rowId,
-      ...DeleteFoodSelectionMutation_user,
     }
   `,
 });
