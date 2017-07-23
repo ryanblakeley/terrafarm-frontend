@@ -1,55 +1,71 @@
-import webpack from 'webpack';
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-// import RelayCompilerWebpackPlugin from 'relay-compiler-webpack-plugin';
 import env from 'gulp-env';
-import jwt from 'jsonwebtoken';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-// process.traceDeprecation = true;
-
-if (!process.env.JWT_PRIVATE_KEY) {
+if (!process.env.GOOGLE_ANALYTICS_KEY) {
   env({file: './.env', type: 'ini'});
 }
 const {
-  JWT_PRIVATE_KEY,
+  WEBPACK_ENV,
   GOOGLE_ANALYTICS_KEY,
 } = process.env;
-
-const anonymousToken = jwt.sign({
-  role: 'clerk', // TEMPORARY
-  sub: 'postgraphql',
-  aud: 'postgraphql',
-}, JWT_PRIVATE_KEY);
-
-const authenticatorToken = jwt.sign({
-  role: 'authenticator',
-  sub: 'postgraphql',
-  aud: 'postgraphql',
-}, JWT_PRIVATE_KEY);
 
 const PATHS = {
   root: path.join(__dirname),
   src: path.join(__dirname, 'src'),
+  client: path.join(__dirname, 'src', 'client'),
   public: path.join(__dirname, 'build', 'public'),
-  shared: path.join(__dirname, 'src', 'shared'),
   fonts: path.join(__dirname, 'src', 'shared', 'fonts'),
   graphql: path.join(__dirname, 'data', 'schema.graphql'),
+  robots: path.join(__dirname, 'src', 'robots.txt'),
 };
 
-const config = {
-  devtool: 'eval-source-map',
-  entry: [
+let entry;
+let devtool;
+let devServer;
+const plugins = [
+  new HtmlWebpackPlugin({
+    title: 'Terrafarm · Personal nutrition assistant',
+    filename: 'index.html',
+    template: 'src/index.template.html',
+    inject: true,
+  }),
+];
+
+if (WEBPACK_ENV === 'production') {
+  console.log('[Webpack production config]');
+  entry = [
+    // 'babel-polyfill'
+    PATHS.client,
+  ];
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+        GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
+      },
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+      },
+    }),
+    new webpack.NoErrorsPlugin(),
+  );
+  devtool = 'source-map';
+  devServer = {};
+} else {
+  console.log('[Webpack development config]');
+  entry = [
+    // 'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/dev-server',
-    PATHS.src,
-  ],
-  output: {
-    path: PATHS.public,
-    filename: 'bundle.js',
-    publicPath: '/',
-  },
-  plugins: [
+    PATHS.client,
+  ];
+  plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
@@ -58,27 +74,44 @@ const config = {
         GOOGLE_ANALYTICS_KEY: JSON.stringify(GOOGLE_ANALYTICS_KEY),
       },
     }),
-    new HtmlWebpackPlugin({
-      title: 'Terrafarm · Personal nutrition assistant',
-      filename: 'index.html',
-      template: 'src/index.template.html',
-      inject: true,
-      anonymousToken,
-      authenticatorToken,
-    }),
-    /*
-    new RelayCompilerWebpackPlugin({
-      schema: PATHS.graphql,
-      src: PATHS.src,
-    }),
-    */
-  ],
+  );
+  devtool = 'eval-source-map'; // 'module-source-map'
+  devServer = {
+    historyApiFallback: true,
+  };
+}
+
+const webpackConfig = {
+  context: PATHS.root,
+
+  entry,
+
+  output: {
+    path: PATHS.public,
+    filename: 'bundle.js',
+    publicPath: '/',
+  },
+
+  resolve: {
+    modules: [
+      PATHS.src,
+      'node_modules',
+    ],
+    alias: {
+      root: PATHS.root,
+    },
+  },
+
+  plugins,
+  devtool,
+  devServer,
+
   module: {
     rules: [
       {
         test: /\.js$/,
         include: PATHS.src,
-        loader: 'babel-loader',
+        use: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -94,6 +127,16 @@ const config = {
         ],
       },
       {
+        test: /\.(woff|woff2)$/,
+        include: PATHS.fonts,
+        loader: 'url-loader',
+        options: {
+          name: 'font/[hash].[ext]',
+          limit: 50000,
+          mimetype: 'application/font-woff',
+        },
+      },
+      {
         test: /\.svg$/,
         include: PATHS.src,
         use: [
@@ -107,27 +150,40 @@ const config = {
           { loader: 'url-loader', options: { limit: 65000 } },
         ],
       },
-      {
-        test: /\.(woff|woff2)$/,
-        include: PATHS.fonts,
-        loader: 'url-loader',
-        options: {
-          name: 'font/[hash].[ext]',
-          limit: 50000,
-          mimetype: 'application/font-woff',
-        },
-      },
     ],
-  },
-  resolve: {
-    modules: [
-      PATHS.src,
-      'node_modules',
-    ],
-    alias: {
-      root: PATHS.root,
-    },
   },
 };
 
-export default config;
+export default webpackConfig;
+
+/*
+TODO
+
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+
+plugins: [
+
+  new ExtractTextPlugin('styles.css'),
+
+  new RelayCompilerWebpackPlugin({
+    schema: PATHS.graphql,
+    src: PATHS.src,
+  }),
+
+],
+
+{
+  test: /\.css$/,
+  use: ExtractTextPlugin.extract({
+    // fallback: 'style-loader',
+    use: {
+      loader: 'css-loader',
+      options: {
+        modules: true,
+        // localIdentName: '[name]_[local]__[hash:base64:5]',
+      },
+    },
+  }),
+},
+*/
+

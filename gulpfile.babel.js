@@ -13,21 +13,18 @@ import {
   printSchema,
 } from 'graphql/utilities';
 
-import config from './webpack.config';
-import prodConfig from './webpack.production.config';
-import serverProdConfig from './webpack.server.production.config';
+import webpackConfig from './webpack.config';
+import webpackServerProdConfig from './webpack.server.production.config';
 
 // Test for environment variables and load if undefined
 if (!process.env.API_PORT) {
-  env({file: './.env', type: 'ini'});
+  env({ file: './.env', type: 'ini' });
 }
-const PRIVATE_IP = process.env.PRIVATE_IP;
-const API_IP = process.env.API_IP;
-let PORT = process.env.PORT;
-let API_PORT = process.env.API_PORT;
+let { PRIVATE_IP, API_IP, PORT, API_PORT, CHAOS_MONKEY } // eslint-disable-line prefer-const
+  = process.env;
 PORT = Number(PORT);
 API_PORT = Number(API_PORT);
-const CHAOS_MONKEY = process.env.CHAOS_MONKEY;
+
 const PATHS = {
   schema: path.join(__dirname, 'data', 'schema'),
   apiSrv: `http://${API_IP}:${API_PORT}`,
@@ -84,8 +81,8 @@ gulp.task('load-schema', () => {
   });
 });
 
-gulp.task('webpack-dev-server', ['load-schema'], () => {
-  const server = new WebpackDevServer(webpack(config), {
+gulp.task('webpack-dev-server', () => {
+  const devServer = new WebpackDevServer(webpack(webpackConfig), {
     contentBase: PATHS.public,
     hot: true,
     // publicPath: '/',
@@ -98,7 +95,8 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
     },
     setup: app => {
       app.all('/graphql-api', (req, res, next) => {
-        if (CHAOS_MONKEY === 'true' && (Math.random() < 0.15)) {
+        if (CHAOS_MONKEY === 'true'
+          && (Math.random() < 0.15)) {
           unleashChaosMonkey(req, res);
         } else {
           next();
@@ -106,7 +104,7 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
       });
     },
   });
-  server.listen(PORT, err => {
+  devServer.listen(PORT, err => {
     if (err) {
       return console.error(err);
     }
@@ -114,12 +112,12 @@ gulp.task('webpack-dev-server', ['load-schema'], () => {
   });
 });
 
-gulp.task('build-frontend', ['load-schema'], done => {
-  webpack(prodConfig).run(onBuild(done));
+gulp.task('build-frontend', done => {
+  webpack(webpackConfig).run(onBuild(done));
 });
 
 gulp.task('build-server', done => {
-  webpack(serverProdConfig).run(onBuild(done));
+  webpack(webpackServerProdConfig).run(onBuild(done));
 });
 
 gulp.task('build', ['build-frontend', 'build-server']);

@@ -7,7 +7,6 @@ if (!process.env.API_PORT) {
   env({file: './.env', type: 'ini'});
 }
 const {
-  NODE_ENV,
   PRIVATE_IP,
   API_IP,
   PORT,
@@ -15,18 +14,18 @@ const {
 } = process.env;
 
 const PATHS = {
-  src: path.join(__dirname, 'src', 'server.js'),
-  build: path.join(__dirname, 'build', 'dist'),
+  server: path.join(__dirname, 'src', 'server.js'),
+  dist: path.join(__dirname, 'build', 'dist'),
   public: path.join(__dirname, 'build', 'public'),
   robots: path.join(__dirname, 'src', 'robots.txt'),
 };
 
 const serverProdConfig = {
   entry: {
-    src: PATHS.src,
+    src: PATHS.server,
   },
   output: {
-    path: PATHS.build,
+    path: PATHS.dist,
     filename: 'server.js',
     libraryTarget: 'commonjs2',
   },
@@ -48,7 +47,7 @@ const serverProdConfig = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(NODE_ENV),
+        NODE_ENV: JSON.stringify('production'),
         PRIVATE_IP: JSON.stringify(PRIVATE_IP),
         API_IP: JSON.stringify(API_IP),
         PORT: Number(PORT),
