@@ -1,16 +1,26 @@
+/*
+import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from './Layout';
 import {FlatButton} from './Material';
 
-const LoadMoreButton = (props, context) => {
-  const incrementCount = () => {
-    const newCount = context.location.query.count > 3
-      ? context.location.query.count + props.increment
-      : 8;
-    const newQuery = Object.assign(context.location.query, {count: newCount});
-    const newLocation = Object.assign(context.location, {query: newQuery});
+const propTypes = {
+  disabled: PropTypes.bool,
+  increment: PropTypes.number,
+  label: PropTypes.string,
+  router: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
 
-    context.router.replace(newLocation);
+const LoadMoreButton = props => {
+  const incrementCount = () => {
+    const newCount = props.location.query.count > 3
+      ? props.location.query.count + props.increment
+      : 8;
+    const newQuery = Object.assign(props.location.query, {count: newCount});
+    const newLocation = Object.assign(props.location, {query: newQuery});
+
+    props.router.replace(newLocation);
   };
 
   return <Layout center topSmall>
@@ -23,16 +33,7 @@ const LoadMoreButton = (props, context) => {
   </Layout>;
 };
 
-LoadMoreButton.propTypes = {
-  disabled: React.PropTypes.bool,
-  increment: React.PropTypes.number,
-  label: React.PropTypes.string,
-};
-
-LoadMoreButton.contextTypes = {
-  location: React.PropTypes.object,
-  router: React.PropTypes.object,
-};
+LoadMoreButton.propTypes = propTypes;
 
 LoadMoreButton.defaultProps = {
   increment: 8,
@@ -40,3 +41,4 @@ LoadMoreButton.defaultProps = {
 };
 
 export default LoadMoreButton;
+*/

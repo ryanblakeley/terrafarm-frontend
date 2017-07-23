@@ -1,8 +1,31 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames/bind';
 import classNamesContext from '../styles/LayoutStylesheet.css';
 
 const cx = classnames.bind(classNamesContext);
+
+const propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+  className: PropTypes.string,
+  page: PropTypes.bool,
+  smallPage: PropTypes.bool,
+  smallPageFixed: PropTypes.bool,
+  fullPage: PropTypes.bool,
+  center: PropTypes.bool,
+  left: PropTypes.bool,
+  topSmall: PropTypes.bool,
+  topMedium: PropTypes.bool,
+  rightSmall: PropTypes.bool,
+  bottomMedium: PropTypes.bool,
+  leftSmall: PropTypes.bool,
+  inline: PropTypes.bool,
+  flexCenter: PropTypes.bool,
+  style: PropTypes.object,
+};
 
 const Layout = props => <div
   className={`${cx({
@@ -25,26 +48,6 @@ const Layout = props => <div
   {props.children}
 </div>;
 
-Layout.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-  ]),
-  className: React.PropTypes.string,
-  page: React.PropTypes.bool,
-  smallPage: React.PropTypes.bool,
-  smallPageFixed: React.PropTypes.bool,
-  fullPage: React.PropTypes.bool,
-  center: React.PropTypes.bool,
-  left: React.PropTypes.bool,
-  topSmall: React.PropTypes.bool,
-  topMedium: React.PropTypes.bool,
-  rightSmall: React.PropTypes.bool,
-  bottomMedium: React.PropTypes.bool,
-  leftSmall: React.PropTypes.bool,
-  inline: React.PropTypes.bool,
-  flexCenter: React.PropTypes.bool,
-  style: React.PropTypes.object,
-};
+Layout.propTypes = propTypes;
 
 export default Layout;

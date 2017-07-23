@@ -1,20 +1,22 @@
+/*
+import PropTypes from 'prop-types';
 import React from 'react';
 import {H2} from 'shared/components/Typography';
 import classNames from '../styles/MenuListItemStylesheet.css';
 
+const propTypes = {
+  icon: PropTypes.element,
+  title: PropTypes.string,
+  url: PropTypes.string,
+  baseUrl: PropTypes.string,
+  closeImmediate: PropTypes.func,
+  disabled: PropTypes.bool,
+  router: PropTypes.object,
+  location: PropTypes.object,
+};
+
 class MenuListItem extends React.Component {
-  static propTypes = {
-    icon: React.PropTypes.element,
-    title: React.PropTypes.string,
-    url: React.PropTypes.string,
-    baseUrl: React.PropTypes.string,
-    closeImmediate: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
-  };
-  static contextTypes = {
-    router: React.PropTypes.object,
-    location: React.PropTypes.object,
-  };
+  static propTypes = propTypes;
   handleClick = _ => {
     const {baseUrl, url, closeImmediate} = this.props;
     const {router, location} = this.context;
@@ -41,3 +43,4 @@ class MenuListItem extends React.Component {
 }
 
 export default MenuListItem;
+*/

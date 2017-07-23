@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import {Link as InternalLink} from 'react-router';
+import { Link as InternalLink } from 'found';
 import classNames from '../styles/TypographyStylesheet.css';
 
+/* eslint-disable react/no-children-prop, max-len */
 const H1 = props => <h1
   className={`${props.className ? props.className : ''} ${classNames.h1}`}
   children={props.children}
@@ -87,13 +89,13 @@ const WarningMessage = props => <span
 />;
 
 const commonPropTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.array,
-    React.PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.object,
   ]),
-  className: React.PropTypes.string,
-  style: React.PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 H1.propTypes = commonPropTypes;
@@ -105,27 +107,27 @@ H5.propTypes = commonPropTypes;
 H6.propTypes = commonPropTypes;
 AppName.propTypes = commonPropTypes;
 P.propTypes = Object.assign(commonPropTypes, {
-  large: React.PropTypes.bool,
+  large: PropTypes.bool,
 });
 Span.propTypes = commonPropTypes;
 A.propTypes = Object.assign(commonPropTypes, {
-  href: React.PropTypes.string,
+  href: PropTypes.string,
 });
 Link.propTypes = Object.assign(commonPropTypes, {
-  to: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
+  to: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
   ]),
-  disabled: React.PropTypes.bool,
+  disabled: PropTypes.bool,
 });
 UL.propTypes = Object.assign(commonPropTypes, {
-  plumb: React.PropTypes.bool,
+  plumb: PropTypes.bool,
 });
 LI.propTypes = Object.assign(commonPropTypes, {
-  noBullet: React.PropTypes.bool,
+  noBullet: PropTypes.bool,
 });
 Icon.propTypes = Object.assign(commonPropTypes, {
-  icon: React.PropTypes.element,
+  icon: PropTypes.element,
 });
 ErrorMessage.propTypes = commonPropTypes;
 WarningMessage.propTypes = commonPropTypes;
@@ -134,4 +136,4 @@ WarningMessage.defaultProps = {
   children: '(not provided)',
 };
 
-export {H1, H2, H3, H4, H5, H6, AppName, P, Span, A, Link, UL, LI, Icon, WarningMessage};
+export { H1, H2, H3, H4, H5, H6, AppName, P, Span, A, Link, UL, LI, Icon, WarningMessage };

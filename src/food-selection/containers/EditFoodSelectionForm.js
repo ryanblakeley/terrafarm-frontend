@@ -6,7 +6,7 @@ import {
 } from 'react-relay/compat';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import {TextInput, validationErrors} from 'shared/components/Form';
-import validations from 'shared/utils/validations';
+import validations from 'tools/validations';
 import UpdateFoodSelectionMutation from '../mutations/UpdateFoodSelectionMutation';
 // TODO import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
 
@@ -17,10 +17,6 @@ class Container extends React.Component {
     user: React.PropTypes.object,
     notifyClose: React.PropTypes.func,
     children: React.PropTypes.object,
-  };
-  static contextTypes = {
-    router: React.PropTypes.object,
-    location: React.PropTypes.object,
   };
   state = {
     error: false,
@@ -52,9 +48,12 @@ class Container extends React.Component {
     this.setState({ error: !!error });
   }
   handleSuccessDelete = response => {
+    /*
+    TODO router either on props or context
     const {user} = this.props;
     const {router} = this.context;
     router.replace(`/user/${user.rowId}`);
+    */
   }
   updateFoodSelection (patch) {
     const { foodSelection, relay } = this.props;

@@ -1,52 +1,48 @@
 import React from 'react';
-import Relay from 'react-relay/classic';
-import {
-  Router,
-  browserHistory,
-  applyRouterMiddleware,
-} from 'react-router';
-import useRelay from 'react-router-relay';
-import ReactGA from 'react-ga';
-import networkLayer from 'shared/utils/networkLayer';
+import { Environment, RecordSource, Store, Network } from 'relay-runtime';
+import { Resolver } from 'found-relay';
+import BrowserProtocol from 'farce/lib/BrowserProtocol';
+import queryMiddleware from 'farce/lib/queryMiddleware';
+import createFarceRouter from 'found/lib/createFarceRouter';
+import createRender from 'found/lib/createRender';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import { ClientFetcher } from 'fetcher';
+import LoadingComponent from 'core/components/LoadingComponent';
+import ErrorComponent from 'core/components/ErrorComponent';
+import 'sanitize.css/sanitize.css';
+import 'shared/styles/_fonts.css';
+import 'shared/styles/_base.css';
 import routes from './routes';
 
-class Root extends React.Component {
-  static childContextTypes = {
-    logout: React.PropTypes.func,
-  };
-  state = {
-    environment: null,
-  };
-  getChildContext () {
-    return {
-      logout: _ => this.logout(),
-    };
-  }
-  componentWillMount () {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_KEY);
-    const environment = new Relay.Environment();
-    environment.injectNetworkLayer(networkLayer);
-    this.setState({environment});
-  }
-  logout () {
-    const environment = new Relay.Environment();
-    environment.injectNetworkLayer(networkLayer);
-    this.setState({environment});
-  }
-  logPageView = _ => {
-    ReactGA.set({ page: window.location.pathname });
-    ReactGA.pageview(window.location.pathname);
-  }
-  render () {
-    return <Router
-      render={applyRouterMiddleware(useRelay)}
-      history={browserHistory}
-      environment={this.state.environment}
-      routes={routes}
-      onUpdate={this.logPageView}
-      key={Math.random()}
-    />;
-  }
+injectTapEventPlugin();
+
+const clientFetcher = new ClientFetcher('/graphql-api', []);
+
+function createResolver (fetcher) {
+  const environment = new Environment({
+    network: Network.create((...args) => fetcher.fetch(...args)),
+    store: new Store(new RecordSource()),
+  });
+
+  return new Resolver(environment);
 }
+
+const Router = createFarceRouter({
+  historyProtocol: new BrowserProtocol(),
+  historyMiddlewares: [queryMiddleware],
+  routeConfig: routes,
+
+  render: createRender({
+    renderPending: () => <LoadingComponent />,
+    renderError: error => {
+      console.error(`Relay renderer ${error}`);
+      return <ErrorComponent />; // renderArgs.retry?
+    },
+  }),
+});
+
+// prop.key = Math.random() for hot loader?
+
+const Root = () => <Router resolver={createResolver(clientFetcher)} />;
 
 export default Root;

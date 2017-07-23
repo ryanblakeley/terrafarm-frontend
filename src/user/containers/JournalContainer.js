@@ -1,8 +1,19 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
 import JournalDateRootContainer from 'user/containers/JournalDateRootContainer';
+
+const propTypes = {
+  userByRowId: PropTypes.shape({
+    rowId: PropTypes.string,
+    foodSelectionsByUserId: PropTypes.object,
+  }),
+  children: PropTypes.object,
+  environment: PropTypes.object,
+  router: PropTypes.object,
+};
 
 class JournalContainer extends React.Component {
   constructor (props) {
@@ -41,8 +52,7 @@ class JournalContainer extends React.Component {
     return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
   }
   render () {
-    const {userByRowId: user, children, environment} = this.props;
-    const {router} = this.context;
+    const {userByRowId: user, children, environment, router} = this.props;
     const {latestDate, datesCount} = this.state;
     const dates = this.getDates(latestDate, datesCount);
     const journalDateContainers = dates.map(d => (
@@ -69,17 +79,6 @@ class JournalContainer extends React.Component {
   }
 }
 
-JournalContainer.propTypes = {
-  userByRowId: React.PropTypes.shape({
-    rowId: React.PropTypes.string,
-    foodSelectionsByUserId: React.PropTypes.object,
-  }),
-  children: React.PropTypes.object,
-  environment: React.PropTypes.object,
-};
-
-JournalContainer.contextTypes = {
-  router: React.PropTypes.object,
-};
+JournalContainer.propTypes = propTypes;
 
 export default JournalContainer;

@@ -12,7 +12,7 @@ import {
   lightBlack,
 } from './colors';
 
-const TerrafarmRawTheme = {
+const terrafarmRawTheme = {
   spacing: Spacing,
   fontFamily: 'Overlock, sans-serif',
   palette: {
@@ -39,4 +39,4 @@ const TerrafarmRawTheme = {
   },
 };
 
-export default TerrafarmRawTheme;
+export default terrafarmRawTheme;

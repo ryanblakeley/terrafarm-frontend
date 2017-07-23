@@ -1,42 +1,36 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {createFragmentContainer, graphql} from 'react-relay/compat';
 import {PersonIcon} from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-import JournalRootContainer from 'user/containers/JournalRootContainer';
+// import JournalRootContainer from 'user/containers/JournalRootContainer';
+// <JournalRootContainer userId={props.user.rowId} environment={props.relay.environment} />
 
-const UserContainer = (props, context) => <TransitionWrapper>
+const propTypes = {
+  userByRowId: PropTypes.object.isRequired,
+  // children: PropTypes.object.isRequired,
+  // relay: PropTypes.object,
+};
+
+const UserContainer = props => <TransitionWrapper>
   <Layout page>
     <Menu
-      baseUrl={`/user/${props.user.rowId}`}
+      baseUrl={`/user/${props.userByRowId.rowId}`}
       header={{icon: <PersonIcon />, title: 'User'}}
       disabled
     />
-    <JournalRootContainer userId={props.user.rowId} environment={props.relay.environment} />
   </Layout>
 </TransitionWrapper>;
 
-UserContainer.propTypes = {
-  user: React.PropTypes.object,
-  children: React.PropTypes.object,
-  relay: React.PropTypes.object,
-};
+UserContainer.propTypes = propTypes;
 
-UserContainer.contextTypes = {
-  userId: React.PropTypes.string,
-  router: React.PropTypes.object,
-};
-
-export default createFragmentContainer(UserContainer, {
-  /* TODO manually deal with:
-  initialVariables: {
-    userId: null,
-  }
-  */
-  user: graphql`
-    fragment UserContainer_user on User {
+export default createFragmentContainer(
+  UserContainer,
+  graphql`
+    fragment UserContainer_userByRowId on User {
       rowId,
     }
   `,
-});
+);

@@ -34,7 +34,7 @@ const plugins = [
 ];
 
 if (WEBPACK_ENV === 'production') {
-  console.log('[Webpack production config]');
+  console.log('[webpackProductionConfig]');
   entry = [
     // 'babel-polyfill'
     PATHS.client,
@@ -57,7 +57,7 @@ if (WEBPACK_ENV === 'production') {
   devtool = 'source-map';
   devServer = {};
 } else {
-  console.log('[Webpack development config]');
+  console.log('[webpackDevelopmentConfig]');
   entry = [
     // 'babel-polyfill',
     'react-hot-loader/patch',
@@ -110,12 +110,12 @@ const webpackConfig = {
     rules: [
       {
         test: /\.js$/,
-        include: PATHS.src,
+        exclude: /node_modules/,
         use: 'babel-loader',
       },
       {
         test: /\.css$/,
-        include: PATHS.src,
+        // include: PATHS.src, // sanitize.css is outside src
         use: [
           { loader: 'style-loader' },
           {

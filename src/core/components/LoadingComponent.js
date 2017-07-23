@@ -2,12 +2,12 @@ import React from 'react';
 import Layout from 'shared/components/Layout';
 import classNames from '../styles/LoadingStylesheet.css';
 
-const DoubleBounceSpinner = _ => <div className={classNames.spinner}>
+const DoubleBounceSpinner = () => <div className={classNames.spinner}>
   <div className={classNames.doubleBounce1} />
   <div className={classNames.doubleBounce2} />
 </div>;
 
-const Loading = _ => <Layout page>
+const Loading = () => <Layout page>
   <DoubleBounceSpinner />
 </Layout>;
 

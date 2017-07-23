@@ -1,42 +1,133 @@
-.h1 { composes: appTitle from './_typography.css'; }
-.h2 {
-  composes: pageHeading from './_typography.css';
-  letter-spacing: 0.03em;
+html { font-size: 14px; }
+
+.h1, .appName,
+.h2, .pageHeading,
+.h3, .contentHeading,
+.h4, .contentSubheading,
+.h5, .articleHeading,
+.h6, .articleSubheading,
+.bodyText,
+.bodyTextLarge,
+.buttonText { color: #263238; transition: font-size, color 160ms linear; }
+.icon { color: rgba(92,107,192 ,0.92); transition: font-size, color 160ms linear; }
+/* .icon { color: #9FA8DA; } */
+
+.h1, .appName {
+  margin: 0.67em 0;
+  font-family: 'Averia Serif Libre', serif;
+  font-weight: 300;
+  letter-spacing: 0.023em;
+}
+.h2, .pageHeading {
+  margin: 0.83em 0;
+  font-family: 'Overlock', sans-serif;
+  font-weight: 600;
+  font-size: 2.1rem;
+  letter-spacing: 0.03rem;
+  text-align: center;
   text-transform: capitalize;
 }
-.h3 { composes: contentHeading from './_typography.css'; text-transform: capitalize; }
-.h4 { composes: contentSubheading from './_typography.css'; }
-.h5 { composes: articleHeading from './_typography.css'; text-transform: capitalize; }
-.h6 { composes: articleSubheading from './_typography.css'; text-transform: uppercase; margin: 0; }
-.appName { composes: appName from './_typography.css'; }
-.paragraph { composes: bodyText from './_typography.css'; }
-.paragraphLarge { composes: largeBodyText from './_typography.css'; }
-.span { composes: bodyText from './_typography.css'; }
-.internalLink { composes: link from './_typography.css'; }
-.externalLink { composes: link from './_typography.css'; text-decoration: underline; }
+.h3, .contentHeading {
+  margin: 1em 0;
+  font-family: 'Averia Serif Libre', serif;
+  font-weight: 400;
+  font-size: 1.76rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+.h4, .contentSubheading {
+  margin: 1.33em 0;
+  font-family: 'Simonetta', serif;
+  font-weight: 900;
+  font-size: 1.32rem;
+}
+.h5, .articleHeading {
+  font-family: 'Simonetta', serif;
+  font-weight: 400;
+  font-size: 1.46rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+.h6, .articleSubheading {
+  margin: 0;
+  font-family: 'Overlock', cursive;
+  font-weight: 600;
+  font-size: 1.32rem;
+  letter-spacing: 0.01rem;
+  text-transform: uppercase;
+}
+.bodyText {
+  font-family: 'Simonetta', serif;
+  font-size: 1.17rem;
+  text-decoration: none;
+  color: inherit;
+}
+.bodyTextLarge {
+  margin: 0.67em 0;
+  font-family: 'Averia Serif Libre', serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  letter-spacing: 0.023em;
+}
+.paragraph,
+.span,
+.link,
+.listItem,
+.image { composes: bodyText; }
+.paragraphLarge { composes: bodyTextLarge; }
+.internalLink { composes: link; }
+.externalLink { composes: link; text-decoration: underline; }
 .disabledLink { pointer-events: none; }
-.list { composes: bulletList from './_typography.css'; }
-.list.plumb { margin: 0; padding: 0; }
-.listItem { composes: bodyText from './_typography.css'; }
-.listItem.noBullet { list-style-type: none; }
-.icon { composes: icon from './_typography.css'; }
-.truncate { composes: truncate from './_typography.css'; }
 .errorMessage {
-  composes: bodyText from './_typography.css';
+  composes: bodyText;
   margin: 1em auto;
   width: 86%;
   color: #D84315;
 }
 .warningMessage {
-  composes: bodyText from './_typography.css';
+  composes: bodyText;
   font-style: italic;
   font-weight: 400;
   opacity: 0.88;
 }
+.button {
+  font-family: 'Overlock', cursive;
+  font-weight: 400;
+  font-size: inherit;
+}
+.link {
+  font-family: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+/*
+.link:hover {
+  text-decoration: underline;
+  color: #ff8a65;
+}
+*/
+.icon { font-size: 24px; }
+.smallIcon { font-size: 16px; }
+.largeIcon { font-size: 58px; }
+.list {
+  list-style: initial;
+  margin: 1em 0;
+  padding: 0 0 0 1.5em;
+  line-height: 1.6rem;
+}
+.list.plumb { margin: 0; padding: 0; }
+.listItem { composes: bodyText; }
+.listItem.noBullet { list-style-type: none; }
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /*
-does .pageHeading or contentHeading still need this?
-  margin: 2px 0 0 6px;
-  font-size: 1.25em;
-  font-weight: 600;
+@media only screen and (min-width: 320px) {  }
+@media only screen and (min-width: 375px) {  }
 */
+@media only screen and (min-width: 500px) {
+  .contentHeading { font-size: 2.1em; }
+}

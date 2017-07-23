@@ -1,5 +1,5 @@
 import React from 'react';
-import {H2, Link} from 'shared/components/Typography';
+import {H2} from 'shared/components/Typography';
 import {ArrowDownIcon} from 'shared/components/Icons';
 import classNamesContext from 'classnames/bind';
 import classNames from '../styles/MenuHeaderStylesheet.css';
@@ -10,7 +10,6 @@ class MenuHeader extends React.Component {
   static propTypes = {
     icon: React.PropTypes.element,
     title: React.PropTypes.string,
-    url: React.PropTypes.string,
     open: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
     handleOpen: React.PropTypes.func,
@@ -39,7 +38,7 @@ class MenuHeader extends React.Component {
     if (handleCloseImmediate) handleCloseImmediate();
   }
   render () {
-    const {icon, title, url, disabled} = this.props;
+    const {icon, title, disabled} = this.props;
 
     return <div className={classNames.this} >
       <div
@@ -53,7 +52,7 @@ class MenuHeader extends React.Component {
       </div>
       <div className={classNames.titleWrapper}>
         <H2 className={classNames.label}>
-          <Link to={url}>{title}</Link>
+          {title}
         </H2>
       </div>
     </div>;

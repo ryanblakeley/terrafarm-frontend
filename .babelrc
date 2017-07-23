@@ -11,6 +11,12 @@
   "plugins": [
     ["relay", { "compat": true, "schema": "./data/schema.graphql" }],
     "react-hot-loader/babel",
+    ["transform-runtime", {
+      "helpers": false,
+      "polyfill": false,
+      "regenerator": true,
+      "moduleName": "babel-runtime"
+    }],
     ["module-resolver", { "root": ["./src", "./spec"] }],
   ]
 }

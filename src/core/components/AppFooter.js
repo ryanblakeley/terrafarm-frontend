@@ -1,9 +1,9 @@
 import React from 'react';
-import {AppName, Link} from 'shared/components/Typography';
-import {LogoIcon, InformationIcon} from 'shared/components/Icons';
-import {IconButton} from 'shared/components/Material';
+import { AppName, Link } from 'shared/components/Typography';
+import { LogoIcon, InformationIcon } from 'shared/components/Icons';
+import { IconButton } from 'shared/components/Material';
 import Layout from 'shared/components/Layout';
-import {blueGrey500} from 'shared/utils/colors';
+import { blueGrey500 } from 'tools/colors';
 import classNames from '../styles/AppFooterStylesheet.css';
 
 const styles = {
@@ -17,11 +17,11 @@ const styles = {
   },
 };
 
-const HelpButton = (_, context) => <Layout topSmall>
+const HelpButton = () => <Layout topSmall>
   <IconButton
     style={styles.button}
     iconStyle={styles.icon}
-    onTouchTap={() => context.router.push('/about')}
+    href={'https://terra.farm/pages/about'}
     touch
   >
     <InformationIcon className={classNames.icon} />
@@ -35,9 +35,5 @@ const AppFooter = () => <footer className={classNames.this}>
   <AppName className={classNames.copyright}>&copy; 2017 Terrafarm LLC</AppName>
   <HelpButton />
 </footer>;
-
-HelpButton.contextTypes = {
-  router: React.PropTypes.object,
-};
 
 export default AppFooter;
