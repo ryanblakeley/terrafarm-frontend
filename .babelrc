@@ -1,15 +1,16 @@
 {
-  "presets": ["env", "airbnb"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": "last 2 versions"
+      },
+    }],
+    "stage-2",
+    "react"
+  ],
   "plugins": [
-    ["relay", {
-      "compat": true,
-      "schema": "./data/schema.graphql"
-    }],
+    ["relay", { "compat": true, "schema": "./data/schema.graphql" }],
     "react-hot-loader/babel",
-    "transform-decorators",
-    "transform-class-properties",
-    ["module-resolver", {
-      "root": ["./src", "./spec"]
-    }],
+    ["module-resolver", { "root": ["./src", "./spec"] }],
   ]
 }
