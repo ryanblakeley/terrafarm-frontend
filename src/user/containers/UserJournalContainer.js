@@ -4,12 +4,13 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
-// import UserJournalDateContainer from 'user/containers/UserJournalDateContainer';
+import UserJournalDateRootContainer from 'user/containers/UserJournalDateRootContainer';
 
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,
   children: PropTypes.object,
   router: PropTypes.object.isRequired,
+  relay: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -53,19 +54,17 @@ class UserJournalContainer extends React.Component {
     return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
   }
   render () {
-    const { userByRowId: user, children, router } = this.props;
+    const { userByRowId: user, children, router, relay } = this.props;
     const { latestDate, datesCount } = this.state;
     const dates = this.getDates(latestDate, datesCount);
-    /*
-    const journalDateContainers = dates.map(d => (
-      <UserJournalDateContainer
+    const journalDateRootContainers = dates.map(d => (
+      <UserJournalDateRootContainer
+        key={d}
         userId={user.rowId}
         date={d}
-        key={d}
-        environment={environment}
+        relay={relay}
       />
     ));
-    */
 
     return <TransitionWrapper>
       <Layout page>
@@ -75,8 +74,7 @@ class UserJournalContainer extends React.Component {
           {children}
         </ActionPanel>}
         <Layout>
-          {/* journalDateContainers */}
-          {dates}
+          {journalDateRootContainers}
         </Layout>
       </Layout>
     </TransitionWrapper>;
@@ -85,8 +83,6 @@ class UserJournalContainer extends React.Component {
 
 UserJournalContainer.propTypes = propTypes;
 UserJournalContainer.defaultProps = defaultProps;
-
-// TODO ...UserJournalDateContainer_foodSelection,
 
 export default createFragmentContainer(
   UserJournalContainer,

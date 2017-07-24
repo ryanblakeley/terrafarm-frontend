@@ -27,20 +27,22 @@ function createResolver (fetcher) {
   return new Resolver(environment);
 }
 
+const renderCallbacks = {
+  renderPending: () => <LoadingComponent />,
+  renderError: error => {
+    console.error(`Relay renderer ${error}`);
+    // TODO retry={renderArgs.retry}
+    // https://github.com/4Catalyzer/found-relay/issues/53#issuecomment-317285004
+    return <ErrorComponent />;
+  },
+};
+
 const Router = createFarceRouter({
   historyProtocol: new BrowserProtocol(),
   historyMiddlewares: [queryMiddleware],
   routeConfig: routes,
 
-  render: createRender({
-    renderPending: () => <LoadingComponent />,
-    renderError: error => {
-      console.error(`Relay renderer ${error}`);
-      return <ErrorComponent />;
-      // TODO retry={renderArgs.retry}
-      // https://github.com/4Catalyzer/found-relay/issues/53#issuecomment-317285004
-    },
-  }),
+  render: createRender(renderCallbacks),
 });
 
 const Root = () => <Router
