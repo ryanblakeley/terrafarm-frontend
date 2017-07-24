@@ -20,7 +20,7 @@
     "build": "rimraf build && npm run relay-compiler && WEBPACK_ENV=production gulp build",
     "start": "pm2 start ecosystem.json --env production",
     "restart": "pm2 restart ecosystem.json",
-    "stop": "pm2 stop frontend"
+    "stop": "pm2 stop terrafarm-frontend"
   },
   "engines": {
     "node": "6.11.1",
