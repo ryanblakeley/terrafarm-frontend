@@ -36,7 +36,7 @@
     "formsy-material-ui": "^0.6.1",
     "formsy-react": "^0.19.5",
     "found": "^0.3.2",
-    "found-relay": "^0.3.0-alpha.1",
+    "found-relay": "^0.3.0-alpha.5",
     "graphql": "^0.10.5",
     "http-proxy": "^1.13.2",
     "isomorphic-fetch": "^2.2.1",
