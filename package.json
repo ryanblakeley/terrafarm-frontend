@@ -1,7 +1,7 @@
 {
   "name": "terrafarm-frontend",
   "private": true,
-  "version": "2.1.0-a1",
+  "version": "0.3.0-alpha.1",
   "description": "Frontend client and server code for Terrafarm",
   "repository": "rojobuffalo/terrafarm-frontend",
   "author": "rojobuffalo",
@@ -76,8 +76,7 @@
     "css-loader": "^0.28.4",
     "enzyme": "^2.7.1",
     "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.0.2",
-    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-config-terrafarm-react": "^0.2.2",
     "eslint-import-resolver-babel-module": "^2.2.1",
     "eslint-plugin-babel": "^4.1.1",
     "eslint-plugin-import": "^2.2.0",
