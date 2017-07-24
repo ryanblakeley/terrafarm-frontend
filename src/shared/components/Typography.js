@@ -89,49 +89,87 @@ const WarningMessage = props => <span
 />;
 
 const commonPropTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-    PropTypes.object,
-  ]),
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
 };
 
+const commonDefaultProps = {
+  className: null,
+  style: {},
+};
+
 H1.propTypes = commonPropTypes;
+H1.defaultProps = commonDefaultProps;
+
 H2.propTypes = commonPropTypes;
-H2.propTypes = commonPropTypes;
+H2.defaultProps = commonDefaultProps;
+
 H3.propTypes = commonPropTypes;
+H3.defaultProps = commonDefaultProps;
+
 H4.propTypes = commonPropTypes;
+H4.defaultProps = commonDefaultProps;
+
 H5.propTypes = commonPropTypes;
+H5.defaultProps = commonDefaultProps;
+
 H6.propTypes = commonPropTypes;
+H6.defaultProps = commonDefaultProps;
+
 AppName.propTypes = commonPropTypes;
-P.propTypes = Object.assign(commonPropTypes, {
+AppName.defaultProps = commonDefaultProps;
+
+P.propTypes = Object.assign({}, commonPropTypes, {
   large: PropTypes.bool,
 });
-Span.propTypes = commonPropTypes;
-A.propTypes = Object.assign(commonPropTypes, {
-  href: PropTypes.string,
+P.defaultProps = Object.assign({}, commonDefaultProps, {
+  large: false,
 });
-Link.propTypes = Object.assign(commonPropTypes, {
+
+Span.propTypes = commonPropTypes;
+Span.defaultProps = commonDefaultProps;
+
+A.propTypes = Object.assign({}, commonPropTypes, {
+  href: PropTypes.string.isRequired,
+});
+A.defaultProps = commonDefaultProps;
+
+Link.propTypes = Object.assign({}, commonPropTypes, {
   to: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
-  ]),
+  ]).isRequired,
   disabled: PropTypes.bool,
 });
-UL.propTypes = Object.assign(commonPropTypes, {
+Link.defaultProps = Object.assign({}, commonDefaultProps, {
+  disabled: false,
+});
+
+UL.propTypes = Object.assign({}, commonPropTypes, {
   plumb: PropTypes.bool,
 });
-LI.propTypes = Object.assign(commonPropTypes, {
+UL.defaultProps = Object.assign({}, commonDefaultProps, {
+  plumb: false,
+});
+
+LI.propTypes = Object.assign({}, commonPropTypes, {
   noBullet: PropTypes.bool,
 });
-Icon.propTypes = Object.assign(commonPropTypes, {
-  icon: PropTypes.element,
+LI.defaultProps = Object.assign({}, commonDefaultProps, {
+  noBullet: false,
 });
-ErrorMessage.propTypes = commonPropTypes;
-WarningMessage.propTypes = commonPropTypes;
 
+Icon.propTypes = Object.assign({}, commonPropTypes, {
+  icon: PropTypes.element.isRequired,
+  children: PropTypes.node,
+});
+Icon.defaultProps = commonDefaultProps;
+
+ErrorMessage.propTypes = commonPropTypes;
+ErrorMessage.defaultProps = commonDefaultProps;
+
+WarningMessage.propTypes = commonPropTypes;
 WarningMessage.defaultProps = {
   children: '(not provided)',
 };

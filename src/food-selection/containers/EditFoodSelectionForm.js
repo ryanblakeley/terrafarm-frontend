@@ -59,7 +59,7 @@ class Container extends React.Component {
     const { foodSelection, relay } = this.props;
 
     const optimisticResponse = _ => ({
-      foodSelection: Object.assign(foodSelection, patch),
+      foodSelection: Object.assign({}, foodSelection, patch),
     });
 
     const variables = {

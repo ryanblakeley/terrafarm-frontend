@@ -1,23 +1,39 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import {H2} from 'shared/components/Typography';
-import {ArrowDownIcon} from 'shared/components/Icons';
+import { H2 } from 'shared/components/Typography';
+import { ArrowDownIcon } from 'shared/components/Icons';
 import classNamesContext from 'classnames/bind';
 import classNames from '../styles/MenuHeaderStylesheet.css';
 
 const cx = classNamesContext.bind(classNames);
 
+const propTypes = {
+  icon: PropTypes.element.isRequired,
+  title: PropTypes.string.isRequired,
+  open: PropTypes.bool,
+  disabled: PropTypes.bool,
+  handleOpen: PropTypes.func,
+  handleClose: PropTypes.func,
+  handleCloseImmediate: PropTypes.func,
+};
+
+const defaultProps = {
+  open: false,
+  disabled: true,
+  handleOpen: () => {
+    console.warn('handleOpen() not provided to MenuHeader.');
+  },
+  handleClose: () => {
+    console.warn('handleClose() not provided to MenuHeader.');
+  },
+  handleCloseImmediate: () => {
+    console.warn('handleCloseImmediate() not provided to MenuHeader.');
+  },
+};
+
 class MenuHeader extends React.Component {
-  static propTypes = {
-    icon: React.PropTypes.element,
-    title: React.PropTypes.string,
-    open: React.PropTypes.bool,
-    disabled: React.PropTypes.bool,
-    handleOpen: React.PropTypes.func,
-    handleClose: React.PropTypes.func,
-    handleCloseImmediate: React.PropTypes.func,
-  };
-  toggleOpen = _ => {
-    const {open} = this.props;
+  toggleOpen = () => {
+    const { open } = this.props;
 
     if (open) {
       this.handleTouchClose();
@@ -25,29 +41,26 @@ class MenuHeader extends React.Component {
       this.handleEnter();
     }
   }
-  handleEnter = _ => {
-    const {handleOpen} = this.props;
-    if (handleOpen) handleOpen();
+  handleEnter = () => {
+    this.props.handleOpen();
   }
-  handleLeave = _ => {
-    const {handleClose} = this.props;
-    if (handleClose) handleClose();
+  handleLeave = () => {
+    this.props.handleClose();
   }
-  handleTouchClose = _ => {
-    const {handleCloseImmediate} = this.props;
-    if (handleCloseImmediate) handleCloseImmediate();
+  handleTouchClose = () => {
+    this.props.handleCloseImmediate();
   }
   render () {
-    const {icon, title, disabled} = this.props;
+    const { icon, title, disabled } = this.props;
 
     return <div className={classNames.this} >
       <div
-        className={cx({iconWrapper: true, disabled})}
+        className={cx({ iconWrapper: true, disabled })}
         onMouseEnter={this.handleEnter}
         onMouseLeave={this.handleLeave}
         onTouchTap={this.toggleOpen}
       >
-        {React.cloneElement(icon, {className: cx({iconSize: true})})}
+        {React.cloneElement(icon, { className: cx({ iconSize: true }) })}
         {!disabled && <ArrowDownIcon width={24} height={24} />}
       </div>
       <div className={classNames.titleWrapper}>
@@ -58,5 +71,8 @@ class MenuHeader extends React.Component {
     </div>;
   }
 }
+
+MenuHeader.propTypes = propTypes;
+MenuHeader.defaultProps = defaultProps;
 
 export default MenuHeader;

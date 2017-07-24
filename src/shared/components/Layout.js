@@ -6,10 +6,7 @@ import classNamesContext from '../styles/LayoutStylesheet.css';
 const cx = classnames.bind(classNamesContext);
 
 const propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
   page: PropTypes.bool,
   smallPage: PropTypes.bool,
@@ -25,6 +22,25 @@ const propTypes = {
   inline: PropTypes.bool,
   flexCenter: PropTypes.bool,
   style: PropTypes.object,
+};
+
+const defaultProps = {
+  children: null,
+  className: null,
+  page: false,
+  smallPage: false,
+  smallPageFixed: false,
+  fullPage: false,
+  center: false,
+  left: false,
+  topSmall: false,
+  topMedium: false,
+  rightSmall: false,
+  bottomMedium: false,
+  leftSmall: false,
+  inline: false,
+  flexCenter: false,
+  style: {},
 };
 
 const Layout = props => <div
@@ -49,5 +65,6 @@ const Layout = props => <div
 </div>;
 
 Layout.propTypes = propTypes;
+Layout.defaultProps = defaultProps;
 
 export default Layout;

@@ -37,10 +37,10 @@ const defaultPropTypes = {
   ]),
 };
 
-FlatButton.propTypes = Object.assign(defaultPropTypes, {
+FlatButton.propTypes = Object.assign({}, defaultPropTypes, {
   icon: PropTypes.element,
 });
-RaisedButton.propTypes = Object.assign(defaultPropTypes, {});
+RaisedButton.propTypes = defaultPropTypes;
 IconButton.propTypes = defaultPropTypes;
 MenuItem.propTypes = defaultPropTypes;
 Tabs.propTypes = defaultPropTypes;

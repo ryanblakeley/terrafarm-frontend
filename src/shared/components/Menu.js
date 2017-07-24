@@ -1,29 +1,35 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import MenuHeader from './MenuHeader';
 import MenuList from './MenuList';
 
 import classNames from '../styles/MenuStylesheet.css';
 
+const propTypes = {
+  baseUrl: PropTypes.string,
+  header: PropTypes.shape({
+    icon: PropTypes.element.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    icon: PropTypes.element,
+    title: PropTypes.string,
+    url: PropTypes.string,
+    disabled: PropTypes.bool,
+  })),
+  // notifyReset: PropTypes.func,
+  disabled: PropTypes.bool,
+  timeoutDelay: PropTypes.number,
+};
+
+const defaultProps = {
+  baseUrl: null,
+  list: null,
+  disabled: true,
+  timeoutDelay: 310,
+};
+
 class Menu extends React.Component {
-  static propTypes = {
-    baseUrl: React.PropTypes.string,
-    header: React.PropTypes.shape({
-      icon: React.PropTypes.element,
-      title: React.PropTypes.string,
-    }),
-    list: React.PropTypes.arrayOf(React.PropTypes.shape({
-      icon: React.PropTypes.element,
-      title: React.PropTypes.string,
-      url: React.PropTypes.string,
-      disabled: React.PropTypes.bool,
-    })),
-    notifyReset: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
-    timeoutDelay: React.PropTypes.number,
-  };
-  static defaultProps = {
-    timeoutDelay: 310,
-  };
   state = {
     open: false,
     enabled: true,
@@ -33,7 +39,7 @@ class Menu extends React.Component {
     clearTimeout(this.state.closeTimeoutId);
     clearTimeout(this.state.openTimeoutId);
   }
-  setOpen = _ => {
+  setOpen = () => {
     this.setState({
       openTimeoutId: setTimeout(() => {
         clearTimeout(this.state.closeTimeoutId);
@@ -43,8 +49,8 @@ class Menu extends React.Component {
       }, 1),
     });
   }
-  setClose = _ => {
-    const {timeoutDelay} = this.props;
+  setClose = () => {
+    const { timeoutDelay } = this.props;
 
     this.setState({
       closeTimeoutId: setTimeout(() => {
@@ -55,12 +61,12 @@ class Menu extends React.Component {
       }, timeoutDelay),
     });
   }
-  setCloseImmediate = _ => {
-    this.setState({open: false});
+  setCloseImmediate = () => {
+    this.setState({ open: false });
   }
   render () {
-    const {header, list, baseUrl, disabled} = this.props;
-    const {open} = this.state;
+    const { header, list, baseUrl, disabled } = this.props;
+    const { open } = this.state;
 
     return <div className={classNames.this} >
       <MenuHeader
@@ -83,5 +89,8 @@ class Menu extends React.Component {
     </div>;
   }
 }
+
+Menu.propTypes = propTypes;
+Menu.defaultProps = defaultProps;
 
 export default Menu;

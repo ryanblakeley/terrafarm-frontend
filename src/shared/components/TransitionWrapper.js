@@ -1,7 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-
 import transitionNames from '../styles/_transitions.css';
+
+const propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 const TransitionWrapper = props => <CSSTransitionGroup
   transitionName={transitionNames}
@@ -13,13 +17,6 @@ const TransitionWrapper = props => <CSSTransitionGroup
   {props.children}
 </CSSTransitionGroup>;
 
-/*
-const TransitionWrapper = props => <CSSTransitionGroup>
-  {props.children}
-</div>;
-*/
-TransitionWrapper.propTypes = {
-  children: React.PropTypes.object,
-};
+TransitionWrapper.propTypes = propTypes;
 
 export default TransitionWrapper;

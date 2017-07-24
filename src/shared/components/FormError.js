@@ -1,5 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from '../styles/FormErrorStylesheet.css';
+
+const propTypes = {
+  text: PropTypes.string,
+};
+
+const defaultProps = {
+  text: 'Form error.',
+};
 
 const FormError = props => <div className={classNames.this}>
   <p className={classNames.text}>
@@ -7,12 +16,7 @@ const FormError = props => <div className={classNames.this}>
   </p>
 </div>;
 
-FormError.propTypes = {
-  text: React.PropTypes.string,
-};
-
-FormError.defaultProps = {
-  text: 'Form error.',
-};
+FormError.propTypes = propTypes;
+FormError.defaultProps = defaultProps;
 
 export default FormError;

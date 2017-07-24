@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import {IconButton} from './Material';
-import {CloseIcon} from './Icons';
+import { IconButton } from './Material';
+import { CloseIcon } from './Icons';
 import Layout from './Layout';
 import classNames from '../styles/CloseButtonStylesheet.css';
 
@@ -10,17 +11,19 @@ const styles = {
   },
 };
 
+const propTypes = {
+  notifyClose: PropTypes.func.isRequired,
+};
+
 const CloseButton = props => <Layout center>
   <IconButton
-    onTouchTap={_ => props.notifyClose()}
+    onTouchTap={() => props.notifyClose()}
     style={styles.closeButton}
   >
     <CloseIcon className={classNames.icon} />
   </IconButton>
 </Layout>;
 
-CloseButton.propTypes = {
-  notifyClose: React.PropTypes.func.isRequired,
-};
+CloseButton.propTypes = propTypes;
 
 export default CloseButton;

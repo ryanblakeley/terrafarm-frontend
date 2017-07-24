@@ -1,7 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
-import {H2, H3, P} from 'shared/components/Typography';
+import { H2, H3, P } from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
+
+const propTypes = {
+  message: PropTypes.string,
+};
+
+const defaultProps = {
+  message: 'Page not found.',
+};
 
 /* eslint no-useless-escape: 0 */
 const NotFoundPage = props => <TransitionWrapper>
@@ -14,12 +23,7 @@ const NotFoundPage = props => <TransitionWrapper>
   </Layout>
 </TransitionWrapper>;
 
-NotFoundPage.propTypes = {
-  message: React.PropTypes.string,
-};
-
-NotFoundPage.defaultProps = {
-  message: 'Page not found.',
-};
+NotFoundPage.propTypes = propTypes;
+NotFoundPage.defaultProps = defaultProps;
 
 export default NotFoundPage;

@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // import IoLogIn from 'react-icons/lib/io/log-in';
@@ -36,7 +37,7 @@ import logoIcon from '../elements/logo_icon.svg';
 import logoFull from '../elements/logo_full_xlarge.png';
 import logoName from '../elements/logo_name.png';
 
-import {Icon} from './Typography';
+import { Icon } from './Typography';
 
 const LogoIcon = props => <img src={logoIcon} alt={'terrafarm_logo'} {...props} />;
 const LogoFullIcon = props => <img src={logoFull} alt={'Terrafarm'} {...props} />;
@@ -73,18 +74,24 @@ const CloseIcon = props => <Icon icon={<IoIosCloseOutline />} {...props} />;
 const ReloadIcon = props => <Icon icon={<IoRefreshOutline />} {...props} />;
 
 const commonPropTypes = {
-  className: React.PropTypes.string,
-  style: React.PropTypes.object,
-  width: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]),
-  height: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  height: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]),
 };
-const commonDefaultProps = {width: 40, height: 40};
+
+const commonDefaultProps = {
+  className: null,
+  style: {},
+  width: 40,
+  height: 40,
+};
 
 LogoIcon.propTypes = commonPropTypes;
 // LoginIcon.propTypes = commonPropTypes;

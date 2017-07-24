@@ -17,8 +17,8 @@ const LoadMoreButton = props => {
     const newCount = props.location.query.count > 3
       ? props.location.query.count + props.increment
       : 8;
-    const newQuery = Object.assign(props.location.query, {count: newCount});
-    const newLocation = Object.assign(props.location, {query: newQuery});
+    const newQuery = Object.assign({}, props.location.query, {count: newCount});
+    const newLocation = Object.assign({}, props.location, {query: newQuery});
 
     props.router.replace(newLocation);
   };

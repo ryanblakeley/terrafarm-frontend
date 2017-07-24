@@ -9,8 +9,9 @@ import NotFound from 'not-found/components/NotFoundPage';
 
 // user
 import UserContainer from 'user/containers/UserContainer';
-// import JournalContainer from 'user/containers/JournalContainer';
 import UserContainerQuery from 'user/queries/UserContainerQuery';
+import UserJournalContainer from 'user/containers/UserJournalContainer';
+import UserJournalContainerQuery from 'user/queries/UserJournalContainerQuery';
 
 // food selection
 // import EditFoodSelectionContainer from 'food-selection/containers/EditFoodSelectionContainer';
@@ -24,16 +25,18 @@ export default makeRouteConfig(
       path={'user/:userId'}
       Component={UserContainer}
       query={UserContainerQuery}
-    />
-    <Route path={'*'} Component={NotFound} />
-  </Route>,
-);
-/*
+    >
       <Route
         path={'food-journal'}
         Component={UserJournalContainer}
         query={UserJournalContainerQuery}
-      >
+        prepareVariables={params => ({ ...params, first: 1, orderBy: 'DATE_DESC' })}
+      />
+    </Route>
+    <Route path={'*'} Component={NotFound} />
+  </Route>,
+);
+/*
         <Route
           path={'edit/:foodSelectionId'}
           Component={EditFoodSelectionContainer}

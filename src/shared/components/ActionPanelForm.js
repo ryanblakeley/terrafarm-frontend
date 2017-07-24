@@ -1,31 +1,36 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
-import {H5, P} from 'shared/components/Typography';
-import {Form} from 'shared/components/Form';
-import {FlatButton, RaisedButton} from 'shared/components/Material';
+import { H5, P } from 'shared/components/Typography';
+import { Form } from 'shared/components/Form';
+import { FlatButton, RaisedButton } from 'shared/components/Material';
 import CloseButton from 'shared/components/CloseButton';
 import FormError from 'shared/components/FormError';
 import classNames from '../styles/ActionPanelFormStylesheet.css';
 
+const propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  bodyText: PropTypes.element,
+  showForm: PropTypes.bool,
+  notifyClose: PropTypes.func.isRequired,
+  onValidSubmit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
+};
+
+const defaultProps = {
+  bodyText: null,
+  showForm: true,
+  onDelete: () => {
+    console.warn('onDelete method not provided to form container.');
+  },
+  error: false,
+  errorMessage: 'Internal server error.',
+};
+
 class ActionPanelForm extends React.Component {
-  static propTypes = {
-    title: React.PropTypes.string,
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.object, React.PropTypes.array,
-    ]),
-    bodyText: React.PropTypes.element,
-    showForm: React.PropTypes.bool,
-    notifyClose: React.PropTypes.func,
-    onValidSubmit: React.PropTypes.func,
-    onDelete: React.PropTypes.func,
-    error: React.PropTypes.bool,
-    errorMessage: React.PropTypes.string,
-  };
-  static defaultProps = {
-    showForm: true,
-    error: false,
-    errorMessage: 'Internal server error.',
-  };
   state = {
     canSubmit: false,
   };
@@ -36,8 +41,7 @@ class ActionPanelForm extends React.Component {
     this.setState({ canSubmit: false });
   }
   handleClose = () => {
-    const {notifyClose} = this.props;
-    if (notifyClose) notifyClose();
+    this.props.notifyClose();
   }
   handleFormError = data => {
     /*
@@ -49,8 +53,8 @@ class ActionPanelForm extends React.Component {
     console.error('Form error:', data);
   }
   handleSubmit = data => {
-    const {onValidSubmit} = this.props;
-    const {canSubmit} = this.state;
+    const { onValidSubmit } = this.props;
+    const { canSubmit } = this.state;
 
     if (!canSubmit) {
       console.warn('Form is not ready');
@@ -61,8 +65,7 @@ class ActionPanelForm extends React.Component {
     }
   }
   handleDelete = () => {
-    const {onDelete} = this.props;
-    if (onDelete) onDelete();
+    this.props.onDelete();
     this.handleClose();
   }
   render () {
@@ -76,7 +79,7 @@ class ActionPanelForm extends React.Component {
       errorMessage,
       notifyClose,
     } = this.props;
-    const {canSubmit} = this.state;
+    const { canSubmit } = this.state;
 
     return <div className={classNames.this}>
       {notifyClose && <CloseButton notifyClose={this.handleClose} />}
@@ -111,5 +114,8 @@ class ActionPanelForm extends React.Component {
     </div>;
   }
 }
+
+ActionPanelForm.propTypes = propTypes;
+ActionPanelForm.defaultProps = defaultProps;
 
 export default ActionPanelForm;
