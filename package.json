@@ -11,13 +11,13 @@
   "scripts": {
     "setup": "cp -n .env.example .env || true",
     "schema": "gulp load-schema",
-    "relay-compiler": "relay-compiler --src ./src --schema ./data/schema.graphql",
-    "relay-compiler-watch": "relay-compiler --src ./src --schema ./data/schema.graphql --watch",
+    "relay": "relay-compiler --src ./src --schema ./data/schema.graphql",
+    "relay-watch": "relay-compiler --src ./src --schema ./data/schema.graphql --watch",
     "dev-server": "gulp webpack-dev-server",
-    "dev": "npm run relay-compiler && npm run dev-server",
+    "dev": "npm run relay && npm run dev-server",
     "lint": "eslint ./src",
     "test": "NODE_ENV=test ./node_modules/mocha/bin/_mocha --opts spec/mocha.opts",
-    "build": "rimraf build && npm run relay-compiler && WEBPACK_ENV=production gulp build",
+    "build": "rimraf build && npm run relay && WEBPACK_ENV=production gulp build",
     "start": "pm2 start ecosystem.json --env production",
     "restart": "pm2 restart ecosystem.json",
     "stop": "pm2 stop terrafarm-frontend"

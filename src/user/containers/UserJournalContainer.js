@@ -28,6 +28,13 @@ export default createFragmentContainer(
   graphql`
     fragment UserJournalContainer_userByRowId on User {
       rowId,
+      foodSelectionsByUserId(first: $count, orderBy: $orderBy) {
+        edges {
+          node {
+            date,
+          },
+        },
+      },
     }
   `,
 );

@@ -30,7 +30,7 @@ export default makeRouteConfig(
         path={'food-journal'}
         Component={UserJournalContainer}
         query={UserJournalContainerQuery}
-        prepareVariables={params => ({ ...params, first: 1, orderBy: 'DATE_DESC' })}
+        prepareVariables={params => ({ ...params, count: 1, orderBy: 'DATE_DESC' })}
       />
     </Route>
     <Route path={'*'} Component={NotFound} />
