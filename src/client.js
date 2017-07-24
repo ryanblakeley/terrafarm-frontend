@@ -4,8 +4,6 @@ import { AppContainer } from 'react-hot-loader';
 import Root from './Root';
 
 const mountNode = document.getElementById('root');
-// document.createElement('div');
-// document.body.appendChild(mountNode);
 
 const render = Component => {
   ReactDOM.render(

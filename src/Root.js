@@ -6,17 +6,17 @@ import queryMiddleware from 'farce/lib/queryMiddleware';
 import createFarceRouter from 'found/lib/createFarceRouter';
 import createRender from 'found/lib/createRender';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import { ClientFetcher } from 'fetcher';
+import routes from 'routes';
 import LoadingComponent from 'core/components/LoadingComponent';
 import ErrorComponent from 'core/components/ErrorComponent';
+
 import 'sanitize.css/sanitize.css';
 import 'shared/styles/_fonts.css';
 import 'shared/styles/_base.css';
-import routes from './routes';
 
 injectTapEventPlugin();
-
-const clientFetcher = new ClientFetcher('/graphql-api', []);
 
 function createResolver (fetcher) {
   const environment = new Environment({
@@ -36,13 +36,16 @@ const Router = createFarceRouter({
     renderPending: () => <LoadingComponent />,
     renderError: error => {
       console.error(`Relay renderer ${error}`);
-      return <ErrorComponent />; // renderArgs.retry?
+      return <ErrorComponent />;
+      // TODO retry={renderArgs.retry}
+      // https://github.com/4Catalyzer/found-relay/issues/53#issuecomment-317285004
     },
   }),
 });
 
-// prop.key = Math.random() for hot loader?
-
-const Root = () => <Router resolver={createResolver(clientFetcher)} />;
+const Root = () => <Router
+  resolver={createResolver(new ClientFetcher('/graphql-api', []))}
+  key={Math.random()}
+/>;
 
 export default Root;

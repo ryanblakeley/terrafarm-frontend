@@ -1,28 +1,34 @@
 # js
 
-Directories in this folder other than `./shared` are considered `containers`.
+Directories in this folder other than `./shared` group features for first-level
+url routes. Each has sub-directories for `containers`, `components`, `styles`,
+`mutations`, and `queries`. Modules that don't interact with the API and get
+used across routes go in `./shared`. 
 
-`./TEMPLATE` can be copied to start a new container.
+`./TEMPLATE` can be copied to start a new first-level url feature.
 
 
 ## containers
 
-> These containers are used by Routes in `./index.js` or by other containers.
+> These containers are used by Routes in `./routes.js` or by other containers.
 
 A container can represent a page or a fragment of a page.
+
+A container can be a Relay `<QueryRenderer>` or `<FragmentContainer>`.
 
 A container is composed of `components` from its own directory and possibly from `./shared/components/*`.
 
 A container can have layout styles, but `components` handle visual stuff with their own stylesheets.
 
 A container is allowed to import the following stuff:
-* `<container>/components/<component>`
-* `<container>/styles/<container>Stylesheet.css`
+* `<feature>/containers/<container>`
+* `<feature>/components/<component>`
+* `<feature>/styles/<container>Stylesheet.css`
 * `./shared/*`
 
 Don't import:
-* `<container>/elements/<element>` -> wrap the element in a component.
-* `<container>/mutations/<mutation>` -> wrap the mutation in a component.
+* `<feature>/elements/<element>` -> wrap the element in a component.
+* `<feature>/mutations/<mutation>` -> wrap the mutation in a component.
 
 
 ## components
@@ -43,7 +49,7 @@ Don't import:
 
 > The elements are used by `components` or by other elements.
 
-An element doesn't do any data fetching and expects data pass via `props`. It represents a low-level reuseable component that can be used by different components. An element doesn't have state. An element expects low-level data.
+An element doesn't do any data fetching or manipulation and expects data pass via `props`. It represents a low-level reuseable component that can be used by different components. An element doesn't have state. An element expects low-level data.
 
 An element brings its own styles. Optionally it can take class names to override styling (theming).
 
@@ -59,13 +65,22 @@ Don't import:
 * `mutations/*` -> components should handle mutations.
 
 
+## queries
+
+> The queries are used by `containers`.
+
+A query uses GraphQL to handle backend data fetching.
+
+A query does not import anything. It composes a GraphQL query string.
+
+
 ## mutations
 
 > The mutations are used by `components`.
 
-A mutation uses Relay to handle a backend data mutation.
+A mutation uses GraphQL to handle a backend data mutation.
 
-A mutation does not import anything. It uses the Relay `getMutation` API to get the GraphQL mutation.
+A mutation does not import anything. It composes a GraphQL mutation query string.
 
 
 ## styles
@@ -74,6 +89,6 @@ A mutation does not import anything. It uses the Relay `getMutation` API to get 
 
 These are CSS-module stylesheets. Each component should have its own namespaced stylesheet if it needs any CSS.
 
-Some style rules may be composed from `./shared/styles/_<stylesheet>`.
+Style rules may be composed from other style rules.
 
 See [this post](https://css-modules.github.io/webpack-demo/) for info on CSS Modules.

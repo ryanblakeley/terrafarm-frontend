@@ -14,5 +14,8 @@
     "import/resolver": {
       "babel-module": {}
     }
+  },
+  "rules": {
+    "no-console": 0,
   }
 }

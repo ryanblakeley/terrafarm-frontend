@@ -8,6 +8,7 @@ const app = express();
 const { PRIVATE_IP, API_IP, PORT, API_PORT } = process.env;
 
 const publicPath = path.join(__dirname, '/..', 'public');
+
 const proxyOptions = {
   target: `http://${API_IP}:${API_PORT}/graphql-api`,
   ignorePath: true,
@@ -18,7 +19,7 @@ function getFromProxy (req, res) {
   req.removeAllListeners('data');
   req.removeAllListeners('end');
 
-  process.nextTick(_ => {
+  process.nextTick(() => {
     if (req.body) {
       req.emit('data', JSON.stringify(req.body));
     }
@@ -29,12 +30,15 @@ function getFromProxy (req, res) {
 }
 
 app.use(express.static(publicPath));
+
 app.use(bodyParser.json({ limit: '1mb' }));
+
 app.use('/graphql-api', getFromProxy);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
+
 app.listen(PORT, PRIVATE_IP, err => {
   if (err) {
     console.log(`[Error]: ${err}`);

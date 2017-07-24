@@ -3,7 +3,7 @@ import Route from 'found/lib/Route';
 import React from 'react';
 
 // static
-import {CorePage} from 'core/components/CorePage';
+import { CorePage } from 'core/components/CorePage';
 import HomePage from 'home/components/HomePage';
 import NotFound from 'not-found/components/NotFoundPage';
 

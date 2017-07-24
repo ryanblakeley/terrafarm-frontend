@@ -33,7 +33,9 @@ export class ClientFetcher extends FetcherBase {
   }
 }
 
-// TODO for isomorphic rendering
+/*
+TODO: Update this when someone releases a real, production-quality solution for
+handling universal rendering with Relay Modern.
 
 export class ServerFetcher extends FetcherBase {
   constructor (url) {
@@ -54,15 +56,20 @@ export class ServerFetcher extends FetcherBase {
     return this.payloads;
   }
 }
+*/
 
 /*
+NOTE: The fetcher class in this file gets consumed by Relay.Network.create()
+which is then consumed by found-relay's `Resolver` constructor.
 
-NOTE on Relay API
-
-Relay.Network(function fetchQuery (
+See `./Root.js` for how this gets used. The args for a fetch look like:
+```
+function fetchQuery (
   operation,
   variables,
   cacheConfig,
   uploadables,
-))
+)
+```
+...but found-relay deals with all of this stuff for us.
 */
