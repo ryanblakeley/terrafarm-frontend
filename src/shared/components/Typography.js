@@ -62,6 +62,8 @@ const Link = props => <InternalLink
   children={props.children}
   disabled={props.disabled}
   style={props.style}
+  activeClassName={props.activeClassName}
+  exact={props.exact}
 />;
 const UL = props => <ul
   className={`${props.className ? props.className : ''} ${classNames.list} ${props.plumb ? classNames.plumb : ''}`}
@@ -141,6 +143,8 @@ Link.propTypes = Object.assign({}, commonPropTypes, {
     PropTypes.object,
   ]).isRequired,
   disabled: PropTypes.bool,
+  activeClassName: PropTypes.string,
+  exact: PropTypes.bool,
 });
 Link.defaultProps = Object.assign({}, commonDefaultProps, {
   disabled: false,

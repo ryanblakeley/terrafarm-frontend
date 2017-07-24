@@ -2,6 +2,8 @@
   display: flex; align-items: center; cursor: pointer;
   height: 80px;
 }
+.this.active { visibility: hidden; }
+
 .logoIcon { margin: 14px 0 14px 14px; }
 .icon {
   font-size: 52px;
