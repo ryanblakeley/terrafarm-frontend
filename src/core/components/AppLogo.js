@@ -26,7 +26,6 @@ const AppLogo = props => <Link
   activeClassName={classNames.active}
   exact
 >
-  {console.log('Logo props:', props)}
   <AppLogoIcon />
   <AppLogoName />
 </Link>;
