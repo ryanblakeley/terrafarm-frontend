@@ -57,11 +57,11 @@ class EditFoodSelectionContainer extends React.Component {
   }
   updateFoodSelection (patch) {
     const { foodSelectionByRowId: foodSelection, relay } = this.props;
-
+/*
     const optimisticResponse = () => ({
       foodSelection: Object.assign({}, foodSelection, patch),
     });
-
+*/
     const variables = {
       input: {
         id: foodSelection.id,
@@ -73,7 +73,7 @@ class EditFoodSelectionContainer extends React.Component {
       relay.environment,
       {
         mutation: UpdateFoodSelectionMutation,
-        optimisticResponse,
+        // optimisticResponse,
         variables,
         onCompleted: this.handleSuccess,
         onError: this.handleFailure,
