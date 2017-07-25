@@ -5,6 +5,7 @@ import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
 import UserJournalDateRootContainer from 'user/containers/UserJournalDateRootContainer';
+import classNames from '../styles/UserJournalContainerStylesheet.css';
 
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,
@@ -67,15 +68,17 @@ class UserJournalContainer extends React.Component {
     ));
 
     return <TransitionWrapper>
-      <Layout page>
-        {children && <ActionPanel
-          notifyClose={() => router.replace(`/user/${user.rowId}/food-journal`)}
-        >
-          {children}
-        </ActionPanel>}
-        <Layout>
+      <Layout page topSmall className={classNames.this}>
+        <Layout className={classNames.journalDatesWrapper}>
           {journalDateRootContainers}
         </Layout>
+        {children && <Layout className={classNames.editFoodSelectionPanelWrapper}>
+          <ActionPanel
+            notifyClose={() => router.replace(`/user/${user.rowId}/food-journal`)}
+          >
+            {children}
+          </ActionPanel>
+        </Layout>}
       </Layout>
     </TransitionWrapper>;
   }

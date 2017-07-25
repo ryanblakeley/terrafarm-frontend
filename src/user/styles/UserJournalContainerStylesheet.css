@@ -1,0 +1,3 @@
+.this { display: flex; justify-content: center; }
+.journalDatesWrapper { flex-grow: 1; }
+.editFoodSelectionPanelWrapper { flex-grow: 1; }

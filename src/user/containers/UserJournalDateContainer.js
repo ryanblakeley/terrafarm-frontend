@@ -2,16 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Layout from 'shared/components/Layout';
-import { P, Link } from 'shared/components/Typography';
-
-// TODO:
-// - import JournalDateHeader from 'user/components/JournalDateHeader';
-// - import JournalItem from 'user/components/JournalItem';
+import JournalDateHeader from '../components/JournalDateHeader';
+import JournalFoodSelection from '../components/JournalFoodSelection';
 
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
-  // relay: PropTypes.object.isRequired,
 };
 
 class UserJournalDateContainer extends React.Component {
@@ -93,25 +89,29 @@ class UserJournalDateContainer extends React.Component {
     const { completeness, calories, protein, fat, carbs } = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
 
-    const journalRowElements = foodSelections.map(({ node }) => {
-      const {
-        rowId: foodSelectionId,
-        foodDescription: label,
-        unitQuantity: number,
-        unitOfMeasureByUnitOfMeasureId: unit,
-      } = node;
-      const url = `/user/${user.rowId}/food-journal/edit/${foodSelectionId}`;
+    const journalFoodSelections = foodSelections.map(({ node }) => {
+      const { rowId, foodDescription, unitQuantity, unitOfMeasureByUnitOfMeasureId: unit } = node;
+      const url = `/user/${user.rowId}/food-journal/edit/${rowId}`;
 
-      return <div key={foodSelectionId}>
-        <span>{label}, </span>
-        <span>{number}, {unit && unit.fullName}, </span>
-        <Link to={url}><b>edit</b></Link>
-      </div>;
+      return <JournalFoodSelection
+        key={rowId}
+        foodName={foodDescription}
+        unitQuantity={unitQuantity}
+        unitName={unit ? unit.fullName : ''}
+        url={url}
+      />;
     });
 
     return <Layout center>
-      <P>{date} | {calories} | {protein}g | {fat}g | {carbs}g | {completeness}%</P>
-      {journalRowElements}
+      <JournalDateHeader
+        date={date}
+        calories={calories}
+        protein={protein}
+        fat={fat}
+        carbs={carbs}
+        completeness={completeness}
+      />
+      {journalFoodSelections}
     </Layout>;
   }
 }

@@ -5,8 +5,6 @@ import { PersonIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-// import JournalRootContainer from 'user/containers/JournalRootContainer';
-// <JournalRootContainer userId={props.user.rowId} environment={props.relay.environment} />
 
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,

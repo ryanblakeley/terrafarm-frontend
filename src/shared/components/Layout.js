@@ -6,63 +6,46 @@ import classNamesContext from '../styles/LayoutStylesheet.css';
 const cx = classnames.bind(classNamesContext);
 
 const propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
   page: PropTypes.bool,
-  smallPage: PropTypes.bool,
-  smallPageFixed: PropTypes.bool,
-  fullPage: PropTypes.bool,
   center: PropTypes.bool,
   left: PropTypes.bool,
   topSmall: PropTypes.bool,
   topMedium: PropTypes.bool,
-  rightSmall: PropTypes.bool,
+  bottomSmall: PropTypes.bool,
   bottomMedium: PropTypes.bool,
   leftSmall: PropTypes.bool,
   inline: PropTypes.bool,
   flexCenter: PropTypes.bool,
+  className: PropTypes.string,
   style: PropTypes.object,
+  children: PropTypes.node,
 };
 
 const defaultProps = {
-  children: null,
-  className: null,
   page: false,
-  smallPage: false,
-  smallPageFixed: false,
-  fullPage: false,
   center: false,
   left: false,
   topSmall: false,
   topMedium: false,
-  rightSmall: false,
+  bottomSmall: false,
   bottomMedium: false,
   leftSmall: false,
   inline: false,
   flexCenter: false,
+  className: '',
   style: {},
+  children: null,
 };
 
-const Layout = props => <div
-  className={`${cx({
-    page: props.page,
-    smallPage: props.smallPage,
-    smallPageFixed: props.smallPageFixed,
-    fullPage: props.fullPage,
-    center: props.center,
-    left: props.left,
-    topSmall: props.topSmall,
-    topMedium: props.topMedium,
-    rightSmall: props.rightSmall,
-    bottomMedium: props.bottomMedium,
-    leftSmall: props.leftSmall,
-    inline: props.inline,
-    flexCenter: props.flexCenter,
-  })} ${props.className ? props.className : ''}`}
-  style={props.style}
->
-  {props.children}
-</div>;
+const Layout = props => {
+  const { className, style, children, ...rest } = props;
+  return <div
+    className={`${cx({ ...rest })} ${className}`}
+    style={style}
+  >
+    {children}
+  </div>;
+};
 
 Layout.propTypes = propTypes;
 Layout.defaultProps = defaultProps;

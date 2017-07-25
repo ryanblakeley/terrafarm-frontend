@@ -1,17 +1,13 @@
 .page { position: relative; margin: 0 auto; width: 100%; }
-.pageSmall { position: relative; margin: 0 auto; max-width: 300px; }
-.pageFull { position: relative; margin: 0 auto; width: 100%; }
-.pageGutter { margin: 0 auto; width: 92%; }
-.description { margin: 1.67em auto 3em; text-align: center; } /* DEPRECATE */
-.center { text-align: center; margin: 0 auto; width: 100%; }
+.center { margin: 0 auto; width: 100%; text-align: center; }
 .left { text-align: left; }
 .topSmall { margin-top: 15px; }
 .topMedium { margin-top: 25px; }
-.rightSmall { margin-right: 15px; }
+.bottomSmall { margin-bottom: 15px; }
 .bottomMedium { margin-bottom: 25px; }
 .leftSmall { margin-left: 8px; }
-.flexCenter { display: flex; align-items: center; justify-content: center; }
 .inline { display: inline-block; }
+.flexCenter { display: flex; align-items: center; justify-content: center; }
 
 @media only screen and (min-width: 680px) {
   .page { width: 650px; }
