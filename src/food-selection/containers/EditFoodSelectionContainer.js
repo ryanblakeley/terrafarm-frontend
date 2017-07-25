@@ -23,6 +23,7 @@ class EditFoodSelectionContainer extends React.Component {
   state = {
     error: false,
     formData: {},
+    isChangingDate: false,
   };
   handleSubmit = data => {
     this.setState({ formData: data });
@@ -43,8 +44,13 @@ class EditFoodSelectionContainer extends React.Component {
     );
     */
   }
-  handleSuccess = response => {
-    console.log('FoodSelection Edit SUCCESS:', response);
+  handleSuccess = response => { // eslint-disable-line no-unused-vars
+    if (this.state.isChangingDate) {
+      // Special case where we need to forcefully refetch data. Until found-relay
+      // offers a way to do this we just have to reload the whole page.
+      window.location.reload();
+    }
+
     this.props.notifyClose();
   }
   handleFailure = error => {
@@ -68,6 +74,8 @@ class EditFoodSelectionContainer extends React.Component {
         foodSelectionPatch: patch,
       },
     };
+
+    this.setState({ isChangingDate: foodSelection.date !== patch.date });
 
     commitMutation(
       relay.environment,
