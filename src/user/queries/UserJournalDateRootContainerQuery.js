@@ -6,7 +6,6 @@ const UserJournalDateRootContainerQuery = graphql`
     $condition: FoodSelectionCondition!,
   ) {
     userByRowId(rowId: $userId) {
-      ...UserJournalDateContainer_userByRowId,
       foodSelectionsByUserId(
         condition: $condition,
         first: 2147483647,
@@ -18,6 +17,7 @@ const UserJournalDateRootContainerQuery = graphql`
           },
         },
       },
+      ...UserJournalDateContainer_userByRowId,
     },
   }
 `;
