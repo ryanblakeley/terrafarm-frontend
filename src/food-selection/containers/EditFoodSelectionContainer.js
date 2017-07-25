@@ -1,23 +1,25 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   createFragmentContainer,
   commitMutation,
   graphql,
-} from 'react-relay/compat';
+} from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import {TextInput, validationErrors} from 'shared/components/Form';
+import { TextInput, validationErrors } from 'shared/components/Form';
 import validations from 'tools/validations';
 import UpdateFoodSelectionMutation from '../mutations/UpdateFoodSelectionMutation';
 // TODO import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
 
-class Container extends React.Component {
-  static propTypes = {
-    relay: React.PropTypes.object,
-    foodSelection: React.PropTypes.object,
-    user: React.PropTypes.object,
-    notifyClose: React.PropTypes.func,
-    children: React.PropTypes.object,
-  };
+const propTypes = {
+  userByRowId: PropTypes.object.isRequired,
+  foodSelectionByRowId: PropTypes.object.isRequired,
+  notifyClose: PropTypes.func.isRequired,
+  relay: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
+};
+
+class EditFoodSelectionContainer extends React.Component {
   state = {
     error: false,
     formData: {},
@@ -42,23 +44,21 @@ class Container extends React.Component {
     */
   }
   handleSuccess = response => {
+    console.log('FoodSelection Edit SUCCESS:', response);
     this.props.notifyClose();
   }
   handleFailure = error => {
     this.setState({ error: !!error });
   }
   handleSuccessDelete = response => {
-    /*
-    TODO router either on props or context
-    const {user} = this.props;
-    const {router} = this.context;
+    console.log('FoodSelection Delete SUCCESS:', response);
+    const { userByRowId: user, router } = this.props;
     router.replace(`/user/${user.rowId}`);
-    */
   }
   updateFoodSelection (patch) {
-    const { foodSelection, relay } = this.props;
+    const { foodSelectionByRowId: foodSelection, relay } = this.props;
 
-    const optimisticResponse = _ => ({
+    const optimisticResponse = () => ({
       foodSelection: Object.assign({}, foodSelection, patch),
     });
 
@@ -81,8 +81,8 @@ class Container extends React.Component {
     );
   }
   render () {
-    const {foodSelection, notifyClose, children} = this.props;
-    const {error} = this.state;
+    const { foodSelectionByRowId: foodSelection, notifyClose } = this.props;
+    const { error } = this.state;
 
     return <ActionPanelForm
       title={'Edit Food Selection'}
@@ -96,7 +96,7 @@ class Container extends React.Component {
         name={'foodId'}
         label={'USDA Number'}
         value={String(foodSelection.foodId)}
-        validations={{isNumeric: true, maxLength: 8}}
+        validations={{ isNumeric: true, maxLength: 8 }}
         validationError={validationErrors.number}
         maxLength={8}
         required
@@ -105,34 +105,29 @@ class Container extends React.Component {
         name={'date'}
         label={'Date'}
         value={foodSelection.date}
-        validations={{matchRegexp: validations.matchDate}}
+        validations={{ matchRegexp: validations.matchDate }}
         validationError={validationErrors.date}
         required
       />
-      {children}
     </ActionPanelForm>;
   }
 }
 
-export default createFragmentContainer(Container, {
-  /* TODO manually deal with:
-  initialVariables: {
-    foodSelectionId: null,
-    userId: null,
-  }
-  */
-  foodSelection: graphql`
-    fragment EditFoodSelectionForm_foodSelection on FoodSelection {
+EditFoodSelectionContainer.propTypes = propTypes;
+
+export default createFragmentContainer(EditFoodSelectionContainer, {
+  userByRowId: graphql`
+    fragment EditFoodSelectionContainer_userByRowId on User {
+      rowId,
+    }
+  `,
+  foodSelectionByRowId: graphql`
+    fragment EditFoodSelectionContainer_foodSelectionByRowId on FoodSelection {
       id,
       rowId,
       foodDescription
       foodId
       date,
-    }
-  `,
-  user: graphql`
-    fragment EditFoodSelectionForm_user on User {
-      rowId,
     }
   `,
 });

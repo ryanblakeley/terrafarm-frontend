@@ -14,9 +14,9 @@ import UserJournalContainer from 'user/containers/UserJournalContainer';
 import UserJournalContainerQuery from 'user/queries/UserJournalContainerQuery';
 
 // food selection
-// import EditFoodSelectionContainer from 'food-selection/containers/EditFoodSelectionContainer';
-// import EditFoodSelectionContainerQuery
-// from 'food-selection/queries/EditFoodSelectionContainerQuery';
+import EditFoodSelectionContainer from 'food-selection/containers/EditFoodSelectionContainer';
+import EditFoodSelectionContainerQuery
+  from 'food-selection/queries/EditFoodSelectionContainerQuery';
 
 export default makeRouteConfig(
   <Route path={'/'} Component={CorePage}>
@@ -31,12 +31,7 @@ export default makeRouteConfig(
         Component={UserJournalContainer}
         query={UserJournalContainerQuery}
         prepareVariables={params => ({ ...params, count: 1, orderBy: 'DATE_DESC' })}
-      />
-    </Route>
-    <Route path={'*'} Component={NotFound} />
-  </Route>,
-);
-/*
+      >
         <Route
           path={'edit/:foodSelectionId'}
           Component={EditFoodSelectionContainer}
@@ -44,5 +39,6 @@ export default makeRouteConfig(
         />
       </Route>
     </Route>
-  </Route>
-*/
+    <Route path={'*'} Component={NotFound} />
+  </Route>,
+);
