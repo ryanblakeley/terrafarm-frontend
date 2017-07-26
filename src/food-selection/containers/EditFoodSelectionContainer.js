@@ -100,7 +100,7 @@ class EditFoodSelectionContainer extends React.Component {
       />
       <TextInput
         name={'time'}
-        label={'Time'}
+        label={'Time (converts to 24-hour)'}
         value={foodSelection.time}
         convertValue={v => moment(v, 'HH:mm:ss a').format('HH:mm:ss')}
         validations={{ isTime: validations.isTime }}
