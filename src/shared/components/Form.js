@@ -4,6 +4,7 @@ import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 import FormsyCheckbox from 'formsy-material-ui/lib/FormsyCheckbox';
+import FormsyDate from 'formsy-material-ui/lib/FormsyDate';
 import { blueGrey900 } from 'tools/colors';
 import classNames from '../styles/FormStylesheet.css';
 
@@ -115,6 +116,35 @@ const checkboxDefaultProps = {
 
 const Checkbox = props => <FormsyCheckbox {...props} />;
 
+const datePickerPropTypes = {
+  defaultDate: PropTypes.object,
+  name: PropTypes.string.isRequired,
+  requiredError: PropTypes.string,
+  validationError: PropTypes.string,
+  validationErrors: PropTypes.object,
+  validations: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  value: PropTypes.object,
+  style: PropTypes.object,
+};
+
+const datePickerDefaultProps = {
+  defaultDate: {},
+  required: false,
+  requiredError: 'Field is required',
+  validationError: null,
+  validationErrors: {},
+  validations: null,
+  value: null,
+  style: {
+    fontFamily: 'Simonetta, serif',
+  },
+};
+
+const DatePicker = props => <FormsyDate {...props} />;
+
 const validationErrors = {
   url: 'Should be a url, e.x. http://imgur.com/abc123',
   maxLength: 'Character limit reached.',
@@ -132,8 +162,11 @@ Form.propTypes = formPropTypes;
 TextInput.propTypes = textInputPropTypes;
 SelectInput.propTypes = selectInputPropTypes;
 Checkbox.propTypes = checkboxPropTypes;
+DatePicker.propTypes = datePickerPropTypes;
+
 TextInput.defaultProps = textInputDefaultProps;
 SelectInput.defaultProps = selectInputDefaultProps;
 Checkbox.defaultProps = checkboxDefaultProps;
+DatePicker.defaultProps = datePickerDefaultProps;
 
-export { Form, TextInput, SelectInput, Checkbox, validationErrors };
+export { Form, TextInput, SelectInput, Checkbox, DatePicker, validationErrors };
