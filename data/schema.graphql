@@ -247,120 +247,6 @@ enum BrandsOrderBy {
   UPDATED_AT_DESC
 }
 
-# A chemical process or activity that changes the nutrition per 100g of a food.
-type ChemicalChange implements Node {
-  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  id: ID!
-
-  # The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.
-  name: String!
-
-  # Details about the physical change, e.x. 1"x1"x2" pieces.
-  description: String
-
-  # The time this object was created.
-  createdAt: Datetime
-
-  # Reads and enables pagination through a set of `FoodSelection`.
-  foodSelectionsByChemicalChangeName(
-    # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: FoodSelectionCondition
-  ): FoodSelectionsConnection
-}
-
-# A condition to be used against `ChemicalChange` object types. All fields are
-# tested for equality and combined with a logical ‘and.’
-input ChemicalChangeCondition {
-  # Checks for equality with the object’s `name` field.
-  name: String
-
-  # Checks for equality with the object’s `description` field.
-  description: String
-
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
-}
-
-# A chemical process or activity that changes the nutrition per 100g of a food.
-input ChemicalChangeInput {
-  # The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.
-  name: String!
-
-  # Details about the physical change, e.x. 1"x1"x2" pieces.
-  description: String
-
-  # The time this object was created.
-  createdAt: Datetime
-}
-
-# Represents an update to a `ChemicalChange`. Fields that are set will be updated.
-input ChemicalChangePatch {
-  # The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.
-  name: String
-
-  # Details about the physical change, e.x. 1"x1"x2" pieces.
-  description: String
-
-  # The time this object was created.
-  createdAt: Datetime
-}
-
-# A connection to a list of `ChemicalChange` values.
-type ChemicalChangesConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # The count of *all* `ChemicalChange` you could get from the connection.
-  totalCount: Int
-
-  # A list of edges which contains the `ChemicalChange` and cursor to aid in pagination.
-  edges: [ChemicalChangesEdge]
-
-  # A list of `ChemicalChange` objects.
-  nodes: [ChemicalChange!]
-}
-
-# A `ChemicalChange` edge in the connection.
-type ChemicalChangesEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
-
-  # The `ChemicalChange` at the end of the edge.
-  node: ChemicalChange!
-}
-
-# Methods to use when ordering `ChemicalChange`.
-enum ChemicalChangesOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  NATURAL
-  NAME_ASC
-  NAME_DESC
-  DESCRIPTION_ASC
-  DESCRIPTION_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-}
-
 # A conversation session between a person and the agent.
 type Conversation implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -560,35 +446,6 @@ type CreateBrandPayload {
   query: Query
 }
 
-# All input for the `createChemicalChange` mutation.
-input CreateChemicalChangeInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The `ChemicalChange` to be created by this mutation.
-  chemicalChange: ChemicalChangeInput!
-}
-
-# The output of our `createChemicalChange` mutation.
-type CreateChemicalChangePayload {
-  # The exact same `clientMutationId` that was provided in the mutation input,
-  # unchanged and unused. May be used by a client to track mutations.
-  clientMutationId: String
-
-  # The `ChemicalChange` that was created by this mutation.
-  chemicalChange: ChemicalChange
-
-  # An edge for our `ChemicalChange`. May be used by Relay 1.
-  chemicalChangeEdge(
-    # The method to use when ordering `ChemicalChange`.
-    orderBy: ChemicalChangesOrderBy = PRIMARY_KEY_ASC
-  ): ChemicalChangesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
 # All input for the `createConversation` mutation.
 input CreateConversationInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -763,12 +620,6 @@ type CreateFoodSelectionPayload {
   # Reads a single `Brand` that is related to this `FoodSelection`.
   brandByBrandId: Brand
 
-  # Reads a single `ChemicalChange` that is related to this `FoodSelection`.
-  chemicalChangeByChemicalChangeName: ChemicalChange
-
-  # Reads a single `PhysicalChange` that is related to this `FoodSelection`.
-  physicalChangeByPhysicalChangeName: PhysicalChange
-
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
 
@@ -806,9 +657,6 @@ type CreateMassConversionPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
-
-  # Reads a single `PhysicalChange` that is related to this `MassConversion`.
-  physicalChangeByPhysicalChangeName: PhysicalChange
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -873,35 +721,6 @@ type CreateNutrientPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `Nutrient`.
   unitOfMeasureByUnitOfMeasureUsdaKey: UnitOfMeasure
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
-# All input for the `createPhysicalChange` mutation.
-input CreatePhysicalChangeInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The `PhysicalChange` to be created by this mutation.
-  physicalChange: PhysicalChangeInput!
-}
-
-# The output of our `createPhysicalChange` mutation.
-type CreatePhysicalChangePayload {
-  # The exact same `clientMutationId` that was provided in the mutation input,
-  # unchanged and unused. May be used by a client to track mutations.
-  clientMutationId: String
-
-  # The `PhysicalChange` that was created by this mutation.
-  physicalChange: PhysicalChange
-
-  # An edge for our `PhysicalChange`. May be used by Relay 1.
-  physicalChangeEdge(
-    # The method to use when ordering `PhysicalChange`.
-    orderBy: PhysicalChangesOrderBy = PRIMARY_KEY_ASC
-  ): PhysicalChangesEdge
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1145,38 +964,6 @@ type DeleteBrandPayload {
   query: Query
 }
 
-# All input for the `deleteChemicalChangeByName` mutation.
-input DeleteChemicalChangeByNameInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.
-  name: String!
-}
-
-# All input for the `deleteChemicalChange` mutation.
-input DeleteChemicalChangeInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The globally unique `ID` which will identify a single `ChemicalChange` to be deleted.
-  id: ID!
-}
-
-# The output of our `deleteChemicalChange` mutation.
-type DeleteChemicalChangePayload {
-  # The exact same `clientMutationId` that was provided in the mutation input,
-  # unchanged and unused. May be used by a client to track mutations.
-  clientMutationId: String
-  chemicalChange: ChemicalChange
-  deletedChemicalChangeId: ID
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
 # All input for the `deleteConversationByRowId` mutation.
 input DeleteConversationByRowIdInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -1369,12 +1156,6 @@ type DeleteFoodSelectionPayload {
   # Reads a single `Brand` that is related to this `FoodSelection`.
   brandByBrandId: Brand
 
-  # Reads a single `ChemicalChange` that is related to this `FoodSelection`.
-  chemicalChangeByChemicalChangeName: ChemicalChange
-
-  # Reads a single `PhysicalChange` that is related to this `FoodSelection`.
-  physicalChangeByPhysicalChangeName: PhysicalChange
-
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
 
@@ -1382,8 +1163,8 @@ type DeleteFoodSelectionPayload {
   query: Query
 }
 
-# All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName` mutation.
-input DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput {
+# All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription` mutation.
+input DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
@@ -1394,8 +1175,9 @@ input DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput {
   # The unique identifier for the initial unit of measure which is a volume or count unit, e.x. liter, drumstick, piece, box.
   unitOfMeasureId: Int!
 
-  # The unique name for the physical form or process the food is in.
-  physicalChangeName: String!
+  # The description of a physical modification, e.x. chopped, julienned, melted,
+  # etc., which affects density but not nutrition per mass.
+  physicalDescription: String!
 }
 
 # All input for the `deleteMassConversionByRowId` mutation.
@@ -1429,9 +1211,6 @@ type DeleteMassConversionPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
-
-  # Reads a single `PhysicalChange` that is related to this `MassConversion`.
-  physicalChangeByPhysicalChangeName: PhysicalChange
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1502,38 +1281,6 @@ type DeleteNutrientPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `Nutrient`.
   unitOfMeasureByUnitOfMeasureUsdaKey: UnitOfMeasure
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
-# All input for the `deletePhysicalChangeByName` mutation.
-input DeletePhysicalChangeByNameInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.
-  name: String!
-}
-
-# All input for the `deletePhysicalChange` mutation.
-input DeletePhysicalChangeInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The globally unique `ID` which will identify a single `PhysicalChange` to be deleted.
-  id: ID!
-}
-
-# The output of our `deletePhysicalChange` mutation.
-type DeletePhysicalChangePayload {
-  # The exact same `clientMutationId` that was provided in the mutation input,
-  # unchanged and unused. May be used by a client to track mutations.
-  clientMutationId: String
-  physicalChange: PhysicalChange
-  deletedPhysicalChangeId: ID
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -2912,14 +2659,14 @@ type FoodSelection implements Node {
   # The description of the brand.
   brandDescription: String
 
-  # The unique name for the chemical change, if mentioned.
-  chemicalChangeName: String
-
-  # The unique name for the physical change, if mentioned.
-  physicalChangeName: String
+  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
+  physicalDescription: String
 
   # The unique identifier for the unit of measure, if mentioned.
   unitOfMeasureId: Int
+
+  # The description of the unit of measure.
+  unitDescription: String
 
   # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
   unitQuantity: Float
@@ -2969,12 +2716,6 @@ type FoodSelection implements Node {
 
   # Reads a single `Brand` that is related to this `FoodSelection`.
   brandByBrandId: Brand
-
-  # Reads a single `ChemicalChange` that is related to this `FoodSelection`.
-  chemicalChangeByChemicalChangeName: ChemicalChange
-
-  # Reads a single `PhysicalChange` that is related to this `FoodSelection`.
-  physicalChangeByPhysicalChangeName: PhysicalChange
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
@@ -3054,14 +2795,14 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `brandDescription` field.
   brandDescription: String
 
-  # Checks for equality with the object’s `chemicalChangeName` field.
-  chemicalChangeName: String
-
-  # Checks for equality with the object’s `physicalChangeName` field.
-  physicalChangeName: String
+  # Checks for equality with the object’s `physicalDescription` field.
+  physicalDescription: String
 
   # Checks for equality with the object’s `unitOfMeasureId` field.
   unitOfMeasureId: Int
+
+  # Checks for equality with the object’s `unitDescription` field.
+  unitDescription: String
 
   # Checks for equality with the object’s `unitQuantity` field.
   unitQuantity: Float
@@ -3131,14 +2872,14 @@ input FoodSelectionInput {
   # The description of the brand.
   brandDescription: String
 
-  # The unique name for the chemical change, if mentioned.
-  chemicalChangeName: String
-
-  # The unique name for the physical change, if mentioned.
-  physicalChangeName: String
+  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
+  physicalDescription: String
 
   # The unique identifier for the unit of measure, if mentioned.
   unitOfMeasureId: Int
+
+  # The description of the unit of measure.
+  unitDescription: String
 
   # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
   unitQuantity: Float
@@ -3206,14 +2947,14 @@ input FoodSelectionPatch {
   # The description of the brand.
   brandDescription: String
 
-  # The unique name for the chemical change, if mentioned.
-  chemicalChangeName: String
-
-  # The unique name for the physical change, if mentioned.
-  physicalChangeName: String
+  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
+  physicalDescription: String
 
   # The unique identifier for the unit of measure, if mentioned.
   unitOfMeasureId: Int
+
+  # The description of the unit of measure.
+  unitDescription: String
 
   # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
   unitQuantity: Float
@@ -3300,12 +3041,12 @@ enum FoodSelectionsOrderBy {
   BRAND_ID_DESC
   BRAND_DESCRIPTION_ASC
   BRAND_DESCRIPTION_DESC
-  CHEMICAL_CHANGE_NAME_ASC
-  CHEMICAL_CHANGE_NAME_DESC
-  PHYSICAL_CHANGE_NAME_ASC
-  PHYSICAL_CHANGE_NAME_DESC
+  PHYSICAL_DESCRIPTION_ASC
+  PHYSICAL_DESCRIPTION_DESC
   UNIT_OF_MEASURE_ID_ASC
   UNIT_OF_MEASURE_ID_DESC
+  UNIT_DESCRIPTION_ASC
+  UNIT_DESCRIPTION_DESC
   UNIT_QUANTITY_ASC
   UNIT_QUANTITY_DESC
   UNIT_PRICE_ASC
@@ -3465,12 +3206,12 @@ type GeocodeResult {
   zip: String
 }
 
-# Describes who input the data for an adjacent column. Clerk is someone who
-# administers the database, machine is a machine learning algorithm, user is a
+# Describes who input the data for an adjacent column: developer is someone who
+# administers the database, agent is a machine learning algorithm, user is a
 # person who manually input the data through the app.
 enum InputSource {
-  CLERK
-  MACHINE
+  DEVELOPER
+  AGENT
   USER
 }
 
@@ -3492,8 +3233,9 @@ type MassConversion implements Node {
   # The unique identifier for the initial unit of measure which is a volume or count unit, e.x. liter, drumstick, piece, box.
   unitOfMeasureId: Int!
 
-  # The unique name for the physical form or process the food is in.
-  physicalChangeName: String
+  # The description of a physical modification, e.x. chopped, julienned, melted,
+  # etc., which affects density but not nutrition per mass.
+  physicalDescription: String
 
   # The mass equivalent in grams.
   mass: Float
@@ -3503,9 +3245,6 @@ type MassConversion implements Node {
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
-
-  # Reads a single `PhysicalChange` that is related to this `MassConversion`.
-  physicalChangeByPhysicalChangeName: PhysicalChange
 }
 
 # A condition to be used against `MassConversion` object types. All fields are
@@ -3520,8 +3259,8 @@ input MassConversionCondition {
   # Checks for equality with the object’s `unitOfMeasureId` field.
   unitOfMeasureId: Int
 
-  # Checks for equality with the object’s `physicalChangeName` field.
-  physicalChangeName: String
+  # Checks for equality with the object’s `physicalDescription` field.
+  physicalDescription: String
 
   # Checks for equality with the object’s `mass` field.
   mass: Float
@@ -3537,8 +3276,9 @@ input MassConversionInput {
   # The unique identifier for the initial unit of measure which is a volume or count unit, e.x. liter, drumstick, piece, box.
   unitOfMeasureId: Int!
 
-  # The unique name for the physical form or process the food is in.
-  physicalChangeName: String
+  # The description of a physical modification, e.x. chopped, julienned, melted,
+  # etc., which affects density but not nutrition per mass.
+  physicalDescription: String
 
   # The mass equivalent in grams.
   mass: Float
@@ -3554,8 +3294,9 @@ input MassConversionPatch {
   # The unique identifier for the initial unit of measure which is a volume or count unit, e.x. liter, drumstick, piece, box.
   unitOfMeasureId: Int
 
-  # The unique name for the physical form or process the food is in.
-  physicalChangeName: String
+  # The description of a physical modification, e.x. chopped, julienned, melted,
+  # etc., which affects density but not nutrition per mass.
+  physicalDescription: String
 
   # The mass equivalent in grams.
   mass: Float
@@ -3596,8 +3337,8 @@ enum MassConversionsOrderBy {
   FOOD_ID_DESC
   UNIT_OF_MEASURE_ID_ASC
   UNIT_OF_MEASURE_ID_DESC
-  PHYSICAL_CHANGE_NAME_ASC
-  PHYSICAL_CHANGE_NAME_DESC
+  PHYSICAL_DESCRIPTION_ASC
+  PHYSICAL_DESCRIPTION_DESC
   MASS_ASC
   MASS_DESC
 }
@@ -3829,36 +3570,6 @@ type Mutation {
     input: DeleteBrandByPhoneInput!
   ): DeleteBrandPayload
 
-  # Creates a single `ChemicalChange`.
-  createChemicalChange(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: CreateChemicalChangeInput!
-  ): CreateChemicalChangePayload
-
-  # Updates a single `ChemicalChange` using its globally unique id and a patch.
-  updateChemicalChange(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: UpdateChemicalChangeInput!
-  ): UpdateChemicalChangePayload
-
-  # Updates a single `ChemicalChange` using a unique key and a patch.
-  updateChemicalChangeByName(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: UpdateChemicalChangeByNameInput!
-  ): UpdateChemicalChangePayload
-
-  # Deletes a single `ChemicalChange` using its globally unique id.
-  deleteChemicalChange(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeleteChemicalChangeInput!
-  ): DeleteChemicalChangePayload
-
-  # Deletes a single `ChemicalChange` using a unique key.
-  deleteChemicalChangeByName(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeleteChemicalChangeByNameInput!
-  ): DeleteChemicalChangePayload
-
   # Creates a single `Conversation`.
   createConversation(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -4028,9 +3739,9 @@ type Mutation {
   ): UpdateMassConversionPayload
 
   # Updates a single `MassConversion` using a unique key and a patch.
-  updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName(
+  updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput!
+    input: UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput!
   ): UpdateMassConversionPayload
 
   # Deletes a single `MassConversion` using its globally unique id.
@@ -4046,9 +3757,9 @@ type Mutation {
   ): DeleteMassConversionPayload
 
   # Deletes a single `MassConversion` using a unique key.
-  deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName(
+  deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput!
+    input: DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput!
   ): DeleteMassConversionPayload
 
   # Creates a single `Message`.
@@ -4110,36 +3821,6 @@ type Mutation {
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: DeleteNutrientByRowIdInput!
   ): DeleteNutrientPayload
-
-  # Creates a single `PhysicalChange`.
-  createPhysicalChange(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: CreatePhysicalChangeInput!
-  ): CreatePhysicalChangePayload
-
-  # Updates a single `PhysicalChange` using its globally unique id and a patch.
-  updatePhysicalChange(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: UpdatePhysicalChangeInput!
-  ): UpdatePhysicalChangePayload
-
-  # Updates a single `PhysicalChange` using a unique key and a patch.
-  updatePhysicalChangeByName(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: UpdatePhysicalChangeByNameInput!
-  ): UpdatePhysicalChangePayload
-
-  # Deletes a single `PhysicalChange` using its globally unique id.
-  deletePhysicalChange(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeletePhysicalChangeInput!
-  ): DeletePhysicalChangePayload
-
-  # Deletes a single `PhysicalChange` using a unique key.
-  deletePhysicalChangeByName(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeletePhysicalChangeByNameInput!
-  ): DeletePhysicalChangePayload
 
   # Creates a single `Place`.
   createPlace(
@@ -4551,139 +4232,6 @@ type PageInfo {
 
   # When paginating forwards, the cursor to continue.
   endCursor: Cursor
-}
-
-# A physical process or form that a food item can exist in.
-type PhysicalChange implements Node {
-  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  id: ID!
-
-  # The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.
-  name: String!
-  description: String
-
-  # The time this object was created.
-  createdAt: Datetime
-
-  # Reads and enables pagination through a set of `FoodSelection`.
-  foodSelectionsByPhysicalChangeName(
-    # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: FoodSelectionCondition
-  ): FoodSelectionsConnection
-
-  # Reads and enables pagination through a set of `MassConversion`.
-  massConversionsByPhysicalChangeName(
-    # The method to use when ordering `MassConversion`.
-    orderBy: MassConversionsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: MassConversionCondition
-  ): MassConversionsConnection
-}
-
-# A condition to be used against `PhysicalChange` object types. All fields are
-# tested for equality and combined with a logical ‘and.’
-input PhysicalChangeCondition {
-  # Checks for equality with the object’s `name` field.
-  name: String
-
-  # Checks for equality with the object’s `description` field.
-  description: String
-
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
-}
-
-# A physical process or form that a food item can exist in.
-input PhysicalChangeInput {
-  # The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.
-  name: String!
-  description: String
-
-  # The time this object was created.
-  createdAt: Datetime
-}
-
-# Represents an update to a `PhysicalChange`. Fields that are set will be updated.
-input PhysicalChangePatch {
-  # The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.
-  name: String
-  description: String
-
-  # The time this object was created.
-  createdAt: Datetime
-}
-
-# A connection to a list of `PhysicalChange` values.
-type PhysicalChangesConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # The count of *all* `PhysicalChange` you could get from the connection.
-  totalCount: Int
-
-  # A list of edges which contains the `PhysicalChange` and cursor to aid in pagination.
-  edges: [PhysicalChangesEdge]
-
-  # A list of `PhysicalChange` objects.
-  nodes: [PhysicalChange!]
-}
-
-# A `PhysicalChange` edge in the connection.
-type PhysicalChangesEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
-
-  # The `PhysicalChange` at the end of the edge.
-  node: PhysicalChange!
-}
-
-# Methods to use when ordering `PhysicalChange`.
-enum PhysicalChangesOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  NATURAL
-  NAME_ASC
-  NAME_DESC
-  DESCRIPTION_ASC
-  DESCRIPTION_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
 }
 
 # A place that has or sells food.
@@ -5365,41 +4913,6 @@ type Query implements Node {
     phone: String!
   ): Brand
 
-  # Reads and enables pagination through a set of `ChemicalChange`.
-  allChemicalChanges(
-    # The method to use when ordering `ChemicalChange`.
-    orderBy: ChemicalChangesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: ChemicalChangeCondition
-  ): ChemicalChangesConnection
-
-  # Reads a single `ChemicalChange` using its globally unique `ID`.
-  chemicalChange(
-    # The globally unique `ID` to be used in selecting a single `ChemicalChange`.
-    id: ID!
-  ): ChemicalChange
-  chemicalChangeByName(
-    # The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.
-    name: String!
-  ): ChemicalChange
-
   # Reads and enables pagination through a set of `Conversation`.
   allConversations(
     # The method to use when ordering `Conversation`.
@@ -5609,7 +5122,7 @@ type Query implements Node {
     id: ID!
   ): MassConversion
   massConversionByRowId(rowId: Int!): MassConversion
-  massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName(
+  massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription(
     # The unique identifier for the food item.
     foodId: Float!
 
@@ -5617,8 +5130,9 @@ type Query implements Node {
     # count unit, e.x. liter, drumstick, piece, box.
     unitOfMeasureId: Int!
 
-    # The unique name for the physical form or process the food is in.
-    physicalChangeName: String!
+    # The description of a physical modification, e.x. chopped, julienned, melted,
+    # etc., which affects density but not nutrition per mass.
+    physicalDescription: String!
   ): MassConversion
 
   # Reads and enables pagination through a set of `Message`.
@@ -5690,41 +5204,6 @@ type Query implements Node {
     # Unique 3-digit identifier code for a nutrient.
     rowId: Float!
   ): Nutrient
-
-  # Reads and enables pagination through a set of `PhysicalChange`.
-  allPhysicalChanges(
-    # The method to use when ordering `PhysicalChange`.
-    orderBy: PhysicalChangesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: PhysicalChangeCondition
-  ): PhysicalChangesConnection
-
-  # Reads a single `PhysicalChange` using its globally unique `ID`.
-  physicalChange(
-    # The globally unique `ID` to be used in selecting a single `PhysicalChange`.
-    id: ID!
-  ): PhysicalChange
-  physicalChangeByName(
-    # The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.
-    name: String!
-  ): PhysicalChange
 
   # Reads and enables pagination through a set of `Place`.
   allPlaces(
@@ -6315,43 +5794,6 @@ type UpdateBrandPayload {
   query: Query
 }
 
-# All input for the `updateChemicalChangeByName` mutation.
-input UpdateChemicalChangeByNameInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.
-  name: String!
-
-  # An object where the defined keys will be set on the `ChemicalChange` identified by our unique key.
-  chemicalChangePatch: ChemicalChangePatch!
-}
-
-# All input for the `updateChemicalChange` mutation.
-input UpdateChemicalChangeInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The globally unique `ID` which will identify a single `ChemicalChange` to be updated.
-  id: ID!
-
-  # An object where the defined keys will be set on the `ChemicalChange` identified by our globally unique `ID`.
-  chemicalChangePatch: ChemicalChangePatch!
-}
-
-# The output of our `updateChemicalChange` mutation.
-type UpdateChemicalChangePayload {
-  # The exact same `clientMutationId` that was provided in the mutation input,
-  # unchanged and unused. May be used by a client to track mutations.
-  clientMutationId: String
-  chemicalChange: ChemicalChange
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
 # All input for the `updateConversationByRowId` mutation.
 input UpdateConversationByRowIdInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -6569,12 +6011,6 @@ type UpdateFoodSelectionPayload {
   # Reads a single `Brand` that is related to this `FoodSelection`.
   brandByBrandId: Brand
 
-  # Reads a single `ChemicalChange` that is related to this `FoodSelection`.
-  chemicalChangeByChemicalChangeName: ChemicalChange
-
-  # Reads a single `PhysicalChange` that is related to this `FoodSelection`.
-  physicalChangeByPhysicalChangeName: PhysicalChange
-
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
 
@@ -6582,8 +6018,8 @@ type UpdateFoodSelectionPayload {
   query: Query
 }
 
-# All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName` mutation.
-input UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput {
+# All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription` mutation.
+input UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
@@ -6594,8 +6030,9 @@ input UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput {
   # The unique identifier for the initial unit of measure which is a volume or count unit, e.x. liter, drumstick, piece, box.
   unitOfMeasureId: Int!
 
-  # The unique name for the physical form or process the food is in.
-  physicalChangeName: String!
+  # The description of a physical modification, e.x. chopped, julienned, melted,
+  # etc., which affects density but not nutrition per mass.
+  physicalDescription: String!
 
   # An object where the defined keys will be set on the `MassConversion` identified by our unique key.
   massConversionPatch: MassConversionPatch!
@@ -6637,9 +6074,6 @@ type UpdateMassConversionPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
-
-  # Reads a single `PhysicalChange` that is related to this `MassConversion`.
-  physicalChangeByPhysicalChangeName: PhysicalChange
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -6720,43 +6154,6 @@ type UpdateNutrientPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `Nutrient`.
   unitOfMeasureByUnitOfMeasureUsdaKey: UnitOfMeasure
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
-# All input for the `updatePhysicalChangeByName` mutation.
-input UpdatePhysicalChangeByNameInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.
-  name: String!
-
-  # An object where the defined keys will be set on the `PhysicalChange` identified by our unique key.
-  physicalChangePatch: PhysicalChangePatch!
-}
-
-# All input for the `updatePhysicalChange` mutation.
-input UpdatePhysicalChangeInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-
-  # The globally unique `ID` which will identify a single `PhysicalChange` to be updated.
-  id: ID!
-
-  # An object where the defined keys will be set on the `PhysicalChange` identified by our globally unique `ID`.
-  physicalChangePatch: PhysicalChangePatch!
-}
-
-# The output of our `updatePhysicalChange` mutation.
-type UpdatePhysicalChangePayload {
-  # The exact same `clientMutationId` that was provided in the mutation input,
-  # unchanged and unused. May be used by a client to track mutations.
-  clientMutationId: String
-  physicalChange: PhysicalChange
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query

@@ -76,8 +76,10 @@ class UserJournalDateContainer extends React.Component {
       carbs += n.carbs;
     });
 
+    const completeness = nutritions.length > 0 ? completeCount / nutritions.length : 0;
+
     this.setState({
-      completeness: (completeCount / nutritions.length) * 100,
+      completeness: completeness * 100,
       calories,
       protein,
       fat,
@@ -122,14 +124,16 @@ export default createFragmentContainer(
   UserJournalDateContainer,
   graphql`
     fragment UserJournalDateContainer_userByRowId on User {
+      id,
       rowId,
       foodSelectionsByUserId(
         condition: $condition,
         first: 2147483647,
         orderBy: TIME_DESC
-      ) {
+      ) @connection(key: "UserJournalDateContainer_foodSelectionsByUserId") {
         edges {
           node {
+            id,
             rowId,
             foodDescription,
             foodId,

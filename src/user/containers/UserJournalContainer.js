@@ -91,10 +91,15 @@ export default createFragmentContainer(
   UserJournalContainer,
   graphql`
     fragment UserJournalContainer_userByRowId on User {
+      id,
       rowId,
-      foodSelectionsByUserId(first: $count, orderBy: $orderBy) {
+      foodSelectionsByUserId(
+        first: $count,
+        orderBy: $orderBy
+      ) @connection(key: "UserJournalContainer_foodSelectionsByUserId") {
         edges {
           node {
+            id,
             date,
           },
         },

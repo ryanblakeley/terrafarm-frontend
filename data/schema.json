@@ -398,143 +398,6 @@
               "deprecationReason": null
             },
             {
-              "name": "allChemicalChanges",
-              "description": "Reads and enables pagination through a set of `ChemicalChange`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `ChemicalChange`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "ChemicalChangesOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "ChemicalChangeCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChangesConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "chemicalChange",
-              "description": "Reads a single `ChemicalChange` using its globally unique `ID`.",
-              "args": [
-                {
-                  "name": "id",
-                  "description": "The globally unique `ID` to be used in selecting a single `ChemicalChange`.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "chemicalChangeByName",
-              "description": null,
-              "args": [
-                {
-                  "name": "name",
-                  "description": "The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "allConversations",
               "description": "Reads and enables pagination through a set of `Conversation`.",
               "args": [
@@ -1371,7 +1234,7 @@
               "deprecationReason": null
             },
             {
-              "name": "massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName",
+              "name": "massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription",
               "description": null,
               "args": [
                 {
@@ -1403,8 +1266,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "physicalChangeName",
-                  "description": "The unique name for the physical form or process the food is in.",
+                  "name": "physicalDescription",
+                  "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -1694,143 +1557,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Nutrient",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "allPhysicalChanges",
-              "description": "Reads and enables pagination through a set of `PhysicalChange`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `PhysicalChange`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "PhysicalChangesOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "PhysicalChangeCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChangesConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChange",
-              "description": "Reads a single `PhysicalChange` using its globally unique `ID`.",
-              "args": [
-                {
-                  "name": "id",
-                  "description": "The globally unique `ID` to be used in selecting a single `PhysicalChange`.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeByName",
-              "description": null,
-              "args": [
-                {
-                  "name": "name",
-                  "description": "The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2849,16 +2575,6 @@
             {
               "kind": "OBJECT",
               "name": "FoodNutrient",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "PhysicalChange",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "ChemicalChange",
               "ofType": null
             },
             {
@@ -5372,25 +5088,13 @@
               "deprecationReason": null
             },
             {
-              "name": "CHEMICAL_CHANGE_NAME_ASC",
+              "name": "PHYSICAL_DESCRIPTION_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CHEMICAL_CHANGE_NAME_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PHYSICAL_CHANGE_NAME_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PHYSICAL_CHANGE_NAME_DESC",
+              "name": "PHYSICAL_DESCRIPTION_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5403,6 +5107,18 @@
             },
             {
               "name": "UNIT_OF_MEASURE_ID_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UNIT_DESCRIPTION_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UNIT_DESCRIPTION_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5669,18 +5385,8 @@
               "defaultValue": null
             },
             {
-              "name": "chemicalChangeName",
-              "description": "Checks for equality with the object’s `chemicalChangeName` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalChangeName",
-              "description": "Checks for equality with the object’s `physicalChangeName` field.",
+              "name": "physicalDescription",
+              "description": "Checks for equality with the object’s `physicalDescription` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5694,6 +5400,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "unitDescription",
+              "description": "Checks for equality with the object’s `unitDescription` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -5816,19 +5532,19 @@
         {
           "kind": "ENUM",
           "name": "InputSource",
-          "description": "Describes who input the data for an adjacent column. Clerk is someone who administers the database, machine is a machine learning algorithm, user is a person who manually input the data through the app.",
+          "description": "Describes who input the data for an adjacent column: developer is someone who administers the database, agent is a machine learning algorithm, user is a person who manually input the data through the app.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
           "enumValues": [
             {
-              "name": "CLERK",
+              "name": "DEVELOPER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "MACHINE",
+              "name": "AGENT",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6189,20 +5905,8 @@
               "deprecationReason": null
             },
             {
-              "name": "chemicalChangeName",
-              "description": "The unique name for the chemical change, if mentioned.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeName",
-              "description": "The unique name for the physical change, if mentioned.",
+              "name": "physicalDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -6219,6 +5923,18 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitDescription",
+              "description": "The description of the unit of measure.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6423,30 +6139,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Brand",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "chemicalChangeByChemicalChangeName",
-              "description": "Reads a single `ChemicalChange` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeByPhysicalChangeName",
-              "description": "Reads a single `PhysicalChange` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -9893,13 +9585,13 @@
               "deprecationReason": null
             },
             {
-              "name": "PHYSICAL_CHANGE_NAME_ASC",
+              "name": "PHYSICAL_DESCRIPTION_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PHYSICAL_CHANGE_NAME_DESC",
+              "name": "PHYSICAL_DESCRIPTION_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -9956,8 +9648,8 @@
               "defaultValue": null
             },
             {
-              "name": "physicalChangeName",
-              "description": "Checks for equality with the object’s `physicalChangeName` field.",
+              "name": "physicalDescription",
+              "description": "Checks for equality with the object’s `physicalDescription` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -10164,8 +9856,8 @@
               "deprecationReason": null
             },
             {
-              "name": "physicalChangeName",
-              "description": "The unique name for the physical form or process the food is in.",
+              "name": "physicalDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -10206,18 +9898,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "UnitOfMeasure",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeByPhysicalChangeName",
-              "description": "Reads a single `PhysicalChange` that is related to this `MassConversion`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -11993,401 +11673,6 @@
           "possibleTypes": null
         },
         {
-          "kind": "OBJECT",
-          "name": "PhysicalChange",
-          "description": "A physical process or form that a food item can exist in.",
-          "fields": [
-            {
-              "name": "id",
-              "description": "A globally unique identifier. Can be used in various places throughout the system to identify this single value.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "description",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "The time this object was created.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "foodSelectionsByPhysicalChangeName",
-              "description": "Reads and enables pagination through a set of `FoodSelection`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `FoodSelection`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "FoodSelectionCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "FoodSelectionsConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "massConversionsByPhysicalChangeName",
-              "description": "Reads and enables pagination through a set of `MassConversion`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `MassConversion`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "MassConversionsOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "MassConversionCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "MassConversionsConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [
-            {
-              "kind": "INTERFACE",
-              "name": "Node",
-              "ofType": null
-            }
-          ],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "ChemicalChange",
-          "description": "A chemical process or activity that changes the nutrition per 100g of a food.",
-          "fields": [
-            {
-              "name": "id",
-              "description": "A globally unique identifier. Can be used in various places throughout the system to identify this single value.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "description",
-              "description": "Details about the physical change, e.x. 1\"x1\"x2\" pieces.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "The time this object was created.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "foodSelectionsByChemicalChangeName",
-              "description": "Reads and enables pagination through a set of `FoodSelection`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `FoodSelection`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "FoodSelectionCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "FoodSelectionsConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [
-            {
-              "kind": "INTERFACE",
-              "name": "Node",
-              "ofType": null
-            }
-          ],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
           "kind": "ENUM",
           "name": "PresetSelectionsOrderBy",
           "description": "Methods to use when ordering `PresetSelection`.",
@@ -13854,226 +13139,6 @@
         },
         {
           "kind": "ENUM",
-          "name": "ChemicalChangesOrderBy",
-          "description": "Methods to use when ordering `ChemicalChange`.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": [
-            {
-              "name": "PRIMARY_KEY_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PRIMARY_KEY_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NATURAL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NAME_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NAME_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "DESCRIPTION_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "DESCRIPTION_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CREATED_AT_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CREATED_AT_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "ChemicalChangeCondition",
-          "description": "A condition to be used against `ChemicalChange` object types. All fields are tested for equality and combined with a logical ‘and.’",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "name",
-              "description": "Checks for equality with the object’s `name` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "description",
-              "description": "Checks for equality with the object’s `description` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "ChemicalChangesConnection",
-          "description": "A connection to a list of `ChemicalChange` values.",
-          "fields": [
-            {
-              "name": "pageInfo",
-              "description": "Information to aid in pagination.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "totalCount",
-              "description": "The count of *all* `ChemicalChange` you could get from the connection.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "edges",
-              "description": "A list of edges which contains the `ChemicalChange` and cursor to aid in pagination.",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ChemicalChangesEdge",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodes",
-              "description": "A list of `ChemicalChange` objects.",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "ChemicalChange",
-                    "ofType": null
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "ChemicalChangesEdge",
-          "description": "A `ChemicalChange` edge in the connection.",
-          "fields": [
-            {
-              "name": "cursor",
-              "description": "A cursor for use in pagination.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Cursor",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "node",
-              "description": "The `ChemicalChange` at the end of the edge.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ChemicalChange",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "ENUM",
           "name": "FoodGroupsOrderBy",
           "description": "Methods to use when ordering `FoodGroup`.",
           "fields": null,
@@ -14258,226 +13323,6 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "FoodGroup",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "ENUM",
-          "name": "PhysicalChangesOrderBy",
-          "description": "Methods to use when ordering `PhysicalChange`.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": [
-            {
-              "name": "PRIMARY_KEY_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PRIMARY_KEY_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NATURAL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NAME_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NAME_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "DESCRIPTION_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "DESCRIPTION_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CREATED_AT_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CREATED_AT_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "PhysicalChangeCondition",
-          "description": "A condition to be used against `PhysicalChange` object types. All fields are tested for equality and combined with a logical ‘and.’",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "name",
-              "description": "Checks for equality with the object’s `name` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "description",
-              "description": "Checks for equality with the object’s `description` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "PhysicalChangesConnection",
-          "description": "A connection to a list of `PhysicalChange` values.",
-          "fields": [
-            {
-              "name": "pageInfo",
-              "description": "Information to aid in pagination.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "totalCount",
-              "description": "The count of *all* `PhysicalChange` you could get from the connection.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "edges",
-              "description": "A list of edges which contains the `PhysicalChange` and cursor to aid in pagination.",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PhysicalChangesEdge",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodes",
-              "description": "A list of `PhysicalChange` objects.",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "PhysicalChange",
-                    "ofType": null
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "PhysicalChangesEdge",
-          "description": "A `PhysicalChange` edge in the connection.",
-          "fields": [
-            {
-              "name": "cursor",
-              "description": "A cursor for use in pagination.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Cursor",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "node",
-              "description": "The `PhysicalChange` at the end of the edge.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PhysicalChange",
                   "ofType": null
                 }
               },
@@ -15309,141 +14154,6 @@
               "deprecationReason": null
             },
             {
-              "name": "createChemicalChange",
-              "description": "Creates a single `ChemicalChange`.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "CreateChemicalChangeInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CreateChemicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "updateChemicalChange",
-              "description": "Updates a single `ChemicalChange` using its globally unique id and a patch.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "UpdateChemicalChangeInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "UpdateChemicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "updateChemicalChangeByName",
-              "description": "Updates a single `ChemicalChange` using a unique key and a patch.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "UpdateChemicalChangeByNameInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "UpdateChemicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "deleteChemicalChange",
-              "description": "Deletes a single `ChemicalChange` using its globally unique id.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "DeleteChemicalChangeInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "DeleteChemicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "deleteChemicalChangeByName",
-              "description": "Deletes a single `ChemicalChange` using a unique key.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "DeleteChemicalChangeByNameInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "DeleteChemicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "createConversation",
               "description": "Creates a single `Conversation`.",
               "args": [
@@ -16200,7 +14910,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName",
+              "name": "updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription",
               "description": "Updates a single `MassConversion` using a unique key and a patch.",
               "args": [
                 {
@@ -16211,7 +14921,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput",
+                      "name": "UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput",
                       "ofType": null
                     }
                   },
@@ -16281,7 +14991,7 @@
               "deprecationReason": null
             },
             {
-              "name": "deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName",
+              "name": "deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription",
               "description": "Deletes a single `MassConversion` using a unique key.",
               "args": [
                 {
@@ -16292,7 +15002,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput",
+                      "name": "DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput",
                       "ofType": null
                     }
                   },
@@ -16572,141 +15282,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "DeleteNutrientPayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createPhysicalChange",
-              "description": "Creates a single `PhysicalChange`.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "CreatePhysicalChangeInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CreatePhysicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "updatePhysicalChange",
-              "description": "Updates a single `PhysicalChange` using its globally unique id and a patch.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "UpdatePhysicalChangeInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "UpdatePhysicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "updatePhysicalChangeByName",
-              "description": "Updates a single `PhysicalChange` using a unique key and a patch.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "UpdatePhysicalChangeByNameInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "UpdatePhysicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "deletePhysicalChange",
-              "description": "Deletes a single `PhysicalChange` using its globally unique id.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "DeletePhysicalChangeInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "DeletePhysicalChangePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "deletePhysicalChangeByName",
-              "description": "Deletes a single `PhysicalChange` using a unique key.",
-              "args": [
-                {
-                  "name": "input",
-                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "DeletePhysicalChangeByNameInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "DeletePhysicalChangePayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -18848,471 +17423,6 @@
             {
               "name": "phone",
               "description": "The brand’s phone number.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "CreateChemicalChangeInput",
-          "description": "All input for the `createChemicalChange` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "chemicalChange",
-              "description": "The `ChemicalChange` to be created by this mutation.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "ChemicalChangeInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "ChemicalChangeInput",
-          "description": "A chemical process or activity that changes the nutrition per 100g of a food.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "name",
-              "description": "The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "description",
-              "description": "Details about the physical change, e.x. 1\"x1\"x2\" pieces.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
-              "description": "The time this object was created.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CreateChemicalChangePayload",
-          "description": "The output of our `createChemicalChange` mutation.",
-          "fields": [
-            {
-              "name": "clientMutationId",
-              "description": "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "chemicalChange",
-              "description": "The `ChemicalChange` that was created by this mutation.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "chemicalChangeEdge",
-              "description": "An edge for our `ChemicalChange`. May be used by Relay 1.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `ChemicalChange`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "ChemicalChangesOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChangesEdge",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "query",
-              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Query",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "UpdateChemicalChangeInput",
-          "description": "All input for the `updateChemicalChange` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "id",
-              "description": "The globally unique `ID` which will identify a single `ChemicalChange` to be updated.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "chemicalChangePatch",
-              "description": "An object where the defined keys will be set on the `ChemicalChange` identified by our globally unique `ID`.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "ChemicalChangePatch",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "ChemicalChangePatch",
-          "description": "Represents an update to a `ChemicalChange`. Fields that are set will be updated.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "name",
-              "description": "The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "description",
-              "description": "Details about the physical change, e.x. 1\"x1\"x2\" pieces.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
-              "description": "The time this object was created.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "UpdateChemicalChangePayload",
-          "description": "The output of our `updateChemicalChange` mutation.",
-          "fields": [
-            {
-              "name": "clientMutationId",
-              "description": "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "chemicalChange",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "query",
-              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Query",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "UpdateChemicalChangeByNameInput",
-          "description": "All input for the `updateChemicalChangeByName` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": "The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "chemicalChangePatch",
-              "description": "An object where the defined keys will be set on the `ChemicalChange` identified by our unique key.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "ChemicalChangePatch",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "DeleteChemicalChangeInput",
-          "description": "All input for the `deleteChemicalChange` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "id",
-              "description": "The globally unique `ID` which will identify a single `ChemicalChange` to be deleted.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "DeleteChemicalChangePayload",
-          "description": "The output of our `deleteChemicalChange` mutation.",
-          "fields": [
-            {
-              "name": "clientMutationId",
-              "description": "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "chemicalChange",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "deletedChemicalChangeId",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "query",
-              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Query",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "DeleteChemicalChangeByNameInput",
-          "description": "All input for the `deleteChemicalChangeByName` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": "The human-readable name of the chemical change, e.x. cooked, baked, fermented, dehydrated.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -22767,18 +20877,8 @@
               "defaultValue": null
             },
             {
-              "name": "chemicalChangeName",
-              "description": "The unique name for the chemical change, if mentioned.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalChangeName",
-              "description": "The unique name for the physical change, if mentioned.",
+              "name": "physicalDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -22792,6 +20892,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "unitDescription",
+              "description": "The description of the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -23036,30 +21146,6 @@
               "deprecationReason": null
             },
             {
-              "name": "chemicalChangeByChemicalChangeName",
-              "description": "Reads a single `ChemicalChange` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeByPhysicalChangeName",
-              "description": "Reads a single `PhysicalChange` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "unitOfMeasureByUnitOfMeasureId",
               "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
               "args": [],
@@ -23265,18 +21351,8 @@
               "defaultValue": null
             },
             {
-              "name": "chemicalChangeName",
-              "description": "The unique name for the chemical change, if mentioned.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalChangeName",
-              "description": "The unique name for the physical change, if mentioned.",
+              "name": "physicalDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -23290,6 +21366,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "unitDescription",
+              "description": "The description of the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -23505,30 +21591,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Brand",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "chemicalChangeByChemicalChangeName",
-              "description": "Reads a single `ChemicalChange` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeByPhysicalChangeName",
-              "description": "Reads a single `PhysicalChange` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -23762,30 +21824,6 @@
               "deprecationReason": null
             },
             {
-              "name": "chemicalChangeByChemicalChangeName",
-              "description": "Reads a single `ChemicalChange` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ChemicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeByPhysicalChangeName",
-              "description": "Reads a single `PhysicalChange` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "unitOfMeasureByUnitOfMeasureId",
               "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
               "args": [],
@@ -23930,8 +21968,8 @@
               "defaultValue": null
             },
             {
-              "name": "physicalChangeName",
-              "description": "The unique name for the physical form or process the food is in.",
+              "name": "physicalDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -24025,18 +22063,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "UnitOfMeasure",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeByPhysicalChangeName",
-              "description": "Reads a single `PhysicalChange` that is related to this `MassConversion`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -24146,8 +22172,8 @@
               "defaultValue": null
             },
             {
-              "name": "physicalChangeName",
-              "description": "The unique name for the physical form or process the food is in.",
+              "name": "physicalDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -24224,18 +22250,6 @@
               "deprecationReason": null
             },
             {
-              "name": "physicalChangeByPhysicalChangeName",
-              "description": "Reads a single `PhysicalChange` that is related to this `MassConversion`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "query",
               "description": "Our root query field type. Allows us to run any query from our mutation payload.",
               "args": [],
@@ -24304,8 +22318,8 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput",
-          "description": "All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName` mutation.",
+          "name": "UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput",
+          "description": "All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription` mutation.",
           "fields": null,
           "inputFields": [
             {
@@ -24347,8 +22361,8 @@
               "defaultValue": null
             },
             {
-              "name": "physicalChangeName",
-              "description": "The unique name for the physical form or process the food is in.",
+              "name": "physicalDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -24480,18 +22494,6 @@
               "deprecationReason": null
             },
             {
-              "name": "physicalChangeByPhysicalChangeName",
-              "description": "Reads a single `PhysicalChange` that is related to this `MassConversion`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "query",
               "description": "Our root query field type. Allows us to run any query from our mutation payload.",
               "args": [],
@@ -24546,8 +22548,8 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeNameInput",
-          "description": "All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalChangeName` mutation.",
+          "name": "DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput",
+          "description": "All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription` mutation.",
           "fields": null,
           "inputFields": [
             {
@@ -24589,8 +22591,8 @@
               "defaultValue": null
             },
             {
-              "name": "physicalChangeName",
-              "description": "The unique name for the physical form or process the food is in.",
+              "name": "physicalDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -25707,471 +23709,6 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Float",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "CreatePhysicalChangeInput",
-          "description": "All input for the `createPhysicalChange` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalChange",
-              "description": "The `PhysicalChange` to be created by this mutation.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "PhysicalChangeInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "PhysicalChangeInput",
-          "description": "A physical process or form that a food item can exist in.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "name",
-              "description": "The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "description",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
-              "description": "The time this object was created.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CreatePhysicalChangePayload",
-          "description": "The output of our `createPhysicalChange` mutation.",
-          "fields": [
-            {
-              "name": "clientMutationId",
-              "description": "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChange",
-              "description": "The `PhysicalChange` that was created by this mutation.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChangeEdge",
-              "description": "An edge for our `PhysicalChange`. May be used by Relay 1.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `PhysicalChange`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "PhysicalChangesOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChangesEdge",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "query",
-              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Query",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "UpdatePhysicalChangeInput",
-          "description": "All input for the `updatePhysicalChange` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "id",
-              "description": "The globally unique `ID` which will identify a single `PhysicalChange` to be updated.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalChangePatch",
-              "description": "An object where the defined keys will be set on the `PhysicalChange` identified by our globally unique `ID`.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "PhysicalChangePatch",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "PhysicalChangePatch",
-          "description": "Represents an update to a `PhysicalChange`. Fields that are set will be updated.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "name",
-              "description": "The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "description",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
-              "description": "The time this object was created.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "UpdatePhysicalChangePayload",
-          "description": "The output of our `updatePhysicalChange` mutation.",
-          "fields": [
-            {
-              "name": "clientMutationId",
-              "description": "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChange",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "query",
-              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Query",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "UpdatePhysicalChangeByNameInput",
-          "description": "All input for the `updatePhysicalChangeByName` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": "The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalChangePatch",
-              "description": "An object where the defined keys will be set on the `PhysicalChange` identified by our unique key.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "PhysicalChangePatch",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "DeletePhysicalChangeInput",
-          "description": "All input for the `deletePhysicalChange` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "id",
-              "description": "The globally unique `ID` which will identify a single `PhysicalChange` to be deleted.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "DeletePhysicalChangePayload",
-          "description": "The output of our `deletePhysicalChange` mutation.",
-          "fields": [
-            {
-              "name": "clientMutationId",
-              "description": "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalChange",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PhysicalChange",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "deletedPhysicalChangeId",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "query",
-              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Query",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "DeletePhysicalChangeByNameInput",
-          "description": "All input for the `deletePhysicalChangeByName` mutation.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "clientMutationId",
-              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": "The human-readable name of the physical change, e.x. diced, farmers cut, blended, liquid.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
                   "ofType": null
                 }
               },

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer } from 'react-relay';
 import ErrorComponent from 'core/components/ErrorComponent';
+import Layout from 'shared/components/Layout';
 import { P } from 'shared/components/Typography';
 import UserJournalDateContainer from 'user/containers/UserJournalDateContainer';
 import UserJournalDateRootContainerQuery
@@ -27,7 +28,7 @@ const UserJournalDateRootContainer = props => <QueryRenderer
     } else if (fetchedProps) {
       return <UserJournalDateContainer date={props.date} {...fetchedProps} />;
     }
-    return <P>Loading...</P>;
+    return <Layout center><P>Loading...</P></Layout>;
   }}
 />;
 

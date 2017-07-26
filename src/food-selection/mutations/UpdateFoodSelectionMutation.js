@@ -1,6 +1,6 @@
-import { graphql } from 'react-relay';
+import { commitMutation, graphql } from 'react-relay';
 
-const UpdateFoodSelectionMutation = graphql`
+const mutation = graphql`
   mutation UpdateFoodSelectionMutation(
     $input: UpdateFoodSelectionInput!
   ) {
@@ -19,76 +19,36 @@ const UpdateFoodSelectionMutation = graphql`
         mass,
         massSource,
         unitQuantity,
-        unitOfMeasureByUnitOfMeasureId {
-          fullName,
-        },
+        unitDescription,
+        unitOfMeasureId,
+        brandDescription,
+        physicalDescription,
         date,
+        time,
       }
     }
   }
 `;
 
-export default UpdateFoodSelectionMutation;
-
-/*
-export default class UpdateFoodSelectionMutation extends Relay.Mutation {
-  static fragments = {
-    foodSelection: () => Relay.QL`
-      fragment on FoodSelection {
-        id,
-      }
-    `,
-  };
-  getMutation () {
-    return Relay.QL`mutation{updateFoodSelection}`;
-  }
-  getFatQuery () {
-    return Relay.QL`
-      fragment on UpdateFoodSelectionPayload {
-        foodSelection {
-          foodDescription,
-          foodId,
-          foodByFoodId {
-            rowId,
-            calories,
-            protein,
-            fat,
-            carbs,
-          },
-          foodIdSource,
-          mass,
-          massSource,
-          unitQuantity,
-          unitOfMeasureByUnitOfMeasureId {
-            fullName,
-          },
-          date,
-        },
+function commit (environment, foodSelection, patch, onCompleted, onError) {
+  return commitMutation(environment, {
+    mutation,
+    variables: {
+      input: {
+        id: foodSelection.id,
+        foodSelectionPatch: patch,
       },
-    `;
-  }
-  getOptimisticResponse () {
-    const {foodSelectionPatch} = this.props;
-
-    return {
-      foodSelection: {...foodSelectionPatch},
-    };
-  }
-  getConfigs () {
-    return [
-      {
-        type: 'FIELDS_CHANGE',
-        fieldIDs: {
-          foodSelection: this.props.foodSelection.id,
+    },
+    optimisticUpdater () {
+      return {
+        updateFoodSelection: {
+          foodSelection: Object.assign({}, foodSelection, patch),
         },
-      },
-    ];
-  }
-  getVariables () {
-    return {
-      id: this.props.foodSelection.id,
-      foodSelectionPatch: this.props.foodSelectionPatch,
-    };
-  }
+      };
+    },
+    onCompleted,
+    onError,
+  });
 }
-*/
+
+export default { commit };

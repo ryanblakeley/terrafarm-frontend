@@ -2,21 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {
   createFragmentContainer,
-  commitMutation,
   graphql,
 } from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import { TextInput, validationErrors } from 'shared/components/Form';
 import validations from 'tools/validations';
 import UpdateFoodSelectionMutation from '../mutations/UpdateFoodSelectionMutation';
-// TODO import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
+import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
 
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,
   foodSelectionByRowId: PropTypes.object.isRequired,
   notifyClose: PropTypes.func.isRequired,
   relay: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
+  // router: PropTypes.object.isRequired,
 };
 
 class EditFoodSelectionContainer extends React.Component {
@@ -29,20 +28,16 @@ class EditFoodSelectionContainer extends React.Component {
     this.setState({ formData: data });
     this.updateFoodSelection(data);
   }
-  handleDelete = () => {
-    /* TODO
-    const {foodSelection, user, relay} = this.props;
+  handleDelete = response => {  // eslint-disable-line no-unused-vars
+    const { userByRowId: user, foodSelectionByRowId: foodSelection, relay } = this.props;
 
-    relay.commitUpdate(
-      new DeleteFoodSelectionMutation({
-        foodSelection,
-        user,
-      }), {
-        onSuccess: this.handleSuccessDelete,
-        onFailure: this.handleFailure,
-      },
+    DeleteFoodSelectionMutation.commit(
+      relay.environment,
+      user,
+      foodSelection,
+      this.handleSuccessDelete,
+      this.handleFailure,
     );
-    */
   }
   handleSuccess = response => { // eslint-disable-line no-unused-vars
     if (this.state.isChangingDate) {
@@ -56,36 +51,23 @@ class EditFoodSelectionContainer extends React.Component {
   handleFailure = error => {
     this.setState({ error: !!error });
   }
-  handleSuccessDelete = response => {
-    console.log('FoodSelection Delete SUCCESS:', response);
-    const { userByRowId: user, router } = this.props;
-    router.replace(`/user/${user.rowId}`);
+  handleSuccessDelete = response => { // eslint-disable-line no-unused-vars
+    // TODO: fix the mutation sharedUpdater to get the connections needed.
+    // For now, do a forceful page reload. :(
+    window.location.reload();
+    this.props.notifyClose();
   }
   updateFoodSelection (patch) {
     const { foodSelectionByRowId: foodSelection, relay } = this.props;
-/*
-    const optimisticResponse = () => ({
-      foodSelection: Object.assign({}, foodSelection, patch),
-    });
-*/
-    const variables = {
-      input: {
-        id: foodSelection.id,
-        foodSelectionPatch: patch,
-      },
-    };
 
     this.setState({ isChangingDate: foodSelection.date !== patch.date });
 
-    commitMutation(
+    UpdateFoodSelectionMutation.commit(
       relay.environment,
-      {
-        mutation: UpdateFoodSelectionMutation,
-        // optimisticResponse,
-        variables,
-        onCompleted: this.handleSuccess,
-        onError: this.handleFailure,
-      },
+      foodSelection,
+      patch,
+      this.handleSuccess,
+      this.handleFailure,
     );
   }
   render () {
@@ -102,8 +84,17 @@ class EditFoodSelectionContainer extends React.Component {
     >
       <TextInput
         name={'foodId'}
-        label={'USDA Number'}
+        label={'Food Number'}
         value={String(foodSelection.foodId)}
+        validations={{ isNumeric: true, maxLength: 8 }}
+        validationError={validationErrors.number}
+        maxLength={8}
+        required
+      />
+      <TextInput
+        name={'mass'}
+        label={'Mass (grams)'}
+        value={String(foodSelection.mass)}
         validations={{ isNumeric: true, maxLength: 8 }}
         validationError={validationErrors.number}
         maxLength={8}
@@ -126,16 +117,33 @@ EditFoodSelectionContainer.propTypes = propTypes;
 export default createFragmentContainer(EditFoodSelectionContainer, {
   userByRowId: graphql`
     fragment EditFoodSelectionContainer_userByRowId on User {
-      rowId,
+      id
+      rowId
     }
   `,
   foodSelectionByRowId: graphql`
     fragment EditFoodSelectionContainer_foodSelectionByRowId on FoodSelection {
-      id,
-      rowId,
+      id
+      rowId
       foodDescription
       foodId
-      date,
+      foodByFoodId {
+        rowId
+        calories
+        protein
+        fat
+        carbs
+      }
+      foodIdSource
+      mass
+      massSource
+      unitQuantity
+      unitDescription
+      unitOfMeasureId
+      brandDescription
+      physicalDescription
+      date
+      time
     }
   `,
 });
