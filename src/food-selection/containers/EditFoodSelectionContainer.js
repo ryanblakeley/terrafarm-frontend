@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  createFragmentContainer,
-  graphql,
-} from 'react-relay';
+import { createFragmentContainer, graphql } from 'react-relay';
+import moment from 'moment';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import { TextInput, validationErrors } from 'shared/components/Form';
 import validations from 'tools/validations';
@@ -98,6 +96,15 @@ class EditFoodSelectionContainer extends React.Component {
         validations={{ isNumeric: true, maxLength: 8 }}
         validationError={validationErrors.number}
         maxLength={8}
+        required
+      />
+      <TextInput
+        name={'time'}
+        label={'Time'}
+        value={foodSelection.time}
+        convertValue={v => moment(v, 'HH:mm:ss a').format('HH:mm:ss')}
+        validations={{ isTime: validations.isTime }}
+        validationError={validationErrors.time}
         required
       />
       <TextInput

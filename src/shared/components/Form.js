@@ -18,12 +18,12 @@ const textInputPropTypes = {
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
+  required: PropTypes.bool,
+  updateImmediately: PropTypes.bool,
   validations: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
   ]),
-  required: PropTypes.bool,
-  updateImmediately: PropTypes.bool,
   validationError: PropTypes.string,
   maxLength: PropTypes.number,
   style: PropTypes.object,
@@ -32,9 +32,9 @@ const textInputPropTypes = {
 const textInputDefaultProps = {
   placeholder: null,
   value: null,
-  validations: null,
   required: false,
   updateImmediately: false,
+  validations: null,
   validationError: null,
   maxLength: 60,
   style: {
@@ -123,6 +123,7 @@ const validationErrors = {
   contact: 'Should be an email address or phone number.',
   token: 'Not a valid token.',
   date: 'Should be date in format YYYY-MM-DD',
+  time: 'Should be a valid time.',
   number: 'Should be a number.',
   currency: 'Should be a dollar amount.',
 };
