@@ -25,7 +25,7 @@ class UserJournalContainer extends React.Component {
     const { userByRowId: user } = props;
     const latestFoodSelection = user && user.foodSelectionsByUserId.edges[0];
     const latestFoodSelectionDate = latestFoodSelection && latestFoodSelection.node.date;
-    const datesCount = 3;
+    const datesCount = 7;
 
     this.state = {
       latestDate: latestFoodSelectionDate,

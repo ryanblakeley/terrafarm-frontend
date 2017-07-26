@@ -145,19 +145,6 @@ const datePickerDefaultProps = {
 
 const DatePicker = props => <FormsyDate {...props} />;
 
-const validationErrors = {
-  url: 'Should be a url, e.x. http://imgur.com/abc123',
-  maxLength: 'Character limit reached.',
-  textArea: '500 character limit.',
-  location: 'Should be a valid address',
-  contact: 'Should be an email address or phone number.',
-  token: 'Not a valid token.',
-  date: 'Should be date in format YYYY-MM-DD',
-  time: 'Should be a valid time.',
-  number: 'Should be a number.',
-  currency: 'Should be a dollar amount.',
-};
-
 Form.propTypes = formPropTypes;
 TextInput.propTypes = textInputPropTypes;
 SelectInput.propTypes = selectInputPropTypes;
@@ -169,4 +156,4 @@ SelectInput.defaultProps = selectInputDefaultProps;
 Checkbox.defaultProps = checkboxDefaultProps;
 DatePicker.defaultProps = datePickerDefaultProps;
 
-export { Form, TextInput, SelectInput, Checkbox, DatePicker, validationErrors };
+export { Form, TextInput, SelectInput, Checkbox, DatePicker };

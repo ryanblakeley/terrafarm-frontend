@@ -3,8 +3,8 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import moment from 'moment';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
-import { TextInput, validationErrors } from 'shared/components/Form';
-import validations from 'tools/validations';
+import { TextInput } from 'shared/components/Form';
+import validations, { validationErrors } from 'tools/validations';
 import UpdateFoodSelectionMutation from '../mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
 
@@ -82,11 +82,19 @@ class EditFoodSelectionContainer extends React.Component {
     >
       <TextInput
         name={'foodId'}
-        label={'Food Number'}
+        label={'Food ID'}
         value={String(foodSelection.foodId)}
         validations={{ isNumeric: true, maxLength: 8 }}
         validationError={validationErrors.number}
         maxLength={8}
+      />
+      <TextInput
+        name={'foodDescription'}
+        label={'Food description'}
+        value={foodSelection.foodDescription}
+        validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+        validationError={validationErrors.normalWords}
+        maxLength={50}
         required
       />
       <TextInput
@@ -96,7 +104,38 @@ class EditFoodSelectionContainer extends React.Component {
         validations={{ isNumeric: true, maxLength: 8 }}
         validationError={validationErrors.number}
         maxLength={8}
-        required
+      />
+      <TextInput
+        name={'unitQuantity'}
+        label={'Unit quantity'}
+        value={String(foodSelection.unitQuantity)}
+        validations={{ isNumeric: true, maxLength: 8 }}
+        validationError={validationErrors.number}
+        maxLength={8}
+      />
+      <TextInput
+        name={'unitDescription'}
+        label={'Unit name'}
+        value={foodSelection.unitDescription}
+        validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+        validationError={validationErrors.normalWords}
+        maxLength={50}
+      />
+      <TextInput
+        name={'brandDescription'}
+        label={'Brand name'}
+        value={foodSelection.brandDescription}
+        validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+        validationError={validationErrors.normalWords}
+        maxLength={50}
+      />
+      <TextInput
+        name={'physicalDescription'}
+        label={'Physical change'}
+        value={foodSelection.physicalDescription}
+        validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+        validationError={validationErrors.normalWords}
+        maxLength={50}
       />
       <TextInput
         name={'time'}
@@ -105,7 +144,6 @@ class EditFoodSelectionContainer extends React.Component {
         convertValue={v => moment(v, 'HH:mm:ss a').format('HH:mm:ss')}
         validations={{ isTime: validations.isTime }}
         validationError={validationErrors.time}
-        required
       />
       <TextInput
         name={'date'}

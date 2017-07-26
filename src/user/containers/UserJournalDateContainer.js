@@ -92,14 +92,14 @@ class UserJournalDateContainer extends React.Component {
     const foodSelections = user && user.foodSelectionsByUserId.edges;
 
     const journalFoodSelections = foodSelections.map(({ node }) => {
-      const { rowId, foodDescription, unitQuantity, unitOfMeasureByUnitOfMeasureId: unit } = node;
+      const { rowId, foodDescription, unitQuantity, unitDescription } = node;
       const url = `/user/${user.rowId}/food-journal/edit/${rowId}`;
 
       return <JournalFoodSelection
         key={rowId}
         foodName={foodDescription}
         unitQuantity={unitQuantity}
-        unitName={unit ? unit.fullName : ''}
+        unitName={unitDescription}
         url={url}
       />;
     });
@@ -148,11 +148,12 @@ export default createFragmentContainer(
             mass,
             massSource,
             unitQuantity,
-            unitOfMeasureByUnitOfMeasureId {
-              fullName,
-            },
+            unitDescription,
+            unitOfMeasureId,
+            brandDescription,
+            physicalDescription
+            time,
             date,
-
           },
         },
       },
