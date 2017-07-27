@@ -94,20 +94,20 @@ class ActionPanelForm extends React.Component {
         {showForm && children}
         {error && <FormError text={errorMessage} /> }
         <Layout center topMedium>
-          {onDelete && <FlatButton
-            label={'Delete'}
-            onTouchTap={this.handleDelete}
+          {showForm && <RaisedButton
+            label={'Save'}
+            primary
+            type={'submit'}
+            disabled={!canSubmit}
           />}
           {showForm && <FlatButton
             label={'Cancel'}
             secondary
             onTouchTap={this.handleClose}
           />}
-          {showForm && <RaisedButton
-            label={'Save'}
-            primary
-            type={'submit'}
-            disabled={!canSubmit}
+          {onDelete && <FlatButton
+            label={'Delete'}
+            onTouchTap={this.handleDelete}
           />}
         </Layout>
       </Form>

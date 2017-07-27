@@ -84,6 +84,7 @@ const commonPropTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
+  color: PropTypes.string,
 };
 
 const commonDefaultProps = {
@@ -91,6 +92,7 @@ const commonDefaultProps = {
   style: {},
   width: 40,
   height: 40,
+  color: '',
 };
 
 LogoIcon.propTypes = commonPropTypes;
@@ -129,6 +131,10 @@ LogoIcon.defaultProps = commonDefaultProps;
 LogoFullIcon.defaultProps = commonDefaultProps;
 LogoNameIcon.defaultProps = commonDefaultProps;
 // PeopleIcon.defaultProps = commonDefaultProps;
+
+EditIcon.defaultProps = commonDefaultProps;
+InformationIcon.defaultProps = commonDefaultProps;
+CloseIcon.defaultProps = commonDefaultProps;
 
 export {
   LogoIcon,

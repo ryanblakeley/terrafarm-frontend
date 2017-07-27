@@ -11,6 +11,7 @@ const propTypes = {
   userByRowId: PropTypes.object.isRequired,
   children: PropTypes.object,
   router: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   relay: PropTypes.object.isRequired,
 };
 
@@ -55,7 +56,7 @@ class UserJournalContainer extends React.Component {
     return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
   }
   render () {
-    const { userByRowId: user, children, router, relay } = this.props;
+    const { userByRowId: user, children, router, match, relay } = this.props;
     const { latestDate, datesCount } = this.state;
     const dates = this.getDates(latestDate, datesCount);
     const journalDateRootContainers = dates.map(d => (
@@ -63,6 +64,8 @@ class UserJournalContainer extends React.Component {
         key={d}
         userId={user.rowId}
         date={d}
+        router={router}
+        match={match}
         relay={relay}
       />
     ));

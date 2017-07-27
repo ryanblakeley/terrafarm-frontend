@@ -8,6 +8,8 @@ import JournalFoodSelection from '../components/JournalFoodSelection';
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
+  router: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 class UserJournalDateContainer extends React.Component {
@@ -87,13 +89,21 @@ class UserJournalDateContainer extends React.Component {
     });
   }
   render () {
-    const { userByRowId: user, date } = this.props;
+    const { userByRowId: user, date, router, match } = this.props;
     const { completeness, calories, protein, fat, carbs } = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
 
     const journalFoodSelections = foodSelections.map(({ node }) => {
-      const { rowId, foodDescription, unitQuantity, unitDescription } = node;
+      const {
+        rowId,
+        foodDescription,
+        unitQuantity,
+        unitDescription,
+        foodByFoodId,
+        mass,
+      } = node;
       const url = `/user/${user.rowId}/food-journal/edit/${rowId}`;
+      const editing = router.isActive(match, { pathname: url });
 
       return <JournalFoodSelection
         key={rowId}
@@ -101,6 +111,8 @@ class UserJournalDateContainer extends React.Component {
         unitQuantity={unitQuantity}
         unitName={unitDescription}
         url={url}
+        complete={!!(foodByFoodId && mass)}
+        editing={editing}
       />;
     });
 

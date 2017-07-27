@@ -11,6 +11,8 @@ import UserJournalDateRootContainerQuery
 const propTypes = {
   userId: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  router: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   relay: PropTypes.object.isRequired,
 };
 
@@ -26,7 +28,12 @@ const UserJournalDateRootContainer = props => <QueryRenderer
       console.error(`Relay renderer ${error.message}`);
       return <ErrorComponent message={error.message} />;
     } else if (fetchedProps) {
-      return <UserJournalDateContainer date={props.date} {...fetchedProps} />;
+      return <UserJournalDateContainer
+        date={props.date}
+        {...fetchedProps}
+        router={props.router}
+        match={props.match}
+      />;
     }
     return <Layout center><P>Loading...</P></Layout>;
   }}

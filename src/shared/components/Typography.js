@@ -78,6 +78,7 @@ const LI = props => <li
 const Icon = props => React.cloneElement(props.icon, {
   className: `${props.className ? props.className : ''} ${classNames.icon}`,
   style: props.style,
+  color: props.color,
 });
 const ErrorMessage = props => <p
   className={`${props.className ? props.className : ''} ${classNames.errorMessage}`}
