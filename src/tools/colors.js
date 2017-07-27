@@ -1,4 +1,4 @@
-import {fade} from 'material-ui/utils/colorManipulator';
+import { fade } from 'material-ui/utils/colorManipulator';
 import {
   blueGrey50, blueGrey100, blueGrey300, blueGrey400, blueGrey500, blueGrey900,
   brown400,

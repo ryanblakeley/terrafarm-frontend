@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
-import { P } from 'shared/components/Typography';
-// import classNames from '../styles/JournalDateHeaderStylesheet.css';
+import { Span } from 'shared/components/Typography';
+import classNames from '../styles/JournalDateHeaderStylesheet.css';
 
 const propTypes = {
   date: PropTypes.string.isRequired,
@@ -16,8 +16,13 @@ const propTypes = {
 const JournalDateHeader = props => {
   const { date, calories, protein, fat, carbs, completeness } = props;
 
-  return <Layout>
-    <P>{date} | {calories} | {protein}g | {fat}g | {carbs}g | {completeness}%</P>
+  return <Layout topMedium bottomSmall className={classNames.this}>
+    <Span className={classNames.date}>{date}</Span>
+    <Span className={`${classNames.macro} ${classNames.cal}`}>{calories}</Span>
+    <Span className={classNames.macro}>{protein}</Span>
+    <Span className={classNames.macro}>{fat}</Span>
+    <Span className={classNames.macro}>{carbs}</Span>
+    <Span className={classNames.completeness}>{completeness}%</Span>
   </Layout>;
 };
 

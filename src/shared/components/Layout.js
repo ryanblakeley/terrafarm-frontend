@@ -39,6 +39,7 @@ const defaultProps = {
 
 const Layout = props => {
   const { className, style, children, ...rest } = props;
+
   return <div
     className={`${cx({ ...rest })} ${className}`}
     style={style}
