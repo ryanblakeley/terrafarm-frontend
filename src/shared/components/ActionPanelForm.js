@@ -9,7 +9,7 @@ import FormError from 'shared/components/FormError';
 import classNames from '../styles/ActionPanelFormStylesheet.css';
 
 const propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node.isRequired,
   bodyText: PropTypes.element,
   showForm: PropTypes.bool,
@@ -21,6 +21,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  title: null,
   bodyText: null,
   showForm: true,
   onDelete: () => {

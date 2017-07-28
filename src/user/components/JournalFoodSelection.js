@@ -37,29 +37,22 @@ const defaultProps = {
   editing: false,
 };
 
-class JournalFoodSelection extends React.Component {
-  handleClickEdit = () => {
-    this.rowElement.scrollIntoView();
-  }
-  render () {
-    const { foodName, unitQuantity, unitName, url, complete, editing } = this.props;
-    const color = complete ? '' : red400;
+const JournalFoodSelection = props => {
+  const { foodName, unitQuantity, unitName, url, complete, editing } = props;
+  const color = complete ? '' : red400;
 
-    return <div ref={elem => { this.rowElement = elem; }}>
-      <Layout className={cx({ this: true, complete, editing })}>
-        <Span className={classNames.foodName}>{foodName}</Span>
-        <Span className={classNames.unit}>{unitQuantity} {unitName}</Span>
-        <Span className={classNames.edit}>
-          <Link to={url}>
-            <IconButton style={styles.editButton} onClick={this.handleClickEdit}>
-              <EditIcon className={classNames.editIcon} color={color} />
-            </IconButton>
-          </Link>
-        </Span>
-      </Layout>
-    </div>;
-  }
-}
+  return <Layout className={cx({ this: true, complete, editing })}>
+    <Span className={classNames.foodName}>{foodName}</Span>
+    <Span className={classNames.unit}>{unitQuantity} {unitName}</Span>
+    <Span className={classNames.edit}>
+      <Link to={url}>
+        <IconButton style={styles.editButton} onClick={() => window.scrollTo(0, 0)}>
+          <EditIcon className={classNames.editIcon} color={color} />
+        </IconButton>
+      </Link>
+    </Span>
+  </Layout>;
+};
 
 JournalFoodSelection.propTypes = propTypes;
 JournalFoodSelection.defaultProps = defaultProps;

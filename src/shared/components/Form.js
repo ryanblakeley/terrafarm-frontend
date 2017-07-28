@@ -8,6 +8,17 @@ import FormsyDate from 'formsy-material-ui/lib/FormsyDate';
 import { blueGrey900 } from 'tools/colors';
 import classNames from '../styles/FormStylesheet.css';
 
+const commonStyle = {
+  field: {
+    display: 'block',
+    margin: '0 auto',
+    fontFamily: 'Simonetta, serif',
+  },
+  font: {
+    fontFamily: 'Simonetta, serif',
+  },
+};
+
 const formPropTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -38,21 +49,18 @@ const textInputDefaultProps = {
   validations: null,
   validationError: null,
   maxLength: 60,
-  style: {
-    display: 'block',
-    margin: '0 auto',
-    fontFamily: 'Simonetta, serif',
-  },
+  style: commonStyle.field,
 };
 
 const TextInput = props => {
-  const { label, placeholder, ...rest } = props;
+  const { label, placeholder, style, ...rest } = props;
 
   return <FormsyText
     floatingLabelText={label}
     hintText={placeholder}
     floatingLabelStyle={{ color: blueGrey900 }}
     underlineFocusStyle={{ borderColor: blueGrey900 }}
+    style={Object.assign({}, commonStyle.field, style)}
     {...rest}
   />;
 };
@@ -79,9 +87,7 @@ const selectInputDefaultProps = {
   value: null,
   validations: null,
   required: false,
-  style: {
-    fontFamily: 'Simonetta, serif',
-  },
+  style: commonStyle.field,
 };
 
 const SelectInput = props => {
@@ -109,9 +115,7 @@ const checkboxPropTypes = {
 
 const checkboxDefaultProps = {
   value: null,
-  style: {
-    fontFamily: 'Simonetta, serif',
-  },
+  style: commonStyle.font,
 };
 
 const Checkbox = props => <FormsyCheckbox {...props} />;
@@ -138,9 +142,7 @@ const datePickerDefaultProps = {
   validationErrors: {},
   validations: null,
   value: null,
-  style: {
-    fontFamily: 'Simonetta, serif',
-  },
+  style: commonStyle.font,
 };
 
 const DatePicker = props => <FormsyDate {...props} />;
