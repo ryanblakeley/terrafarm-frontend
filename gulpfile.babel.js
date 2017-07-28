@@ -84,12 +84,12 @@ gulp.task('load-schema', () => {
 gulp.task('webpack-dev-server', () => {
   const devServer = new WebpackDevServer(webpack(webpackConfig), {
     contentBase: PATHS.public,
+    publicPath: webpackConfig.output.publicPath,
     hot: true,
-    // publicPath: '/',
-    // inline: true,
+    inline: true,
+    historyApiFallback: true,
     // noInfo: true,
     stats: { colors: true, chunks: false },
-    historyApiFallback: true,
     proxy: {
       '/graphql-api': PATHS.apiSrv,
     },
