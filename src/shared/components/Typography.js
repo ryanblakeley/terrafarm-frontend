@@ -8,46 +8,55 @@ const H1 = props => <h1
   className={`${props.className ? props.className : ''} ${classNames.h1}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const H2 = props => <h2
   className={`${props.className ? props.className : ''} ${classNames.h2}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const H3 = props => <h3
   className={`${props.className ? props.className : ''} ${classNames.h3}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const H4 = props => <h4
   className={`${props.className ? props.className : ''} ${classNames.h4}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const H5 = props => <h5
   className={`${props.className ? props.className : ''} ${classNames.h5}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const H6 = props => <h6
   className={`${props.className ? props.className : ''} ${classNames.h6}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const AppName = props => <h1
   className={`${props.className ? props.className : ''} ${classNames.appName}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const P = props => <p
   className={`${props.className ? props.className : ''} ${props.large ? classNames.paragraphLarge : classNames.paragraph}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const Span = props => <span
   className={`${props.className ? props.className : ''} ${classNames.span}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const A = props => <a
   href={props.href}
@@ -55,6 +64,7 @@ const A = props => <a
   children={props.children}
   style={props.style}
   target={'_blank'}
+  title={props.title}
 />;
 const Link = props => <InternalLink
   to={props.to}
@@ -64,42 +74,50 @@ const Link = props => <InternalLink
   style={props.style}
   activeClassName={props.activeClassName}
   exact={props.exact}
+  title={props.title}
 />;
 const UL = props => <ul
   className={`${props.className ? props.className : ''} ${classNames.list} ${props.plumb ? classNames.plumb : ''}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const LI = props => <li
   className={`${props.className ? props.className : ''} ${classNames.listItem} ${props.noBullet ? classNames.noBullet : ''} ${props.truncate ? classNames.truncate : ''}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const Icon = props => React.cloneElement(props.icon, {
   className: `${props.className ? props.className : ''} ${classNames.icon}`,
   style: props.style,
   color: props.color,
+  title: props.title,
 });
 const ErrorMessage = props => <p
   className={`${props.className ? props.className : ''} ${classNames.errorMessage}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 const WarningMessage = props => <span
   className={`${props.className ? props.className : ''} ${classNames.warningMessage}`}
   children={props.children}
   style={props.style}
+  title={props.title}
 />;
 
 const commonPropTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
+  title: PropTypes.string,
 };
 
 const commonDefaultProps = {
   className: null,
   style: {},
+  title: null,
 };
 
 H1.propTypes = commonPropTypes;

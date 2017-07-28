@@ -139,7 +139,15 @@ class JournalContainer extends React.Component {
     </TransitionWrapper>;
   }
 }
-
+/*
+        <Layout center topSmall>
+          <Span className={classNames.journalHeader}>Calories / </Span>
+          <Span className={classNames.journalHeader}>Protein / </Span>
+          <Span className={classNames.journalHeader}>Fat / </Span>
+          <Span className={classNames.journalHeader}>Carbs / </Span>
+          <Span className={classNames.journalHeader}>% Resolved</Span>
+        </Layout>
+*/
 JournalContainer.propTypes = propTypes;
 JournalContainer.defaultProps = defaultProps;
 

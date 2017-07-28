@@ -17,12 +17,24 @@ const JournalDateHeader = props => {
   const { date, calories, protein, fat, carbs, completeness } = props;
 
   return <Layout bottomSmall className={classNames.this}>
-    <Span className={classNames.date}>{date}</Span>
-    <Span className={`${classNames.macro} ${classNames.cal}`}>{calories}</Span>
-    <Span className={classNames.macro}>{protein}</Span>
-    <Span className={classNames.macro}>{fat}</Span>
-    <Span className={classNames.macro}>{carbs}</Span>
-    <Span className={classNames.completeness}>{completeness}%</Span>
+    <Span className={classNames.date} title={'Date'}>
+      {date}
+    </Span>
+    <Span className={`${classNames.macro} ${classNames.cal}`} title={'Calories'}>
+      {calories}
+    </Span>
+    <Span className={classNames.macro} title={'Protein'}>
+      {protein}
+    </Span>
+    <Span className={classNames.macro} title={'Total Fat'}>
+      {fat}
+    </Span>
+    <Span className={classNames.macro} title={'Total Carb.'}>
+      {carbs}
+    </Span>
+    <Span className={classNames.completeness} title={'% Resolved'}>
+      {completeness}%
+    </Span>
   </Layout>;
 };
 
