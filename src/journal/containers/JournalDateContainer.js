@@ -12,7 +12,7 @@ const propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-class UserJournalDateContainer extends React.Component {
+class JournalDateContainer extends React.Component {
   constructor (props) {
     super(props);
 
@@ -93,7 +93,7 @@ class UserJournalDateContainer extends React.Component {
     const { completeness, calories, protein, fat, carbs } = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
     const editPanelOpen = router.isActive(match, {
-      pathname: `/user/${user.rowId}/food-journal/edit/`,
+      pathname: `/journal/${user.rowId}/edit/`,
     });
     const journalFoodSelections = foodSelections.map(({ node }) => {
       const {
@@ -104,7 +104,7 @@ class UserJournalDateContainer extends React.Component {
         foodByFoodId,
         mass,
       } = node;
-      const url = `/user/${user.rowId}/food-journal/edit/${rowId}`;
+      const url = `/journal/${user.rowId}/edit/${rowId}`;
       const editing = router.isActive(match, { pathname: url });
 
       return <JournalFoodSelection
@@ -135,19 +135,19 @@ class UserJournalDateContainer extends React.Component {
   }
 }
 
-UserJournalDateContainer.propTypes = propTypes;
+JournalDateContainer.propTypes = propTypes;
 
 export default createFragmentContainer(
-  UserJournalDateContainer,
+  JournalDateContainer,
   graphql`
-    fragment UserJournalDateContainer_userByRowId on User {
+    fragment JournalDateContainer_userByRowId on User {
       id,
       rowId,
       foodSelectionsByUserId(
         condition: $condition,
         first: 2147483647,
         orderBy: TIME_DESC
-      ) @connection(key: "UserJournalDateContainer_foodSelectionsByUserId") {
+      ) @connection(key: "JournalDateContainer_foodSelectionsByUserId") {
         edges {
           node {
             id,

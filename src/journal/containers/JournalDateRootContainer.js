@@ -4,9 +4,9 @@ import { QueryRenderer } from 'react-relay';
 import ErrorComponent from 'core/components/ErrorComponent';
 import Layout from 'shared/components/Layout';
 import { P } from 'shared/components/Typography';
-import UserJournalDateContainer from 'user/containers/UserJournalDateContainer';
-import UserJournalDateRootContainerQuery
-  from 'user/queries/UserJournalDateRootContainerQuery';
+import JournalDateContainer from 'journal/containers/JournalDateContainer';
+import JournalDateRootContainerQuery
+  from 'journal/queries/JournalDateRootContainerQuery';
 
 const propTypes = {
   userId: PropTypes.string.isRequired,
@@ -16,9 +16,9 @@ const propTypes = {
   relay: PropTypes.object.isRequired,
 };
 
-const UserJournalDateRootContainer = props => <QueryRenderer
+const JournalDateRootContainer = props => <QueryRenderer
   environment={props.relay.environment}
-  query={UserJournalDateRootContainerQuery}
+  query={JournalDateRootContainerQuery}
   variables={{
     userId: props.userId,
     condition: { date: props.date },
@@ -28,7 +28,7 @@ const UserJournalDateRootContainer = props => <QueryRenderer
       console.error(`Relay renderer ${error.message}`);
       return <ErrorComponent message={error.message} />;
     } else if (fetchedProps) {
-      return <UserJournalDateContainer
+      return <JournalDateContainer
         date={props.date}
         {...fetchedProps}
         router={props.router}
@@ -39,6 +39,6 @@ const UserJournalDateRootContainer = props => <QueryRenderer
   }}
 />;
 
-UserJournalDateRootContainer.propTypes = propTypes;
+JournalDateRootContainer.propTypes = propTypes;
 
-export default UserJournalDateRootContainer;
+export default JournalDateRootContainer;

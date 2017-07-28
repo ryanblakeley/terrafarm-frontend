@@ -25,8 +25,8 @@ const mutation = graphql`
 function sharedUpdater (store, user, deletedId) {
   const userProxy = store.get(user.id);
   const connectionKeys = [
-    'UserJournalContainer_foodSelectionsByUserId',
-    'UserJournalDateContainer_foodSelectionsByUserId',
+    'JournalContainer_foodSelectionsByUserId',
+    'JournalDateContainer_foodSelectionsByUserId',
   ];
 
   connectionKeys.forEach(c => {
@@ -76,11 +76,11 @@ const getConfigs = (user) => ([
     parentID: user.id,
     connectionKeys: [
       {
-        key: 'UserJournalContainer_foodSelectionsByUserId',
+        key: 'JournalContainer_foodSelectionsByUserId',
         rangeBehavior: 'append',
       },
       {
-        key: 'UserJournalDateContainer_foodSelectionsByUserId',
+        key: 'JournalDateContainer_foodSelectionsByUserId',
         rangeBehavior: '',
       },
     ],

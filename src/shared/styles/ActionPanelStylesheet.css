@@ -1,6 +1,6 @@
 .this {
   position: relative;
-  padding: 1em 0;
+  padding: 1em 8px;
   border: 3px solid rgb(92,107,192);
   border-radius: 2px;
   background-color: rgba(232,234,246 ,0.92);

@@ -7,9 +7,9 @@ import Layout from 'shared/components/Layout';
 import { Span, ErrorMessage } from 'shared/components/Typography';
 import { TextInput } from 'shared/components/Form';
 import validations, { validationErrors } from 'tools/validations';
-import UpdateFoodSelectionMutation from '../mutations/UpdateFoodSelectionMutation';
-import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
-import classNames from '../styles/EditFoodSelectionContainerStylesheet.css';
+import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
+import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
+import classNames from '../styles/JournalEditRecordContainerStylesheet.css';
 
 const styles = {
   field: {
@@ -28,7 +28,7 @@ const propTypes = {
   // router: PropTypes.object.isRequired,
 };
 
-class EditFoodSelectionContainer extends React.Component {
+class JournalEditRecordContainer extends React.Component {
   state = {
     error: false,
     formData: {},
@@ -101,6 +101,28 @@ class EditFoodSelectionContainer extends React.Component {
     const { foodSelectionByRowId: foodSelection, notifyClose } = this.props;
     const { error } = this.state;
     const nutrition = this.calculateNutrition(foodSelection);
+    const nutritionDisplay = nutrition.complete
+      ? <Layout center topSmall bottomSmall className={classNames.nutrients}>
+        <Layout className={`${classNames.nutrientRow}  ${classNames.cal}`}>
+          <Span className={classNames.nutrientLabel}>Calories</Span>
+          <Span className={classNames.nutrientValue}>{nutrition.calories}</Span>
+        </Layout>
+        <Layout className={classNames.nutrientRow}>
+          <Span className={classNames.nutrientLabel}>Protein</Span>
+          <Span className={classNames.nutrientValue}>{nutrition.protein}</Span>
+        </Layout>
+        <Layout className={classNames.nutrientRow}>
+          <Span className={classNames.nutrientLabel}>Fats</Span>
+          <Span className={classNames.nutrientValue}>{nutrition.fat}</Span>
+        </Layout>
+        <Layout className={classNames.nutrientRow}>
+          <Span className={classNames.nutrientLabel}>Carbs</Span>
+          <Span className={classNames.nutrientValue}>{nutrition.carbs}</Span>
+        </Layout>
+      </Layout>
+      : <Layout center topSmall bottomSmall>
+        <ErrorMessage>Food ID and mass are needed to calculate nutrition.</ErrorMessage>
+      </Layout>;
 
     return <ActionPanelForm
       notifyClose={notifyClose}
@@ -109,9 +131,6 @@ class EditFoodSelectionContainer extends React.Component {
       error={error}
       showForm
     >
-      {!nutrition.complete && <Layout center>
-        <ErrorMessage>A food ID and mass are needed to calculate nutrition.</ErrorMessage>
-      </Layout>}
       <Layout flexCenter>
         <Layout>
           <TextInput
@@ -137,29 +156,7 @@ class EditFoodSelectionContainer extends React.Component {
           />
         </Layout>
       </Layout>
-      {!!nutrition.complete && <Layout
-        center
-        topSmall
-        bottomSmall
-        className={classNames.nutrients}
-      >
-        <Layout className={`${classNames.nutrientRow}  ${classNames.cal}`}>
-          <Span className={classNames.nutrientLabel}>Calories</Span>
-          <Span className={classNames.nutrientValue}>{nutrition.calories}</Span>
-        </Layout>
-        <Layout className={classNames.nutrientRow}>
-          <Span className={classNames.nutrientLabel}>Protein</Span>
-          <Span className={classNames.nutrientValue}>{nutrition.protein}</Span>
-        </Layout>
-        <Layout className={classNames.nutrientRow}>
-          <Span className={classNames.nutrientLabel}>Fats</Span>
-          <Span className={classNames.nutrientValue}>{nutrition.fat}</Span>
-        </Layout>
-        <Layout className={classNames.nutrientRow}>
-          <Span className={classNames.nutrientLabel}>Carbs</Span>
-          <Span className={classNames.nutrientValue}>{nutrition.carbs}</Span>
-        </Layout>
-      </Layout>}
+      {nutritionDisplay}
       <Layout flexCenter>
         <Layout>
           <TextInput
@@ -254,17 +251,17 @@ class EditFoodSelectionContainer extends React.Component {
   }
 }
 
-EditFoodSelectionContainer.propTypes = propTypes;
+JournalEditRecordContainer.propTypes = propTypes;
 
-export default createFragmentContainer(EditFoodSelectionContainer, {
+export default createFragmentContainer(JournalEditRecordContainer, {
   userByRowId: graphql`
-    fragment EditFoodSelectionContainer_userByRowId on User {
+    fragment JournalEditRecordContainer_userByRowId on User {
       id
       rowId
     }
   `,
   foodSelectionByRowId: graphql`
-    fragment EditFoodSelectionContainer_foodSelectionByRowId on FoodSelection {
+    fragment JournalEditRecordContainer_foodSelectionByRowId on FoodSelection {
       id
       rowId
       foodDescription

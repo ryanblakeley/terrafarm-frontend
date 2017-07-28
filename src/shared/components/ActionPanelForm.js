@@ -6,7 +6,6 @@ import { Form } from 'shared/components/Form';
 import { FlatButton, RaisedButton } from 'shared/components/Material';
 import CloseButton from 'shared/components/CloseButton';
 import FormError from 'shared/components/FormError';
-import classNames from '../styles/ActionPanelFormStylesheet.css';
 
 const propTypes = {
   title: PropTypes.string,
@@ -82,7 +81,7 @@ class ActionPanelForm extends React.Component {
     } = this.props;
     const { canSubmit } = this.state;
 
-    return <div className={classNames.this}>
+    return <Layout>
       {notifyClose && <CloseButton notifyClose={this.handleClose} />}
       {title && <H5>{title}</H5>}
       {bodyText && <Layout center><P>{bodyText}</P></Layout>}
@@ -112,7 +111,7 @@ class ActionPanelForm extends React.Component {
           />}
         </Layout>
       </Form>
-    </div>;
+    </Layout>;
   }
 }
 

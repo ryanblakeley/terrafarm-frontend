@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Layout from 'shared/components/Layout';
 import classNamesContext from 'classnames/bind';
 import classNames from '../styles/ActionPanelStylesheet.css';
 
@@ -11,13 +12,13 @@ const propTypes = {
 };
 
 const ActionPanel = props => (
-  <div className={cx({ this: true, empty: !props.children })}>
+  <Layout className={cx({ this: true, empty: !props.children })}>
     {props.children
       && React.cloneElement(props.children, {
         notifyClose: props.notifyClose,
       })
     }
-  </div>
+  </Layout>
 );
 
 ActionPanel.propTypes = propTypes;

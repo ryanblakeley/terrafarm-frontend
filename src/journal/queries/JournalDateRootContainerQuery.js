@@ -1,7 +1,7 @@
 import { graphql } from 'react-relay';
 
-const UserJournalDateRootContainerQuery = graphql`
-  query UserJournalDateRootContainerQuery(
+const JournalDateRootContainerQuery = graphql`
+  query JournalDateRootContainerQuery(
     $userId: Uuid!,
     $condition: FoodSelectionCondition!,
   ) {
@@ -17,9 +17,9 @@ const UserJournalDateRootContainerQuery = graphql`
           },
         },
       },
-      ...UserJournalDateContainer_userByRowId,
+      ...JournalDateContainer_userByRowId,
     },
   }
 `;
 
-export default UserJournalDateRootContainerQuery;
+export default JournalDateRootContainerQuery;

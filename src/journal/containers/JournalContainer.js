@@ -4,8 +4,8 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import ActionPanel from 'shared/components/ActionPanel';
-import UserJournalDateRootContainer from 'user/containers/UserJournalDateRootContainer';
-import classNames from '../styles/UserJournalContainerStylesheet.css';
+import JournalDateRootContainer from 'journal/containers/JournalDateRootContainer';
+import classNames from '../styles/JournalContainerStylesheet.css';
 
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,
@@ -19,7 +19,7 @@ const defaultProps = {
   children: null,
 };
 
-class UserJournalContainer extends React.Component {
+class JournalContainer extends React.Component {
   constructor (props) {
     super(props);
 
@@ -60,7 +60,7 @@ class UserJournalContainer extends React.Component {
     const { latestDate, datesCount } = this.state;
     const dates = this.getDates(latestDate, datesCount);
     const journalDateRootContainers = dates.map(d => (
-      <UserJournalDateRootContainer
+      <JournalDateRootContainer
         key={d}
         userId={user.rowId}
         date={d}
@@ -75,9 +75,9 @@ class UserJournalContainer extends React.Component {
         <Layout className={classNames.journalDatesWrapper}>
           {journalDateRootContainers}
         </Layout>
-        {children && <Layout className={classNames.editFoodSelectionPanelWrapper}>
+        {children && <Layout className={classNames.actionPanelWrapper}>
           <ActionPanel
-            notifyClose={() => router.replace(`/user/${user.rowId}/food-journal`)}
+            notifyClose={() => router.replace(`/journal/${user.rowId}`)}
           >
             {children}
           </ActionPanel>
@@ -87,19 +87,19 @@ class UserJournalContainer extends React.Component {
   }
 }
 
-UserJournalContainer.propTypes = propTypes;
-UserJournalContainer.defaultProps = defaultProps;
+JournalContainer.propTypes = propTypes;
+JournalContainer.defaultProps = defaultProps;
 
 export default createFragmentContainer(
-  UserJournalContainer,
+  JournalContainer,
   graphql`
-    fragment UserJournalContainer_userByRowId on User {
+    fragment JournalContainer_userByRowId on User {
       id,
       rowId,
       foodSelectionsByUserId(
         first: $count,
         orderBy: $orderBy
-      ) @connection(key: "UserJournalContainer_foodSelectionsByUserId") {
+      ) @connection(key: "JournalContainer_foodSelectionsByUserId") {
         edges {
           node {
             id,
