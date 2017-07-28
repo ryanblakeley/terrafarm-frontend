@@ -179,4 +179,21 @@ WarningMessage.defaultProps = {
   children: '(not provided)',
 };
 
-export { H1, H2, H3, H4, H5, H6, AppName, P, Span, A, Link, UL, LI, Icon, WarningMessage };
+export {
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  AppName,
+  P,
+  Span,
+  A,
+  Link,
+  UL,
+  LI,
+  Icon,
+  WarningMessage,
+  ErrorMessage,
+};

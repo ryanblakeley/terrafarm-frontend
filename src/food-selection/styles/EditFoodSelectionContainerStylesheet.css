@@ -1,0 +1,11 @@
+.nutrients {  max-width: 404px; }
+.nutrientRow { display: flex; justify-content: space-between; }
+.nutrientRow.cal { border-bottom: solid 3px #263238; }
+.nutrientLabel { font-weight: bold; }
+.nutrientValue { }
+.nutrientValue:after {
+  content: 'g';
+}
+.cal .nutrientValue:after {
+  content: '';
+}

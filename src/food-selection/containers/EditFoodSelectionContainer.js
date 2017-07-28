@@ -4,10 +4,12 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import moment from 'moment';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import Layout from 'shared/components/Layout';
+import { Span, ErrorMessage } from 'shared/components/Typography';
 import { TextInput } from 'shared/components/Form';
 import validations, { validationErrors } from 'tools/validations';
 import UpdateFoodSelectionMutation from '../mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from '../mutations/DeleteFoodSelectionMutation';
+import classNames from '../styles/EditFoodSelectionContainerStylesheet.css';
 
 const styles = {
   field: {
@@ -78,9 +80,27 @@ class EditFoodSelectionContainer extends React.Component {
       this.handleFailure,
     );
   }
+  calculateNutrition = foodSelection => {
+    const { foodByFoodId: food, mass } = foodSelection;
+
+    if (food && mass) {
+      const factor = mass / 100;
+
+      return {
+        complete: 1,
+        calories: Math.round(food.calories * factor),
+        protein: Math.round(food.protein * factor),
+        fat: Math.round(food.fat * factor),
+        carbs: Math.round(food.carbs * factor),
+      };
+    }
+
+    return { complete: 0, calories: null, protein: null, fat: null, carbs: null };
+  }
   render () {
     const { foodSelectionByRowId: foodSelection, notifyClose } = this.props;
     const { error } = this.state;
+    const nutrition = this.calculateNutrition(foodSelection);
 
     return <ActionPanelForm
       notifyClose={notifyClose}
@@ -89,6 +109,9 @@ class EditFoodSelectionContainer extends React.Component {
       error={error}
       showForm
     >
+      {!nutrition.complete && <Layout center>
+        <ErrorMessage>A food ID and mass are needed to calculate nutrition.</ErrorMessage>
+      </Layout>}
       <Layout flexCenter>
         <Layout>
           <TextInput
@@ -114,6 +137,29 @@ class EditFoodSelectionContainer extends React.Component {
           />
         </Layout>
       </Layout>
+      {!!nutrition.complete && <Layout
+        center
+        topSmall
+        bottomSmall
+        className={classNames.nutrients}
+      >
+        <Layout className={`${classNames.nutrientRow}  ${classNames.cal}`}>
+          <Span className={classNames.nutrientLabel}>Calories</Span>
+          <Span className={classNames.nutrientValue}>{nutrition.calories}</Span>
+        </Layout>
+        <Layout className={classNames.nutrientRow}>
+          <Span className={classNames.nutrientLabel}>Protein</Span>
+          <Span className={classNames.nutrientValue}>{nutrition.protein}</Span>
+        </Layout>
+        <Layout className={classNames.nutrientRow}>
+          <Span className={classNames.nutrientLabel}>Fats</Span>
+          <Span className={classNames.nutrientValue}>{nutrition.fat}</Span>
+        </Layout>
+        <Layout className={classNames.nutrientRow}>
+          <Span className={classNames.nutrientLabel}>Carbs</Span>
+          <Span className={classNames.nutrientValue}>{nutrition.carbs}</Span>
+        </Layout>
+      </Layout>}
       <Layout flexCenter>
         <Layout>
           <TextInput

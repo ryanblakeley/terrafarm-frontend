@@ -16,7 +16,7 @@ const propTypes = {
 const JournalDateHeader = props => {
   const { date, calories, protein, fat, carbs, completeness } = props;
 
-  return <Layout topMedium bottomSmall className={classNames.this}>
+  return <Layout bottomSmall className={classNames.this}>
     <Span className={classNames.date}>{date}</Span>
     <Span className={`${classNames.macro} ${classNames.cal}`}>{calories}</Span>
     <Span className={classNames.macro}>{protein}</Span>

@@ -29,19 +29,21 @@ const propTypes = {
   url: PropTypes.string.isRequired,
   complete: PropTypes.bool.isRequired,
   editing: PropTypes.bool,
+  wide: PropTypes.bool,
 };
 
 const defaultProps = {
   unitQuantity: '',
   unitName: '',
   editing: false,
+  wide: false,
 };
 
 const JournalFoodSelection = props => {
-  const { foodName, unitQuantity, unitName, url, complete, editing } = props;
+  const { foodName, unitQuantity, unitName, url, complete, editing, wide } = props;
   const color = complete ? '' : red400;
 
-  return <Layout className={cx({ this: true, complete, editing })}>
+  return <Layout className={cx({ this: true, complete, editing, wide })}>
     <Span className={classNames.foodName}>{foodName}</Span>
     <Span className={classNames.unit}>{unitQuantity} {unitName}</Span>
     <Span className={classNames.edit}>

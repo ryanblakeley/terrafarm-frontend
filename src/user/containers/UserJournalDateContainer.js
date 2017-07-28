@@ -92,7 +92,9 @@ class UserJournalDateContainer extends React.Component {
     const { userByRowId: user, date, router, match } = this.props;
     const { completeness, calories, protein, fat, carbs } = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
-
+    const editPanelOpen = router.isActive(match, {
+      pathname: `/user/${user.rowId}/food-journal/edit/`,
+    });
     const journalFoodSelections = foodSelections.map(({ node }) => {
       const {
         rowId,
@@ -113,6 +115,7 @@ class UserJournalDateContainer extends React.Component {
         url={url}
         complete={!!(foodByFoodId && mass)}
         editing={editing}
+        wide={editPanelOpen}
       />;
     });
 
@@ -125,7 +128,9 @@ class UserJournalDateContainer extends React.Component {
         carbs={carbs}
         completeness={completeness}
       />
-      {journalFoodSelections}
+      <Layout bottomMedium>
+        {journalFoodSelections}
+      </Layout>
     </Layout>;
   }
 }
