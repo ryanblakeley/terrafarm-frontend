@@ -7,9 +7,7 @@ import { CorePage } from 'core/components/CorePage';
 import HomePage from 'home/components/HomePage';
 import NotFound from 'not-found/components/NotFoundPage';
 
-// user
-import UserContainer from 'user/containers/UserContainer';
-import UserContainerQuery from 'user/queries/UserContainerQuery';
+// journal
 import UserJournalContainer from 'user/containers/UserJournalContainer';
 import UserJournalContainerQuery from 'user/queries/UserJournalContainerQuery';
 
@@ -18,27 +16,30 @@ import EditFoodSelectionContainer from 'food-selection/containers/EditFoodSelect
 import EditFoodSelectionContainerQuery
   from 'food-selection/queries/EditFoodSelectionContainerQuery';
 
+// food
+import FoodContainer from 'food/containers/FoodContainer';
+import FoodContainerQuery from 'food/queries/FoodContainerQuery';
+
 export default makeRouteConfig(
   <Route path={'/'} Component={CorePage}>
     <Route Component={HomePage} />
     <Route
-      path={'user/:userId'}
-      Component={UserContainer}
-      query={UserContainerQuery}
+      path={'journal/:userId'}
+      Component={UserJournalContainer}
+      query={UserJournalContainerQuery}
+      prepareVariables={params => ({ ...params, count: 1, orderBy: 'DATE_DESC' })}
     >
       <Route
-        path={'food-journal'}
-        Component={UserJournalContainer}
-        query={UserJournalContainerQuery}
-        prepareVariables={params => ({ ...params, count: 1, orderBy: 'DATE_DESC' })}
-      >
-        <Route
-          path={'edit/:foodSelectionId'}
-          Component={EditFoodSelectionContainer}
-          query={EditFoodSelectionContainerQuery}
-        />
-      </Route>
+        path={'edit/:foodSelectionId'}
+        Component={EditFoodSelectionContainer}
+        query={EditFoodSelectionContainerQuery}
+      />
     </Route>
+    <Route
+      path={'food/:foodId'}
+      Component={FoodContainer}
+      query={FoodContainerQuery}
+    />
     <Route path={'*'} Component={NotFound} />
   </Route>,
 );

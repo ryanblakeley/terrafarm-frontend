@@ -7,6 +7,7 @@ import React from 'react';
 // import IoIosMore from 'react-icons/lib/io/ios-more';
 import IoEdit from 'react-icons/lib/io/edit';
 import IoPerson from 'react-icons/lib/io/person';
+import IoIosNutrition from 'react-icons/lib/io/ios-nutrition';
 // import IoDollar from 'react-icons/lib/io/social-usd-outline';
 // import IoIosCalendar from 'react-icons/lib/io/ios-calendar-outline';
 // import IoIosPeople from 'react-icons/lib/io/ios-people';
@@ -47,6 +48,7 @@ const LogoNameIcon = props => <img src={logoName} alt={'Terrafarm'} {...props} /
 // const MoreIcon = props => <Icon icon={<IoIosMore />} {...props} />;
 const EditIcon = props => <Icon icon={<IoEdit />} {...props} />;
 const PersonIcon = props => <Icon icon={<IoPerson />} {...props} />;
+const FoodIcon = props => <Icon icon={<IoIosNutrition />} {...props} />;
 // const DollarIcon = props => <Icon icon={<IoDollar />} {...props} />;
 // const CalendarIcon = props => <Icon icon={<IoIosCalendar />} {...props} />;
 // const PeopleIcon = props => <Icon icon={<IoIosPeople />} {...props} />;
@@ -101,6 +103,7 @@ LogoIcon.propTypes = commonPropTypes;
 // MoreIcon.propTypes = commonPropTypes;
 EditIcon.propTypes = commonPropTypes;
 PersonIcon.propTypes = commonPropTypes;
+FoodIcon.propTypes = commonPropTypes;
 // DollarIcon.propTypes = commonPropTypes;
 // CalendarIcon.propTypes = commonPropTypes;
 // PeopleIcon.propTypes = commonPropTypes;
@@ -145,6 +148,7 @@ export {
 //   MoreIcon,
   EditIcon,
   PersonIcon,
+  FoodIcon,
 //   DollarIcon,
 //   CalendarIcon,
 //   PeopleIcon,
