@@ -56,7 +56,7 @@ class JournalEditRecordContainer extends React.Component {
       window.location.reload();
     }
 
-    this.props.notifyClose();
+    // this.props.notifyClose();
   }
   handleFailure = error => {
     this.setState({ error: !!error });

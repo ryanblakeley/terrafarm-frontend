@@ -4,7 +4,7 @@ import Layout from 'shared/components/Layout';
 import { H5, P } from 'shared/components/Typography';
 import { Form } from 'shared/components/Form';
 import { FlatButton, RaisedButton } from 'shared/components/Material';
-import CloseButton from 'shared/components/CloseButton';
+// import CloseButton from 'shared/components/CloseButton';
 import FormError from 'shared/components/FormError';
 
 const propTypes = {
@@ -77,12 +77,11 @@ class ActionPanelForm extends React.Component {
       showForm,
       error,
       errorMessage,
-      notifyClose,
+      // notifyClose,
     } = this.props;
     const { canSubmit } = this.state;
 
     return <Layout>
-      {notifyClose && <CloseButton notifyClose={this.handleClose} />}
       {title && <H5>{title}</H5>}
       {bodyText && <Layout center><P>{bodyText}</P></Layout>}
       <Form
@@ -91,9 +90,7 @@ class ActionPanelForm extends React.Component {
         onValidSubmit={this.handleSubmit}
         onInvalidSubmit={this.handleFormError}
       >
-        {showForm && children}
-        {error && <FormError text={errorMessage} /> }
-        <Layout center topMedium>
+        <Layout center topSmall bottomSmall>
           {showForm && <RaisedButton
             label={'Save'}
             primary
@@ -101,7 +98,7 @@ class ActionPanelForm extends React.Component {
             disabled={!canSubmit}
           />}
           {showForm && <FlatButton
-            label={'Cancel'}
+            label={'Close'}
             secondary
             onTouchTap={this.handleClose}
           />}
@@ -110,10 +107,14 @@ class ActionPanelForm extends React.Component {
             onTouchTap={this.handleDelete}
           />}
         </Layout>
+        {error && <FormError text={errorMessage} />}
+        {showForm && children}
       </Form>
     </Layout>;
   }
 }
+
+//      {notifyClose && <CloseButton notifyClose={this.handleClose} />}
 
 ActionPanelForm.propTypes = propTypes;
 ActionPanelForm.defaultProps = defaultProps;
