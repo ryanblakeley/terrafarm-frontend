@@ -5,7 +5,6 @@ import BrowserProtocol from 'farce/lib/BrowserProtocol';
 import queryMiddleware from 'farce/lib/queryMiddleware';
 import createFarceRouter from 'found/lib/createFarceRouter';
 import createRender from 'found/lib/createRender';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { ClientFetcher } from 'fetcher';
 import routes from 'routes';
@@ -15,8 +14,6 @@ import ErrorComponent from 'core/components/ErrorComponent';
 import 'sanitize.css/sanitize.css';
 import 'shared/styles/_fonts.css';
 import 'shared/styles/_base.css';
-
-injectTapEventPlugin();
 
 function createResolver (fetcher) {
   const environment = new Environment({
