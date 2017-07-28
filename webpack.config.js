@@ -36,7 +36,6 @@ const plugins = [
 if (WEBPACK_ENV === 'production') {
   console.log('[webpackProductionConfig]');
   entry = [
-    // 'babel-polyfill'
     PATHS.client,
   ];
   plugins.push(
@@ -59,10 +58,9 @@ if (WEBPACK_ENV === 'production') {
 } else {
   console.log('[webpackDevelopmentConfig]');
   entry = [
-    // 'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/dev-server',
+    'webpack/hot/only-dev-server',
     PATHS.client,
   ];
   plugins.push(
