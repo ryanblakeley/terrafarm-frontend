@@ -94,6 +94,7 @@ class EditFoodSelectionContainer extends React.Component {
           <TextInput
             name={'foodId'}
             label={'Food ID'}
+            placeholder={'Unique number'}
             value={String(foodSelection.foodId)}
             validations={{ isNumeric: true, maxLength: 8 }}
             validationError={validationErrors.number}
@@ -117,7 +118,8 @@ class EditFoodSelectionContainer extends React.Component {
         <Layout>
           <TextInput
             name={'foodDescription'}
-            label={'Food description'}
+            label={'Food description*'}
+            placeholder={'Natural terms'}
             value={foodSelection.foodDescription}
             validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
             validationError={validationErrors.normalWords}
@@ -130,6 +132,7 @@ class EditFoodSelectionContainer extends React.Component {
           <TextInput
             name={'unitQuantity'}
             label={'Unit quantity'}
+            placeholder={'Number'}
             value={String(foodSelection.unitQuantity)}
             validations={{ isNumeric: true, maxLength: 8 }}
             validationError={validationErrors.number}
@@ -141,6 +144,7 @@ class EditFoodSelectionContainer extends React.Component {
           <TextInput
             name={'unitDescription'}
             label={'Unit name'}
+            placeholder={'Natural term'}
             value={foodSelection.unitDescription}
             validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
             validationError={validationErrors.normalWords}
@@ -164,7 +168,8 @@ class EditFoodSelectionContainer extends React.Component {
         <Layout leftSmall>
           <TextInput
             name={'physicalDescription'}
-            label={'Physical change'}
+            label={'Physical state'}
+            placeholder={'E.x. chopped, sliced, melted'}
             value={foodSelection.physicalDescription}
             validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
             validationError={validationErrors.normalWords}
@@ -178,6 +183,7 @@ class EditFoodSelectionContainer extends React.Component {
           <TextInput
             name={'time'}
             label={'Time (converts to 24-hour)'}
+            placeholder={'E.x. 2:05 pm, 8 am, 16:50'}
             value={foodSelection.time}
             convertValue={v => moment(v, 'HH:mm:ss a').format('HH:mm:ss')}
             validations={{ isTime: validations.isTime }}
@@ -188,7 +194,8 @@ class EditFoodSelectionContainer extends React.Component {
         <Layout leftSmall>
           <TextInput
             name={'date'}
-            label={'Date'}
+            label={'Date*'}
+            placeholder={'YYY-MM-DD'}
             value={foodSelection.date}
             validations={{ matchRegexp: validations.matchDate }}
             validationError={validationErrors.date}
