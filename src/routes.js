@@ -24,7 +24,6 @@ export default makeRouteConfig(
       path={'journal/:userId'}
       Component={JournalContainer}
       query={JournalContainerQuery}
-      prepareVariables={params => ({ ...params, count: 1, orderBy: 'DATE_DESC' })}
     >
       <Route
         path={'edit/:foodSelectionId'}

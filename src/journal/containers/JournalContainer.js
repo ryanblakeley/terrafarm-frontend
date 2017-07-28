@@ -24,23 +24,40 @@ class JournalContainer extends React.Component {
     super(props);
 
     const { userByRowId: user } = props;
-    const latestFoodSelection = user && user.foodSelectionsByUserId.edges[0];
-    const latestFoodSelectionDate = latestFoodSelection && latestFoodSelection.node.date;
-    const datesCount = 7;
+    const latestRecord = user && user.foodSelectionsByUserId.edges[0];
+    const oldestRecord = user
+      && user.foodSelectionsByUserId.edges[user.foodSelectionsByUserId.edges.length - 1];
+    const latestRecordDate = latestRecord && latestRecord.node.date;
+    const oldestRecordDate = oldestRecord && oldestRecord.node.date;
+    const datesCount = 4;
 
     this.state = {
-      latestDate: latestFoodSelectionDate,
+      latestDate: latestRecordDate,
+      oldestDate: oldestRecordDate,
       datesCount,
     };
   }
+  componentDidMount () {
+    window.addEventListener('scroll', this.handleScroll);
+  }
   componentWillReceiveProps (nextProps) {
     const { userByRowId: user } = nextProps;
-    const latestFoodSelection = user && user.foodSelectionsByUserId.edges[0];
-    const latestFoodSelectionDate = latestFoodSelection && latestFoodSelection.node.date;
+    const latestRecord = user && user.foodSelectionsByUserId.edges[0];
+    const oldestRecord = user
+      && user.foodSelectionsByUserId.edges[user.foodSelectionsByUserId.edges.length - 1];
+    const latestRecordDate = latestRecord && latestRecord.node.date;
+    const oldestRecordDate = oldestRecord && oldestRecord.node.date;
 
-    if (latestFoodSelectionDate !== this.state.latestDate) {
-      this.setState({ latestDate: latestFoodSelectionDate });
+    if (latestRecordDate !== this.state.latestDate) {
+      this.setState({ latestDate: latestRecordDate });
     }
+
+    if (oldestRecordDate !== this.state.oldestDate) {
+      this.setState({ oldestDate: oldestRecordDate });
+    }
+  }
+  componentWillUnmount () {
+    window.removeEventListener('scroll', this.handleScroll);
   }
   getDates (date, datesCount) {
     const dates = [];
@@ -54,6 +71,33 @@ class JournalContainer extends React.Component {
     const d = new Date(date.replace(/-/g, '/')); // fixes date string parsing
     d.setDate(d.getDate() - daysAgo);
     return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+  }
+  handleScroll = () => {
+    const windowHeight = 'innerHeight' in window
+      ? window.innerHeight
+      : document.documentElement.offsetHeight;
+    const body = document.body;
+    const html = document.documentElement;
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight,
+    );
+    const windowBottom = windowHeight + window.pageYOffset;
+
+    if (windowBottom >= docHeight) {
+      // Add dates to view if older journal records exist
+      const { latestDate, oldestDate, datesCount } = this.state;
+      const oldestDateShowing = this.dateByDaysAgo(latestDate, datesCount);
+
+      if (new Date(oldestDateShowing) > new Date(oldestDate)) {
+        this.setState({
+          datesCount: this.state.datesCount += 1,
+        });
+      }
+    }
   }
   render () {
     const { userByRowId: user, children, router, match, relay } = this.props;
@@ -97,8 +141,8 @@ export default createFragmentContainer(
       id,
       rowId,
       foodSelectionsByUserId(
-        first: $count,
-        orderBy: $orderBy
+        first: 2147483647,
+        orderBy: DATE_DESC
       ) @connection(key: "JournalContainer_foodSelectionsByUserId") {
         edges {
           node {
