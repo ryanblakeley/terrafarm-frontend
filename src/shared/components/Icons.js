@@ -14,7 +14,7 @@ import IoPerson from 'react-icons/lib/io/person';
 // import IoKey from 'react-icons/lib/io/lock-combination';
 // import IoIosArrowLeft from 'react-icons/lib/io/ios-arrow-thin-left';
 // import IoIosArrowRight from 'react-icons/lib/io/ios-arrow-thin-right';
-// import IoArrowDownB from 'react-icons/lib/io/arrow-down-b';
+import IoArrowDownB from 'react-icons/lib/io/arrow-down-b';
 // import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
 // import IoAsterisk from 'react-icons/lib/io/asterisk';
 // import IoIosLocation from 'react-icons/lib/io/ios-location';
@@ -54,7 +54,7 @@ const PersonIcon = props => <Icon icon={<IoPerson />} {...props} />;
 // const TokenIcon = props => <Icon icon={<IoKey />} {...props} />;
 // const ArrowLeftIcon = props => <Icon icon={<IoIosArrowLeft />} {...props} />;
 // const ArrowRightIcon = props => <Icon icon={<IoIosArrowRight />} {...props} />;
-// const ArrowDownIcon = props => <Icon icon={<IoArrowDownB />} {...props} />;
+const ArrowDownIcon = props => <Icon icon={<IoArrowDownB />} {...props} />;
 // const ChatBubbleIcon = props => <Icon icon={<IoIosChatBubble />} {...props} />;
 // const AsteriskIcon = props => <Icon icon={<IoAsterisk />} {...props} />;
 // const LocationIcon = props => <Icon icon={<IoIosLocation />} {...props} />;
@@ -108,7 +108,7 @@ PersonIcon.propTypes = commonPropTypes;
 // TokenIcon.propTypes = commonPropTypes;
 // ArrowLeftIcon.propTypes = commonPropTypes;
 // ArrowRightIcon.propTypes = commonPropTypes;
-// ArrowDownIcon.propTypes = commonPropTypes;
+ArrowDownIcon.propTypes = commonPropTypes;
 // ChatBubbleIcon.propTypes = commonPropTypes;
 // AsteriskIcon.propTypes = commonPropTypes;
 // LocationIcon.propTypes = commonPropTypes;
@@ -152,7 +152,7 @@ export {
 //   TokenIcon,
 //   ArrowLeftIcon,
 //   ArrowRightIcon,
-//   ArrowDownIcon,
+  ArrowDownIcon,
 //   ChatBubbleIcon,
 //   AsteriskIcon,
 //   LocationIcon,
