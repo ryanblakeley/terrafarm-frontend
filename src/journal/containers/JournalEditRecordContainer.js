@@ -131,7 +131,7 @@ class JournalEditRecordContainer extends React.Component {
       error={error}
       showForm
     >
-      <Layout flexCenter>
+      <Layout flexCenter flexWrap>
         <Layout>
           <TextInput
             name={'foodId'}
@@ -157,7 +157,7 @@ class JournalEditRecordContainer extends React.Component {
         </Layout>
       </Layout>
       {nutritionDisplay}
-      <Layout flexCenter>
+      <Layout flexCenter flexWrap>
         <Layout>
           <TextInput
             name={'foodDescription'}
@@ -171,32 +171,34 @@ class JournalEditRecordContainer extends React.Component {
             style={styles.field}
           />
         </Layout>
-        <Layout leftSmall>
-          <TextInput
-            name={'unitQuantity'}
-            label={'Unit quantity'}
-            placeholder={'Number'}
-            value={String(foodSelection.unitQuantity)}
-            validations={{ isNumeric: true, maxLength: 8 }}
-            validationError={validationErrors.number}
-            maxLength={8}
-            style={styles.fieldSmall}
-          />
-        </Layout>
-        <Layout leftSmall>
-          <TextInput
-            name={'unitDescription'}
-            label={'Unit name'}
-            placeholder={'Natural term'}
-            value={foodSelection.unitDescription}
-            validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-            validationError={validationErrors.normalWords}
-            maxLength={50}
-            style={styles.fieldSmall}
-          />
+        <Layout leftSmall flexCenter>
+          <Layout>
+            <TextInput
+              name={'unitQuantity'}
+              label={'Unit quantity'}
+              placeholder={'Number'}
+              value={String(foodSelection.unitQuantity)}
+              validations={{ isNumeric: true, maxLength: 8 }}
+              validationError={validationErrors.number}
+              maxLength={8}
+              style={styles.fieldSmall}
+            />
+          </Layout>
+          <Layout leftSmall>
+            <TextInput
+              name={'unitDescription'}
+              label={'Unit name'}
+              placeholder={'Natural term'}
+              value={foodSelection.unitDescription}
+              validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+              validationError={validationErrors.normalWords}
+              maxLength={50}
+              style={styles.fieldSmall}
+            />
+          </Layout>
         </Layout>
       </Layout>
-      <Layout flexCenter>
+      <Layout flexCenter flexWrap>
         <Layout>
           <TextInput
             name={'brandDescription'}
@@ -221,7 +223,7 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
-      <Layout flexCenter>
+      <Layout flexCenter flexWrap>
         <Layout>
           <TextInput
             name={'time'}

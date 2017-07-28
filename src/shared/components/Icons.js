@@ -33,6 +33,7 @@ import IoIosCloseOutline from 'react-icons/lib/io/ios-close-outline';
 // import IoPinPoint from 'react-icons/lib/io/pinpoint';
 // import FaExternalLink from 'react-icons/lib/fa/external-link';
 import IoRefreshOutline from 'react-icons/lib/io/ios-refresh-outline';
+import GoRepo from 'react-icons/lib/go/repo';
 
 import logoIcon from '../elements/logo_icon.svg';
 import logoFull from '../elements/logo_full_xlarge.png';
@@ -74,6 +75,7 @@ const CloseIcon = props => <Icon icon={<IoIosCloseOutline />} {...props} />;
 // const TrashIcon = props => <Icon icon={<IoIosTrashOutline />} {...props} />;
 // const CrosshairIcon = props => <Icon icon={<IoPinPoint />} {...props} />;
 const ReloadIcon = props => <Icon icon={<IoRefreshOutline />} {...props} />;
+const JournalIcon = props => <Icon icon={<GoRepo />} {...props} />;
 
 const commonPropTypes = {
   className: PropTypes.string,
@@ -129,6 +131,7 @@ CloseIcon.propTypes = commonPropTypes;
 // TrashIcon.propTypes = commonPropTypes;
 // CrosshairIcon.propTypes = commonPropTypes;
 ReloadIcon.propTypes = commonPropTypes;
+JournalIcon.propTypes = commonPropTypes;
 
 LogoIcon.defaultProps = commonDefaultProps;
 LogoFullIcon.defaultProps = commonDefaultProps;
@@ -174,4 +177,5 @@ export {
 //   TrashIcon,
 //   CrosshairIcon,
   ReloadIcon,
+  JournalIcon,
 };

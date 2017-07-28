@@ -3,7 +3,9 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
+import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
+import { JournalIcon } from 'shared/components/Icons';
 import JournalDateRootContainer from 'journal/containers/JournalDateRootContainer';
 import classNames from '../styles/JournalContainerStylesheet.css';
 
@@ -115,7 +117,14 @@ class JournalContainer extends React.Component {
     ));
 
     return <TransitionWrapper>
-      <Layout page topSmall className={classNames.this}>
+      <Layout page>
+        <Menu
+          baseUrl={`/journal/${user.rowId}`}
+          header={{ icon: <JournalIcon />, title: 'Journal' }}
+          disabled
+        />
+      </Layout>
+      <Layout topSmall className={classNames.this}>
         <Layout className={classNames.journalDatesWrapper}>
           {journalDateRootContainers}
         </Layout>

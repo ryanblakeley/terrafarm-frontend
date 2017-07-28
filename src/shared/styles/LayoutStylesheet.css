@@ -8,6 +8,7 @@
 .leftSmall { margin-left: 8px; }
 .inline { display: inline-block; }
 .flexCenter { display: flex; align-items: center; justify-content: center; }
+.flexWrap { flex-wrap: wrap; }
 
 @media only screen and (min-width: 680px) {
   .page { width: 650px; }

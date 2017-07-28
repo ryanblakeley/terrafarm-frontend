@@ -1,4 +1,4 @@
-.nutrients {  max-width: 404px; }
+.nutrients { padding: 0 8px; max-width: 420px; box-sizing: border-box; }
 .nutrientRow { display: flex; justify-content: space-between; }
 .nutrientRow.cal { border-bottom: solid 3px #263238; }
 .nutrientLabel { font-weight: bold; }
@@ -9,3 +9,4 @@
 .cal .nutrientValue:after {
   content: '';
 }
+/* @media only screen and (min-width: 850px) {} */

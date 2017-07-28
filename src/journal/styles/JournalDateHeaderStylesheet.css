@@ -2,8 +2,8 @@
   display: flex;
   box-sizing: border-box;
   padding: 8px 1%;
-  color: #0288D1; /* lightBlue700 */
-  border-bottom: solid 2px #212121; /* grey900 */
+  color: rgb(92,107,192);
+  border-bottom: solid 2px #263238;
 }
 .date { width: 21%; text-align: left; }
 .macro {
@@ -11,7 +11,7 @@
   width: 14%; padding-right: 3%;
   text-align: right;
   font-weight: bold;
-  border-right: solid 1px #0288D1;
+  border-right: solid 1px rgb(92,107,192);
 }
 .macro.cal { width: 21%; }
 .completeness { width: 14%; text-align: right; }
