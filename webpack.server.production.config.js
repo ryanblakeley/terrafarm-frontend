@@ -4,7 +4,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import env from 'gulp-env';
 
 if (!process.env.API_PORT) {
-  env({file: './.env', type: 'ini'});
+  env({ file: './.env', type: 'ini' });
 }
 const {
   PRIVATE_IP,

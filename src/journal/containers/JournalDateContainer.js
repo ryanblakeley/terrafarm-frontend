@@ -17,11 +17,11 @@ class JournalDateContainer extends React.Component {
     super(props);
 
     this.state = {
-      completeness: null,
       calories: null,
       protein: null,
       fat: null,
       carbs: null,
+      completeCount: null,
     };
   }
   componentWillMount () {
@@ -64,33 +64,32 @@ class JournalDateContainer extends React.Component {
     return { complete: 0, calories: null, protein: null, fat: null, carbs: null };
   }
   sumMacros = nutritions => {
-    let completeCount = 0;
     let calories = 0;
     let protein = 0;
     let fat = 0;
     let carbs = 0;
+    let completeCount = 0;
 
     nutritions.forEach(n => {
-      completeCount += n.complete;
       calories += n.calories;
       protein += n.protein;
       fat += n.fat;
       carbs += n.carbs;
+      completeCount += n.complete;
     });
 
-    const completeness = nutritions.length > 0 ? completeCount / nutritions.length : 0;
-
     this.setState({
-      completeness: completeness * 100,
       calories,
       protein,
       fat,
       carbs,
+      completeCount,
+      recordsCount: nutritions.length,
     });
   }
   render () {
     const { userByRowId: user, date, router, match } = this.props;
-    const { completeness, calories, protein, fat, carbs } = this.state;
+    const { calories, protein, fat, carbs, completeCount, recordsCount } = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
     const editPanelOpen = router.isActive(match, {
       pathname: `/journal/${user.rowId}/edit/`,
@@ -126,7 +125,8 @@ class JournalDateContainer extends React.Component {
         protein={protein}
         fat={fat}
         carbs={carbs}
-        completeness={completeness}
+        completeCount={completeCount}
+        recordsCount={recordsCount}
       />
       <Layout bottomMedium>
         {journalFoodSelections}

@@ -67,7 +67,7 @@ gulp.task('load-schema', () => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({query: introspectionQuery}),
+    body: JSON.stringify({ query: introspectionQuery }),
   }).then(res => res.json()).then(schemaJSON => {
     fs.writeFileSync(
       `${PATHS.schema}.json`,

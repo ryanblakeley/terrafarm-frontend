@@ -10,11 +10,12 @@ const propTypes = {
   protein: PropTypes.number.isRequired,
   fat: PropTypes.number.isRequired,
   carbs: PropTypes.number.isRequired,
-  completeness: PropTypes.number.isRequired,
+  completeCount: PropTypes.number.isRequired,
+  recordsCount: PropTypes.number.isRequired,
 };
 
 const JournalDateHeader = props => {
-  const { date, calories, protein, fat, carbs, completeness } = props;
+  const { date, calories, protein, fat, carbs, completeCount, recordsCount } = props;
 
   return <Layout bottomSmall className={classNames.this}>
     <Span className={classNames.date} title={'Date'}>
@@ -32,8 +33,8 @@ const JournalDateHeader = props => {
     <Span className={classNames.macro} title={'Total Carb.'}>
       {carbs}
     </Span>
-    <Span className={classNames.completeness} title={'% Resolved'}>
-      {completeness}%
+    <Span className={classNames.completeness} title={'Nutrition calculated / Total rows'}>
+      {completeCount} / {recordsCount}
     </Span>
   </Layout>;
 };

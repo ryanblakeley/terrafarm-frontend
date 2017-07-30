@@ -4,7 +4,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 if (!process.env.GOOGLE_ANALYTICS_KEY) {
-  env({file: './.env', type: 'ini'});
+  env({ file: './.env', type: 'ini' });
 }
 const {
   WEBPACK_ENV,
