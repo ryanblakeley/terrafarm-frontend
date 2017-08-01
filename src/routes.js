@@ -14,8 +14,8 @@ import JournalEditRecordContainer from 'journal/containers/JournalEditRecordCont
 import JournalEditRecordContainerQuery from 'journal/queries/JournalEditRecordContainerQuery';
 
 // food
-import FoodContainer from 'food/containers/FoodContainer';
-import FoodContainerQuery from 'food/queries/FoodContainerQuery';
+import FoodDetailContainer from 'food/containers/FoodDetailContainer';
+import FoodDetailContainerQuery from 'food/queries/FoodDetailContainerQuery';
 
 export default makeRouteConfig(
   <Route path={'/'} Component={CorePage}>
@@ -31,11 +31,13 @@ export default makeRouteConfig(
         query={JournalEditRecordContainerQuery}
       />
     </Route>
-    <Route
-      path={'food/:foodId'}
-      Component={FoodContainer}
-      query={FoodContainerQuery}
-    />
+    <Route path={'food'}>
+      <Route
+        path={'detail/:foodId'}
+        Component={FoodDetailContainer}
+        query={FoodDetailContainerQuery}
+      />
+    </Route>
     <Route path={'*'} Component={NotFound} />
   </Route>,
 );

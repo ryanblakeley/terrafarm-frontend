@@ -6,7 +6,7 @@ import Layout from 'shared/components/Layout';
 import { H3, H4, H5, H6 } from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
-import classNames from '../styles/FoodContainerStylesheet.css';
+import classNames from '../styles/FoodDetailContainerStylesheet.css';
 
 const propTypes = {
   foodByRowId: PropTypes.object.isRequired,
@@ -24,7 +24,7 @@ const defaultProps = {
   },
 };
 
-const FoodContainer = props => {
+const FoodDetailContainer = props => {
   const { foodByRowId } = props;
   const {
     rowId,
@@ -54,13 +54,13 @@ const FoodContainer = props => {
   </TransitionWrapper>;
 };
 
-FoodContainer.propTypes = propTypes;
-FoodContainer.defaultProps = defaultProps;
+FoodDetailContainer.propTypes = propTypes;
+FoodDetailContainer.defaultProps = defaultProps;
 
 export default createFragmentContainer(
-  FoodContainer,
+  FoodDetailContainer,
   graphql`
-    fragment FoodContainer_foodByRowId on Food {
+    fragment FoodDetailContainer_foodByRowId on Food {
       rowId
       description
       brandName
@@ -73,4 +73,3 @@ export default createFragmentContainer(
     }
   `,
 );
-
