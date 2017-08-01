@@ -33,7 +33,6 @@ html { font-size: 14px; }
   font-weight: 400;
   font-size: 1.76rem;
   text-align: center;
-  text-transform: capitalize;
 }
 .h4, .contentSubheading {
   margin: 1.33em 0;
@@ -45,8 +44,6 @@ html { font-size: 14px; }
   font-family: 'Simonetta', serif;
   font-weight: 400;
   font-size: 1.46rem;
-  text-align: center;
-  text-transform: capitalize;
 }
 .h6, .articleSubheading {
   margin: 0;
@@ -54,7 +51,6 @@ html { font-size: 14px; }
   font-weight: 600;
   font-size: 1.32rem;
   letter-spacing: 0.01rem;
-  text-transform: uppercase;
 }
 .bodyText {
   font-family: 'Simonetta', serif;

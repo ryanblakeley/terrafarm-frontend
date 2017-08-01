@@ -3,9 +3,10 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import { P } from 'shared/components/Typography';
+import { H3, H4, H5, H6 } from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
+import classNames from '../styles/FoodContainerStylesheet.css';
 
 const propTypes = {
   foodByRowId: PropTypes.object.isRequired,
@@ -27,7 +28,7 @@ const FoodContainer = props => {
   const { foodByRowId } = props;
   const {
     rowId,
-    longDescription,
+    description,
     brandName,
     foodGroupByFoodGroupId: foodGroup,
     proteinFactor,
@@ -42,12 +43,13 @@ const FoodContainer = props => {
         header={{ icon: <FoodIcon />, title: 'Food' }}
         disabled
       />
-      <P>Long description: {longDescription}</P>
-      <P>Brand name: {brandName}</P>
-      <P>Food group: {foodGroup.name}</P>
-      <P>Protein factor: {proteinFactor}</P>
-      <P>Fat factor: {fatFactor}</P>
-      <P>Carb factor: {carbFactor}</P>
+      <H3 className={classNames.description}>{description}</H3>
+      <H4>#{rowId}</H4>
+      {proteinFactor && <H6>Protein factor: {proteinFactor}</H6>}
+      {fatFactor && <H6>Fat factor: {fatFactor}</H6>}
+      {carbFactor && <H6>Carb factor: {carbFactor}</H6>}
+      {brandName && <H5 className={classNames.brand}>Brand: {brandName}</H5>}
+      {foodGroup && <H5 className={classNames.foodGroup}>Food group: {foodGroup.name}</H5>}
     </Layout>
   </TransitionWrapper>;
 };
@@ -60,7 +62,7 @@ export default createFragmentContainer(
   graphql`
     fragment FoodContainer_foodByRowId on Food {
       rowId
-      longDescription
+      description
       brandName
       foodGroupByFoodGroupId {
         name

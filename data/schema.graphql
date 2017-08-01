@@ -253,7 +253,7 @@ type Conversation implements Node {
   id: ID!
 
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Uuid!
+  rowId: Float!
 
   # The unique identifier for the person.
   userId: Uuid!
@@ -288,63 +288,13 @@ type Conversation implements Node {
     # A condition to be used in determining which values should be returned by the collection.
     condition: MessageCondition
   ): MessagesConnection
-
-  # Reads and enables pagination through a set of `Preset`.
-  presetsByConversationId(
-    # The method to use when ordering `Preset`.
-    orderBy: PresetsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: PresetCondition
-  ): PresetsConnection
-
-  # Reads and enables pagination through a set of `FoodSelection`.
-  foodSelectionsByConversationId(
-    # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: FoodSelectionCondition
-  ): FoodSelectionsConnection
 }
 
 # A condition to be used against `Conversation` object types. All fields are
 # tested for equality and combined with a logical ‘and.’
 input ConversationCondition {
   # Checks for equality with the object’s `rowId` field.
-  rowId: Uuid
+  rowId: Float
 
   # Checks for equality with the object’s `userId` field.
   userId: Uuid
@@ -356,7 +306,7 @@ input ConversationCondition {
 # A conversation session between a person and the agent.
 input ConversationInput {
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Uuid
+  rowId: Float!
 
   # The unique identifier for the person.
   userId: Uuid!
@@ -368,7 +318,7 @@ input ConversationInput {
 # Represents an update to a `Conversation`. Fields that are set will be updated.
 input ConversationPatch {
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Uuid
+  rowId: Float
 
   # The unique identifier for the person.
   userId: Uuid
@@ -548,6 +498,9 @@ type CreateFoodNutrientPayload {
   # Reads a single `Nutrient` that is related to this `FoodNutrient`.
   nutrientByNutrientId: Nutrient
 
+  # Reads a single `User` that is related to this `FoodNutrient`.
+  userByUserId: User
+
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
 }
@@ -572,6 +525,9 @@ type CreateFoodPayload {
 
   # Reads a single `Brand` that is related to this `Food`.
   brandByBrandName: Brand
+
+  # Reads a single `User` that is related to this `Food`.
+  userByUserId: User
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -605,8 +561,8 @@ type CreateFoodSelectionPayload {
   # Reads a single `User` that is related to this `FoodSelection`.
   userByUserId: User
 
-  # Reads a single `Conversation` that is related to this `FoodSelection`.
-  conversationByConversationId: Conversation
+  # Reads a single `Message` that is related to this `FoodSelection`.
+  messageByMessageId: Message
 
   # Reads a single `Preset` that is related to this `FoodSelection`.
   presetByInheritsFromId: Preset
@@ -657,6 +613,9 @@ type CreateMassConversionPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
+
+  # Reads a single `User` that is related to this `MassConversion`.
+  userByUserId: User
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -786,8 +745,8 @@ type CreatePresetPayload {
   # Reads a single `User` that is related to this `Preset`.
   userByUserId: User
 
-  # Reads a single `Conversation` that is related to this `Preset`.
-  conversationByConversationId: Conversation
+  # Reads a single `Message` that is related to this `Preset`.
+  messageByMessageId: Message
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -971,7 +930,7 @@ input DeleteConversationByRowIdInput {
   clientMutationId: String
 
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Uuid!
+  rowId: Float!
 }
 
 # All input for the `deleteConversation` mutation.
@@ -1088,6 +1047,9 @@ type DeleteFoodNutrientPayload {
   # Reads a single `Nutrient` that is related to this `FoodNutrient`.
   nutrientByNutrientId: Nutrient
 
+  # Reads a single `User` that is related to this `FoodNutrient`.
+  userByUserId: User
+
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
 }
@@ -1105,6 +1067,9 @@ type DeleteFoodPayload {
 
   # Reads a single `Brand` that is related to this `Food`.
   brandByBrandName: Brand
+
+  # Reads a single `User` that is related to this `Food`.
+  userByUserId: User
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1141,8 +1106,8 @@ type DeleteFoodSelectionPayload {
   # Reads a single `User` that is related to this `FoodSelection`.
   userByUserId: User
 
-  # Reads a single `Conversation` that is related to this `FoodSelection`.
-  conversationByConversationId: Conversation
+  # Reads a single `Message` that is related to this `FoodSelection`.
+  messageByMessageId: Message
 
   # Reads a single `Preset` that is related to this `FoodSelection`.
   presetByInheritsFromId: Preset
@@ -1211,6 +1176,9 @@ type DeleteMassConversionPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
+
+  # Reads a single `User` that is related to this `MassConversion`.
+  userByUserId: User
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1375,8 +1343,8 @@ type DeletePresetPayload {
   # Reads a single `User` that is related to this `Preset`.
   userByUserId: User
 
-  # Reads a single `Conversation` that is related to this `Preset`.
-  conversationByConversationId: Conversation
+  # Reads a single `Message` that is related to this `Preset`.
+  messageByMessageId: Message
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1547,12 +1515,7 @@ type Food implements Node {
   brandName: String
 
   # 200-character description of food item.
-  longDescription: String!
-
-  # 60-character abbreviated description of food item. Generated from the
-  # 200-character description using abbreviations in Appendix A. If short
-  # description is longer than 60 characters, additional abbreviations are made.
-  shortDescription: String!
+  description: String!
 
   # Description of inedible parts of a food item (refuse), such as seeds or bone.
   refuseDescription: String
@@ -1568,6 +1531,10 @@ type Food implements Node {
 
   # Factor for calculating calories from carbohydrate.
   carbFactor: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the food.
+  userId: Uuid
 
   # Water (g/100g)
   water: Float
@@ -1719,6 +1686,9 @@ type Food implements Node {
   # Reads a single `Brand` that is related to this `Food`.
   brandByBrandName: Brand
 
+  # Reads a single `User` that is related to this `Food`.
+  userByUserId: User
+
   # Reads and enables pagination through a set of `FoodSelection`.
   foodSelectionsByFoodId(
     # The method to use when ordering `FoodSelection`.
@@ -1806,11 +1776,8 @@ input FoodCondition {
   # Checks for equality with the object’s `brandName` field.
   brandName: String
 
-  # Checks for equality with the object’s `longDescription` field.
-  longDescription: String
-
-  # Checks for equality with the object’s `shortDescription` field.
-  shortDescription: String
+  # Checks for equality with the object’s `description` field.
+  description: String
 
   # Checks for equality with the object’s `refuseDescription` field.
   refuseDescription: String
@@ -1826,6 +1793,12 @@ input FoodCondition {
 
   # Checks for equality with the object’s `carbFactor` field.
   carbFactor: Float
+
+  # Checks for equality with the object’s `source` field.
+  source: InputSource
+
+  # Checks for equality with the object’s `userId` field.
+  userId: Uuid
 
   # Checks for equality with the object’s `water` field.
   water: Float
@@ -2084,12 +2057,7 @@ input FoodInput {
   brandName: String
 
   # 200-character description of food item.
-  longDescription: String!
-
-  # 60-character abbreviated description of food item. Generated from the
-  # 200-character description using abbreviations in Appendix A. If short
-  # description is longer than 60 characters, additional abbreviations are made.
-  shortDescription: String!
+  description: String!
 
   # Description of inedible parts of a food item (refuse), such as seeds or bone.
   refuseDescription: String
@@ -2105,6 +2073,10 @@ input FoodInput {
 
   # Factor for calculating calories from carbohydrate.
   carbFactor: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the food.
+  userId: Uuid
 
   # Water (g/100g)
   water: Float
@@ -2280,12 +2252,19 @@ type FoodNutrient implements Node {
 
   # Upper 95% error bound.
   upperErrorBound: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the food nutrient values.
+  userId: Uuid
 
   # Reads a single `Food` that is related to this `FoodNutrient`.
   foodByFoodId: Food
 
   # Reads a single `Nutrient` that is related to this `FoodNutrient`.
   nutrientByNutrientId: Nutrient
+
+  # Reads a single `User` that is related to this `FoodNutrient`.
+  userByUserId: User
 }
 
 # A condition to be used against `FoodNutrient` object types. All fields are
@@ -2314,6 +2293,12 @@ input FoodNutrientCondition {
 
   # Checks for equality with the object’s `upperErrorBound` field.
   upperErrorBound: Float
+
+  # Checks for equality with the object’s `source` field.
+  source: InputSource
+
+  # Checks for equality with the object’s `userId` field.
+  userId: Uuid
 }
 
 # Contains the nutrient values and information about the values, including expanded statistical information.
@@ -2342,6 +2327,10 @@ input FoodNutrientInput {
 
   # Upper 95% error bound.
   upperErrorBound: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the food nutrient values.
+  userId: Uuid
 }
 
 # Represents an update to a `FoodNutrient`. Fields that are set will be updated.
@@ -2370,6 +2359,10 @@ input FoodNutrientPatch {
 
   # Upper 95% error bound.
   upperErrorBound: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the food nutrient values.
+  userId: Uuid
 }
 
 # A connection to a list of `FoodNutrient` values.
@@ -2417,6 +2410,10 @@ enum FoodNutrientsOrderBy {
   LOWER_ERROR_BOUND_DESC
   UPPER_ERROR_BOUND_ASC
   UPPER_ERROR_BOUND_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+  USER_ID_ASC
+  USER_ID_DESC
 }
 
 # Represents an update to a `Food`. Fields that are set will be updated.
@@ -2431,12 +2428,7 @@ input FoodPatch {
   brandName: String
 
   # 200-character description of food item.
-  longDescription: String
-
-  # 60-character abbreviated description of food item. Generated from the
-  # 200-character description using abbreviations in Appendix A. If short
-  # description is longer than 60 characters, additional abbreviations are made.
-  shortDescription: String
+  description: String
 
   # Description of inedible parts of a food item (refuse), such as seeds or bone.
   refuseDescription: String
@@ -2452,6 +2444,10 @@ input FoodPatch {
 
   # Factor for calculating calories from carbohydrate.
   carbFactor: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the food.
+  userId: Uuid
 
   # Water (g/100g)
   water: Float
@@ -2633,8 +2629,8 @@ type FoodSelection implements Node {
   # The unique identifier for the person.
   userId: Uuid!
 
-  # The unique identifier for the conversation.
-  conversationId: Uuid!
+  # The unique identifier for the message.
+  messageId: Uuid
 
   # The unique identifier for the preset that this selection was copied from.
   inheritsFromId: Uuid
@@ -2649,7 +2645,7 @@ type FoodSelection implements Node {
   foodId: Float
 
   # The description of the food.
-  foodDescription: String
+  foodDescription: String!
   foodIdSource: InputSource
   category: FoodSelectionCategory
 
@@ -2682,13 +2678,10 @@ type FoodSelection implements Node {
   ratingValue: Float
 
   # The date the food selection occurred, local to the person.
-  date: Date
+  date: Date!
 
   # The time the food selection occurred, local to the person.
   time: Time
-
-  # The original text of the food selection.
-  original: String
 
   # Flags this food selection as something that was mentioned as an omission.
   omission: Boolean
@@ -2702,8 +2695,8 @@ type FoodSelection implements Node {
   # Reads a single `User` that is related to this `FoodSelection`.
   userByUserId: User
 
-  # Reads a single `Conversation` that is related to this `FoodSelection`.
-  conversationByConversationId: Conversation
+  # Reads a single `Message` that is related to this `FoodSelection`.
+  messageByMessageId: Message
 
   # Reads a single `Preset` that is related to this `FoodSelection`.
   presetByInheritsFromId: Preset
@@ -2765,8 +2758,8 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `userId` field.
   userId: Uuid
 
-  # Checks for equality with the object’s `conversationId` field.
-  conversationId: Uuid
+  # Checks for equality with the object’s `messageId` field.
+  messageId: Uuid
 
   # Checks for equality with the object’s `inheritsFromId` field.
   inheritsFromId: Uuid
@@ -2825,9 +2818,6 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `time` field.
   time: Time
 
-  # Checks for equality with the object’s `original` field.
-  original: String
-
   # Checks for equality with the object’s `omission` field.
   omission: Boolean
 
@@ -2846,8 +2836,8 @@ input FoodSelectionInput {
   # The unique identifier for the person.
   userId: Uuid!
 
-  # The unique identifier for the conversation.
-  conversationId: Uuid!
+  # The unique identifier for the message.
+  messageId: Uuid
 
   # The unique identifier for the preset that this selection was copied from.
   inheritsFromId: Uuid
@@ -2862,7 +2852,7 @@ input FoodSelectionInput {
   foodId: Float
 
   # The description of the food.
-  foodDescription: String
+  foodDescription: String!
   foodIdSource: InputSource
   category: FoodSelectionCategory
 
@@ -2895,13 +2885,10 @@ input FoodSelectionInput {
   ratingValue: Float
 
   # The date the food selection occurred, local to the person.
-  date: Date
+  date: Date!
 
   # The time the food selection occurred, local to the person.
   time: Time
-
-  # The original text of the food selection.
-  original: String
 
   # Flags this food selection as something that was mentioned as an omission.
   omission: Boolean
@@ -2921,8 +2908,8 @@ input FoodSelectionPatch {
   # The unique identifier for the person.
   userId: Uuid
 
-  # The unique identifier for the conversation.
-  conversationId: Uuid
+  # The unique identifier for the message.
+  messageId: Uuid
 
   # The unique identifier for the preset that this selection was copied from.
   inheritsFromId: Uuid
@@ -2974,9 +2961,6 @@ input FoodSelectionPatch {
 
   # The time the food selection occurred, local to the person.
   time: Time
-
-  # The original text of the food selection.
-  original: String
 
   # Flags this food selection as something that was mentioned as an omission.
   omission: Boolean
@@ -3021,8 +3005,8 @@ enum FoodSelectionsOrderBy {
   ID_DESC
   USER_ID_ASC
   USER_ID_DESC
-  CONVERSATION_ID_ASC
-  CONVERSATION_ID_DESC
+  MESSAGE_ID_ASC
+  MESSAGE_ID_DESC
   INHERITS_FROM_ID_ASC
   INHERITS_FROM_ID_DESC
   PLACE_ID_ASC
@@ -3061,8 +3045,6 @@ enum FoodSelectionsOrderBy {
   DATE_DESC
   TIME_ASC
   TIME_DESC
-  ORIGINAL_ASC
-  ORIGINAL_DESC
   OMISSION_ASC
   OMISSION_DESC
   CREATED_AT_ASC
@@ -3082,10 +3064,8 @@ enum FoodsOrderBy {
   FOOD_GROUP_ID_DESC
   BRAND_NAME_ASC
   BRAND_NAME_DESC
-  LONG_DESCRIPTION_ASC
-  LONG_DESCRIPTION_DESC
-  SHORT_DESCRIPTION_ASC
-  SHORT_DESCRIPTION_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
   REFUSE_DESCRIPTION_ASC
   REFUSE_DESCRIPTION_DESC
   REFUSE_ASC
@@ -3096,6 +3076,10 @@ enum FoodsOrderBy {
   FAT_FACTOR_DESC
   CARB_FACTOR_ASC
   CARB_FACTOR_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+  USER_ID_ASC
+  USER_ID_DESC
   WATER_ASC
   WATER_DESC
   CALORIES_ASC
@@ -3206,13 +3190,14 @@ type GeocodeResult {
   zip: String
 }
 
-# Describes who input the data for an adjacent column: developer is someone who
+# Describes the source of data for a table row: developer is someone who
 # administers the database, agent is a machine learning algorithm, user is a
 # person who manually input the data through the app.
 enum InputSource {
   DEVELOPER
   AGENT
   USER
+  USDA_SR28
 }
 
 type JwtToken {
@@ -3239,12 +3224,19 @@ type MassConversion implements Node {
 
   # The mass equivalent in grams.
   mass: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the mass conversion record.
+  userId: Uuid
 
   # Reads a single `Food` that is related to this `MassConversion`.
   foodByFoodId: Food
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
+
+  # Reads a single `User` that is related to this `MassConversion`.
+  userByUserId: User
 }
 
 # A condition to be used against `MassConversion` object types. All fields are
@@ -3264,6 +3256,12 @@ input MassConversionCondition {
 
   # Checks for equality with the object’s `mass` field.
   mass: Float
+
+  # Checks for equality with the object’s `source` field.
+  source: InputSource
+
+  # Checks for equality with the object’s `userId` field.
+  userId: Uuid
 }
 
 # Contains a factor for converting a volume or count unit into grams for a given food item and physical form.
@@ -3282,6 +3280,10 @@ input MassConversionInput {
 
   # The mass equivalent in grams.
   mass: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the mass conversion record.
+  userId: Uuid
 }
 
 # Represents an update to a `MassConversion`. Fields that are set will be updated.
@@ -3300,6 +3302,10 @@ input MassConversionPatch {
 
   # The mass equivalent in grams.
   mass: Float
+  source: InputSource
+
+  # The unique identifier for the user who created the mass conversion record.
+  userId: Uuid
 }
 
 # A connection to a list of `MassConversion` values.
@@ -3341,6 +3347,10 @@ enum MassConversionsOrderBy {
   PHYSICAL_DESCRIPTION_DESC
   MASS_ASC
   MASS_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+  USER_ID_ASC
+  USER_ID_DESC
 }
 
 # A message sent by a person to the agent.
@@ -3352,25 +3362,77 @@ type Message implements Node {
   rowId: Uuid!
 
   # The unique identifier for the conversation session.
-  conversationId: Uuid!
+  conversationId: Float!
 
   # The agent’s language.
   lang: String
 
-  # Name of the user intention determined by the agent.
-  intent: String
+  # HTTP status code of the agent request.
+  statusCode: Float
+  originalText: String
 
   # Matching score for the intent.
   score: Float
 
-  # Status of the agent request.
-  status: String
+  # Name of the webhook action determined by the agent.
+  action: String
+  source: InputSource
 
   # The time this object was created.
   createdAt: Datetime
 
   # Reads a single `Conversation` that is related to this `Message`.
   conversationByConversationId: Conversation
+
+  # Reads and enables pagination through a set of `Preset`.
+  presetsByMessageId(
+    # The method to use when ordering `Preset`.
+    orderBy: PresetsOrderBy = PRIMARY_KEY_ASC
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: PresetCondition
+  ): PresetsConnection
+
+  # Reads and enables pagination through a set of `FoodSelection`.
+  foodSelectionsByMessageId(
+    # The method to use when ordering `FoodSelection`.
+    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: FoodSelectionCondition
+  ): FoodSelectionsConnection
 }
 
 # A condition to be used against `Message` object types. All fields are tested for equality and combined with a logical ‘and.’
@@ -3379,19 +3441,25 @@ input MessageCondition {
   rowId: Uuid
 
   # Checks for equality with the object’s `conversationId` field.
-  conversationId: Uuid
+  conversationId: Float
 
   # Checks for equality with the object’s `lang` field.
   lang: String
 
-  # Checks for equality with the object’s `intent` field.
-  intent: String
+  # Checks for equality with the object’s `statusCode` field.
+  statusCode: Float
+
+  # Checks for equality with the object’s `originalText` field.
+  originalText: String
 
   # Checks for equality with the object’s `score` field.
   score: Float
 
-  # Checks for equality with the object’s `status` field.
-  status: String
+  # Checks for equality with the object’s `action` field.
+  action: String
+
+  # Checks for equality with the object’s `source` field.
+  source: InputSource
 
   # Checks for equality with the object’s `createdAt` field.
   createdAt: Datetime
@@ -3403,19 +3471,21 @@ input MessageInput {
   rowId: Uuid
 
   # The unique identifier for the conversation session.
-  conversationId: Uuid!
+  conversationId: Float!
 
   # The agent’s language.
   lang: String
 
-  # Name of the user intention determined by the agent.
-  intent: String
+  # HTTP status code of the agent request.
+  statusCode: Float
+  originalText: String
 
   # Matching score for the intent.
   score: Float
 
-  # Status of the agent request.
-  status: String
+  # Name of the webhook action determined by the agent.
+  action: String
+  source: InputSource
 
   # The time this object was created.
   createdAt: Datetime
@@ -3427,19 +3497,21 @@ input MessagePatch {
   rowId: Uuid
 
   # The unique identifier for the conversation session.
-  conversationId: Uuid
+  conversationId: Float
 
   # The agent’s language.
   lang: String
 
-  # Name of the user intention determined by the agent.
-  intent: String
+  # HTTP status code of the agent request.
+  statusCode: Float
+  originalText: String
 
   # Matching score for the intent.
   score: Float
 
-  # Status of the agent request.
-  status: String
+  # Name of the webhook action determined by the agent.
+  action: String
+  source: InputSource
 
   # The time this object was created.
   createdAt: Datetime
@@ -3480,12 +3552,16 @@ enum MessagesOrderBy {
   CONVERSATION_ID_DESC
   LANG_ASC
   LANG_DESC
-  INTENT_ASC
-  INTENT_DESC
+  STATUS_CODE_ASC
+  STATUS_CODE_DESC
+  ORIGINAL_TEXT_ASC
+  ORIGINAL_TEXT_DESC
   SCORE_ASC
   SCORE_DESC
-  STATUS_ASC
-  STATUS_DESC
+  ACTION_ASC
+  ACTION_DESC
+  SOURCE_ASC
+  SOURCE_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
 }
@@ -4045,35 +4121,6 @@ type Mutation {
   ): DeleteUserPayload
 }
 
-# A connection to a list of `Place` values.
-type NearbyPlacesConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # The count of *all* `Place` you could get from the connection.
-  totalCount: Int
-
-  # A list of edges which contains the `Place` and cursor to aid in pagination.
-  edges: [NearbyPlacesEdge]
-
-  # A list of `Place` objects.
-  nodes: [Place]
-}
-
-# A `Place` edge in the connection.
-type NearbyPlacesEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
-
-  # The `Place` at the end of the edge.
-  node: Place
-}
-
-# Methods to use when ordering `Place`.
-enum NearbyPlacesOrderBy {
-  NATURAL
-}
-
 # An object with a globally unique `ID`.
 interface Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -4098,7 +4145,7 @@ type Nutrient implements Node {
   shortName: String
 
   # Name of nutrient/food component.
-  name: String!
+  fullName: String!
 
   # Reads a single `UnitOfMeasure` that is related to this `Nutrient`.
   unitOfMeasureByUnitOfMeasureUsdaKey: UnitOfMeasure
@@ -4141,8 +4188,8 @@ input NutrientCondition {
   # Checks for equality with the object’s `shortName` field.
   shortName: String
 
-  # Checks for equality with the object’s `name` field.
-  name: String
+  # Checks for equality with the object’s `fullName` field.
+  fullName: String
 }
 
 # A support table to the food_nutrient table. It provides the 3-digit nutrient
@@ -4160,7 +4207,7 @@ input NutrientInput {
   shortName: String
 
   # Name of nutrient/food component.
-  name: String!
+  fullName: String!
 }
 
 # Represents an update to a `Nutrient`. Fields that are set will be updated.
@@ -4177,7 +4224,7 @@ input NutrientPatch {
   shortName: String
 
   # Name of nutrient/food component.
-  name: String
+  fullName: String
 }
 
 # A connection to a list of `Nutrient` values.
@@ -4215,8 +4262,8 @@ enum NutrientsOrderBy {
   UNIT_OF_MEASURE_USDA_KEY_DESC
   SHORT_NAME_ASC
   SHORT_NAME_DESC
-  NAME_ASC
-  NAME_DESC
+  FULL_NAME_ASC
+  FULL_NAME_DESC
 }
 
 # Information about pagination in a connection.
@@ -4571,8 +4618,8 @@ type Preset implements Node {
   # The unique identifier for the person.
   userId: Uuid!
 
-  # The unique identifier for the conversation.
-  conversationId: Uuid!
+  # The unique identifier for the message where the user created the preset.
+  messageId: Uuid
 
   # A name for the preset which is unique per user id so it can be conveniently referenced.
   name: String
@@ -4583,8 +4630,8 @@ type Preset implements Node {
   # Reads a single `User` that is related to this `Preset`.
   userByUserId: User
 
-  # Reads a single `Conversation` that is related to this `Preset`.
-  conversationByConversationId: Conversation
+  # Reads a single `Message` that is related to this `Preset`.
+  messageByMessageId: Message
 
   # Reads and enables pagination through a set of `FoodSelection`.
   foodSelectionsByInheritsFromId(
@@ -4645,8 +4692,8 @@ input PresetCondition {
   # Checks for equality with the object’s `userId` field.
   userId: Uuid
 
-  # Checks for equality with the object’s `conversationId` field.
-  conversationId: Uuid
+  # Checks for equality with the object’s `messageId` field.
+  messageId: Uuid
 
   # Checks for equality with the object’s `name` field.
   name: String
@@ -4663,8 +4710,8 @@ input PresetInput {
   # The unique identifier for the person.
   userId: Uuid!
 
-  # The unique identifier for the conversation.
-  conversationId: Uuid!
+  # The unique identifier for the message where the user created the preset.
+  messageId: Uuid
 
   # A name for the preset which is unique per user id so it can be conveniently referenced.
   name: String
@@ -4681,8 +4728,8 @@ input PresetPatch {
   # The unique identifier for the person.
   userId: Uuid
 
-  # The unique identifier for the conversation.
-  conversationId: Uuid
+  # The unique identifier for the message where the user created the preset.
+  messageId: Uuid
 
   # A name for the preset which is unique per user id so it can be conveniently referenced.
   name: String
@@ -4819,8 +4866,8 @@ enum PresetsOrderBy {
   ID_DESC
   USER_ID_ASC
   USER_ID_DESC
-  CONVERSATION_ID_ASC
-  CONVERSATION_ID_DESC
+  MESSAGE_ID_ASC
+  MESSAGE_ID_DESC
   NAME_ASC
   NAME_DESC
   CREATED_AT_ASC
@@ -4840,31 +4887,6 @@ type Query implements Node {
 
   # Returns a geocoded result from an address
   geocoder(address: String): GeocodeResult
-
-  # Returns a set of places within a given distance from a geographical point.
-  nearbyPlaces(
-    # The method to use when ordering `Place`.
-    orderBy: NearbyPlacesOrderBy = NATURAL
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-    lon: Float
-    lat: Float
-    distance: Float
-  ): NearbyPlacesConnection
 
   # Reads and enables pagination through a set of `Brand`.
   allBrands(
@@ -4945,7 +4967,7 @@ type Query implements Node {
   ): Conversation
   conversationByRowId(
     # The unique identifier for the conversation which is provided by the agent.
-    rowId: Uuid!
+    rowId: Float!
   ): Conversation
 
   # Reads and enables pagination through a set of `Food`.
@@ -5801,7 +5823,7 @@ input UpdateConversationByRowIdInput {
   clientMutationId: String
 
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Uuid!
+  rowId: Float!
 
   # An object where the defined keys will be set on the `Conversation` identified by our unique key.
   conversationPatch: ConversationPatch!
@@ -5939,6 +5961,9 @@ type UpdateFoodNutrientPayload {
   # Reads a single `Nutrient` that is related to this `FoodNutrient`.
   nutrientByNutrientId: Nutrient
 
+  # Reads a single `User` that is related to this `FoodNutrient`.
+  userByUserId: User
+
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
 }
@@ -5955,6 +5980,9 @@ type UpdateFoodPayload {
 
   # Reads a single `Brand` that is related to this `Food`.
   brandByBrandName: Brand
+
+  # Reads a single `User` that is related to this `Food`.
+  userByUserId: User
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -5996,8 +6024,8 @@ type UpdateFoodSelectionPayload {
   # Reads a single `User` that is related to this `FoodSelection`.
   userByUserId: User
 
-  # Reads a single `Conversation` that is related to this `FoodSelection`.
-  conversationByConversationId: Conversation
+  # Reads a single `Message` that is related to this `FoodSelection`.
+  messageByMessageId: Message
 
   # Reads a single `Preset` that is related to this `FoodSelection`.
   presetByInheritsFromId: Preset
@@ -6074,6 +6102,9 @@ type UpdateMassConversionPayload {
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
+
+  # Reads a single `User` that is related to this `MassConversion`.
+  userByUserId: User
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -6264,8 +6295,8 @@ type UpdatePresetPayload {
   # Reads a single `User` that is related to this `Preset`.
   userByUserId: User
 
-  # Reads a single `Conversation` that is related to this `Preset`.
-  conversationByConversationId: Conversation
+  # Reads a single `Message` that is related to this `Preset`.
+  messageByMessageId: Message
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -6570,6 +6601,31 @@ type User implements Node {
     condition: BrandCondition
   ): BrandsConnection
 
+  # Reads and enables pagination through a set of `Food`.
+  foodsByUserId(
+    # The method to use when ordering `Food`.
+    orderBy: FoodsOrderBy = PRIMARY_KEY_ASC
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: FoodCondition
+  ): FoodsConnection
+
   # Reads and enables pagination through a set of `Preset`.
   presetsByUserId(
     # The method to use when ordering `Preset`.
@@ -6619,6 +6675,56 @@ type User implements Node {
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
   ): FoodSelectionsConnection
+
+  # Reads and enables pagination through a set of `MassConversion`.
+  massConversionsByUserId(
+    # The method to use when ordering `MassConversion`.
+    orderBy: MassConversionsOrderBy = PRIMARY_KEY_ASC
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: MassConversionCondition
+  ): MassConversionsConnection
+
+  # Reads and enables pagination through a set of `FoodNutrient`.
+  foodNutrientsByUserId(
+    # The method to use when ordering `FoodNutrient`.
+    orderBy: FoodNutrientsOrderBy = PRIMARY_KEY_ASC
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: FoodNutrientCondition
+  ): FoodNutrientsConnection
 }
 
 # A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’

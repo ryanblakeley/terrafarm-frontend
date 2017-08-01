@@ -3,10 +3,10 @@
 .nutrientRow.cal { border-bottom: solid 3px #263238; }
 .nutrientLabel { font-weight: bold; }
 .nutrientValue { }
-.nutrientValue:after {
+.nutrientValue::after {
   content: 'g';
 }
-.cal .nutrientValue:after {
+.cal .nutrientValue::after {
   content: '';
 }
 /* @media only screen and (min-width: 850px) {} */

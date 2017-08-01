@@ -17,11 +17,11 @@
 .completeness { width: 14%; text-align: right; }
 
 @media only screen and (min-width: 430px) {
-  .macro:after {
+  .macro::after {
     display: inline-block;
     content: 'g'
   }
-  .macro.cal:after {
+  .macro.cal::after {
     display: inline-block;
     content: 'kcal';
     margin-left: 0.67em;

@@ -77,109 +77,6 @@
               "deprecationReason": null
             },
             {
-              "name": "nearbyPlaces",
-              "description": "Returns a set of places within a given distance from a geographical point.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `Place`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "NearbyPlacesOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "NATURAL"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "lon",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Float",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "lat",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Float",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "distance",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Float",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "NearbyPlacesConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "allBrands",
               "description": "Reads and enables pagination through a set of `Brand`.",
               "args": [
@@ -519,7 +416,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "Uuid",
+                      "name": "Float",
                       "ofType": null
                     }
                   },
@@ -3041,6 +2938,89 @@
               "deprecationReason": null
             },
             {
+              "name": "foodsByUserId",
+              "description": "Reads and enables pagination through a set of `Food`.",
+              "args": [
+                {
+                  "name": "orderBy",
+                  "description": "The method to use when ordering `Food`.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "FoodsOrderBy",
+                    "ofType": null
+                  },
+                  "defaultValue": "PRIMARY_KEY_ASC"
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "condition",
+                  "description": "A condition to be used in determining which values should be returned by the collection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "FoodCondition",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "FoodsConnection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "presetsByUserId",
               "description": "Reads and enables pagination through a set of `Preset`.",
               "args": [
@@ -3205,6 +3185,172 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "massConversionsByUserId",
+              "description": "Reads and enables pagination through a set of `MassConversion`.",
+              "args": [
+                {
+                  "name": "orderBy",
+                  "description": "The method to use when ordering `MassConversion`.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "MassConversionsOrderBy",
+                    "ofType": null
+                  },
+                  "defaultValue": "PRIMARY_KEY_ASC"
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "condition",
+                  "description": "A condition to be used in determining which values should be returned by the collection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "MassConversionCondition",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MassConversionsConnection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "foodNutrientsByUserId",
+              "description": "Reads and enables pagination through a set of `FoodNutrient`.",
+              "args": [
+                {
+                  "name": "orderBy",
+                  "description": "The method to use when ordering `FoodNutrient`.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "FoodNutrientsOrderBy",
+                    "ofType": null
+                  },
+                  "defaultValue": "PRIMARY_KEY_ASC"
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "condition",
+                  "description": "A condition to be used in determining which values should be returned by the collection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "FoodNutrientCondition",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "FoodNutrientsConnection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -3354,7 +3500,7 @@
               "description": "Checks for equality with the object’s `rowId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Uuid",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -3605,7 +3751,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Uuid",
+                  "name": "Float",
                   "ofType": null
                 }
               },
@@ -3734,172 +3880,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "presetsByConversationId",
-              "description": "Reads and enables pagination through a set of `Preset`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `Preset`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "PresetsOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "PresetCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "PresetsConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "foodSelectionsByConversationId",
-              "description": "Reads and enables pagination through a set of `FoodSelection`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `FoodSelection`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "FoodSelectionCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "FoodSelectionsConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -3976,13 +3956,25 @@
               "deprecationReason": null
             },
             {
-              "name": "INTENT_ASC",
+              "name": "STATUS_CODE_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "INTENT_DESC",
+              "name": "STATUS_CODE_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ORIGINAL_TEXT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ORIGINAL_TEXT_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -4000,13 +3992,25 @@
               "deprecationReason": null
             },
             {
-              "name": "STATUS_ASC",
+              "name": "ACTION_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "STATUS_DESC",
+              "name": "ACTION_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SOURCE_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SOURCE_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -4047,7 +4051,7 @@
               "description": "Checks for equality with the object’s `conversationId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Uuid",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -4063,8 +4067,18 @@
               "defaultValue": null
             },
             {
-              "name": "intent",
-              "description": "Checks for equality with the object’s `intent` field.",
+              "name": "statusCode",
+              "description": "Checks for equality with the object’s `statusCode` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "originalText",
+              "description": "Checks for equality with the object’s `originalText` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -4083,11 +4097,21 @@
               "defaultValue": null
             },
             {
-              "name": "status",
-              "description": "Checks for equality with the object’s `status` field.",
+              "name": "action",
+              "description": "Checks for equality with the object’s `action` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": "Checks for equality with the object’s `source` field.",
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
                 "ofType": null
               },
               "defaultValue": null
@@ -4105,6 +4129,41 @@
           ],
           "interfaces": null,
           "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "InputSource",
+          "description": "Describes the source of data for a table row: developer is someone who administers the database, agent is a machine learning algorithm, user is a person who manually input the data through the app.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "DEVELOPER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AGENT",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USDA_SR28",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
           "possibleTypes": null
         },
         {
@@ -4267,7 +4326,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Uuid",
+                  "name": "Float",
                   "ofType": null
                 }
               },
@@ -4287,8 +4346,20 @@
               "deprecationReason": null
             },
             {
-              "name": "intent",
-              "description": "Name of the user intention determined by the agent.",
+              "name": "statusCode",
+              "description": "HTTP status code of the agent request.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "originalText",
+              "description": null,
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -4311,12 +4382,24 @@
               "deprecationReason": null
             },
             {
-              "name": "status",
-              "description": "Status of the agent request.",
+              "name": "action",
+              "description": "Name of the webhook action determined by the agent.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -4341,6 +4424,172 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Conversation",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "presetsByMessageId",
+              "description": "Reads and enables pagination through a set of `Preset`.",
+              "args": [
+                {
+                  "name": "orderBy",
+                  "description": "The method to use when ordering `Preset`.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "PresetsOrderBy",
+                    "ofType": null
+                  },
+                  "defaultValue": "PRIMARY_KEY_ASC"
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "condition",
+                  "description": "A condition to be used in determining which values should be returned by the collection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "PresetCondition",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "PresetsConnection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "foodSelectionsByMessageId",
+              "description": "Reads and enables pagination through a set of `FoodSelection`.",
+              "args": [
+                {
+                  "name": "orderBy",
+                  "description": "The method to use when ordering `FoodSelection`.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "FoodSelectionsOrderBy",
+                    "ofType": null
+                  },
+                  "defaultValue": "PRIMARY_KEY_ASC"
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "condition",
+                  "description": "A condition to be used in determining which values should be returned by the collection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "FoodSelectionCondition",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "FoodSelectionsConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -4409,13 +4658,13 @@
               "deprecationReason": null
             },
             {
-              "name": "CONVERSATION_ID_ASC",
+              "name": "MESSAGE_ID_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CONVERSATION_ID_DESC",
+              "name": "MESSAGE_ID_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -4474,8 +4723,8 @@
               "defaultValue": null
             },
             {
-              "name": "conversationId",
-              "description": "Checks for equality with the object’s `conversationId` field.",
+              "name": "messageId",
+              "description": "Checks for equality with the object’s `messageId` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Uuid",
@@ -4676,17 +4925,13 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationId",
-              "description": "The unique identifier for the conversation.",
+              "name": "messageId",
+              "description": "The unique identifier for the message where the user created the preset.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Uuid",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -4728,12 +4973,12 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationByConversationId",
-              "description": "Reads a single `Conversation` that is related to this `Preset`.",
+              "name": "messageByMessageId",
+              "description": "Reads a single `Message` that is related to this `Preset`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Conversation",
+                "name": "Message",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -4968,13 +5213,13 @@
               "deprecationReason": null
             },
             {
-              "name": "CONVERSATION_ID_ASC",
+              "name": "MESSAGE_ID_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CONVERSATION_ID_DESC",
+              "name": "MESSAGE_ID_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5208,18 +5453,6 @@
               "deprecationReason": null
             },
             {
-              "name": "ORIGINAL_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ORIGINAL_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "OMISSION_ASC",
               "description": null,
               "isDeprecated": false,
@@ -5285,8 +5518,8 @@
               "defaultValue": null
             },
             {
-              "name": "conversationId",
-              "description": "Checks for equality with the object’s `conversationId` field.",
+              "name": "messageId",
+              "description": "Checks for equality with the object’s `messageId` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Uuid",
@@ -5485,16 +5718,6 @@
               "defaultValue": null
             },
             {
-              "name": "original",
-              "description": "Checks for equality with the object’s `original` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "omission",
               "description": "Checks for equality with the object’s `omission` field.",
               "type": {
@@ -5527,35 +5750,6 @@
           ],
           "interfaces": null,
           "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "ENUM",
-          "name": "InputSource",
-          "description": "Describes who input the data for an adjacent column: developer is someone who administers the database, agent is a machine learning algorithm, user is a person who manually input the data through the app.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": [
-            {
-              "name": "DEVELOPER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "AGENT",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
           "possibleTypes": null
         },
         {
@@ -5781,17 +5975,13 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationId",
-              "description": "The unique identifier for the conversation.",
+              "name": "messageId",
+              "description": "The unique identifier for the message.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Uuid",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -5849,9 +6039,13 @@
               "description": "The description of the food.",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -6005,9 +6199,13 @@
               "description": "The date the food selection occurred, local to the person.",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "Date",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Date",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -6019,18 +6217,6 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Time",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "original",
-              "description": "The original text of the food selection.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6085,12 +6271,12 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationByConversationId",
-              "description": "Reads a single `Conversation` that is related to this `FoodSelection`.",
+              "name": "messageByMessageId",
+              "description": "Reads a single `Message` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Conversation",
+                "name": "Message",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6665,24 +6851,8 @@
               "deprecationReason": null
             },
             {
-              "name": "longDescription",
+              "name": "description",
               "description": "200-character description of food item.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "shortDescription",
-              "description": "60-character abbreviated description of food item. Generated from the 200-character description using abbreviations in Appendix A. If short description is longer than 60 characters, additional abbreviations are made.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -6751,6 +6921,30 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the food.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7357,6 +7551,18 @@
               "deprecationReason": null
             },
             {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `Food`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "foodSelectionsByFoodId",
               "description": "Reads and enables pagination through a set of `FoodSelection`.",
               "args": [
@@ -7828,25 +8034,13 @@
               "deprecationReason": null
             },
             {
-              "name": "LONG_DESCRIPTION_ASC",
+              "name": "DESCRIPTION_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "LONG_DESCRIPTION_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SHORT_DESCRIPTION_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SHORT_DESCRIPTION_DESC",
+              "name": "DESCRIPTION_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -7907,6 +8101,30 @@
             },
             {
               "name": "CARB_FACTOR_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SOURCE_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SOURCE_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_ID_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_ID_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -8527,18 +8745,8 @@
               "defaultValue": null
             },
             {
-              "name": "longDescription",
-              "description": "Checks for equality with the object’s `longDescription` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "shortDescription",
-              "description": "Checks for equality with the object’s `shortDescription` field.",
+              "name": "description",
+              "description": "Checks for equality with the object’s `description` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -8592,6 +8800,26 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": "Checks for equality with the object’s `source` field.",
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "Checks for equality with the object’s `userId` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -9607,6 +9835,30 @@
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "SOURCE_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SOURCE_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_ID_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_ID_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -9663,6 +9915,26 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": "Checks for equality with the object’s `source` field.",
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "Checks for equality with the object’s `userId` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -9880,6 +10152,30 @@
               "deprecationReason": null
             },
             {
+              "name": "source",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the mass conversion record.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "foodByFoodId",
               "description": "Reads a single `Food` that is related to this `MassConversion`.",
               "args": [],
@@ -9898,6 +10194,18 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `MassConversion`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -10810,13 +11118,13 @@
               "deprecationReason": null
             },
             {
-              "name": "NAME_ASC",
+              "name": "FULL_NAME_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "NAME_DESC",
+              "name": "FULL_NAME_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -10861,8 +11169,8 @@
               "defaultValue": null
             },
             {
-              "name": "name",
-              "description": "Checks for equality with the object’s `name` field.",
+              "name": "fullName",
+              "description": "Checks for equality with the object’s `fullName` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -11055,7 +11363,7 @@
               "deprecationReason": null
             },
             {
-              "name": "name",
+              "name": "fullName",
               "description": "Name of nutrient/food component.",
               "args": [],
               "type": {
@@ -11298,6 +11606,30 @@
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "SOURCE_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SOURCE_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_ID_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_ID_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -11384,6 +11716,26 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": "Checks for equality with the object’s `source` field.",
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "Checks for equality with the object’s `userId` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -11637,6 +11989,30 @@
               "deprecationReason": null
             },
             {
+              "name": "source",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the food nutrient values.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "foodByFoodId",
               "description": "Reads a single `Food` that is related to this `FoodNutrient`.",
               "args": [],
@@ -11655,6 +12031,18 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Nutrient",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `FoodNutrient`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -13003,129 +13391,6 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "ENUM",
-          "name": "NearbyPlacesOrderBy",
-          "description": "Methods to use when ordering `Place`.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": [
-            {
-              "name": "NATURAL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "NearbyPlacesConnection",
-          "description": "A connection to a list of `Place` values.",
-          "fields": [
-            {
-              "name": "pageInfo",
-              "description": "Information to aid in pagination.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "totalCount",
-              "description": "The count of *all* `Place` you could get from the connection.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "edges",
-              "description": "A list of edges which contains the `Place` and cursor to aid in pagination.",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "NearbyPlacesEdge",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodes",
-              "description": "A list of `Place` objects.",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Place",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "NearbyPlacesEdge",
-          "description": "A `Place` edge in the connection.",
-          "fields": [
-            {
-              "name": "cursor",
-              "description": "A cursor for use in pagination.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Cursor",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "node",
-              "description": "The `Place` at the end of the edge.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Place",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -17484,9 +17749,13 @@
               "name": "rowId",
               "description": "The unique identifier for the conversation which is provided by the agent.",
               "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
@@ -17661,7 +17930,7 @@
               "description": "The unique identifier for the conversation which is provided by the agent.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Uuid",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -17774,7 +18043,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Uuid",
+                  "name": "Float",
                   "ofType": null
                 }
               },
@@ -17929,7 +18198,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Uuid",
+                  "name": "Float",
                   "ofType": null
                 }
               },
@@ -18016,22 +18285,8 @@
               "defaultValue": null
             },
             {
-              "name": "longDescription",
+              "name": "description",
               "description": "200-character description of food item.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "shortDescription",
-              "description": "60-character abbreviated description of food item. Generated from the 200-character description using abbreviations in Appendix A. If short description is longer than 60 characters, additional abbreviations are made.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -18089,6 +18344,26 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the food.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -18655,6 +18930,18 @@
               "deprecationReason": null
             },
             {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `Food`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "query",
               "description": "Our root query field type. Allows us to run any query from our mutation payload.",
               "args": [],
@@ -18758,18 +19045,8 @@
               "defaultValue": null
             },
             {
-              "name": "longDescription",
+              "name": "description",
               "description": "200-character description of food item.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "shortDescription",
-              "description": "60-character abbreviated description of food item. Generated from the 200-character description using abbreviations in Appendix A. If short description is longer than 60 characters, additional abbreviations are made.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -18823,6 +19100,26 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the food.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -19366,6 +19663,18 @@
               "deprecationReason": null
             },
             {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `Food`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "query",
               "description": "Our root query field type. Allows us to run any query from our mutation payload.",
               "args": [],
@@ -19527,6 +19836,18 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Brand",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `Food`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -20166,6 +20487,26 @@
                 "ofType": null
               },
               "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the food nutrient values.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
+              },
+              "defaultValue": null
             }
           ],
           "interfaces": null,
@@ -20243,6 +20584,18 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Nutrient",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `FoodNutrient`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -20400,6 +20753,26 @@
                 "ofType": null
               },
               "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the food nutrient values.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
+              },
+              "defaultValue": null
             }
           ],
           "interfaces": null,
@@ -20454,6 +20827,18 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Nutrient",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `FoodNutrient`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -20641,6 +21026,18 @@
               "deprecationReason": null
             },
             {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `FoodNutrient`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "query",
               "description": "Our root query field type. Allows us to run any query from our mutation payload.",
               "args": [],
@@ -20773,16 +21170,12 @@
               "defaultValue": null
             },
             {
-              "name": "conversationId",
-              "description": "The unique identifier for the conversation.",
+              "name": "messageId",
+              "description": "The unique identifier for the message.",
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Uuid",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
               },
               "defaultValue": null
             },
@@ -20830,9 +21223,13 @@
               "name": "foodDescription",
               "description": "The description of the food.",
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
@@ -20960,9 +21357,13 @@
               "name": "date",
               "description": "The date the food selection occurred, local to the person.",
               "type": {
-                "kind": "SCALAR",
-                "name": "Date",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Date",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
@@ -20972,16 +21373,6 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Time",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "original",
-              "description": "The original text of the food selection.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -21086,12 +21477,12 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationByConversationId",
-              "description": "Reads a single `Conversation` that is related to this `FoodSelection`.",
+              "name": "messageByMessageId",
+              "description": "Reads a single `Message` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Conversation",
+                "name": "Message",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -21251,8 +21642,8 @@
               "defaultValue": null
             },
             {
-              "name": "conversationId",
-              "description": "The unique identifier for the conversation.",
+              "name": "messageId",
+              "description": "The unique identifier for the message.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Uuid",
@@ -21451,16 +21842,6 @@
               "defaultValue": null
             },
             {
-              "name": "original",
-              "description": "The original text of the food selection.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "omission",
               "description": "Flags this food selection as something that was mentioned as an omission.",
               "type": {
@@ -21537,12 +21918,12 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationByConversationId",
-              "description": "Reads a single `Conversation` that is related to this `FoodSelection`.",
+              "name": "messageByMessageId",
+              "description": "Reads a single `Message` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Conversation",
+                "name": "Message",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -21764,12 +22145,12 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationByConversationId",
-              "description": "Reads a single `Conversation` that is related to this `FoodSelection`.",
+              "name": "messageByMessageId",
+              "description": "Reads a single `Message` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Conversation",
+                "name": "Message",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -21986,6 +22367,26 @@
                 "ofType": null
               },
               "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the mass conversion record.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
+              },
+              "defaultValue": null
             }
           ],
           "interfaces": null,
@@ -22063,6 +22464,18 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `MassConversion`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -22190,6 +22603,26 @@
                 "ofType": null
               },
               "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who created the mass conversion record.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
+              },
+              "defaultValue": null
             }
           ],
           "interfaces": null,
@@ -22244,6 +22677,18 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `MassConversion`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -22494,6 +22939,18 @@
               "deprecationReason": null
             },
             {
+              "name": "userByUserId",
+              "description": "Reads a single `User` that is related to this `MassConversion`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "query",
               "description": "Our root query field type. Allows us to run any query from our mutation payload.",
               "args": [],
@@ -22668,7 +23125,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Uuid",
+                  "name": "Float",
                   "ofType": null
                 }
               },
@@ -22685,8 +23142,18 @@
               "defaultValue": null
             },
             {
-              "name": "intent",
-              "description": "Name of the user intention determined by the agent.",
+              "name": "statusCode",
+              "description": "HTTP status code of the agent request.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "originalText",
+              "description": null,
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -22705,11 +23172,21 @@
               "defaultValue": null
             },
             {
-              "name": "status",
-              "description": "Status of the agent request.",
+              "name": "action",
+              "description": "Name of the webhook action determined by the agent.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
                 "ofType": null
               },
               "defaultValue": null
@@ -22881,7 +23358,7 @@
               "description": "The unique identifier for the conversation session.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Uuid",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -22897,8 +23374,18 @@
               "defaultValue": null
             },
             {
-              "name": "intent",
-              "description": "Name of the user intention determined by the agent.",
+              "name": "statusCode",
+              "description": "HTTP status code of the agent request.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "originalText",
+              "description": null,
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -22917,11 +23404,21 @@
               "defaultValue": null
             },
             {
-              "name": "status",
-              "description": "Status of the agent request.",
+              "name": "action",
+              "description": "Name of the webhook action determined by the agent.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "source",
+              "description": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "InputSource",
                 "ofType": null
               },
               "defaultValue": null
@@ -23270,7 +23767,7 @@
               "defaultValue": null
             },
             {
-              "name": "name",
+              "name": "fullName",
               "description": "Name of nutrient/food component.",
               "type": {
                 "kind": "NON_NULL",
@@ -23456,7 +23953,7 @@
               "defaultValue": null
             },
             {
-              "name": "name",
+              "name": "fullName",
               "description": "Name of nutrient/food component.",
               "type": {
                 "kind": "SCALAR",
@@ -24670,16 +25167,12 @@
               "defaultValue": null
             },
             {
-              "name": "conversationId",
-              "description": "The unique identifier for the conversation.",
+              "name": "messageId",
+              "description": "The unique identifier for the message where the user created the preset.",
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Uuid",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
               },
               "defaultValue": null
             },
@@ -24773,12 +25266,12 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationByConversationId",
-              "description": "Reads a single `Conversation` that is related to this `Preset`.",
+              "name": "messageByMessageId",
+              "description": "Reads a single `Message` that is related to this `Preset`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Conversation",
+                "name": "Message",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -24878,8 +25371,8 @@
               "defaultValue": null
             },
             {
-              "name": "conversationId",
-              "description": "The unique identifier for the conversation.",
+              "name": "messageId",
+              "description": "The unique identifier for the message where the user created the preset.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Uuid",
@@ -24954,12 +25447,12 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationByConversationId",
-              "description": "Reads a single `Conversation` that is related to this `Preset`.",
+              "name": "messageByMessageId",
+              "description": "Reads a single `Message` that is related to this `Preset`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Conversation",
+                "name": "Message",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -25184,12 +25677,12 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationByConversationId",
-              "description": "Reads a single `Conversation` that is related to this `Preset`.",
+              "name": "messageByMessageId",
+              "description": "Reads a single `Message` that is related to this `Preset`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Conversation",
+                "name": "Message",
                 "ofType": null
               },
               "isDeprecated": false,
