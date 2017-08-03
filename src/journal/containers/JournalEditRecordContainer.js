@@ -137,8 +137,8 @@ class JournalEditRecordContainer extends React.Component {
             name={'foodId'}
             label={'Food ID'}
             placeholder={'Unique number'}
-            value={String(foodSelection.foodId)}
-            validations={{ isNumeric: true, maxLength: 8 }}
+            value={foodSelection.foodId}
+            validations={{ isNumeric: true }}
             validationError={validationErrors.number}
             maxLength={8}
             style={styles.field}
@@ -148,8 +148,8 @@ class JournalEditRecordContainer extends React.Component {
           <TextInput
             name={'mass'}
             label={'Mass (grams)'}
-            value={String(foodSelection.mass)}
-            validations={{ isNumeric: true, maxLength: 8 }}
+            value={foodSelection.mass}
+            validations={{ isNumeric: true }}
             validationError={validationErrors.number}
             maxLength={8}
             style={styles.field}
@@ -175,10 +175,10 @@ class JournalEditRecordContainer extends React.Component {
           <Layout>
             <TextInput
               name={'unitAmount'}
-              label={'Unit quantity'}
+              label={'Unit amount'}
               placeholder={'Number'}
-              value={String(foodSelection.unitAmount)}
-              validations={{ isNumeric: true, maxLength: 8 }}
+              value={foodSelection.unitAmount}
+              validations={{ isNumeric: true }}
               validationError={validationErrors.number}
               maxLength={8}
               style={styles.fieldSmall}

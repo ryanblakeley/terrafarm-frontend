@@ -29,7 +29,10 @@ const textInputPropTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   required: PropTypes.bool,
   updateImmediately: PropTypes.bool,
   validations: PropTypes.oneOfType([
