@@ -24,7 +24,7 @@ const styles = {
 const propTypes = {
   // key: PropTypes.string,
   foodName: PropTypes.string.isRequired,
-  unitQuantity: PropTypes.number,
+  unitAmount: PropTypes.number,
   unitName: PropTypes.string,
   url: PropTypes.string.isRequired,
   complete: PropTypes.bool.isRequired,
@@ -33,19 +33,19 @@ const propTypes = {
 };
 
 const defaultProps = {
-  unitQuantity: '',
+  unitAmount: '',
   unitName: '',
   editing: false,
   wide: false,
 };
 
 const JournalFoodSelection = props => {
-  const { foodName, unitQuantity, unitName, url, complete, editing, wide } = props;
+  const { foodName, unitAmount, unitName, url, complete, editing, wide } = props;
   const color = complete ? '' : red400;
 
   return <Layout className={cx({ this: true, complete, editing, wide })}>
     <Span className={classNames.foodName}>{foodName}</Span>
-    <Span className={classNames.unit}>{unitQuantity} {unitName}</Span>
+    <Span className={classNames.unit}>{unitAmount} {unitName}</Span>
     <Span className={classNames.edit}>
       <Link to={url}>
         <IconButton style={styles.editButton} onClick={() => window.scrollTo(0, 0)}>

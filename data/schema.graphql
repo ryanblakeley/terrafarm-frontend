@@ -81,31 +81,6 @@ type Brand implements Node {
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodCondition
   ): FoodsConnection
-
-  # Reads and enables pagination through a set of `FoodSelection`.
-  foodSelectionsByBrandId(
-    # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: FoodSelectionCondition
-  ): FoodSelectionsConnection
 }
 
 # A condition to be used against `Brand` object types. All fields are tested for equality and combined with a logical ‘and.’
@@ -253,7 +228,7 @@ type Conversation implements Node {
   id: ID!
 
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Float!
+  rowId: Uuid!
 
   # The unique identifier for the person.
   userId: Uuid!
@@ -294,7 +269,7 @@ type Conversation implements Node {
 # tested for equality and combined with a logical ‘and.’
 input ConversationCondition {
   # Checks for equality with the object’s `rowId` field.
-  rowId: Float
+  rowId: Uuid
 
   # Checks for equality with the object’s `userId` field.
   userId: Uuid
@@ -306,7 +281,7 @@ input ConversationCondition {
 # A conversation session between a person and the agent.
 input ConversationInput {
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Float!
+  rowId: Uuid!
 
   # The unique identifier for the person.
   userId: Uuid!
@@ -318,7 +293,7 @@ input ConversationInput {
 # Represents an update to a `Conversation`. Fields that are set will be updated.
 input ConversationPatch {
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Float
+  rowId: Uuid
 
   # The unique identifier for the person.
   userId: Uuid
@@ -567,14 +542,8 @@ type CreateFoodSelectionPayload {
   # Reads a single `Preset` that is related to this `FoodSelection`.
   presetByInheritsFromId: Preset
 
-  # Reads a single `Place` that is related to this `FoodSelection`.
-  placeByPlaceId: Place
-
   # Reads a single `Food` that is related to this `FoodSelection`.
   foodByFoodId: Food
-
-  # Reads a single `Brand` that is related to this `FoodSelection`.
-  brandByBrandId: Brand
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
@@ -930,7 +899,7 @@ input DeleteConversationByRowIdInput {
   clientMutationId: String
 
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Float!
+  rowId: Uuid!
 }
 
 # All input for the `deleteConversation` mutation.
@@ -1112,14 +1081,8 @@ type DeleteFoodSelectionPayload {
   # Reads a single `Preset` that is related to this `FoodSelection`.
   presetByInheritsFromId: Preset
 
-  # Reads a single `Place` that is related to this `FoodSelection`.
-  placeByPlaceId: Place
-
   # Reads a single `Food` that is related to this `FoodSelection`.
   foodByFoodId: Food
-
-  # Reads a single `Brand` that is related to this `FoodSelection`.
-  brandByBrandId: Brand
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
@@ -1128,8 +1091,8 @@ type DeleteFoodSelectionPayload {
   query: Query
 }
 
-# All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription` mutation.
-input DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput {
+# All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription` mutation.
+input DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
@@ -1142,7 +1105,7 @@ input DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput 
 
   # The description of a physical modification, e.x. chopped, julienned, melted,
   # etc., which affects density but not nutrition per mass.
-  physicalDescription: String!
+  physicalModDescription: String!
 }
 
 # All input for the `deleteMassConversionByRowId` mutation.
@@ -1417,7 +1380,8 @@ input DeleteUnitOfMeasureByShortNameInput {
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
 
-  # The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.
+  # The abbreviated or shortened name for the unit of measure, which matches
+  # API.AI systems entities for unit-weight and unit-volume.
   shortName: String!
 }
 
@@ -2223,6 +2187,35 @@ input FoodInput {
   updatedAt: Datetime
 }
 
+# A connection to a list of `Food` values.
+type FoodMatchesForSelectionConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # The count of *all* `Food` you could get from the connection.
+  totalCount: Int
+
+  # A list of edges which contains the `Food` and cursor to aid in pagination.
+  edges: [FoodMatchesForSelectionEdge]
+
+  # A list of `Food` objects.
+  nodes: [Food]
+}
+
+# A `Food` edge in the connection.
+type FoodMatchesForSelectionEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The `Food` at the end of the edge.
+  node: Food
+}
+
+# Methods to use when ordering `Food`.
+enum FoodMatchesForSelectionOrderBy {
+  NATURAL
+}
+
 # Contains the nutrient values and information about the values, including expanded statistical information.
 type FoodNutrient implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -2634,12 +2627,7 @@ type FoodSelection implements Node {
 
   # The unique identifier for the preset that this selection was copied from.
   inheritsFromId: Uuid
-
-  # The unique identifier of the place.
-  placeId: Uuid
-
-  # The description of the place.
-  placeDescription: String
+  category: FoodSelectionCategory
 
   # The unique identifier for the food.
   foodId: Float
@@ -2647,16 +2635,10 @@ type FoodSelection implements Node {
   # The description of the food.
   foodDescription: String!
   foodIdSource: InputSource
-  category: FoodSelectionCategory
 
-  # The unique identifier for the brand.
-  brandId: Uuid
-
-  # The description of the brand.
-  brandDescription: String
-
-  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
-  physicalDescription: String
+  # The total mass of the food in grams.
+  mass: Float
+  massSource: InputSource
 
   # The unique identifier for the unit of measure, if mentioned.
   unitOfMeasureId: Int
@@ -2665,26 +2647,19 @@ type FoodSelection implements Node {
   unitDescription: String
 
   # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitQuantity: Float
+  unitAmount: Float
 
-  # The price paid for the food selection.
-  unitPrice: Float
+  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
+  physicalModDescription: String
 
-  # The total mass of the food in grams.
-  mass: Float
-  massSource: InputSource
-
-  # A number that represents the person’s attitude or feelings about the food selection.
-  ratingValue: Float
+  # The description of the brand.
+  brandDescription: String
 
   # The date the food selection occurred, local to the person.
   date: Date!
 
   # The time the food selection occurred, local to the person.
   time: Time
-
-  # Flags this food selection as something that was mentioned as an omission.
-  omission: Boolean
 
   # The time this object was created.
   createdAt: Datetime
@@ -2701,14 +2676,8 @@ type FoodSelection implements Node {
   # Reads a single `Preset` that is related to this `FoodSelection`.
   presetByInheritsFromId: Preset
 
-  # Reads a single `Place` that is related to this `FoodSelection`.
-  placeByPlaceId: Place
-
   # Reads a single `Food` that is related to this `FoodSelection`.
   foodByFoodId: Food
-
-  # Reads a single `Brand` that is related to this `FoodSelection`.
-  brandByBrandId: Brand
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
@@ -2764,11 +2733,8 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `inheritsFromId` field.
   inheritsFromId: Uuid
 
-  # Checks for equality with the object’s `placeId` field.
-  placeId: Uuid
-
-  # Checks for equality with the object’s `placeDescription` field.
-  placeDescription: String
+  # Checks for equality with the object’s `category` field.
+  category: FoodSelectionCategory
 
   # Checks for equality with the object’s `foodId` field.
   foodId: Float
@@ -2779,17 +2745,11 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `foodIdSource` field.
   foodIdSource: InputSource
 
-  # Checks for equality with the object’s `category` field.
-  category: FoodSelectionCategory
+  # Checks for equality with the object’s `mass` field.
+  mass: Float
 
-  # Checks for equality with the object’s `brandId` field.
-  brandId: Uuid
-
-  # Checks for equality with the object’s `brandDescription` field.
-  brandDescription: String
-
-  # Checks for equality with the object’s `physicalDescription` field.
-  physicalDescription: String
+  # Checks for equality with the object’s `massSource` field.
+  massSource: InputSource
 
   # Checks for equality with the object’s `unitOfMeasureId` field.
   unitOfMeasureId: Int
@@ -2797,29 +2757,20 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `unitDescription` field.
   unitDescription: String
 
-  # Checks for equality with the object’s `unitQuantity` field.
-  unitQuantity: Float
+  # Checks for equality with the object’s `unitAmount` field.
+  unitAmount: Float
 
-  # Checks for equality with the object’s `unitPrice` field.
-  unitPrice: Float
+  # Checks for equality with the object’s `physicalModDescription` field.
+  physicalModDescription: String
 
-  # Checks for equality with the object’s `mass` field.
-  mass: Float
-
-  # Checks for equality with the object’s `massSource` field.
-  massSource: InputSource
-
-  # Checks for equality with the object’s `ratingValue` field.
-  ratingValue: Float
+  # Checks for equality with the object’s `brandDescription` field.
+  brandDescription: String
 
   # Checks for equality with the object’s `date` field.
   date: Date
 
   # Checks for equality with the object’s `time` field.
   time: Time
-
-  # Checks for equality with the object’s `omission` field.
-  omission: Boolean
 
   # Checks for equality with the object’s `createdAt` field.
   createdAt: Datetime
@@ -2841,12 +2792,7 @@ input FoodSelectionInput {
 
   # The unique identifier for the preset that this selection was copied from.
   inheritsFromId: Uuid
-
-  # The unique identifier of the place.
-  placeId: Uuid
-
-  # The description of the place.
-  placeDescription: String
+  category: FoodSelectionCategory
 
   # The unique identifier for the food.
   foodId: Float
@@ -2854,16 +2800,10 @@ input FoodSelectionInput {
   # The description of the food.
   foodDescription: String!
   foodIdSource: InputSource
-  category: FoodSelectionCategory
 
-  # The unique identifier for the brand.
-  brandId: Uuid
-
-  # The description of the brand.
-  brandDescription: String
-
-  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
-  physicalDescription: String
+  # The total mass of the food in grams.
+  mass: Float
+  massSource: InputSource
 
   # The unique identifier for the unit of measure, if mentioned.
   unitOfMeasureId: Int
@@ -2872,26 +2812,19 @@ input FoodSelectionInput {
   unitDescription: String
 
   # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitQuantity: Float
+  unitAmount: Float
 
-  # The price paid for the food selection.
-  unitPrice: Float
+  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
+  physicalModDescription: String
 
-  # The total mass of the food in grams.
-  mass: Float
-  massSource: InputSource
-
-  # A number that represents the person’s attitude or feelings about the food selection.
-  ratingValue: Float
+  # The description of the brand.
+  brandDescription: String
 
   # The date the food selection occurred, local to the person.
   date: Date!
 
   # The time the food selection occurred, local to the person.
   time: Time
-
-  # Flags this food selection as something that was mentioned as an omission.
-  omission: Boolean
 
   # The time this object was created.
   createdAt: Datetime
@@ -2913,12 +2846,7 @@ input FoodSelectionPatch {
 
   # The unique identifier for the preset that this selection was copied from.
   inheritsFromId: Uuid
-
-  # The unique identifier of the place.
-  placeId: Uuid
-
-  # The description of the place.
-  placeDescription: String
+  category: FoodSelectionCategory
 
   # The unique identifier for the food.
   foodId: Float
@@ -2926,16 +2854,10 @@ input FoodSelectionPatch {
   # The description of the food.
   foodDescription: String
   foodIdSource: InputSource
-  category: FoodSelectionCategory
 
-  # The unique identifier for the brand.
-  brandId: Uuid
-
-  # The description of the brand.
-  brandDescription: String
-
-  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
-  physicalDescription: String
+  # The total mass of the food in grams.
+  mass: Float
+  massSource: InputSource
 
   # The unique identifier for the unit of measure, if mentioned.
   unitOfMeasureId: Int
@@ -2944,26 +2866,19 @@ input FoodSelectionPatch {
   unitDescription: String
 
   # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitQuantity: Float
+  unitAmount: Float
 
-  # The price paid for the food selection.
-  unitPrice: Float
+  # The description of a physical modification, e.x. chopped, julienned, melted, etc.
+  physicalModDescription: String
 
-  # The total mass of the food in grams.
-  mass: Float
-  massSource: InputSource
-
-  # A number that represents the person’s attitude or feelings about the food selection.
-  ratingValue: Float
+  # The description of the brand.
+  brandDescription: String
 
   # The date the food selection occurred, local to the person.
   date: Date
 
   # The time the food selection occurred, local to the person.
   time: Time
-
-  # Flags this food selection as something that was mentioned as an omission.
-  omission: Boolean
 
   # The time this object was created.
   createdAt: Datetime
@@ -3009,44 +2924,32 @@ enum FoodSelectionsOrderBy {
   MESSAGE_ID_DESC
   INHERITS_FROM_ID_ASC
   INHERITS_FROM_ID_DESC
-  PLACE_ID_ASC
-  PLACE_ID_DESC
-  PLACE_DESCRIPTION_ASC
-  PLACE_DESCRIPTION_DESC
+  CATEGORY_ASC
+  CATEGORY_DESC
   FOOD_ID_ASC
   FOOD_ID_DESC
   FOOD_DESCRIPTION_ASC
   FOOD_DESCRIPTION_DESC
   FOOD_ID_SOURCE_ASC
   FOOD_ID_SOURCE_DESC
-  CATEGORY_ASC
-  CATEGORY_DESC
-  BRAND_ID_ASC
-  BRAND_ID_DESC
-  BRAND_DESCRIPTION_ASC
-  BRAND_DESCRIPTION_DESC
-  PHYSICAL_DESCRIPTION_ASC
-  PHYSICAL_DESCRIPTION_DESC
-  UNIT_OF_MEASURE_ID_ASC
-  UNIT_OF_MEASURE_ID_DESC
-  UNIT_DESCRIPTION_ASC
-  UNIT_DESCRIPTION_DESC
-  UNIT_QUANTITY_ASC
-  UNIT_QUANTITY_DESC
-  UNIT_PRICE_ASC
-  UNIT_PRICE_DESC
   MASS_ASC
   MASS_DESC
   MASS_SOURCE_ASC
   MASS_SOURCE_DESC
-  RATING_VALUE_ASC
-  RATING_VALUE_DESC
+  UNIT_OF_MEASURE_ID_ASC
+  UNIT_OF_MEASURE_ID_DESC
+  UNIT_DESCRIPTION_ASC
+  UNIT_DESCRIPTION_DESC
+  UNIT_AMOUNT_ASC
+  UNIT_AMOUNT_DESC
+  PHYSICAL_MOD_DESCRIPTION_ASC
+  PHYSICAL_MOD_DESCRIPTION_DESC
+  BRAND_DESCRIPTION_ASC
+  BRAND_DESCRIPTION_DESC
   DATE_ASC
   DATE_DESC
   TIME_ASC
   TIME_DESC
-  OMISSION_ASC
-  OMISSION_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
@@ -3220,7 +3123,7 @@ type MassConversion implements Node {
 
   # The description of a physical modification, e.x. chopped, julienned, melted,
   # etc., which affects density but not nutrition per mass.
-  physicalDescription: String
+  physicalModDescription: String
 
   # The mass equivalent in grams.
   mass: Float
@@ -3251,8 +3154,8 @@ input MassConversionCondition {
   # Checks for equality with the object’s `unitOfMeasureId` field.
   unitOfMeasureId: Int
 
-  # Checks for equality with the object’s `physicalDescription` field.
-  physicalDescription: String
+  # Checks for equality with the object’s `physicalModDescription` field.
+  physicalModDescription: String
 
   # Checks for equality with the object’s `mass` field.
   mass: Float
@@ -3276,7 +3179,7 @@ input MassConversionInput {
 
   # The description of a physical modification, e.x. chopped, julienned, melted,
   # etc., which affects density but not nutrition per mass.
-  physicalDescription: String
+  physicalModDescription: String
 
   # The mass equivalent in grams.
   mass: Float
@@ -3298,7 +3201,7 @@ input MassConversionPatch {
 
   # The description of a physical modification, e.x. chopped, julienned, melted,
   # etc., which affects density but not nutrition per mass.
-  physicalDescription: String
+  physicalModDescription: String
 
   # The mass equivalent in grams.
   mass: Float
@@ -3343,8 +3246,8 @@ enum MassConversionsOrderBy {
   FOOD_ID_DESC
   UNIT_OF_MEASURE_ID_ASC
   UNIT_OF_MEASURE_ID_DESC
-  PHYSICAL_DESCRIPTION_ASC
-  PHYSICAL_DESCRIPTION_DESC
+  PHYSICAL_MOD_DESCRIPTION_ASC
+  PHYSICAL_MOD_DESCRIPTION_DESC
   MASS_ASC
   MASS_DESC
   SOURCE_ASC
@@ -3362,7 +3265,7 @@ type Message implements Node {
   rowId: Uuid!
 
   # The unique identifier for the conversation session.
-  conversationId: Float!
+  conversationId: Uuid!
 
   # The agent’s language.
   lang: String
@@ -3377,6 +3280,9 @@ type Message implements Node {
   # Name of the webhook action determined by the agent.
   action: String
   source: InputSource
+
+  # The UTC timestamp that the agent included in the original message.
+  sentAt: Datetime
 
   # The time this object was created.
   createdAt: Datetime
@@ -3441,7 +3347,7 @@ input MessageCondition {
   rowId: Uuid
 
   # Checks for equality with the object’s `conversationId` field.
-  conversationId: Float
+  conversationId: Uuid
 
   # Checks for equality with the object’s `lang` field.
   lang: String
@@ -3461,6 +3367,9 @@ input MessageCondition {
   # Checks for equality with the object’s `source` field.
   source: InputSource
 
+  # Checks for equality with the object’s `sentAt` field.
+  sentAt: Datetime
+
   # Checks for equality with the object’s `createdAt` field.
   createdAt: Datetime
 }
@@ -3471,7 +3380,7 @@ input MessageInput {
   rowId: Uuid
 
   # The unique identifier for the conversation session.
-  conversationId: Float!
+  conversationId: Uuid!
 
   # The agent’s language.
   lang: String
@@ -3486,6 +3395,9 @@ input MessageInput {
   # Name of the webhook action determined by the agent.
   action: String
   source: InputSource
+
+  # The UTC timestamp that the agent included in the original message.
+  sentAt: Datetime
 
   # The time this object was created.
   createdAt: Datetime
@@ -3497,7 +3409,7 @@ input MessagePatch {
   rowId: Uuid
 
   # The unique identifier for the conversation session.
-  conversationId: Float
+  conversationId: Uuid
 
   # The agent’s language.
   lang: String
@@ -3512,6 +3424,9 @@ input MessagePatch {
   # Name of the webhook action determined by the agent.
   action: String
   source: InputSource
+
+  # The UTC timestamp that the agent included in the original message.
+  sentAt: Datetime
 
   # The time this object was created.
   createdAt: Datetime
@@ -3562,6 +3477,8 @@ enum MessagesOrderBy {
   ACTION_DESC
   SOURCE_ASC
   SOURCE_DESC
+  SENT_AT_ASC
+  SENT_AT_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
 }
@@ -3815,9 +3732,9 @@ type Mutation {
   ): UpdateMassConversionPayload
 
   # Updates a single `MassConversion` using a unique key and a patch.
-  updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription(
+  updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput!
+    input: UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInput!
   ): UpdateMassConversionPayload
 
   # Deletes a single `MassConversion` using its globally unique id.
@@ -3833,9 +3750,9 @@ type Mutation {
   ): DeleteMassConversionPayload
 
   # Deletes a single `MassConversion` using a unique key.
-  deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription(
+  deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput!
+    input: DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInput!
   ): DeleteMassConversionPayload
 
   # Creates a single `Message`.
@@ -4342,31 +4259,6 @@ type Place implements Node {
 
   # Reads a single `User` that is related to this `Place`.
   userByOwnerId: User
-
-  # Reads and enables pagination through a set of `FoodSelection`.
-  foodSelectionsByPlaceId(
-    # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: FoodSelectionCondition
-  ): FoodSelectionsConnection
 }
 
 # A condition to be used against `Place` object types. All fields are tested for equality and combined with a logical ‘and.’
@@ -4885,6 +4777,29 @@ type Query implements Node {
   # Gets the person who was identified by our JWT.
   currentPerson: User
 
+  # Returns a set of possible food matches for a food selection.
+  foodMatchesForSelection(
+    # The method to use when ordering `Food`.
+    orderBy: FoodMatchesForSelectionOrderBy = NATURAL
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+    foodSelectionId: Uuid!
+  ): FoodMatchesForSelectionConnection
+
   # Returns a geocoded result from an address
   geocoder(address: String): GeocodeResult
 
@@ -4967,7 +4882,7 @@ type Query implements Node {
   ): Conversation
   conversationByRowId(
     # The unique identifier for the conversation which is provided by the agent.
-    rowId: Float!
+    rowId: Uuid!
   ): Conversation
 
   # Reads and enables pagination through a set of `Food`.
@@ -5144,7 +5059,7 @@ type Query implements Node {
     id: ID!
   ): MassConversion
   massConversionByRowId(rowId: Int!): MassConversion
-  massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription(
+  massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription(
     # The unique identifier for the food item.
     foodId: Float!
 
@@ -5154,7 +5069,7 @@ type Query implements Node {
 
     # The description of a physical modification, e.x. chopped, julienned, melted,
     # etc., which affects density but not nutrition per mass.
-    physicalDescription: String!
+    physicalModDescription: String!
   ): MassConversion
 
   # Reads and enables pagination through a set of `Message`.
@@ -5385,7 +5300,8 @@ type Query implements Node {
     fullName: String!
   ): UnitOfMeasure
   unitOfMeasureByShortName(
-    # The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.
+    # The abbreviated or shortened name for the unit of measure, which matches
+    # API.AI systems entities for unit-weight and unit-volume.
     shortName: String!
   ): UnitOfMeasure
   unitOfMeasureByUsdaKey(
@@ -5477,7 +5393,8 @@ type UnitOfMeasure implements Node {
   # The full name of the unit of measure, e.x. cup, milliliter, gram, whole.
   fullName: String
 
-  # The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.
+  # The abbreviated or shortened name for the unit of measure, which matches
+  # API.AI systems entities for unit-weight and unit-volume.
   shortName: String
 
   # A support column for resolving duplicates and typos from units referenced in the USDA NDB.
@@ -5487,7 +5404,7 @@ type UnitOfMeasure implements Node {
   # inconsistent plurals and abbreviations led to duplicated entries of the same
   # unit (e.x. cup, cups, and c). This column preserves those unique references.
   usdaKey: String
-  unitCategory: UnitOfMeasureCategory
+  category: UnitOfMeasureCategory
 
   # The number to multiply by to convert the unit into an International System of
   # Units base equivalent. Converts mass to grams, volume to liters, energy to
@@ -5631,8 +5548,8 @@ input UnitOfMeasureCondition {
   # Checks for equality with the object’s `usdaKey` field.
   usdaKey: String
 
-  # Checks for equality with the object’s `unitCategory` field.
-  unitCategory: UnitOfMeasureCategory
+  # Checks for equality with the object’s `category` field.
+  category: UnitOfMeasureCategory
 
   # Checks for equality with the object’s `siFactor` field.
   siFactor: Float
@@ -5646,7 +5563,8 @@ input UnitOfMeasureInput {
   # The full name of the unit of measure, e.x. cup, milliliter, gram, whole.
   fullName: String
 
-  # The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.
+  # The abbreviated or shortened name for the unit of measure, which matches
+  # API.AI systems entities for unit-weight and unit-volume.
   shortName: String
 
   # A support column for resolving duplicates and typos from units referenced in the USDA NDB.
@@ -5656,7 +5574,7 @@ input UnitOfMeasureInput {
   # inconsistent plurals and abbreviations led to duplicated entries of the same
   # unit (e.x. cup, cups, and c). This column preserves those unique references.
   usdaKey: String
-  unitCategory: UnitOfMeasureCategory
+  category: UnitOfMeasureCategory
 
   # The number to multiply by to convert the unit into an International System of
   # Units base equivalent. Converts mass to grams, volume to liters, energy to
@@ -5673,7 +5591,8 @@ input UnitOfMeasurePatch {
   # The full name of the unit of measure, e.x. cup, milliliter, gram, whole.
   fullName: String
 
-  # The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.
+  # The abbreviated or shortened name for the unit of measure, which matches
+  # API.AI systems entities for unit-weight and unit-volume.
   shortName: String
 
   # A support column for resolving duplicates and typos from units referenced in the USDA NDB.
@@ -5683,7 +5602,7 @@ input UnitOfMeasurePatch {
   # inconsistent plurals and abbreviations led to duplicated entries of the same
   # unit (e.x. cup, cups, and c). This column preserves those unique references.
   usdaKey: String
-  unitCategory: UnitOfMeasureCategory
+  category: UnitOfMeasureCategory
 
   # The number to multiply by to convert the unit into an International System of
   # Units base equivalent. Converts mass to grams, volume to liters, energy to
@@ -5731,8 +5650,8 @@ enum UnitOfMeasuresOrderBy {
   SHORT_NAME_REF_DESC
   USDA_KEY_ASC
   USDA_KEY_DESC
-  UNIT_CATEGORY_ASC
-  UNIT_CATEGORY_DESC
+  CATEGORY_ASC
+  CATEGORY_DESC
   SI_FACTOR_ASC
   SI_FACTOR_DESC
 }
@@ -5823,7 +5742,7 @@ input UpdateConversationByRowIdInput {
   clientMutationId: String
 
   # The unique identifier for the conversation which is provided by the agent.
-  rowId: Float!
+  rowId: Uuid!
 
   # An object where the defined keys will be set on the `Conversation` identified by our unique key.
   conversationPatch: ConversationPatch!
@@ -6030,14 +5949,8 @@ type UpdateFoodSelectionPayload {
   # Reads a single `Preset` that is related to this `FoodSelection`.
   presetByInheritsFromId: Preset
 
-  # Reads a single `Place` that is related to this `FoodSelection`.
-  placeByPlaceId: Place
-
   # Reads a single `Food` that is related to this `FoodSelection`.
   foodByFoodId: Food
-
-  # Reads a single `Brand` that is related to this `FoodSelection`.
-  brandByBrandId: Brand
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
   unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
@@ -6046,8 +5959,8 @@ type UpdateFoodSelectionPayload {
   query: Query
 }
 
-# All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription` mutation.
-input UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput {
+# All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription` mutation.
+input UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
@@ -6060,7 +5973,7 @@ input UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput 
 
   # The description of a physical modification, e.x. chopped, julienned, melted,
   # etc., which affects density but not nutrition per mass.
-  physicalDescription: String!
+  physicalModDescription: String!
 
   # An object where the defined keys will be set on the `MassConversion` identified by our unique key.
   massConversionPatch: MassConversionPatch!
@@ -6380,7 +6293,8 @@ input UpdateUnitOfMeasureByShortNameInput {
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
 
-  # The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.
+  # The abbreviated or shortened name for the unit of measure, which matches
+  # API.AI systems entities for unit-weight and unit-volume.
   shortName: String!
 
   # An object where the defined keys will be set on the `UnitOfMeasure` identified by our unique key.

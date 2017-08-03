@@ -98,7 +98,7 @@ class JournalDateContainer extends React.Component {
       const {
         rowId,
         foodDescription,
-        unitQuantity,
+        unitAmount,
         unitDescription,
         foodByFoodId,
         mass,
@@ -109,7 +109,7 @@ class JournalDateContainer extends React.Component {
       return <JournalFoodSelection
         key={rowId}
         foodName={foodDescription}
-        unitQuantity={unitQuantity}
+        unitAmount={unitAmount}
         unitName={unitDescription}
         url={url}
         complete={!!(foodByFoodId && mass)}
@@ -150,30 +150,30 @@ export default createFragmentContainer(
       ) @connection(key: "JournalDateContainer_foodSelectionsByUserId") {
         edges {
           node {
-            id,
-            rowId,
-            foodDescription,
-            foodId,
+            id
+            rowId
+            foodDescription
+            foodId
             foodByFoodId {
-              rowId,
-              calories,
-              protein,
-              fat,
-              carbs,
-            },
-            foodIdSource,
-            mass,
-            massSource,
-            unitQuantity,
-            unitDescription,
-            unitOfMeasureId,
-            brandDescription,
-            physicalDescription
-            time,
-            date,
-          },
-        },
-      },
+              rowId
+              calories
+              protein
+              fat
+              carbs
+            }
+            foodIdSource
+            mass
+            massSource
+            unitAmount
+            unitDescription
+            unitOfMeasureId
+            physicalModDescription
+            brandDescription
+            time
+            date
+          }
+        }
+      }
     }
   `,
 );

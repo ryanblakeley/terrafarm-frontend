@@ -54,6 +54,93 @@
               "deprecationReason": null
             },
             {
+              "name": "foodMatchesForSelection",
+              "description": "Returns a set of possible food matches for a food selection.",
+              "args": [
+                {
+                  "name": "orderBy",
+                  "description": "The method to use when ordering `Food`.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "FoodMatchesForSelectionOrderBy",
+                    "ofType": null
+                  },
+                  "defaultValue": "NATURAL"
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "foodSelectionId",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Uuid",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "FoodMatchesForSelectionConnection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "geocoder",
               "description": "Returns a geocoded result from an address",
               "args": [
@@ -416,7 +503,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "Float",
+                      "name": "Uuid",
                       "ofType": null
                     }
                   },
@@ -1131,7 +1218,7 @@
               "deprecationReason": null
             },
             {
-              "name": "massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription",
+              "name": "massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription",
               "description": null,
               "args": [
                 {
@@ -1163,7 +1250,7 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "physicalDescription",
+                  "name": "physicalModDescription",
                   "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
                   "type": {
                     "kind": "NON_NULL",
@@ -2122,7 +2209,7 @@
               "args": [
                 {
                   "name": "shortName",
-                  "description": "The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.",
+                  "description": "The abbreviated or shortened name for the unit of measure, which matches API.AI systems entities for unit-weight and unit-volume.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -2436,11 +2523,6 @@
             },
             {
               "kind": "OBJECT",
-              "name": "Place",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
               "name": "Food",
               "ofType": null
             },
@@ -2477,6 +2559,11 @@
             {
               "kind": "OBJECT",
               "name": "PresetSelection",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Place",
               "ofType": null
             }
           ]
@@ -3500,7 +3587,7 @@
               "description": "Checks for equality with the object’s `rowId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -3751,7 +3838,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "Uuid",
                   "ofType": null
                 }
               },
@@ -4016,6 +4103,18 @@
               "deprecationReason": null
             },
             {
+              "name": "SENT_AT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SENT_AT_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "CREATED_AT_ASC",
               "description": null,
               "isDeprecated": false,
@@ -4051,7 +4150,7 @@
               "description": "Checks for equality with the object’s `conversationId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -4112,6 +4211,16 @@
               "type": {
                 "kind": "ENUM",
                 "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "sentAt",
+              "description": "Checks for equality with the object’s `sentAt` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Datetime",
                 "ofType": null
               },
               "defaultValue": null
@@ -4326,7 +4435,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "Uuid",
                   "ofType": null
                 }
               },
@@ -4400,6 +4509,18 @@
               "type": {
                 "kind": "ENUM",
                 "name": "InputSource",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "sentAt",
+              "description": "The UTC timestamp that the agent included in the original message.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Datetime",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -5237,25 +5358,13 @@
               "deprecationReason": null
             },
             {
-              "name": "PLACE_ID_ASC",
+              "name": "CATEGORY_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PLACE_ID_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PLACE_DESCRIPTION_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PLACE_DESCRIPTION_DESC",
+              "name": "CATEGORY_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5297,49 +5406,25 @@
               "deprecationReason": null
             },
             {
-              "name": "CATEGORY_ASC",
+              "name": "MASS_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CATEGORY_DESC",
+              "name": "MASS_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "BRAND_ID_ASC",
+              "name": "MASS_SOURCE_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "BRAND_ID_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "BRAND_DESCRIPTION_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "BRAND_DESCRIPTION_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PHYSICAL_DESCRIPTION_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PHYSICAL_DESCRIPTION_DESC",
+              "name": "MASS_SOURCE_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5369,61 +5454,37 @@
               "deprecationReason": null
             },
             {
-              "name": "UNIT_QUANTITY_ASC",
+              "name": "UNIT_AMOUNT_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UNIT_QUANTITY_DESC",
+              "name": "UNIT_AMOUNT_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UNIT_PRICE_ASC",
+              "name": "PHYSICAL_MOD_DESCRIPTION_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UNIT_PRICE_DESC",
+              "name": "PHYSICAL_MOD_DESCRIPTION_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "MASS_ASC",
+              "name": "BRAND_DESCRIPTION_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "MASS_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "MASS_SOURCE_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "MASS_SOURCE_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "RATING_VALUE_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "RATING_VALUE_DESC",
+              "name": "BRAND_DESCRIPTION_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5448,18 +5509,6 @@
             },
             {
               "name": "TIME_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "OMISSION_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "OMISSION_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5538,21 +5587,11 @@
               "defaultValue": null
             },
             {
-              "name": "placeId",
-              "description": "Checks for equality with the object’s `placeId` field.",
+              "name": "category",
+              "description": "Checks for equality with the object’s `category` field.",
               "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "placeDescription",
-              "description": "Checks for equality with the object’s `placeDescription` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "FoodSelectionCategory",
                 "ofType": null
               },
               "defaultValue": null
@@ -5588,41 +5627,21 @@
               "defaultValue": null
             },
             {
-              "name": "category",
-              "description": "Checks for equality with the object’s `category` field.",
+              "name": "mass",
+              "description": "Checks for equality with the object’s `mass` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "massSource",
+              "description": "Checks for equality with the object’s `massSource` field.",
               "type": {
                 "kind": "ENUM",
-                "name": "FoodSelectionCategory",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "brandId",
-              "description": "Checks for equality with the object’s `brandId` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "brandDescription",
-              "description": "Checks for equality with the object’s `brandDescription` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalDescription",
-              "description": "Checks for equality with the object’s `physicalDescription` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "name": "InputSource",
                 "ofType": null
               },
               "defaultValue": null
@@ -5648,8 +5667,8 @@
               "defaultValue": null
             },
             {
-              "name": "unitQuantity",
-              "description": "Checks for equality with the object’s `unitQuantity` field.",
+              "name": "unitAmount",
+              "description": "Checks for equality with the object’s `unitAmount` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
@@ -5658,41 +5677,21 @@
               "defaultValue": null
             },
             {
-              "name": "unitPrice",
-              "description": "Checks for equality with the object’s `unitPrice` field.",
+              "name": "physicalModDescription",
+              "description": "Checks for equality with the object’s `physicalModDescription` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "mass",
-              "description": "Checks for equality with the object’s `mass` field.",
+              "name": "brandDescription",
+              "description": "Checks for equality with the object’s `brandDescription` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "massSource",
-              "description": "Checks for equality with the object’s `massSource` field.",
-              "type": {
-                "kind": "ENUM",
-                "name": "InputSource",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "ratingValue",
-              "description": "Checks for equality with the object’s `ratingValue` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -5713,16 +5712,6 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Time",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "omission",
-              "description": "Checks for equality with the object’s `omission` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
                 "ofType": null
               },
               "defaultValue": null
@@ -5999,24 +5988,12 @@
               "deprecationReason": null
             },
             {
-              "name": "placeId",
-              "description": "The unique identifier of the place.",
+              "name": "category",
+              "description": null,
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "placeDescription",
-              "description": "The description of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "FoodSelectionCategory",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6063,48 +6040,24 @@
               "deprecationReason": null
             },
             {
-              "name": "category",
+              "name": "mass",
+              "description": "The total mass of the food in grams.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "massSource",
               "description": null,
               "args": [],
               "type": {
                 "kind": "ENUM",
-                "name": "FoodSelectionCategory",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "brandId",
-              "description": "The unique identifier for the brand.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "brandDescription",
-              "description": "The description of the brand.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "physicalDescription",
-              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "name": "InputSource",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6135,7 +6088,7 @@
               "deprecationReason": null
             },
             {
-              "name": "unitQuantity",
+              "name": "unitAmount",
               "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
               "args": [],
               "type": {
@@ -6147,48 +6100,24 @@
               "deprecationReason": null
             },
             {
-              "name": "unitPrice",
-              "description": "The price paid for the food selection.",
+              "name": "physicalModDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "mass",
-              "description": "The total mass of the food in grams.",
+              "name": "brandDescription",
+              "description": "The description of the brand.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "massSource",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "ENUM",
-                "name": "InputSource",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ratingValue",
-              "description": "A number that represents the person’s attitude or feelings about the food selection.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6217,18 +6146,6 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Time",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "omission",
-              "description": "Flags this food selection as something that was mentioned as an omission.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6295,36 +6212,12 @@
               "deprecationReason": null
             },
             {
-              "name": "placeByPlaceId",
-              "description": "Reads a single `Place` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Place",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "foodByFoodId",
               "description": "Reads a single `Food` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "Food",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "brandByBrandId",
-              "description": "Reads a single `Brand` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Brand",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6420,358 +6313,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "PresetSelectionsConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [
-            {
-              "kind": "INTERFACE",
-              "name": "Node",
-              "ofType": null
-            }
-          ],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Place",
-          "description": "A place that has or sells food.",
-          "fields": [
-            {
-              "name": "id",
-              "description": "A globally unique identifier. Can be used in various places throughout the system to identify this single value.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "rowId",
-              "description": "The unique identifier for the place.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Uuid",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ownerId",
-              "description": "The unique identifier for the user who owns the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ownerName",
-              "description": "The name of the person responsible for the place listing. This is a fallback for not having a registered user as owner id.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "The place’s human-readable name.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "email",
-              "description": "The place’s primary email address.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "phone",
-              "description": "The place’s phone number.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "url",
-              "description": "The place’s external website url.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "geoRating",
-              "description": "A confidence rating from the geocoder.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lon",
-              "description": "The geographical longitude of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lat",
-              "description": "The geographical latitude of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "streetNumber",
-              "description": "The geographical street number of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "streetName",
-              "description": "The geographical street name of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "streetType",
-              "description": "The geographical street type of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "city",
-              "description": "The city of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "state",
-              "description": "The geographical state of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "zip",
-              "description": "The zip code of the place.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "The time this object was created.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "updatedAt",
-              "description": "The time this object was last updated.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Datetime",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userByOwnerId",
-              "description": "Reads a single `User` that is related to this `Place`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "User",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "foodSelectionsByPlaceId",
-              "description": "Reads and enables pagination through a set of `FoodSelection`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `FoodSelection`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "FoodSelectionCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "FoodSelectionsConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -9654,89 +9195,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "foodSelectionsByBrandId",
-              "description": "Reads and enables pagination through a set of `FoodSelection`.",
-              "args": [
-                {
-                  "name": "orderBy",
-                  "description": "The method to use when ordering `FoodSelection`.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
-                  },
-                  "defaultValue": "PRIMARY_KEY_ASC"
-                },
-                {
-                  "name": "before",
-                  "description": "Read all values in the set before (above) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Read all values in the set after (below) this cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Cursor",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Only read the first `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Only read the last `n` values of the set.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "offset",
-                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "condition",
-                  "description": "A condition to be used in determining which values should be returned by the collection.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "FoodSelectionCondition",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "FoodSelectionsConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -9813,13 +9271,13 @@
               "deprecationReason": null
             },
             {
-              "name": "PHYSICAL_DESCRIPTION_ASC",
+              "name": "PHYSICAL_MOD_DESCRIPTION_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PHYSICAL_DESCRIPTION_DESC",
+              "name": "PHYSICAL_MOD_DESCRIPTION_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -9900,8 +9358,8 @@
               "defaultValue": null
             },
             {
-              "name": "physicalDescription",
-              "description": "Checks for equality with the object’s `physicalDescription` field.",
+              "name": "physicalModDescription",
+              "description": "Checks for equality with the object’s `physicalModDescription` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -10128,7 +9586,7 @@
               "deprecationReason": null
             },
             {
-              "name": "physicalDescription",
+              "name": "physicalModDescription",
               "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "args": [],
               "type": {
@@ -10274,7 +9732,7 @@
             },
             {
               "name": "shortName",
-              "description": "The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.",
+              "description": "The abbreviated or shortened name for the unit of measure, which matches API.AI systems entities for unit-weight and unit-volume.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -10309,7 +9767,7 @@
               "deprecationReason": null
             },
             {
-              "name": "unitCategory",
+              "name": "category",
               "description": null,
               "args": [],
               "type": {
@@ -10834,13 +10292,13 @@
               "deprecationReason": null
             },
             {
-              "name": "UNIT_CATEGORY_ASC",
+              "name": "CATEGORY_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UNIT_CATEGORY_DESC",
+              "name": "CATEGORY_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -10917,8 +10375,8 @@
               "defaultValue": null
             },
             {
-              "name": "unitCategory",
-              "description": "Checks for equality with the object’s `unitCategory` field.",
+              "name": "category",
+              "description": "Checks for equality with the object’s `category` field.",
               "type": {
                 "kind": "ENUM",
                 "name": "UnitOfMeasureCategory",
@@ -12932,6 +12390,275 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "Place",
+          "description": "A place that has or sells food.",
+          "fields": [
+            {
+              "name": "id",
+              "description": "A globally unique identifier. Can be used in various places throughout the system to identify this single value.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "rowId",
+              "description": "The unique identifier for the place.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Uuid",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ownerId",
+              "description": "The unique identifier for the user who owns the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Uuid",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ownerName",
+              "description": "The name of the person responsible for the place listing. This is a fallback for not having a registered user as owner id.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The place’s human-readable name.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "email",
+              "description": "The place’s primary email address.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "phone",
+              "description": "The place’s phone number.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "url",
+              "description": "The place’s external website url.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "geoRating",
+              "description": "A confidence rating from the geocoder.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lon",
+              "description": "The geographical longitude of the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lat",
+              "description": "The geographical latitude of the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "streetNumber",
+              "description": "The geographical street number of the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "streetName",
+              "description": "The geographical street name of the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "streetType",
+              "description": "The geographical street type of the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "city",
+              "description": "The city of the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "state",
+              "description": "The geographical state of the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "zip",
+              "description": "The zip code of the place.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "The time this object was created.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Datetime",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The time this object was last updated.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Datetime",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userByOwnerId",
+              "description": "Reads a single `User` that is related to this `Place`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "ENUM",
           "name": "BrandsOrderBy",
           "description": "Methods to use when ordering `Brand`.",
@@ -13273,6 +13000,129 @@
                   "name": "Brand",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "FoodMatchesForSelectionOrderBy",
+          "description": "Methods to use when ordering `Food`.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "NATURAL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "FoodMatchesForSelectionConnection",
+          "description": "A connection to a list of `Food` values.",
+          "fields": [
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalCount",
+              "description": "The count of *all* `Food` you could get from the connection.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "edges",
+              "description": "A list of edges which contains the `Food` and cursor to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "FoodMatchesForSelectionEdge",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of `Food` objects.",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Food",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "FoodMatchesForSelectionEdge",
+          "description": "A `Food` edge in the connection.",
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Cursor",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The `Food` at the end of the edge.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Food",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -15175,7 +15025,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription",
+              "name": "updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription",
               "description": "Updates a single `MassConversion` using a unique key and a patch.",
               "args": [
                 {
@@ -15186,7 +15036,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput",
+                      "name": "UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInput",
                       "ofType": null
                     }
                   },
@@ -15256,7 +15106,7 @@
               "deprecationReason": null
             },
             {
-              "name": "deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription",
+              "name": "deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription",
               "description": "Deletes a single `MassConversion` using a unique key.",
               "args": [
                 {
@@ -15267,7 +15117,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput",
+                      "name": "DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInput",
                       "ofType": null
                     }
                   },
@@ -17753,7 +17603,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "Uuid",
                   "ofType": null
                 }
               },
@@ -17930,7 +17780,7 @@
               "description": "The unique identifier for the conversation which is provided by the agent.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -18043,7 +17893,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "Uuid",
                   "ofType": null
                 }
               },
@@ -18198,7 +18048,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "Uuid",
                   "ofType": null
                 }
               },
@@ -21190,21 +21040,11 @@
               "defaultValue": null
             },
             {
-              "name": "placeId",
-              "description": "The unique identifier of the place.",
+              "name": "category",
+              "description": null,
               "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "placeDescription",
-              "description": "The description of the place.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "FoodSelectionCategory",
                 "ofType": null
               },
               "defaultValue": null
@@ -21244,41 +21084,21 @@
               "defaultValue": null
             },
             {
-              "name": "category",
+              "name": "mass",
+              "description": "The total mass of the food in grams.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "massSource",
               "description": null,
               "type": {
                 "kind": "ENUM",
-                "name": "FoodSelectionCategory",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "brandId",
-              "description": "The unique identifier for the brand.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "brandDescription",
-              "description": "The description of the brand.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalDescription",
-              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "name": "InputSource",
                 "ofType": null
               },
               "defaultValue": null
@@ -21304,7 +21124,7 @@
               "defaultValue": null
             },
             {
-              "name": "unitQuantity",
+              "name": "unitAmount",
               "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
               "type": {
                 "kind": "SCALAR",
@@ -21314,41 +21134,21 @@
               "defaultValue": null
             },
             {
-              "name": "unitPrice",
-              "description": "The price paid for the food selection.",
+              "name": "physicalModDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "mass",
-              "description": "The total mass of the food in grams.",
+              "name": "brandDescription",
+              "description": "The description of the brand.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "massSource",
-              "description": null,
-              "type": {
-                "kind": "ENUM",
-                "name": "InputSource",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "ratingValue",
-              "description": "A number that represents the person’s attitude or feelings about the food selection.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -21373,16 +21173,6 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Time",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "omission",
-              "description": "Flags this food selection as something that was mentioned as an omission.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
                 "ofType": null
               },
               "defaultValue": null
@@ -21501,36 +21291,12 @@
               "deprecationReason": null
             },
             {
-              "name": "placeByPlaceId",
-              "description": "Reads a single `Place` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Place",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "foodByFoodId",
               "description": "Reads a single `Food` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "Food",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "brandByBrandId",
-              "description": "Reads a single `Brand` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Brand",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -21662,21 +21428,11 @@
               "defaultValue": null
             },
             {
-              "name": "placeId",
-              "description": "The unique identifier of the place.",
+              "name": "category",
+              "description": null,
               "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "placeDescription",
-              "description": "The description of the place.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "FoodSelectionCategory",
                 "ofType": null
               },
               "defaultValue": null
@@ -21712,41 +21468,21 @@
               "defaultValue": null
             },
             {
-              "name": "category",
+              "name": "mass",
+              "description": "The total mass of the food in grams.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "massSource",
               "description": null,
               "type": {
                 "kind": "ENUM",
-                "name": "FoodSelectionCategory",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "brandId",
-              "description": "The unique identifier for the brand.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Uuid",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "brandDescription",
-              "description": "The description of the brand.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "physicalDescription",
-              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "name": "InputSource",
                 "ofType": null
               },
               "defaultValue": null
@@ -21772,7 +21508,7 @@
               "defaultValue": null
             },
             {
-              "name": "unitQuantity",
+              "name": "unitAmount",
               "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
               "type": {
                 "kind": "SCALAR",
@@ -21782,41 +21518,21 @@
               "defaultValue": null
             },
             {
-              "name": "unitPrice",
-              "description": "The price paid for the food selection.",
+              "name": "physicalModDescription",
+              "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "mass",
-              "description": "The total mass of the food in grams.",
+              "name": "brandDescription",
+              "description": "The description of the brand.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "massSource",
-              "description": null,
-              "type": {
-                "kind": "ENUM",
-                "name": "InputSource",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "ratingValue",
-              "description": "A number that represents the person’s attitude or feelings about the food selection.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -21837,16 +21553,6 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Time",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "omission",
-              "description": "Flags this food selection as something that was mentioned as an omission.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
                 "ofType": null
               },
               "defaultValue": null
@@ -21942,36 +21648,12 @@
               "deprecationReason": null
             },
             {
-              "name": "placeByPlaceId",
-              "description": "Reads a single `Place` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Place",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "foodByFoodId",
               "description": "Reads a single `Food` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "Food",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "brandByBrandId",
-              "description": "Reads a single `Brand` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Brand",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -22169,36 +21851,12 @@
               "deprecationReason": null
             },
             {
-              "name": "placeByPlaceId",
-              "description": "Reads a single `Place` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Place",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "foodByFoodId",
               "description": "Reads a single `Food` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "Food",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "brandByBrandId",
-              "description": "Reads a single `Brand` that is related to this `FoodSelection`.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Brand",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -22349,7 +22007,7 @@
               "defaultValue": null
             },
             {
-              "name": "physicalDescription",
+              "name": "physicalModDescription",
               "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "type": {
                 "kind": "SCALAR",
@@ -22585,7 +22243,7 @@
               "defaultValue": null
             },
             {
-              "name": "physicalDescription",
+              "name": "physicalModDescription",
               "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "type": {
                 "kind": "SCALAR",
@@ -22763,8 +22421,8 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput",
-          "description": "All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription` mutation.",
+          "name": "UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInput",
+          "description": "All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription` mutation.",
           "fields": null,
           "inputFields": [
             {
@@ -22806,7 +22464,7 @@
               "defaultValue": null
             },
             {
-              "name": "physicalDescription",
+              "name": "physicalModDescription",
               "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "type": {
                 "kind": "NON_NULL",
@@ -23005,8 +22663,8 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescriptionInput",
-          "description": "All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalDescription` mutation.",
+          "name": "DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInput",
+          "description": "All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription` mutation.",
           "fields": null,
           "inputFields": [
             {
@@ -23048,7 +22706,7 @@
               "defaultValue": null
             },
             {
-              "name": "physicalDescription",
+              "name": "physicalModDescription",
               "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc., which affects density but not nutrition per mass.",
               "type": {
                 "kind": "NON_NULL",
@@ -23125,7 +22783,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "Uuid",
                   "ofType": null
                 }
               },
@@ -23187,6 +22845,16 @@
               "type": {
                 "kind": "ENUM",
                 "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "sentAt",
+              "description": "The UTC timestamp that the agent included in the original message.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Datetime",
                 "ofType": null
               },
               "defaultValue": null
@@ -23358,7 +23026,7 @@
               "description": "The unique identifier for the conversation session.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "Uuid",
                 "ofType": null
               },
               "defaultValue": null
@@ -23419,6 +23087,16 @@
               "type": {
                 "kind": "ENUM",
                 "name": "InputSource",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "sentAt",
+              "description": "The UTC timestamp that the agent included in the original message.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Datetime",
                 "ofType": null
               },
               "defaultValue": null
@@ -26422,7 +26100,7 @@
             },
             {
               "name": "shortName",
-              "description": "The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.",
+              "description": "The abbreviated or shortened name for the unit of measure, which matches API.AI systems entities for unit-weight and unit-volume.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -26451,7 +26129,7 @@
               "defaultValue": null
             },
             {
-              "name": "unitCategory",
+              "name": "category",
               "description": null,
               "type": {
                 "kind": "ENUM",
@@ -26634,7 +26312,7 @@
             },
             {
               "name": "shortName",
-              "description": "The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.",
+              "description": "The abbreviated or shortened name for the unit of measure, which matches API.AI systems entities for unit-weight and unit-volume.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -26663,7 +26341,7 @@
               "defaultValue": null
             },
             {
-              "name": "unitCategory",
+              "name": "category",
               "description": null,
               "type": {
                 "kind": "ENUM",
@@ -26862,7 +26540,7 @@
             },
             {
               "name": "shortName",
-              "description": "The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.",
+              "description": "The abbreviated or shortened name for the unit of measure, which matches API.AI systems entities for unit-weight and unit-volume.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -27136,7 +26814,7 @@
             },
             {
               "name": "shortName",
-              "description": "The abbreviated or shortened name for the unit of measure, e.x. c, g, mg.",
+              "description": "The abbreviated or shortened name for the unit of measure, which matches API.AI systems entities for unit-weight and unit-volume.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,

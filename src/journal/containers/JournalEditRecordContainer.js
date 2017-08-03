@@ -174,10 +174,10 @@ class JournalEditRecordContainer extends React.Component {
         <Layout leftSmall flexCenter>
           <Layout>
             <TextInput
-              name={'unitQuantity'}
+              name={'unitAmount'}
               label={'Unit quantity'}
               placeholder={'Number'}
-              value={String(foodSelection.unitQuantity)}
+              value={String(foodSelection.unitAmount)}
               validations={{ isNumeric: true, maxLength: 8 }}
               validationError={validationErrors.number}
               maxLength={8}
@@ -212,10 +212,10 @@ class JournalEditRecordContainer extends React.Component {
         </Layout>
         <Layout leftSmall>
           <TextInput
-            name={'physicalDescription'}
+            name={'physicalModDescription'}
             label={'Physical state'}
             placeholder={'E.x. chopped, sliced, melted'}
-            value={foodSelection.physicalDescription}
+            value={foodSelection.physicalModDescription}
             validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
             validationError={validationErrors.normalWords}
             maxLength={50}
@@ -278,11 +278,11 @@ export default createFragmentContainer(JournalEditRecordContainer, {
       foodIdSource
       mass
       massSource
-      unitQuantity
+      unitAmount
       unitDescription
       unitOfMeasureId
       brandDescription
-      physicalDescription
+      physicalModDescription
       date
       time
     }

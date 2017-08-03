@@ -6,25 +6,25 @@ const mutation = graphql`
   ) {
     updateFoodSelection(input: $input) {
       foodSelection {
-        foodDescription,
-        foodId,
+        foodDescription
+        foodId
         foodByFoodId {
-          rowId,
-          calories,
-          protein,
-          fat,
-          carbs,
-        },
-        foodIdSource,
-        mass,
-        massSource,
-        unitQuantity,
-        unitDescription,
-        unitOfMeasureId,
-        brandDescription,
-        physicalDescription,
-        date,
-        time,
+          rowId
+          calories
+          protein
+          fat
+          carbs
+        }
+        foodIdSource
+        mass
+        massSource
+        unitAmount
+        unitDescription
+        unitOfMeasureId
+        brandDescription
+        physicalModDescription
+        date
+        time
       }
     }
   }
