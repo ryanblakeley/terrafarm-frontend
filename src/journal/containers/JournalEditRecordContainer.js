@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import moment from 'moment';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import Layout from 'shared/components/Layout';
-import { Span, ErrorMessage } from 'shared/components/Typography';
+import { Span } from 'shared/components/Typography';
 import { TextInput } from 'shared/components/Form';
 import validations, { validationErrors } from 'tools/validations';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
@@ -26,6 +26,7 @@ const propTypes = {
   notifyClose: PropTypes.func.isRequired,
   relay: PropTypes.object.isRequired,
   // router: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 class JournalEditRecordContainer extends React.Component {
@@ -98,7 +99,7 @@ class JournalEditRecordContainer extends React.Component {
     return { complete: 0, calories: null, protein: null, fat: null, carbs: null };
   }
   render () {
-    const { foodSelectionByRowId: foodSelection, notifyClose } = this.props;
+    const { foodSelectionByRowId: foodSelection, notifyClose, children } = this.props;
     const { error } = this.state;
     const nutrition = this.calculateNutrition(foodSelection);
     const nutritionDisplay = nutrition.complete
@@ -121,8 +122,10 @@ class JournalEditRecordContainer extends React.Component {
         </Layout>
       </Layout>
       : <Layout center topSmall bottomSmall>
-        <ErrorMessage>Food ID and mass are needed to calculate nutrition.</ErrorMessage>
+        {children}
       </Layout>;
+
+    // <ErrorMessage>Food ID and mass are needed to calculate nutrition.</ErrorMessage>
 
     return <ActionPanelForm
       notifyClose={notifyClose}
