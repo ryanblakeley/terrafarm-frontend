@@ -5,7 +5,7 @@ import moment from 'moment';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import Layout from 'shared/components/Layout';
 import { Span } from 'shared/components/Typography';
-import { TextInput } from 'shared/components/Form';
+import { TextInput, ErrorMessage } from 'shared/components/Form';
 import validations, { validationErrors } from 'tools/validations';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
@@ -30,14 +30,34 @@ const propTypes = {
 };
 
 class JournalEditRecordContainer extends React.Component {
-  state = {
-    error: false,
-    formData: {},
-    isChangingDate: false,
-  };
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      error: false,
+      formData: {},
+      isChangingDate: false,
+      foodId: props.foodSelectionByRowId.foodId,
+    };
+  }
+  getMassSuggestion () {
+    const { foodSelectionByRowId: foodSelection } = this.props;
+    const { unitOfMeasureByUnitOfMeasureId: unit } = foodSelection;
+    const massSuggestionPossible = !foodSelection.mass
+      && unit
+      && unit.category === 'MASS'
+      && unit.siFactor
+      && foodSelection.unitAmount;
+    return massSuggestionPossible && (foodSelection.unitAmount * unit.siFactor);
+  }
   handleSubmit = data => {
+    const patch = Object.assign(data, {
+      foodId: data.foodId || null,
+      mass: data.mass || null,
+    });
+
     this.setState({ formData: data });
-    this.updateFoodSelection(data);
+    this.updateFoodSelection(patch);
   }
   handleDelete = response => {  // eslint-disable-line no-unused-vars
     const { userByRowId: user, foodSelectionByRowId: foodSelection, relay } = this.props;
@@ -67,6 +87,9 @@ class JournalEditRecordContainer extends React.Component {
     // For now, do a forceful page reload. :(
     window.location.reload();
     this.props.notifyClose();
+  }
+  handleChangeFoodId = (foodId) => {
+    this.setState({ foodId });
   }
   updateFoodSelection (patch) {
     const { foodSelectionByRowId: foodSelection, relay } = this.props;
@@ -100,7 +123,7 @@ class JournalEditRecordContainer extends React.Component {
   }
   render () {
     const { foodSelectionByRowId: foodSelection, notifyClose, children } = this.props;
-    const { error } = this.state;
+    const { error, foodId } = this.state;
     const nutrition = this.calculateNutrition(foodSelection);
     const nutritionDisplay = nutrition.complete
       ? <Layout center topSmall bottomSmall className={classNames.nutrients}>
@@ -121,11 +144,16 @@ class JournalEditRecordContainer extends React.Component {
           <Span className={classNames.nutrientValue}>{nutrition.carbs}</Span>
         </Layout>
       </Layout>
-      : <Layout center topSmall bottomSmall>
-        {children}
-      </Layout>;
-
-    // <ErrorMessage>Food ID and mass are needed to calculate nutrition.</ErrorMessage>
+      : null;
+    const massSuggestion = this.getMassSuggestion(nutrition) || null;
+    const massMissing = (foodSelection.foodId && !foodSelection.mass && !massSuggestion)
+      ? <ErrorMessage>Mass is needed to calculate nutrition values.</ErrorMessage>
+      : null;
+    const matchFoodResults = <Layout center topSmall bottomSmall>
+      {React.Children.map(children, c => React.cloneElement(c, {
+        handleClickFoodMatch: this.handleChangeFoodId,
+      }))}
+    </Layout>;
 
     return <ActionPanelForm
       notifyClose={notifyClose}
@@ -140,7 +168,7 @@ class JournalEditRecordContainer extends React.Component {
             name={'foodId'}
             label={'Food ID'}
             placeholder={'Unique number'}
-            value={foodSelection.foodId}
+            value={foodId}
             validations={{ isNumeric: true }}
             validationError={validationErrors.number}
             maxLength={8}
@@ -160,6 +188,9 @@ class JournalEditRecordContainer extends React.Component {
         </Layout>
       </Layout>
       {nutritionDisplay}
+      {!foodSelection.foodId && matchFoodResults}
+      {massSuggestion}
+      {massMissing}
       <Layout flexCenter flexWrap>
         <Layout>
           <TextInput
@@ -284,6 +315,10 @@ export default createFragmentContainer(JournalEditRecordContainer, {
       unitAmount
       unitDescription
       unitOfMeasureId
+      unitOfMeasureByUnitOfMeasureId {
+        category
+        siFactor
+      }
       brandDescription
       physicalModDescription
       date
