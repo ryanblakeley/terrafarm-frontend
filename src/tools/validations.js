@@ -26,4 +26,8 @@ export const validationErrors = {
   currency: 'Should be a dollar amount.',
 };
 
+export const conversions = {
+  time: v => moment(v, 'HH:mm:ss a').format('HH:mm:ss'),
+};
+
 export default validations;

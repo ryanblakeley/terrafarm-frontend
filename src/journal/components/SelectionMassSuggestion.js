@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
-import { P } from 'shared/components/Typography';
+import { H4 } from 'shared/components/Typography';
+import { FlatButton } from 'shared/components/Material';
 
 const propTypes = {
   unit: PropTypes.shape({
@@ -10,6 +11,7 @@ const propTypes = {
   }),
   amount: PropTypes.number,
   show: PropTypes.bool.isRequired,
+  handleClickMassSuggestion: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -23,24 +25,25 @@ const defaultProps = {
 class SelectionMassSuggestion extends React.Component {
   getMassSuggestion () {
     const { unit, amount, show } = this.props;
-    console.log('get mass:', unit, amount, show);
     const massSuggestionPossible = show
       && unit
       && unit.category === 'MASS'
       && unit.siFactor
       && amount;
 
-    return massSuggestionPossible && amount * unit.siFactor;
+    return massSuggestionPossible && (amount * unit.siFactor).toFixed(2);
   }
   render () {
+    const { handleClickMassSuggestion } = this.props;
     const massSuggestion = this.getMassSuggestion();
-
-    console.log('Mass suggestion:', massSuggestion);
 
     if (!massSuggestion) return null;
 
-    return <Layout>
-      <P>{massSuggestion}</P>
+    return <Layout center >
+      <H4>Mass Suggestion (grams)</H4>
+      <FlatButton onClick={() => { handleClickMassSuggestion(massSuggestion); }}>
+        {massSuggestion}
+      </FlatButton>
     </Layout>;
   }
 }

@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import moment from 'moment';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import Layout from 'shared/components/Layout';
-import { Span } from 'shared/components/Typography';
-import { TextInput, ErrorMessage } from 'shared/components/Form';
-import validations, { validationErrors } from 'tools/validations';
+import { TextInput } from 'shared/components/Form';
+import validations, { validationErrors, conversions } from 'tools/validations';
+import SelectionNutritionValues from '../components/SelectionNutritionValues';
+import SelectionMassSuggestion from '../components/SelectionMassSuggestion';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
-import classNames from '../styles/JournalEditRecordContainerStylesheet.css';
 
 const styles = {
   field: {
@@ -38,17 +37,8 @@ class JournalEditRecordContainer extends React.Component {
       formData: {},
       isChangingDate: false,
       foodId: props.foodSelectionByRowId.foodId,
+      mass: props.foodSelectionByRowId.mass,
     };
-  }
-  getMassSuggestion () {
-    const { foodSelectionByRowId: foodSelection } = this.props;
-    const { unitOfMeasureByUnitOfMeasureId: unit } = foodSelection;
-    const massSuggestionPossible = !foodSelection.mass
-      && unit
-      && unit.category === 'MASS'
-      && unit.siFactor
-      && foodSelection.unitAmount;
-    return massSuggestionPossible && (foodSelection.unitAmount * unit.siFactor);
   }
   handleSubmit = data => {
     const patch = Object.assign(data, {
@@ -91,6 +81,9 @@ class JournalEditRecordContainer extends React.Component {
   handleChangeFoodId = (foodId) => {
     this.setState({ foodId });
   }
+  handleChangeMass = (mass) => {
+    this.setState({ mass });
+  }
   updateFoodSelection (patch) {
     const { foodSelectionByRowId: foodSelection, relay } = this.props;
 
@@ -104,52 +97,15 @@ class JournalEditRecordContainer extends React.Component {
       this.handleFailure,
     );
   }
-  calculateNutrition = foodSelection => {
-    const { foodByFoodId: food, mass } = foodSelection;
-
-    if (food && mass) {
-      const factor = mass / 100;
-
-      return {
-        complete: 1,
-        calories: Math.round(food.calories * factor),
-        protein: Math.round(food.protein * factor),
-        fat: Math.round(food.fat * factor),
-        carbs: Math.round(food.carbs * factor),
-      };
-    }
-
-    return { complete: 0, calories: null, protein: null, fat: null, carbs: null };
-  }
   render () {
     const { foodSelectionByRowId: foodSelection, notifyClose, children } = this.props;
-    const { error, foodId } = this.state;
-    const nutrition = this.calculateNutrition(foodSelection);
-    const nutritionDisplay = nutrition.complete
-      ? <Layout center topSmall bottomSmall className={classNames.nutrients}>
-        <Layout className={`${classNames.nutrientRow}  ${classNames.cal}`}>
-          <Span className={classNames.nutrientLabel}>Calories</Span>
-          <Span className={classNames.nutrientValue}>{nutrition.calories}</Span>
-        </Layout>
-        <Layout className={classNames.nutrientRow}>
-          <Span className={classNames.nutrientLabel}>Protein</Span>
-          <Span className={classNames.nutrientValue}>{nutrition.protein}</Span>
-        </Layout>
-        <Layout className={classNames.nutrientRow}>
-          <Span className={classNames.nutrientLabel}>Fats</Span>
-          <Span className={classNames.nutrientValue}>{nutrition.fat}</Span>
-        </Layout>
-        <Layout className={classNames.nutrientRow}>
-          <Span className={classNames.nutrientLabel}>Carbs</Span>
-          <Span className={classNames.nutrientValue}>{nutrition.carbs}</Span>
-        </Layout>
-      </Layout>
-      : null;
-    const massSuggestion = this.getMassSuggestion(nutrition) || null;
-    const massMissing = (foodSelection.foodId && !foodSelection.mass && !massSuggestion)
+    const { error, foodId, mass } = this.state;
+    /*
+    const massMissing = (foodId && !mass && !massSuggestion)
       ? <ErrorMessage>Mass is needed to calculate nutrition values.</ErrorMessage>
       : null;
-    const matchFoodResults = <Layout center topSmall bottomSmall>
+    */
+    const matchFoodResults = <Layout>
       {React.Children.map(children, c => React.cloneElement(c, {
         handleClickFoodMatch: this.handleChangeFoodId,
       }))}
@@ -162,7 +118,7 @@ class JournalEditRecordContainer extends React.Component {
       error={error}
       showForm
     >
-      <Layout flexCenter flexWrap>
+      <Layout flexCenter flexWrap >
         <Layout>
           <TextInput
             name={'foodId'}
@@ -175,11 +131,11 @@ class JournalEditRecordContainer extends React.Component {
             style={styles.field}
           />
         </Layout>
-        <Layout leftSmall>
+        <Layout leftSmall >
           <TextInput
             name={'mass'}
             label={'Mass (grams)'}
-            value={foodSelection.mass}
+            value={mass}
             validations={{ isNumeric: true }}
             validationError={validationErrors.number}
             maxLength={8}
@@ -187,11 +143,18 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
-      {nutritionDisplay}
-      {!foodSelection.foodId && matchFoodResults}
-      {massSuggestion}
-      {massMissing}
-      <Layout flexCenter flexWrap>
+      <SelectionNutritionValues
+        food={foodSelection.foodByFoodId}
+        mass={foodSelection.mass}
+      />
+      <SelectionMassSuggestion
+        unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
+        amount={foodSelection.unitAmount}
+        show={!mass}
+        handleClickMassSuggestion={this.handleChangeMass}
+      />
+      {!foodId && matchFoodResults}
+      <Layout flexCenter flexWrap >
         <Layout>
           <TextInput
             name={'foodDescription'}
@@ -205,7 +168,7 @@ class JournalEditRecordContainer extends React.Component {
             style={styles.field}
           />
         </Layout>
-        <Layout leftSmall flexCenter>
+        <Layout leftSmall flexCenter >
           <Layout>
             <TextInput
               name={'unitAmount'}
@@ -218,7 +181,7 @@ class JournalEditRecordContainer extends React.Component {
               style={styles.fieldSmall}
             />
           </Layout>
-          <Layout leftSmall>
+          <Layout leftSmall >
             <TextInput
               name={'unitDescription'}
               label={'Unit name'}
@@ -232,7 +195,7 @@ class JournalEditRecordContainer extends React.Component {
           </Layout>
         </Layout>
       </Layout>
-      <Layout flexCenter flexWrap>
+      <Layout flexCenter flexWrap >
         <Layout>
           <TextInput
             name={'brandDescription'}
@@ -244,7 +207,7 @@ class JournalEditRecordContainer extends React.Component {
             style={styles.field}
           />
         </Layout>
-        <Layout leftSmall>
+        <Layout leftSmall >
           <TextInput
             name={'physicalModDescription'}
             label={'Physical state'}
@@ -257,20 +220,20 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
-      <Layout flexCenter flexWrap>
+      <Layout flexCenter flexWrap >
         <Layout>
           <TextInput
             name={'time'}
             label={'Time (converts to 24-hour)'}
             placeholder={'E.x. 2:05 pm, 8 am, 16:50'}
             value={foodSelection.time}
-            convertValue={v => moment(v, 'HH:mm:ss a').format('HH:mm:ss')}
+            convertValue={conversions.time}
             validations={{ isTime: validations.isTime }}
             validationError={validationErrors.time}
             style={styles.field}
           />
         </Layout>
-        <Layout leftSmall>
+        <Layout leftSmall >
           <TextInput
             name={'date'}
             label={'Date*'}
