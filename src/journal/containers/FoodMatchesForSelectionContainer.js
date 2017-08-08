@@ -14,6 +14,8 @@ const propTypes = {
 const FoodMatchesForSelectionContainer = props => {
   const { foodMatchesForSelection, handleClickFoodMatch } = props;
 
+  if (!foodMatchesForSelection.edges.length) return null;
+
   return <Layout>
     <Layout center ><H4>Possible Food Matches</H4></Layout>
     {foodMatchesForSelection.edges.map(({ node }) => (
