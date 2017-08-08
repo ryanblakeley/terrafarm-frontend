@@ -12,10 +12,8 @@ import JournalContainer from 'journal/containers/JournalContainer';
 import JournalContainerQuery from 'journal/queries/JournalContainerQuery';
 import JournalEditRecordContainer from 'journal/containers/JournalEditRecordContainer';
 import JournalEditRecordContainerQuery from 'journal/queries/JournalEditRecordContainerQuery';
-import FoodMatchesForSelectionContainer
-  from 'journal/containers/FoodMatchesForSelectionContainer';
-import FoodMatchesForSelectionContainerQuery
-  from 'journal/queries/FoodMatchesForSelectionContainerQuery';
+import SelectionPossibleFoods from 'journal/containers/SelectionPossibleFoods';
+import SelectionPossibleFoodsQuery from 'journal/queries/SelectionPossibleFoodsQuery';
 
 // food
 import FoodDetailContainer from 'food/containers/FoodDetailContainer';
@@ -35,8 +33,8 @@ export default makeRouteConfig(
         query={JournalEditRecordContainerQuery}
       >
         <Route
-          Component={FoodMatchesForSelectionContainer}
-          query={FoodMatchesForSelectionContainerQuery}
+          Component={SelectionPossibleFoods}
+          query={SelectionPossibleFoodsQuery}
           prepareVariables={params => ({ matchesCount: 4, ...params })}
         />
       </Route>

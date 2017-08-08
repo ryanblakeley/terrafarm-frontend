@@ -6,7 +6,7 @@ import Layout from 'shared/components/Layout';
 import { TextInput } from 'shared/components/Form';
 import validations, { validationErrors, conversions } from 'tools/validations';
 import SelectionNutritionValues from '../components/SelectionNutritionValues';
-import SelectionMassSuggestion from '../components/SelectionMassSuggestion';
+import SelectionPossibleMass from '../components/SelectionPossibleMass';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
 
@@ -147,13 +147,13 @@ class JournalEditRecordContainer extends React.Component {
         food={foodSelection.foodByFoodId}
         mass={foodSelection.mass}
       />
-      <SelectionMassSuggestion
+      {!foodId && childrenWithProps}
+      <SelectionPossibleMass
         unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
         amount={foodSelection.unitAmount}
         show={!mass}
         handleClickMassSuggestion={this.handleChangeMass}
       />
-      {!foodId && childrenWithProps}
       <Layout flexCenter flexWrap >
         <Layout>
           <TextInput

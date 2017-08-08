@@ -3,6 +3,7 @@ import React from 'react';
 import Layout from 'shared/components/Layout';
 import { H4 } from 'shared/components/Typography';
 import { FlatButton } from 'shared/components/Material';
+import classNames from '../styles/SelectionPossibleMassStylesheet.css';
 
 const propTypes = {
   unit: PropTypes.shape({
@@ -22,7 +23,7 @@ const defaultProps = {
   amount: null,
 };
 
-class SelectionMassSuggestion extends React.Component {
+class SelectionPossibleMass extends React.Component {
   getMassSuggestion () {
     const { unit, amount, show } = this.props;
     const massSuggestionPossible = show
@@ -40,7 +41,7 @@ class SelectionMassSuggestion extends React.Component {
     if (!massSuggestion) return null;
 
     return <Layout center >
-      <H4>Mass Suggestion (grams)</H4>
+      <H4 className={classNames.contentSubheading} >Possible mass (grams)</H4>
       <FlatButton onClick={() => { handleClickMassSuggestion(massSuggestion); }}>
         {massSuggestion}
       </FlatButton>
@@ -48,7 +49,7 @@ class SelectionMassSuggestion extends React.Component {
   }
 }
 
-SelectionMassSuggestion.propTypes = propTypes;
-SelectionMassSuggestion.defaultProps = defaultProps;
+SelectionPossibleMass.propTypes = propTypes;
+SelectionPossibleMass.defaultProps = defaultProps;
 
-export default SelectionMassSuggestion;
+export default SelectionPossibleMass;
