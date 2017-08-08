@@ -79,15 +79,15 @@ class JournalEditRecordContainer extends React.Component {
     this.props.notifyClose();
   }
   handleChangeFoodId = (foodId) => {
-    this.setState({ foodId });
+    this.updateFoodSelection({ foodId });
   }
   handleChangeMass = (mass) => {
-    this.setState({ mass });
+    this.updateFoodSelection({ mass });
   }
   updateFoodSelection (patch) {
     const { foodSelectionByRowId: foodSelection, relay } = this.props;
 
-    this.setState({ isChangingDate: foodSelection.date !== patch.date });
+    this.setState({ isChangingDate: patch.date && patch.date !== foodSelection.date });
 
     UpdateFoodSelectionMutation.commit(
       relay.environment,
@@ -99,12 +99,7 @@ class JournalEditRecordContainer extends React.Component {
   }
   render () {
     const { foodSelectionByRowId: foodSelection, notifyClose, children } = this.props;
-    const { error, foodId, mass } = this.state;
-    /*
-    const massMissing = (foodId && !mass && !massSuggestion)
-      ? <ErrorMessage>Mass is needed to calculate nutrition values.</ErrorMessage>
-      : null;
-    */
+    const { error } = this.state;
     const childrenWithProps = <Layout>
       {React.Children.map(children, c => React.cloneElement(c, {
         handleClickFoodMatch: this.handleChangeFoodId,
@@ -124,7 +119,7 @@ class JournalEditRecordContainer extends React.Component {
             name={'foodId'}
             label={'Food ID'}
             placeholder={'Unique number'}
-            value={foodId}
+            value={foodSelection.foodId}
             validations={{ isNumeric: true }}
             validationError={validationErrors.number}
             maxLength={8}
@@ -135,7 +130,7 @@ class JournalEditRecordContainer extends React.Component {
           <TextInput
             name={'mass'}
             label={'Mass (grams)'}
-            value={mass}
+            value={foodSelection.mass}
             validations={{ isNumeric: true }}
             validationError={validationErrors.number}
             maxLength={8}
@@ -147,11 +142,11 @@ class JournalEditRecordContainer extends React.Component {
         food={foodSelection.foodByFoodId}
         mass={foodSelection.mass}
       />
-      {!foodId && childrenWithProps}
+      {!foodSelection.foodId && childrenWithProps}
       <SelectionPossibleMass
         unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
         amount={foodSelection.unitAmount}
-        show={!mass}
+        show={!foodSelection.mass}
         handleClickMassSuggestion={this.handleChangeMass}
       />
       <Layout flexCenter flexWrap >

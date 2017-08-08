@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
-import { H4 } from 'shared/components/Typography';
+import { H4, ErrorMessage } from 'shared/components/Typography';
 import { FlatButton } from 'shared/components/Material';
 import classNames from '../styles/SelectionPossibleMassStylesheet.css';
 
@@ -25,9 +25,8 @@ const defaultProps = {
 
 class SelectionPossibleMass extends React.Component {
   getMassSuggestion () {
-    const { unit, amount, show } = this.props;
-    const massSuggestionPossible = show
-      && unit
+    const { unit, amount } = this.props;
+    const massSuggestionPossible = unit
       && unit.category === 'MASS'
       && unit.siFactor
       && amount;
@@ -35,10 +34,19 @@ class SelectionPossibleMass extends React.Component {
     return massSuggestionPossible && (amount * unit.siFactor).toFixed(2);
   }
   render () {
-    const { handleClickMassSuggestion } = this.props;
+    const { show, handleClickMassSuggestion } = this.props;
+
+    if (!show) return null;
+
     const massSuggestion = this.getMassSuggestion();
 
-    if (!massSuggestion) return null;
+    if (!massSuggestion) {
+      return <Layout center >
+        <ErrorMessage>
+          Mass is needed to calculate nutrition values.
+        </ErrorMessage>
+      </Layout>;
+    }
 
     return <Layout center >
       <H4 className={classNames.contentSubheading} >Possible mass (grams)</H4>

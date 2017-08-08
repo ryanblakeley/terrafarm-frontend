@@ -21,6 +21,10 @@ const mutation = graphql`
         unitAmount
         unitDescription
         unitOfMeasureId
+        unitOfMeasureByUnitOfMeasureId {
+          category
+          siFactor
+        }
         brandDescription
         physicalModDescription
         date
