@@ -18,7 +18,7 @@ const JournalDateHeader = props => {
   const { date, calories, protein, fat, carbs, completeCount, recordsCount } = props;
 
   return <Layout className={classNames.this} >
-    <Span className={classNames.date} title={'Date'} >
+    <Span className={classNames.date} title={'Date YYYY-MM-DD'} >
       {date}
     </Span>
     <Span className={`${classNames.macro} ${classNames.cal}`} title={'Calories'} >
@@ -33,7 +33,7 @@ const JournalDateHeader = props => {
     <Span className={classNames.macro} title={'Total Carb.'} >
       {carbs}
     </Span>
-    <Span className={classNames.completeness} title={'Nutrition calculated / Total rows'} >
+    <Span className={classNames.completeness} title={'Complete / Total rows'} >
       {completeCount} / {recordsCount}
     </Span>
   </Layout>;

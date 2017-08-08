@@ -1,0 +1,14 @@
+.this {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 8px 1%;
+}
+.label { width: 14%; text-align: center; }
+.label.date { width: 21%; text-align: left; }
+.label.cal { width: 21%; }
+
+@media only screen and (min-width: 430px) {
+  .this { display: flex; }
+}

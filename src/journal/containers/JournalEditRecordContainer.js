@@ -159,7 +159,6 @@ class JournalEditRecordContainer extends React.Component {
           <TextInput
             name={'foodDescription'}
             label={'Food description*'}
-            placeholder={'Natural terms'}
             value={foodSelection.foodDescription}
             validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
             validationError={validationErrors.normalWords}
@@ -185,7 +184,6 @@ class JournalEditRecordContainer extends React.Component {
             <TextInput
               name={'unitDescription'}
               label={'Unit name'}
-              placeholder={'Natural term'}
               value={foodSelection.unitDescription}
               validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
               validationError={validationErrors.normalWords}
@@ -210,8 +208,8 @@ class JournalEditRecordContainer extends React.Component {
         <Layout leftSmall >
           <TextInput
             name={'physicalModDescription'}
-            label={'Physical state'}
-            placeholder={'E.x. chopped, sliced, melted'}
+            label={'Physical modification'}
+            placeholder={'e.x. chopped, sliced, melted'}
             value={foodSelection.physicalModDescription}
             validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
             validationError={validationErrors.normalWords}
@@ -225,7 +223,7 @@ class JournalEditRecordContainer extends React.Component {
           <TextInput
             name={'time'}
             label={'Time (converts to 24-hour)'}
-            placeholder={'E.x. 2:05 pm, 8 am, 16:50'}
+            placeholder={'e.x. 2:05 pm, 8 am, 16:50'}
             value={foodSelection.time}
             convertValue={conversions.time}
             validations={{ isTime: validations.isTime }}

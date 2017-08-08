@@ -6,6 +6,7 @@ const validations = {
   matchCurrency: /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/,
   matchDate: /^(?=\d)(?:(?!(?:1582(?:\.|-|\/)10(?:\.|-|\/)(?:0?[5-9]|1[0-4]))|(?:1752(?:\.|-|\/)0?9(?:\.|-|\/)(?:0?[3-9]|1[0-3])))(?=(?:(?!000[04]|(?:(?:1[^0-6]|[2468][^048]|[3579][^26])00))(?:(?:\d\d)(?:[02468][048]|[13579][26]))\D0?2\D29)|(?:\d{4}\D(?!(?:0?[2469]|11)\D31)(?!0?2(?:\.|-|\/)(?:29|30))))(\d{4})([-\/.])(0?\d|1[012])\2((?!00)[012]?\d|3[01])(?:$|(?=\x20\d)\x20))?((?:(?:0?[1-9]|1[012])(?::[0-5]\d){0,2}(?:\x20[aApP][mM]))|(?:[01]\d|2[0-3])(?::[0-5]\d){1,2})?$/,
   isTime: (formData, value) => {
+    if (!value) return true;
     const formattedTime = moment(value, 'HH:mm:ss a').format('HH:mm:ss');
     return moment(formattedTime, 'HH:mm:ss', true).isValid();
   },
@@ -27,7 +28,7 @@ export const validationErrors = {
 };
 
 export const conversions = {
-  time: v => moment(v, 'HH:mm:ss a').format('HH:mm:ss'),
+  time: v => (v ? moment(v, 'HH:mm:ss a').format('HH:mm:ss') : null),
 };
 
 export default validations;
