@@ -105,7 +105,7 @@ class JournalEditRecordContainer extends React.Component {
       ? <ErrorMessage>Mass is needed to calculate nutrition values.</ErrorMessage>
       : null;
     */
-    const matchFoodResults = <Layout>
+    const childrenWithProps = <Layout>
       {React.Children.map(children, c => React.cloneElement(c, {
         handleClickFoodMatch: this.handleChangeFoodId,
       }))}
@@ -153,7 +153,7 @@ class JournalEditRecordContainer extends React.Component {
         show={!mass}
         handleClickMassSuggestion={this.handleChangeMass}
       />
-      {!foodId && matchFoodResults}
+      {!foodId && childrenWithProps}
       <Layout flexCenter flexWrap >
         <Layout>
           <TextInput
