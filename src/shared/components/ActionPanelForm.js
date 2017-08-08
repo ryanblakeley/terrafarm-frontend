@@ -90,7 +90,7 @@ class ActionPanelForm extends React.Component {
         onValidSubmit={this.handleSubmit}
         onInvalidSubmit={this.handleFormError}
       >
-        <Layout center topSmall bottomSmall>
+        <Layout center topSmall>
           {showForm && <RaisedButton
             label={'Save'}
             primary
