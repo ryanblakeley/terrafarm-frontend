@@ -24,7 +24,6 @@ const propTypes = {
   foodSelectionByRowId: PropTypes.object.isRequired,
   notifyClose: PropTypes.func.isRequired,
   relay: PropTypes.object.isRequired,
-  // router: PropTypes.object.isRequired,
   children: PropTypes.object.isRequired,
 };
 
@@ -36,8 +35,7 @@ class JournalEditRecordContainer extends React.Component {
       error: false,
       formData: {},
       isChangingDate: false,
-      foodId: props.foodSelectionByRowId.foodId,
-      mass: props.foodSelectionByRowId.mass,
+      isChangingFoodDescription: false,
     };
   }
   handleSubmit = data => {
@@ -61,7 +59,8 @@ class JournalEditRecordContainer extends React.Component {
     );
   }
   handleSuccess = response => { // eslint-disable-line no-unused-vars
-    if (this.state.isChangingDate) {
+    const { isChangingDate, isChangingFoodDescription } = this.state;
+    if (isChangingDate || isChangingFoodDescription) {
       // Special case where we need to forcefully refetch data. Until found-relay
       // offers a way to do this we just have to reload the whole page.
       window.location.reload();
@@ -87,7 +86,12 @@ class JournalEditRecordContainer extends React.Component {
   updateFoodSelection (patch) {
     const { foodSelectionByRowId: foodSelection, relay } = this.props;
 
-    this.setState({ isChangingDate: patch.date && patch.date !== foodSelection.date });
+    this.setState({
+      isChangingDate: patch.date
+        && patch.date !== foodSelection.date,
+      isChangingFoodDescription: patch.foodDescription
+        && patch.foodDescription !== foodSelection.foodDescription,
+    });
 
     UpdateFoodSelectionMutation.commit(
       relay.environment,

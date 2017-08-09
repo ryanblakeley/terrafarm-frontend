@@ -35,7 +35,18 @@ export default makeRouteConfig(
         <Route
           Component={SelectionPossibleFoods}
           query={SelectionPossibleFoodsQuery}
-          prepareVariables={params => ({ matchesCount: 4, ...params })}
+          prepareVariables={(params, { location }) => {
+            const { query } = location;
+            let possibleFoodsCount;
+
+            if (query && query.possibleFoodsCount) {
+              possibleFoodsCount = query.possibleFoodsCount;
+            } else {
+              possibleFoodsCount = 4;
+            }
+
+            return { possibleFoodsCount, ...params };
+          }}
         />
       </Route>
     </Route>
