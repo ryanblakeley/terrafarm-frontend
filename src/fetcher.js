@@ -6,10 +6,12 @@ class FetcherBase {
   }
 
   async fetch (operation, variables) {
+    const authToken = localStorage.getItem('id_token');
     const response = await fetch(this.url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
       },
       body: JSON.stringify({ query: operation.text, variables }),
     });
@@ -32,31 +34,6 @@ export class ClientFetcher extends FetcherBase {
     return super.fetch(...args);
   }
 }
-
-/*
-TODO: Update this when someone releases a real, production-quality solution for
-handling universal rendering with Relay Modern.
-
-export class ServerFetcher extends FetcherBase {
-  constructor (url) {
-    super(url);
-
-    this.payloads = [];
-  }
-
-  async fetch (...args) {
-    const i = this.payloads.length;
-    this.payloads.push(null);
-    const payload = await super.fetch(...args);
-    this.payloads[i] = payload;
-    return payload;
-  }
-
-  toJSON () {
-    return this.payloads;
-  }
-}
-*/
 
 /*
 NOTE: The fetcher class in this file gets consumed by Relay.Network.create()

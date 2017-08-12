@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import NotFoundPage from 'not-found/components/NotFoundPage';
 import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
@@ -105,6 +106,9 @@ class JournalContainer extends React.Component {
   render () {
     const { userByRowId: user, children, router, match, relay } = this.props;
     const { latestDate, datesCount } = this.state;
+
+    if (!user) return <NotFoundPage message={'User not found.'} />;
+
     const dates = this.getDates(latestDate, datesCount);
     const journalDateRootContainers = dates.map(d => (
       <JournalDateRootContainer
@@ -141,15 +145,7 @@ class JournalContainer extends React.Component {
     </TransitionWrapper>;
   }
 }
-/*
-        <Layout center topSmall>
-          <Span className={classNames.journalHeader}>Calories / </Span>
-          <Span className={classNames.journalHeader}>Protein / </Span>
-          <Span className={classNames.journalHeader}>Fat / </Span>
-          <Span className={classNames.journalHeader}>Carbs / </Span>
-          <Span className={classNames.journalHeader}>% Resolved</Span>
-        </Layout>
-*/
+
 JournalContainer.propTypes = propTypes;
 JournalContainer.defaultProps = defaultProps;
 
@@ -162,7 +158,7 @@ export default createFragmentContainer(
       foodSelectionsByUserId(
         first: 2147483647,
         orderBy: DATE_DESC
-      ) @connection(key: "JournalContainer_foodSelectionsByUserId") {
+      ) {
         edges {
           node {
             id,

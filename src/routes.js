@@ -6,6 +6,7 @@ import React from 'react';
 import { CorePage } from 'core/components/CorePage';
 import HomePage from 'home/components/HomePage';
 import NotFound from 'not-found/components/NotFoundPage';
+import LoadingComponent from 'core/components/LoadingComponent';
 
 // journal
 import JournalContainer from 'journal/containers/JournalContainer';
@@ -19,6 +20,25 @@ import SelectionPossibleFoodsQuery from 'journal/queries/SelectionPossibleFoodsQ
 import FoodDetailContainer from 'food/containers/FoodDetailContainer';
 import FoodDetailContainerQuery from 'food/queries/FoodDetailContainerQuery';
 
+function ensureDeveloperToken () {
+  const idToken = localStorage.getItem('id_token');
+  const needsReset = !idToken || idToken !== window.developerToken;
+
+  if (needsReset) {
+    localStorage.setItem('id_token', window.developerToken);
+  }
+}
+
+function render ({ Component, props }) { // eslint-disable-line react/prop-types
+  ensureDeveloperToken();
+
+  if (!Component || !props) {
+    return <LoadingComponent />;
+  }
+
+  return <Component {...props} />;
+}
+
 export default makeRouteConfig(
   <Route path={'/'} Component={CorePage}>
     <Route Component={HomePage} />
@@ -26,6 +46,7 @@ export default makeRouteConfig(
       path={'journal/:userId'}
       Component={JournalContainer}
       query={JournalContainerQuery}
+      render={render}
     >
       <Route
         path={'edit/:foodSelectionId'}

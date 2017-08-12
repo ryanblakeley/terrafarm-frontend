@@ -1,6 +1,7 @@
 import path from 'path';
 import env from 'gulp-env';
 import webpack from 'webpack';
+import jwt from 'jsonwebtoken';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 if (!process.env.GOOGLE_ANALYTICS_KEY) {
@@ -9,6 +10,7 @@ if (!process.env.GOOGLE_ANALYTICS_KEY) {
 const {
   WEBPACK_ENV,
   GOOGLE_ANALYTICS_KEY,
+  JWT_PRIVATE_KEY,
 } = process.env;
 
 const PATHS = {
@@ -21,6 +23,18 @@ const PATHS = {
   robots: path.join(__dirname, 'src', 'robots.txt'),
 };
 
+const anonymousToken = jwt.sign({
+  role: 'anonymous',
+  sub: 'postgraphql',
+  aud: 'postgraphql',
+}, JWT_PRIVATE_KEY);
+
+const developerToken = jwt.sign({
+  role: 'developer',
+  sub: 'postgraphql',
+  aud: 'postgraphql',
+}, JWT_PRIVATE_KEY);
+
 let entry;
 let devtool;
 let devServer;
@@ -30,6 +44,8 @@ const plugins = [
     filename: 'index.html',
     template: 'src/index.template.html',
     inject: true,
+    anonymousToken,
+    developerToken,
   }),
 ];
 

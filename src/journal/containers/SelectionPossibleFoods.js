@@ -58,8 +58,6 @@ class SelectionPossibleFoods extends React.Component {
 
     const hasMore = possibleFoods.totalCount > possibleFoods.edges.length;
 
-    console.log(possibleFoods.totalCount, possibleFoods.edges.length, hasMore);
-
     return <Layout>
       <Layout center >
         <H4 className={classNames.contentSubheading} >Possible foods</H4>
