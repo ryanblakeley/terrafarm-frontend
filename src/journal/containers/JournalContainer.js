@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import NotFoundPage from 'not-found/components/NotFoundPage';
-import Layout from 'shared/components/Layout';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
+import Layout from 'shared/components/Layout';
+import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
 import { JournalIcon } from 'shared/components/Icons';
@@ -65,8 +66,11 @@ class JournalContainer extends React.Component {
   }
   getDates (date, datesCount) {
     const dates = [];
-    for (let i = 0; i < datesCount; i += 1) {
-      dates[i] = this.dateByDaysAgo(date, i);
+
+    if (date) {
+      for (let i = 0; i < datesCount; i += 1) {
+        dates[i] = this.dateByDaysAgo(date, i);
+      }
     }
 
     return dates;
@@ -94,12 +98,15 @@ class JournalContainer extends React.Component {
     if (windowBottom >= docHeight) {
       // Add dates to view if older journal records exist
       const { latestDate, oldestDate, datesCount } = this.state;
-      const oldestDateShowing = this.dateByDaysAgo(latestDate, datesCount);
 
-      if (new Date(oldestDateShowing) > new Date(oldestDate)) {
-        this.setState({
-          datesCount: this.state.datesCount += 1,
-        });
+      if (latestDate && oldestDate) {
+        const oldestDateShowing = this.dateByDaysAgo(latestDate, datesCount);
+
+        if (new Date(oldestDateShowing) > new Date(oldestDate)) {
+          this.setState({
+            datesCount: this.state.datesCount += 1,
+          });
+        }
       }
     }
   }
@@ -120,6 +127,7 @@ class JournalContainer extends React.Component {
         relay={relay}
       />
     ));
+    const emptyJournalWarning = <WarningMessage>Journal empty.</WarningMessage>;
 
     return <TransitionWrapper>
       <Layout page>
@@ -132,7 +140,7 @@ class JournalContainer extends React.Component {
       <Layout topSmall className={classNames.this}>
         <Layout className={classNames.journalDatesWrapper}>
           <JournalColumnLabels />
-          {journalDateRootContainers}
+          {dates.length > 0 ? journalDateRootContainers : emptyJournalWarning}
         </Layout>
         {children && <Layout className={classNames.actionPanelWrapper}>
           <ActionPanel
