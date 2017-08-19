@@ -1,4 +1,4 @@
-import {Spacing} from 'shared/components/Material';
+import { Spacing } from 'shared/components/Material';
 import {
   fade,
   blueGrey50,
