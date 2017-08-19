@@ -86,7 +86,7 @@ SelectionPossibleFoods.propTypes = propTypes;
 export default createFragmentContainer(
   SelectionPossibleFoods,
   graphql`
-    fragment SelectionPossibleFoods_foodMatchesForSelection on FoodMatchesForSelectionConnection {
+    fragment SelectionPossibleFoods_foodMatchesForSelection on FoodsConnection {
       edges {
         node {
           id

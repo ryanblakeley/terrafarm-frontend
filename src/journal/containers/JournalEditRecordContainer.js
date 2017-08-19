@@ -234,7 +234,7 @@ class JournalEditRecordContainer extends React.Component {
           <TextInput
             name={'date'}
             label={'Date*'}
-            placeholder={'YYY-MM-DD'}
+            placeholder={'YYYY-MM-DD'}
             value={foodSelection.date}
             validations={{ matchRegexp: validations.matchDate }}
             validationError={validationErrors.date}

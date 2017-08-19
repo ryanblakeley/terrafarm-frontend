@@ -13,7 +13,7 @@
 .foodName { width: 50%; text-align: left; }
 .unit { width: 30%; text-align: left; }
 .edit { width: 20%; padding-right: 3%; text-align: right; }
-.editIcon { font-size: 18px; }
+/* .editIcon { font-size: 18px; } */
 
 @media only screen and (min-width: 430px) {
   .this { margin-left: 27%; }

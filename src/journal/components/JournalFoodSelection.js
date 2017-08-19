@@ -3,7 +3,7 @@ import React from 'react';
 import Layout from 'shared/components/Layout';
 import { Span, Link } from 'shared/components/Typography';
 import { IconButton } from 'shared/components/Material';
-import { EditIcon } from 'shared/components/Icons';
+import { ArrowRightIcon } from 'shared/components/Icons';
 import { red400 } from 'tools/colors';
 import classnames from 'classnames/bind';
 import classNames from '../styles/JournalFoodSelectionStylesheet.css';
@@ -49,7 +49,7 @@ const JournalFoodSelection = props => {
     <Span className={classNames.edit}>
       <Link to={url}>
         <IconButton style={styles.editButton} onClick={() => window.scrollTo(0, 0)}>
-          <EditIcon className={classNames.editIcon} color={color} />
+          <ArrowRightIcon className={classNames.editIcon} color={color} />
         </IconButton>
       </Link>
     </Span>

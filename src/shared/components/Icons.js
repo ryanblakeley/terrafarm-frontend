@@ -14,7 +14,7 @@ import IoIosNutrition from 'react-icons/lib/io/ios-nutrition';
 // import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
 // import IoKey from 'react-icons/lib/io/lock-combination';
 // import IoIosArrowLeft from 'react-icons/lib/io/ios-arrow-thin-left';
-// import IoIosArrowRight from 'react-icons/lib/io/ios-arrow-thin-right';
+import IoIosArrowRight from 'react-icons/lib/io/ios-arrow-thin-right';
 import IoArrowDownB from 'react-icons/lib/io/arrow-down-b';
 // import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
 // import IoAsterisk from 'react-icons/lib/io/asterisk';
@@ -56,7 +56,7 @@ const FoodIcon = props => <Icon icon={<IoIosNutrition />} {...props} />;
 // const TagsIcon = props => <Icon icon={<IoIosTagsOutline />} {...props} />;
 // const TokenIcon = props => <Icon icon={<IoKey />} {...props} />;
 // const ArrowLeftIcon = props => <Icon icon={<IoIosArrowLeft />} {...props} />;
-// const ArrowRightIcon = props => <Icon icon={<IoIosArrowRight />} {...props} />;
+const ArrowRightIcon = props => <Icon icon={<IoIosArrowRight />} {...props} />;
 const ArrowDownIcon = props => <Icon icon={<IoArrowDownB />} {...props} />;
 // const ChatBubbleIcon = props => <Icon icon={<IoIosChatBubble />} {...props} />;
 // const AsteriskIcon = props => <Icon icon={<IoAsterisk />} {...props} />;
@@ -112,7 +112,7 @@ FoodIcon.propTypes = commonPropTypes;
 // TagsIcon.propTypes = commonPropTypes;
 // TokenIcon.propTypes = commonPropTypes;
 // ArrowLeftIcon.propTypes = commonPropTypes;
-// ArrowRightIcon.propTypes = commonPropTypes;
+ArrowRightIcon.propTypes = commonPropTypes;
 ArrowDownIcon.propTypes = commonPropTypes;
 // ChatBubbleIcon.propTypes = commonPropTypes;
 // AsteriskIcon.propTypes = commonPropTypes;
@@ -158,7 +158,7 @@ export {
 //   TagsIcon,
 //   TokenIcon,
 //   ArrowLeftIcon,
-//   ArrowRightIcon,
+  ArrowRightIcon,
   ArrowDownIcon,
 //   ChatBubbleIcon,
 //   AsteriskIcon,

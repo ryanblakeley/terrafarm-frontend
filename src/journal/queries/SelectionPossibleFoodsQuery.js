@@ -2,7 +2,7 @@ import { graphql } from 'react-relay';
 
 const SelectionPossibleFoodsQuery = graphql`
   query SelectionPossibleFoodsQuery(
-    $foodSelectionId: Uuid!,
+    $foodSelectionId: UUID!,
     $possibleFoodsCount: Int!,
   ) {
     foodMatchesForSelection(

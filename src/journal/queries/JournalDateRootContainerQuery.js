@@ -2,7 +2,7 @@ import { graphql } from 'react-relay';
 
 const JournalDateRootContainerQuery = graphql`
   query JournalDateRootContainerQuery(
-    $userId: Uuid!,
+    $userId: UUID!,
     $condition: FoodSelectionCondition!,
   ) {
     userByRowId(rowId: $userId) {
