@@ -11,6 +11,8 @@ const {
   WEBPACK_ENV,
   GOOGLE_ANALYTICS_KEY,
   JWT_PRIVATE_KEY,
+  PRIVATE_IP,
+  PORT,
 } = process.env;
 
 const PATHS = {
@@ -75,7 +77,7 @@ if (WEBPACK_ENV === 'production') {
   console.log('[webpackDevelopmentConfig]');
   entry = [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
+    `webpack-dev-server/client?http://${PRIVATE_IP}:${PORT}`,
     'webpack/hot/only-dev-server',
     PATHS.client,
   ];
