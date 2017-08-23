@@ -3,7 +3,7 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Layout from 'shared/components/Layout';
 import { FlatButton, RaisedButton } from 'shared/components/Material';
-import { H4, Span } from 'shared/components/Typography';
+import { H4, Span, ErrorMessage } from 'shared/components/Typography';
 import classNames from '../styles/SelectionPossibleFoodsStylesheet.css';
 
 const propTypes = {
@@ -54,7 +54,11 @@ class SelectionPossibleFoods extends React.Component {
       handleClickFoodMatch,
     } = this.props;
 
-    if (!possibleFoods.edges.length) return null;
+    if (!possibleFoods.edges.length) {
+      return <Layout center >
+        <ErrorMessage>Food ID is needed to calculate nutrition values.</ErrorMessage>
+      </Layout>;
+    }
 
     const hasMore = possibleFoods.totalCount > possibleFoods.edges.length;
 
@@ -71,7 +75,7 @@ class SelectionPossibleFoods extends React.Component {
           <Span>{node.description}</Span>
         </Layout>
       ))}
-      { hasMore && <Layout center >
+      {hasMore && <Layout center >
         <RaisedButton
           label={'Load more'}
           onClick={() => this.handleClickLoadMore()}
