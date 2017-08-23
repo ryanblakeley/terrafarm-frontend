@@ -28,7 +28,7 @@ export const validationErrors = {
 };
 
 export const conversions = {
-  time: v => (v ? moment(v, 'HH:mm:ss a').format('HH:mm:ss') : null),
+  time: v => (v ? moment(v, 'HH:mm:ss a').format('HH:mm:ss') : undefined),
 };
 
 export default validations;
