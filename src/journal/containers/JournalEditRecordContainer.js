@@ -3,6 +3,8 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import Layout from 'shared/components/Layout';
+import { P, Link } from 'shared/components/Typography';
+import { FlatButton } from 'shared/components/Material';
 import { TextInput } from 'shared/components/Form';
 import validations, { validationErrors, conversions } from 'tools/validations';
 import SelectionNutritionValues from '../components/SelectionNutritionValues';
@@ -104,6 +106,13 @@ class JournalEditRecordContainer extends React.Component {
   render () {
     const { foodSelectionByRowId: foodSelection, notifyClose, children } = this.props;
     const { error } = this.state;
+    const foodLink = <Layout center >
+      <P>
+        <Link to={`/food/${foodSelection.foodId}`} >
+          <FlatButton label={`Food #${foodSelection.foodId}`} />
+        </Link>
+      </P>
+    </Layout>;
     const childrenWithProps = <Layout>
       {React.Children.map(children, c => React.cloneElement(c, {
         handleClickFoodMatch: this.handleChangeFoodId,
@@ -143,12 +152,11 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
+      {foodSelection.foodId ? foodLink : childrenWithProps}
       <SelectionNutritionValues
         food={foodSelection.foodByFoodId}
         mass={foodSelection.mass}
       />
-      {!foodSelection.foodId && childrenWithProps}
-      {/* foodSelection.foodId ? foodLink : childrenWithProps */}
       <SelectionPossibleMass
         unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
         amount={foodSelection.unitAmount}
