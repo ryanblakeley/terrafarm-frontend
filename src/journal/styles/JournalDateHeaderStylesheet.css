@@ -10,7 +10,7 @@
   box-sizing: border-box;
   width: 14%; padding-right: 3%;
   text-align: right;
-  font-weight: bold;
+  /* font-weight: bold; */
   border-right: solid 1px rgb(92,107,192);
 }
 .macro.cal { width: 21%; }

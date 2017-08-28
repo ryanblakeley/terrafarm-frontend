@@ -134,6 +134,7 @@ class JournalEditRecordContainer extends React.Component {
           <TextInput
             name={'mass'}
             label={'Mass (grams)'}
+            placeholder={'Number'}
             value={foodSelection.mass}
             validations={{ isNumeric: true }}
             validationError={validationErrors.number}
@@ -147,6 +148,7 @@ class JournalEditRecordContainer extends React.Component {
         mass={foodSelection.mass}
       />
       {!foodSelection.foodId && childrenWithProps}
+      {/* foodSelection.foodId ? foodLink : childrenWithProps */}
       <SelectionPossibleMass
         unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
         amount={foodSelection.unitAmount}

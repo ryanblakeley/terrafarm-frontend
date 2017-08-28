@@ -14,7 +14,7 @@ const Tagline = () => <Layout
   style={{ width: '90%', maxWidth: 550 }}
 >
   <P large>
-    Your personal nutrition assistant.
+    Track your eating via text messaging.
   </P>
 </Layout>;
 

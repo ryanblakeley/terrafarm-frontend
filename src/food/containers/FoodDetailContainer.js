@@ -3,7 +3,7 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import { H3, H4, H5, H6 } from 'shared/components/Typography';
+import { H3, P } from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import classNames from '../styles/FoodDetailContainerStylesheet.css';
@@ -36,20 +36,32 @@ const FoodDetailContainer = props => {
     carbFactor,
   } = foodByRowId;
 
+  const proteinFactorLabel = <P className={classNames.macroFactor}>
+    Protein Factor: <strong>{proteinFactor}</strong>
+  </P>;
+  const fatFactorLabel = <P className={classNames.macroFactor}>
+    Fat Factor: <strong>{fatFactor}</strong>
+  </P>;
+  const carbFactorLabel = <P className={classNames.macroFactor}>
+    Carb Factor: <strong>{carbFactor}</strong>
+  </P>;
+
   return <TransitionWrapper>
-    <Layout page>
+    <Layout page >
       <Menu
         baseUrl={`/food/${rowId}`}
         header={{ icon: <FoodIcon />, title: 'Food' }}
         disabled
       />
       <H3 className={classNames.description}>{description}</H3>
-      <H4>#{rowId}</H4>
-      {proteinFactor && <H6>Protein factor: {proteinFactor}</H6>}
-      {fatFactor && <H6>Fat factor: {fatFactor}</H6>}
-      {carbFactor && <H6>Carb factor: {carbFactor}</H6>}
-      {brandName && <H5 className={classNames.brand}>Brand: {brandName}</H5>}
-      {foodGroup && <H5 className={classNames.foodGroup}>Food group: {foodGroup.name}</H5>}
+      <P>Food ID: <strong>{rowId}</strong></P>
+      {foodGroup && <P className={classNames.foodGroup}>
+        Food Group: <strong>{foodGroup.name}</strong>
+      </P>}
+      {proteinFactor && proteinFactorLabel}
+      {fatFactor && fatFactorLabel}
+      {carbFactor && carbFactorLabel}
+      {brandName && <P className={classNames.brand}>Brand: {brandName}</P>}
     </Layout>
   </TransitionWrapper>;
 };

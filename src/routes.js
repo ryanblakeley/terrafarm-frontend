@@ -73,7 +73,7 @@ export default makeRouteConfig(
     </Route>
     <Route path={'food'}>
       <Route
-        path={'detail/:foodId'}
+        path={':foodId'}
         Component={FoodDetailContainer}
         query={FoodDetailContainerQuery}
       />
