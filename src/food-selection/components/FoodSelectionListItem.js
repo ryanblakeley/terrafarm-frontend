@@ -6,7 +6,7 @@ import { IconButton } from 'shared/components/Material';
 import { ArrowRightIcon } from 'shared/components/Icons';
 import { red400 } from 'tools/colors';
 import classnames from 'classnames/bind';
-import classNames from '../styles/JournalFoodSelectionStylesheet.css';
+import classNames from '../styles/FoodSelectionListItemStylesheet.css';
 
 const cx = classnames.bind(classNames);
 
@@ -26,7 +26,7 @@ const propTypes = {
   foodName: PropTypes.string.isRequired,
   unitAmount: PropTypes.number,
   unitName: PropTypes.string,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
   complete: PropTypes.bool.isRequired,
   editing: PropTypes.bool,
   wide: PropTypes.bool,
@@ -35,28 +35,40 @@ const propTypes = {
 const defaultProps = {
   unitAmount: '',
   unitName: '',
+  url: '',
   editing: false,
   wide: false,
 };
 
-const JournalFoodSelection = props => {
-  const { foodName, unitAmount, unitName, url, complete, editing, wide } = props;
+const FoodSelectionListItem = props => {
+  const {
+    foodName,
+    unitAmount,
+    unitName,
+    url,
+    complete,
+    editing,
+    wide,
+  } = props;
   const color = complete ? '' : red400;
 
   return <Layout className={cx({ this: true, complete, editing, wide })}>
     <Span className={classNames.foodName}>{foodName}</Span>
     <Span className={classNames.unit}>{unitAmount} {unitName}</Span>
     <Span className={classNames.edit}>
-      <Link to={url}>
-        <IconButton style={styles.editButton} onClick={() => window.scrollTo(0, 0)}>
+      {url && <Link to={url}>
+        <IconButton
+          style={styles.editButton}
+          onClick={() => window.scrollTo(0, 0)}
+        >
           <ArrowRightIcon className={classNames.editIcon} color={color} />
         </IconButton>
-      </Link>
+      </Link>}
     </Span>
   </Layout>;
 };
 
-JournalFoodSelection.propTypes = propTypes;
-JournalFoodSelection.defaultProps = defaultProps;
+FoodSelectionListItem.propTypes = propTypes;
+FoodSelectionListItem.defaultProps = defaultProps;
 
-export default JournalFoodSelection;
+export default FoodSelectionListItem;

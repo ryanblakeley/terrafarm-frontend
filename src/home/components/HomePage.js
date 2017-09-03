@@ -14,9 +14,16 @@ const Tagline = () => <Layout
   style={{ width: '90%', maxWidth: 550 }}
 >
   <P large>
-    Track your eating via text messaging.
+    Track your eating by texting a robot.
   </P>
 </Layout>;
+
+/*
+<MoreInfo />
+
+This is currently a private alpha release. To request the robot's phone number, send an email to
+info@terra.farm
+*/
 
 const HomePage = () => <TransitionWrapper>
   <Layout page center bottomMedium>

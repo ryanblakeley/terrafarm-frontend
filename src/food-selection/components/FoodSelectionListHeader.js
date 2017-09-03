@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
 import { Span } from 'shared/components/Typography';
-import classNames from '../styles/JournalDateHeaderStylesheet.css';
+import classNames from '../styles/FoodSelectionListHeaderStylesheet.css';
 
 const propTypes = {
   date: PropTypes.string.isRequired,
@@ -14,7 +14,7 @@ const propTypes = {
   recordsCount: PropTypes.number.isRequired,
 };
 
-const JournalDateHeader = props => {
+const FoodSelectionListHeader = props => {
   const { date, calories, protein, fat, carbs, completeCount, recordsCount } = props;
 
   return <Layout className={classNames.this} >
@@ -39,6 +39,6 @@ const JournalDateHeader = props => {
   </Layout>;
 };
 
-JournalDateHeader.propTypes = propTypes;
+FoodSelectionListHeader.propTypes = propTypes;
 
-export default JournalDateHeader;
+export default FoodSelectionListHeader;

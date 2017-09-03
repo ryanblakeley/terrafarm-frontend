@@ -1,9 +1,9 @@
 import React from 'react';
 import Layout from 'shared/components/Layout';
 import { Span } from 'shared/components/Typography';
-import classNames from '../styles/JournalColumnLabelsStylesheet.css';
+import classNames from '../styles/ColumnLabelsStylesheet.css';
 
-const JournalColumnLabels = () => <Layout className={classNames.this} >
+const ColumnLabels = () => <Layout className={classNames.this} >
   <Layout className={`${classNames.label} ${classNames.date}`} />
   <Span className={`${classNames.label} ${classNames.cal}`} >
     Calories
@@ -22,4 +22,4 @@ const JournalColumnLabels = () => <Layout className={classNames.this} >
   </Span>
 </Layout>;
 
-export default JournalColumnLabels;
+export default ColumnLabels;

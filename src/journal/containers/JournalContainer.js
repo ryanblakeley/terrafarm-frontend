@@ -8,7 +8,7 @@ import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
 import { JournalIcon } from 'shared/components/Icons';
-import JournalColumnLabels from 'journal/components/JournalColumnLabels';
+import ColumnLabels from 'shared/components/ColumnLabels';
 import JournalDateRootContainer from 'journal/containers/JournalDateRootContainer';
 import classNames from '../styles/JournalContainerStylesheet.css';
 
@@ -139,12 +139,12 @@ class JournalContainer extends React.Component {
       </Layout>
       <Layout topSmall className={classNames.this}>
         <Layout className={classNames.journalDatesWrapper}>
-          <JournalColumnLabels />
+          <ColumnLabels />
           {dates.length > 0 ? journalDateRootContainers : emptyJournalWarning}
         </Layout>
         {children && <Layout className={classNames.actionPanelWrapper}>
           <ActionPanel
-            notifyClose={() => router.replace(`/journal/${user.rowId}`)}
+            notifyClose={() => router.replace(`/user/${user.rowId}/journal`)}
           >
             {children}
           </ActionPanel>

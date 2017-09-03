@@ -1,18 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
 import Layout from 'shared/components/Layout';
 import FoodSelectionListHeader from 'food-selection/components/FoodSelectionListHeader';
 import FoodSelectionListItem from 'food-selection/components/FoodSelectionListItem';
 
 const propTypes = {
-  userByRowId: PropTypes.object.isRequired,
-  date: PropTypes.string.isRequired,
-  router: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+  preset: PropTypes.object.isRequired,
 };
 
-class JournalDateContainer extends React.Component {
+class PresetContainer extends React.Component {
   constructor (props) {
     super(props);
 
@@ -25,24 +21,32 @@ class JournalDateContainer extends React.Component {
     };
   }
   componentWillMount () {
-    const { userByRowId: user } = this.props;
-    const foodSelections = user && user.foodSelectionsByUserId;
+    const { preset } = this.props;
+    const presetSelections = preset && preset.presetSelectionsByPresetId;
+    const foodSelections = presetSelections
+      && presetSelections.edges.map(({ node }) => (
+        node.foodSelectionBySelectionId
+      ));
 
     if (foodSelections) {
-      this.sumMacros(foodSelections.edges.map(({ node }) => (
-        this.calculateNutrition(node)
+      this.sumMacros(foodSelections.map(s => (
+        this.calculateNutrition(s)
       )));
     }
   }
   componentWillReceiveProps (nextProps) {
-    const { userByRowId: user } = nextProps;
-    const foodSelections = user && user.foodSelectionsByUserId;
+    const { preset } = nextProps;
+    const presetSelections = preset && preset.presetSelectionsByPresetId;
+    const foodSelections = presetSelections
+      && presetSelections.edges.map(({ node }) => (
+        node.foodSelectionBySelectionId
+      ));
 
     // TODO: smarter condition for recalculating macros
 
     if (foodSelections) {
-      this.sumMacros(foodSelections.edges.map(({ node }) => (
-        this.calculateNutrition(node)
+      this.sumMacros(foodSelections.map(s => (
+        this.calculateNutrition(s)
       )));
     }
   }
@@ -88,23 +92,23 @@ class JournalDateContainer extends React.Component {
     });
   }
   render () {
-    const { userByRowId: user, date, router, match } = this.props;
+    const { preset } = this.props;
     const { calories, protein, fat, carbs, completeCount, recordsCount } = this.state;
-    const foodSelections = user && user.foodSelectionsByUserId.edges;
-    const editPanelOpen = router.isActive(match, {
-      pathname: `/user/${user.rowId}/journal/edit/`,
-    });
-    const journalFoodSelections = foodSelections.map(({ node }) => {
+    const presetSelections = preset && preset.presetSelectionsByPresetId;
+    const foodSelections = presetSelections
+      && presetSelections.edges.map(({ node }) => (
+        node.foodSelectionBySelectionId
+      ));
+    const foodSelectionsList = foodSelections.map(s => {
       const {
         rowId,
         foodDescription,
         unitAmount,
         unitDescription,
-        foodByFoodId,
+        foodId,
         mass,
-      } = node;
-      const url = `/user/${user.rowId}/journal/edit/${rowId}`;
-      const editing = router.isActive(match, { pathname: url });
+      } = s;
+      const url = `/user/${preset.userId}/journal/edit/${rowId}`;
 
       return <FoodSelectionListItem
         key={rowId}
@@ -112,15 +116,13 @@ class JournalDateContainer extends React.Component {
         unitAmount={mass || unitAmount}
         unitName={mass ? 'grams' : unitDescription}
         url={url}
-        complete={!!(foodByFoodId && mass)}
-        editing={editing}
-        wide={editPanelOpen}
+        complete={!!(foodId && mass)}
       />;
     });
 
-    return <Layout center>
+    return <Layout center >
       <FoodSelectionListHeader
-        date={date}
+        date={preset.name}
         calories={calories}
         protein={protein}
         fat={fat}
@@ -128,52 +130,13 @@ class JournalDateContainer extends React.Component {
         completeCount={completeCount}
         recordsCount={recordsCount}
       />
-      <Layout bottomMedium>
-        {journalFoodSelections}
+      <Layout bottomMedium >
+        {foodSelectionsList}
       </Layout>
     </Layout>;
   }
 }
 
-JournalDateContainer.propTypes = propTypes;
+PresetContainer.propTypes = propTypes;
 
-export default createFragmentContainer(
-  JournalDateContainer,
-  graphql`
-    fragment JournalDateContainer_userByRowId on User {
-      id,
-      rowId,
-      foodSelectionsByUserId(
-        condition: $condition,
-        first: 2147483647,
-        orderBy: TIME_DESC
-      ) {
-        edges {
-          node {
-            id
-            rowId
-            foodDescription
-            foodId
-            foodByFoodId {
-              rowId
-              calories
-              protein
-              fat
-              carbs
-            }
-            foodIdSource
-            mass
-            massSource
-            unitAmount
-            unitDescription
-            unitOfMeasureId
-            physicalModDescription
-            brandDescription
-            time
-            date
-          }
-        }
-      }
-    }
-  `,
-);
+export default PresetContainer;

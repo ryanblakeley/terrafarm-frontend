@@ -16,6 +16,10 @@ import JournalEditRecordContainerQuery from 'journal/queries/JournalEditRecordCo
 import SelectionPossibleFoods from 'journal/containers/SelectionPossibleFoods';
 import SelectionPossibleFoodsQuery from 'journal/queries/SelectionPossibleFoodsQuery';
 
+// preset
+import PresetsContainer from 'preset/containers/PresetsContainer';
+import PresetsContainerQuery from 'preset/queries/PresetsContainerQuery';
+
 // food
 import FoodDetailContainer from 'food/containers/FoodDetailContainer';
 import FoodDetailContainerQuery from 'food/queries/FoodDetailContainerQuery';
@@ -42,42 +46,48 @@ function render ({ Component, props }) { // eslint-disable-line react/prop-types
 export default makeRouteConfig(
   <Route path={'/'} Component={CorePage}>
     <Route Component={HomePage} />
-    <Route
-      path={'journal/:userId'}
-      Component={JournalContainer}
-      query={JournalContainerQuery}
-      render={render}
-    >
+    <Route path={'user/:userId'} >
       <Route
-        path={'edit/:foodSelectionId'}
-        Component={JournalEditRecordContainer}
-        query={JournalEditRecordContainerQuery}
+        path={'journal'}
+        Component={JournalContainer}
+        query={JournalContainerQuery}
+        render={render}
       >
         <Route
-          Component={SelectionPossibleFoods}
-          query={SelectionPossibleFoodsQuery}
-          prepareVariables={(params, { location }) => {
-            const { query } = location;
-            let possibleFoodsCount;
+          path={'edit/:foodSelectionId'}
+          Component={JournalEditRecordContainer}
+          query={JournalEditRecordContainerQuery}
+        >
+          <Route
+            Component={SelectionPossibleFoods}
+            query={SelectionPossibleFoodsQuery}
+            prepareVariables={(params, { location }) => {
+              const { query } = location;
+              let possibleFoodsCount;
 
-            if (query && query.possibleFoodsCount) {
-              possibleFoodsCount = query.possibleFoodsCount;
-            } else {
-              possibleFoodsCount = 4;
-            }
+              if (query && query.possibleFoodsCount) {
+                possibleFoodsCount = query.possibleFoodsCount;
+              } else {
+                possibleFoodsCount = 4;
+              }
 
-            return { possibleFoodsCount, ...params };
-          }}
-        />
+              return { possibleFoodsCount, ...params };
+            }}
+          />
+        </Route>
       </Route>
-    </Route>
-    <Route path={'food'}>
       <Route
-        path={':foodId'}
-        Component={FoodDetailContainer}
-        query={FoodDetailContainerQuery}
+        path={'presets'}
+        Component={PresetsContainer}
+        query={PresetsContainerQuery}
+        render={render}
       />
     </Route>
+    <Route
+      path={'food/:foodId'}
+      Component={FoodDetailContainer}
+      query={FoodDetailContainerQuery}
+    />
     <Route path={'*'} Component={NotFound} />
   </Route>,
 );
