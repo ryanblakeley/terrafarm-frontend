@@ -8,6 +8,10 @@ import HomePage from 'home/components/HomePage';
 import NotFound from 'not-found/components/NotFoundPage';
 import LoadingComponent from 'core/components/LoadingComponent';
 
+// user
+import UserContainer from 'user/containers/UserContainer';
+import UserContainerQuery from 'user/queries/UserContainerQuery';
+
 // journal
 import JournalContainer from 'journal/containers/JournalContainer';
 import JournalContainerQuery from 'journal/queries/JournalContainerQuery';
@@ -50,32 +54,38 @@ export default makeRouteConfig(
     <Route Component={HomePage} />
     <Route path={'user/:userId'} >
       <Route
-        path={'journal'}
-        Component={JournalContainer}
-        query={JournalContainerQuery}
+        Component={UserContainer}
+        query={UserContainerQuery}
         render={render}
-      >
+      />
+      <Route path={'journal'} >
         <Route
-          path={'edit/:foodSelectionId'}
-          Component={JournalEditRecordContainer}
-          query={JournalEditRecordContainerQuery}
+          Component={JournalContainer}
+          query={JournalContainerQuery}
+          render={render}
         >
           <Route
-            Component={SelectionPossibleFoods}
-            query={SelectionPossibleFoodsQuery}
-            prepareVariables={(params, { location }) => {
-              const { query } = location;
-              let possibleFoodsCount;
+            path={'edit/:foodSelectionId'}
+            Component={JournalEditRecordContainer}
+            query={JournalEditRecordContainerQuery}
+          >
+            <Route
+              Component={SelectionPossibleFoods}
+              query={SelectionPossibleFoodsQuery}
+              prepareVariables={(params, { location }) => {
+                const { query } = location;
+                let possibleFoodsCount;
 
-              if (query && query.possibleFoodsCount) {
-                possibleFoodsCount = query.possibleFoodsCount;
-              } else {
-                possibleFoodsCount = 4;
-              }
+                if (query && query.possibleFoodsCount) {
+                  possibleFoodsCount = query.possibleFoodsCount;
+                } else {
+                  possibleFoodsCount = 4;
+                }
 
-              return { possibleFoodsCount, ...params };
-            }}
-          />
+                return { possibleFoodsCount, ...params };
+              }}
+            />
+          </Route>
         </Route>
       </Route>
       <Route
