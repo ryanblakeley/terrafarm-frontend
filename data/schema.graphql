@@ -5202,6 +5202,27 @@ type Query implements Node {
   # Returns a geocoded result from an address
   geocoder(address: String): GeocodeResult
 
+  # Returns a set of foods based on text search.
+  searchFoods(
+    foodDescription: String!
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+  ): FoodsConnection!
+
   # Reads a single `Brand` using its globally unique `ID`.
   brand(
     # The globally unique `ID` to be used in selecting a single `Brand`.

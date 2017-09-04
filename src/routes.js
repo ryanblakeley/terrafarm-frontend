@@ -23,6 +23,8 @@ import PresetsContainerQuery from 'preset/queries/PresetsContainerQuery';
 // food
 import FoodDetailContainer from 'food/containers/FoodDetailContainer';
 import FoodDetailContainerQuery from 'food/queries/FoodDetailContainerQuery';
+import FoodSearchContainer from 'food/containers/FoodSearchContainer';
+import FoodSearchContainerQuery from 'food/queries/FoodSearchContainerQuery';
 
 function ensureDeveloperToken () {
   const idToken = localStorage.getItem('id_token');
@@ -83,11 +85,24 @@ export default makeRouteConfig(
         render={render}
       />
     </Route>
-    <Route
-      path={'food/:foodId'}
-      Component={FoodDetailContainer}
-      query={FoodDetailContainerQuery}
-    />
+    <Route path={'food'} >
+      <Route
+        path={'search'}
+        Component={FoodSearchContainer}
+        query={FoodSearchContainerQuery}
+        prepareVariables={(params, { location }) => {
+          const { query } = location;
+          const description = (query && query.description) ? query.description : '';
+
+          return { description, ...params };
+        }}
+      />
+      <Route
+        path={':foodId'}
+        Component={FoodDetailContainer}
+        query={FoodDetailContainerQuery}
+      />
+    </Route>
     <Route path={'*'} Component={NotFound} />
   </Route>,
 );
