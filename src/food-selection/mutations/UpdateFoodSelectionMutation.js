@@ -10,6 +10,7 @@ const mutation = graphql`
         foodId
         foodByFoodId {
           rowId
+          description
           calories
           protein
           fat

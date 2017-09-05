@@ -12,6 +12,8 @@ const propTypes = {
   children: PropTypes.node.isRequired,
   bodyText: PropTypes.element,
   showForm: PropTypes.bool,
+  submitLabel: PropTypes.string,
+  cancelLabel: PropTypes.string,
   notifyClose: PropTypes.func.isRequired,
   onValidSubmit: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
@@ -23,9 +25,9 @@ const defaultProps = {
   title: null,
   bodyText: null,
   showForm: true,
-  onDelete: () => {
-    console.warn('onDelete method not provided to form container.');
-  },
+  submitLabel: 'Save',
+  cancelLabel: 'Cancel',
+  onDelete: null,
   error: false,
   errorMessage: 'Internal server error.',
 };
@@ -77,6 +79,8 @@ class ActionPanelForm extends React.Component {
       showForm,
       error,
       errorMessage,
+      submitLabel,
+      cancelLabel,
       // notifyClose,
     } = this.props;
     const { canSubmit } = this.state;
@@ -92,13 +96,13 @@ class ActionPanelForm extends React.Component {
       >
         <Layout center topSmall>
           {showForm && <RaisedButton
-            label={'Save'}
+            label={submitLabel}
             primary
             type={'submit'}
             disabled={!canSubmit}
           />}
-          {showForm && <FlatButton
-            label={'Close'}
+          {showForm && cancelLabel !== '' && <FlatButton
+            label={cancelLabel}
             secondary
             onTouchTap={this.handleClose}
           />}

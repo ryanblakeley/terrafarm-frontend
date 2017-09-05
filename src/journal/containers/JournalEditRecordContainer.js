@@ -106,10 +106,12 @@ class JournalEditRecordContainer extends React.Component {
   render () {
     const { foodSelectionByRowId: foodSelection, notifyClose, children } = this.props;
     const { error } = this.state;
+    const foodLinkLabel = foodSelection.foodByFoodId.description
+      || `Food #${foodSelection.foodId}`;
     const foodLink = <Layout center >
       <P>
         <Link to={`/food/${foodSelection.foodId}`} >
-          <FlatButton label={`Food #${foodSelection.foodId}`} />
+          <FlatButton label={foodLinkLabel} />
         </Link>
       </P>
     </Layout>;
@@ -274,6 +276,7 @@ export default createFragmentContainer(JournalEditRecordContainer, {
       foodId
       foodByFoodId {
         rowId
+        description
         calories
         protein
         fat

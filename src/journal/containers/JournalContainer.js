@@ -130,19 +130,19 @@ class JournalContainer extends React.Component {
     const emptyJournalWarning = <WarningMessage>Journal empty.</WarningMessage>;
 
     return <TransitionWrapper>
-      <Layout page>
+      <Layout page >
         <Menu
           baseUrl={`/journal/${user.rowId}`}
           header={{ icon: <JournalIcon />, title: 'Journal' }}
           disabled
         />
       </Layout>
-      <Layout topSmall className={classNames.this}>
-        <Layout className={classNames.journalDatesWrapper}>
+      <Layout topSmall className={classNames.this} >
+        <Layout className={classNames.journalDatesWrapper} >
           <ColumnLabels />
           {dates.length > 0 ? journalDateRootContainers : emptyJournalWarning}
         </Layout>
-        {children && <Layout className={classNames.actionPanelWrapper}>
+        {children && <Layout className={classNames.actionPanelWrapper} >
           <ActionPanel
             notifyClose={() => router.replace(`/user/${user.rowId}/journal`)}
           >
