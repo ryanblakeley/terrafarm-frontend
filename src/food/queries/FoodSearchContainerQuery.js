@@ -1,8 +1,8 @@
 import { graphql } from 'react-relay';
 
 const FoodSearchContainerQuery = graphql`
-  query FoodSearchContainerQuery($description: String!) {
-    searchFoods(foodDescription: $description) {
+  query FoodSearchContainerQuery($foodId: Float, $foodDescription: String) {
+    searchFoods(foodId: $foodId, foodDescription: $foodDescription) {
       ...FoodSearchContainer_searchFoods,
     }
   }

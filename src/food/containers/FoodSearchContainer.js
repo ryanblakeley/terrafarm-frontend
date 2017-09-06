@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import { SearchIcon } from 'shared/components/Icons';
+import { FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import { H3, Link, Span, WarningMessage } from 'shared/components/Typography';
 import { FlatButton } from 'shared/components/Material';
@@ -37,10 +37,11 @@ class FoodSearchContainer extends React.Component {
       formData: {},
     };
   }
+  /*
   componentWillMount () {
     const { router, location } = this.props;
     const { pathname, query } = location;
-    const description = query && query.description;
+    const { id, description } = query;
 
     if (!description) {
       router.replace({
@@ -51,6 +52,7 @@ class FoodSearchContainer extends React.Component {
       });
     }
   }
+  */
   handleSubmit = data => {
     this.setState({ formData: data });
     this.updateFoodSearch(data);
@@ -64,18 +66,23 @@ class FoodSearchContainer extends React.Component {
   }
   updateFoodSearch (patch) {
     const { router, location } = this.props;
+    const query = {};
+    if (patch.foodId) {
+      query.id = patch.foodId;
+    }
+    if (patch.foodDescription) {
+      query.description = patch.foodDescription;
+    }
 
     router.replace({
       pathname: location.pathname,
-      query: Object.assign({}, location.query, {
-        description: patch.foodDescription,
-      }),
+      query,
     });
   }
   render () {
     const { searchFoods, location } = this.props;
     const { error } = this.state;
-    const foodDescription = location.query && location.query.description;
+    const { id, description } = location.query;
     const resultElements = searchFoods && searchFoods.edges.map(({ node }) => (
       <Layout key={node.rowId} >
         <Link to={`/food/${node.rowId}`} >
@@ -89,8 +96,8 @@ class FoodSearchContainer extends React.Component {
     return <TransitionWrapper>
       <Layout page >
         <Menu
-          baseUrl={'/food/search'}
-          header={{ icon: <SearchIcon />, title: 'Food Search' }}
+          baseUrl={'/food'}
+          header={{ icon: <FoodIcon />, title: 'Food' }}
           disabled
         />
       </Layout>
@@ -112,13 +119,24 @@ class FoodSearchContainer extends React.Component {
               <Layout flexCenter flexWrap >
                 <Layout>
                   <TextInput
+                    name={'foodId'}
+                    label={'Food ID'}
+                    placeholder={'Unique number'}
+                    value={id}
+                    validations={{ isNumeric: true }}
+                    validationError={validationErrors.number}
+                    maxLength={8}
+                    style={styles.field}
+                  />
+                </Layout>
+                <Layout leftSmall >
+                  <TextInput
                     name={'foodDescription'}
                     label={'Food description'}
-                    value={foodDescription}
+                    value={description}
                     validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
                     validationError={validationErrors.normalWords}
                     maxLength={50}
-                    required
                     style={styles.field}
                   />
                 </Layout>

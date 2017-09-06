@@ -5204,7 +5204,8 @@ type Query implements Node {
 
   # Returns a set of foods based on text search.
   searchFoods(
-    foodDescription: String!
+    foodId: Float
+    foodDescription: String
 
     # Only read the first `n` values of the set.
     first: Int

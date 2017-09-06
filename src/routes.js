@@ -97,14 +97,14 @@ export default makeRouteConfig(
     </Route>
     <Route path={'food'} >
       <Route
-        path={'search'}
         Component={FoodSearchContainer}
         query={FoodSearchContainerQuery}
         prepareVariables={(params, { location }) => {
           const { query } = location;
-          const description = (query && query.description) ? query.description : '';
+          const foodId = query && query.id;
+          const foodDescription = query && query.description;
 
-          return { description, ...params };
+          return { foodId, foodDescription, ...params };
         }}
       />
       <Route
