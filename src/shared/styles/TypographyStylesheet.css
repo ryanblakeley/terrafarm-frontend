@@ -8,8 +8,7 @@ html { font-size: 14px; }
 .h6, .articleSubheading,
 .bodyText,
 .bodyTextLarge,
-.buttonText,
-div { color: #263238; transition: font-size, color 160ms linear; }
+.buttonText { color: #263238; transition: font-size, color 160ms linear; }
 .icon { color: rgba(92,107,192 ,0.92); transition: font-size, color 160ms linear; }
 /* .icon { color: #9FA8DA; } */
 
@@ -57,7 +56,6 @@ div { color: #263238; transition: font-size, color 160ms linear; }
   font-family: 'Simonetta', serif;
   font-size: 1.17rem;
   text-decoration: none;
-  color: inherit;
 }
 .bodyTextLarge {
   margin: 0.67em 0;

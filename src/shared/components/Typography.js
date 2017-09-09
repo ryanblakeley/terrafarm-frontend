@@ -35,7 +35,7 @@ const H5 = props => <h5
   title={props.title}
 />;
 const H6 = props => <h6
-  className={`${props.className ? props.className : ''} ${classNames.h6}`}
+  className={`${classNames.h6} ${props.className ? props.className : ''}`}
   children={props.children}
   style={props.style}
   title={props.title}
@@ -53,7 +53,7 @@ const P = props => <p
   title={props.title}
 />;
 const Span = props => <span
-  className={`${props.className ? props.className : ''} ${classNames.span}`}
+  className={`${classNames.span} ${props.className ? props.className : ''}`}
   children={props.children}
   style={props.style}
   title={props.title}

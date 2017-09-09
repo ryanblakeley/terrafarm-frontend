@@ -122,49 +122,13 @@ class JournalEditRecordContainer extends React.Component {
     </Layout>;
 
     return <ActionPanelForm
+      title={'Edit Journal Row'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}
       error={error}
       showForm
     >
-      <Layout flexCenter flexWrap >
-        <Layout>
-          <TextInput
-            name={'foodId'}
-            label={'Food ID'}
-            placeholder={'Unique number'}
-            value={foodSelection.foodId}
-            validations={{ isNumeric: true }}
-            validationError={validationErrors.number}
-            maxLength={8}
-            style={styles.field}
-          />
-        </Layout>
-        <Layout leftSmall >
-          <TextInput
-            name={'mass'}
-            label={'Mass (grams)'}
-            placeholder={'Number'}
-            value={foodSelection.mass}
-            validations={{ isNumeric: true }}
-            validationError={validationErrors.number}
-            maxLength={8}
-            style={styles.field}
-          />
-        </Layout>
-      </Layout>
-      {foodSelection.foodId ? foodLink : childrenWithProps}
-      <SelectionNutritionValues
-        food={foodSelection.foodByFoodId}
-        mass={foodSelection.mass}
-      />
-      <SelectionPossibleMass
-        unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
-        amount={foodSelection.unitAmount}
-        show={!foodSelection.mass}
-        handleClickMassSuggestion={this.handleChangeMass}
-      />
       <Layout flexCenter flexWrap >
         <Layout>
           <TextInput
@@ -204,6 +168,43 @@ class JournalEditRecordContainer extends React.Component {
           </Layout>
         </Layout>
       </Layout>
+      <Layout flexCenter flexWrap >
+        <Layout>
+          <TextInput
+            name={'foodId'}
+            label={'Food ID'}
+            placeholder={'Unique number'}
+            value={foodSelection.foodId}
+            validations={{ isNumeric: true }}
+            validationError={validationErrors.number}
+            maxLength={8}
+            style={styles.field}
+          />
+        </Layout>
+        <Layout leftSmall >
+          <TextInput
+            name={'mass'}
+            label={'Mass (grams)'}
+            placeholder={'Number'}
+            value={foodSelection.mass}
+            validations={{ isNumeric: true }}
+            validationError={validationErrors.number}
+            maxLength={8}
+            style={styles.field}
+          />
+        </Layout>
+      </Layout>
+      {foodSelection.foodId ? foodLink : childrenWithProps}
+      <SelectionNutritionValues
+        food={foodSelection.foodByFoodId}
+        mass={foodSelection.mass}
+      />
+      <SelectionPossibleMass
+        unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
+        amount={foodSelection.unitAmount}
+        show={!foodSelection.mass}
+        handleClickMassSuggestion={this.handleChangeMass}
+      />
       <Layout flexCenter flexWrap >
         <Layout>
           <TextInput

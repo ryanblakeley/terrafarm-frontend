@@ -86,7 +86,7 @@ class ActionPanelForm extends React.Component {
     const { canSubmit } = this.state;
 
     return <Layout>
-      {title && <H5>{title}</H5>}
+      {title && <Layout center><H5>{title}</H5></Layout>}
       {bodyText && <Layout center><P>{bodyText}</P></Layout>}
       <Form
         onValid={this.handleValid}

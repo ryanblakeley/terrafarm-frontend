@@ -1,25 +1,25 @@
 import React from 'react';
 import Layout from 'shared/components/Layout';
-import { Span } from 'shared/components/Typography';
+import { H6 } from 'shared/components/Typography';
 import classNames from '../styles/ColumnLabelsStylesheet.css';
 
 const ColumnLabels = () => <Layout className={classNames.this} >
   <Layout className={`${classNames.label} ${classNames.date}`} />
-  <Span className={`${classNames.label} ${classNames.cal}`} >
+  <H6 className={`${classNames.label} ${classNames.cal}`} >
     Calories
-  </Span>
-  <Span className={classNames.label} >
+  </H6>
+  <H6 className={classNames.label} >
     Protein
-  </Span>
-  <Span className={classNames.label} >
+  </H6>
+  <H6 className={classNames.label} >
     Fat
-  </Span>
-  <Span className={classNames.label} >
+  </H6>
+  <H6 className={classNames.label} >
     Carbs
-  </Span>
-  <Span className={classNames.label} >
+  </H6>
+  <H6 className={classNames.label} >
     Completed
-  </Span>
+  </H6>
 </Layout>;
 
 export default ColumnLabels;
