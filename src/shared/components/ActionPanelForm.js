@@ -66,6 +66,13 @@ class ActionPanelForm extends React.Component {
       // this.handleClose();
     }
   }
+  handleClickDelete = () => {
+    const confirmMessage = 'Are you sure you want to delete this journal row?';
+    const confirmPrompt = window.confirm(confirmMessage); // eslint-disable-line no-alert
+    if (confirmPrompt) {
+      this.handleDelete();
+    }
+  }
   handleDelete = () => {
     this.props.onDelete();
     this.handleClose();
@@ -94,7 +101,7 @@ class ActionPanelForm extends React.Component {
         onValidSubmit={this.handleSubmit}
         onInvalidSubmit={this.handleFormError}
       >
-        <Layout center topSmall>
+        <Layout center bottomSmall >
           {showForm && <RaisedButton
             label={submitLabel}
             primary
@@ -103,16 +110,18 @@ class ActionPanelForm extends React.Component {
           />}
           {showForm && cancelLabel !== '' && <FlatButton
             label={cancelLabel}
-            secondary
             onTouchTap={this.handleClose}
-          />}
-          {onDelete && <FlatButton
-            label={'Delete'}
-            onTouchTap={this.handleDelete}
           />}
         </Layout>
         {error && <FormError text={errorMessage} />}
         {showForm && children}
+        <Layout center topSmall>
+          {onDelete && <FlatButton
+            label={'Delete'}
+            secondary
+            onTouchTap={this.handleClickDelete}
+          />}
+        </Layout>
       </Form>
     </Layout>;
   }
