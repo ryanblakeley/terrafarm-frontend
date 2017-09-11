@@ -102,8 +102,6 @@ html { font-size: 14px; }
 }
 */
 .icon { font-size: 24px; }
-.smallIcon { font-size: 16px; }
-.largeIcon { font-size: 58px; }
 .list {
   list-style: initial;
   margin: 1em 0;

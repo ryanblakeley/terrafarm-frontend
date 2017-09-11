@@ -128,6 +128,7 @@ class JournalEditRecordContainer extends React.Component {
       onDelete={this.handleDelete}
       error={error}
       showForm
+      submitLabel={''}
     >
       <Layout flexCenter flexWrap >
         <Layout>
@@ -146,7 +147,7 @@ class JournalEditRecordContainer extends React.Component {
           <Layout>
             <TextInput
               name={'unitAmount'}
-              label={'Unit amount'}
+              label={'Amount'}
               placeholder={'Number'}
               value={foodSelection.unitAmount}
               validations={{ isNumeric: true }}

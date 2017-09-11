@@ -114,7 +114,7 @@ class FoodSearchContainer extends React.Component {
               error={error}
               showForm
               submitLabel={'Search'}
-              cancelLabel={''}
+              cancelButton={null}
             >
               <Layout flexCenter flexWrap >
                 <Layout>

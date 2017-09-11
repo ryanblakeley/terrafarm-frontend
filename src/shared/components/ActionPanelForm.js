@@ -3,9 +3,11 @@ import React from 'react';
 import Layout from 'shared/components/Layout';
 import { H5, P } from 'shared/components/Typography';
 import { Form } from 'shared/components/Form';
-import { FlatButton, RaisedButton } from 'shared/components/Material';
-// import CloseButton from 'shared/components/CloseButton';
+import { FlatButton, RaisedButton, IconButton } from 'shared/components/Material';
+import { CheckmarkIcon, CloseIcon } from 'shared/components/Icons';
+import { green500 } from 'tools/colors';
 import FormError from 'shared/components/FormError';
+import classNames from 'shared/styles/ActionPanelFormStylesheet.css';
 
 const propTypes = {
   title: PropTypes.string,
@@ -13,7 +15,7 @@ const propTypes = {
   bodyText: PropTypes.element,
   showForm: PropTypes.bool,
   submitLabel: PropTypes.string,
-  cancelLabel: PropTypes.string,
+  cancelButton: PropTypes.element,
   notifyClose: PropTypes.func.isRequired,
   onValidSubmit: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
@@ -25,8 +27,10 @@ const defaultProps = {
   title: null,
   bodyText: null,
   showForm: true,
-  submitLabel: 'Save',
-  cancelLabel: 'Cancel',
+  submitLabel: 'Submit',
+  cancelButton: <IconButton>
+    <CloseIcon />
+  </IconButton>,
   onDelete: null,
   error: false,
   errorMessage: 'Internal server error.',
@@ -87,35 +91,44 @@ class ActionPanelForm extends React.Component {
       error,
       errorMessage,
       submitLabel,
-      cancelLabel,
+      cancelButton,
       // notifyClose,
     } = this.props;
     const { canSubmit } = this.state;
 
     return <Layout>
-      {title && <Layout center><H5>{title}</H5></Layout>}
-      {bodyText && <Layout center><P>{bodyText}</P></Layout>}
+      {bodyText && <Layout center ><P>{bodyText}</P></Layout>}
       <Form
         onValid={this.handleValid}
         onInvalid={this.handleInvalid}
         onValidSubmit={this.handleSubmit}
         onInvalidSubmit={this.handleFormError}
       >
-        <Layout center bottomSmall >
-          {showForm && <RaisedButton
-            label={submitLabel}
-            primary
-            type={'submit'}
-            disabled={!canSubmit}
-          />}
-          {showForm && cancelLabel !== '' && <FlatButton
-            label={cancelLabel}
-            onTouchTap={this.handleClose}
-          />}
+        <Layout flexCenter >
+          {showForm && submitLabel === '' ?
+            <IconButton
+              type={'submit'}
+              disabled={!canSubmit}
+            >
+              <CheckmarkIcon color={green500} />
+            </IconButton>
+            : <RaisedButton
+              label={submitLabel}
+              primary
+              type={'submit'}
+              disabled={!canSubmit}
+            />
+          }
+          {showForm && cancelButton && React.cloneElement(cancelButton, {
+            onTouchTap: this.handleClose,
+          })}
         </Layout>
+        {title && <Layout center >
+          <H5 className={classNames.title} >{title}</H5>
+        </Layout>}
         {error && <FormError text={errorMessage} />}
         {showForm && children}
-        <Layout center topSmall>
+        <Layout center topSmall >
           {onDelete && <FlatButton
             label={'Delete'}
             secondary
