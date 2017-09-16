@@ -16,9 +16,9 @@ const mutation = graphql`
           fat
           carbs
         }
-        foodIdSource
+        foodIdStatus
         mass
-        massSource
+        massStatus
         unitAmount
         unitDescription
         unitOfMeasureId

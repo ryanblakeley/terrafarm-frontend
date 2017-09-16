@@ -2654,23 +2654,29 @@ type FoodSelection implements Node {
 
   # The unique identifier for the food.
   foodId: Float
+  foodIdStatus: InvestigationStatus
 
-  # The description of the food.
-  foodDescription: String!
-  foodIdSource: InputSource
+  # Investigation notes about finding the right food id for the food selection
+  foodIdNotes: String
 
   # The total mass of the food in grams.
   mass: Float
-  massSource: InputSource
+  massStatus: InvestigationStatus
 
-  # The unique identifier for the unit of measure, if mentioned.
-  unitOfMeasureId: Int
+  # Investigation notes about converting the mass of the food selection.
+  massNotes: String
+
+  # The description of the food.
+  foodDescription: String!
+
+  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
+  unitAmount: Float
 
   # The description of the unit of measure.
   unitDescription: String
 
-  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitAmount: Float
+  # The unique identifier for the unit of measure, if mentioned.
+  unitOfMeasureId: Int
 
   # The description of a physical modification, e.x. chopped, julienned, melted, etc.
   physicalModDescription: String
@@ -2762,26 +2768,32 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `foodId` field.
   foodId: Float
 
-  # Checks for equality with the object’s `foodDescription` field.
-  foodDescription: String
+  # Checks for equality with the object’s `foodIdStatus` field.
+  foodIdStatus: InvestigationStatus
 
-  # Checks for equality with the object’s `foodIdSource` field.
-  foodIdSource: InputSource
+  # Checks for equality with the object’s `foodIdNotes` field.
+  foodIdNotes: String
 
   # Checks for equality with the object’s `mass` field.
   mass: Float
 
-  # Checks for equality with the object’s `massSource` field.
-  massSource: InputSource
+  # Checks for equality with the object’s `massStatus` field.
+  massStatus: InvestigationStatus
 
-  # Checks for equality with the object’s `unitOfMeasureId` field.
-  unitOfMeasureId: Int
+  # Checks for equality with the object’s `massNotes` field.
+  massNotes: String
+
+  # Checks for equality with the object’s `foodDescription` field.
+  foodDescription: String
+
+  # Checks for equality with the object’s `unitAmount` field.
+  unitAmount: Float
 
   # Checks for equality with the object’s `unitDescription` field.
   unitDescription: String
 
-  # Checks for equality with the object’s `unitAmount` field.
-  unitAmount: Float
+  # Checks for equality with the object’s `unitOfMeasureId` field.
+  unitOfMeasureId: Int
 
   # Checks for equality with the object’s `physicalModDescription` field.
   physicalModDescription: String
@@ -2819,23 +2831,29 @@ input FoodSelectionInput {
 
   # The unique identifier for the food.
   foodId: Float
+  foodIdStatus: InvestigationStatus
 
-  # The description of the food.
-  foodDescription: String!
-  foodIdSource: InputSource
+  # Investigation notes about finding the right food id for the food selection
+  foodIdNotes: String
 
   # The total mass of the food in grams.
   mass: Float
-  massSource: InputSource
+  massStatus: InvestigationStatus
 
-  # The unique identifier for the unit of measure, if mentioned.
-  unitOfMeasureId: Int
+  # Investigation notes about converting the mass of the food selection.
+  massNotes: String
+
+  # The description of the food.
+  foodDescription: String!
+
+  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
+  unitAmount: Float
 
   # The description of the unit of measure.
   unitDescription: String
 
-  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitAmount: Float
+  # The unique identifier for the unit of measure, if mentioned.
+  unitOfMeasureId: Int
 
   # The description of a physical modification, e.x. chopped, julienned, melted, etc.
   physicalModDescription: String
@@ -2873,23 +2891,29 @@ input FoodSelectionPatch {
 
   # The unique identifier for the food.
   foodId: Float
+  foodIdStatus: InvestigationStatus
 
-  # The description of the food.
-  foodDescription: String
-  foodIdSource: InputSource
+  # Investigation notes about finding the right food id for the food selection
+  foodIdNotes: String
 
   # The total mass of the food in grams.
   mass: Float
-  massSource: InputSource
+  massStatus: InvestigationStatus
 
-  # The unique identifier for the unit of measure, if mentioned.
-  unitOfMeasureId: Int
+  # Investigation notes about converting the mass of the food selection.
+  massNotes: String
+
+  # The description of the food.
+  foodDescription: String
+
+  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
+  unitAmount: Float
 
   # The description of the unit of measure.
   unitDescription: String
 
-  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitAmount: Float
+  # The unique identifier for the unit of measure, if mentioned.
+  unitOfMeasureId: Int
 
   # The description of a physical modification, e.x. chopped, julienned, melted, etc.
   physicalModDescription: String
@@ -2949,20 +2973,24 @@ enum FoodSelectionsOrderBy {
   CATEGORY_DESC
   FOOD_ID_ASC
   FOOD_ID_DESC
-  FOOD_DESCRIPTION_ASC
-  FOOD_DESCRIPTION_DESC
-  FOOD_ID_SOURCE_ASC
-  FOOD_ID_SOURCE_DESC
+  FOOD_ID_STATUS_ASC
+  FOOD_ID_STATUS_DESC
+  FOOD_ID_NOTES_ASC
+  FOOD_ID_NOTES_DESC
   MASS_ASC
   MASS_DESC
-  MASS_SOURCE_ASC
-  MASS_SOURCE_DESC
-  UNIT_OF_MEASURE_ID_ASC
-  UNIT_OF_MEASURE_ID_DESC
-  UNIT_DESCRIPTION_ASC
-  UNIT_DESCRIPTION_DESC
+  MASS_STATUS_ASC
+  MASS_STATUS_DESC
+  MASS_NOTES_ASC
+  MASS_NOTES_DESC
+  FOOD_DESCRIPTION_ASC
+  FOOD_DESCRIPTION_DESC
   UNIT_AMOUNT_ASC
   UNIT_AMOUNT_DESC
+  UNIT_DESCRIPTION_ASC
+  UNIT_DESCRIPTION_DESC
+  UNIT_OF_MEASURE_ID_ASC
+  UNIT_OF_MEASURE_ID_DESC
   PHYSICAL_MOD_DESCRIPTION_ASC
   PHYSICAL_MOD_DESCRIPTION_DESC
   BRAND_DESCRIPTION_ASC
@@ -3124,6 +3152,16 @@ enum InputSource {
   AGENT
   USER
   USDA_SR28
+}
+
+# The lifecycle for investigating a food id or mass for a food selection.
+enum InvestigationStatus {
+  REQUESTED
+  ANSWERED
+  REJECTED
+  REANSWERED
+  ACCEPTED
+  SUPERSEDED
 }
 
 # A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)

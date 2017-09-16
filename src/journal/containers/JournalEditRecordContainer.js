@@ -4,8 +4,8 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import Layout from 'shared/components/Layout';
 import { P, Link } from 'shared/components/Typography';
-import { FlatButton } from 'shared/components/Material';
-import { TextInput } from 'shared/components/Form';
+import { FlatButton, MenuItem } from 'shared/components/Material';
+import { TextInput, SelectInput } from 'shared/components/Form';
 import validations, { validationErrors, conversions } from 'tools/validations';
 import SelectionNutritionValues from '../components/SelectionNutritionValues';
 import SelectionPossibleMass from '../components/SelectionPossibleMass';
@@ -195,6 +195,28 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
+      <Layout flexCenter flexWrap >
+        <SelectInput
+          name={'foodIdStatus'}
+          label={'Food ID status'}
+          placeholder={'Assistance with food ID?'}
+        >
+          <MenuItem value={'REQUESTED'} primaryText={'Request'} />
+          <MenuItem value={'ACCEPTED'} primaryText={'Accept'} />
+          <MenuItem value={'REJECTED'} primaryText={'Reject'} />
+          <MenuItem value={'ANSWERED'} primaryText={'Answered'} />
+        </SelectInput>
+        <SelectInput
+          name={'massStatus'}
+          label={'Mass status'}
+          placeholder={'Assistance with mass?'}
+        >
+          <MenuItem value={'REQUESTED'} primaryText={'Request'} />
+          <MenuItem value={'ACCEPTED'} primaryText={'Accept'} />
+          <MenuItem value={'REJECTED'} primaryText={'Reject'} />
+          <MenuItem value={'ANSWERED'} primaryText={'Answered'} />
+        </SelectInput>
+      </Layout>
       {foodSelection.foodId ? foodLink : childrenWithProps}
       <SelectionNutritionValues
         food={foodSelection.foodByFoodId}
@@ -284,9 +306,9 @@ export default createFragmentContainer(JournalEditRecordContainer, {
         fat
         carbs
       }
-      foodIdSource
+      foodIdStatus
       mass
-      massSource
+      massStatus
       unitAmount
       unitDescription
       unitOfMeasureId

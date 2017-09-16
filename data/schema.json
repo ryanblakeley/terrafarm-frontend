@@ -5914,25 +5914,25 @@
               "deprecationReason": null
             },
             {
-              "name": "FOOD_DESCRIPTION_ASC",
+              "name": "FOOD_ID_STATUS_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "FOOD_DESCRIPTION_DESC",
+              "name": "FOOD_ID_STATUS_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "FOOD_ID_SOURCE_ASC",
+              "name": "FOOD_ID_NOTES_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "FOOD_ID_SOURCE_DESC",
+              "name": "FOOD_ID_NOTES_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5950,25 +5950,49 @@
               "deprecationReason": null
             },
             {
-              "name": "MASS_SOURCE_ASC",
+              "name": "MASS_STATUS_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "MASS_SOURCE_DESC",
+              "name": "MASS_STATUS_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UNIT_OF_MEASURE_ID_ASC",
+              "name": "MASS_NOTES_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UNIT_OF_MEASURE_ID_DESC",
+              "name": "MASS_NOTES_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FOOD_DESCRIPTION_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FOOD_DESCRIPTION_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UNIT_AMOUNT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UNIT_AMOUNT_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5986,13 +6010,13 @@
               "deprecationReason": null
             },
             {
-              "name": "UNIT_AMOUNT_ASC",
+              "name": "UNIT_OF_MEASURE_ID_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UNIT_AMOUNT_DESC",
+              "name": "UNIT_OF_MEASURE_ID_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6151,21 +6175,21 @@
               "defaultValue": null
             },
             {
-              "name": "foodDescription",
-              "description": "Checks for equality with the object’s `foodDescription` field.",
+              "name": "foodIdStatus",
+              "description": "Checks for equality with the object’s `foodIdStatus` field.",
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "InvestigationStatus",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "foodIdSource",
-              "description": "Checks for equality with the object’s `foodIdSource` field.",
+              "name": "foodIdNotes",
+              "description": "Checks for equality with the object’s `foodIdNotes` field.",
               "type": {
-                "kind": "ENUM",
-                "name": "InputSource",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -6181,21 +6205,41 @@
               "defaultValue": null
             },
             {
-              "name": "massSource",
-              "description": "Checks for equality with the object’s `massSource` field.",
+              "name": "massStatus",
+              "description": "Checks for equality with the object’s `massStatus` field.",
               "type": {
                 "kind": "ENUM",
-                "name": "InputSource",
+                "name": "InvestigationStatus",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "unitOfMeasureId",
-              "description": "Checks for equality with the object’s `unitOfMeasureId` field.",
+              "name": "massNotes",
+              "description": "Checks for equality with the object’s `massNotes` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Int",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "foodDescription",
+              "description": "Checks for equality with the object’s `foodDescription` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "unitAmount",
+              "description": "Checks for equality with the object’s `unitAmount` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -6211,11 +6255,11 @@
               "defaultValue": null
             },
             {
-              "name": "unitAmount",
-              "description": "Checks for equality with the object’s `unitAmount` field.",
+              "name": "unitOfMeasureId",
+              "description": "Checks for equality with the object’s `unitOfMeasureId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "Int",
                 "ofType": null
               },
               "defaultValue": null
@@ -6313,6 +6357,53 @@
             },
             {
               "name": "OBSERVATION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "InvestigationStatus",
+          "description": "The lifecycle for investigating a food id or mass for a food selection.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "REQUESTED",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ANSWERED",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "REJECTED",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "REANSWERED",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ACCEPTED",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUPERSEDED",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6525,28 +6616,24 @@
               "deprecationReason": null
             },
             {
-              "name": "foodDescription",
-              "description": "The description of the food.",
+              "name": "foodIdStatus",
+              "description": null,
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "kind": "ENUM",
+                "name": "InvestigationStatus",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "foodIdSource",
-              "description": null,
+              "name": "foodIdNotes",
+              "description": "Investigation notes about finding the right food id for the food selection",
               "args": [],
               "type": {
-                "kind": "ENUM",
-                "name": "InputSource",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6565,24 +6652,52 @@
               "deprecationReason": null
             },
             {
-              "name": "massSource",
+              "name": "massStatus",
               "description": null,
               "args": [],
               "type": {
                 "kind": "ENUM",
-                "name": "InputSource",
+                "name": "InvestigationStatus",
                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "unitOfMeasureId",
-              "description": "The unique identifier for the unit of measure, if mentioned.",
+              "name": "massNotes",
+              "description": "Investigation notes about converting the mass of the food selection.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Int",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "foodDescription",
+              "description": "The description of the food.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitAmount",
+              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6601,12 +6716,12 @@
               "deprecationReason": null
             },
             {
-              "name": "unitAmount",
-              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
+              "name": "unitOfMeasureId",
+              "description": "The unique identifier for the unit of measure, if mentioned.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "Int",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -18277,25 +18392,21 @@
               "defaultValue": null
             },
             {
-              "name": "foodDescription",
-              "description": "The description of the food.",
+              "name": "foodIdStatus",
+              "description": null,
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "kind": "ENUM",
+                "name": "InvestigationStatus",
+                "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "foodIdSource",
-              "description": null,
+              "name": "foodIdNotes",
+              "description": "Investigation notes about finding the right food id for the food selection",
               "type": {
-                "kind": "ENUM",
-                "name": "InputSource",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -18311,21 +18422,45 @@
               "defaultValue": null
             },
             {
-              "name": "massSource",
+              "name": "massStatus",
               "description": null,
               "type": {
                 "kind": "ENUM",
-                "name": "InputSource",
+                "name": "InvestigationStatus",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "unitOfMeasureId",
-              "description": "The unique identifier for the unit of measure, if mentioned.",
+              "name": "massNotes",
+              "description": "Investigation notes about converting the mass of the food selection.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Int",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "foodDescription",
+              "description": "The description of the food.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "unitAmount",
+              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -18341,11 +18476,11 @@
               "defaultValue": null
             },
             {
-              "name": "unitAmount",
-              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
+              "name": "unitOfMeasureId",
+              "description": "The unique identifier for the unit of measure, if mentioned.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "Int",
                 "ofType": null
               },
               "defaultValue": null
@@ -22427,21 +22562,21 @@
               "defaultValue": null
             },
             {
-              "name": "foodDescription",
-              "description": "The description of the food.",
+              "name": "foodIdStatus",
+              "description": null,
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "ENUM",
+                "name": "InvestigationStatus",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "foodIdSource",
-              "description": null,
+              "name": "foodIdNotes",
+              "description": "Investigation notes about finding the right food id for the food selection",
               "type": {
-                "kind": "ENUM",
-                "name": "InputSource",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -22457,21 +22592,41 @@
               "defaultValue": null
             },
             {
-              "name": "massSource",
+              "name": "massStatus",
               "description": null,
               "type": {
                 "kind": "ENUM",
-                "name": "InputSource",
+                "name": "InvestigationStatus",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "unitOfMeasureId",
-              "description": "The unique identifier for the unit of measure, if mentioned.",
+              "name": "massNotes",
+              "description": "Investigation notes about converting the mass of the food selection.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Int",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "foodDescription",
+              "description": "The description of the food.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "unitAmount",
+              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -22487,11 +22642,11 @@
               "defaultValue": null
             },
             {
-              "name": "unitAmount",
-              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
+              "name": "unitOfMeasureId",
+              "description": "The unique identifier for the unit of measure, if mentioned.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "Int",
                 "ofType": null
               },
               "defaultValue": null
