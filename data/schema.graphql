@@ -552,6 +552,41 @@ type CreateFoodSelectionPayload {
   ): FoodSelectionsEdge
 }
 
+# All input for the create `Investigation` mutation.
+input CreateInvestigationInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+
+  # The `Investigation` to be created by this mutation.
+  investigation: InvestigationInput!
+}
+
+# The output of our create `Investigation` mutation.
+type CreateInvestigationPayload {
+  # The exact same `clientMutationId` that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+
+  # The `Investigation` that was created by this mutation.
+  investigation: Investigation
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
+  # Reads a single `FoodSelection` that is related to this `Investigation`.
+  foodSelectionByFoodSelectionId: FoodSelection
+
+  # Reads a single `Food` that is related to this `Investigation`.
+  foodByFoodId: Food
+
+  # An edge for the type. May be used by Relay 1.
+  investigationEdge(
+    # The method to use when ordering `Investigation`.
+    orderBy: InvestigationsOrderBy = NATURAL
+  ): InvestigationsEdge
+}
+
 # All input for the create `MassConversion` mutation.
 input CreateMassConversionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -1755,6 +1790,31 @@ type Food implements Node {
     condition: MassConversionCondition
   ): MassConversionsConnection!
 
+  # Reads and enables pagination through a set of `Investigation`.
+  investigationsByFoodId(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `Investigation`.
+    orderBy: InvestigationsOrderBy = NATURAL
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: InvestigationCondition
+  ): InvestigationsConnection!
+
   # Reads and enables pagination through a set of `FoodNutrient`.
   foodNutrientsByFoodId(
     # Only read the first `n` values of the set.
@@ -2654,17 +2714,9 @@ type FoodSelection implements Node {
 
   # The unique identifier for the food.
   foodId: Float
-  foodIdStatus: InvestigationStatus
-
-  # Investigation notes about finding the right food id for the food selection
-  foodIdNotes: String
 
   # The total mass of the food in grams.
   mass: Float
-  massStatus: InvestigationStatus
-
-  # Investigation notes about converting the mass of the food selection.
-  massNotes: String
 
   # The description of the food.
   foodDescription: String!
@@ -2735,6 +2787,31 @@ type FoodSelection implements Node {
     # A condition to be used in determining which values should be returned by the collection.
     condition: PresetSelectionCondition
   ): PresetSelectionsConnection!
+
+  # Reads and enables pagination through a set of `Investigation`.
+  investigationsByFoodSelectionId(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `Investigation`.
+    orderBy: InvestigationsOrderBy = NATURAL
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: InvestigationCondition
+  ): InvestigationsConnection!
 }
 
 # The category of a food selection: collection (buying or acquiring), preparation
@@ -2768,20 +2845,8 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `foodId` field.
   foodId: Float
 
-  # Checks for equality with the object’s `foodIdStatus` field.
-  foodIdStatus: InvestigationStatus
-
-  # Checks for equality with the object’s `foodIdNotes` field.
-  foodIdNotes: String
-
   # Checks for equality with the object’s `mass` field.
   mass: Float
-
-  # Checks for equality with the object’s `massStatus` field.
-  massStatus: InvestigationStatus
-
-  # Checks for equality with the object’s `massNotes` field.
-  massNotes: String
 
   # Checks for equality with the object’s `foodDescription` field.
   foodDescription: String
@@ -2831,17 +2896,9 @@ input FoodSelectionInput {
 
   # The unique identifier for the food.
   foodId: Float
-  foodIdStatus: InvestigationStatus
-
-  # Investigation notes about finding the right food id for the food selection
-  foodIdNotes: String
 
   # The total mass of the food in grams.
   mass: Float
-  massStatus: InvestigationStatus
-
-  # Investigation notes about converting the mass of the food selection.
-  massNotes: String
 
   # The description of the food.
   foodDescription: String!
@@ -2891,17 +2948,9 @@ input FoodSelectionPatch {
 
   # The unique identifier for the food.
   foodId: Float
-  foodIdStatus: InvestigationStatus
-
-  # Investigation notes about finding the right food id for the food selection
-  foodIdNotes: String
 
   # The total mass of the food in grams.
   mass: Float
-  massStatus: InvestigationStatus
-
-  # Investigation notes about converting the mass of the food selection.
-  massNotes: String
 
   # The description of the food.
   foodDescription: String
@@ -2973,16 +3022,8 @@ enum FoodSelectionsOrderBy {
   CATEGORY_DESC
   FOOD_ID_ASC
   FOOD_ID_DESC
-  FOOD_ID_STATUS_ASC
-  FOOD_ID_STATUS_DESC
-  FOOD_ID_NOTES_ASC
-  FOOD_ID_NOTES_DESC
   MASS_ASC
   MASS_DESC
-  MASS_STATUS_ASC
-  MASS_STATUS_DESC
-  MASS_NOTES_ASC
-  MASS_NOTES_DESC
   FOOD_DESCRIPTION_ASC
   FOOD_DESCRIPTION_DESC
   UNIT_AMOUNT_ASC
@@ -3154,14 +3195,111 @@ enum InputSource {
   USDA_SR28
 }
 
-# The lifecycle for investigating a food id or mass for a food selection.
-enum InvestigationStatus {
-  REQUESTED
-  ANSWERED
-  REJECTED
-  REANSWERED
-  ACCEPTED
-  SUPERSEDED
+# An investigation of possible food id and mass for a food selection.
+type Investigation {
+  # The unique identifier for the food selection.
+  foodSelectionId: UUID!
+
+  # The unique identifier for the food.
+  foodId: Float!
+
+  # The total mass of the food in grams.
+  mass: Float
+
+  # Notes about the possible match, may inlude a URL to info about the food or mass conversion.
+  description: String
+
+  # Matching score for the food id.
+  score: Float
+  source: InputSource
+
+  # Reads a single `FoodSelection` that is related to this `Investigation`.
+  foodSelectionByFoodSelectionId: FoodSelection!
+
+  # Reads a single `Food` that is related to this `Investigation`.
+  foodByFoodId: Food!
+}
+
+# A condition to be used against `Investigation` object types. All fields are
+# tested for equality and combined with a logical ‘and.’
+input InvestigationCondition {
+  # Checks for equality with the object’s `foodSelectionId` field.
+  foodSelectionId: UUID
+
+  # Checks for equality with the object’s `foodId` field.
+  foodId: Float
+
+  # Checks for equality with the object’s `mass` field.
+  mass: Float
+
+  # Checks for equality with the object’s `description` field.
+  description: String
+
+  # Checks for equality with the object’s `score` field.
+  score: Float
+
+  # Checks for equality with the object’s `source` field.
+  source: InputSource
+}
+
+# An input for mutations affecting `Investigation`
+input InvestigationInput {
+  # The unique identifier for the food selection.
+  foodSelectionId: UUID!
+
+  # The unique identifier for the food.
+  foodId: Float!
+
+  # The total mass of the food in grams.
+  mass: Float
+
+  # Notes about the possible match, may inlude a URL to info about the food or mass conversion.
+  description: String
+
+  # Matching score for the food id.
+  score: Float
+  source: InputSource
+}
+
+# A connection to a list of `Investigation` values.
+type InvestigationsConnection {
+  # A list of `Investigation` objects.
+  nodes: [Investigation]!
+
+  # A list of edges which contains the `Investigation` and cursor to aid in pagination.
+  edges: [InvestigationsEdge!]!
+
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # The count of *all* `Investigation` you could get from the connection.
+  totalCount: Int
+}
+
+# A `Investigation` edge in the connection.
+type InvestigationsEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The `Investigation` at the end of the edge.
+  node: Investigation!
+}
+
+# Methods to use when ordering `Investigation`.
+enum InvestigationsOrderBy {
+  NATURAL
+  FOOD_SELECTION_ID_ASC
+  FOOD_SELECTION_ID_DESC
+  FOOD_ID_ASC
+  FOOD_ID_DESC
+  MASS_ASC
+  MASS_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  SCORE_ASC
+  SCORE_DESC
+  SOURCE_ASC
+  SOURCE_DESC
 }
 
 # A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
@@ -3579,6 +3717,12 @@ type Mutation {
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: CreateFoodSelectionInput!
   ): CreateFoodSelectionPayload
+
+  # Creates a single `Investigation`.
+  createInvestigation(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: CreateInvestigationInput!
+  ): CreateInvestigationPayload
 
   # Creates a single `MassConversion`.
   createMassConversion(
@@ -4988,6 +5132,31 @@ type Query implements Node {
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
   ): FoodSelectionsConnection
+
+  # Reads and enables pagination through a set of `Investigation`.
+  allInvestigations(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `Investigation`.
+    orderBy: InvestigationsOrderBy = NATURAL
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: InvestigationCondition
+  ): InvestigationsConnection
 
   # Reads and enables pagination through a set of `MassConversion`.
   allMassConversions(
