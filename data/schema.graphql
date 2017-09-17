@@ -583,7 +583,7 @@ type CreateInvestigationPayload {
   # An edge for the type. May be used by Relay 1.
   investigationEdge(
     # The method to use when ordering `Investigation`.
-    orderBy: InvestigationsOrderBy = NATURAL
+    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
   ): InvestigationsEdge
 }
 
@@ -1152,6 +1152,50 @@ type DeleteFoodSelectionPayload {
     # The method to use when ordering `FoodSelection`.
     orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
   ): FoodSelectionsEdge
+}
+
+# All input for the `deleteInvestigationByRowId` mutation.
+input DeleteInvestigationByRowIdInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  rowId: Int!
+}
+
+# All input for the `deleteInvestigation` mutation.
+input DeleteInvestigationInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+
+  # The globally unique `ID` which will identify a single `Investigation` to be deleted.
+  id: ID!
+}
+
+# The output of our delete `Investigation` mutation.
+type DeleteInvestigationPayload {
+  # The exact same `clientMutationId` that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+
+  # The `Investigation` that was deleted by this mutation.
+  investigation: Investigation
+  deletedInvestigationId: ID
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
+  # Reads a single `FoodSelection` that is related to this `Investigation`.
+  foodSelectionByFoodSelectionId: FoodSelection
+
+  # Reads a single `Food` that is related to this `Investigation`.
+  foodByFoodId: Food
+
+  # An edge for the type. May be used by Relay 1.
+  investigationEdge(
+    # The method to use when ordering `Investigation`.
+    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
+  ): InvestigationsEdge
 }
 
 # All input for the `deleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription` mutation.
@@ -1809,7 +1853,7 @@ type Food implements Node {
     after: Cursor
 
     # The method to use when ordering `Investigation`.
-    orderBy: InvestigationsOrderBy = NATURAL
+    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: InvestigationCondition
@@ -2807,7 +2851,7 @@ type FoodSelection implements Node {
     after: Cursor
 
     # The method to use when ordering `Investigation`.
-    orderBy: InvestigationsOrderBy = NATURAL
+    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: InvestigationCondition
@@ -3196,7 +3240,11 @@ enum InputSource {
 }
 
 # An investigation of possible food id and mass for a food selection.
-type Investigation {
+type Investigation implements Node {
+  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  id: ID!
+  rowId: Int!
+
   # The unique identifier for the food selection.
   foodSelectionId: UUID!
 
@@ -3223,6 +3271,9 @@ type Investigation {
 # A condition to be used against `Investigation` object types. All fields are
 # tested for equality and combined with a logical ‘and.’
 input InvestigationCondition {
+  # Checks for equality with the object’s `rowId` field.
+  rowId: Int
+
   # Checks for equality with the object’s `foodSelectionId` field.
   foodSelectionId: UUID
 
@@ -3244,11 +3295,34 @@ input InvestigationCondition {
 
 # An input for mutations affecting `Investigation`
 input InvestigationInput {
+  rowId: Int
+
   # The unique identifier for the food selection.
   foodSelectionId: UUID!
 
   # The unique identifier for the food.
   foodId: Float!
+
+  # The total mass of the food in grams.
+  mass: Float
+
+  # Notes about the possible match, may inlude a URL to info about the food or mass conversion.
+  description: String
+
+  # Matching score for the food id.
+  score: Float
+  source: InputSource
+}
+
+# Represents an update to a `Investigation`. Fields that are set will be updated.
+input InvestigationPatch {
+  rowId: Int
+
+  # The unique identifier for the food selection.
+  foodSelectionId: UUID
+
+  # The unique identifier for the food.
+  foodId: Float
 
   # The total mass of the food in grams.
   mass: Float
@@ -3288,6 +3362,8 @@ type InvestigationsEdge {
 # Methods to use when ordering `Investigation`.
 enum InvestigationsOrderBy {
   NATURAL
+  ID_ASC
+  ID_DESC
   FOOD_SELECTION_ID_ASC
   FOOD_SELECTION_ID_DESC
   FOOD_ID_ASC
@@ -3300,6 +3376,8 @@ enum InvestigationsOrderBy {
   SCORE_DESC
   SOURCE_ASC
   SOURCE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 # A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
@@ -3862,6 +3940,18 @@ type Mutation {
     input: UpdateFoodSelectionByRowIdInput!
   ): UpdateFoodSelectionPayload
 
+  # Updates a single `Investigation` using its globally unique id and a patch.
+  updateInvestigation(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: UpdateInvestigationInput!
+  ): UpdateInvestigationPayload
+
+  # Updates a single `Investigation` using a unique key and a patch.
+  updateInvestigationByRowId(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: UpdateInvestigationByRowIdInput!
+  ): UpdateInvestigationPayload
+
   # Updates a single `MassConversion` using its globally unique id and a patch.
   updateMassConversion(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -4089,6 +4179,18 @@ type Mutation {
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: DeleteFoodSelectionByRowIdInput!
   ): DeleteFoodSelectionPayload
+
+  # Deletes a single `Investigation` using its globally unique id.
+  deleteInvestigation(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: DeleteInvestigationInput!
+  ): DeleteInvestigationPayload
+
+  # Deletes a single `Investigation` using a unique key.
+  deleteInvestigationByRowId(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: DeleteInvestigationByRowIdInput!
+  ): DeleteInvestigationPayload
 
   # Deletes a single `MassConversion` using its globally unique id.
   deleteMassConversion(
@@ -5152,7 +5254,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Investigation`.
-    orderBy: InvestigationsOrderBy = NATURAL
+    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: InvestigationCondition
@@ -5366,6 +5468,7 @@ type Query implements Node {
   foodGroupByRowId(rowId: Float!): FoodGroup
   foodNutrientByFoodIdAndNutrientId(foodId: Float!, nutrientId: Float!): FoodNutrient
   foodSelectionByRowId(rowId: UUID!): FoodSelection
+  investigationByRowId(rowId: Int!): Investigation
   massConversionByRowId(rowId: Int!): MassConversion
   massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription(foodId: Float!, unitOfMeasureId: Int!, physicalModDescription: String!): MassConversion
   messageByRowId(rowId: UUID!): Message
@@ -5466,6 +5569,12 @@ type Query implements Node {
     # The globally unique `ID` to be used in selecting a single `FoodSelection`.
     id: ID!
   ): FoodSelection
+
+  # Reads a single `Investigation` using its globally unique `ID`.
+  investigation(
+    # The globally unique `ID` to be used in selecting a single `Investigation`.
+    id: ID!
+  ): Investigation
 
   # Reads a single `MassConversion` using its globally unique `ID`.
   massConversion(
@@ -6143,6 +6252,55 @@ type UpdateFoodSelectionPayload {
     # The method to use when ordering `FoodSelection`.
     orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
   ): FoodSelectionsEdge
+}
+
+# All input for the `updateInvestigationByRowId` mutation.
+input UpdateInvestigationByRowIdInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+
+  # An object where the defined keys will be set on the `Investigation` being updated.
+  investigationPatch: InvestigationPatch!
+  rowId: Int!
+}
+
+# All input for the `updateInvestigation` mutation.
+input UpdateInvestigationInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+
+  # The globally unique `ID` which will identify a single `Investigation` to be updated.
+  id: ID!
+
+  # An object where the defined keys will be set on the `Investigation` being updated.
+  investigationPatch: InvestigationPatch!
+}
+
+# The output of our update `Investigation` mutation.
+type UpdateInvestigationPayload {
+  # The exact same `clientMutationId` that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+
+  # The `Investigation` that was updated by this mutation.
+  investigation: Investigation
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
+  # Reads a single `FoodSelection` that is related to this `Investigation`.
+  foodSelectionByFoodSelectionId: FoodSelection
+
+  # Reads a single `Food` that is related to this `Investigation`.
+  foodByFoodId: Food
+
+  # An edge for the type. May be used by Relay 1.
+  investigationEdge(
+    # The method to use when ordering `Investigation`.
+    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
+  ): InvestigationsEdge
 }
 
 # All input for the `updateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription` mutation.

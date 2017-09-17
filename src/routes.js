@@ -17,8 +17,6 @@ import JournalContainer from 'journal/containers/JournalContainer';
 import JournalContainerQuery from 'journal/queries/JournalContainerQuery';
 import JournalEditRecordContainer from 'journal/containers/JournalEditRecordContainer';
 import JournalEditRecordContainerQuery from 'journal/queries/JournalEditRecordContainerQuery';
-import SelectionPossibleFoods from 'journal/containers/SelectionPossibleFoods';
-import SelectionPossibleFoodsQuery from 'journal/queries/SelectionPossibleFoodsQuery';
 
 // preset
 import PresetsContainer from 'preset/containers/PresetsContainer';
@@ -68,24 +66,7 @@ export default makeRouteConfig(
             path={'edit/:foodSelectionId'}
             Component={JournalEditRecordContainer}
             query={JournalEditRecordContainerQuery}
-          >
-            <Route
-              Component={SelectionPossibleFoods}
-              query={SelectionPossibleFoodsQuery}
-              prepareVariables={(params, { location }) => {
-                const { query } = location;
-                let possibleFoodsCount;
-
-                if (query && query.possibleFoodsCount) {
-                  possibleFoodsCount = query.possibleFoodsCount;
-                } else {
-                  possibleFoodsCount = 4;
-                }
-
-                return { possibleFoodsCount, ...params };
-              }}
-            />
-          </Route>
+          />
         </Route>
       </Route>
       <Route

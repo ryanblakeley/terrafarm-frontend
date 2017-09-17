@@ -3,14 +3,15 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import Layout from 'shared/components/Layout';
-import { P, Link } from 'shared/components/Typography';
-import { FlatButton, MenuItem } from 'shared/components/Material';
-import { TextInput, SelectInput } from 'shared/components/Form';
+import { H4, P, Link, ErrorMessage } from 'shared/components/Typography';
+import { FlatButton } from 'shared/components/Material';
+import { TextInput } from 'shared/components/Form';
 import validations, { validationErrors, conversions } from 'tools/validations';
 import SelectionNutritionValues from '../components/SelectionNutritionValues';
 import SelectionPossibleMass from '../components/SelectionPossibleMass';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
+import classNames from '../styles/JournalEditRecordContainerStylesheet.css';
 
 const styles = {
   field: {
@@ -26,7 +27,6 @@ const propTypes = {
   foodSelectionByRowId: PropTypes.object.isRequired,
   notifyClose: PropTypes.func.isRequired,
   relay: PropTypes.object.isRequired,
-  children: PropTypes.object.isRequired,
 };
 
 class JournalEditRecordContainer extends React.Component {
@@ -104,10 +104,11 @@ class JournalEditRecordContainer extends React.Component {
     );
   }
   render () {
-    const { foodSelectionByRowId: foodSelection, notifyClose, children } = this.props;
+    const { foodSelectionByRowId: foodSelection, notifyClose } = this.props;
     const { error } = this.state;
-    const foodLinkLabel = foodSelection.foodByFoodId.description
-      || `Food #${foodSelection.foodId}`;
+    const foodLinkLabel = foodSelection.foodByFoodId
+      ? foodSelection.foodByFoodId.description
+      : `Food #${foodSelection.foodId}`;
     const foodLink = <Layout center >
       <P>
         <Link to={`/food/${foodSelection.foodId}`} >
@@ -115,11 +116,37 @@ class JournalEditRecordContainer extends React.Component {
         </Link>
       </P>
     </Layout>;
-    const childrenWithProps = <Layout>
-      {React.Children.map(children, c => React.cloneElement(c, {
-        handleClickFoodMatch: this.handleChangeFoodId,
-      }))}
-    </Layout>;
+    const possibleFoods = foodSelection.investigationsByFoodSelectionId;
+    let possibleFoodsElement;
+
+    if (!possibleFoods.edges.length) {
+      possibleFoodsElement = <Layout center >
+        <ErrorMessage>Food ID is needed to calculate nutrition values.</ErrorMessage>
+      </Layout>;
+    } else {
+      possibleFoodsElement = <Layout center >
+        <Layout>
+          <H4 className={classNames.contentSubheading} >Possible food and mass</H4>
+        </Layout>
+        {possibleFoods.edges.map(({ node }) => {
+          const food = node.foodByFoodId;
+          return <Layout key={node.id} >
+            <Layout className={classNames.possibleFood} >
+              <FlatButton
+                label={`${food.rowId} ${food.description}`}
+                onClick={() => { this.handleChangeFoodId(food.rowId); }}
+              />
+              <SelectionPossibleMass
+                unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
+                amount={foodSelection.unitAmount}
+                show={!foodSelection.mass}
+                handleClickMassSuggestion={this.handleChangeMass}
+              />
+            </Layout>
+          </Layout>;
+        })}
+      </Layout>;
+    }
 
     return <ActionPanelForm
       title={'Edit Journal Row'}
@@ -195,38 +222,10 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
-      <Layout flexCenter flexWrap >
-        <SelectInput
-          name={'foodIdStatus'}
-          label={'Food ID status'}
-          placeholder={'Assistance with food ID?'}
-        >
-          <MenuItem value={'REQUESTED'} primaryText={'Request'} />
-          <MenuItem value={'ACCEPTED'} primaryText={'Accept'} />
-          <MenuItem value={'REJECTED'} primaryText={'Reject'} />
-          <MenuItem value={'ANSWERED'} primaryText={'Answered'} />
-        </SelectInput>
-        <SelectInput
-          name={'massStatus'}
-          label={'Mass status'}
-          placeholder={'Assistance with mass?'}
-        >
-          <MenuItem value={'REQUESTED'} primaryText={'Request'} />
-          <MenuItem value={'ACCEPTED'} primaryText={'Accept'} />
-          <MenuItem value={'REJECTED'} primaryText={'Reject'} />
-          <MenuItem value={'ANSWERED'} primaryText={'Answered'} />
-        </SelectInput>
-      </Layout>
-      {foodSelection.foodId ? foodLink : childrenWithProps}
+      {foodSelection.foodId && foodSelection.mass ? foodLink : possibleFoodsElement}
       <SelectionNutritionValues
         food={foodSelection.foodByFoodId}
         mass={foodSelection.mass}
-      />
-      <SelectionPossibleMass
-        unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
-        amount={foodSelection.unitAmount}
-        show={!foodSelection.mass}
-        handleClickMassSuggestion={this.handleChangeMass}
       />
       <Layout flexCenter flexWrap >
         <Layout>
@@ -306,9 +305,7 @@ export default createFragmentContainer(JournalEditRecordContainer, {
         fat
         carbs
       }
-      foodIdStatus
       mass
-      massStatus
       unitAmount
       unitDescription
       unitOfMeasureId
@@ -320,6 +317,17 @@ export default createFragmentContainer(JournalEditRecordContainer, {
       physicalModDescription
       date
       time
+      investigationsByFoodSelectionId(first: 2147483647) {
+        edges {
+          node {
+            id
+            foodByFoodId {
+              rowId
+              description
+            }
+          }
+        }
+      }
     }
   `,
 });

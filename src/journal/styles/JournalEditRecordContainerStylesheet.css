@@ -1,0 +1,5 @@
+.contentSubheading { margin: 1em 0 0; }
+.possibleFood {
+  display: flex;
+  align-items: center;
+}

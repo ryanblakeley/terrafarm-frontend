@@ -161,9 +161,7 @@ export default createFragmentContainer(
               fat
               carbs
             }
-            foodIdStatus
             mass
-            massStatus
             unitAmount
             unitDescription
             unitOfMeasureId
