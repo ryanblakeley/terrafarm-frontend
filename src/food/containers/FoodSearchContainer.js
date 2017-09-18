@@ -86,7 +86,7 @@ class FoodSearchContainer extends React.Component {
     const resultElements = searchFoods && searchFoods.edges.map(({ node }) => (
       <Layout key={node.rowId} >
         <Link to={`/food/${node.rowId}`} >
-          <FlatButton label={`#${node.rowId}`} />
+          <FlatButton label={node.rowId} />
           <Span>{node.description}</Span>
         </Link>
       </Layout>
@@ -119,6 +119,17 @@ class FoodSearchContainer extends React.Component {
               <Layout flexCenter flexWrap >
                 <Layout>
                   <TextInput
+                    name={'foodDescription'}
+                    label={'Food description'}
+                    value={description}
+                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                    validationError={validationErrors.normalWords}
+                    maxLength={50}
+                    style={styles.field}
+                  />
+                </Layout>
+                <Layout leftSmall >
+                  <TextInput
                     name={'foodId'}
                     label={'Food ID'}
                     placeholder={'Unique number'}
@@ -126,17 +137,6 @@ class FoodSearchContainer extends React.Component {
                     validations={{ isNumeric: true }}
                     validationError={validationErrors.number}
                     maxLength={8}
-                    style={styles.field}
-                  />
-                </Layout>
-                <Layout leftSmall >
-                  <TextInput
-                    name={'foodDescription'}
-                    label={'Food description'}
-                    value={description}
-                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                    validationError={validationErrors.normalWords}
-                    maxLength={50}
                     style={styles.field}
                   />
                 </Layout>

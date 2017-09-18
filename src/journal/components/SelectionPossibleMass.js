@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
-import { ErrorMessage } from 'shared/components/Typography';
+import { Span, ErrorMessage } from 'shared/components/Typography';
 import { FlatButton } from 'shared/components/Material';
 
 const propTypes = {
@@ -49,11 +49,14 @@ class SelectionPossibleMass extends React.Component {
       </Layout>;
     }
 
-    return <FlatButton
-      label={`${massSuggestion} grams`}
-      onClick={() => { handleClickMassSuggestion(massSuggestion); }}
-      className={className}
-    />;
+    return <Layout>
+      <FlatButton
+        label={massSuggestion}
+        onClick={() => { handleClickMassSuggestion(massSuggestion); }}
+        className={className}
+      />
+      <Span>grams</Span>
+    </Layout>;
   }
 }
 

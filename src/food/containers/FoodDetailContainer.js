@@ -3,10 +3,16 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import { H3, P } from 'shared/components/Typography';
+import { H3, P, WarningMessage } from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import classNames from '../styles/FoodDetailContainerStylesheet.css';
+
+/*
+TODO
+
+use <dl> and <dd> instead of <P>label <strong>value</strong></P>
+*/
 
 const propTypes = {
   foodByRowId: PropTypes.object.isRequired,
@@ -45,6 +51,7 @@ const FoodDetailContainer = props => {
   const carbFactorLabel = <P className={classNames.macroFactor}>
     Carb Factor: <strong>{carbFactor}</strong>
   </P>;
+  const brandLabel = <P className={classNames.brand}>Brand: <strong>{brandName}</strong></P>;
 
   return <TransitionWrapper>
     <Layout page >
@@ -61,7 +68,8 @@ const FoodDetailContainer = props => {
       {proteinFactor && proteinFactorLabel}
       {fatFactor && fatFactorLabel}
       {carbFactor && carbFactorLabel}
-      {brandName && <P className={classNames.brand}>Brand: {brandName}</P>}
+      {brandName && brandLabel}
+      <P><WarningMessage>More details coming soon</WarningMessage></P>
     </Layout>
   </TransitionWrapper>;
 };

@@ -3,15 +3,15 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import ActionPanelForm from 'shared/components/ActionPanelForm';
 import Layout from 'shared/components/Layout';
-import { H4, P, Link, ErrorMessage } from 'shared/components/Typography';
+import { P, Link } from 'shared/components/Typography';
 import { FlatButton } from 'shared/components/Material';
+import { SearchIcon } from 'shared/components/Icons';
 import { TextInput } from 'shared/components/Form';
 import validations, { validationErrors, conversions } from 'tools/validations';
 import SelectionNutritionValues from '../components/SelectionNutritionValues';
-import SelectionPossibleMass from '../components/SelectionPossibleMass';
+import SelectionInvestigations from '../components/SelectionInvestigations';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
-import classNames from '../styles/JournalEditRecordContainerStylesheet.css';
 
 const styles = {
   field: {
@@ -106,9 +106,7 @@ class JournalEditRecordContainer extends React.Component {
   render () {
     const { foodSelectionByRowId: foodSelection, notifyClose } = this.props;
     const { error } = this.state;
-    const foodLinkLabel = foodSelection.foodByFoodId
-      ? foodSelection.foodByFoodId.description
-      : `Food #${foodSelection.foodId}`;
+    const foodLinkLabel = foodSelection.foodByFoodId && foodSelection.foodByFoodId.description;
     const foodLink = <Layout center >
       <P>
         <Link to={`/food/${foodSelection.foodId}`} >
@@ -117,36 +115,6 @@ class JournalEditRecordContainer extends React.Component {
       </P>
     </Layout>;
     const possibleFoods = foodSelection.investigationsByFoodSelectionId;
-    let possibleFoodsElement;
-
-    if (!possibleFoods.edges.length) {
-      possibleFoodsElement = <Layout center >
-        <ErrorMessage>Food ID is needed to calculate nutrition values.</ErrorMessage>
-      </Layout>;
-    } else {
-      possibleFoodsElement = <Layout center >
-        <Layout>
-          <H4 className={classNames.contentSubheading} >Possible food and mass</H4>
-        </Layout>
-        {possibleFoods.edges.map(({ node }) => {
-          const food = node.foodByFoodId;
-          return <Layout key={node.id} >
-            <Layout className={classNames.possibleFood} >
-              <FlatButton
-                label={`${food.rowId} ${food.description}`}
-                onClick={() => { this.handleChangeFoodId(food.rowId); }}
-              />
-              <SelectionPossibleMass
-                unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
-                amount={foodSelection.unitAmount}
-                show={!foodSelection.mass}
-                handleClickMassSuggestion={this.handleChangeMass}
-              />
-            </Layout>
-          </Layout>;
-        })}
-      </Layout>;
-    }
 
     return <ActionPanelForm
       title={'Edit Journal Row'}
@@ -222,7 +190,27 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
-      {foodSelection.foodId && foodSelection.mass ? foodLink : possibleFoodsElement}
+      {foodSelection.foodId && foodSelection.mass
+        ? foodLink
+        : (
+          <SelectionInvestigations
+            foodSelection={foodSelection}
+            possibleFoods={possibleFoods}
+            handleChangeFoodId={this.handleChangeFoodId}
+            handleChangeMass={this.handleChangeMass}
+          />
+        )
+      }
+      <Layout center >
+        <P>
+          <Link to={`/food?description=${foodSelection.foodDescription}`} >
+            <FlatButton
+              icon={<SearchIcon />}
+              label={'Food search'}
+            />
+          </Link>
+        </P>
+      </Layout>
       <SelectionNutritionValues
         food={foodSelection.foodByFoodId}
         mass={foodSelection.mass}
