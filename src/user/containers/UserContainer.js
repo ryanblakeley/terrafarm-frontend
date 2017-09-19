@@ -2,14 +2,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
-import { PersonIcon } from 'shared/components/Icons';
+import { PersonIcon, JournalIcon, BookmarkIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import { P, Link } from 'shared/components/Typography';
+import { P } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,
   children: PropTypes.object,
+  router: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -17,22 +19,41 @@ const defaultProps = {
 };
 
 const UserContainer = props => {
-  const userId = props.userByRowId.rowId;
+  const { userByRowId, router, location, children } = props;
+  const userId = userByRowId.rowId;
+  const baseUrl = `/user/${userId}`;
+  const journalUrl = 'journal';
+  const presetsUrl = 'presets';
 
   return <TransitionWrapper>
     <Layout page>
       <Menu
-        baseUrl={`/user/${userId}/`}
+        baseUrl={baseUrl}
         header={{ icon: <PersonIcon />, title: 'User' }}
-        disabled
+        disabled={false}
+        router={router}
+        location={location}
+        list={[
+          {
+            icon: <JournalIcon />,
+            title: 'Journal',
+            baseUrl,
+            url: journalUrl,
+            disabled: false,
+          },
+          {
+            icon: <BookmarkIcon />,
+            title: 'Presets',
+            baseUrl,
+            url: presetsUrl,
+            disabled: false,
+          },
+        ]}
       />
-      <P>
-        <Link to={`/user/${userId}/journal`} underline >Journal</Link>
+      <P style={{ marginBottom: '5em' }} >
+        User ID: <strong>{userByRowId.rowId}</strong>
       </P>
-      <P>
-        <Link to={`/user/${userId}/presets`} underline >Presets</Link>
-      </P>
-      {props.children}
+      {children}
     </Layout>
   </TransitionWrapper>;
 };

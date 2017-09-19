@@ -19,6 +19,8 @@ const propTypes = {
   handleOpen: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleCloseImmediate: PropTypes.func,
+  router: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -28,18 +30,31 @@ const defaultProps = {
   },
 };
 
-const MenuList = props => <div
-  className={cx({ this: true, open: props.open })}
-  onMouseEnter={() => props.handleOpen()}
-  onMouseLeave={() => props.handleClose()}
->
-  {props.list.map(item => !item.disabled && <MenuListItem
-    {...item}
-    key={item.title}
-    baseUrl={props.baseUrl}
-    closeImmediate={props.handleCloseImmediate}
-  />)}
-</div>;
+const MenuList = props => {
+  const {
+    list,
+    open,
+    handleOpen,
+    handleClose,
+    handleCloseImmediate,
+    router,
+    location,
+  } = props;
+
+  return <div
+    className={cx({ this: true, open })}
+    onMouseEnter={() => handleOpen()}
+    onMouseLeave={() => handleClose()}
+  >
+    {list.map(item => !item.disabled && <MenuListItem
+      {...item}
+      key={item.title}
+      closeImmediate={handleCloseImmediate}
+      router={router}
+      location={location}
+    />)}
+  </div>;
+};
 
 MenuList.propTypes = propTypes;
 MenuList.defaultProps = defaultProps;

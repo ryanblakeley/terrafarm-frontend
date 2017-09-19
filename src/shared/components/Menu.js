@@ -20,6 +20,8 @@ const propTypes = {
   // notifyReset: PropTypes.func,
   disabled: PropTypes.bool,
   timeoutDelay: PropTypes.number,
+  router: PropTypes.object,
+  location: PropTypes.object,
 };
 
 const defaultProps = {
@@ -27,6 +29,8 @@ const defaultProps = {
   list: null,
   disabled: true,
   timeoutDelay: 310,
+  router: {},
+  location: {},
 };
 
 class Menu extends React.Component {
@@ -65,7 +69,7 @@ class Menu extends React.Component {
     this.setState({ open: false });
   }
   render () {
-    const { header, list, baseUrl, disabled } = this.props;
+    const { header, list, baseUrl, disabled, router, location } = this.props;
     const { open } = this.state;
 
     return <div className={classNames.this} >
@@ -85,6 +89,8 @@ class Menu extends React.Component {
         handleOpen={this.setOpen}
         handleClose={this.setClose}
         handleCloseImmediate={this.setCloseImmediate}
+        router={router}
+        location={location}
       />}
     </div>;
   }
