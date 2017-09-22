@@ -7,7 +7,7 @@ import Layout from 'shared/components/Layout';
 import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
-import { JournalIcon } from 'shared/components/Icons';
+import { JournalIcon, BookmarkIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import JournalDateRootContainer from 'journal/containers/JournalDateRootContainer';
 import classNames from '../styles/JournalContainerStylesheet.css';
@@ -16,6 +16,7 @@ const propTypes = {
   userByRowId: PropTypes.object.isRequired,
   children: PropTypes.object,
   router: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   relay: PropTypes.object.isRequired,
 };
@@ -111,8 +112,17 @@ class JournalContainer extends React.Component {
     }
   }
   render () {
-    const { userByRowId: user, children, router, match, relay } = this.props;
+    const {
+      userByRowId: user,
+      children,
+      router,
+      location,
+      match,
+      relay,
+    } = this.props;
     const { latestDate, datesCount } = this.state;
+    const baseUrl = `/user/${user.rowId}`;
+    const presetsUrl = 'presets';
 
     if (!user) return <NotFoundPage message={'User not found.'} />;
 
@@ -134,7 +144,18 @@ class JournalContainer extends React.Component {
         <Menu
           baseUrl={`/journal/${user.rowId}`}
           header={{ icon: <JournalIcon />, title: 'Journal' }}
-          disabled
+          disabled={false}
+          router={router}
+          location={location}
+          list={[
+            {
+              icon: <BookmarkIcon />,
+              title: 'Presets',
+              baseUrl,
+              url: presetsUrl,
+              disabled: false,
+            },
+          ]}
         />
       </Layout>
       <Layout topSmall className={classNames.this} >

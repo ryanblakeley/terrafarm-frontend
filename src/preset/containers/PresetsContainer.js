@@ -6,7 +6,7 @@ import Layout from 'shared/components/Layout';
 import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
-import { BookmarkIcon } from 'shared/components/Icons';
+import { BookmarkIcon, JournalIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import PresetContainer from './PresetContainer';
 import classNames from '../styles/PresetsContainerStylesheet.css';
@@ -14,6 +14,7 @@ import classNames from '../styles/PresetsContainerStylesheet.css';
 const propTypes = {
   userByRowId: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   children: PropTypes.element,
 };
 
@@ -23,8 +24,15 @@ const defaultProps = {
 
 class PresetsContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render () {
-    const { userByRowId: user, router, children } = this.props;
+    const {
+      userByRowId: user,
+      router,
+      location,
+      children,
+    } = this.props;
     const presets = user && user.presetsByUserId;
+    const baseUrl = `/user/${user.rowId}`;
+    const journalUrl = 'journal';
     const presetContainers = presets.edges.map(({ node }) => (
       <PresetContainer key={node.id} preset={node} />
     ));
@@ -35,7 +43,18 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
         <Menu
           baseUrl={`/user/${user.rowId}/presets`}
           header={{ icon: <BookmarkIcon />, title: 'Presets' }}
-          disabled
+          disabled={false}
+          router={router}
+          location={location}
+          list={[
+            {
+              icon: <JournalIcon />,
+              title: 'Journal',
+              baseUrl,
+              url: journalUrl,
+              disabled: false,
+            },
+          ]}
         />
       </Layout>
       <Layout topSmall className={classNames.this} >
