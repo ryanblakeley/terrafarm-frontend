@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
-import { PersonIcon, JournalIcon, BookmarkIcon } from 'shared/components/Icons';
+import { PersonIcon, JournalIcon, BookmarkIcon, FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import { P } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
@@ -24,6 +24,7 @@ const UserContainer = props => {
   const baseUrl = `/user/${userId}`;
   const journalUrl = 'journal';
   const presetsUrl = 'presets';
+  const foodUrl = 'food';
 
   return <TransitionWrapper>
     <Layout page>
@@ -48,9 +49,16 @@ const UserContainer = props => {
             url: presetsUrl,
             disabled: false,
           },
+          {
+            icon: <FoodIcon />,
+            title: 'Foods',
+            baseUrl: '',
+            url: foodUrl,
+            disabled: false,
+          },
         ]}
       />
-      <P style={{ marginBottom: '5em' }} >
+      <P style={{ marginBottom: 150 }} >
         User ID: <strong>{userByRowId.rowId}</strong>
       </P>
       {children}
