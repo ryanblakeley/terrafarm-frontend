@@ -195,8 +195,7 @@ class JournalEditRecordContainer extends React.Component {
         </Layout>
       </Layout>
       {foodSelection.foodId && foodLink}
-      {foodSelection.foodId
-        && foodSelection.mass
+      {!(foodSelection.foodId && foodSelection.mass)
         && <SelectionInvestigations
           foodSelection={foodSelection}
           possibleFoods={possibleFoods}
