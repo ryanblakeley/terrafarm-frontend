@@ -95,10 +95,14 @@ class JournalEditRecordContainer extends React.Component {
         && patch.foodDescription !== foodSelection.foodDescription,
     });
 
+    const formattedPatch = Object.assign({}, patch, {
+      unitAmount: patch.unitAmount || null,
+    });
+
     UpdateFoodSelectionMutation.commit(
       relay.environment,
       foodSelection,
-      patch,
+      formattedPatch,
       this.handleSuccess,
       this.handleFailure,
     );
@@ -190,18 +194,17 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
-      {foodSelection.foodId && foodSelection.mass
-        ? foodLink
-        : (
-          <SelectionInvestigations
-            foodSelection={foodSelection}
-            possibleFoods={possibleFoods}
-            handleChangeFoodId={this.handleChangeFoodId}
-            handleChangeMass={this.handleChangeMass}
-          />
-        )
+      {foodSelection.foodId && foodLink}
+      {foodSelection.foodId
+        && foodSelection.mass
+        && <SelectionInvestigations
+          foodSelection={foodSelection}
+          possibleFoods={possibleFoods}
+          handleChangeFoodId={this.handleChangeFoodId}
+          handleChangeMass={this.handleChangeMass}
+        />
       }
-      <Layout center >
+      {!foodSelection.foodId && <Layout center >
         <P>
           <Link to={`/food?description=${foodSelection.foodDescription}`} >
             <FlatButton
@@ -210,7 +213,7 @@ class JournalEditRecordContainer extends React.Component {
             />
           </Link>
         </P>
-      </Layout>
+      </Layout>}
       <SelectionNutritionValues
         food={foodSelection.foodByFoodId}
         mass={foodSelection.mass}

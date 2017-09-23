@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Layout from 'shared/components/Layout';
-import { WarningMessage } from 'shared/components/Typography';
+import { P, WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
 import { JournalIcon, BookmarkIcon, FoodIcon } from 'shared/components/Icons';
@@ -99,25 +99,15 @@ class JournalContainer extends React.Component {
     if (windowBottom >= docHeight) {
       // Add dates to view if older journal records exist
       const { latestDate, oldestDate, datesCount } = this.state;
-
       const hasMoreDates = latestDate && oldestDate && (
-        new Date(this.dateByDaysAgo(latestDate, datesCount)) > new Date(oldestDate)
+        new Date(this.dateByDaysAgo(latestDate, datesCount)) >=
+        new Date(this.dateByDaysAgo(oldestDate, 0))
       );
 
       if (hasMoreDates) {
-        console.log('Has more dates A');
-      }
-
-      if (latestDate && oldestDate) {
-        const oldestDateShowing = this.dateByDaysAgo(latestDate, datesCount);
-
-        if (new Date(oldestDateShowing) > new Date(oldestDate)) {
-          this.setState({
-            datesCount: this.state.datesCount += 1,
-          });
-
-          console.log('Has more dates B');
-        }
+        this.setState({
+          datesCount: this.state.datesCount += 1,
+        });
       }
     }
   }
@@ -130,7 +120,7 @@ class JournalContainer extends React.Component {
       match,
       relay,
     } = this.props;
-    const { latestDate, datesCount } = this.state;
+    const { latestDate, oldestDate, datesCount } = this.state;
     const baseUrl = `/user/${user.rowId}`;
     const presetsUrl = 'presets';
     const foodUrl = 'food';
@@ -138,6 +128,10 @@ class JournalContainer extends React.Component {
     if (!user) return <NotFoundPage message={'User not found.'} />;
 
     const dates = this.getDates(latestDate, datesCount);
+    const hasMoreDates = latestDate && oldestDate && (
+      new Date(dates[dates.length - 1]) > new Date(this.dateByDaysAgo(oldestDate, 0))
+    );
+
     const journalDateRootContainers = dates.map(d => (
       <JournalDateRootContainer
         key={d}
@@ -189,6 +183,11 @@ class JournalContainer extends React.Component {
           </ActionPanel>
         </Layout>}
       </Layout>
+      {hasMoreDates && <P center >
+        <WarningMessage>
+          Scroll for more dates
+        </WarningMessage>
+      </P>}
     </TransitionWrapper>;
   }
 }

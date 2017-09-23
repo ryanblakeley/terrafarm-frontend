@@ -16,7 +16,7 @@ const propTypes = {
 const SelectionInvestigations = props => {
   const { foodSelection, possibleFoods, handleChangeFoodId, handleChangeMass } = props;
 
-  // if (possibleFoods.edges.length < 1) { return null }
+  if (possibleFoods.edges.length < 1) { return null; }
 
   return <Layout center >
     <Layout>
