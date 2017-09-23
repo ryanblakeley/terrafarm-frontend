@@ -7,7 +7,7 @@ import Layout from 'shared/components/Layout';
 import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
-import { JournalIcon, BookmarkIcon } from 'shared/components/Icons';
+import { JournalIcon, BookmarkIcon, FoodIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import JournalDateRootContainer from 'journal/containers/JournalDateRootContainer';
 import classNames from '../styles/JournalContainerStylesheet.css';
@@ -100,6 +100,14 @@ class JournalContainer extends React.Component {
       // Add dates to view if older journal records exist
       const { latestDate, oldestDate, datesCount } = this.state;
 
+      const hasMoreDates = latestDate && oldestDate && (
+        new Date(this.dateByDaysAgo(latestDate, datesCount)) > new Date(oldestDate)
+      );
+
+      if (hasMoreDates) {
+        console.log('Has more dates A');
+      }
+
       if (latestDate && oldestDate) {
         const oldestDateShowing = this.dateByDaysAgo(latestDate, datesCount);
 
@@ -107,6 +115,8 @@ class JournalContainer extends React.Component {
           this.setState({
             datesCount: this.state.datesCount += 1,
           });
+
+          console.log('Has more dates B');
         }
       }
     }
@@ -123,6 +133,7 @@ class JournalContainer extends React.Component {
     const { latestDate, datesCount } = this.state;
     const baseUrl = `/user/${user.rowId}`;
     const presetsUrl = 'presets';
+    const foodUrl = 'food';
 
     if (!user) return <NotFoundPage message={'User not found.'} />;
 
@@ -153,6 +164,13 @@ class JournalContainer extends React.Component {
               title: 'Presets',
               baseUrl,
               url: presetsUrl,
+              disabled: false,
+            },
+            {
+              icon: <FoodIcon />,
+              title: 'Foods',
+              baseUrl: '',
+              url: foodUrl,
               disabled: false,
             },
           ]}

@@ -6,7 +6,7 @@ import Layout from 'shared/components/Layout';
 import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
-import { BookmarkIcon, JournalIcon } from 'shared/components/Icons';
+import { BookmarkIcon, JournalIcon, FoodIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import PresetContainer from './PresetContainer';
 import classNames from '../styles/PresetsContainerStylesheet.css';
@@ -33,6 +33,7 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
     const presets = user && user.presetsByUserId;
     const baseUrl = `/user/${user.rowId}`;
     const journalUrl = 'journal';
+    const foodUrl = 'food';
     const presetContainers = presets.edges.map(({ node }) => (
       <PresetContainer key={node.id} preset={node} />
     ));
@@ -52,6 +53,13 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
               title: 'Journal',
               baseUrl,
               url: journalUrl,
+              disabled: false,
+            },
+            {
+              icon: <FoodIcon />,
+              title: 'Foods',
+              baseUrl: '',
+              url: foodUrl,
               disabled: false,
             },
           ]}
