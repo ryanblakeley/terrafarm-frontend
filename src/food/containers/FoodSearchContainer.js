@@ -97,7 +97,7 @@ class FoodSearchContainer extends React.Component {
       <Layout page >
         <Menu
           baseUrl={'/food'}
-          header={{ icon: <FoodIcon />, title: 'Food' }}
+          header={{ icon: <FoodIcon />, title: 'Foods' }}
           disabled
         />
       </Layout>
