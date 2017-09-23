@@ -47,7 +47,7 @@ const AppName = props => <h1
   title={props.title}
 />;
 const P = props => <p
-  className={`${props.className ? props.className : ''} ${props.large ? classNames.paragraphLarge : classNames.paragraph}`}
+  className={`${props.className ? props.className : ''} ${props.large ? classNames.paragraphLarge : classNames.paragraph} ${props.center ? classNames.center : ''}`}
   children={props.children}
   style={props.style}
   title={props.title}

@@ -116,6 +116,7 @@ html { font-size: 14px; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.center { text-align: center; }
 
 /*
 @media only screen and (min-width: 320px) {  }
