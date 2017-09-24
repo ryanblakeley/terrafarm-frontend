@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars, max-len */
 import React from 'react';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Layout from 'shared/components/Layout';
-import { AppName, P } from 'shared/components/Typography';
+import { AppName, P, WarningMessage, A, UL, LI } from 'shared/components/Typography';
 import { LogoFullIcon } from 'shared/components/Icons';
 import classNames from '../styles/HomePageStylesheet.css';
 
@@ -11,24 +12,42 @@ const LogoLarge = () => <AppName className={classNames.appName}>
 
 const Tagline = () => <Layout
   center
-  style={{ width: '90%', maxWidth: 550 }}
+  style={{ width: '90%', maxWidth: 450 }}
 >
   <P large>
-    Measure your food intake.
+    Track your diet by text messaging about the food you eat.
   </P>
 </Layout>;
 
+const emailLink = <A
+  href={'mailto:info@terra.farm'}
+  target={null}
+  style={{ textDecoration: 'underline' }}
+>
+  info@terra.farm
+</A>;
+
+const MoreInfo = () => <Layout
+  center
+  style={{ width: '90%', maxWidth: 350, textAlign: 'center' }}
+>
+  <P>
+    <WarningMessage>
+      Email {emailLink} to get access.
+    </WarningMessage>
+  </P>
+</Layout>;
 /*
-<MoreInfo />
-
-This is currently a private alpha release. To request the robot's phone number, send an email to
-info@terra.farm
+  <UL plumb >
+    <LI noBullet ></LI>
+    <LI noBullet ></LI>
+  </UL>
 */
-
 const HomePage = () => <TransitionWrapper>
   <Layout page center bottomMedium>
     <LogoLarge />
     <Tagline />
+    <MoreInfo />
   </Layout>
 </TransitionWrapper>;
 
