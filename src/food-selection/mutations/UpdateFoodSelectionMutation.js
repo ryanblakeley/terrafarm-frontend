@@ -24,8 +24,6 @@ const mutation = graphql`
           category
           siFactor
         }
-        brandDescription
-        physicalModDescription
         date
         time
       }

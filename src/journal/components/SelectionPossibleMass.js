@@ -42,9 +42,9 @@ class SelectionPossibleMass extends React.Component {
     const massSuggestion = this.getMassSuggestion();
 
     if (!massSuggestion) {
-      return <Layout center >
+      return <Layout leftSmall >
         <ErrorMessage>
-          Mass is needed to calculate nutrition values.
+          Mass missing
         </ErrorMessage>
       </Layout>;
     }

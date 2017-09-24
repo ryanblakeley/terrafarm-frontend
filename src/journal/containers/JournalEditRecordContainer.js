@@ -217,6 +217,7 @@ class JournalEditRecordContainer extends React.Component {
         food={foodSelection.foodByFoodId}
         mass={foodSelection.mass}
       />
+      {/*
       <Layout flexCenter flexWrap >
         <Layout>
           <TextInput
@@ -242,6 +243,7 @@ class JournalEditRecordContainer extends React.Component {
           />
         </Layout>
       </Layout>
+      */}
       <Layout flexCenter flexWrap >
         <Layout>
           <TextInput
@@ -303,8 +305,6 @@ export default createFragmentContainer(JournalEditRecordContainer, {
         category
         siFactor
       }
-      brandDescription
-      physicalModDescription
       date
       time
       investigationsByFoodSelectionId(first: 2147483647) {

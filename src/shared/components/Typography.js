@@ -63,7 +63,7 @@ const A = props => <a
   className={`${props.className ? props.className : ''} ${classNames.externalLink}`}
   children={props.children}
   style={props.style}
-  target={'_blank'}
+  target={props.target}
   title={props.title}
 />;
 const Link = props => <InternalLink
@@ -153,8 +153,11 @@ Span.defaultProps = commonDefaultProps;
 
 A.propTypes = Object.assign({}, commonPropTypes, {
   href: PropTypes.string.isRequired,
+  target: PropTypes.string,
 });
-A.defaultProps = commonDefaultProps;
+A.defaultProps = Object.assign({}, commonDefaultProps, {
+  target: '_blank',
+});
 
 Link.propTypes = Object.assign({}, commonPropTypes, {
   to: PropTypes.oneOfType([

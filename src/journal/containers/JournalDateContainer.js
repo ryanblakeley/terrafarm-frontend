@@ -165,8 +165,6 @@ export default createFragmentContainer(
             unitAmount
             unitDescription
             unitOfMeasureId
-            physicalModDescription
-            brandDescription
             time
             date
           }

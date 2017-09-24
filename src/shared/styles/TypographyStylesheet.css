@@ -75,8 +75,7 @@ html { font-size: 14px; }
 .disabledLink { pointer-events: none; }
 .errorMessage {
   composes: bodyText;
-  margin: 1em auto;
-  width: 86%;
+  margin: 0;
   color: #D84315;
 }
 .warningMessage {
