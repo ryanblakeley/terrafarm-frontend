@@ -2,10 +2,18 @@
 
 ## Changelog
 
-### HEAD 0.3.0-alpha.2
+### HEAD 0.3.0-alpha.3
 
 - fix react hot loader config
 - bump deps
+- expanded food search
+- pages for journal, presets, user, food
+- basic navigation
+- food selection list with table layout
+- edit food selection form
+
+### 0.3.0-alpha.2
+
 - add working journal example
 - upgrade to Relay Modern
 - switch from react-router-relay to found-relay
