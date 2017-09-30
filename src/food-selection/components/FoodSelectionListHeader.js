@@ -5,23 +5,29 @@ import { Span } from 'shared/components/Typography';
 import classNames from '../styles/FoodSelectionListHeaderStylesheet.css';
 
 const propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.string,
+  presetName: PropTypes.string,
   calories: PropTypes.number.isRequired,
   protein: PropTypes.number.isRequired,
   fat: PropTypes.number.isRequired,
   carbs: PropTypes.number.isRequired,
-  completeCount: PropTypes.number.isRequired,
-  recordsCount: PropTypes.number.isRequired,
+  // completeCount: PropTypes.number.isRequired,
+  // recordsCount: PropTypes.number.isRequired,
+};
+
+const defaultProps = {
+  date: null,
+  presetName: '',
 };
 
 const FoodSelectionListHeader = props => {
-  const { date, calories, protein, fat, carbs, completeCount, recordsCount } = props;
+  const { date, presetName, calories, protein, fat, carbs } = props;
 
   return <Layout className={classNames.this} >
-    <Span className={classNames.date} title={'Date YYYY-MM-DD'} >
-      {date}
-    </Span>
-    <Span className={`${classNames.macro} ${classNames.cal}`} title={'Calories'} >
+    {date
+        ? <Span className={classNames.macro} title={'Date YYYY-MM-DD'} >{date}</Span>
+        : <Span className={classNames.macro} title={'Preset Name'} >{presetName}</Span>}
+    <Span className={classNames.macro} title={'Calories'} >
       {calories}
     </Span>
     <Span className={classNames.macro} title={'Protein'} >
@@ -33,12 +39,15 @@ const FoodSelectionListHeader = props => {
     <Span className={classNames.macro} title={'Total Carb.'} >
       {carbs}
     </Span>
+    {/*
     <Span className={classNames.completeness} title={'Complete / Total rows'} >
       {completeCount} / {recordsCount}
     </Span>
+    */}
   </Layout>;
 };
 
 FoodSelectionListHeader.propTypes = propTypes;
+FoodSelectionListHeader.defaultProps = defaultProps;
 
 export default FoodSelectionListHeader;

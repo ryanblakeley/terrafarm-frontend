@@ -19,8 +19,11 @@ const Tagline = () => <Layout
   </P>
 </Layout>;
 
+const emailLinkSubject = encodeURIComponent('Request for access');
+const emailLinkBody = encodeURIComponent('Hi,\n\nI like to eat ______.\nI\'d like to try the diet tracker because ______.');
+const emailLinkUrl = `mailto:info@terra.farm?subject=${emailLinkSubject}&body=${emailLinkBody}`;
 const emailLink = <A
-  href={'mailto:info@terra.farm'}
+  href={emailLinkUrl}
   target={null}
   style={{ textDecoration: 'underline' }}
 >

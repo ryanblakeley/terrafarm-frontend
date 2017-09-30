@@ -103,7 +103,7 @@ class FoodSearchContainer extends React.Component {
       </Layout>
       <Layout topSmall className={classNames.this} >
         <Layout className={classNames.journalDatesWrapper} >
-          <H3>Results</H3>
+          <H3>Results for &quot;{description}&quot;</H3>
           {resultElements.length > 0 ? resultElements : emptyResultsWarning}
         </Layout>
         <Layout className={classNames.actionPanelWrapper} >

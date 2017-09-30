@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import NotFoundPage from 'not-found/components/NotFoundPage';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import { PersonIcon, JournalIcon, BookmarkIcon, FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
@@ -20,11 +21,13 @@ const defaultProps = {
 
 const UserContainer = props => {
   const { userByRowId, router, location, children } = props;
-  const userId = userByRowId.rowId;
+  const userId = userByRowId && userByRowId.rowId;
   const baseUrl = `/user/${userId}`;
   const journalUrl = 'journal';
   const presetsUrl = 'presets';
   const foodUrl = 'food';
+
+  if (!userId) return <NotFoundPage message={'User not found.'} />;
 
   return <TransitionWrapper>
     <Layout page>

@@ -128,13 +128,23 @@ class ActionPanelForm extends React.Component {
         </Layout>}
         {error && <FormError text={errorMessage} />}
         {showForm && children}
-        <Layout center topSmall >
+        {showForm && <Layout center topSmall >
+          {submitLabel === '' && <RaisedButton
+            label={'Save'}
+            primary
+            type={'submit'}
+            disabled={!canSubmit}
+          />}
+          {cancelButton && <FlatButton
+            label={'Close'}
+            onTouchTap={this.handleClose}
+          />}
           {onDelete && <FlatButton
             label={'Delete'}
             secondary
             onTouchTap={this.handleClickDelete}
           />}
-        </Layout>
+        </Layout>}
       </Form>
     </Layout>;
   }

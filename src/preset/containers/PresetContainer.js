@@ -28,6 +28,8 @@ class PresetContainer extends React.Component {
         node.foodSelectionBySelectionId
       ));
 
+    // console.log('food selections:', foodSelections);
+
     if (foodSelections) {
       this.sumMacros(foodSelections.map(s => (
         this.calculateNutrition(s)
@@ -43,6 +45,7 @@ class PresetContainer extends React.Component {
       ));
 
     // TODO: smarter condition for recalculating macros
+    // console.log('food selections:', foodSelections);
 
     if (foodSelections) {
       this.sumMacros(foodSelections.map(s => (
@@ -52,6 +55,8 @@ class PresetContainer extends React.Component {
   }
   calculateNutrition = foodSelection => {
     const { foodByFoodId: food, mass } = foodSelection;
+
+    // console.log('calc nutrition:', foodSelection);
 
     if (food && mass) {
       const factor = mass / 100;
@@ -108,7 +113,7 @@ class PresetContainer extends React.Component {
         foodId,
         mass,
       } = s;
-      const url = `/user/${preset.userId}/journal/edit/${rowId}`;
+      const url = ''; // `/user/${preset.userId}/journal/edit/${rowId}`;
 
       return <FoodSelectionListItem
         key={rowId}
@@ -122,7 +127,7 @@ class PresetContainer extends React.Component {
 
     return <Layout center >
       <FoodSelectionListHeader
-        date={preset.name}
+        presetName={preset.name}
         calories={calories}
         protein={protein}
         fat={fat}

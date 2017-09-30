@@ -134,6 +134,7 @@ class JournalEditRecordContainer extends React.Component {
           <TextInput
             name={'foodDescription'}
             label={'Food description*'}
+            placeholder={'Words'}
             value={foodSelection.foodDescription}
             validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
             validationError={validationErrors.normalWords}
@@ -158,7 +159,8 @@ class JournalEditRecordContainer extends React.Component {
           <Layout leftSmall >
             <TextInput
               name={'unitDescription'}
-              label={'Unit name'}
+              label={'Unit'}
+              placeholder={'Word'}
               value={foodSelection.unitDescription}
               validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
               validationError={validationErrors.normalWords}

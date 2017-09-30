@@ -7,7 +7,7 @@ import Layout from 'shared/components/Layout';
 import { P, WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
-import { JournalIcon, BookmarkIcon, FoodIcon } from 'shared/components/Icons';
+import { JournalIcon, BookmarkIcon, FoodIcon, PersonIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import JournalDateRootContainer from 'journal/containers/JournalDateRootContainer';
 import classNames from '../styles/JournalContainerStylesheet.css';
@@ -121,11 +121,12 @@ class JournalContainer extends React.Component {
       relay,
     } = this.props;
     const { latestDate, oldestDate, datesCount } = this.state;
-    const baseUrl = `/user/${user.rowId}`;
+    const userId = user && user.rowId;
+    const baseUrl = `/user/${userId}`;
     const presetsUrl = 'presets';
     const foodUrl = 'food';
 
-    if (!user) return <NotFoundPage message={'User not found.'} />;
+    if (!userId) return <NotFoundPage message={'User not found.'} />;
 
     const dates = this.getDates(latestDate, datesCount);
     const hasMoreDates = latestDate && oldestDate && (
@@ -135,7 +136,7 @@ class JournalContainer extends React.Component {
     const journalDateRootContainers = dates.map(d => (
       <JournalDateRootContainer
         key={d}
-        userId={user.rowId}
+        userId={userId}
         date={d}
         router={router}
         match={match}
@@ -147,7 +148,7 @@ class JournalContainer extends React.Component {
     return <TransitionWrapper>
       <Layout page >
         <Menu
-          baseUrl={`/journal/${user.rowId}`}
+          baseUrl={`/journal/${userId}`}
           header={{ icon: <JournalIcon />, title: 'Journal' }}
           disabled={false}
           router={router}
@@ -167,6 +168,13 @@ class JournalContainer extends React.Component {
               url: foodUrl,
               disabled: false,
             },
+            {
+              icon: <PersonIcon />,
+              title: 'Profile',
+              baseUrl: '',
+              url: `user/${userId}`,
+              disabled: false,
+            },
           ]}
         />
       </Layout>
@@ -177,7 +185,7 @@ class JournalContainer extends React.Component {
         </Layout>
         {children && <Layout className={classNames.actionPanelWrapper} >
           <ActionPanel
-            notifyClose={() => router.replace(`/user/${user.rowId}/journal`)}
+            notifyClose={() => router.replace(`/user/${userId}/journal`)}
           >
             {children}
           </ActionPanel>

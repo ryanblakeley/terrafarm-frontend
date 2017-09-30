@@ -6,7 +6,7 @@ import Layout from 'shared/components/Layout';
 import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
-import { BookmarkIcon, JournalIcon, FoodIcon } from 'shared/components/Icons';
+import { BookmarkIcon, JournalIcon, FoodIcon, PersonIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import PresetContainer from './PresetContainer';
 import classNames from '../styles/PresetsContainerStylesheet.css';
@@ -62,6 +62,13 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
               url: foodUrl,
               disabled: false,
             },
+            {
+              icon: <PersonIcon />,
+              title: 'Profile',
+              baseUrl: '',
+              url: `user/${user.rowId}`,
+              disabled: false,
+            },
           ]}
         />
       </Layout>
@@ -100,7 +107,7 @@ export default createFragmentContainer(
             id
             name
             userId
-            presetSelectionsByPresetId {
+            presetSelectionsByPresetId(first: 2147483647) {
               edges {
                 node {
                   foodSelectionBySelectionId {
@@ -108,8 +115,15 @@ export default createFragmentContainer(
                     foodDescription
                     unitAmount
                     unitDescription
-                    foodId
                     mass
+                    foodId
+                    foodByFoodId {
+                      rowId
+                      calories
+                      protein
+                      fat
+                      carbs
+                    }
                   }
                 }
               }

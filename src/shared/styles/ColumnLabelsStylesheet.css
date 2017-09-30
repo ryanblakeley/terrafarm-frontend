@@ -1,19 +1,19 @@
 .this {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  padding: 8px 1%;
+  padding: 8px 0%;
 }
 .label {
-  width: 14%;
+  width: 20%;
   text-align: center;
   text-transform: uppercase;
   font-size: 0.9em;
 }
-.label.date { width: 21%; text-align: left; }
-.label.cal { width: 21%; }
-
+.label::first-of-type { text-align: left; }
+/*
 @media only screen and (min-width: 430px) {
   .this { display: flex; }
 }
+*/

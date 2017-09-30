@@ -1,27 +1,27 @@
 .this {
   display: flex;
   box-sizing: border-box;
-  padding: 8px 1%;
+  padding: 8px 0%;
   border-bottom: solid 2px #263238;
 }
-.date { width: 21%; text-align: left; color: rgb(92,107,192); }
 .macro {
   box-sizing: border-box;
-  width: 14%; padding-right: 3%;
+  width: 20%; padding-right: 5%;
   text-align: right;
   /* font-weight: bold; */
   color: rgb(92,107,192);
   border-right: solid 1px rgb(92,107,192);
 }
-.macro.cal { width: 21%; }
-.completeness { width: 14%; text-align: right; color: rgb(92,107,192); }
+.macro:first-of-type { text-align: left; padding-right: 0; border-right: none; }
+.macro:nth-of-type(5) { border-right: none; }
 
 @media only screen and (min-width: 430px) {
   .macro::after {
     display: inline-block;
     content: 'g';
   }
-  .macro.cal::after {
+  .macro:first-of-type::after,
+  .macro:nth-of-type(2)::after {
     display: none;
   }
 }
