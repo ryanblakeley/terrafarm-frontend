@@ -20,8 +20,8 @@ const Tagline = () => <Layout
 </Layout>;
 
 const emailLinkSubject = encodeURIComponent('Request for access');
-const emailLinkBody = encodeURIComponent('Hi,\n\n');
-const emailLinkUrl = `mailto:info@terra.farm?subject=${emailLinkSubject}&body=${emailLinkBody}`;
+// const emailLinkBody = encodeURIComponent('Hi,\n\n');
+const emailLinkUrl = `mailto:info@terra.farm?subject=${emailLinkSubject}`;
 const emailLink = <A
   href={emailLinkUrl}
   target={null}
