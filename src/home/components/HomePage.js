@@ -20,7 +20,7 @@ const Tagline = () => <Layout
 </Layout>;
 
 const emailLinkSubject = encodeURIComponent('Request for access');
-const emailLinkBody = encodeURIComponent('Hi,\n\nI like to eat ______.\nI\'d like to try the diet tracker because ______.');
+const emailLinkBody = encodeURIComponent('Hi,\n\n');
 const emailLinkUrl = `mailto:info@terra.farm?subject=${emailLinkSubject}&body=${emailLinkBody}`;
 const emailLink = <A
   href={emailLinkUrl}
