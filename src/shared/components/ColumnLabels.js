@@ -11,7 +11,7 @@ const propTypes = {
 const defaultProps = {
   labels: [
     '',
-    'Calories',
+    'Cal',
     'Protein',
     'Fat',
     'Carbs',
