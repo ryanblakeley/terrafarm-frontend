@@ -15,7 +15,7 @@ const Tagline = () => <Layout
   style={{ width: '90%', maxWidth: 450 }}
 >
   <P large>
-    Track your diet by text messaging about the food you eat.
+    Text-message with a bot about the food you eat to record your calories and nutrients in an online journal.
   </P>
 </Layout>;
 
