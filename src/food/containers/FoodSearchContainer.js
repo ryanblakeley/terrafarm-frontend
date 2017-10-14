@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import { FoodIcon } from 'shared/components/Icons';
+import { FoodIcon, UserIcon, JournalIcon, BookmarkIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import { H3, Link, Span, WarningMessage } from 'shared/components/Typography';
 import { FlatButton, RaisedButton } from 'shared/components/Material';
@@ -27,6 +27,8 @@ const styles = {
     width: 95,
   },
 };
+
+const EmptyResultsWarning = () => <WarningMessage>Search results empty.</WarningMessage>;
 
 class FoodSearchContainer extends React.Component {
   constructor (props) {
@@ -86,6 +88,9 @@ class FoodSearchContainer extends React.Component {
     const { id, description } = location.query;
     const userId = location.state && location.state.userId;
     const foodSelectionId = location.state && location.state.foodSelectionId;
+    const baseUrl = `/user/${userId}`;
+    const journalUrl = 'journal';
+    const presetsUrl = 'presets';
 
     const JournalButton = () => {
       if (!(userId && foodSelectionId)) return null;
@@ -103,14 +108,38 @@ class FoodSearchContainer extends React.Component {
         </Link>
       </Layout>
     ));
-    const emptyResultsWarning = <WarningMessage>Search results empty.</WarningMessage>;
+
+    const menuList = userId && [
+      {
+        icon: <UserIcon />,
+        title: 'Profile',
+        baseUrl: '',
+        url: baseUrl,
+        disabled: false,
+      },
+      {
+        icon: <JournalIcon />,
+        title: 'Journal',
+        baseUrl,
+        url: journalUrl,
+        disabled: false,
+      },
+      {
+        icon: <BookmarkIcon />,
+        title: 'Presets',
+        baseUrl,
+        url: presetsUrl,
+        disabled: false,
+      },
+    ];
 
     return <TransitionWrapper>
       <Layout page >
         <Menu
           baseUrl={'/food'}
           header={{ icon: <FoodIcon />, title: 'Foods' }}
-          disabled
+          disabled={!userId}
+          list={menuList}
         />
       </Layout>
       <Layout topSmall className={classNames.this} >
@@ -119,7 +148,7 @@ class FoodSearchContainer extends React.Component {
             <JournalButton />
           </Layout>
           <H3>Results for &quot;{description}&quot;</H3>
-          {resultElements.length > 0 ? resultElements : emptyResultsWarning}
+          {resultElements.length > 0 ? resultElements : <EmptyResultsWarning />}
         </Layout>
         <Layout className={classNames.actionPanelWrapper} >
           <ActionPanel notifyClose={() => null} >

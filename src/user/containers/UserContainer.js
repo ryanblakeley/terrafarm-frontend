@@ -39,6 +39,13 @@ const UserContainer = props => {
         location={location}
         list={[
           {
+            icon: <FoodIcon />,
+            title: 'Foods',
+            baseUrl: '',
+            url: foodUrl,
+            disabled: false,
+          },
+          {
             icon: <JournalIcon />,
             title: 'Journal',
             baseUrl,
@@ -50,13 +57,6 @@ const UserContainer = props => {
             title: 'Presets',
             baseUrl,
             url: presetsUrl,
-            disabled: false,
-          },
-          {
-            icon: <FoodIcon />,
-            title: 'Foods',
-            baseUrl: '',
-            url: foodUrl,
             disabled: false,
           },
         ]}

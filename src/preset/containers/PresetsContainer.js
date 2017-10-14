@@ -49,10 +49,10 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
           location={location}
           list={[
             {
-              icon: <JournalIcon />,
-              title: 'Journal',
-              baseUrl,
-              url: journalUrl,
+              icon: <PersonIcon />,
+              title: 'Profile',
+              baseUrl: '',
+              url: `user/${user.rowId}`,
               disabled: false,
             },
             {
@@ -63,10 +63,10 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
               disabled: false,
             },
             {
-              icon: <PersonIcon />,
-              title: 'Profile',
-              baseUrl: '',
-              url: `user/${user.rowId}`,
+              icon: <JournalIcon />,
+              title: 'Journal',
+              baseUrl,
+              url: journalUrl,
               disabled: false,
             },
           ]}

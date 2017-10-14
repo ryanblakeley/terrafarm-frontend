@@ -155,10 +155,10 @@ class JournalContainer extends React.Component {
           location={location}
           list={[
             {
-              icon: <BookmarkIcon />,
-              title: 'Presets',
-              baseUrl,
-              url: presetsUrl,
+              icon: <PersonIcon />,
+              title: 'Profile',
+              baseUrl: '',
+              url: `user/${userId}`,
               disabled: false,
             },
             {
@@ -169,10 +169,10 @@ class JournalContainer extends React.Component {
               disabled: false,
             },
             {
-              icon: <PersonIcon />,
-              title: 'Profile',
-              baseUrl: '',
-              url: `user/${userId}`,
+              icon: <BookmarkIcon />,
+              title: 'Presets',
+              baseUrl,
+              url: presetsUrl,
               disabled: false,
             },
           ]}
