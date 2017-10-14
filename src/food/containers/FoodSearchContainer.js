@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import { FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import { H3, Link, Span, WarningMessage } from 'shared/components/Typography';
-import { FlatButton } from 'shared/components/Material';
+import { FlatButton, RaisedButton } from 'shared/components/Material';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
@@ -77,12 +77,24 @@ class FoodSearchContainer extends React.Component {
     router.replace({
       pathname: location.pathname,
       query,
+      state: location.state,
     });
   }
   render () {
     const { searchFoods, location } = this.props;
     const { error } = this.state;
     const { id, description } = location.query;
+    const userId = location.state && location.state.userId;
+    const foodSelectionId = location.state && location.state.foodSelectionId;
+
+    const JournalButton = () => {
+      if (!(userId && foodSelectionId)) return null;
+
+      return <Link to={`/user/${userId}/journal/edit/${foodSelectionId}`}>
+        <RaisedButton label={'Return to journal'} />
+      </Link>;
+    };
+
     const resultElements = searchFoods && searchFoods.edges.map(({ node }) => (
       <Layout key={node.rowId} >
         <Link to={`/food/${node.rowId}`} >
@@ -103,6 +115,9 @@ class FoodSearchContainer extends React.Component {
       </Layout>
       <Layout topSmall className={classNames.this} >
         <Layout className={classNames.journalDatesWrapper} >
+          <Layout center >
+            <JournalButton />
+          </Layout>
           <H3>Results for &quot;{description}&quot;</H3>
           {resultElements.length > 0 ? resultElements : emptyResultsWarning}
         </Layout>

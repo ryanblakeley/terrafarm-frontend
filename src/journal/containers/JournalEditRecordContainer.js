@@ -108,12 +108,20 @@ class JournalEditRecordContainer extends React.Component {
     );
   }
   render () {
-    const { foodSelectionByRowId: foodSelection, notifyClose } = this.props;
+    const {
+      userByRowId: user,
+      foodSelectionByRowId: foodSelection,
+      notifyClose,
+    } = this.props;
     const { error } = this.state;
     const foodLinkLabel = foodSelection.foodByFoodId && foodSelection.foodByFoodId.description;
     const foodLink = <Layout center >
       <P>
-        <Link to={`/food/${foodSelection.foodId}`} >
+        <Link
+          to={
+            `/food/${foodSelection.foodId}`
+          }
+        >
           <FlatButton label={foodLinkLabel} />
         </Link>
       </P>
@@ -207,7 +215,18 @@ class JournalEditRecordContainer extends React.Component {
       }
       {!foodSelection.foodId && <Layout center >
         <P>
-          <Link to={`/food?description=${foodSelection.foodDescription}`} >
+          <Link
+            to={{
+              pathname: '/food',
+              query: {
+                description: foodSelection.foodDescription,
+              },
+              state: {
+                userId: user.rowId,
+                foodSelectionId: foodSelection.rowId,
+              },
+            }}
+          >
             <FlatButton
               icon={<SearchIcon />}
               label={'Food search'}
