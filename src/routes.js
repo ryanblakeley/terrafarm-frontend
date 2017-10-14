@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import makeRouteConfig from 'found/lib/makeRouteConfig';
 import Route from 'found/lib/Route';
+// import RedirectException from 'found/lib/RedirectException';
 import React from 'react';
 
 // static
@@ -11,6 +13,10 @@ import LoadingComponent from 'core/components/LoadingComponent';
 // user
 import UserContainer from 'user/containers/UserContainer';
 import UserContainerQuery from 'user/queries/UserContainerQuery';
+import ProfileContainer from 'profile/containers/ProfileContainer';
+import ProfileContainerQuery from 'profile/queries/ProfileContainerQuery';
+import LoginPage from 'login/components/LoginPage';
+import LoginPageQuery from 'login/queries/LoginPageQuery';
 
 // journal
 import JournalContainer from 'journal/containers/JournalContainer';
@@ -28,18 +34,57 @@ import FoodDetailContainerQuery from 'food/queries/FoodDetailContainerQuery';
 import FoodSearchContainer from 'food/containers/FoodSearchContainer';
 import FoodSearchContainerQuery from 'food/queries/FoodSearchContainerQuery';
 
-function ensureDeveloperToken () {
-  const idToken = localStorage.getItem('id_token');
-  const needsReset = !idToken || idToken !== window.developerToken;
-
-  if (needsReset) {
-    localStorage.setItem('id_token', window.developerToken);
-  }
+function setAnonymousToken () {
+  localStorage.setItem('id_token', window.anonymousToken);
 }
 
-function render ({ Component, props }) { // eslint-disable-line react/prop-types
-  ensureDeveloperToken();
+function setAuthenticatorToken () {
+  localStorage.setItem('id_token', window.authenticatorToken);
+  // localStorage.setItem('user_uuid', '');
+}
 
+function prepareLogin (params, props) {
+  const idToken = localStorage.getItem('id_token');
+  const { router } = props;
+
+  if (
+    idToken
+      && idToken !== window.anonymousToken
+      && idToken !== window.authenticatorToken
+  ) {
+    router.replace('/profile');
+    // throw new RedirectException({ pathname: '/profile' });
+  } else {
+    setAuthenticatorToken();
+  }
+
+  return params;
+}
+
+function prepareProfile (params, props) {
+  const idToken = localStorage.getItem('id_token');
+  const { router } = props;
+
+  if (idToken === window.anonymousToken
+    || idToken === window.authenticatorToken) {
+    router.replace('/login');
+    // throw new RedirectException({ pathname: '/login' });
+  }
+
+  return params;
+}
+
+function prepareAnonymous (params) {
+  const idToken = localStorage.getItem('id_token');
+
+  if (!idToken || idToken === window.authenticatorToken) {
+    setAnonymousToken();
+  }
+
+  return params;
+}
+
+function render ({ Component, props }) {
   if (!Component || !props) {
     return <LoadingComponent />;
   }
@@ -48,8 +93,22 @@ function render ({ Component, props }) { // eslint-disable-line react/prop-types
 }
 
 export default makeRouteConfig(
-  <Route path={'/'} Component={CorePage}>
+  <Route path={'/'} Component={CorePage} prepareVariables={prepareAnonymous} >
     <Route Component={HomePage} />
+    <Route
+      path={'login'}
+      Component={LoginPage}
+      query={LoginPageQuery}
+      prepareVariables={prepareLogin}
+      render={render}
+    />
+    <Route
+      path={'profile'}
+      Component={ProfileContainer}
+      query={ProfileContainerQuery}
+      prepareVariables={prepareProfile}
+      render={render}
+    />
     <Route path={'user/:userId'} >
       <Route
         Component={UserContainer}
@@ -66,6 +125,7 @@ export default makeRouteConfig(
             path={'edit/:foodSelectionId'}
             Component={JournalEditRecordContainer}
             query={JournalEditRecordContainerQuery}
+            render={render}
           />
         </Route>
       </Route>
@@ -87,11 +147,13 @@ export default makeRouteConfig(
 
           return { foodId, foodDescription, ...params };
         }}
+        render={render}
       />
       <Route
         path={':foodId'}
         Component={FoodDetailContainer}
         query={FoodDetailContainerQuery}
+        render={render}
       />
     </Route>
     <Route path={'*'} Component={NotFound} />

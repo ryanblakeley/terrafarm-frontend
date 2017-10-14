@@ -9,16 +9,62 @@ import classNames from '../styles/CorePageStylesheet.css';
 
 const propTypes = {
   children: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
 };
 
-export const CorePageComponent = props => <div className={classNames.this}>
-  <div className={classNames.main}>
-    <Banner />
-    <AppHeader />
-    {props.children}
-  </div>
-  <AppFooter />
-</div>;
+class CorePageComponent extends React.Component {
+  static childContextTypes = {
+    loggedIn: PropTypes.bool,
+    setLoggedIn: PropTypes.func,
+    // userId: PropTypes.string,
+    // setUserId: PropTypes.func,
+  };
+  state = {
+    loggedIn: false,
+    // userId: null,
+    idToken: null,
+  };
+  getChildContext () {
+    return {
+      loggedIn: this.state.loggedIn,
+      setLoggedIn: loggedIn => this.setLoggedIn(loggedIn),
+      // userId: this.state.userId,
+      // setUserId: userId => this.setUserId(userId),
+    };
+  }
+  componentWillMount () {
+    // const userId = localStorage.getItem('user_uuid');
+    const idToken = localStorage.getItem('id_token');
+    if (idToken
+        && idToken !== window.anonymousToken
+        && idToken !== window.authenticatorToken) {
+      this.setState({ loggedIn: true });
+    } else {
+      this.setState({ loggedIn: false });
+    }
+  }
+  setLoggedIn (loggedIn) {
+    this.setState({ loggedIn });
+  }
+  /*
+  setUserId (userId) {
+    this.setState({ userId });
+  }
+  */
+  render () {
+    const { match, router } = this.props;
+
+    return <div className={classNames.this} >
+      <div className={classNames.main} >
+        <Banner />
+        <AppHeader match={match} router={router} />
+        {this.props.children}
+      </div>
+      <AppFooter />
+    </div>;
+  }
+}
 
 CorePageComponent.propTypes = propTypes;
 

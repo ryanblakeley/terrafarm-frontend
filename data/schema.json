@@ -3458,8 +3458,20 @@
               "deprecationReason": null
             },
             {
-              "name": "name",
-              "description": "A human-readable first and last name.",
+              "name": "firstName",
+              "description": "A person’s first name.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lastName",
+              "description": "A person’s last name.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -14285,13 +14297,25 @@
               "deprecationReason": null
             },
             {
-              "name": "NAME_ASC",
+              "name": "FIRST_NAME_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "NAME_DESC",
+              "name": "FIRST_NAME_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LAST_NAME_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LAST_NAME_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -14472,8 +14496,18 @@
               "defaultValue": null
             },
             {
-              "name": "name",
-              "description": "Checks for equality with the object’s `name` field.",
+              "name": "firstName",
+              "description": "Checks for equality with the object’s `firstName` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "lastName",
+              "description": "Checks for equality with the object’s `lastName` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -21179,8 +21213,18 @@
               "defaultValue": null
             },
             {
-              "name": "name",
-              "description": "A human-readable first and last name.",
+              "name": "firstName",
+              "description": "A person’s first name.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "lastName",
+              "description": "A person’s last name.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -26392,8 +26436,18 @@
               "defaultValue": null
             },
             {
-              "name": "name",
-              "description": "A human-readable first and last name.",
+              "name": "firstName",
+              "description": "A person’s first name.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "lastName",
+              "description": "A person’s last name.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -29723,7 +29777,21 @@
               "defaultValue": null
             },
             {
-              "name": "phone",
+              "name": "userPhone",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "password",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
@@ -29759,41 +29827,6 @@
               "deprecationReason": null
             },
             {
-              "name": "authenticateUserResult",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "AuthenticateUserResult",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "query",
-              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Query",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "AuthenticateUserResult",
-          "description": null,
-          "fields": [
-            {
               "name": "jwtToken",
               "description": null,
               "args": [],
@@ -29806,12 +29839,12 @@
               "deprecationReason": null
             },
             {
-              "name": "userId",
-              "description": null,
+              "name": "query",
+              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "UUID",
+                "kind": "OBJECT",
+                "name": "Query",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -29850,35 +29883,7 @@
               "defaultValue": null
             },
             {
-              "name": "name",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "phone",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "address",
+              "name": "userPhone",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
@@ -29914,12 +29919,12 @@
               "deprecationReason": null
             },
             {
-              "name": "authenticateUserResult",
+              "name": "jwtToken",
               "description": null,
               "args": [],
               "type": {
-                "kind": "OBJECT",
-                "name": "AuthenticateUserResult",
+                "kind": "SCALAR",
+                "name": "JwtToken",
                 "ofType": null
               },
               "isDeprecated": false,

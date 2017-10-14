@@ -9,7 +9,9 @@ import createRender from 'found/lib/createRender';
 import { ClientFetcher } from 'fetcher';
 import routes from 'routes';
 import LoadingComponent from 'core/components/LoadingComponent';
-import ErrorComponent from 'core/components/ErrorComponent';
+// import ErrorComponent from 'core/components/ErrorComponent';
+import NotFoundPage from 'not-found/components/NotFoundPage';
+import LoginPage from 'login/components/LoginPage';
 
 import 'sanitize.css/sanitize.css';
 import 'shared/styles/_fonts.css';
@@ -26,11 +28,17 @@ function createResolver (fetcher) {
 
 const renderCallbacks = {
   renderPending: () => <LoadingComponent />,
-  renderError: error => {
-    console.error(`Relay renderer ${error}`);
+  renderError: ({ error }) => { // eslint-disable-line react/prop-types
+    console.error(`Error in relay renderer: ${error}`);
+
+    switch (error.status) {
+      case 404: return <NotFoundPage />;
+      case 401: return <LoginPage />;
+      default: return null;
+    }
+
     // TODO retry={renderArgs.retry}
     // https://github.com/4Catalyzer/found-relay/issues/53#issuecomment-317285004
-    return <ErrorComponent />;
   },
 };
 
@@ -38,7 +46,6 @@ const Router = createFarceRouter({
   historyProtocol: new BrowserProtocol(),
   historyMiddlewares: [queryMiddleware],
   routeConfig: routes,
-
   render: createRender(renderCallbacks),
 });
 

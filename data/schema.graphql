@@ -3,7 +3,8 @@ input AuthenticateUserInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  phone: String!
+  userPhone: String!
+  password: String!
 }
 
 # The output of our `authenticateUser` mutation.
@@ -11,15 +12,10 @@ type AuthenticateUserPayload {
   # The exact same `clientMutationId` that was provided in the mutation input,
   # unchanged and unused. May be used by a client to track mutations.
   clientMutationId: String
-  authenticateUserResult: AuthenticateUserResult
+  jwtToken: JwtToken
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
-}
-
-type AuthenticateUserResult {
-  jwtToken: JwtToken
-  userId: UUID
 }
 
 # A brand that has or sells food.
@@ -5630,9 +5626,7 @@ input RegisterUserInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  name: String!
-  phone: String!
-  address: String!
+  userPhone: String!
 }
 
 # The output of our `registerUser` mutation.
@@ -5640,7 +5634,7 @@ type RegisterUserPayload {
   # The exact same `clientMutationId` that was provided in the mutation input,
   # unchanged and unused. May be used by a client to track mutations.
   clientMutationId: String
-  authenticateUserResult: AuthenticateUserResult
+  jwtToken: JwtToken
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -6769,8 +6763,11 @@ type User implements Node {
   # The user’s unique identifier.
   rowId: UUID!
 
-  # A human-readable first and last name.
-  name: String
+  # A person’s first name.
+  firstName: String
+
+  # A person’s last name.
+  lastName: String
 
   # A phone number. Phone numbers must be unique across all users and must match the E.164 numbering spec.
   phone: String!
@@ -7014,8 +7011,11 @@ input UserCondition {
   # Checks for equality with the object’s `rowId` field.
   rowId: UUID
 
-  # Checks for equality with the object’s `name` field.
-  name: String
+  # Checks for equality with the object’s `firstName` field.
+  firstName: String
+
+  # Checks for equality with the object’s `lastName` field.
+  lastName: String
 
   # Checks for equality with the object’s `phone` field.
   phone: String
@@ -7059,8 +7059,11 @@ input UserInput {
   # The user’s unique identifier.
   rowId: UUID
 
-  # A human-readable first and last name.
-  name: String
+  # A person’s first name.
+  firstName: String
+
+  # A person’s last name.
+  lastName: String
 
   # A phone number. Phone numbers must be unique across all users and must match the E.164 numbering spec.
   phone: String!
@@ -7104,8 +7107,11 @@ input UserPatch {
   # The user’s unique identifier.
   rowId: UUID
 
-  # A human-readable first and last name.
-  name: String
+  # A person’s first name.
+  firstName: String
+
+  # A person’s last name.
+  lastName: String
 
   # A phone number. Phone numbers must be unique across all users and must match the E.164 numbering spec.
   phone: String
@@ -7173,8 +7179,10 @@ enum UsersOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
-  NAME_ASC
-  NAME_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
   PHONE_ASC
   PHONE_DESC
   GEO_RATING_ASC

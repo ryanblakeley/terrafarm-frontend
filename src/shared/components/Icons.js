@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-// import IoLogIn from 'react-icons/lib/io/log-in';
+import IoLogIn from 'react-icons/lib/io/log-in';
 import IoIosSearch from 'react-icons/lib/io/ios-search';
 // import IoIosMore from 'react-icons/lib/io/ios-more';
 import IoEdit from 'react-icons/lib/io/edit';
@@ -46,7 +46,7 @@ import { Icon } from './Typography';
 const LogoIcon = props => <img src={logoIcon} alt={'terrafarm_logo'} {...props} />;
 const LogoFullIcon = props => <img src={logoFull} alt={'Terrafarm'} {...props} />;
 const LogoNameIcon = props => <img src={logoName} alt={'Terrafarm'} {...props} />;
-// const LoginIcon = props => <Icon icon={<IoLogIn />} {...props} />;
+const LoginIcon = props => <Icon icon={<IoLogIn />} {...props} />;
 const SearchIcon = props => <Icon icon={<IoIosSearch />} {...props} />;
 // const MoreIcon = props => <Icon icon={<IoIosMore />} {...props} />;
 const EditIcon = props => <Icon icon={<IoEdit />} {...props} />;
@@ -103,7 +103,7 @@ const commonDefaultProps = {
 };
 
 LogoIcon.propTypes = commonPropTypes;
-// LoginIcon.propTypes = commonPropTypes;
+LoginIcon.propTypes = commonPropTypes;
 SearchIcon.propTypes = commonPropTypes;
 // MoreIcon.propTypes = commonPropTypes;
 EditIcon.propTypes = commonPropTypes;
@@ -150,7 +150,7 @@ export {
   LogoIcon,
   LogoFullIcon,
   LogoNameIcon,
-//   LoginIcon,
+  LoginIcon,
   SearchIcon,
 //   MoreIcon,
   EditIcon,
