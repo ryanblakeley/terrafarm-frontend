@@ -13,7 +13,7 @@ import JournalDateRootContainer from 'journal/containers/JournalDateRootContaine
 import classNames from '../styles/JournalContainerStylesheet.css';
 
 const propTypes = {
-  userByRowId: PropTypes.object.isRequired,
+  currentPerson: PropTypes.object.isRequired,
   children: PropTypes.object,
   router: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
@@ -29,7 +29,7 @@ class JournalContainer extends React.Component {
   constructor (props) {
     super(props);
 
-    const { userByRowId: user } = props;
+    const { currentPerson: user } = props;
     const latestRecord = user && user.foodSelectionsByUserId.edges[0];
     const oldestRecord = user
       && user.foodSelectionsByUserId.edges[user.foodSelectionsByUserId.edges.length - 1];
@@ -47,7 +47,7 @@ class JournalContainer extends React.Component {
     window.addEventListener('scroll', this.handleScroll);
   }
   componentWillReceiveProps (nextProps) {
-    const { userByRowId: user } = nextProps;
+    const { currentPerson: user } = nextProps;
     const latestRecord = user && user.foodSelectionsByUserId.edges[0];
     const oldestRecord = user
       && user.foodSelectionsByUserId.edges[user.foodSelectionsByUserId.edges.length - 1];
@@ -113,7 +113,7 @@ class JournalContainer extends React.Component {
   }
   render () {
     const {
-      userByRowId: user,
+      currentPerson: user,
       children,
       router,
       location,
@@ -122,9 +122,6 @@ class JournalContainer extends React.Component {
     } = this.props;
     const { latestDate, oldestDate, datesCount } = this.state;
     const userId = user && user.rowId;
-    const baseUrl = `/user/${userId}`;
-    const presetsUrl = 'presets';
-    const foodUrl = 'food';
 
     if (!userId) return <NotFoundPage message={'User not found.'} />;
 
@@ -136,7 +133,6 @@ class JournalContainer extends React.Component {
     const journalDateRootContainers = dates.map(d => (
       <JournalDateRootContainer
         key={d}
-        userId={userId}
         date={d}
         router={router}
         match={match}
@@ -148,7 +144,7 @@ class JournalContainer extends React.Component {
     return <TransitionWrapper>
       <Layout page >
         <Menu
-          baseUrl={`/journal/${userId}`}
+          baseUrl={'/journal'}
           header={{ icon: <JournalIcon />, title: 'Journal' }}
           disabled={false}
           router={router}
@@ -158,21 +154,21 @@ class JournalContainer extends React.Component {
               icon: <PersonIcon />,
               title: 'Profile',
               baseUrl: '',
-              url: `user/${userId}`,
+              url: 'profile',
               disabled: false,
             },
             {
               icon: <FoodIcon />,
               title: 'Foods',
               baseUrl: '',
-              url: foodUrl,
+              url: 'food',
               disabled: false,
             },
             {
               icon: <BookmarkIcon />,
               title: 'Presets',
-              baseUrl,
-              url: presetsUrl,
+              baseUrl: '',
+              url: 'presets',
               disabled: false,
             },
           ]}
@@ -185,7 +181,7 @@ class JournalContainer extends React.Component {
         </Layout>
         {children && <Layout className={classNames.actionPanelWrapper} >
           <ActionPanel
-            notifyClose={() => router.replace(`/user/${userId}/journal`)}
+            notifyClose={() => router.replace('/journal')}
           >
             {children}
           </ActionPanel>
@@ -206,7 +202,7 @@ JournalContainer.defaultProps = defaultProps;
 export default createFragmentContainer(
   JournalContainer,
   graphql`
-    fragment JournalContainer_userByRowId on User {
+    fragment JournalContainer_currentPerson on User {
       id,
       rowId,
       foodSelectionsByUserId(

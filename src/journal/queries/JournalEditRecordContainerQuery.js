@@ -1,9 +1,9 @@
 import { graphql } from 'react-relay';
 
 const JournalEditRecordContainerQuery = graphql`
-  query JournalEditRecordContainerQuery($userId: UUID!, $foodSelectionId: UUID!) {
-    userByRowId(rowId: $userId) {
-      ...JournalEditRecordContainer_userByRowId,
+  query JournalEditRecordContainerQuery($foodSelectionId: UUID!) {
+    currentPerson {
+      ...JournalEditRecordContainer_currentPerson,
     },
     foodSelectionByRowId(rowId: $foodSelectionId) {
       ...JournalEditRecordContainer_foodSelectionByRowId,

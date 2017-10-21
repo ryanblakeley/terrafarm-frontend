@@ -12,7 +12,7 @@ import PresetContainer from './PresetContainer';
 import classNames from '../styles/PresetsContainerStylesheet.css';
 
 const propTypes = {
-  userByRowId: PropTypes.object.isRequired,
+  currentPerson: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   children: PropTypes.element,
@@ -25,15 +25,12 @@ const defaultProps = {
 class PresetsContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render () {
     const {
-      userByRowId: user,
+      currentPerson: user,
       router,
       location,
       children,
     } = this.props;
     const presets = user && user.presetsByUserId;
-    const baseUrl = `/user/${user.rowId}`;
-    const journalUrl = 'journal';
-    const foodUrl = 'food';
     const presetContainers = presets.edges.map(({ node }) => (
       <PresetContainer key={node.id} preset={node} />
     ));
@@ -42,7 +39,7 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
     return <TransitionWrapper>
       <Layout page>
         <Menu
-          baseUrl={`/user/${user.rowId}/presets`}
+          baseUrl={'/presets'}
           header={{ icon: <BookmarkIcon />, title: 'Presets' }}
           disabled={false}
           router={router}
@@ -52,21 +49,21 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
               icon: <PersonIcon />,
               title: 'Profile',
               baseUrl: '',
-              url: `user/${user.rowId}`,
+              url: 'profile',
               disabled: false,
             },
             {
               icon: <FoodIcon />,
               title: 'Foods',
               baseUrl: '',
-              url: foodUrl,
+              url: 'food',
               disabled: false,
             },
             {
               icon: <JournalIcon />,
               title: 'Journal',
-              baseUrl,
-              url: journalUrl,
+              baseUrl: '',
+              url: 'journal',
               disabled: false,
             },
           ]}
@@ -79,7 +76,7 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
         </Layout>
         {children && <Layout className={classNames.actionPanelWrapper} >
           <ActionPanel
-            notifyClose={() => router.replace(`/user/${user.rowId}/presets`)}
+            notifyClose={() => router.replace('/presets')}
           >
             {children}
           </ActionPanel>
@@ -95,7 +92,7 @@ PresetsContainer.defaultProps = defaultProps;
 export default createFragmentContainer(
   PresetsContainer,
   graphql`
-    fragment PresetsContainer_userByRowId on User {
+    fragment PresetsContainer_currentPerson on User {
       id,
       rowId,
       presetsByUserId(

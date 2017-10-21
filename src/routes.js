@@ -11,8 +11,8 @@ import NotFound from 'not-found/components/NotFoundPage';
 import LoadingComponent from 'core/components/LoadingComponent';
 
 // user
-import UserContainer from 'user/containers/UserContainer';
-import UserContainerQuery from 'user/queries/UserContainerQuery';
+// import UserContainer from 'user/containers/UserContainer';
+// import UserContainerQuery from 'user/queries/UserContainerQuery';
 import ProfileContainer from 'profile/containers/ProfileContainer';
 import ProfileContainerQuery from 'profile/queries/ProfileContainerQuery';
 import LoginPage from 'login/components/LoginPage';
@@ -109,6 +109,27 @@ export default makeRouteConfig(
       prepareVariables={prepareProfile}
       render={render}
     />
+    <Route path={'journal'} >
+      <Route
+        Component={JournalContainer}
+        query={JournalContainerQuery}
+        render={render}
+      >
+        <Route
+          path={'edit/:foodSelectionId'}
+          Component={JournalEditRecordContainer}
+          query={JournalEditRecordContainerQuery}
+          render={render}
+        />
+      </Route>
+    </Route>
+    <Route
+      path={'presets'}
+      Component={PresetsContainer}
+      query={PresetsContainerQuery}
+      render={render}
+    />
+    {/*
     <Route path={'user/:userId'} >
       <Route
         Component={UserContainer}
@@ -136,6 +157,7 @@ export default makeRouteConfig(
         render={render}
       />
     </Route>
+    */}
     <Route path={'food'} >
       <Route
         Component={FoodSearchContainer}

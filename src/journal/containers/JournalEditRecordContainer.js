@@ -23,7 +23,7 @@ const styles = {
 };
 
 const propTypes = {
-  userByRowId: PropTypes.object.isRequired,
+  currentPerson: PropTypes.object.isRequired,
   foodSelectionByRowId: PropTypes.object.isRequired,
   notifyClose: PropTypes.func.isRequired,
   relay: PropTypes.object.isRequired,
@@ -50,7 +50,7 @@ class JournalEditRecordContainer extends React.Component {
     this.updateFoodSelection(patch);
   }
   handleDelete = response => {  // eslint-disable-line no-unused-vars
-    const { userByRowId: user, foodSelectionByRowId: foodSelection, relay } = this.props;
+    const { currentPerson: user, foodSelectionByRowId: foodSelection, relay } = this.props;
 
     DeleteFoodSelectionMutation.commit(
       relay.environment,
@@ -109,7 +109,7 @@ class JournalEditRecordContainer extends React.Component {
   }
   render () {
     const {
-      userByRowId: user,
+      currentPerson: user,
       foodSelectionByRowId: foodSelection,
       notifyClose,
     } = this.props;
@@ -298,8 +298,8 @@ class JournalEditRecordContainer extends React.Component {
 JournalEditRecordContainer.propTypes = propTypes;
 
 export default createFragmentContainer(JournalEditRecordContainer, {
-  userByRowId: graphql`
-    fragment JournalEditRecordContainer_userByRowId on User {
+  currentPerson: graphql`
+    fragment JournalEditRecordContainer_currentPerson on User {
       id
       rowId
     }

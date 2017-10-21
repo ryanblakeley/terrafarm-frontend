@@ -9,7 +9,6 @@ import JournalDateRootContainerQuery
   from 'journal/queries/JournalDateRootContainerQuery';
 
 const propTypes = {
-  userId: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   router: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
@@ -20,7 +19,6 @@ const JournalDateRootContainer = props => <QueryRenderer
   environment={props.relay.environment}
   query={JournalDateRootContainerQuery}
   variables={{
-    userId: props.userId,
     condition: { date: props.date },
   }}
   render={({ error, props: fetchedProps }) => {

@@ -6,7 +6,7 @@ import FoodSelectionListHeader from 'food-selection/components/FoodSelectionList
 import FoodSelectionListItem from 'food-selection/components/FoodSelectionListItem';
 
 const propTypes = {
-  userByRowId: PropTypes.object.isRequired,
+  currentPerson: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   router: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
@@ -25,7 +25,7 @@ class JournalDateContainer extends React.Component {
     };
   }
   componentWillMount () {
-    const { userByRowId: user } = this.props;
+    const { currentPerson: user } = this.props;
     const foodSelections = user && user.foodSelectionsByUserId;
 
     if (foodSelections) {
@@ -35,7 +35,7 @@ class JournalDateContainer extends React.Component {
     }
   }
   componentWillReceiveProps (nextProps) {
-    const { userByRowId: user } = nextProps;
+    const { currentPerson: user } = nextProps;
     const foodSelections = user && user.foodSelectionsByUserId;
 
     // TODO: smarter condition for recalculating macros
@@ -88,11 +88,11 @@ class JournalDateContainer extends React.Component {
     });
   }
   render () {
-    const { userByRowId: user, date, router, match } = this.props;
+    const { currentPerson: user, date, router, match } = this.props;
     const { calories, protein, fat, carbs, completeCount, recordsCount } = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
     const editPanelOpen = router.isActive(match, {
-      pathname: `/user/${user.rowId}/journal/edit/`,
+      pathname: '/journal/edit/',
     });
     const journalFoodSelections = foodSelections.map(({ node }) => {
       const {
@@ -103,7 +103,7 @@ class JournalDateContainer extends React.Component {
         foodByFoodId,
         mass,
       } = node;
-      const url = `/user/${user.rowId}/journal/edit/${rowId}`;
+      const url = `/journal/edit/${rowId}`;
       const editing = router.isActive(match, { pathname: url });
 
       return <FoodSelectionListItem
@@ -140,7 +140,7 @@ JournalDateContainer.propTypes = propTypes;
 export default createFragmentContainer(
   JournalDateContainer,
   graphql`
-    fragment JournalDateContainer_userByRowId on User {
+    fragment JournalDateContainer_currentPerson on User {
       id,
       rowId,
       foodSelectionsByUserId(

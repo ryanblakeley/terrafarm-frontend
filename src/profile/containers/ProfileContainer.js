@@ -22,10 +22,7 @@ const defaultProps = {
 const ProfileContainer = props => {
   const { currentPerson: user, router, location, children } = props;
   const userId = user && user.rowId;
-  const baseUrl = `/user/${userId}`;
-  const journalUrl = 'journal';
-  const presetsUrl = 'presets';
-  const foodUrl = 'food';
+  const baseUrl = '/profile';
 
   if (!userId) return <NotFoundPage message={'User not found.'} />;
 
@@ -42,21 +39,21 @@ const ProfileContainer = props => {
             icon: <FoodIcon />,
             title: 'Foods',
             baseUrl: '',
-            url: foodUrl,
+            url: 'food',
             disabled: false,
           },
           {
             icon: <JournalIcon />,
             title: 'Journal',
-            baseUrl,
-            url: journalUrl,
+            baseUrl: '',
+            url: 'journal',
             disabled: false,
           },
           {
             icon: <BookmarkIcon />,
             title: 'Presets',
-            baseUrl,
-            url: presetsUrl,
+            baseUrl: '',
+            url: 'presets',
             disabled: false,
           },
         ]}

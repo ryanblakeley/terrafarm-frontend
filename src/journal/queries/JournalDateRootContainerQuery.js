@@ -2,10 +2,9 @@ import { graphql } from 'react-relay';
 
 const JournalDateRootContainerQuery = graphql`
   query JournalDateRootContainerQuery(
-    $userId: UUID!,
     $condition: FoodSelectionCondition!,
   ) {
-    userByRowId(rowId: $userId) {
+    currentPerson {
       foodSelectionsByUserId(
         condition: $condition,
         first: 2147483647,
@@ -17,7 +16,7 @@ const JournalDateRootContainerQuery = graphql`
           },
         },
       },
-      ...JournalDateContainer_userByRowId,
+      ...JournalDateContainer_currentPerson,
     },
   }
 `;
