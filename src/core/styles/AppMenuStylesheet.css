@@ -1,0 +1,8 @@
+.this { position: relative; z-index: 100; }
+.buttons {
+  position: absolute; display: flex; flex-direction: column; text-align: left;
+  right: 0; padding: 15px 30px; width: 180px;
+  border: 3px solid rgb(55,71,79);
+  border-radius: 2px;
+  background-color: rgba(239,235,233 ,0.92);
+}

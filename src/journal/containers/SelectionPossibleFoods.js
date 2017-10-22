@@ -1,10 +1,10 @@
+/*
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Layout from 'shared/components/Layout';
 import { FlatButton, RaisedButton } from 'shared/components/Material';
 import { H4, Span, ErrorMessage } from 'shared/components/Typography';
-import classNames from '../styles/SelectionPossibleFoodsStylesheet.css';
 
 const propTypes = {
   foodMatchesForSelection: PropTypes.object.isRequired,
@@ -64,7 +64,7 @@ class SelectionPossibleFoods extends React.Component {
 
     return <Layout>
       <Layout center >
-        <H4 className={classNames.contentSubheading} >Possible foods</H4>
+        <H4>Possible foods</H4>
       </Layout>
       {possibleFoods.edges.map(({ node }) => (
         <Layout key={node.id} style={{ display: 'flex', alignItems: 'center' }} >
@@ -102,3 +102,4 @@ export default createFragmentContainer(
     }
   `,
 );
+*/

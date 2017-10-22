@@ -6,7 +6,7 @@ import Layout from 'shared/components/Layout';
 import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
-import { BookmarkIcon, JournalIcon, FoodIcon, PersonIcon } from 'shared/components/Icons';
+import { BookmarkIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import PresetContainer from './PresetContainer';
 import classNames from '../styles/PresetsContainerStylesheet.css';
@@ -41,32 +41,9 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
         <Menu
           baseUrl={'/presets'}
           header={{ icon: <BookmarkIcon />, title: 'Presets' }}
-          disabled={false}
+          disabled
           router={router}
           location={location}
-          list={[
-            {
-              icon: <PersonIcon />,
-              title: 'Profile',
-              baseUrl: '',
-              url: 'profile',
-              disabled: false,
-            },
-            {
-              icon: <FoodIcon />,
-              title: 'Foods',
-              baseUrl: '',
-              url: 'food',
-              disabled: false,
-            },
-            {
-              icon: <JournalIcon />,
-              title: 'Journal',
-              baseUrl: '',
-              url: 'journal',
-              disabled: false,
-            },
-          ]}
         />
       </Layout>
       <Layout topSmall className={classNames.this} >
@@ -131,3 +108,23 @@ export default createFragmentContainer(
     }
   `,
 );
+
+/*
+const menuList = [
+            {
+              icon: <JournalIcon />,
+              title: 'Journal',
+              baseUrl: '',
+              url: 'journal',
+              disabled: false,
+            },
+            {
+              icon: <FoodIcon />,
+              title: 'Foods',
+              baseUrl: '',
+              url: 'food',
+              disabled: false,
+            },
+          ]}
+
+*/

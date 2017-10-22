@@ -19,6 +19,8 @@ const propTypes = {
   flexWrap: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
   children: PropTypes.node,
 };
 
@@ -36,15 +38,19 @@ const defaultProps = {
   flexWrap: false,
   className: '',
   style: {},
+  onMouseEnter: null,
+  onMouseLeave: null,
   children: null,
 };
 
 const Layout = props => {
-  const { className, style, children, ...rest } = props;
+  const { className, style, children, onMouseEnter, onMouseLeave, ...rest } = props;
 
   return <div
     className={`${cx({ ...rest })} ${className}`}
     style={style}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
   >
     {children}
   </div>;

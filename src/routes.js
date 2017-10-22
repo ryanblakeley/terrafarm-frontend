@@ -129,36 +129,7 @@ export default makeRouteConfig(
       query={PresetsContainerQuery}
       render={render}
     />
-    {/*
-    <Route path={'user/:userId'} >
-      <Route
-        Component={UserContainer}
-        query={UserContainerQuery}
-        render={render}
-      />
-      <Route path={'journal'} >
-        <Route
-          Component={JournalContainer}
-          query={JournalContainerQuery}
-          render={render}
-        >
-          <Route
-            path={'edit/:foodSelectionId'}
-            Component={JournalEditRecordContainer}
-            query={JournalEditRecordContainerQuery}
-            render={render}
-          />
-        </Route>
-      </Route>
-      <Route
-        path={'presets'}
-        Component={PresetsContainer}
-        query={PresetsContainerQuery}
-        render={render}
-      />
-    </Route>
-    */}
-    <Route path={'food'} >
+    <Route path={'foods'} >
       <Route
         Component={FoodSearchContainer}
         query={FoodSearchContainerQuery}

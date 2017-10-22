@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import { FoodIcon, UserIcon, JournalIcon, BookmarkIcon } from 'shared/components/Icons';
+import { FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
 import { H3, Link, Span, WarningMessage } from 'shared/components/Typography';
 import { FlatButton, RaisedButton } from 'shared/components/Material';
@@ -86,60 +86,33 @@ class FoodSearchContainer extends React.Component {
     const { searchFoods, location } = this.props;
     const { error } = this.state;
     const { id, description } = location.query;
-    const userId = location.state && location.state.userId;
     const foodSelectionId = location.state && location.state.foodSelectionId;
-    const baseUrl = `/user/${userId}`;
-    const journalUrl = 'journal';
-    const presetsUrl = 'presets';
 
     const JournalButton = () => {
-      if (!(userId && foodSelectionId)) return null;
+      if (!foodSelectionId) return null;
 
-      return <Link to={`/user/${userId}/journal/edit/${foodSelectionId}`}>
+      return <Link to={`/journal/edit/${foodSelectionId}`}>
         <RaisedButton label={'Return to journal'} />
       </Link>;
     };
 
     const resultElements = searchFoods && searchFoods.edges.map(({ node }) => (
       <Layout key={node.rowId} >
-        <Link to={`/food/${node.rowId}`} >
+        <Link to={`/foods/${node.rowId}`} >
           <FlatButton label={node.rowId} />
           <Span>{node.description}</Span>
         </Link>
       </Layout>
     ));
 
-    const menuList = userId && [
-      {
-        icon: <UserIcon />,
-        title: 'Profile',
-        baseUrl: '',
-        url: baseUrl,
-        disabled: false,
-      },
-      {
-        icon: <JournalIcon />,
-        title: 'Journal',
-        baseUrl,
-        url: journalUrl,
-        disabled: false,
-      },
-      {
-        icon: <BookmarkIcon />,
-        title: 'Presets',
-        baseUrl,
-        url: presetsUrl,
-        disabled: false,
-      },
-    ];
+    console.log('Props:', this.props);
 
     return <TransitionWrapper>
       <Layout page >
         <Menu
-          baseUrl={'/food'}
+          baseUrl={'/foods'}
           header={{ icon: <FoodIcon />, title: 'Foods' }}
-          disabled={!userId}
-          list={menuList}
+          disabled
         />
       </Layout>
       <Layout topSmall className={classNames.this} >
@@ -147,7 +120,7 @@ class FoodSearchContainer extends React.Component {
           <Layout center >
             <JournalButton />
           </Layout>
-          <H3>Results for &quot;{description}&quot;</H3>
+          <H3>{searchFoods.edges.length} Result{searchFoods.edges.length === 1 ? '' : 's'}</H3>
           {resultElements.length > 0 ? resultElements : <EmptyResultsWarning />}
         </Layout>
         <Layout className={classNames.actionPanelWrapper} >
@@ -194,6 +167,7 @@ class FoodSearchContainer extends React.Component {
 }
 
 FoodSearchContainer.propTypes = propTypes;
+// FoodSearchContainer.contextTypes = contextTypes;
 
 export default createFragmentContainer(
   FoodSearchContainer,
@@ -208,3 +182,23 @@ export default createFragmentContainer(
     }
   `,
 );
+
+/*
+    const menuList = [
+      {
+        icon: <JournalIcon />,
+        title: 'Journal',
+        baseUrl: '',
+        url: 'journal',
+        disabled: false,
+      },
+      {
+        icon: <BookmarkIcon />,
+        title: 'Presets',
+        baseUrl: '',
+        url: 'presets',
+        disabled: false,
+      },
+    ];
+
+*/

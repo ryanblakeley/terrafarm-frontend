@@ -20,7 +20,7 @@ const AppLogoName = () => <div className={cx({ logoName: true })}>
   </H1>
 </div>;
 
-const AppLogo = props => <Link
+const AppLogo = () => <Link
   className={cx({ this: true })}
   to={'/'}
   activeClassName={classNames.active}

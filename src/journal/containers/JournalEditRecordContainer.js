@@ -109,7 +109,6 @@ class JournalEditRecordContainer extends React.Component {
   }
   render () {
     const {
-      currentPerson: user,
       foodSelectionByRowId: foodSelection,
       notifyClose,
     } = this.props;
@@ -117,11 +116,7 @@ class JournalEditRecordContainer extends React.Component {
     const foodLinkLabel = foodSelection.foodByFoodId && foodSelection.foodByFoodId.description;
     const foodLink = <Layout center >
       <P>
-        <Link
-          to={
-            `/food/${foodSelection.foodId}`
-          }
-        >
+        <Link to={`/foods/${foodSelection.foodId}`} >
           <FlatButton label={foodLinkLabel} />
         </Link>
       </P>
@@ -129,7 +124,7 @@ class JournalEditRecordContainer extends React.Component {
     const possibleFoods = foodSelection.investigationsByFoodSelectionId;
 
     return <ActionPanelForm
-      title={'Edit Journal Row'}
+      title={'Edit Journal Item'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
       onDelete={this.handleDelete}
@@ -217,12 +212,11 @@ class JournalEditRecordContainer extends React.Component {
         <P>
           <Link
             to={{
-              pathname: '/food',
+              pathname: '/foods',
               query: {
                 description: foodSelection.foodDescription,
               },
               state: {
-                userId: user.rowId,
                 foodSelectionId: foodSelection.rowId,
               },
             }}

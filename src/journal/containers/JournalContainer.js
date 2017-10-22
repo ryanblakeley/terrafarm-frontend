@@ -7,7 +7,7 @@ import Layout from 'shared/components/Layout';
 import { P, WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
 import ActionPanel from 'shared/components/ActionPanel';
-import { JournalIcon, BookmarkIcon, FoodIcon, PersonIcon } from 'shared/components/Icons';
+import { JournalIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import JournalDateRootContainer from 'journal/containers/JournalDateRootContainer';
 import classNames from '../styles/JournalContainerStylesheet.css';
@@ -146,32 +146,9 @@ class JournalContainer extends React.Component {
         <Menu
           baseUrl={'/journal'}
           header={{ icon: <JournalIcon />, title: 'Journal' }}
-          disabled={false}
+          disabled
           router={router}
           location={location}
-          list={[
-            {
-              icon: <PersonIcon />,
-              title: 'Profile',
-              baseUrl: '',
-              url: 'profile',
-              disabled: false,
-            },
-            {
-              icon: <FoodIcon />,
-              title: 'Foods',
-              baseUrl: '',
-              url: 'food',
-              disabled: false,
-            },
-            {
-              icon: <BookmarkIcon />,
-              title: 'Presets',
-              baseUrl: '',
-              url: 'presets',
-              disabled: false,
-            },
-          ]}
         />
       </Layout>
       <Layout topSmall className={classNames.this} >
@@ -219,3 +196,28 @@ export default createFragmentContainer(
     }
   `,
 );
+/*
+         const menuList = [
+            {
+              icon: <BookmarkIcon />,
+              title: 'Presets',
+              baseUrl: '',
+              url: 'presets',
+              disabled: false,
+            },
+            {
+              icon: <PersonIcon />,
+              title: 'Profile',
+              baseUrl: '',
+              url: 'profile',
+              disabled: false,
+            },
+            {
+              icon: <FoodIcon />,
+              title: 'Foods',
+              baseUrl: '',
+              url: 'food',
+              disabled: false,
+            },
+          ];
+*/

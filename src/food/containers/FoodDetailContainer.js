@@ -56,8 +56,8 @@ const FoodDetailContainer = props => {
   return <TransitionWrapper>
     <Layout page >
       <Menu
-        baseUrl={`/food/${rowId}`}
-        header={{ icon: <FoodIcon />, title: 'Food' }}
+        baseUrl={`/foods/${rowId}`}
+        header={{ icon: <FoodIcon />, title: 'Foods' }}
         disabled
       />
       <H3 className={classNames.description}>{description}</H3>
