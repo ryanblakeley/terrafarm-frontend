@@ -1,3 +1,4 @@
+/*
 import { graphql } from 'react-relay';
 
 const SelectionPossibleFoodsQuery = graphql`
@@ -15,3 +16,4 @@ const SelectionPossibleFoodsQuery = graphql`
 `;
 
 export default SelectionPossibleFoodsQuery;
+*/
