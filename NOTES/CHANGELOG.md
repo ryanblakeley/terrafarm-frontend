@@ -4,6 +4,9 @@
 
 ### HEAD 0.3.0-alpha.3
 
+- add login flow
+- add app menu
+- add button to return from food search to journal
 - fix react hot loader config
 - bump deps
 - expanded food search
