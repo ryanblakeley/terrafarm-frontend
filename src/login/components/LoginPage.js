@@ -3,6 +3,7 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Layout from 'shared/components/Layout';
 import { Tabs, Tab } from 'shared/components/Material';
+import { green500 } from 'tools/colors';
 import LoginForm from './LoginForm';
 import NewUserForm from './NewUserForm';
 import classNames from '../styles/LoginPageStylesheet.css';
@@ -43,7 +44,10 @@ class LoginPage extends React.Component {
     return (
       <Layout center>
         <div className={classNames.tabs}>
-          <Tabs initialSelectedIndex={initialSelectedIndex} >
+          <Tabs
+            initialSelectedIndex={initialSelectedIndex}
+            inkBarStyle={{ backgroundColor: green500 }}
+          >
             <Tab label={'Login'}>
               <LoginForm relay={relay} loginUser={this.loginUser} />
             </Tab>
