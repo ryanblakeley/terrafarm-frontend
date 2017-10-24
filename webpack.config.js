@@ -37,14 +37,6 @@ const authenticatorToken = jwt.sign({
   aud: 'postgraphql',
 }, JWT_PRIVATE_KEY);
 
-// @TODO
-// remove this developer token once the other roles work: anonymous, authenticator, postgraphql_user
-const developerToken = jwt.sign({
-  role: 'developer',
-  sub: 'postgraphql',
-  aud: 'postgraphql',
-}, JWT_PRIVATE_KEY);
-
 let entry;
 let devtool;
 let devServer;
@@ -56,7 +48,6 @@ const plugins = [
     inject: true,
     anonymousToken,
     authenticatorToken,
-    developerToken,
   }),
 ];
 
