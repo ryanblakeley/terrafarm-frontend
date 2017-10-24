@@ -30,12 +30,13 @@ class LoginPage extends React.Component {
       this.setState({ initialSelectedIndex: 1 });
     }
   }
-  loginUser = data => {
+  loginUser = (data) => {
+    const { router, location } = this.props;
+    const { setLoggedIn } = this.context;
+    const nextPage = location.state.previousPage || '/profile';
     localStorage.setItem('id_token', data.jwtToken);
-    // localStorage.setItem('userId', data.userId);
-    this.context.setLoggedIn(true);
-    // this.context.setUserId(data.userId);
-    this.props.router.replace('/profile');
+    setLoggedIn(true);
+    router.replace(nextPage);
   }
   render () {
     const { relay } = this.props;
