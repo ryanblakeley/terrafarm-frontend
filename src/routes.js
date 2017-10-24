@@ -61,13 +61,18 @@ function prepareLogin (params, props) {
   return params;
 }
 
-function prepareProfile (params, props) {
+function prepareAuthToken (params, props) {
   const idToken = localStorage.getItem('id_token');
-  const { router } = props;
+  const { router, location } = props;
 
   if (idToken === window.anonymousToken
     || idToken === window.authenticatorToken) {
-    router.replace('/login');
+    router.replace({
+      pathname: '/login',
+      state: {
+        previousPage: location.pathname,
+      },
+    });
     // throw new RedirectException({ pathname: '/login' });
   }
 
@@ -106,13 +111,14 @@ export default makeRouteConfig(
       path={'profile'}
       Component={ProfileContainer}
       query={ProfileContainerQuery}
-      prepareVariables={prepareProfile}
+      prepareVariables={prepareAuthToken}
       render={render}
     />
     <Route path={'journal'} >
       <Route
         Component={JournalContainer}
         query={JournalContainerQuery}
+        prepareVariables={prepareAuthToken}
         render={render}
       >
         <Route
@@ -127,6 +133,7 @@ export default makeRouteConfig(
       path={'presets'}
       Component={PresetsContainer}
       query={PresetsContainerQuery}
+      prepareVariables={prepareAuthToken}
       render={render}
     />
     <Route path={'foods'} >

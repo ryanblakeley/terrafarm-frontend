@@ -4,7 +4,7 @@
 
 ### HEAD 0.3.0-alpha.3
 
-- add login flow
+- add login flow, bouncer on authorized routes
 - add app menu
 - add button to return from food search to journal
 - fix react hot loader config
