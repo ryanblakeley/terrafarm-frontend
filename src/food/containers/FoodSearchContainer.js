@@ -105,8 +105,6 @@ class FoodSearchContainer extends React.Component {
       </Layout>
     ));
 
-    console.log('Props:', this.props);
-
     return <TransitionWrapper>
       <Layout page >
         <Menu
