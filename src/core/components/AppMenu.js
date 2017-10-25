@@ -10,7 +10,6 @@ import classNames from '../styles/AppMenuStylesheet.css';
 const propTypes = {
   timeoutDelay: PropTypes.number,
   router: PropTypes.object.isRequired,
-  // match: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -29,10 +28,11 @@ const contextTypes = {
   loggedIn: PropTypes.bool,
 };
 
-function handleSignout (setLoggedIn, replace) {
+function handleSignout (context, replace) {
   localStorage.setItem('id_token', window.anonymousToken);
-  // localStorage.removeItem('user_uuid');
-  setLoggedIn(false);
+  localStorage.setItem('user_uuid', '');
+  context.setLoggedIn(false);
+  context.setUserId('');
   replace('/');
 }
 
@@ -59,8 +59,8 @@ const LoginButton = (props) => <Link to={'/login'} >
 </Link>;
 
 const LogoutButton = (props, context) => <FlatButton
-  onClick={() => { handleSignout(context.setLoggedIn, props.router.replace); }}
-  onTouchTap={() => { handleSignout(context.setLoggedIn, props.router.replace); }}
+  onClick={() => { handleSignout(context, props.router.replace); }}
+  onTouchTap={() => { handleSignout(context, props.router.replace); }}
   label={'Logout'}
   icon={<ArrowRightIcon />}
 />;
@@ -170,6 +170,7 @@ AppMenu.defaultProps = defaultProps;
 AppMenu.contextTypes = contextTypes;
 LogoutButton.contextTypes = {
   setLoggedIn: PropTypes.func,
+  setUserId: PropTypes.func,
 };
 
 export default AppMenu;

@@ -8,13 +8,13 @@ import FormError from 'shared/components/FormError';
 import AuthenticateUserMutation from '../mutations/AuthenticateUserMutation';
 import classNames from '../styles/LoginFormStylesheet.css';
 
-// const PHONE_REGEX = /^\+?[1-9]\d{1,14}$/;
 const PHONE_REGEX = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
 
 function convertPhoneNumber (rawInput) {
   let phoneNumber = rawInput;
 
   phoneNumber = phoneNumber.replace(/[^\d+]+/g, '');
+  // this chunk prefixes the phone number with '+1' but not sure if we want that
   // phoneNumber = phoneNumber.replace(/^00/, '+');
   // if (phoneNumber.match(/^1/)) phoneNumber = `+${phoneNumber}`;
   // if (!phoneNumber.match(/^\+/)) phoneNumber = `+1${phoneNumber}`;
@@ -54,6 +54,7 @@ class LoginForm extends React.Component {
     }
   }
   handleError = error => { // eslint-disable-line no-unused-vars
+    console.error('Error logging in:', error);
     this.setState({ error: 'Login failure' });
   }
   checkPhone = () => null
@@ -82,7 +83,7 @@ class LoginForm extends React.Component {
             name={'userPhone'}
             onChange={this.checkPhone}
             validations={{ matchRegexp: PHONE_REGEX }}
-            validationError={'Does not match expected phone number pattern'}
+            validationError={'Does not look like a phone number'}
             convertValue={convertPhoneNumber}
             required
           />

@@ -16,27 +16,29 @@ const propTypes = {
 class CorePageComponent extends React.Component {
   static childContextTypes = {
     loggedIn: PropTypes.bool,
+    userId: PropTypes.string,
     setLoggedIn: PropTypes.func,
-    // userId: PropTypes.string,
-    // setUserId: PropTypes.func,
+    setUserId: PropTypes.func,
   };
   state = {
     loggedIn: false,
-    // userId: null,
     idToken: null,
+    userId: null,
   };
   getChildContext () {
     return {
       loggedIn: this.state.loggedIn,
+      userId: this.state.userId,
       setLoggedIn: loggedIn => this.setLoggedIn(loggedIn),
-      // userId: this.state.userId,
-      // setUserId: userId => this.setUserId(userId),
+      setUserId: userId => this.setUserId(userId),
     };
   }
   componentWillMount () {
-    // const userId = localStorage.getItem('user_uuid');
     const idToken = localStorage.getItem('id_token');
+    const userId = localStorage.getItem('user_uuid');
+
     if (idToken
+        && userId
         && idToken !== window.anonymousToken
         && idToken !== window.authenticatorToken) {
       this.setState({ loggedIn: true });
@@ -47,11 +49,9 @@ class CorePageComponent extends React.Component {
   setLoggedIn (loggedIn) {
     this.setState({ loggedIn });
   }
-  /*
   setUserId (userId) {
     this.setState({ userId });
   }
-  */
   render () {
     const { match, router } = this.props;
 

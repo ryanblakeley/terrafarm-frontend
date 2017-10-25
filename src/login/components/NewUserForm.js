@@ -80,7 +80,7 @@ class NewUserForm extends React.Component {
             label={'Phone number'}
             name={'userPhone'}
             onChange={this.checkPhone}
-            validationError={'Invalid phone number pattern'}
+            validationError={'Does not look like a phone number'}
             validations={{ matchRegexp: PHONE_REGEX }}
             convertValue={convertPhoneNumber}
             required

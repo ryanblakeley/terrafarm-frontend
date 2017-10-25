@@ -17,7 +17,7 @@ const propTypes = {
 const contextTypes = {
   loggedIn: PropTypes.bool,
   setLoggedIn: PropTypes.func.isRequired,
-  // setUserId: PropTypes.func.isRequired,
+  setUserId: PropTypes.func.isRequired,
 };
 
 class LoginPage extends React.Component {
@@ -32,10 +32,12 @@ class LoginPage extends React.Component {
   }
   loginUser = (data) => {
     const { router, location } = this.props;
-    const { setLoggedIn } = this.context;
-    const nextPage = location.state.previousPage || '/profile';
+    const { setLoggedIn, setUserId } = this.context;
+    const nextPage = (location.state && location.state.previousPage) || '/profile';
     localStorage.setItem('id_token', data.jwtToken);
+    localStorage.setItem('user_uuid', data.userId);
     setLoggedIn(true);
+    setUserId(data.userId);
     router.replace(nextPage);
   }
   render () {
@@ -65,8 +67,7 @@ class LoginPage extends React.Component {
 LoginPage.propTypes = propTypes;
 LoginPage.contextTypes = contextTypes;
 
-// export default LoginPage;
-
+// this part seems to be necessary for making the mutation possible
 export default createFragmentContainer(LoginPage, {
   query: graphql`
     fragment LoginPage_query on Query { id }

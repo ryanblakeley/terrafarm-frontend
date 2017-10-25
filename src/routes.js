@@ -11,8 +11,6 @@ import NotFound from 'not-found/components/NotFoundPage';
 import LoadingComponent from 'core/components/LoadingComponent';
 
 // user
-// import UserContainer from 'user/containers/UserContainer';
-// import UserContainerQuery from 'user/queries/UserContainerQuery';
 import ProfileContainer from 'profile/containers/ProfileContainer';
 import ProfileContainerQuery from 'profile/queries/ProfileContainerQuery';
 import LoginPage from 'login/components/LoginPage';
@@ -40,12 +38,13 @@ function setAnonymousToken () {
 
 function setAuthenticatorToken () {
   localStorage.setItem('id_token', window.authenticatorToken);
-  // localStorage.setItem('user_uuid', '');
+  // localStorage.removeItem('user_uuid');
 }
 
 function prepareLogin (params, props) {
-  const idToken = localStorage.getItem('id_token');
   const { router } = props;
+  const idToken = localStorage.getItem('id_token');
+  // const userId = localStorage.getItem('user_uuid');
 
   if (
     idToken
@@ -53,7 +52,6 @@ function prepareLogin (params, props) {
       && idToken !== window.authenticatorToken
   ) {
     router.replace('/profile');
-    // throw new RedirectException({ pathname: '/profile' });
   } else {
     setAuthenticatorToken();
   }
@@ -62,10 +60,12 @@ function prepareLogin (params, props) {
 }
 
 function prepareAuthToken (params, props) {
-  const idToken = localStorage.getItem('id_token');
   const { router, location } = props;
+  const idToken = localStorage.getItem('id_token');
+  // const userId = localStorage.getItem('user_uuid');
 
-  if (idToken === window.anonymousToken
+  if (!idToken
+    || idToken === window.anonymousToken
     || idToken === window.authenticatorToken) {
     router.replace({
       pathname: '/login',
@@ -73,7 +73,6 @@ function prepareAuthToken (params, props) {
         previousPage: location.pathname,
       },
     });
-    // throw new RedirectException({ pathname: '/login' });
   }
 
   return params;
