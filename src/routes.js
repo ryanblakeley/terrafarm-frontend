@@ -38,16 +38,17 @@ function setAnonymousToken () {
 
 function setAuthenticatorToken () {
   localStorage.setItem('id_token', window.authenticatorToken);
-  // localStorage.removeItem('user_uuid');
+  localStorage.setItem('user_uuid', '');
 }
 
 function prepareLogin (params, props) {
   const { router } = props;
   const idToken = localStorage.getItem('id_token');
-  // const userId = localStorage.getItem('user_uuid');
+  const userId = localStorage.getItem('user_uuid');
 
   if (
     idToken
+      && userId
       && idToken !== window.anonymousToken
       && idToken !== window.authenticatorToken
   ) {
@@ -62,9 +63,10 @@ function prepareLogin (params, props) {
 function prepareAuthToken (params, props) {
   const { router, location } = props;
   const idToken = localStorage.getItem('id_token');
-  // const userId = localStorage.getItem('user_uuid');
+  const userId = localStorage.getItem('user_uuid');
 
   if (!idToken
+    || !userId
     || idToken === window.anonymousToken
     || idToken === window.authenticatorToken) {
     router.replace({
