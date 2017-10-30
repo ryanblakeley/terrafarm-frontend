@@ -3,6 +3,7 @@ import makeRouteConfig from 'found/lib/makeRouteConfig';
 import Route from 'found/lib/Route';
 // import RedirectException from 'found/lib/RedirectException';
 import React from 'react';
+import moment from 'moment';
 
 // static
 import { CorePage } from 'core/components/CorePage';
@@ -19,6 +20,8 @@ import LoginPageQuery from 'login/queries/LoginPageQuery';
 // journal
 import JournalContainer from 'journal/containers/JournalContainer';
 import JournalContainerQuery from 'journal/queries/JournalContainerQuery';
+import JournalDateContainer from 'journal/containers/JournalDateContainer';
+import JournalDateContainerQuery from 'journal/queries/JournalDateContainerQuery';
 import JournalEditRecordContainer from 'journal/containers/JournalEditRecordContainer';
 import JournalEditRecordContainerQuery from 'journal/queries/JournalEditRecordContainerQuery';
 
@@ -90,6 +93,31 @@ function prepareAnonymous (params) {
   return params;
 }
 
+function prepareJournal (params, props) {
+  const { router, location } = props;
+  const date = location.pathname.split('/')[2];
+  const authorizedParams = prepareAuthToken(params, props);
+
+  if (!date) {
+    let today = new Date();
+    today = moment(today).format('YYYY-MM-DD');
+    router.replace({
+      pathname: `/journal/${today}`,
+      query: location.query,
+      state: location.state,
+    });
+  }
+
+  return authorizedParams;
+}
+
+function prepareJournalDate (params) {
+  const { date } = params;
+  const newParams = { condition: { date } };
+
+  return newParams;
+}
+
 function render ({ Component, props }) {
   if (!Component || !props) {
     return <LoadingComponent />;
@@ -115,11 +143,18 @@ export default makeRouteConfig(
       prepareVariables={prepareAuthToken}
       render={render}
     />
-    <Route path={'journal'} >
+    <Route
+      path={'journal'}
+      Component={JournalContainer}
+      query={JournalContainerQuery}
+      prepareVariables={prepareJournal}
+      render={render}
+    >
       <Route
-        Component={JournalContainer}
-        query={JournalContainerQuery}
-        prepareVariables={prepareAuthToken}
+        path={':date'}
+        Component={JournalDateContainer}
+        query={JournalDateContainerQuery}
+        prepareVariables={prepareJournalDate}
         render={render}
       >
         <Route

@@ -2,7 +2,11 @@
 
 ## Changelog
 
-### HEAD 0.3.0-alpha.3
+### HEAD 0.3.0-alpha.4
+
+- change journal to show one date at a time
+
+### 0.3.0-alpha.3
 
 - add login flow, bouncer on authorized routes
 - add app menu

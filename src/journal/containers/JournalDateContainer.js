@@ -1,15 +1,24 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Layout from 'shared/components/Layout';
+import ActionPanel from 'shared/components/ActionPanel';
+import ColumnLabels from 'shared/components/ColumnLabels';
 import FoodSelectionListHeader from 'food-selection/components/FoodSelectionListHeader';
 import FoodSelectionListItem from 'food-selection/components/FoodSelectionListItem';
+import classNames from '../styles/JournalDateContainerStylesheet.css';
 
 const propTypes = {
   currentPerson: PropTypes.object.isRequired,
-  date: PropTypes.string.isRequired,
+  children: PropTypes.object,
   router: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
+
+const defaultProps = {
+  children: null,
 };
 
 class JournalDateContainer extends React.Component {
@@ -88,11 +97,12 @@ class JournalDateContainer extends React.Component {
     });
   }
   render () {
-    const { currentPerson: user, date, router, match } = this.props;
+    const { currentPerson: user, location, router, match, children } = this.props;
     const { calories, protein, fat, carbs, completeCount, recordsCount } = this.state;
     const foodSelections = user && user.foodSelectionsByUserId.edges;
+    const date = location.pathname.split('/')[2];
     const editPanelOpen = router.isActive(match, {
-      pathname: '/journal/edit/',
+      pathname: `/journal/${date}/edit/`,
     });
     const journalFoodSelections = foodSelections.map(({ node }) => {
       const {
@@ -103,7 +113,7 @@ class JournalDateContainer extends React.Component {
         foodByFoodId,
         mass,
       } = node;
-      const url = `/journal/edit/${rowId}`;
+      const url = `/journal/${date}/edit/${rowId}`;
       const editing = router.isActive(match, { pathname: url });
 
       return <FoodSelectionListItem
@@ -118,24 +128,35 @@ class JournalDateContainer extends React.Component {
       />;
     });
 
-    return <Layout center>
-      <FoodSelectionListHeader
-        date={date}
-        calories={calories}
-        protein={protein}
-        fat={fat}
-        carbs={carbs}
-        completeCount={completeCount}
-        recordsCount={recordsCount}
-      />
-      <Layout bottomMedium>
-        {journalFoodSelections}
+    return <TransitionWrapper>
+      <Layout center className={classNames.this} >
+        <Layout className={classNames.journalDateWrapper} >
+          <ColumnLabels />
+          <FoodSelectionListHeader
+            date={date}
+            calories={calories}
+            protein={protein}
+            fat={fat}
+            carbs={carbs}
+            completeCount={completeCount}
+            recordsCount={recordsCount}
+          />
+          <Layout bottomMedium >
+            {journalFoodSelections}
+          </Layout>
+        </Layout>
+        {children && <Layout className={classNames.actionPanelWrapper} >
+          <ActionPanel notifyClose={() => router.replace(`/journal/${date}`)} >
+            {children}
+          </ActionPanel>
+        </Layout>}
       </Layout>
-    </Layout>;
+    </TransitionWrapper>;
   }
 }
 
 JournalDateContainer.propTypes = propTypes;
+JournalDateContainer.defaultProps = defaultProps;
 
 export default createFragmentContainer(
   JournalDateContainer,
