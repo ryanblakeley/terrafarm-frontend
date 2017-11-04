@@ -61,22 +61,12 @@ class JournalEditRecordContainer extends React.Component {
     );
   }
   handleSuccess = response => { // eslint-disable-line no-unused-vars
-    const { isChangingDate, isChangingFoodDescription } = this.state;
-    if (isChangingDate || isChangingFoodDescription) {
-      // Special case where we need to forcefully refetch data. Until found-relay
-      // offers a way to do this we just have to reload the whole page.
-      window.location.reload();
-    }
-
     // this.props.notifyClose();
   }
   handleFailure = error => {
     this.setState({ error: !!error });
   }
   handleSuccessDelete = response => { // eslint-disable-line no-unused-vars
-    // TODO: fix the mutation sharedUpdater to get the connections needed.
-    // For now, do a forceful page reload. :(
-    window.location.reload();
     this.props.notifyClose();
   }
   handleChangeFoodId = (foodId) => {
@@ -87,13 +77,6 @@ class JournalEditRecordContainer extends React.Component {
   }
   updateFoodSelection (patch) {
     const { foodSelectionByRowId: foodSelection, relay } = this.props;
-
-    this.setState({
-      isChangingDate: patch.date
-        && patch.date !== foodSelection.date,
-      isChangingFoodDescription: patch.foodDescription
-        && patch.foodDescription !== foodSelection.foodDescription,
-    });
 
     const formattedPatch = Object.assign({}, patch, {
       unitAmount: patch.unitAmount || null,
