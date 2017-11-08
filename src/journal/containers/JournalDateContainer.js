@@ -119,8 +119,9 @@ class JournalDateContainer extends React.Component {
       return <FoodSelectionListItem
         key={rowId}
         foodName={foodDescription}
-        unitAmount={mass || unitAmount}
-        unitName={mass ? 'grams' : unitDescription}
+        mass={mass}
+        unitAmount={unitAmount}
+        unitDescription={unitDescription}
         url={url}
         complete={!!(foodByFoodId && mass)}
         editing={editing}

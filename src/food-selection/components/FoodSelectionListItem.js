@@ -24,8 +24,9 @@ const styles = {
 const propTypes = {
   // key: PropTypes.string,
   foodName: PropTypes.string.isRequired,
+  mass: PropTypes.number,
   unitAmount: PropTypes.number,
-  unitName: PropTypes.string,
+  unitDescription: PropTypes.string,
   url: PropTypes.string,
   complete: PropTypes.bool.isRequired,
   editing: PropTypes.bool,
@@ -33,8 +34,9 @@ const propTypes = {
 };
 
 const defaultProps = {
+  mass: '',
   unitAmount: '',
-  unitName: '',
+  unitDescription: '',
   url: '',
   editing: false,
   wide: false,
@@ -43,8 +45,9 @@ const defaultProps = {
 const FoodSelectionListItem = props => {
   const {
     foodName,
+    mass,
     unitAmount,
-    unitName,
+    unitDescription,
     url,
     complete,
     editing,
@@ -54,7 +57,7 @@ const FoodSelectionListItem = props => {
 
   return <Layout className={cx({ this: true, complete, editing, wide })}>
     <Span className={classNames.foodName}>{foodName}</Span>
-    <Span className={classNames.unit}>{unitAmount} {unitName}</Span>
+    <Span className={classNames.unit}>{unitAmount} {unitDescription} ~ {mass}g</Span>
     <Span className={classNames.edit}>
       {url && <Link to={url}>
         <IconButton
