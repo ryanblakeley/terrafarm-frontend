@@ -14,7 +14,7 @@ import IoBookmark from 'react-icons/lib/io/bookmark';
 // import IoIosPeople from 'react-icons/lib/io/ios-people';
 // import IoIosTagsOutline from 'react-icons/lib/io/ios-pricetags-outline';
 // import IoKey from 'react-icons/lib/io/lock-combination';
-// import IoIosArrowLeft from 'react-icons/lib/io/ios-arrow-thin-left';
+import IoIosArrowLeft from 'react-icons/lib/io/ios-arrow-thin-left';
 import IoIosArrowRight from 'react-icons/lib/io/ios-arrow-thin-right';
 import IoArrowDownB from 'react-icons/lib/io/arrow-down-b';
 // import IoIosChatBubble from 'react-icons/lib/io/ios-chatbubble-outline';
@@ -58,7 +58,7 @@ const BookmarkIcon = props => <Icon icon={<IoBookmark />} {...props} />;
 // const PeopleIcon = props => <Icon icon={<IoIosPeople />} {...props} />;
 // const TagsIcon = props => <Icon icon={<IoIosTagsOutline />} {...props} />;
 // const TokenIcon = props => <Icon icon={<IoKey />} {...props} />;
-// const ArrowLeftIcon = props => <Icon icon={<IoIosArrowLeft />} {...props} />;
+const ArrowLeftIcon = props => <Icon icon={<IoIosArrowLeft />} {...props} />;
 const ArrowRightIcon = props => <Icon icon={<IoIosArrowRight />} {...props} />;
 const ArrowDownIcon = props => <Icon icon={<IoArrowDownB />} {...props} />;
 // const ChatBubbleIcon = props => <Icon icon={<IoIosChatBubble />} {...props} />;
@@ -115,7 +115,7 @@ BookmarkIcon.propTypes = commonPropTypes;
 // PeopleIcon.propTypes = commonPropTypes;
 // TagsIcon.propTypes = commonPropTypes;
 // TokenIcon.propTypes = commonPropTypes;
-// ArrowLeftIcon.propTypes = commonPropTypes;
+ArrowLeftIcon.propTypes = commonPropTypes;
 ArrowRightIcon.propTypes = commonPropTypes;
 ArrowDownIcon.propTypes = commonPropTypes;
 // ChatBubbleIcon.propTypes = commonPropTypes;
@@ -162,7 +162,7 @@ export {
 //   PeopleIcon,
 //   TagsIcon,
 //   TokenIcon,
-//   ArrowLeftIcon,
+  ArrowLeftIcon,
   ArrowRightIcon,
   ArrowDownIcon,
 //   ChatBubbleIcon,

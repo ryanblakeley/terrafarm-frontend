@@ -58,9 +58,10 @@ const FoodSelectionListItem = props => {
     wide,
   } = props;
   const color = complete ? '' : red400;
+  const displayTime = time ? moment(time || '', 'HH:mm:ss').format('HH:mm') : '';
 
   return <Layout className={cx({ this: true, complete, editing, wide })}>
-    <Span className={classNames.time}>{moment(time || '', 'HH:mm:ss').format('HH:mm')}</Span>
+    <Span className={classNames.time}>{displayTime}</Span>
     <Span className={classNames.foodName}>{foodName}</Span>
     <Span className={classNames.unit}>{unitAmount} {unitDescription} ~ {mass}g</Span>
     <Span className={classNames.edit}>

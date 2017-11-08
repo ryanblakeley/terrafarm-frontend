@@ -117,9 +117,10 @@ class PresetContainer extends React.Component {
 
       return <FoodSelectionListItem
         key={rowId}
+        mass={mass}
         foodName={foodDescription}
-        unitAmount={mass || unitAmount}
-        unitName={mass ? 'grams' : unitDescription}
+        unitAmount={unitAmount}
+        unitDescription={unitDescription}
         url={url}
         complete={!!(foodId && mass)}
       />;

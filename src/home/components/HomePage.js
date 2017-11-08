@@ -2,7 +2,7 @@
 import React from 'react';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Layout from 'shared/components/Layout';
-import { AppName, P, WarningMessage, A, UL, LI } from 'shared/components/Typography';
+import { AppName, H3, H4, P, WarningMessage, A, UL, LI } from 'shared/components/Typography';
 import { LogoFullIcon } from 'shared/components/Icons';
 import classNames from '../styles/HomePageStylesheet.css';
 
@@ -12,12 +12,40 @@ const LogoLarge = () => <AppName className={classNames.appName}>
 
 const Tagline = () => <Layout
   center
-  style={{ width: '90%', maxWidth: 450 }}
+  style={{ width: '90%' }}
 >
-  <P large>
-    Text-message with a bot about the food you eat to record your calories and nutrients in an online journal.
+  <P large >
+    Personal nutrition
+  </P>
+  <H4>
+    (email info@terra.farm to request access)
+  </H4>
+  <P>
+    Have a text conversation about the food you eat.
+  </P>
+  <H4>
+    terra.farm/login
+  </H4>
+  <P>
+    Login to review your food journal.
   </P>
 </Layout>;
+
+// Personal nutrition chatbot
+// personal assistant for nutrition
+// chatbot for nutrition
+// nutrition personal assistant
+// conversational
+// a conversational app for nutrition
+// a conversational app about nutrition
+// Have a conversation about nutrition
+// A bot that has a coversation with you about nutrition.
+// A conversational app for nutrition.
+// A text-message bot for nutrition.
+// Personal nutrition text-message bot
+// A personal nutrition app that works over text-messaging.
+// A conversational app for personal nutrition.
+// Text-message with a bot about the food you eat to record your calories and nutrients in an online journal.
 
 const emailLinkSubject = encodeURIComponent('Request for access');
 // const emailLinkBody = encodeURIComponent('Hi,\n\n');
