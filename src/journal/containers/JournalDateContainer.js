@@ -107,6 +107,7 @@ class JournalDateContainer extends React.Component {
     const journalFoodSelections = foodSelections.map(({ node }) => {
       const {
         rowId,
+        time,
         foodDescription,
         unitAmount,
         unitDescription,
@@ -118,6 +119,7 @@ class JournalDateContainer extends React.Component {
 
       return <FoodSelectionListItem
         key={rowId}
+        time={time}
         foodName={foodDescription}
         mass={mass}
         unitAmount={unitAmount}
@@ -174,6 +176,7 @@ export default createFragmentContainer(
           node {
             id
             rowId
+            time
             foodDescription
             foodId
             foodByFoodId {

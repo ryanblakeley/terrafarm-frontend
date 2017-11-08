@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import moment from 'moment';
 import Layout from 'shared/components/Layout';
 import { Span, Link } from 'shared/components/Typography';
 import { IconButton } from 'shared/components/Material';
@@ -23,6 +24,7 @@ const styles = {
 
 const propTypes = {
   // key: PropTypes.string,
+  time: PropTypes.string,
   foodName: PropTypes.string.isRequired,
   mass: PropTypes.number,
   unitAmount: PropTypes.number,
@@ -34,6 +36,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  time: '',
   mass: '',
   unitAmount: '',
   unitDescription: '',
@@ -44,6 +47,7 @@ const defaultProps = {
 
 const FoodSelectionListItem = props => {
   const {
+    time,
     foodName,
     mass,
     unitAmount,
@@ -56,6 +60,7 @@ const FoodSelectionListItem = props => {
   const color = complete ? '' : red400;
 
   return <Layout className={cx({ this: true, complete, editing, wide })}>
+    <Span className={classNames.time}>{moment(time || '', 'HH:mm:ss').format('HH:mm')}</Span>
     <Span className={classNames.foodName}>{foodName}</Span>
     <Span className={classNames.unit}>{unitAmount} {unitDescription} ~ {mass}g</Span>
     <Span className={classNames.edit}>
