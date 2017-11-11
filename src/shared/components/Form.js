@@ -138,7 +138,7 @@ const datePickerPropTypes = {
     PropTypes.string,
     PropTypes.object,
   ]),
-  value: PropTypes.object,
+  value: PropTypes.object, // eslint-disable-line react/require-default-props
   style: PropTypes.object,
 };
 
