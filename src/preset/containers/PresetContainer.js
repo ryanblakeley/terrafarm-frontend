@@ -128,7 +128,7 @@ class PresetContainer extends React.Component {
 
     return <Layout center >
       <FoodSelectionListHeader
-        presetName={preset.name}
+        listTitle={preset.name}
         calories={calories}
         protein={protein}
         fat={fat}

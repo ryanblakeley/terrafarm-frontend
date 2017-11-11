@@ -5,8 +5,7 @@ import { Span } from 'shared/components/Typography';
 import classNames from '../styles/FoodSelectionListHeaderStylesheet.css';
 
 const propTypes = {
-  date: PropTypes.string,
-  presetName: PropTypes.string,
+  listTitle: PropTypes.node,
   calories: PropTypes.number.isRequired,
   protein: PropTypes.number.isRequired,
   fat: PropTypes.number.isRequired,
@@ -16,29 +15,18 @@ const propTypes = {
 };
 
 const defaultProps = {
-  date: null,
-  presetName: '',
+  listTitle: '',
 };
 
 const FoodSelectionListHeader = props => {
-  const { date, presetName, calories, protein, fat, carbs } = props;
+  const { listTitle, calories, protein, fat, carbs } = props;
 
   return <Layout className={classNames.this} >
-    {date
-        ? <Span className={classNames.macro} title={'Date YYYY-MM-DD'} >{date}</Span>
-        : <Span className={classNames.macro} title={'Preset Name'} >{presetName}</Span>}
-    <Span className={classNames.macro} title={'Calories'} >
-      {calories}
-    </Span>
-    <Span className={classNames.macro} title={'Protein'} >
-      {protein}
-    </Span>
-    <Span className={classNames.macro} title={'Total Fat'} >
-      {fat}
-    </Span>
-    <Span className={classNames.macro} title={'Total Carb.'} >
-      {carbs}
-    </Span>
+    <Span className={classNames.macro} >{listTitle}</Span>
+    <Span className={classNames.macro} title={'Calories'} >{calories}</Span>
+    <Span className={classNames.macro} title={'Protein'} >{protein}</Span>
+    <Span className={classNames.macro} title={'Total Fat'} >{fat}</Span>
+    <Span className={classNames.macro} title={'Total Carb.'} >{carbs}</Span>
     {/*
     <Span className={classNames.completeness} title={'Complete / Total rows'} >
       {completeCount} / {recordsCount}
