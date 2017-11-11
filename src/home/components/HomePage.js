@@ -14,37 +14,22 @@ const Tagline = () => <Layout
   center
   style={{ width: '90%' }}
 >
-  <P large >
-    Personal nutrition
+  <P large>
+    Keep a food journal through text messaging.
   </P>
   <H4>
-    (email info@terra.farm to request access)
+    971-123-4567
   </H4>
-  <P>
-    Have a text conversation about the food you eat.
-  </P>
-  <H4>
-    terra.farm/login
-  </H4>
-  <P>
-    Login to review your food journal.
-  </P>
 </Layout>;
 
+// Text messaging nutrition assistant
 // Personal nutrition chatbot
 // personal assistant for nutrition
 // chatbot for nutrition
 // nutrition personal assistant
-// conversational
-// a conversational app for nutrition
-// a conversational app about nutrition
 // Have a conversation about nutrition
-// A bot that has a coversation with you about nutrition.
-// A conversational app for nutrition.
 // A text-message bot for nutrition.
-// Personal nutrition text-message bot
 // A personal nutrition app that works over text-messaging.
-// A conversational app for personal nutrition.
 // Text-message with a bot about the food you eat to record your calories and nutrients in an online journal.
 
 const emailLinkSubject = encodeURIComponent('Request for access');
@@ -78,7 +63,7 @@ const HomePage = () => <TransitionWrapper>
   <Layout page center bottomMedium>
     <LogoLarge />
     <Tagline />
-    <MoreInfo />
+    {/* <MoreInfo /> */}
   </Layout>
 </TransitionWrapper>;
 
