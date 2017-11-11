@@ -35,6 +35,7 @@ class JournalEditRecordContainer extends React.Component {
 
     this.state = {
       error: false,
+      errorMessage: '',
       formData: {},
       isChangingDate: false,
       isChangingFoodDescription: false,
@@ -50,21 +51,32 @@ class JournalEditRecordContainer extends React.Component {
     this.updateFoodSelection(patch);
   }
   handleDelete = response => {  // eslint-disable-line no-unused-vars
-    const { currentPerson: user, foodSelectionByRowId: foodSelection, relay } = this.props;
+    const {
+      currentPerson: user,
+      foodSelectionByRowId: foodSelection,
+      relay,
+    } = this.props;
 
-    DeleteFoodSelectionMutation.commit(
-      relay.environment,
-      user,
-      foodSelection,
-      this.handleSuccessDelete,
-      this.handleFailure,
-    );
+    const presetName = foodSelection.presetSelectionsBySelectionId.edges
+      && foodSelection.presetSelectionsBySelectionId.edges[0].node.presetByPresetId.name;
+
+    if (presetName) {
+      this.setState({ error: true, errorMessage: `Cannot delete, used by preset ${presetName}` });
+    } else {
+      DeleteFoodSelectionMutation.commit(
+        relay.environment,
+        user,
+        foodSelection,
+        this.handleSuccessDelete,
+        this.handleFailure,
+      );
+    }
   }
   handleSuccess = response => { // eslint-disable-line no-unused-vars
     // this.props.notifyClose();
   }
   handleFailure = error => {
-    this.setState({ error: !!error });
+    this.setState({ error: !!error, errorMessage: 'Internal server failure.' });
   }
   handleSuccessDelete = response => { // eslint-disable-line no-unused-vars
     this.props.notifyClose();
@@ -95,7 +107,7 @@ class JournalEditRecordContainer extends React.Component {
       foodSelectionByRowId: foodSelection,
       notifyClose,
     } = this.props;
-    const { error } = this.state;
+    const { error, errorMessage } = this.state;
     const foodLinkLabel = foodSelection.foodByFoodId && foodSelection.foodByFoodId.description;
     const foodLink = <Layout center >
       <P>
@@ -105,13 +117,16 @@ class JournalEditRecordContainer extends React.Component {
       </P>
     </Layout>;
     const possibleFoods = foodSelection.investigationsByFoodSelectionId;
+    const hasPresetSelections = foodSelection.presetSelectionsBySelectionId
+      && foodSelection.presetSelectionsBySelectionId.edges.length > 0;
 
     return <ActionPanelForm
       title={'Edit Journal Item'}
       notifyClose={notifyClose}
       onValidSubmit={this.handleSubmit}
-      onDelete={this.handleDelete}
+      onDelete={hasPresetSelections ? null : this.handleDelete}
       error={error}
+      errorMessage={errorMessage}
       showForm
       submitLabel={''}
     >
@@ -312,6 +327,15 @@ export default createFragmentContainer(JournalEditRecordContainer, {
             foodByFoodId {
               rowId
               description
+            }
+          }
+        }
+      }
+      presetSelectionsBySelectionId(first: 1) {
+        edges {
+          node {
+            presetByPresetId {
+              name
             }
           }
         }
