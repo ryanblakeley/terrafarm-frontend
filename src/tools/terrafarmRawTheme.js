@@ -37,6 +37,15 @@ const terrafarmRawTheme = {
     textColor: blueGrey500,
     selectedTextColor: blueGrey900,
   },
+  datePicker: {
+    color: blueGrey500,
+    textColor: blueGrey50,
+    calendarTextColor: blueGrey900,
+    selectColor: 'rgb(119, 204, 125)', // cyan700
+    selectTextColor: blueGrey50,
+    calendarYearBackgroundColor: blueGrey50,
+    headerColor: blueGrey500,
+  },
 };
 
 export default terrafarmRawTheme;

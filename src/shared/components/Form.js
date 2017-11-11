@@ -124,8 +124,13 @@ const checkboxDefaultProps = {
 const Checkbox = props => <FormsyCheckbox {...props} />;
 
 const datePickerPropTypes = {
+  autoOk: PropTypes.bool,
+  container: PropTypes.oneOf(['dialog', 'inline']),
   defaultDate: PropTypes.object,
+  hintText: PropTypes.string,
+  mode: PropTypes.oneOf(['portrait', 'landscape']),
   name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
   requiredError: PropTypes.string,
   validationError: PropTypes.string,
   validationErrors: PropTypes.object,
@@ -138,13 +143,17 @@ const datePickerPropTypes = {
 };
 
 const datePickerDefaultProps = {
+  autoOk: true,
+  container: 'inline',
   defaultDate: {},
+  hintText: '',
+  mode: 'landscape',
+  onChange: () => null,
   required: false,
   requiredError: 'Field is required',
   validationError: null,
   validationErrors: {},
   validations: null,
-  value: null,
   style: commonStyle.font,
 };
 
