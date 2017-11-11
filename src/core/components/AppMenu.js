@@ -58,12 +58,14 @@ const LoginButton = (props) => <Link to={'/login'} >
   <FlatButton label={'Login'} icon={<LoginIcon />} disabled={props.disabled} />
 </Link>;
 
-const LogoutButton = (props, context) => <FlatButton
-  onClick={() => { handleSignout(context, props.router.replace); }}
-  onTouchTap={() => { handleSignout(context, props.router.replace); }}
-  label={'Logout'}
-  icon={<ArrowRightIcon />}
-/>;
+const LogoutButton = (props, context) => <Layout>
+  <FlatButton
+    onClick={() => { handleSignout(context, props.router.replace); }}
+    onTouchTap={() => { handleSignout(context, props.router.replace); }}
+    label={'Logout'}
+    icon={<ArrowRightIcon />}
+  />
+</Layout>;
 
 class AppMenu extends React.Component {
   constructor (props) {
