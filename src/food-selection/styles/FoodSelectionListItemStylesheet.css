@@ -10,10 +10,13 @@
 .this.editing { border-radius: 2px; background-color: rgba(232,234,246 ,0.92); }
 .this.wide { margin: 0; }
 
-.time { width: 20%; text-align: left; opacity: 0.8; }
-.foodName { width: 30%; text-align: left; max-width: 250px; }
-.unit { width: 30%; text-align: left; flex-grow: 1; }
-.edit { width: 20%; padding-right: 3%; text-align: right; }
+.column { box-sizing: border-box; width: 15%; padding-right: 2.5%; text-align: left; }
+.column:first-of-type { width: 50%; }
+.column:nth-of-type(5) { text-align: right; }
+
+.linkIcon { position: relative; opacity: 0; top: 15px; transition: opacity 300ms ease, top 300ms ease; }
+.this:hover .linkIcon { opacity: 1; top: 0; }
+
 /* .editIcon { font-size: 18px; } */
 /*
 @media only screen and (min-width: 430px) {

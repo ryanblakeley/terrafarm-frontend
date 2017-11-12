@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import moment from 'moment';
+// import moment from 'moment';
 import Layout from 'shared/components/Layout';
 import { Span, Link } from 'shared/components/Typography';
 import { IconButton } from 'shared/components/Material';
@@ -24,7 +24,7 @@ const styles = {
 
 const propTypes = {
   // key: PropTypes.string,
-  time: PropTypes.string,
+  // time: PropTypes.string,
   foodName: PropTypes.string.isRequired,
   mass: PropTypes.number,
   unitAmount: PropTypes.number,
@@ -47,7 +47,7 @@ const defaultProps = {
 
 const FoodSelectionListItem = props => {
   const {
-    time,
+    // time,
     foodName,
     mass,
     unitAmount,
@@ -58,23 +58,26 @@ const FoodSelectionListItem = props => {
     wide,
   } = props;
   const color = complete ? '' : red400;
-  const displayTime = time ? moment(time || '', 'HH:mm:ss').format('HH:mm') : '';
-
-  return <Layout className={cx({ this: true, complete, editing, wide })}>
-    <Span className={classNames.time}>{displayTime}</Span>
-    <Span className={classNames.foodName}>{foodName}</Span>
-    <Span className={classNames.unit}>{unitAmount} {unitDescription} ~ {mass}g</Span>
-    <Span className={classNames.edit}>
-      {url && <Link to={url}>
-        <IconButton
-          style={styles.editButton}
-          onClick={() => window.scrollTo(0, 0)}
-        >
-          <ArrowRightIcon className={classNames.editIcon} color={color} />
-        </IconButton>
-      </Link>}
+  // const displayTime = time ? moment(time || '', 'HH:mm:ss').format('HH:mm') : '';
+  const mainElement = <Layout className={cx({ this: true, complete, editing, wide })}>
+    <Span className={classNames.column} key={1} >
+      {foodName}; {unitAmount} {unitDescription} ~ {mass}g
+    </Span>
+    <Span className={classNames.column} key={2} >{''}</Span>
+    <Span className={classNames.column} key={3} >{''}</Span>
+    <Span className={classNames.column} key={4} >{''}</Span>
+    <Span className={classNames.column} key={5} >
+      {url && <IconButton
+        className={classNames.linkIcon}
+        style={styles.editButton}
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        <ArrowRightIcon className={classNames.editIcon} color={color} />
+      </IconButton>}
     </Span>
   </Layout>;
+
+  return url ? <Link to={url} >{mainElement}</Link> : mainElement;
 };
 
 FoodSelectionListItem.propTypes = propTypes;

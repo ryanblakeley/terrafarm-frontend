@@ -138,7 +138,7 @@ class JournalDateContainer extends React.Component {
       />;
     });
 
-    const displayDate = new Date(moment(date));
+    const displayDate = new Date(moment(date, 'YYYY-MM-DD'));
 
     return <TransitionWrapper>
       <Layout center className={classNames.this} >
@@ -156,6 +156,7 @@ class JournalDateContainer extends React.Component {
                   width: 'initial',
                   height: 'initial',
                 }}
+                mode={'portrait'}
               />
             </Form>}
             calories={calories}

@@ -6,13 +6,13 @@
 }
 .macro {
   box-sizing: border-box;
-  width: 20%; padding-right: 5%;
+  width: 15%; padding-right: 2.5%;
   text-align: right;
   /* font-weight: bold; */
   color: rgb(92,107,192);
   border-right: solid 1px rgb(92,107,192);
 }
-.macro:first-of-type { text-align: left; padding-right: 0; border-right: none; }
+.macro:first-of-type { width: 40%; text-align: left; padding-right: 0; border-right: none; }
 .macro:nth-of-type(5) { border-right: none; }
 
 @media only screen and (min-width: 430px) {

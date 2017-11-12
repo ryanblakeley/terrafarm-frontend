@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
+// import { Form, TextInput } from 'shared/components/Form';
+import { FlatButton } from 'shared/components/Material';
 import FoodSelectionListHeader from 'food-selection/components/FoodSelectionListHeader';
 import FoodSelectionListItem from 'food-selection/components/FoodSelectionListItem';
 
@@ -128,7 +130,7 @@ class PresetContainer extends React.Component {
 
     return <Layout center >
       <FoodSelectionListHeader
-        listTitle={preset.name}
+        listTitle={<FlatButton label={preset.name} />}
         calories={calories}
         protein={protein}
         fat={fat}
