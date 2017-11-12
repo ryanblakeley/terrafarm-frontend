@@ -57,7 +57,7 @@ class JournalEditRecordContainer extends React.Component {
       relay,
     } = this.props;
 
-    const presetName = foodSelection.presetSelectionsBySelectionId.edges
+    const presetName = foodSelection.presetSelectionsBySelectionId.edges.length > 0
       && foodSelection.presetSelectionsBySelectionId.edges[0].node.presetByPresetId.name;
 
     if (presetName) {

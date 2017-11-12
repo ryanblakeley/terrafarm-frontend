@@ -6,6 +6,9 @@ const mutation = graphql`
     $input: DeleteFoodSelectionInput!
   ) {
     deleteFoodSelection(input: $input) {
+      foodSelection {
+        id
+      }
       userByUserId {
         id
         foodSelectionsByUserId {
@@ -25,13 +28,11 @@ const mutation = graphql`
 function sharedUpdater (store, user, deletedId) {
   const userProxy = store.get(user.id);
   const connectionKeys = [
-    'JournalContainer_foodSelectionsByUserId',
     'JournalDateContainer_foodSelectionsByUserId',
   ];
 
   connectionKeys.forEach(c => {
     const connection = ConnectionHandler.getConnection(userProxy, c);
-    console.log('Connection:', connection);
 
     if (connection) {
       ConnectionHandler.deleteNode(
@@ -50,8 +51,9 @@ function commit (environment, user, foodSelection, onCompleted, onError) {
     },
 
     updater: (store) => {
-      const payload = store.getRootField('deleteFoodSelection');
-      sharedUpdater(store, user, payload.getValue('deletedFoodSelectionId'));
+      // const payload = store.getRootField('deleteFoodSelection');
+      // payload.getValue('deletedFoodSelectionId'); // getting null :/
+      sharedUpdater(store, user, foodSelection.id);
     },
 /*
     optimisticUpdater: (store) => {

@@ -100,7 +100,7 @@ class JournalDateContainer extends React.Component {
   }
   handleChangeDate = (foo, date) => {
     const { router } = this.props;
-    const routeDate = moment(date).format('YYYY-MM-DD');
+    const routeDate = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD');
     router.push(`/journal/${routeDate}`);
   }
   render () {
@@ -192,7 +192,7 @@ export default createFragmentContainer(
         condition: $condition,
         first: 2147483647,
         orderBy: TIME_DESC
-      ) {
+      ) @connection(key: "JournalDateContainer_foodSelectionsByUserId", filters: []) {
         edges {
           node {
             id
