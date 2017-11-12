@@ -8,7 +8,7 @@ import { FlatButton } from 'shared/components/Material';
 import { SearchIcon } from 'shared/components/Icons';
 import { TextInput } from 'shared/components/Form';
 import validations, { validationErrors, conversions } from 'tools/validations';
-import SelectionNutritionValues from '../components/SelectionNutritionValues';
+// import SelectionNutritionValues from '../components/SelectionNutritionValues';
 import SelectionInvestigations from '../components/SelectionInvestigations';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
@@ -226,11 +226,11 @@ class JournalEditRecordContainer extends React.Component {
           </Link>
         </P>
       </Layout>}
+      {/*
       <SelectionNutritionValues
         food={foodSelection.foodByFoodId}
         mass={foodSelection.mass}
       />
-      {/*
       <Layout flexCenter flexWrap >
         <Layout>
           <TextInput

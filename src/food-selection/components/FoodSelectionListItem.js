@@ -58,14 +58,15 @@ const FoodSelectionListItem = props => {
   return <Layout
     className={cx({ this: true, complete, editing, wide })}
     onClick={url ? () => router.replace(url) : null}
+    style={{ cursor: url ? 'pointer' : 'default' }}
   >
     <Span className={classNames.column} key={1} >
       {foodName}; {unitAmount} {unitDescription} ~ {mass}g
     </Span>
-    <Span className={classNames.column} key={2} >{complete && nutrition.calories}</Span>
-    <Span className={classNames.column} key={3} >{complete && nutrition.protein}</Span>
-    <Span className={classNames.column} key={4} >{complete && nutrition.fat}</Span>
-    <Span className={classNames.column} key={5} >{complete && nutrition.carbs}</Span>
+    <Span className={classNames.column} key={2} >{nutrition.calories || ''}</Span>
+    <Span className={classNames.column} key={3} >{nutrition.protein || ''}</Span>
+    <Span className={classNames.column} key={4} >{nutrition.fat || ''}</Span>
+    <Span className={classNames.column} key={5} >{nutrition.carbs || ''}</Span>
   </Layout>;
 };
 

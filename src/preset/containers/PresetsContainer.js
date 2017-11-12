@@ -32,7 +32,7 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
     } = this.props;
     const presets = user && user.presetsByUserId;
     const presetContainers = presets.edges.map(({ node }) => (
-      <PresetContainer key={node.id} preset={node} />
+      <PresetContainer key={node.id} preset={node} router={router} />
     ));
     const emptyPresetsWarning = <WarningMessage>Presets empty.</WarningMessage>;
 

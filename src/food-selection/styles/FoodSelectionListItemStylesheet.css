@@ -6,7 +6,6 @@
   padding: 2px 0;
   /* margin-left: 15%; */
   border-bottom: solid 1px #EF5350;
-  cursor: pointer;
 }
 .this.complete { border-bottom-color: #C5CAE9; }
 .this.editing { border-radius: 2px; background-color: rgba(232,234,246 ,0.92); }

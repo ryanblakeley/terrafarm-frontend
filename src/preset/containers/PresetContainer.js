@@ -8,6 +8,7 @@ import FoodSelectionListItem from 'food-selection/components/FoodSelectionListIt
 
 const propTypes = {
   preset: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
 };
 
 class PresetContainer extends React.Component {
@@ -99,7 +100,7 @@ class PresetContainer extends React.Component {
     });
   }
   render () {
-    const { preset } = this.props;
+    const { preset, router } = this.props;
     const { calories, protein, fat, carbs, completeCount, recordsCount } = this.state;
     const presetSelections = preset && preset.presetSelectionsByPresetId;
     const foodSelections = presetSelections
@@ -116,6 +117,7 @@ class PresetContainer extends React.Component {
         mass,
       } = s;
       const url = ''; // `/user/${preset.userId}/journal/edit/${rowId}`;
+      const nutrition = this.calculateNutrition(s);
 
       return <FoodSelectionListItem
         key={rowId}
@@ -125,6 +127,8 @@ class PresetContainer extends React.Component {
         unitDescription={unitDescription}
         url={url}
         complete={!!(foodId && mass)}
+        nutrition={nutrition}
+        router={router}
       />;
     });
 
