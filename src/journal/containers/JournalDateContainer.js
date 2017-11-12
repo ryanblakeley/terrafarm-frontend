@@ -123,6 +123,8 @@ class JournalDateContainer extends React.Component {
       } = node;
       const url = `/journal/${date}/edit/${rowId}`;
       const editing = router.isActive(match, { pathname: url });
+      const complete = !!(foodByFoodId && mass);
+      const nutrition = this.calculateNutrition(node);
 
       return <FoodSelectionListItem
         key={rowId}
@@ -132,9 +134,11 @@ class JournalDateContainer extends React.Component {
         unitAmount={unitAmount}
         unitDescription={unitDescription}
         url={url}
-        complete={!!(foodByFoodId && mass)}
+        complete={complete}
+        nutrition={nutrition}
         editing={editing}
         wide={editPanelOpen}
+        router={router}
       />;
     });
 

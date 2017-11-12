@@ -19,9 +19,11 @@ const propTypes = {
   flexWrap: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
+  onClick: PropTypes.func,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   children: PropTypes.node,
+  role: PropTypes.string,
 };
 
 const defaultProps = {
@@ -38,17 +40,21 @@ const defaultProps = {
   flexWrap: false,
   className: '',
   style: {},
+  onClick: null,
   onMouseEnter: null,
   onMouseLeave: null,
   children: null,
+  role: null,
 };
 
 const Layout = props => {
-  const { className, style, children, onMouseEnter, onMouseLeave, ...rest } = props;
+  const { className, style, children, onClick, onMouseEnter, onMouseLeave, ...rest } = props;
 
+  /* eslint-disable jsx-a11y/no-static-element-interactions */
   return <div
     className={`${cx({ ...rest })} ${className}`}
     style={style}
+    onClick={onClick}
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
   >

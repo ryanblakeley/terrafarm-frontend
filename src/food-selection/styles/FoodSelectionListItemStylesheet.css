@@ -1,21 +1,26 @@
 .this {
+  position: relative;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   padding: 2px 0;
   /* margin-left: 15%; */
   border-bottom: solid 1px #EF5350;
+  cursor: pointer;
 }
 .this.complete { border-bottom-color: #C5CAE9; }
 .this.editing { border-radius: 2px; background-color: rgba(232,234,246 ,0.92); }
 .this.wide { margin: 0; }
 
-.column { box-sizing: border-box; width: 15%; padding-right: 2.5%; text-align: left; }
-.column:first-of-type { width: 50%; }
-.column:nth-of-type(5) { text-align: right; }
+.column { box-sizing: border-box; width: 15%; padding-right: 2.5%; text-align: right; }
+.column:first-of-type { width: 40%; text-align: left; }
 
-.linkIcon { position: relative; opacity: 0; top: 15px; transition: opacity 300ms ease, top 300ms ease; }
-.this:hover .linkIcon { opacity: 1; top: 0; }
+.column::after { content: 'g'; }
+.column:first-of-type::after,
+.column:nth-of-type(2)::after { content: ''; }
+
+.linkIcon { position: absolute; opacity: 0; top: 100%; right: 2.5%; transition: opacity 300ms ease, top 300ms ease; }
+.this:hover .linkIcon { opacity: 1; top: 25%; }
 
 /* .editIcon { font-size: 18px; } */
 /*
