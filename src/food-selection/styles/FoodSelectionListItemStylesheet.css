@@ -13,11 +13,11 @@
 
 .column { box-sizing: border-box; width: 15%; padding-right: 2.5%; text-align: right; }
 .column:first-of-type { width: 40%; text-align: left; }
-
+/*
 .column::after { content: 'g'; }
 .column:first-of-type::after,
 .column:nth-of-type(2)::after { content: ''; }
-
+*/
 .linkIcon { position: absolute; opacity: 0; top: 100%; right: 2.5%; transition: opacity 300ms ease, top 300ms ease; }
 .this:hover .linkIcon { opacity: 1; top: 25%; }
 
