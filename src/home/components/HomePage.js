@@ -18,7 +18,7 @@ const Tagline = () => <Layout
     Keep a food journal through text messaging.
   </P>
   <H4>
-    971-123-4567
+    123-456-7890
   </H4>
 </Layout>;
 
@@ -49,7 +49,7 @@ const MoreInfo = () => <Layout
 >
   <P>
     <WarningMessage>
-      Email {emailLink} to get access.
+      Currently private; email {emailLink} for access.
     </WarningMessage>
   </P>
 </Layout>;
@@ -63,7 +63,7 @@ const HomePage = () => <TransitionWrapper>
   <Layout page center bottomMedium>
     <LogoLarge />
     <Tagline />
-    {/* <MoreInfo /> */}
+    <MoreInfo />
   </Layout>
 </TransitionWrapper>;
 
