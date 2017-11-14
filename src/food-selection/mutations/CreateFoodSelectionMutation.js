@@ -2,11 +2,12 @@ import { commitMutation, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 
 const mutation = graphql`
-  mutation UpdateFoodSelectionMutation(
-    $input: UpdateFoodSelectionInput!
+  mutation CreateFoodSelectionMutation(
+    $input: CreateFoodSelectionInput!
   ) {
-    updateFoodSelection(input: $input) {
+    createFoodSelection(input: $input) {
       foodSelection {
+        rowId
         foodDescription
         foodId
         foodByFoodId {
@@ -32,9 +33,8 @@ const mutation = graphql`
   }
 `;
 
-function sharedUpdater (store, user, foodSelection) { // eslint-disable-line no-unused-vars
+function sharedUpdater (store, user) {
   const userProxy = store.get(user.id);
-  // const foodSelectionProxy = store.get(foodSelection.id);
   const connectionKeys = [
     'JournalDateContainer_foodSelectionsByUserId',
   ];
@@ -43,29 +43,32 @@ function sharedUpdater (store, user, foodSelection) { // eslint-disable-line no-
     const connection = ConnectionHandler.getConnection(userProxy, c);
 
     if (connection) {
-      const payload = store.getRootField('updateFoodSelection');
-      const updatedFoodSelection = payload.getLinkedRecord('foodSelection');
-      ConnectionHandler.update(store, updatedFoodSelection);
+      const payload = store.getRootField('createFoodSelection');
+      const newFoodSelection = payload.getLinkedRecord('foodSelection');
+      const newEdge = ConnectionHandler.createEdge(
+        store,
+        connection,
+        newFoodSelection,
+        'FoodSelectionEdge',
+      );
+      ConnectionHandler.insertEdgeBefore(connection, newEdge);
     }
   });
 }
 
-function commit (environment, user, foodSelection, patch, onCompleted, onError) {
+function commit (environment, user, data, onCompleted, onError) {
   return commitMutation(environment, {
     mutation,
     variables: {
-      input: {
-        id: foodSelection.id,
-        foodSelectionPatch: patch,
-      },
+      input: { foodSelection: data },
     },
     updater: (store) => {
-      sharedUpdater(store, user, foodSelection);
+      sharedUpdater(store, user);
     },
-    optimisticUpdater () {
+    optimisticCreater () {
       return {
-        updateFoodSelection: {
-          foodSelection: Object.assign({}, foodSelection, patch),
+        createFoodSelection: {
+          foodSelection: data,
         },
       };
     },

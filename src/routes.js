@@ -37,6 +37,9 @@ import FoodSearchContainerQuery from 'food/queries/FoodSearchContainerQuery';
 import EditFoodSelectionContainer from 'food-selection/containers/EditFoodSelectionContainer';
 import EditFoodSelectionContainerQuery
   from 'food-selection/queries/EditFoodSelectionContainerQuery';
+import CreateFoodSelectionContainer from 'food-selection/containers/CreateFoodSelectionContainer';
+import CreateFoodSelectionContainerQuery
+  from 'food-selection/queries/CreateFoodSelectionContainerQuery';
 
 function setAnonymousToken () {
   localStorage.setItem('id_token', window.anonymousToken);
@@ -164,6 +167,11 @@ export default makeRouteConfig(
           path={'edit/:foodSelectionId'}
           Component={EditFoodSelectionContainer}
           query={EditFoodSelectionContainerQuery}
+        />
+        <Route
+          path={'new'}
+          Component={CreateFoodSelectionContainer}
+          query={CreateFoodSelectionContainerQuery}
         />
       </Route>
     </Route>

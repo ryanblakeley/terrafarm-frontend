@@ -117,14 +117,19 @@ class EditFoodSelectionContainer extends React.Component {
     this.updateFoodSelection({ mass });
   }
   updateFoodSelection (patch) {
-    const { foodSelectionByRowId: foodSelection, relay } = this.props;
+    const { currentPerson, foodSelectionByRowId: foodSelection, relay } = this.props;
 
     const formattedPatch = Object.assign({}, patch, {
       unitAmount: patch.unitAmount || null,
+      unitDescription: patch.unitDescription || null,
+      foodId: patch.foodId || null,
+      mass: patch.mass || null,
+      time: patch.time || null,
     });
 
     UpdateFoodSelectionMutation.commit(
       relay.environment,
+      currentPerson,
       foodSelection,
       formattedPatch,
       this.handleSuccess,

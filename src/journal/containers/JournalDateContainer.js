@@ -3,6 +3,7 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Layout from 'shared/components/Layout';
+import { FlatButton } from 'shared/components/Material';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import FoodSelectionListHeader from 'food-selection/components/FoodSelectionListHeader';
 import FoodSelectionListItem from 'food-selection/components/FoodSelectionListItem';
@@ -95,6 +96,10 @@ class JournalDateContainer extends React.Component {
       recordsCount: nutritions.length,
     });
   }
+  handleAddRow = () => {
+    const { router, location } = this.props;
+    router.replace(`${location.pathname}/new`);
+  }
   render () {
     const { currentPerson: user, location, router, match, children } = this.props;
     const { calories, protein, fat, carbs, completeCount, recordsCount } = this.state;
@@ -150,15 +155,9 @@ class JournalDateContainer extends React.Component {
           <Layout bottomMedium >
             {journalFoodSelections}
           </Layout>
+          <FlatButton label={'Add row'} onClick={this.handleAddRow} fullWidth />
         </Layout>
         {children}
-        {/*
-        children && <Layout className={classNames.actionPanelWrapper} >
-          <ActionPanel notifyClose={() => router.replace(`/journal/${date}`)} >
-            {children}
-          </ActionPanel>
-        </Layout>
-        */}
       </Layout>
     </TransitionWrapper>;
   }

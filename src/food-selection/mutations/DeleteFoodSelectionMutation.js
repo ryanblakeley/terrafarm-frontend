@@ -24,7 +24,6 @@ const mutation = graphql`
   }
 `;
 
-// TODO: fix this because it doesn't actually update the client cache
 function sharedUpdater (store, user, deletedId) {
   const userProxy = store.get(user.id);
   const connectionKeys = [

@@ -56,7 +56,13 @@ const FoodSelectionListItem = props => {
   // const displayTime = time ? moment(time || '', 'HH:mm:ss').format('HH:mm') : '';
 
   return <Layout
-    className={cx({ this: true, complete, editing, wide })}
+    className={cx({
+      this: true,
+      button: !!url,
+      complete,
+      editing,
+      wide,
+    })}
     onClick={url ? () => router.replace(url) : null}
     style={{ cursor: url ? 'pointer' : 'default' }}
   >
