@@ -3,6 +3,7 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Spacing from 'material-ui/styles/spacing';
+import MaterialDialog from 'material-ui/Dialog';
 import MaterialFlatButton from 'material-ui/FlatButton';
 import MaterialRaisedButton from 'material-ui/RaisedButton';
 import MaterialIconButton from 'material-ui/IconButton';
@@ -19,6 +20,7 @@ const styles = {
   iconButtonIcon: { fontSize: 36 },
 };
 
+const Dialog = props => <MaterialDialog {...props} />;
 const FlatButton = props => {
   const { icon, ...rest } = props;
   return <MaterialFlatButton
@@ -48,14 +50,10 @@ const Tab = MaterialTab;
 const Popover = props => <MaterialPopover {...props} />;
 
 const defaultPropTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-    PropTypes.object,
-    PropTypes.array,
-  ]),
+  children: PropTypes.node, // eslint-disable-line react/require-default-props
 };
 
+Dialog.propTypes = defaultPropTypes;
 FlatButton.propTypes = Object.assign({}, defaultPropTypes, {
   icon: PropTypes.element,
 });
@@ -72,6 +70,7 @@ Popover.propTypes = defaultPropTypes;
 export {
   MuiThemeProvider,
   getMuiTheme,
+  Dialog,
   FlatButton,
   RaisedButton,
   IconButton,

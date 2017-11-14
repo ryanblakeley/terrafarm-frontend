@@ -5,6 +5,7 @@ import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 import FormsyCheckbox from 'formsy-material-ui/lib/FormsyCheckbox';
 import FormsyDate from 'formsy-material-ui/lib/FormsyDate';
+import FormsyToggle from 'formsy-material-ui/lib/FormsyToggle';
 import { blueGrey900 } from 'tools/colors';
 import classNames from '../styles/FormStylesheet.css';
 
@@ -159,6 +160,17 @@ const datePickerDefaultProps = {
 
 const DatePicker = props => <FormsyDate {...props} />;
 
+const Toggle = props => {
+  const { style, ...rest } = props;
+  const mergedStyle = Object.assign({}, commonStyle.field, style);
+
+  return <FormsyToggle style={mergedStyle} {...rest} />;
+};
+Toggle.propTypes = {
+  style: PropTypes.object,
+};
+Toggle.defaultProps = { style: commonStyle.field };
+
 Form.propTypes = formPropTypes;
 TextInput.propTypes = textInputPropTypes;
 SelectInput.propTypes = selectInputPropTypes;
@@ -170,4 +182,4 @@ SelectInput.defaultProps = selectInputDefaultProps;
 Checkbox.defaultProps = checkboxDefaultProps;
 DatePicker.defaultProps = datePickerDefaultProps;
 
-export { Form, TextInput, SelectInput, Checkbox, DatePicker };
+export { Form, TextInput, SelectInput, Checkbox, DatePicker, Toggle };

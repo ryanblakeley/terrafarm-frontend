@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import moment from 'moment';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Layout from 'shared/components/Layout';
-import ActionPanel from 'shared/components/ActionPanel';
 import ColumnLabels from 'shared/components/ColumnLabels';
-import { Form, DatePicker } from 'shared/components/Form';
 import FoodSelectionListHeader from 'food-selection/components/FoodSelectionListHeader';
 import FoodSelectionListItem from 'food-selection/components/FoodSelectionListItem';
 import classNames from '../styles/JournalDateContainerStylesheet.css';
@@ -98,11 +95,6 @@ class JournalDateContainer extends React.Component {
       recordsCount: nutritions.length,
     });
   }
-  handleChangeDate = (foo, date) => {
-    const { router } = this.props;
-    const routeDate = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD');
-    router.push(`/journal/${routeDate}`);
-  }
   render () {
     const { currentPerson: user, location, router, match, children } = this.props;
     const { calories, protein, fat, carbs, completeCount, recordsCount } = this.state;
@@ -142,27 +134,12 @@ class JournalDateContainer extends React.Component {
       />;
     });
 
-    const displayDate = new Date(moment(date, 'YYYY-MM-DD'));
-
     return <TransitionWrapper>
       <Layout center className={classNames.this} >
         <Layout className={classNames.journalDateWrapper} >
           <ColumnLabels />
           <FoodSelectionListHeader
-            listTitle={<Form>
-              <DatePicker
-                autoOk
-                onChange={this.handleChangeDate}
-                name={'list date'}
-                defaultDate={displayDate}
-                textFieldStyle={{
-                  cursor: 'pointer',
-                  width: 'initial',
-                  height: 'initial',
-                }}
-                mode={'portrait'}
-              />
-            </Form>}
+            listTitle={date}
             calories={calories}
             protein={protein}
             fat={fat}
@@ -174,11 +151,14 @@ class JournalDateContainer extends React.Component {
             {journalFoodSelections}
           </Layout>
         </Layout>
-        {children && <Layout className={classNames.actionPanelWrapper} >
+        {children}
+        {/*
+        children && <Layout className={classNames.actionPanelWrapper} >
           <ActionPanel notifyClose={() => router.replace(`/journal/${date}`)} >
             {children}
           </ActionPanel>
-        </Layout>}
+        </Layout>
+        */}
       </Layout>
     </TransitionWrapper>;
   }

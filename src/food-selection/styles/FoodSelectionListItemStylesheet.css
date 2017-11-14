@@ -6,10 +6,12 @@
   padding: 2px 0;
   /* margin-left: 15%; */
   border-bottom: solid 1px #EF5350;
+  transition: background-color 180ms ease-out;
 }
 .this.complete { border-bottom-color: #C5CAE9; }
 .this.editing { border-radius: 2px; background-color: rgba(232,234,246 ,0.92); }
 .this.wide { margin: 0; }
+.this:hover { background-color: rgba(232,234,246 ,0.6); }
 
 .column { box-sizing: border-box; width: 15%; padding-right: 2.5%; text-align: right; }
 .column:first-of-type { width: 40%; text-align: left; }

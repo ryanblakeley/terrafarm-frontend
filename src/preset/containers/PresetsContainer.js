@@ -16,6 +16,7 @@ const propTypes = {
   router: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   children: PropTypes.element,
+  relay: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -29,10 +30,11 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
       router,
       location,
       children,
+      relay,
     } = this.props;
     const presets = user && user.presetsByUserId;
     const presetContainers = presets.edges.map(({ node }) => (
-      <PresetContainer key={node.id} preset={node} router={router} />
+      <PresetContainer key={node.id} preset={node} router={router} relay={relay} />
     ));
     const emptyPresetsWarning = <WarningMessage>Presets empty.</WarningMessage>;
 
@@ -81,6 +83,7 @@ export default createFragmentContainer(
             id
             name
             userId
+            active
             presetSelectionsByPresetId(first: 2147483647) {
               edges {
                 node {

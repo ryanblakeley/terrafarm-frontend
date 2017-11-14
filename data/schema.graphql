@@ -4816,6 +4816,9 @@ type Preset implements Node {
   # A name for the preset which is unique per user id so it can be conveniently referenced.
   name: String
 
+  # A boolean for deactivating a preset without deleting the record.
+  active: Boolean!
+
   # The time this object was created.
   createdAt: Datetime
 
@@ -4890,6 +4893,9 @@ input PresetCondition {
   # Checks for equality with the object’s `name` field.
   name: String
 
+  # Checks for equality with the object’s `active` field.
+  active: Boolean
+
   # Checks for equality with the object’s `createdAt` field.
   createdAt: Datetime
 }
@@ -4908,6 +4914,9 @@ input PresetInput {
   # A name for the preset which is unique per user id so it can be conveniently referenced.
   name: String
 
+  # A boolean for deactivating a preset without deleting the record.
+  active: Boolean
+
   # The time this object was created.
   createdAt: Datetime
 }
@@ -4925,6 +4934,9 @@ input PresetPatch {
 
   # A name for the preset which is unique per user id so it can be conveniently referenced.
   name: String
+
+  # A boolean for deactivating a preset without deleting the record.
+  active: Boolean
 
   # The time this object was created.
   createdAt: Datetime
@@ -5060,6 +5072,8 @@ enum PresetsOrderBy {
   MESSAGE_ID_DESC
   NAME_ASC
   NAME_DESC
+  ACTIVE_ASC
+  ACTIVE_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   PRIMARY_KEY_ASC

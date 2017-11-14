@@ -22,8 +22,6 @@ import JournalContainer from 'journal/containers/JournalContainer';
 import JournalContainerQuery from 'journal/queries/JournalContainerQuery';
 import JournalDateContainer from 'journal/containers/JournalDateContainer';
 import JournalDateContainerQuery from 'journal/queries/JournalDateContainerQuery';
-import JournalEditRecordContainer from 'journal/containers/JournalEditRecordContainer';
-import JournalEditRecordContainerQuery from 'journal/queries/JournalEditRecordContainerQuery';
 
 // preset
 import PresetsContainer from 'preset/containers/PresetsContainer';
@@ -34,6 +32,11 @@ import FoodDetailContainer from 'food/containers/FoodDetailContainer';
 import FoodDetailContainerQuery from 'food/queries/FoodDetailContainerQuery';
 import FoodSearchContainer from 'food/containers/FoodSearchContainer';
 import FoodSearchContainerQuery from 'food/queries/FoodSearchContainerQuery';
+
+// food-selection
+import EditFoodSelectionContainer from 'food-selection/containers/EditFoodSelectionContainer';
+import EditFoodSelectionContainerQuery
+  from 'food-selection/queries/EditFoodSelectionContainerQuery';
 
 function setAnonymousToken () {
   localStorage.setItem('id_token', window.anonymousToken);
@@ -159,9 +162,8 @@ export default makeRouteConfig(
       >
         <Route
           path={'edit/:foodSelectionId'}
-          Component={JournalEditRecordContainer}
-          query={JournalEditRecordContainerQuery}
-          render={render}
+          Component={EditFoodSelectionContainer}
+          query={EditFoodSelectionContainerQuery}
         />
       </Route>
     </Route>
