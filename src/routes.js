@@ -167,11 +167,13 @@ export default makeRouteConfig(
           path={'edit/:foodSelectionId'}
           Component={EditFoodSelectionContainer}
           query={EditFoodSelectionContainerQuery}
+          render={({ Component, props }) => (Component && props && <Component {...props} />) || null} // eslint-disable-line max-len
         />
         <Route
           path={'new'}
           Component={CreateFoodSelectionContainer}
           query={CreateFoodSelectionContainerQuery}
+          render={({ Component, props }) => (Component && props && <Component {...props} />) || null} // eslint-disable-line max-len
         />
       </Route>
     </Route>

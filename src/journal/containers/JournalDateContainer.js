@@ -152,7 +152,7 @@ class JournalDateContainer extends React.Component {
             completeCount={completeCount}
             recordsCount={recordsCount}
           />
-          <Layout bottomMedium >
+          <Layout>
             {journalFoodSelections}
           </Layout>
           <FlatButton label={'Add row'} onClick={this.handleAddRow} fullWidth />

@@ -20,7 +20,7 @@ const styles = {
 
 const propTypes = {
   currentPerson: PropTypes.object.isRequired,
-  children: PropTypes.object,
+  children: PropTypes.node,
   router: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
 };
