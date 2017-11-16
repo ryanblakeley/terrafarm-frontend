@@ -248,6 +248,7 @@ class EditFoodSelectionContainer extends React.Component {
                 },
                 state: {
                   foodSelectionId: foodSelection.rowId,
+                  journalDate: foodSelection.date,
                 },
               }}
             >

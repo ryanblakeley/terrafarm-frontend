@@ -87,11 +87,12 @@ class FoodSearchContainer extends React.Component {
     const { error } = this.state;
     const { id, description } = location.query;
     const foodSelectionId = location.state && location.state.foodSelectionId;
+    const journalDate = location.state && location.state.journalDate;
 
     const JournalButton = () => {
-      if (!foodSelectionId) return null;
+      if (!journalDate || !foodSelectionId) return null;
 
-      return <Link to={`/journal/edit/${foodSelectionId}`}>
+      return <Link to={`/journal/${journalDate}/edit/${foodSelectionId}`}>
         <RaisedButton label={'Return to journal'} />
       </Link>;
     };

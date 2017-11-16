@@ -215,6 +215,7 @@ class JournalEditRecordContainer extends React.Component {
                 description: foodSelection.foodDescription,
               },
               state: {
+                journalDate: foodSelection.date,
                 foodSelectionId: foodSelection.rowId,
               },
             }}

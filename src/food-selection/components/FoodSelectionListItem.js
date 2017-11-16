@@ -59,7 +59,7 @@ const FoodSelectionListItem = props => {
     className={cx({
       this: true,
       button: !!url,
-      complete,
+      incomplete: !complete,
       editing,
       wide,
     })}
