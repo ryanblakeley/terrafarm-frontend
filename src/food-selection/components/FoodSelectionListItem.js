@@ -63,7 +63,7 @@ const FoodSelectionListItem = props => {
       editing,
       wide,
     })}
-    onClick={url ? () => router.replace(url) : null}
+    onTouchTap={url ? () => router.replace(url) : null}
     style={{ cursor: url ? 'pointer' : 'default' }}
   >
     <Span className={classNames.column} key={1} >
@@ -101,7 +101,7 @@ const color = complete ? '' : red400;
     {url && <Layout className={classNames.linkIcon} >
       <IconButton
         style={styles.editButton}
-        onClick={() => window.scrollTo(0, 0)}
+        onTouchTap={() => window.scrollTo(0, 0)}
       >
         <ArrowRightIcon className={classNames.editIcon} color={color} />
       </IconButton>

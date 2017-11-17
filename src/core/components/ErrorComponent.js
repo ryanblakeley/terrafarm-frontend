@@ -21,7 +21,7 @@ const ErrorComponent = props => <Layout page>
   <H2>API Error</H2>
   <Layout center>
     {props.message && <P>{props.message}</P>}
-    <FlatButton onClick={() => props.retry()} label={'Retry'} />
+    <FlatButton onTouchTap={() => props.retry()} label={'Retry'} />
   </Layout>
 </Layout>;
 

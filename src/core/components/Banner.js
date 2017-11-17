@@ -21,7 +21,7 @@ class Banner extends React.Component {
   render () {
     if (!this.state.open) return null;
     return <Layout center flexCenter style={styles.this}>
-      <IconButton onClick={this.handleClose}><CloseIcon /></IconButton>
+      <IconButton onTouchTap={this.handleClose}><CloseIcon /></IconButton>
       <WarningMessage>
         Please note this is in early stage development.
       </WarningMessage>

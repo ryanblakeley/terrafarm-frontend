@@ -286,6 +286,14 @@ class EditFoodSelectionContainer extends React.Component {
           </Layout>
         </Layout>
         <Layout center topSmall >
+          {/*
+            These maybe should be moved to <Dialog actions={[...]} />
+            it would style them as always present in the dialog, instead of
+            below the end of the dialog body content. To make the move though,
+            you have to reconcile not having the submit button within the <Form>,
+            where Formsy expects it to be; Formsy automatically binds it to submit
+            the data in the form fields.
+          */}
           <RaisedButton
             label={'Save'}
             primary

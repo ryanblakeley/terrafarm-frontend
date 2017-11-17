@@ -21,6 +21,15 @@ const styles = {
 };
 
 const Dialog = props => <MaterialDialog {...props} />;
+
+Dialog.propTypes = {
+  autoScrollBodyContent: PropTypes.bool,
+};
+
+Dialog.defaultProps = {
+  autoScrollBodyContent: true,
+};
+
 const FlatButton = props => {
   const { icon, ...rest } = props;
   return <MaterialFlatButton
@@ -53,7 +62,6 @@ const defaultPropTypes = {
   children: PropTypes.node, // eslint-disable-line react/require-default-props
 };
 
-Dialog.propTypes = defaultPropTypes;
 FlatButton.propTypes = Object.assign({}, defaultPropTypes, {
   icon: PropTypes.element,
 });

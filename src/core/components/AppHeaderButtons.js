@@ -37,7 +37,6 @@ const AppHeaderButtons = (props, context) => {
   </Link>;
 
   const LogoutButton = () => <FlatButton
-    onClick={() => { handleSignout(context.setLoggedIn, props.router.replace); }}
     onTouchTap={() => { handleSignout(context.setLoggedIn, props.router.replace); }}
     label={'Logout'}
     icon={<ArrowRightIcon />}

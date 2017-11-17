@@ -28,7 +28,7 @@ const SelectionInvestigations = props => {
       return <Layout key={node.id} className={classNames.investigationResult} >
         <FlatButton
           label={food.rowId}
-          onClick={() => { handleChangeFoodId(food.rowId); }}
+          onTouchTap={() => { handleChangeFoodId(food.rowId); }}
         />
         <Span>{food.description}</Span>
         <SelectionPossibleMass

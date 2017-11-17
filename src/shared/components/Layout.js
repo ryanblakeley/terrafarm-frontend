@@ -19,6 +19,7 @@ const propTypes = {
   flexWrap: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
+  onTouchTap: PropTypes.func,
   onClick: PropTypes.func,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
@@ -40,6 +41,7 @@ const defaultProps = {
   flexWrap: false,
   className: '',
   style: {},
+  onTouchTap: null,
   onClick: null,
   onMouseEnter: null,
   onMouseLeave: null,
@@ -48,7 +50,16 @@ const defaultProps = {
 };
 
 const Layout = props => {
-  const { className, style, children, onClick, onMouseEnter, onMouseLeave, ...rest } = props;
+  const {
+    className,
+    style,
+    children,
+    onClick,
+    onTouchTap,
+    onMouseEnter,
+    onMouseLeave,
+    ...rest
+  } = props;
 
   /* eslint-disable jsx-a11y/no-static-element-interactions */
   return <div
@@ -57,6 +68,7 @@ const Layout = props => {
     onClick={onClick}
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
+    onTouchTap={onTouchTap}
   >
     {children}
   </div>;

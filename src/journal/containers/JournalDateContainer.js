@@ -155,7 +155,7 @@ class JournalDateContainer extends React.Component {
           <Layout>
             {journalFoodSelections}
           </Layout>
-          <FlatButton label={'Add row'} onClick={this.handleAddRow} fullWidth />
+          <FlatButton label={'Add row'} onTouchTap={this.handleAddRow} fullWidth />
         </Layout>
         {children}
       </Layout>

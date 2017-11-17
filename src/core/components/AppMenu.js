@@ -4,7 +4,6 @@ import Layout from 'shared/components/Layout';
 import { FlatButton } from 'shared/components/Material';
 import { MoreIcon, FoodIcon, BookmarkIcon, JournalIcon, PersonIcon, LoginIcon, ArrowRightIcon }
   from 'shared/components/Icons';
-import { Link } from 'shared/components/Typography';
 import classNames from '../styles/AppMenuStylesheet.css';
 
 const propTypes = {
@@ -16,56 +15,11 @@ const defaultProps = {
   timeoutDelay: 310,
 };
 
-const buttonPropTypes = {
-  disabled: PropTypes.bool,
-};
-
-const buttonDefaultProps = {
-  disabled: false,
-};
-
 const contextTypes = {
   loggedIn: PropTypes.bool,
+  setLoggedIn: PropTypes.func,
+  setUserId: PropTypes.func,
 };
-
-function handleSignout (context, replace) {
-  localStorage.setItem('id_token', window.anonymousToken);
-  localStorage.setItem('user_uuid', '');
-  context.setLoggedIn(false);
-  context.setUserId('');
-  replace('/');
-}
-
-const MenuButton = (props) => <FlatButton {...props} icon={<MoreIcon />} />;
-
-const FoodButton = (props) => <Link to={'/foods'} >
-  <FlatButton label={'Foods'} icon={<FoodIcon />} disabled={props.disabled} />
-</Link>;
-
-const PresetsButton = (props) => <Link to={'/presets'} >
-  <FlatButton label={'Presets'} icon={<BookmarkIcon />} disabled={props.disabled} />
-</Link>;
-
-const JournalButton = (props) => <Link to={'/journal'} >
-  <FlatButton label={'Journal'} icon={<JournalIcon />} disabled={props.disabled} />
-</Link>;
-
-const ProfileButton = (props) => <Link to={'/profile'} >
-  <FlatButton label={'Profile'} icon={<PersonIcon />} disabled={props.disabled} />
-</Link>;
-
-const LoginButton = (props) => <Link to={'/login'} >
-  <FlatButton label={'Login'} icon={<LoginIcon />} disabled={props.disabled} />
-</Link>;
-
-const LogoutButton = (props, context) => <Layout>
-  <FlatButton
-    onClick={() => { handleSignout(context, props.router.replace); }}
-    onTouchTap={() => { handleSignout(context, props.router.replace); }}
-    label={'Logout'}
-    icon={<ArrowRightIcon />}
-  />
-</Layout>;
 
 class AppMenu extends React.Component {
   constructor (props) {
@@ -124,13 +78,23 @@ class AppMenu extends React.Component {
   handleTouchClose = () => {
     this.setCloseImmediate();
   }
+  handleSignout = () => {
+    const { router } = this.props;
+    const { setLoggedIn, setUserId } = this.context;
+    localStorage.setItem('id_token', window.anonymousToken);
+    localStorage.setItem('user_uuid', '');
+    setLoggedIn(false);
+    setUserId('');
+    router.replace('/');
+  }
   render () {
     const { router } = this.props;
     const { open } = this.state;
     const { loggedIn } = this.context;
 
     return <div className={classNames.this} >
-      <MenuButton
+      <FlatButton
+        icon={<MoreIcon />}
         onMouseEnter={this.handleEnter}
         onMouseLeave={this.handleLeave}
         onTouchTap={this.handleToggle}
@@ -140,39 +104,57 @@ class AppMenu extends React.Component {
         className={classNames.buttons}
         onMouseEnter={this.handleEnter}
         onMouseLeave={this.handleLeave}
+        onTouchTap={this.handleTouchClose}
       >
-        {!loggedIn && <LoginButton />}
-        {loggedIn && <ProfileButton />}
-        {loggedIn && <JournalButton />}
-        {loggedIn && <PresetsButton />}
-        <FoodButton />
-        {loggedIn && <LogoutButton router={router} />}
+        {!loggedIn && <Layout>
+          <FlatButton
+            label={'Login'}
+            icon={<LoginIcon />}
+            onTouchTap={() => router.push('/login')}
+          />
+        </Layout>}
+        {loggedIn && <Layout>
+          <FlatButton
+            label={'Profile'}
+            icon={<PersonIcon />}
+            onTouchTap={() => router.push('profile')}
+          />
+        </Layout>}
+        {loggedIn && <Layout>
+          <FlatButton
+            label={'Journal'}
+            icon={<JournalIcon />}
+            onTouchTap={() => router.push('/journal')}
+          />
+        </Layout>}
+        {loggedIn && <Layout>
+          <FlatButton
+            label={'Presets'}
+            icon={<BookmarkIcon />}
+            onTouchTap={() => router.push('/presets')}
+          />
+        </Layout>}
+        <Layout>
+          <FlatButton
+            label={'Foods'}
+            icon={<FoodIcon />}
+            onTouchTap={() => router.push('/foods')}
+          />
+        </Layout>
+        {loggedIn && <Layout>
+          <FlatButton
+            label={'Logout'}
+            icon={<ArrowRightIcon />}
+            onTouchTap={this.handleSignout}
+          />
+        </Layout>}
       </Layout>}
     </div>;
   }
 }
 
 AppMenu.propTypes = propTypes;
-LogoutButton.propTypes = { router: PropTypes.object.isRequired };
-MenuButton.propTypes = { };
-FoodButton.propTypes = buttonPropTypes;
-PresetsButton.propTypes = buttonPropTypes;
-JournalButton.propTypes = buttonPropTypes;
-ProfileButton.propTypes = buttonPropTypes;
-LoginButton.propTypes = buttonPropTypes;
-
-FoodButton.defaultProps = buttonDefaultProps;
-PresetsButton.defaultProps = buttonDefaultProps;
-JournalButton.defaultProps = buttonDefaultProps;
-ProfileButton.defaultProps = buttonDefaultProps;
-LoginButton.defaultProps = buttonDefaultProps;
-
 AppMenu.defaultProps = defaultProps;
-
 AppMenu.contextTypes = contextTypes;
-LogoutButton.contextTypes = {
-  setLoggedIn: PropTypes.func,
-  setUserId: PropTypes.func,
-};
 
 export default AppMenu;

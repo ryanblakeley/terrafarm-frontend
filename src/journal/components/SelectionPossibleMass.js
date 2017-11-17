@@ -52,7 +52,7 @@ class SelectionPossibleMass extends React.Component {
     return <Layout>
       <FlatButton
         label={massSuggestion}
-        onClick={() => { handleClickMassSuggestion(massSuggestion); }}
+        onTouchTap={() => { handleClickMassSuggestion(massSuggestion); }}
         className={className}
       />
       <Span>grams</Span>

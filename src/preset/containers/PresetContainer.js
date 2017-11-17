@@ -201,7 +201,7 @@ class PresetContainer extends React.Component {
       <FoodSelectionListHeader
         listTitle={<RaisedButton
           label={preset.name}
-          onClick={this.handleOpen}
+          onTouchTap={this.handleOpen}
           secondary={!preset.active}
         />}
         calories={calories}

@@ -70,7 +70,7 @@ class SelectionPossibleFoods extends React.Component {
         <Layout key={node.id} style={{ display: 'flex', alignItems: 'center' }} >
           <FlatButton
             label={node.rowId}
-            onClick={() => { handleClickFoodMatch(node.rowId); }}
+            onTouchTap={() => { handleClickFoodMatch(node.rowId); }}
           />
           <Span>{node.description}</Span>
         </Layout>
@@ -78,7 +78,7 @@ class SelectionPossibleFoods extends React.Component {
       {hasMore && <Layout center >
         <RaisedButton
           label={'Load more'}
-          onClick={() => this.handleClickLoadMore()}
+          onTouchTap={() => this.handleClickLoadMore()}
         />
       </Layout>}
     </Layout>;

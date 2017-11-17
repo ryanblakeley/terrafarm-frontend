@@ -26,7 +26,7 @@ const LoadMoreButton = props => {
   return <Layout center topSmall>
     <FlatButton
       label={props.label}
-      onClick={incrementCount}
+      onTouchTap={incrementCount}
       onTouchTap={incrementCount}
       disabled={props.disabled}
     />
