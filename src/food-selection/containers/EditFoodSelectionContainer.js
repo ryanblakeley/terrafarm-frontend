@@ -10,6 +10,10 @@ import validations, { validationErrors, conversions } from 'tools/validations';
 import SelectionInvestigations from 'journal/components/SelectionInvestigations';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
+import classnames from 'classnames/bind';
+import classNames from 'food-selection/styles/EditFoodSelectionContainerStylesheet.css';
+
+const cx = classnames.bind(classNames);
 
 const styles = {
   field: {
@@ -203,7 +207,11 @@ class EditFoodSelectionContainer extends React.Component {
             </Layout>
           </Layout>
         </Layout>
-        <Layout flexCenter flexWrap >
+        <Layout
+          flexCenter
+          flexWrap
+          className={cx({ attentionFields: !(foodSelection.foodByFoodId && foodSelection.mass) })}
+        >
           <Layout>
             <TextInput
               name={'foodId'}

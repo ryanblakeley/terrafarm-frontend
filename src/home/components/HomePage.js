@@ -18,7 +18,7 @@ const Tagline = () => <Layout
     Keep a food journal through text messaging.
   </P>
   <H4>
-    123-456-7890
+    971-22x-xxxx
   </H4>
 </Layout>;
 
@@ -49,7 +49,7 @@ const MoreInfo = () => <Layout
 >
   <P>
     <WarningMessage>
-      Currently private; email {emailLink} for access.
+      {emailLink}
     </WarningMessage>
   </P>
 </Layout>;

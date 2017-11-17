@@ -8,7 +8,7 @@
   transition: background-color 180ms ease-out;
 }
 .this:nth-of-type(2n) { background-color: rgba(197, 202, 233, 0.3); }
-.this.incomplete { border-bottom: solid 1px #EF5350; }
+.this.incomplete { border-bottom: dashed 2px rgba(92,107,192,0.3); }
 .this.editing { border-radius: 2px; background-color: rgba(232,234,246 ,0.92); }
 .this.wide { margin: 0; }
 .this.button:hover { background-color: rgba(159, 168, 218, 0.82); }
