@@ -166,53 +166,43 @@ class EditFoodSelectionContainer extends React.Component {
         onValidSubmit={this.handleSubmit}
         onInvalidSubmit={this.handleFormError}
       >
-        <Layout flexCenter flexWrap >
-          <Layout>
-            <TextInput
-              name={'foodDescription'}
-              label={'Food description*'}
-              placeholder={'Words'}
-              value={foodSelection.foodDescription}
-              validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-              validationError={validationErrors.normalWords}
-              maxLength={50}
-              required
-              style={styles.field}
-            />
-          </Layout>
-          <Layout leftSmall flexCenter >
-            <Layout>
-              <TextInput
-                name={'unitAmount'}
-                label={'Amount'}
-                placeholder={'Number'}
-                value={foodSelection.unitAmount}
-                validations={{ isNumeric: true }}
-                validationError={validationErrors.number}
-                maxLength={8}
-                style={styles.fieldSmall}
-              />
-            </Layout>
-            <Layout leftSmall >
-              <TextInput
-                name={'unitDescription'}
-                label={'Unit'}
-                placeholder={'Word'}
-                value={foodSelection.unitDescription}
-                validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                validationError={validationErrors.normalWords}
-                maxLength={50}
-                style={styles.fieldSmall}
-              />
-            </Layout>
-          </Layout>
-        </Layout>
-        <Layout
-          flexCenter
-          flexWrap
-          className={cx({ attentionFields: !(foodSelection.foodByFoodId && foodSelection.mass) })}
-        >
-          <Layout>
+        <Layout center >
+          <TextInput
+            name={'foodDescription'}
+            label={'Food description*'}
+            placeholder={'Words'}
+            value={foodSelection.foodDescription}
+            validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+            validationError={validationErrors.normalWords}
+            maxLength={50}
+            required
+            style={styles.field}
+          />
+          <TextInput
+            name={'unitAmount'}
+            label={'Amount'}
+            placeholder={'Number'}
+            value={foodSelection.unitAmount}
+            validations={{ isNumeric: true }}
+            validationError={validationErrors.number}
+            maxLength={8}
+            style={styles.field}
+          />
+          <TextInput
+            name={'unitDescription'}
+            label={'Unit'}
+            placeholder={'Word'}
+            value={foodSelection.unitDescription}
+            validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+            validationError={validationErrors.normalWords}
+            maxLength={50}
+            style={styles.field}
+          />
+          <Layout
+            className={cx({
+              attentionFields: !(foodSelection.foodByFoodId && foodSelection.mass),
+            })}
+          >
             <TextInput
               name={'foodId'}
               label={'Food ID'}
@@ -223,8 +213,6 @@ class EditFoodSelectionContainer extends React.Component {
               maxLength={8}
               style={styles.field}
             />
-          </Layout>
-          <Layout leftSmall >
             <TextInput
               name={'mass'}
               label={'Mass (grams)'}
@@ -267,31 +255,27 @@ class EditFoodSelectionContainer extends React.Component {
             </Link>
           </P>
         </Layout>}
-        <Layout flexCenter flexWrap >
-          <Layout leftSmall >
-            <TextInput
-              name={'date'}
-              label={'Date*'}
-              placeholder={'YYYY-MM-DD'}
-              value={foodSelection.date}
-              validations={{ matchRegexp: validations.matchDate }}
-              validationError={validationErrors.date}
-              required
-              style={styles.field}
-            />
-          </Layout>
-          <Layout>
-            <TextInput
-              name={'time'}
-              label={'Time (converts to 24-hour)'}
-              placeholder={'e.x. 2:05 pm, 8 am, 16:50'}
-              value={foodSelection.time}
-              convertValue={conversions.time}
-              validations={{ isTime: validations.isTime }}
-              validationError={validationErrors.time}
-              style={styles.field}
-            />
-          </Layout>
+        <Layout center >
+          <TextInput
+            name={'date'}
+            label={'Date*'}
+            placeholder={'YYYY-MM-DD'}
+            value={foodSelection.date}
+            validations={{ matchRegexp: validations.matchDate }}
+            validationError={validationErrors.date}
+            required
+            style={styles.field}
+          />
+          <TextInput
+            name={'time'}
+            label={'Time (converts to 24-hour)'}
+            placeholder={'e.x. 2:05 pm, 8 am, 16:50'}
+            value={foodSelection.time}
+            convertValue={conversions.time}
+            validations={{ isTime: validations.isTime }}
+            validationError={validationErrors.time}
+            style={styles.field}
+          />
         </Layout>
         <Layout center topSmall >
           {/*
