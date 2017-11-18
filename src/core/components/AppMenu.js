@@ -117,7 +117,7 @@ class AppMenu extends React.Component {
           <FlatButton
             label={'Profile'}
             icon={<PersonIcon />}
-            onTouchTap={() => router.push('profile')}
+            onTouchTap={() => router.push('/profile')}
           />
         </Layout>}
         {loggedIn && <Layout>
