@@ -156,7 +156,7 @@ class EditFoodSelectionContainer extends React.Component {
     return <Dialog
       title={'Edit Journal Row'}
       titleStyle={{ textAlign: 'center' }}
-      modal={false}
+      modal
       open={open}
       onRequestClose={this.handleClose}
     >

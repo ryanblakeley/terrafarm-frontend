@@ -214,8 +214,7 @@ class PresetContainer extends React.Component {
       <Dialog
         title={'Edit Preset'}
         titleStyle={{ textAlign: 'center' }}
-        paperProps={{ style: { border: '3px solid rgb(92,107,192)' } }}
-        modal={false}
+        modal
         open={open}
         onRequestClose={this.handleClose}
       >

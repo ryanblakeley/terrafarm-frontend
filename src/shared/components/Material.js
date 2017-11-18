@@ -23,10 +23,12 @@ const styles = {
 const Dialog = props => <MaterialDialog {...props} />;
 
 Dialog.propTypes = {
+  modal: PropTypes.bool,
   autoScrollBodyContent: PropTypes.bool,
 };
 
 Dialog.defaultProps = {
+  modal: true,
   autoScrollBodyContent: true,
 };
 
