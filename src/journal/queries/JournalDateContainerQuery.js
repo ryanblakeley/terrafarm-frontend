@@ -1,9 +1,9 @@
 import { graphql } from 'react-relay';
 
 const JournalDateContainerQuery = graphql`
-  query JournalDateContainerQuery ($condition: FoodSelectionCondition) {
-    currentPerson {
-      ...JournalDateContainer_currentPerson,
+  query JournalDateContainerQuery ($userId: UUID!, $date: Date!) {
+    query {
+      ...JournalDateContainer_query,
     }
   }
 `;

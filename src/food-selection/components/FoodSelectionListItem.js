@@ -10,7 +10,6 @@ const cx = classnames.bind(classNames);
 
 const propTypes = {
   // key: PropTypes.string,
-  // time: PropTypes.string,
   foodName: PropTypes.string.isRequired,
   mass: PropTypes.number,
   unitAmount: PropTypes.number,
@@ -29,7 +28,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-  time: '',
   mass: '',
   nutrition: {},
   unitAmount: '',
@@ -41,7 +39,6 @@ const defaultProps = {
 
 const FoodSelectionListItem = props => {
   const {
-    // time,
     foodName,
     mass,
     unitAmount,
@@ -53,7 +50,6 @@ const FoodSelectionListItem = props => {
     wide,
     router,
   } = props;
-  // const displayTime = time ? moment(time || '', 'HH:mm:ss').format('HH:mm') : '';
 
   return <Layout
     className={cx({

@@ -4,6 +4,7 @@ import Route from 'found/lib/Route';
 // import RedirectException from 'found/lib/RedirectException';
 import React from 'react';
 import moment from 'moment';
+import validateTokenExpiration from 'tools/validateTokenExpiration';
 
 // static
 import { CorePage } from 'core/components/CorePage';
@@ -54,9 +55,10 @@ function prepareLogin (params, props) {
   const { router } = props;
   const idToken = localStorage.getItem('id_token');
   const userId = localStorage.getItem('user_uuid');
+  const tokenIsValid = validateTokenExpiration(idToken);
 
   if (
-    idToken
+    tokenIsValid
       && userId
       && idToken !== window.anonymousToken
       && idToken !== window.authenticatorToken
@@ -73,8 +75,9 @@ function prepareAuthToken (params, props) {
   const { router, location } = props;
   const idToken = localStorage.getItem('id_token');
   const userId = localStorage.getItem('user_uuid');
+  const tokenIsValid = validateTokenExpiration(idToken);
 
-  if (!idToken
+  if (!tokenIsValid
     || !userId
     || idToken === window.anonymousToken
     || idToken === window.authenticatorToken) {
@@ -91,8 +94,11 @@ function prepareAuthToken (params, props) {
 
 function prepareAnonymous (params) {
   const idToken = localStorage.getItem('id_token');
+  const tokenIsValid = validateTokenExpiration(idToken);
 
-  if (!idToken || idToken === window.authenticatorToken) {
+  if (
+    !tokenIsValid
+    || idToken === window.authenticatorToken) {
     setAnonymousToken();
   }
 
@@ -119,7 +125,8 @@ function prepareJournal (params, props) {
 
 function prepareJournalDate (params) {
   const { date } = params;
-  const newParams = { condition: { date } };
+  const userId = localStorage.getItem('user_uuid');
+  const newParams = { date, userId };
 
   return newParams;
 }

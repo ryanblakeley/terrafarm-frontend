@@ -6,7 +6,7 @@ import { P, Link, ErrorMessage } from 'shared/components/Typography';
 import { Dialog, FlatButton, RaisedButton } from 'shared/components/Material';
 import { SearchIcon } from 'shared/components/Icons';
 import { Form, TextInput } from 'shared/components/Form';
-import validations, { validationErrors, conversions } from 'tools/validations';
+import validations, { validationErrors } from 'tools/validations';
 import SelectionInvestigations from 'journal/components/SelectionInvestigations';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
@@ -128,7 +128,6 @@ class EditFoodSelectionContainer extends React.Component {
       unitDescription: patch.unitDescription || null,
       foodId: patch.foodId || null,
       mass: patch.mass || null,
-      time: patch.time || null,
     });
 
     UpdateFoodSelectionMutation.commit(
@@ -141,7 +140,7 @@ class EditFoodSelectionContainer extends React.Component {
     );
   }
   render () {
-    const { foodSelectionByRowId: foodSelection } = this.props;
+    const { foodSelectionByRowId: foodSelection, location } = this.props;
     const { open, canSubmit, error, errorMessage } = this.state;
     const foodLinkLabel = foodSelection.foodByFoodId && foodSelection.foodByFoodId.description;
     const foodLink = <Layout center >
@@ -152,6 +151,7 @@ class EditFoodSelectionContainer extends React.Component {
       </P>
     </Layout>;
     const possibleFoods = foodSelection.investigationsByFoodSelectionId;
+    const journalDate = location.pathname.split('/')[2];
 
     return <Dialog
       title={'Edit Journal Row'}
@@ -244,7 +244,7 @@ class EditFoodSelectionContainer extends React.Component {
                 },
                 state: {
                   foodSelectionId: foodSelection.rowId,
-                  journalDate: foodSelection.date,
+                  journalDate,
                 },
               }}
             >
@@ -257,23 +257,13 @@ class EditFoodSelectionContainer extends React.Component {
         </Layout>}
         <Layout center >
           <TextInput
-            name={'date'}
-            label={'Date*'}
-            placeholder={'YYYY-MM-DD'}
-            value={foodSelection.date}
-            validations={{ matchRegexp: validations.matchDate }}
-            validationError={validationErrors.date}
+            name={'occurredOn'}
+            label={'Occurred on'}
+            placeholder={'YYYY-MM-DD HH:mm:ss Z'}
+            value={foodSelection.occurredOn}
+            validations={{ isDatetime: validations.isDatetime }}
+            validationError={validationErrors.datetime}
             required
-            style={styles.field}
-          />
-          <TextInput
-            name={'time'}
-            label={'Time (converts to 24-hour)'}
-            placeholder={'e.x. 2:05 pm, 8 am, 16:50'}
-            value={foodSelection.time}
-            convertValue={conversions.time}
-            validations={{ isTime: validations.isTime }}
-            validationError={validationErrors.time}
             style={styles.field}
           />
         </Layout>
@@ -341,8 +331,7 @@ export default createFragmentContainer(EditFoodSelectionContainer, {
         category
         siFactor
       }
-      date
-      time
+      occurredOn
       investigationsByFoodSelectionId(first: 2147483647) {
         edges {
           node {

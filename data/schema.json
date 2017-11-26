@@ -2157,6 +2157,101 @@
               "deprecationReason": null
             },
             {
+              "name": "foodSelectionsByDate",
+              "description": "Gets all the food selections for a user on a specific date.",
+              "args": [
+                {
+                  "name": "userId",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "UUID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "date",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Date",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "FoodSelectionsConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "geocoder",
               "description": "Returns a geocoded result from an address",
               "args": [
@@ -2920,25 +3015,25 @@
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
+              "name": "CREATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UPDATED_AT_ASC",
+              "name": "UPDATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UPDATED_AT_DESC",
+              "name": "UPDATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3035,8 +3130,8 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -3045,8 +3140,8 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
-              "description": "Checks for equality with the object’s `updatedAt` field.",
+              "name": "updatedOn",
+              "description": "Checks for equality with the object’s `updatedOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -3286,7 +3381,7 @@
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -3298,7 +3393,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "args": [],
               "type": {
@@ -3606,7 +3701,19 @@
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "utcOffset",
+              "description": "The person’s default timezone offset.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -3618,7 +3725,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "args": [],
               "type": {
@@ -4386,13 +4493,13 @@
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
+              "name": "CREATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -4439,8 +4546,8 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -4590,7 +4697,7 @@
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -4827,25 +4934,25 @@
               "deprecationReason": null
             },
             {
-              "name": "SENT_AT_ASC",
+              "name": "SENT_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "SENT_AT_DESC",
+              "name": "SENT_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
+              "name": "CREATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -4952,8 +5059,8 @@
               "defaultValue": null
             },
             {
-              "name": "sentAt",
-              "description": "Checks for equality with the object’s `sentAt` field.",
+              "name": "sentOn",
+              "description": "Checks for equality with the object’s `sentOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -4962,8 +5069,8 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -5220,7 +5327,7 @@
               "deprecationReason": null
             },
             {
-              "name": "sentAt",
+              "name": "sentOn",
               "description": "The UTC timestamp that the agent included in the original message.",
               "args": [],
               "type": {
@@ -5232,7 +5339,7 @@
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -5520,13 +5627,13 @@
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
+              "name": "CREATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5603,8 +5710,8 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -5804,7 +5911,7 @@
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -6200,49 +6307,37 @@
               "deprecationReason": null
             },
             {
-              "name": "DATE_ASC",
+              "name": "OCCURRED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "DATE_DESC",
+              "name": "OCCURRED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "TIME_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "TIME_DESC",
+              "name": "CREATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "UPDATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UPDATED_AT_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UPDATED_AT_DESC",
+              "name": "UPDATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6399,28 +6494,8 @@
               "defaultValue": null
             },
             {
-              "name": "date",
-              "description": "Checks for equality with the object’s `date` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Date",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "time",
-              "description": "Checks for equality with the object’s `time` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Time",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "occurredOn",
+              "description": "Checks for equality with the object’s `occurredOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -6429,8 +6504,18 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
-              "description": "Checks for equality with the object’s `updatedAt` field.",
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Datetime",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "updatedOn",
+              "description": "Checks for equality with the object’s `updatedOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -6452,6 +6537,12 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "OBSERVATION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "COLLECTION",
               "description": null,
               "isDeprecated": false,
@@ -6468,34 +6559,8 @@
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "OBSERVATION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
             }
           ],
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "Date",
-          "description": "The day, does not include a time.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "Time",
-          "description": "The exact time of day, does not include the date. May or may not have a timezone offset.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -6771,35 +6836,19 @@
               "deprecationReason": null
             },
             {
-              "name": "date",
-              "description": "The date the food selection occurred, local to the person.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Date",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "time",
-              "description": "The time the food selection occurred, local to the person.",
+              "name": "occurredOn",
+              "description": "The timestamp for when the food selection occurred, local to the person.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Time",
+                "name": "Datetime",
                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -6811,7 +6860,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "args": [],
               "type": {
@@ -7786,7 +7835,7 @@
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -7798,7 +7847,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "args": [],
               "type": {
@@ -9056,25 +9105,25 @@
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
+              "name": "CREATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UPDATED_AT_ASC",
+              "name": "UPDATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UPDATED_AT_DESC",
+              "name": "UPDATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -9671,8 +9720,8 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -9681,8 +9730,8 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
-              "description": "Checks for equality with the object’s `updatedAt` field.",
+              "name": "updatedOn",
+              "description": "Checks for equality with the object’s `updatedOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -12782,13 +12831,13 @@
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
+              "name": "CREATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -12835,8 +12884,8 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -12986,7 +13035,7 @@
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -13443,25 +13492,25 @@
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
+              "name": "CREATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UPDATED_AT_ASC",
+              "name": "UPDATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UPDATED_AT_DESC",
+              "name": "UPDATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -13648,8 +13697,8 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -13658,8 +13707,8 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
-              "description": "Checks for equality with the object’s `updatedAt` field.",
+              "name": "updatedOn",
+              "description": "Checks for equality with the object’s `updatedOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -13977,7 +14026,7 @@
               "deprecationReason": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "args": [],
               "type": {
@@ -13989,7 +14038,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "args": [],
               "type": {
@@ -14479,25 +14528,37 @@
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_ASC",
+              "name": "UTC_OFFSET_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CREATED_AT_DESC",
+              "name": "UTC_OFFSET_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UPDATED_AT_ASC",
+              "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "UPDATED_AT_DESC",
+              "name": "CREATED_ON_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UPDATED_ON_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UPDATED_ON_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -14654,8 +14715,18 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
-              "description": "Checks for equality with the object’s `createdAt` field.",
+              "name": "utcOffset",
+              "description": "Checks for equality with the object’s `utcOffset` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "createdOn",
+              "description": "Checks for equality with the object’s `createdOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -14664,8 +14735,8 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
-              "description": "Checks for equality with the object’s `updatedAt` field.",
+              "name": "updatedOn",
+              "description": "Checks for equality with the object’s `updatedOn` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
@@ -14797,6 +14868,16 @@
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Date",
+          "description": "The day, does not include a time.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -17673,7 +17754,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -17683,7 +17764,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -17849,7 +17930,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -18565,7 +18646,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -18575,7 +18656,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -19283,27 +19364,17 @@
               "defaultValue": null
             },
             {
-              "name": "date",
-              "description": "The date the food selection occurred, local to the person.",
+              "name": "occurredOn",
+              "description": "The timestamp for when the food selection occurred, local to the person.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "Datetime",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "time",
-              "description": "The time the food selection occurred, local to the person.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Time",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -19313,7 +19384,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -20031,7 +20102,7 @@
               "defaultValue": null
             },
             {
-              "name": "sentAt",
+              "name": "sentOn",
               "description": "The UTC timestamp that the agent included in the original message.",
               "type": {
                 "kind": "SCALAR",
@@ -20041,7 +20112,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -20523,7 +20594,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -20533,7 +20604,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -20725,7 +20796,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -20903,7 +20974,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -21385,7 +21456,17 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "utcOffset",
+              "description": "The person’s default timezone offset.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -21395,7 +21476,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -21605,7 +21686,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -21615,7 +21696,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -21983,7 +22064,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -22754,7 +22835,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -22764,7 +22845,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -23647,27 +23728,17 @@
               "defaultValue": null
             },
             {
-              "name": "date",
-              "description": "The date the food selection occurred, local to the person.",
+              "name": "occurredOn",
+              "description": "The timestamp for when the food selection occurred, local to the person.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "Datetime",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "time",
-              "description": "The time the food selection occurred, local to the person.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Time",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -23677,7 +23748,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -24641,7 +24712,7 @@
               "defaultValue": null
             },
             {
-              "name": "sentAt",
+              "name": "sentOn",
               "description": "The UTC timestamp that the agent included in the original message.",
               "type": {
                 "kind": "SCALAR",
@@ -24651,7 +24722,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -25243,7 +25314,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -25253,7 +25324,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",
@@ -25553,7 +25624,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -25849,7 +25920,7 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -26614,7 +26685,17 @@
               "defaultValue": null
             },
             {
-              "name": "createdAt",
+              "name": "utcOffset",
+              "description": "The person’s default timezone offset.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "createdOn",
               "description": "The time this object was created.",
               "type": {
                 "kind": "SCALAR",
@@ -26624,7 +26705,7 @@
               "defaultValue": null
             },
             {
-              "name": "updatedAt",
+              "name": "updatedOn",
               "description": "The time this object was last updated.",
               "type": {
                 "kind": "SCALAR",

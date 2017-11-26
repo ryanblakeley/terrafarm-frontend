@@ -25,8 +25,7 @@ const mutation = graphql`
           category
           siFactor
         }
-        date
-        time
+        occurredOn
       }
     }
   }
@@ -36,7 +35,7 @@ function sharedUpdater (store, user, foodSelection) { // eslint-disable-line no-
   const userProxy = store.get(user.id);
   // const foodSelectionProxy = store.get(foodSelection.id);
   const connectionKeys = [
-    'JournalDateContainer_foodSelectionsByUserId',
+    'JournalDateContainer_foodSelectionsByDate',
   ];
 
   connectionKeys.forEach(c => {

@@ -26,8 +26,7 @@ const mutation = graphql`
           category
           siFactor
         }
-        date
-        time
+        occurredOn
       }
     }
   }
@@ -36,7 +35,7 @@ const mutation = graphql`
 function sharedUpdater (store, user) {
   const userProxy = store.get(user.id);
   const connectionKeys = [
-    'JournalDateContainer_foodSelectionsByUserId',
+    'JournalDateContainer_foodSelectionsByDate',
   ];
 
   connectionKeys.forEach(c => {

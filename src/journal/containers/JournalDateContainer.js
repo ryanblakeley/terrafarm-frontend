@@ -10,7 +10,10 @@ import FoodSelectionListItem from 'food-selection/components/FoodSelectionListIt
 import classNames from '../styles/JournalDateContainerStylesheet.css';
 
 const propTypes = {
-  currentPerson: PropTypes.object.isRequired,
+  // currentPerson: PropTypes.object.isRequired,
+  query: PropTypes.shape({
+    foodSelectionsByDate: PropTypes.object.isRequired,
+  }).isRequired,
   children: PropTypes.object,
   router: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
@@ -34,8 +37,8 @@ class JournalDateContainer extends React.Component {
     };
   }
   componentWillMount () {
-    const { currentPerson: user } = this.props;
-    const foodSelections = user && user.foodSelectionsByUserId;
+    const { query } = this.props;
+    const { foodSelectionsByDate: foodSelections } = query;
 
     if (foodSelections) {
       this.sumMacros(foodSelections.edges.map(({ node }) => (
@@ -44,8 +47,8 @@ class JournalDateContainer extends React.Component {
     }
   }
   componentWillReceiveProps (nextProps) {
-    const { currentPerson: user } = nextProps;
-    const foodSelections = user && user.foodSelectionsByUserId;
+    const { query } = nextProps;
+    const { foodSelectionsByDate: foodSelections } = query;
 
     // TODO: smarter condition for recalculating macros
 
@@ -101,17 +104,16 @@ class JournalDateContainer extends React.Component {
     router.replace(`${location.pathname}/new`);
   }
   render () {
-    const { currentPerson: user, location, router, match, children } = this.props;
+    const { location, router, match, children, query } = this.props;
     const { calories, protein, fat, carbs, completeCount, recordsCount } = this.state;
-    const foodSelections = user && user.foodSelectionsByUserId.edges;
+    const { foodSelectionsByDate: foodSelections } = query;
     const date = location.pathname.split('/')[2];
     const editPanelOpen = router.isActive(match, {
       pathname: `/journal/${date}/edit/`,
     });
-    const journalFoodSelections = foodSelections.map(({ node }) => {
+    const journalFoodSelections = foodSelections.edges.map(({ node }) => {
       const {
         rowId,
-        time,
         foodDescription,
         unitAmount,
         unitDescription,
@@ -125,7 +127,6 @@ class JournalDateContainer extends React.Component {
 
       return <FoodSelectionListItem
         key={rowId}
-        time={time}
         foodName={foodDescription}
         mass={mass}
         unitAmount={unitAmount}
@@ -169,19 +170,16 @@ JournalDateContainer.defaultProps = defaultProps;
 export default createFragmentContainer(
   JournalDateContainer,
   graphql`
-    fragment JournalDateContainer_currentPerson on User {
-      id,
-      rowId,
-      foodSelectionsByUserId(
-        condition: $condition,
+    fragment JournalDateContainer_query on Query {
+      foodSelectionsByDate(
+        userId: $userId,
+        date: $date,
         first: 2147483647,
-        orderBy: TIME_DESC
-      ) @connection(key: "JournalDateContainer_foodSelectionsByUserId", filters: []) {
+      ) @connection(key: "JournalDateContainer_foodSelectionsByDate", filters: []) {
         edges {
           node {
             id
             rowId
-            time
             foodDescription
             foodId
             foodByFoodId {
@@ -195,8 +193,6 @@ export default createFragmentContainer(
             unitAmount
             unitDescription
             unitOfMeasureId
-            time
-            date
           }
         }
       }

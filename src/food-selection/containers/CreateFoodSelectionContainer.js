@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import moment from 'moment';
 import Layout from 'shared/components/Layout';
 import { ErrorMessage } from 'shared/components/Typography';
 import { Dialog, FlatButton, RaisedButton } from 'shared/components/Material';
 import { Form, TextInput } from 'shared/components/Form';
-import validations, { validationErrors, conversions } from 'tools/validations';
+import validations, { validationErrors } from 'tools/validations';
 import CreateFoodSelectionMutation from 'food-selection/mutations/CreateFoodSelectionMutation';
 
 const styles = {
@@ -77,7 +78,6 @@ class CreateFoodSelectionContainer extends React.Component {
       unitDescription: data.unitDescription || null,
       foodId: data.foodId || null,
       mass: data.mass || null,
-      time: data.time || null,
       userId: currentPerson.rowId,
     });
 
@@ -92,8 +92,8 @@ class CreateFoodSelectionContainer extends React.Component {
   render () {
     const { location } = this.props;
     const { open, canSubmit, error, errorMessage } = this.state;
-
-    const date = location.pathname.split('/')[2];
+    const journalDate = location.pathname.split('/')[2];
+    const datetime = moment(journalDate, 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss Z');
 
     return <Dialog
       title={'New Journal Row'}
@@ -173,24 +173,13 @@ class CreateFoodSelectionContainer extends React.Component {
         <Layout flexCenter flexWrap >
           <Layout leftSmall >
             <TextInput
-              name={'date'}
-              label={'Date*'}
-              value={date}
-              placeholder={'YYYY-MM-DD'}
-              validations={{ matchRegexp: validations.matchDate }}
-              validationError={validationErrors.date}
+              name={'occurredOn'}
+              label={'Occurred on'}
+              placeholder={'YYYY-MM-DD HH:mm:ss Z'}
+              value={datetime}
+              validations={{ isDatetime: validations.isDatetime }}
+              validationError={validationErrors.datetime}
               required
-              style={styles.field}
-            />
-          </Layout>
-          <Layout>
-            <TextInput
-              name={'time'}
-              label={'Time (converts to 24-hour)'}
-              placeholder={'e.x. 2:05 pm, 8 am, 16:50'}
-              convertValue={conversions.time}
-              validations={{ isTime: validations.isTime }}
-              validationError={validationErrors.time}
               style={styles.field}
             />
           </Layout>

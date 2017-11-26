@@ -45,10 +45,10 @@ type Brand implements Node {
   url: String
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 
   # Reads a single `User` that is related to this `Brand`.
   userByOwnerId: User
@@ -102,11 +102,11 @@ input BrandCondition {
   # Checks for equality with the object’s `url` field.
   url: String
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
 
-  # Checks for equality with the object’s `updatedAt` field.
-  updatedAt: Datetime
+  # Checks for equality with the object’s `updatedOn` field.
+  updatedOn: Datetime
 }
 
 # An input for mutations affecting `Brand`
@@ -133,10 +133,10 @@ input BrandInput {
   url: String
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # Represents an update to a `Brand`. Fields that are set will be updated.
@@ -163,10 +163,10 @@ input BrandPatch {
   url: String
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # A connection to a list of `Brand` values.
@@ -210,10 +210,10 @@ enum BrandsOrderBy {
   PHONE_DESC
   URL_ASC
   URL_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
+  UPDATED_ON_ASC
+  UPDATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -230,7 +230,7 @@ type Conversation implements Node {
   userId: UUID!
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # Reads a single `User` that is related to this `Conversation`.
   userByUserId: User!
@@ -270,8 +270,8 @@ input ConversationCondition {
   # Checks for equality with the object’s `userId` field.
   userId: UUID
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
 }
 
 # An input for mutations affecting `Conversation`
@@ -283,7 +283,7 @@ input ConversationInput {
   userId: UUID!
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 }
 
 # Represents an update to a `Conversation`. Fields that are set will be updated.
@@ -295,7 +295,7 @@ input ConversationPatch {
   userId: UUID
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 }
 
 # A connection to a list of `Conversation` values.
@@ -329,8 +329,8 @@ enum ConversationsOrderBy {
   ID_DESC
   USER_ID_ASC
   USER_ID_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -1766,10 +1766,10 @@ type Food implements Node {
   cholesterol: Float
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 
   # Reads a single `FoodGroup` that is related to this `Food`.
   foodGroupByFoodGroupId: FoodGroup
@@ -2054,11 +2054,11 @@ input FoodCondition {
   # Checks for equality with the object’s `cholesterol` field.
   cholesterol: Float
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
 
-  # Checks for equality with the object’s `updatedAt` field.
-  updatedAt: Datetime
+  # Checks for equality with the object’s `updatedOn` field.
+  updatedOn: Datetime
 }
 
 # A support table to the food table that contains a list of food groups used in SR28 and their descriptions.
@@ -2333,10 +2333,10 @@ input FoodInput {
   cholesterol: Float
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # Contains the nutrient values and information about the values, including expanded statistical information.
@@ -2704,10 +2704,10 @@ input FoodPatch {
   cholesterol: Float
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # A connection to a list of `Food` values.
@@ -2776,17 +2776,14 @@ type FoodSelection implements Node {
   # The description of the brand.
   brandDescription: String
 
-  # The date the food selection occurred, local to the person.
-  date: Date!
-
-  # The time the food selection occurred, local to the person.
-  time: Time
+  # The timestamp for when the food selection occurred, local to the person.
+  occurredOn: Datetime
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 
   # Reads a single `User` that is related to this `FoodSelection`.
   userByUserId: User!
@@ -2858,10 +2855,10 @@ type FoodSelection implements Node {
 # (cooking, preserving, or prepping), consumption (eating), observation (general
 # fallback for making a note about food).
 enum FoodSelectionCategory {
+  OBSERVATION
   COLLECTION
   PREPARATION
   CONSUMPTION
-  OBSERVATION
 }
 
 # A condition to be used against `FoodSelection` object types. All fields are
@@ -2906,17 +2903,14 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `brandDescription` field.
   brandDescription: String
 
-  # Checks for equality with the object’s `date` field.
-  date: Date
+  # Checks for equality with the object’s `occurredOn` field.
+  occurredOn: Datetime
 
-  # Checks for equality with the object’s `time` field.
-  time: Time
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
-
-  # Checks for equality with the object’s `updatedAt` field.
-  updatedAt: Datetime
+  # Checks for equality with the object’s `updatedOn` field.
+  updatedOn: Datetime
 }
 
 # An input for mutations affecting `FoodSelection`
@@ -2958,17 +2952,14 @@ input FoodSelectionInput {
   # The description of the brand.
   brandDescription: String
 
-  # The date the food selection occurred, local to the person.
-  date: Date
-
-  # The time the food selection occurred, local to the person.
-  time: Time
+  # The timestamp for when the food selection occurred, local to the person.
+  occurredOn: Datetime
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # Represents an update to a `FoodSelection`. Fields that are set will be updated.
@@ -3010,17 +3001,14 @@ input FoodSelectionPatch {
   # The description of the brand.
   brandDescription: String
 
-  # The date the food selection occurred, local to the person.
-  date: Date
-
-  # The time the food selection occurred, local to the person.
-  time: Time
+  # The timestamp for when the food selection occurred, local to the person.
+  occurredOn: Datetime
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # A connection to a list of `FoodSelection` values.
@@ -3076,14 +3064,12 @@ enum FoodSelectionsOrderBy {
   PHYSICAL_MOD_DESCRIPTION_DESC
   BRAND_DESCRIPTION_ASC
   BRAND_DESCRIPTION_DESC
-  DATE_ASC
-  DATE_DESC
-  TIME_ASC
-  TIME_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
+  OCCURRED_ON_ASC
+  OCCURRED_ON_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
+  UPDATED_ON_ASC
+  UPDATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -3205,10 +3191,10 @@ enum FoodsOrderBy {
   FAT_POLY_DESC
   CHOLESTEROL_ASC
   CHOLESTEROL_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
+  UPDATED_ON_ASC
+  UPDATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -3553,10 +3539,10 @@ type Message implements Node {
   source: InputSource
 
   # The UTC timestamp that the agent included in the original message.
-  sentAt: Datetime
+  sentOn: Datetime
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # Reads a single `Conversation` that is related to this `Message`.
   conversationByConversationId: Conversation!
@@ -3638,11 +3624,11 @@ input MessageCondition {
   # Checks for equality with the object’s `source` field.
   source: InputSource
 
-  # Checks for equality with the object’s `sentAt` field.
-  sentAt: Datetime
+  # Checks for equality with the object’s `sentOn` field.
+  sentOn: Datetime
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
 }
 
 # An input for mutations affecting `Message`
@@ -3668,10 +3654,10 @@ input MessageInput {
   source: InputSource
 
   # The UTC timestamp that the agent included in the original message.
-  sentAt: Datetime
+  sentOn: Datetime
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 }
 
 # Represents an update to a `Message`. Fields that are set will be updated.
@@ -3697,10 +3683,10 @@ input MessagePatch {
   source: InputSource
 
   # The UTC timestamp that the agent included in the original message.
-  sentAt: Datetime
+  sentOn: Datetime
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 }
 
 # A connection to a list of `Message` values.
@@ -3746,10 +3732,10 @@ enum MessagesOrderBy {
   ACTION_DESC
   SOURCE_ASC
   SOURCE_DESC
-  SENT_AT_ASC
-  SENT_AT_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
+  SENT_ON_ASC
+  SENT_ON_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -4552,10 +4538,10 @@ type Place implements Node {
   zip: String
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 
   # Reads a single `User` that is related to this `Place`.
   userByOwnerId: User
@@ -4611,11 +4597,11 @@ input PlaceCondition {
   # Checks for equality with the object’s `zip` field.
   zip: String
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
 
-  # Checks for equality with the object’s `updatedAt` field.
-  updatedAt: Datetime
+  # Checks for equality with the object’s `updatedOn` field.
+  updatedOn: Datetime
 }
 
 # An input for mutations affecting `Place`
@@ -4669,10 +4655,10 @@ input PlaceInput {
   zip: String
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # Represents an update to a `Place`. Fields that are set will be updated.
@@ -4726,10 +4712,10 @@ input PlacePatch {
   zip: String
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # A connection to a list of `Place` values.
@@ -4791,10 +4777,10 @@ enum PlacesOrderBy {
   STATE_DESC
   ZIP_ASC
   ZIP_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
+  UPDATED_ON_ASC
+  UPDATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -4820,7 +4806,7 @@ type Preset implements Node {
   active: Boolean!
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # Reads a single `User` that is related to this `Preset`.
   userByUserId: User!
@@ -4896,8 +4882,8 @@ input PresetCondition {
   # Checks for equality with the object’s `active` field.
   active: Boolean
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
 }
 
 # An input for mutations affecting `Preset`
@@ -4918,7 +4904,7 @@ input PresetInput {
   active: Boolean
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 }
 
 # Represents an update to a `Preset`. Fields that are set will be updated.
@@ -4939,7 +4925,7 @@ input PresetPatch {
   active: Boolean
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 }
 
 # A connection to a list of `Preset` values.
@@ -4978,7 +4964,7 @@ type PresetSelection implements Node {
   selectionId: UUID!
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # Reads a single `Preset` that is related to this `PresetSelection`.
   presetByPresetId: Preset!
@@ -4996,8 +4982,8 @@ input PresetSelectionCondition {
   # Checks for equality with the object’s `selectionId` field.
   selectionId: UUID
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
 }
 
 # An input for mutations affecting `PresetSelection`
@@ -5009,7 +4995,7 @@ input PresetSelectionInput {
   selectionId: UUID!
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 }
 
 # Represents an update to a `PresetSelection`. Fields that are set will be updated.
@@ -5021,7 +5007,7 @@ input PresetSelectionPatch {
   selectionId: UUID
 
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 }
 
 # A connection to a list of `PresetSelection` values.
@@ -5055,8 +5041,8 @@ enum PresetSelectionsOrderBy {
   PRESET_ID_DESC
   SELECTION_ID_ASC
   SELECTION_ID_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -5074,8 +5060,8 @@ enum PresetsOrderBy {
   NAME_DESC
   ACTIVE_ASC
   ACTIVE_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -5519,6 +5505,28 @@ type Query implements Node {
     after: Cursor
   ): FoodsConnection!
 
+  # Gets all the food selections for a user on a specific date.
+  foodSelectionsByDate(
+    userId: UUID!
+    date: Date!
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+  ): FoodSelectionsConnection!
+
   # Returns a geocoded result from an address
   geocoder(address: String): GeocodeResult
 
@@ -5653,9 +5661,6 @@ type RegisterUserPayload {
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
 }
-
-# The exact time of day, does not include the date. May or may not have a timezone offset.
-scalar Time
 
 # A unit of measure used to quantify a food selection.
 type UnitOfMeasure implements Node {
@@ -6813,11 +6818,14 @@ type User implements Node {
   # The zip code of the user.
   zip: String
 
+  # The person’s default timezone offset.
+  utcOffset: Int
+
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 
   # Reads and enables pagination through a set of `Conversation`.
   conversationsByUserId(
@@ -7061,11 +7069,14 @@ input UserCondition {
   # Checks for equality with the object’s `zip` field.
   zip: String
 
-  # Checks for equality with the object’s `createdAt` field.
-  createdAt: Datetime
+  # Checks for equality with the object’s `utcOffset` field.
+  utcOffset: Int
 
-  # Checks for equality with the object’s `updatedAt` field.
-  updatedAt: Datetime
+  # Checks for equality with the object’s `createdOn` field.
+  createdOn: Datetime
+
+  # Checks for equality with the object’s `updatedOn` field.
+  updatedOn: Datetime
 }
 
 # An input for mutations affecting `User`
@@ -7109,11 +7120,14 @@ input UserInput {
   # The zip code of the user.
   zip: String
 
+  # The person’s default timezone offset.
+  utcOffset: Int
+
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # Represents an update to a `User`. Fields that are set will be updated.
@@ -7157,11 +7171,14 @@ input UserPatch {
   # The zip code of the user.
   zip: String
 
+  # The person’s default timezone offset.
+  utcOffset: Int
+
   # The time this object was created.
-  createdAt: Datetime
+  createdOn: Datetime
 
   # The time this object was last updated.
-  updatedAt: Datetime
+  updatedOn: Datetime
 }
 
 # A connection to a list of `User` values.
@@ -7217,10 +7234,12 @@ enum UsersOrderBy {
   STATE_DESC
   ZIP_ASC
   ZIP_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
+  UTC_OFFSET_ASC
+  UTC_OFFSET_DESC
+  CREATED_ON_ASC
+  CREATED_ON_DESC
+  UPDATED_ON_ASC
+  UPDATED_ON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
