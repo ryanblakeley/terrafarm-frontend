@@ -539,7 +539,13 @@ type CreateFoodSelectionPayload {
   foodByFoodId: Food
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
-  unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
+  unitOfMeasureByMeasureWeightUnitId: UnitOfMeasure
+
+  # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
+  unitOfMeasureByMeasureVolumeUnitId: UnitOfMeasure
+
+  # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
+  unitOfMeasureByMeasureCommonUnitId: UnitOfMeasure
 
   # An edge for the type. May be used by Relay 1.
   foodSelectionEdge(
@@ -1141,7 +1147,13 @@ type DeleteFoodSelectionPayload {
   foodByFoodId: Food
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
-  unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
+  unitOfMeasureByMeasureWeightUnitId: UnitOfMeasure
+
+  # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
+  unitOfMeasureByMeasureVolumeUnitId: UnitOfMeasure
+
+  # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
+  unitOfMeasureByMeasureCommonUnitId: UnitOfMeasure
 
   # An edge for the type. May be used by Relay 1.
   foodSelectionEdge(
@@ -2761,15 +2773,6 @@ type FoodSelection implements Node {
   # The description of the food.
   foodDescription: String!
 
-  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitAmount: Float
-
-  # The description of the unit of measure.
-  unitDescription: String
-
-  # The unique identifier for the unit of measure, if mentioned.
-  unitOfMeasureId: Int
-
   # The description of a physical modification, e.x. chopped, julienned, melted, etc.
   physicalModDescription: String
 
@@ -2778,6 +2781,33 @@ type FoodSelection implements Node {
 
   # The timestamp for when the food selection occurred, local to the person.
   occurredOn: Datetime
+
+  # The unique identifier for the unit of measure.
+  measureWeightUnitId: Int
+
+  # The name of the unit of measure.
+  measureWeightUnit: String
+
+  # The numeric component of the measurement.
+  measureWeightAmount: Float
+
+  # The unique identifier for the unit of measure.
+  measureVolumeUnitId: Int
+
+  # The name of the unit of measure.
+  measureVolumeUnit: String
+
+  # The numeric component of the measurement.
+  measureVolumeAmount: Float
+
+  # The unique identifier for the unit of measure.
+  measureCommonUnitId: Int
+
+  # The name of the unit of measure.
+  measureCommonUnit: String
+
+  # The numeric component of the measurement.
+  measureCommonAmount: Float
 
   # The time this object was created.
   createdOn: Datetime
@@ -2798,7 +2828,13 @@ type FoodSelection implements Node {
   foodByFoodId: Food
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
-  unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
+  unitOfMeasureByMeasureWeightUnitId: UnitOfMeasure
+
+  # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
+  unitOfMeasureByMeasureVolumeUnitId: UnitOfMeasure
+
+  # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
+  unitOfMeasureByMeasureCommonUnitId: UnitOfMeasure
 
   # Reads and enables pagination through a set of `PresetSelection`.
   presetSelectionsBySelectionId(
@@ -2888,15 +2924,6 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `foodDescription` field.
   foodDescription: String
 
-  # Checks for equality with the object’s `unitAmount` field.
-  unitAmount: Float
-
-  # Checks for equality with the object’s `unitDescription` field.
-  unitDescription: String
-
-  # Checks for equality with the object’s `unitOfMeasureId` field.
-  unitOfMeasureId: Int
-
   # Checks for equality with the object’s `physicalModDescription` field.
   physicalModDescription: String
 
@@ -2905,6 +2932,33 @@ input FoodSelectionCondition {
 
   # Checks for equality with the object’s `occurredOn` field.
   occurredOn: Datetime
+
+  # Checks for equality with the object’s `measureWeightUnitId` field.
+  measureWeightUnitId: Int
+
+  # Checks for equality with the object’s `measureWeightUnit` field.
+  measureWeightUnit: String
+
+  # Checks for equality with the object’s `measureWeightAmount` field.
+  measureWeightAmount: Float
+
+  # Checks for equality with the object’s `measureVolumeUnitId` field.
+  measureVolumeUnitId: Int
+
+  # Checks for equality with the object’s `measureVolumeUnit` field.
+  measureVolumeUnit: String
+
+  # Checks for equality with the object’s `measureVolumeAmount` field.
+  measureVolumeAmount: Float
+
+  # Checks for equality with the object’s `measureCommonUnitId` field.
+  measureCommonUnitId: Int
+
+  # Checks for equality with the object’s `measureCommonUnit` field.
+  measureCommonUnit: String
+
+  # Checks for equality with the object’s `measureCommonAmount` field.
+  measureCommonAmount: Float
 
   # Checks for equality with the object’s `createdOn` field.
   createdOn: Datetime
@@ -2937,15 +2991,6 @@ input FoodSelectionInput {
   # The description of the food.
   foodDescription: String!
 
-  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitAmount: Float
-
-  # The description of the unit of measure.
-  unitDescription: String
-
-  # The unique identifier for the unit of measure, if mentioned.
-  unitOfMeasureId: Int
-
   # The description of a physical modification, e.x. chopped, julienned, melted, etc.
   physicalModDescription: String
 
@@ -2954,6 +2999,33 @@ input FoodSelectionInput {
 
   # The timestamp for when the food selection occurred, local to the person.
   occurredOn: Datetime
+
+  # The unique identifier for the unit of measure.
+  measureWeightUnitId: Int
+
+  # The name of the unit of measure.
+  measureWeightUnit: String
+
+  # The numeric component of the measurement.
+  measureWeightAmount: Float
+
+  # The unique identifier for the unit of measure.
+  measureVolumeUnitId: Int
+
+  # The name of the unit of measure.
+  measureVolumeUnit: String
+
+  # The numeric component of the measurement.
+  measureVolumeAmount: Float
+
+  # The unique identifier for the unit of measure.
+  measureCommonUnitId: Int
+
+  # The name of the unit of measure.
+  measureCommonUnit: String
+
+  # The numeric component of the measurement.
+  measureCommonAmount: Float
 
   # The time this object was created.
   createdOn: Datetime
@@ -2986,15 +3058,6 @@ input FoodSelectionPatch {
   # The description of the food.
   foodDescription: String
 
-  # The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.
-  unitAmount: Float
-
-  # The description of the unit of measure.
-  unitDescription: String
-
-  # The unique identifier for the unit of measure, if mentioned.
-  unitOfMeasureId: Int
-
   # The description of a physical modification, e.x. chopped, julienned, melted, etc.
   physicalModDescription: String
 
@@ -3003,6 +3066,33 @@ input FoodSelectionPatch {
 
   # The timestamp for when the food selection occurred, local to the person.
   occurredOn: Datetime
+
+  # The unique identifier for the unit of measure.
+  measureWeightUnitId: Int
+
+  # The name of the unit of measure.
+  measureWeightUnit: String
+
+  # The numeric component of the measurement.
+  measureWeightAmount: Float
+
+  # The unique identifier for the unit of measure.
+  measureVolumeUnitId: Int
+
+  # The name of the unit of measure.
+  measureVolumeUnit: String
+
+  # The numeric component of the measurement.
+  measureVolumeAmount: Float
+
+  # The unique identifier for the unit of measure.
+  measureCommonUnitId: Int
+
+  # The name of the unit of measure.
+  measureCommonUnit: String
+
+  # The numeric component of the measurement.
+  measureCommonAmount: Float
 
   # The time this object was created.
   createdOn: Datetime
@@ -3054,18 +3144,30 @@ enum FoodSelectionsOrderBy {
   MASS_DESC
   FOOD_DESCRIPTION_ASC
   FOOD_DESCRIPTION_DESC
-  UNIT_AMOUNT_ASC
-  UNIT_AMOUNT_DESC
-  UNIT_DESCRIPTION_ASC
-  UNIT_DESCRIPTION_DESC
-  UNIT_OF_MEASURE_ID_ASC
-  UNIT_OF_MEASURE_ID_DESC
   PHYSICAL_MOD_DESCRIPTION_ASC
   PHYSICAL_MOD_DESCRIPTION_DESC
   BRAND_DESCRIPTION_ASC
   BRAND_DESCRIPTION_DESC
   OCCURRED_ON_ASC
   OCCURRED_ON_DESC
+  MEASURE_WEIGHT_UNIT_ID_ASC
+  MEASURE_WEIGHT_UNIT_ID_DESC
+  MEASURE_WEIGHT_UNIT_ASC
+  MEASURE_WEIGHT_UNIT_DESC
+  MEASURE_WEIGHT_AMOUNT_ASC
+  MEASURE_WEIGHT_AMOUNT_DESC
+  MEASURE_VOLUME_UNIT_ID_ASC
+  MEASURE_VOLUME_UNIT_ID_DESC
+  MEASURE_VOLUME_UNIT_ASC
+  MEASURE_VOLUME_UNIT_DESC
+  MEASURE_VOLUME_AMOUNT_ASC
+  MEASURE_VOLUME_AMOUNT_DESC
+  MEASURE_COMMON_UNIT_ID_ASC
+  MEASURE_COMMON_UNIT_ID_DESC
+  MEASURE_COMMON_UNIT_ASC
+  MEASURE_COMMON_UNIT_DESC
+  MEASURE_COMMON_AMOUNT_ASC
+  MEASURE_COMMON_AMOUNT_DESC
   CREATED_ON_ASC
   CREATED_ON_DESC
   UPDATED_ON_ASC
@@ -5721,7 +5823,57 @@ type UnitOfMeasure implements Node {
   ): UnitOfMeasuresConnection!
 
   # Reads and enables pagination through a set of `FoodSelection`.
-  foodSelectionsByUnitOfMeasureId(
+  foodSelectionsByMeasureWeightUnitId(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `FoodSelection`.
+    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: FoodSelectionCondition
+  ): FoodSelectionsConnection!
+
+  # Reads and enables pagination through a set of `FoodSelection`.
+  foodSelectionsByMeasureVolumeUnitId(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `FoodSelection`.
+    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: FoodSelectionCondition
+  ): FoodSelectionsConnection!
+
+  # Reads and enables pagination through a set of `FoodSelection`.
+  foodSelectionsByMeasureCommonUnitId(
     # Only read the first `n` values of the set.
     first: Int
 
@@ -6258,7 +6410,13 @@ type UpdateFoodSelectionPayload {
   foodByFoodId: Food
 
   # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
-  unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
+  unitOfMeasureByMeasureWeightUnitId: UnitOfMeasure
+
+  # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
+  unitOfMeasureByMeasureVolumeUnitId: UnitOfMeasure
+
+  # Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.
+  unitOfMeasureByMeasureCommonUnitId: UnitOfMeasure
 
   # An edge for the type. May be used by Relay 1.
   foodSelectionEdge(

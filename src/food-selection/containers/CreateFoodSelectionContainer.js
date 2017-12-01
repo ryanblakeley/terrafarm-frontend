@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import moment from 'moment';
 import Layout from 'shared/components/Layout';
 import { ErrorMessage } from 'shared/components/Typography';
-import { Dialog, FlatButton, RaisedButton } from 'shared/components/Material';
+import { Dialog, FlatButton, RaisedButton, Tabs, Tab } from 'shared/components/Material';
 import { Form, TextInput } from 'shared/components/Form';
 import validations, { validationErrors } from 'tools/validations';
 import CreateFoodSelectionMutation from 'food-selection/mutations/CreateFoodSelectionMutation';
@@ -19,6 +19,7 @@ const styles = {
 };
 
 const propTypes = {
+  query: PropTypes.object.isRequired,
   currentPerson: PropTypes.object.isRequired,
   relay: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
@@ -71,11 +72,17 @@ class CreateFoodSelectionContainer extends React.Component {
     this.setState({ error: !!error, errorMessage: 'Internal server failure.' });
   }
   createFoodSelection (data) {
-    const { currentPerson, relay } = this.props;
+    const { query, currentPerson, relay } = this.props;
+
+    // console.log('Create food selection data:', data);
 
     const formattedData = Object.assign({}, data, {
-      unitAmount: data.unitAmount || null,
-      unitDescription: data.unitDescription || null,
+      measureWeightAmount: data.measureWeightAmount || null,
+      measureWeightUnit: data.measureWeightUnit || null,
+      measureVolumeAmount: data.measureVolumeAmount || null,
+      measureVolumeUnit: data.measureVolumeUnit || null,
+      measureCommonAmount: data.measureCommonAmount || null,
+      measureCommonUnit: data.measureCommonUnit || null,
       foodId: data.foodId || null,
       mass: data.mass || null,
       userId: currentPerson.rowId,
@@ -83,7 +90,7 @@ class CreateFoodSelectionContainer extends React.Component {
 
     CreateFoodSelectionMutation.commit(
       relay.environment,
-      currentPerson,
+      query,
       formattedData,
       this.handleSuccess,
       this.handleFailure,
@@ -93,7 +100,10 @@ class CreateFoodSelectionContainer extends React.Component {
     const { location } = this.props;
     const { open, canSubmit, error, errorMessage } = this.state;
     const journalDate = location.pathname.split('/')[2];
-    const datetime = moment(journalDate, 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss Z');
+    // const date = moment(journalDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+    const time = moment().format('HH:mm:ss Z');
+    const datetime = moment(`${journalDate} ${time}`, 'YYYY-MM-DD HH:mm:ss Z')
+      .format('YYYY-MM-DD HH:mm:ss Z');
 
     return <Dialog
       title={'New Journal Row'}
@@ -122,28 +132,80 @@ class CreateFoodSelectionContainer extends React.Component {
             />
           </Layout>
           <Layout leftSmall flexCenter >
-            <Layout>
-              <TextInput
-                name={'unitAmount'}
-                label={'Amount'}
-                placeholder={'Number'}
-                validations={{ isNumeric: true }}
-                validationError={validationErrors.number}
-                maxLength={8}
-                style={styles.fieldSmall}
-              />
-            </Layout>
-            <Layout leftSmall >
-              <TextInput
-                name={'unitDescription'}
-                label={'Unit'}
-                placeholder={'Word'}
-                validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                validationError={validationErrors.normalWords}
-                maxLength={50}
-                style={styles.fieldSmall}
-              />
-            </Layout>
+            <Tabs>
+              <Tab label={'Weight'} >
+                <Layout>
+                  <TextInput
+                    name={'measureWeightAmount'}
+                    label={'Amount'}
+                    placeholder={'Number'}
+                    validations={{ isNumeric: true }}
+                    validationError={validationErrors.number}
+                    maxLength={8}
+                    style={styles.fieldSmall}
+                  />
+                </Layout>
+                <Layout leftSmall >
+                  <TextInput
+                    name={'measureWeightUnit'}
+                    label={'Unit'}
+                    placeholder={'Word'}
+                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                    validationError={validationErrors.normalWords}
+                    maxLength={50}
+                    style={styles.fieldSmall}
+                  />
+                </Layout>
+              </Tab>
+              <Tab label={'Volume'} >
+                <Layout>
+                  <TextInput
+                    name={'measureVolumeAmount'}
+                    label={'Amount'}
+                    placeholder={'Number'}
+                    validations={{ isNumeric: true }}
+                    validationError={validationErrors.number}
+                    maxLength={8}
+                    style={styles.fieldSmall}
+                  />
+                </Layout>
+                <Layout leftSmall >
+                  <TextInput
+                    name={'measureVolumeUnit'}
+                    label={'Unit'}
+                    placeholder={'Word'}
+                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                    validationError={validationErrors.normalWords}
+                    maxLength={50}
+                    style={styles.fieldSmall}
+                  />
+                </Layout>
+              </Tab>
+              <Tab label={'Common'} >
+                <Layout>
+                  <TextInput
+                    name={'measureCommonAmount'}
+                    label={'Amount'}
+                    placeholder={'Number'}
+                    validations={{ isNumeric: true }}
+                    validationError={validationErrors.number}
+                    maxLength={8}
+                    style={styles.fieldSmall}
+                  />
+                </Layout>
+                <Layout leftSmall >
+                  <TextInput
+                    name={'measureCommonUnit'}
+                    label={'Unit'}
+                    placeholder={'Word'}
+                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                    validationError={validationErrors.normalWords}
+                    maxLength={50}
+                    style={styles.fieldSmall}
+                  />
+                </Layout>
+              </Tab>
+            </Tabs>
           </Layout>
         </Layout>
         <Layout flexCenter flexWrap >
@@ -207,6 +269,11 @@ class CreateFoodSelectionContainer extends React.Component {
 CreateFoodSelectionContainer.propTypes = propTypes;
 
 export default createFragmentContainer(CreateFoodSelectionContainer, {
+  query: graphql`
+    fragment CreateFoodSelectionContainer_query on Query {
+      id
+    }
+  `,
   currentPerson: graphql`
     fragment CreateFoodSelectionContainer_currentPerson on User {
       id

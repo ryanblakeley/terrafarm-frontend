@@ -176,8 +176,12 @@ class PresetContainer extends React.Component {
       const {
         rowId,
         foodDescription,
-        unitAmount,
-        unitDescription,
+        measureWeightAmount,
+        measureWeightUnit,
+        measureVolumeAmount,
+        measureVolumeUnit,
+        measureCommonAmount,
+        measureCommonUnit,
         foodId,
         mass,
       } = s;
@@ -188,8 +192,12 @@ class PresetContainer extends React.Component {
         key={rowId}
         mass={mass}
         foodName={foodDescription}
-        unitAmount={unitAmount}
-        unitDescription={unitDescription}
+        measureWeightAmount={measureWeightAmount}
+        measureWeightUnit={measureWeightUnit}
+        measureVolumeAmount={measureVolumeAmount}
+        measureVolumeUnit={measureVolumeUnit}
+        measureCommonAmount={measureCommonAmount}
+        measureCommonUnit={measureCommonUnit}
         url={url}
         complete={!!(foodId && mass)}
         nutrition={nutrition}

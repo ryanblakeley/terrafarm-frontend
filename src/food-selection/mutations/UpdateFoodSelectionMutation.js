@@ -18,28 +18,34 @@ const mutation = graphql`
           carbs
         }
         mass
-        unitAmount
-        unitDescription
-        unitOfMeasureId
-        unitOfMeasureByUnitOfMeasureId {
+        occurredOn
+        measureWeightAmount
+        measureWeightUnit
+        measureWeightUnitId
+        unitOfMeasureByMeasureWeightUnitId {
           category
           siFactor
         }
-        occurredOn
+        measureVolumeAmount
+        measureVolumeUnit
+        measureCommonAmount
+        measureCommonUnit
       }
     }
   }
 `;
 
-function sharedUpdater (store, user, foodSelection) { // eslint-disable-line no-unused-vars
-  const userProxy = store.get(user.id);
+function sharedUpdater (store, query, foodSelection) { // eslint-disable-line no-unused-vars
+  const queryProxy = store.get(query.id);
   // const foodSelectionProxy = store.get(foodSelection.id);
   const connectionKeys = [
     'JournalDateContainer_foodSelectionsByDate',
   ];
 
   connectionKeys.forEach(c => {
-    const connection = ConnectionHandler.getConnection(userProxy, c);
+    const connection = ConnectionHandler.getConnection(queryProxy, c);
+
+    console.log('Connection:', connection);
 
     if (connection) {
       const payload = store.getRootField('updateFoodSelection');
@@ -49,7 +55,7 @@ function sharedUpdater (store, user, foodSelection) { // eslint-disable-line no-
   });
 }
 
-function commit (environment, user, foodSelection, patch, onCompleted, onError) {
+function commit (environment, query, foodSelection, patch, onCompleted, onError) {
   return commitMutation(environment, {
     mutation,
     variables: {
@@ -59,7 +65,7 @@ function commit (environment, user, foodSelection, patch, onCompleted, onError) 
       },
     },
     updater: (store) => {
-      sharedUpdater(store, user, foodSelection);
+      sharedUpdater(store, query, foodSelection);
     },
     optimisticUpdater () {
       return {

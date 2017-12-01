@@ -6,7 +6,8 @@ const mutation = graphql`
     $input: CreateFoodSelectionInput!
   ) {
     createFoodSelection(input: $input) {
-      foodSelection {
+      foodSelectionEdge {
+        node {
         rowId
         foodDescription
         foodId
@@ -19,50 +20,56 @@ const mutation = graphql`
           carbs
         }
         mass
-        unitAmount
-        unitDescription
-        unitOfMeasureId
-        unitOfMeasureByUnitOfMeasureId {
+        occurredOn
+        measureWeightAmount
+        measureWeightUnit
+        measureWeightUnitId
+        unitOfMeasureByMeasureWeightUnitId {
           category
           siFactor
         }
-        occurredOn
+        measureVolumeAmount
+        measureVolumeUnit
+        measureCommonAmount
+        measureCommonUnit
+        }
       }
     }
   }
 `;
 
-function sharedUpdater (store, user) {
-  const userProxy = store.get(user.id);
+function sharedUpdater (store, query, newEdge) {
+  const queryProxy = store.get(query.id);
+  // const foodSelectionProxy = store.get(foodSelection.id);
   const connectionKeys = [
     'JournalDateContainer_foodSelectionsByDate',
   ];
 
   connectionKeys.forEach(c => {
-    const connection = ConnectionHandler.getConnection(userProxy, c);
+    const connection = ConnectionHandler.getConnection(queryProxy, c, {});
+
+    console.log('Connection', connection);
 
     if (connection) {
-      const payload = store.getRootField('createFoodSelection');
-      const newFoodSelection = payload.getLinkedRecord('foodSelection');
-      const newEdge = ConnectionHandler.createEdge(
-        store,
-        connection,
-        newFoodSelection,
-        'FoodSelectionEdge',
-      );
-      ConnectionHandler.insertEdgeBefore(connection, newEdge);
+      ConnectionHandler.insertEdgeAfter(connection, newEdge);
     }
   });
 }
 
-function commit (environment, user, data, onCompleted, onError) {
+function commit (environment, query, data, onCompleted, onError) {
   return commitMutation(environment, {
     mutation,
     variables: {
       input: { foodSelection: data },
     },
     updater: (store) => {
-      sharedUpdater(store, user);
+      const payload = store.getRootField('createFoodSelection');
+      const newEdge = payload.getLinkedRecord('foodSelectionEdge');
+
+      // console.log('Payload:', payload);
+      // console.log('New edge:', newEdge);
+
+      sharedUpdater(store, query, newEdge);
     },
     optimisticCreater () {
       return {

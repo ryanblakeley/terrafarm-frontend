@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import moment from 'moment';
 import Layout from 'shared/components/Layout';
 import { P, Link, ErrorMessage } from 'shared/components/Typography';
-import { Dialog, FlatButton, RaisedButton } from 'shared/components/Material';
+import { Dialog, FlatButton, RaisedButton, Tabs, Tab } from 'shared/components/Material';
 import { SearchIcon } from 'shared/components/Icons';
 import { Form, TextInput } from 'shared/components/Form';
 import validations, { validationErrors } from 'tools/validations';
@@ -19,13 +20,14 @@ const styles = {
   field: {
     width: 198,
   },
-  fieldSmall: {
+  smallField: {
     width: 95,
   },
 };
 
 const propTypes = {
-  currentPerson: PropTypes.object.isRequired,
+  query: PropTypes.object.isRequired,
+  // currentPerson: PropTypes.object.isRequired,
   foodSelectionByRowId: PropTypes.object.isRequired,
   relay: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
@@ -92,14 +94,14 @@ class EditFoodSelectionContainer extends React.Component {
   }
   handleDelete = response => {  // eslint-disable-line no-unused-vars
     const {
-      currentPerson: user,
+      query,
       foodSelectionByRowId: foodSelection,
       relay,
     } = this.props;
 
     DeleteFoodSelectionMutation.commit(
       relay.environment,
-      user,
+      query,
       foodSelection,
       this.handleSuccessDelete,
       this.handleFailure,
@@ -121,18 +123,24 @@ class EditFoodSelectionContainer extends React.Component {
     this.updateFoodSelection({ mass });
   }
   updateFoodSelection (patch) {
-    const { currentPerson, foodSelectionByRowId: foodSelection, relay } = this.props;
+    const { query, foodSelectionByRowId: foodSelection, relay } = this.props;
+
+    // console.log('Update food selection patch:', patch);
 
     const formattedPatch = Object.assign({}, patch, {
-      unitAmount: patch.unitAmount || null,
-      unitDescription: patch.unitDescription || null,
+      measureWeightAmount: patch.measureWeightAmount || null,
+      measureWeightUnit: patch.measureWeightUnit || null,
+      measureVolumeAmount: patch.measureVolumeAmount || null,
+      measureVolumeUnit: patch.measureVolumeUnit || null,
+      measureCommonAmount: patch.measureCommonAmount || null,
+      measureCommonUnit: patch.measureCommonUnit || null,
       foodId: patch.foodId || null,
       mass: patch.mass || null,
     });
 
     UpdateFoodSelectionMutation.commit(
       relay.environment,
-      currentPerson,
+      query,
       foodSelection,
       formattedPatch,
       this.handleSuccess,
@@ -152,6 +160,8 @@ class EditFoodSelectionContainer extends React.Component {
     </Layout>;
     const possibleFoods = foodSelection.investigationsByFoodSelectionId;
     const journalDate = location.pathname.split('/')[2];
+    const datetime = moment(foodSelection.occurredOn, 'YYYY-MM-DD HH:mm:ss Z')
+      .format('YYYY-MM-DD HH:mm:ss Z');
 
     return <Dialog
       title={'Edit Journal Row'}
@@ -178,26 +188,88 @@ class EditFoodSelectionContainer extends React.Component {
             required
             style={styles.field}
           />
-          <TextInput
-            name={'unitAmount'}
-            label={'Amount'}
-            placeholder={'Number'}
-            value={foodSelection.unitAmount}
-            validations={{ isNumeric: true }}
-            validationError={validationErrors.number}
-            maxLength={8}
-            style={styles.field}
-          />
-          <TextInput
-            name={'unitDescription'}
-            label={'Unit'}
-            placeholder={'Word'}
-            value={foodSelection.unitDescription}
-            validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-            validationError={validationErrors.normalWords}
-            maxLength={50}
-            style={styles.field}
-          />
+          <Layout>
+            <Tabs>
+              <Tab label={'Weight'} >
+                <Layout>
+                  <TextInput
+                    name={'measureWeightAmount'}
+                    label={'Amount'}
+                    placeholder={'Number'}
+                    value={foodSelection.measureWeightAmount}
+                    validations={{ isNumeric: true }}
+                    validationError={validationErrors.number}
+                    maxLength={8}
+                    style={styles.field}
+                  />
+                </Layout>
+                <Layout leftSmall >
+                  <TextInput
+                    name={'measureWeightUnit'}
+                    label={'Unit'}
+                    placeholder={'Word'}
+                    value={foodSelection.measureWeightUnit}
+                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                    validationError={validationErrors.normalWords}
+                    maxLength={50}
+                    style={styles.field}
+                  />
+                </Layout>
+              </Tab>
+              <Tab label={'Volume'} >
+                <Layout>
+                  <TextInput
+                    name={'measureVolumeAmount'}
+                    label={'Amount'}
+                    placeholder={'Number'}
+                    value={foodSelection.measureVolumeAmount}
+                    validations={{ isNumeric: true }}
+                    validationError={validationErrors.number}
+                    maxLength={8}
+                    style={styles.field}
+                  />
+                </Layout>
+                <Layout leftSmall >
+                  <TextInput
+                    name={'measureVolumeUnit'}
+                    label={'Unit'}
+                    placeholder={'Word'}
+                    value={foodSelection.measureVolumeUnit}
+                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                    validationError={validationErrors.normalWords}
+                    maxLength={50}
+                    style={styles.field}
+                  />
+                </Layout>
+              </Tab>
+              <Tab label={'Common'} >
+                <Layout>
+                  <TextInput
+                    name={'measureCommonAmount'}
+                    label={'Amount'}
+                    placeholder={'Number'}
+                    value={foodSelection.measureCommonAmount}
+                    validations={{ isNumeric: true }}
+                    validationError={validationErrors.number}
+                    maxLength={8}
+                    style={styles.field}
+                  />
+                </Layout>
+                <Layout leftSmall >
+                  <TextInput
+                    name={'measureCommonUnit'}
+                    label={'Unit'}
+                    placeholder={'Word'}
+                    value={foodSelection.measureCommonUnit}
+                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                    validationError={validationErrors.normalWords}
+                    maxLength={50}
+                    style={styles.field}
+                  />
+                </Layout>
+              </Tab>
+            </Tabs>
+          </Layout>
           <Layout
             className={cx({
               attentionFields: !(foodSelection.foodByFoodId && foodSelection.mass),
@@ -260,7 +332,7 @@ class EditFoodSelectionContainer extends React.Component {
             name={'occurredOn'}
             label={'Occurred on'}
             placeholder={'YYYY-MM-DD HH:mm:ss Z'}
-            value={foodSelection.occurredOn}
+            value={datetime}
             validations={{ isDatetime: validations.isDatetime }}
             validationError={validationErrors.datetime}
             required
@@ -303,12 +375,19 @@ class EditFoodSelectionContainer extends React.Component {
 EditFoodSelectionContainer.propTypes = propTypes;
 
 export default createFragmentContainer(EditFoodSelectionContainer, {
+  query: graphql`
+    fragment EditFoodSelectionContainer_query on Query {
+      id
+    }
+  `,
+/*
   currentPerson: graphql`
     fragment EditFoodSelectionContainer_currentPerson on User {
       id
       rowId
     }
   `,
+*/
   foodSelectionByRowId: graphql`
     fragment EditFoodSelectionContainer_foodSelectionByRowId on FoodSelection {
       id
@@ -324,10 +403,14 @@ export default createFragmentContainer(EditFoodSelectionContainer, {
         carbs
       }
       mass
-      unitAmount
-      unitDescription
-      unitOfMeasureId
-      unitOfMeasureByUnitOfMeasureId {
+      measureWeightAmount
+      measureWeightUnit
+      measureWeightUnitId
+      measureVolumeAmount
+      measureVolumeUnit
+      measureCommonAmount
+      measureCommonUnit
+      unitOfMeasureByMeasureWeightUnitId {
         category
         siFactor
       }

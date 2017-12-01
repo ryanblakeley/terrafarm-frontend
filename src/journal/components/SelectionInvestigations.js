@@ -32,8 +32,8 @@ const SelectionInvestigations = props => {
         />
         <Span>{food.description}</Span>
         <SelectionPossibleMass
-          unit={foodSelection.unitOfMeasureByUnitOfMeasureId}
-          amount={foodSelection.unitAmount}
+          unit={foodSelection.unitOfMeasureByMeasureWeightUnitId}
+          amount={foodSelection.measureWeightAmount}
           show={!foodSelection.mass}
           handleClickMassSuggestion={handleChangeMass}
         />

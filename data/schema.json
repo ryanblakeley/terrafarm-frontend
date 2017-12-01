@@ -6247,42 +6247,6 @@
               "deprecationReason": null
             },
             {
-              "name": "UNIT_AMOUNT_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UNIT_AMOUNT_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UNIT_DESCRIPTION_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UNIT_DESCRIPTION_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UNIT_OF_MEASURE_ID_ASC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UNIT_OF_MEASURE_ID_DESC",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "PHYSICAL_MOD_DESCRIPTION_ASC",
               "description": null,
               "isDeprecated": false,
@@ -6314,6 +6278,114 @@
             },
             {
               "name": "OCCURRED_ON_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_WEIGHT_UNIT_ID_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_WEIGHT_UNIT_ID_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_WEIGHT_UNIT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_WEIGHT_UNIT_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_WEIGHT_AMOUNT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_WEIGHT_AMOUNT_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_VOLUME_UNIT_ID_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_VOLUME_UNIT_ID_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_VOLUME_UNIT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_VOLUME_UNIT_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_VOLUME_AMOUNT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_VOLUME_AMOUNT_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_COMMON_UNIT_ID_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_COMMON_UNIT_ID_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_COMMON_UNIT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_COMMON_UNIT_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_COMMON_AMOUNT_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_COMMON_AMOUNT_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6444,36 +6516,6 @@
               "defaultValue": null
             },
             {
-              "name": "unitAmount",
-              "description": "Checks for equality with the object’s `unitAmount` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "unitDescription",
-              "description": "Checks for equality with the object’s `unitDescription` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "unitOfMeasureId",
-              "description": "Checks for equality with the object’s `unitOfMeasureId` field.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "physicalModDescription",
               "description": "Checks for equality with the object’s `physicalModDescription` field.",
               "type": {
@@ -6499,6 +6541,96 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightUnitId",
+              "description": "Checks for equality with the object’s `measureWeightUnitId` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightUnit",
+              "description": "Checks for equality with the object’s `measureWeightUnit` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightAmount",
+              "description": "Checks for equality with the object’s `measureWeightAmount` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeUnitId",
+              "description": "Checks for equality with the object’s `measureVolumeUnitId` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeUnit",
+              "description": "Checks for equality with the object’s `measureVolumeUnit` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeAmount",
+              "description": "Checks for equality with the object’s `measureVolumeAmount` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonUnitId",
+              "description": "Checks for equality with the object’s `measureCommonUnitId` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonUnit",
+              "description": "Checks for equality with the object’s `measureCommonUnit` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonAmount",
+              "description": "Checks for equality with the object’s `measureCommonAmount` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -6776,42 +6908,6 @@
               "deprecationReason": null
             },
             {
-              "name": "unitAmount",
-              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "unitDescription",
-              "description": "The description of the unit of measure.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "unitOfMeasureId",
-              "description": "The unique identifier for the unit of measure, if mentioned.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "physicalModDescription",
               "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "args": [],
@@ -6842,6 +6938,114 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureWeightUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureWeightUnit",
+              "description": "The name of the unit of measure.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureWeightAmount",
+              "description": "The numeric component of the measurement.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureVolumeUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureVolumeUnit",
+              "description": "The name of the unit of measure.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureVolumeAmount",
+              "description": "The numeric component of the measurement.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureCommonUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureCommonUnit",
+              "description": "The name of the unit of measure.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureCommonAmount",
+              "description": "The numeric component of the measurement.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6924,7 +7128,31 @@
               "deprecationReason": null
             },
             {
-              "name": "unitOfMeasureByUnitOfMeasureId",
+              "name": "unitOfMeasureByMeasureWeightUnitId",
+              "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitOfMeasureByMeasureVolumeUnitId",
+              "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitOfMeasureByMeasureCommonUnitId",
               "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
@@ -10592,7 +10820,181 @@
               "deprecationReason": null
             },
             {
-              "name": "foodSelectionsByUnitOfMeasureId",
+              "name": "foodSelectionsByMeasureWeightUnitId",
+              "description": "Reads and enables pagination through a set of `FoodSelection`.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "orderBy",
+                  "description": "The method to use when ordering `FoodSelection`.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "FoodSelectionsOrderBy",
+                    "ofType": null
+                  },
+                  "defaultValue": "PRIMARY_KEY_ASC"
+                },
+                {
+                  "name": "condition",
+                  "description": "A condition to be used in determining which values should be returned by the collection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "FoodSelectionCondition",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "FoodSelectionsConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "foodSelectionsByMeasureVolumeUnitId",
+              "description": "Reads and enables pagination through a set of `FoodSelection`.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Only read the first `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Only read the last `n` values of the set.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offset",
+                  "description": "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Read all values in the set before (above) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Read all values in the set after (below) this cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Cursor",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "orderBy",
+                  "description": "The method to use when ordering `FoodSelection`.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "FoodSelectionsOrderBy",
+                    "ofType": null
+                  },
+                  "defaultValue": "PRIMARY_KEY_ASC"
+                },
+                {
+                  "name": "condition",
+                  "description": "A condition to be used in determining which values should be returned by the collection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "FoodSelectionCondition",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "FoodSelectionsConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "foodSelectionsByMeasureCommonUnitId",
               "description": "Reads and enables pagination through a set of `FoodSelection`.",
               "args": [
                 {
@@ -19314,36 +19716,6 @@
               "defaultValue": null
             },
             {
-              "name": "unitAmount",
-              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "unitDescription",
-              "description": "The description of the unit of measure.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "unitOfMeasureId",
-              "description": "The unique identifier for the unit of measure, if mentioned.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "physicalModDescription",
               "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "type": {
@@ -19369,6 +19741,96 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightUnit",
+              "description": "The name of the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightAmount",
+              "description": "The numeric component of the measurement.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeUnit",
+              "description": "The name of the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeAmount",
+              "description": "The numeric component of the measurement.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonUnit",
+              "description": "The name of the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonAmount",
+              "description": "The numeric component of the measurement.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -19488,7 +19950,31 @@
               "deprecationReason": null
             },
             {
-              "name": "unitOfMeasureByUnitOfMeasureId",
+              "name": "unitOfMeasureByMeasureWeightUnitId",
+              "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitOfMeasureByMeasureVolumeUnitId",
+              "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitOfMeasureByMeasureCommonUnitId",
               "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
@@ -23678,36 +24164,6 @@
               "defaultValue": null
             },
             {
-              "name": "unitAmount",
-              "description": "The numeric component for describing quantity of food: e.x. 1/4 in 1/4 cup, 200 in 200 grams.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "unitDescription",
-              "description": "The description of the unit of measure.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "unitOfMeasureId",
-              "description": "The unique identifier for the unit of measure, if mentioned.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "physicalModDescription",
               "description": "The description of a physical modification, e.x. chopped, julienned, melted, etc.",
               "type": {
@@ -23733,6 +24189,96 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightUnit",
+              "description": "The name of the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureWeightAmount",
+              "description": "The numeric component of the measurement.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeUnit",
+              "description": "The name of the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureVolumeAmount",
+              "description": "The numeric component of the measurement.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonUnitId",
+              "description": "The unique identifier for the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonUnit",
+              "description": "The name of the unit of measure.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureCommonAmount",
+              "description": "The numeric component of the measurement.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               },
               "defaultValue": null
@@ -23852,7 +24398,31 @@
               "deprecationReason": null
             },
             {
-              "name": "unitOfMeasureByUnitOfMeasureId",
+              "name": "unitOfMeasureByMeasureWeightUnitId",
+              "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitOfMeasureByMeasureVolumeUnitId",
+              "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitOfMeasureByMeasureCommonUnitId",
               "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
@@ -27999,7 +28569,31 @@
               "deprecationReason": null
             },
             {
-              "name": "unitOfMeasureByUnitOfMeasureId",
+              "name": "unitOfMeasureByMeasureWeightUnitId",
+              "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitOfMeasureByMeasureVolumeUnitId",
+              "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unitOfMeasureByMeasureCommonUnitId",
               "description": "Reads a single `UnitOfMeasure` that is related to this `FoodSelection`.",
               "args": [],
               "type": {

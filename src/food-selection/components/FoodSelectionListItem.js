@@ -12,8 +12,12 @@ const propTypes = {
   // key: PropTypes.string,
   foodName: PropTypes.string.isRequired,
   mass: PropTypes.number,
-  unitAmount: PropTypes.number,
-  unitDescription: PropTypes.string,
+  measureWeightAmount: PropTypes.number,
+  measureWeightUnit: PropTypes.string,
+  measureVolumeAmount: PropTypes.number,
+  measureVolumeUnit: PropTypes.string,
+  measureCommonAmount: PropTypes.number,
+  measureCommonUnit: PropTypes.string,
   url: PropTypes.string,
   complete: PropTypes.bool.isRequired,
   nutrition: PropTypes.shape({
@@ -30,7 +34,12 @@ const propTypes = {
 const defaultProps = {
   mass: '',
   nutrition: {},
-  unitAmount: '',
+  measureWeightAmount: '',
+  measureWeightUnit: '',
+  measureVolumeAmount: '',
+  measureVolumeUnit: '',
+  measureCommonAmount: '',
+  measureCommonUnit: '',
   unitDescription: '',
   url: '',
   editing: false,
@@ -41,8 +50,12 @@ const FoodSelectionListItem = props => {
   const {
     foodName,
     mass,
-    unitAmount,
-    unitDescription,
+    measureWeightAmount,
+    measureWeightUnit,
+    measureVolumeAmount,
+    measureVolumeUnit,
+    measureCommonAmount,
+    measureCommonUnit,
     url,
     complete,
     nutrition,
@@ -50,6 +63,12 @@ const FoodSelectionListItem = props => {
     wide,
     router,
   } = props;
+
+  /* eslint-disable max-len */
+  const measureWeight = measureWeightAmount && measureWeightUnit && `${measureWeightAmount} ${measureWeightUnit}`;
+  const measureVolume = measureVolumeAmount && measureVolumeUnit && `${measureVolumeAmount} ${measureVolumeUnit}`;
+  const measureCommon = measureCommonAmount && measureCommonUnit && `${measureCommonAmount} ${measureCommonUnit}`;
+  const measure = measureWeight || measureVolume || measureCommon;
 
   return <Layout
     className={cx({
@@ -63,7 +82,7 @@ const FoodSelectionListItem = props => {
     style={{ cursor: url ? 'pointer' : 'default' }}
   >
     <Span className={classNames.column} key={1} >
-      {foodName}; {unitAmount} {unitDescription} ~ {mass}g
+      {foodName}; {measure} ~ {mass}g
     </Span>
     <Span className={classNames.column} key={2} >{nutrition.calories || ''}</Span>
     <Span className={classNames.column} key={3} >{nutrition.protein || ''}</Span>

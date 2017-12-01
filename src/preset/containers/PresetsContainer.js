@@ -90,8 +90,6 @@ export default createFragmentContainer(
                   foodSelectionBySelectionId {
                     rowId
                     foodDescription
-                    unitAmount
-                    unitDescription
                     mass
                     foodId
                     foodByFoodId {
@@ -100,6 +98,16 @@ export default createFragmentContainer(
                       protein
                       fat
                       carbs
+                    }
+                    measureWeightAmount,
+                    measureWeightUnit,
+                    measureVolumeAmount,
+                    measureVolumeUnit,
+                    measureCommonAmount,
+                    measureCommonUnit,
+                    unitOfMeasureByMeasureWeightUnitId {
+                      category
+                      siFactor
                     }
                   }
                 }

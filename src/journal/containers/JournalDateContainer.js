@@ -115,8 +115,12 @@ class JournalDateContainer extends React.Component {
       const {
         rowId,
         foodDescription,
-        unitAmount,
-        unitDescription,
+        measureWeightAmount,
+        measureWeightUnit,
+        measureVolumeAmount,
+        measureVolumeUnit,
+        measureCommonAmount,
+        measureCommonUnit,
         foodByFoodId,
         mass,
       } = node;
@@ -129,8 +133,12 @@ class JournalDateContainer extends React.Component {
         key={rowId}
         foodName={foodDescription}
         mass={mass}
-        unitAmount={unitAmount}
-        unitDescription={unitDescription}
+        measureWeightAmount={measureWeightAmount}
+        measureWeightUnit={measureWeightUnit}
+        measureVolumeAmount={measureVolumeAmount}
+        measureVolumeUnit={measureVolumeUnit}
+        measureCommonAmount={measureCommonAmount}
+        measureCommonUnit={measureCommonUnit}
         url={url}
         complete={complete}
         nutrition={nutrition}
@@ -190,9 +198,12 @@ export default createFragmentContainer(
               carbs
             }
             mass
-            unitAmount
-            unitDescription
-            unitOfMeasureId
+            measureWeightAmount
+            measureWeightUnit
+            measureVolumeAmount
+            measureVolumeUnit
+            measureCommonAmount
+            measureCommonUnit
           }
         }
       }

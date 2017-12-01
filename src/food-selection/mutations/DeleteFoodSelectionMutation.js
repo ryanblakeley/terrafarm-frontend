@@ -9,29 +9,19 @@ const mutation = graphql`
       foodSelection {
         id
       }
-      userByUserId {
-        id
-        foodSelectionsByUserId {
-          edges {
-            node {
-              id
-            }
-          }
-        }
-      }
       deletedFoodSelectionId
     }
   }
 `;
 
-function sharedUpdater (store, user, deletedId) {
-  const userProxy = store.get(user.id);
+function sharedUpdater (store, query, deletedId) {
+  const queryProxy = store.get(query.id);
   const connectionKeys = [
-    'JournalDateContainer_foodSelectionsByUserId',
+    'JournalDateContainer_foodSelectionsByDate',
   ];
 
   connectionKeys.forEach(c => {
-    const connection = ConnectionHandler.getConnection(userProxy, c);
+    const connection = ConnectionHandler.getConnection(queryProxy, c);
 
     if (connection) {
       ConnectionHandler.deleteNode(
@@ -42,7 +32,7 @@ function sharedUpdater (store, user, deletedId) {
   });
 }
 
-function commit (environment, user, foodSelection, onCompleted, onError) {
+function commit (environment, query, foodSelection, onCompleted, onError) {
   return commitMutation(environment, {
     mutation,
     variables: {
@@ -52,7 +42,7 @@ function commit (environment, user, foodSelection, onCompleted, onError) {
     updater: (store) => {
       // const payload = store.getRootField('deleteFoodSelection');
       // payload.getValue('deletedFoodSelectionId'); // getting null :/
-      sharedUpdater(store, user, foodSelection.id);
+      sharedUpdater(store, query, foodSelection.id);
     },
 /*
     optimisticUpdater: (store) => {

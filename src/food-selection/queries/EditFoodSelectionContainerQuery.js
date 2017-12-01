@@ -2,14 +2,18 @@ import { graphql } from 'react-relay';
 
 const EditFoodSelectionContainerQuery = graphql`
   query EditFoodSelectionContainerQuery($foodSelectionId: UUID!) {
-    currentPerson {
-      ...EditFoodSelectionContainer_currentPerson,
-    },
+    query {
+      ...EditFoodSelectionContainer_query
+    }
     foodSelectionByRowId(rowId: $foodSelectionId) {
-      ...EditFoodSelectionContainer_foodSelectionByRowId,
+      ...EditFoodSelectionContainer_foodSelectionByRowId
     }
   }
 `;
 
 export default EditFoodSelectionContainerQuery;
-
+/*
+    currentPerson {
+      ...EditFoodSelectionContainer_currentPerson,
+    },
+*/
