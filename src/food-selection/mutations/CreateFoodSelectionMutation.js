@@ -48,8 +48,6 @@ function sharedUpdater (store, query, newEdge) {
   connectionKeys.forEach(c => {
     const connection = ConnectionHandler.getConnection(queryProxy, c, {});
 
-    console.log('Connection', connection);
-
     if (connection) {
       ConnectionHandler.insertEdgeAfter(connection, newEdge);
     }
@@ -65,9 +63,6 @@ function commit (environment, query, data, onCompleted, onError) {
     updater: (store) => {
       const payload = store.getRootField('createFoodSelection');
       const newEdge = payload.getLinkedRecord('foodSelectionEdge');
-
-      // console.log('Payload:', payload);
-      // console.log('New edge:', newEdge);
 
       sharedUpdater(store, query, newEdge);
     },

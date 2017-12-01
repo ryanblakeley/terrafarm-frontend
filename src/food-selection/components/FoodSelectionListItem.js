@@ -82,7 +82,7 @@ const FoodSelectionListItem = props => {
     style={{ cursor: url ? 'pointer' : 'default' }}
   >
     <Span className={classNames.column} key={1} >
-      {foodName}; {measure} ~ {mass}g
+      {foodName}; {measure} ~ {mass || '?'}g
     </Span>
     <Span className={classNames.column} key={2} >{nutrition.calories || ''}</Span>
     <Span className={classNames.column} key={3} >{nutrition.protein || ''}</Span>

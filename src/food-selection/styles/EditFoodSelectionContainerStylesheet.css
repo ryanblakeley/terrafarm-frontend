@@ -1,5 +1,13 @@
+.form { align-items: flex-start; }
+.tabs {
+  width: 198px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+/*
 .attentionFields {
   border-radius: 2px;
-  /* background: rgba(92,107,192,0.3); */
-  /* border: dashed 2px rgba(92,107,192,0.3); */
+  background: rgba(92,107,192,0.3);
+  border: dashed 2px rgba(92,107,192,0.3);
 }
+*/

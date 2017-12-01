@@ -1,0 +1,6 @@
+.form { align-items: flex-start; }
+.tabs {
+  width: 198px;
+  display: flex;
+  flex-direction: column-reverse;
+}

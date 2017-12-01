@@ -7,7 +7,9 @@ import { ErrorMessage } from 'shared/components/Typography';
 import { Dialog, FlatButton, RaisedButton, Tabs, Tab } from 'shared/components/Material';
 import { Form, TextInput } from 'shared/components/Form';
 import validations, { validationErrors } from 'tools/validations';
+import { green500 } from 'tools/colors';
 import CreateFoodSelectionMutation from 'food-selection/mutations/CreateFoodSelectionMutation';
+import classNames from 'food-selection/styles/CreateFoodSelectionContainerStylesheet.css';
 
 const styles = {
   field: {
@@ -118,132 +120,136 @@ class CreateFoodSelectionContainer extends React.Component {
         onValidSubmit={this.handleSubmit}
         onInvalidSubmit={this.handleFormError}
       >
-        <Layout flexCenter flexWrap >
-          <Layout>
-            <TextInput
-              name={'foodDescription'}
-              label={'Food description*'}
-              placeholder={'Words'}
-              validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-              validationError={validationErrors.normalWords}
-              maxLength={50}
-              required
-              style={styles.field}
-            />
+        <Layout flexCenter flexWrap className={classNames.form} >
+          <Layout >
+            <Layout>
+              <TextInput
+                name={'foodDescription'}
+                label={'Food description*'}
+                placeholder={'e.x. eggs, beans, bread'}
+                validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                validationError={validationErrors.normalWords}
+                maxLength={50}
+                required
+                style={styles.field}
+              />
+            </Layout>
+            <Layout>
+              <TextInput
+                name={'foodId'}
+                label={'Food ID'}
+                placeholder={'Unique number'}
+                validations={{ isNumeric: true }}
+                validationError={validationErrors.number}
+                maxLength={8}
+                style={styles.field}
+              />
+            </Layout>
+            <Layout >
+              <TextInput
+                name={'mass'}
+                label={'Mass (grams)'}
+                placeholder={'Number'}
+                validations={{ isNumeric: true }}
+                validationError={validationErrors.number}
+                maxLength={8}
+                style={styles.field}
+              />
+            </Layout>
           </Layout>
-          <Layout leftSmall flexCenter >
-            <Tabs>
-              <Tab label={'Weight'} >
-                <Layout>
-                  <TextInput
-                    name={'measureWeightAmount'}
-                    label={'Amount'}
-                    placeholder={'Number'}
-                    validations={{ isNumeric: true }}
-                    validationError={validationErrors.number}
-                    maxLength={8}
-                    style={styles.fieldSmall}
-                  />
-                </Layout>
-                <Layout leftSmall >
-                  <TextInput
-                    name={'measureWeightUnit'}
-                    label={'Unit'}
-                    placeholder={'Word'}
-                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                    validationError={validationErrors.normalWords}
-                    maxLength={50}
-                    style={styles.fieldSmall}
-                  />
-                </Layout>
-              </Tab>
-              <Tab label={'Volume'} >
-                <Layout>
-                  <TextInput
-                    name={'measureVolumeAmount'}
-                    label={'Amount'}
-                    placeholder={'Number'}
-                    validations={{ isNumeric: true }}
-                    validationError={validationErrors.number}
-                    maxLength={8}
-                    style={styles.fieldSmall}
-                  />
-                </Layout>
-                <Layout leftSmall >
-                  <TextInput
-                    name={'measureVolumeUnit'}
-                    label={'Unit'}
-                    placeholder={'Word'}
-                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                    validationError={validationErrors.normalWords}
-                    maxLength={50}
-                    style={styles.fieldSmall}
-                  />
-                </Layout>
-              </Tab>
-              <Tab label={'Common'} >
-                <Layout>
-                  <TextInput
-                    name={'measureCommonAmount'}
-                    label={'Amount'}
-                    placeholder={'Number'}
-                    validations={{ isNumeric: true }}
-                    validationError={validationErrors.number}
-                    maxLength={8}
-                    style={styles.fieldSmall}
-                  />
-                </Layout>
-                <Layout leftSmall >
-                  <TextInput
-                    name={'measureCommonUnit'}
-                    label={'Unit'}
-                    placeholder={'Word'}
-                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                    validationError={validationErrors.normalWords}
-                    maxLength={50}
-                    style={styles.fieldSmall}
-                  />
-                </Layout>
-              </Tab>
-            </Tabs>
-          </Layout>
-        </Layout>
-        <Layout flexCenter flexWrap >
-          <Layout>
-            <TextInput
-              name={'foodId'}
-              label={'Food ID'}
-              placeholder={'Unique number'}
-              validations={{ isNumeric: true }}
-              validationError={validationErrors.number}
-              maxLength={8}
-              style={styles.field}
-            />
-          </Layout>
-          <Layout leftSmall >
-            <TextInput
-              name={'mass'}
-              label={'Mass (grams)'}
-              placeholder={'Number'}
-              validations={{ isNumeric: true }}
-              validationError={validationErrors.number}
-              maxLength={8}
-              style={styles.field}
-            />
-          </Layout>
-        </Layout>
-        <Layout flexCenter flexWrap >
-          <Layout leftSmall >
-            <TextInput
-              name={'occurredOn'}
-              label={'Occurred on'}
-              placeholder={'YYYY-MM-DD HH:mm:ss Z'}
-              value={datetime}
-              validations={{ isDatetime: validations.isDatetime }}
-              validationError={validationErrors.datetime}
-              required
-              style={styles.field}
-            />
+          <Layout leftMedium >
+            <Layout>
+              <TextInput
+                name={'occurredOn'}
+                label={'Occurred on'}
+                placeholder={'YYYY-MM-DD HH:mm:ss Z'}
+                value={datetime}
+                validations={{ isDatetime: validations.isDatetime }}
+                validationError={validationErrors.datetime}
+                required
+                style={styles.field}
+              />
+            </Layout>
+            <Layout>
+              <Tabs
+                initialSelectedIndex={2}
+                inkBarStyle={{ backgroundColor: green500 }}
+                className={classNames.tabs}
+              >
+                <Tab label={'Weight'} >
+                  <Layout>
+                    <TextInput
+                      name={'measureWeightUnit'}
+                      label={'Weight unit'}
+                      placeholder={'e.x. lb, g'}
+                      validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                      validationError={validationErrors.normalWords}
+                      maxLength={50}
+                      style={styles.field}
+                    />
+                  </Layout>
+                  <Layout>
+                    <TextInput
+                      name={'measureWeightAmount'}
+                      label={'Weight amount'}
+                      placeholder={'Number'}
+                      validations={{ isNumeric: true }}
+                      validationError={validationErrors.number}
+                      maxLength={8}
+                      style={styles.field}
+                    />
+                  </Layout>
+                </Tab>
+                <Tab label={'Volume'} >
+                  <Layout>
+                    <TextInput
+                      name={'measureVolumeUnit'}
+                      label={'Volume unit'}
+                      placeholder={'e.x. liter, cup'}
+                      validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                      validationError={validationErrors.normalWords}
+                      maxLength={50}
+                      style={styles.field}
+                    />
+                  </Layout>
+                  <Layout>
+                    <TextInput
+                      name={'measureVolumeAmount'}
+                      label={'Volume amount'}
+                      placeholder={'Number'}
+                      validations={{ isNumeric: true }}
+                      validationError={validationErrors.number}
+                      maxLength={8}
+                      style={styles.field}
+                    />
+                  </Layout>
+                </Tab>
+                <Tab label={'Common'} >
+                  <Layout>
+                    <TextInput
+                      name={'measureCommonUnit'}
+                      label={'Common unit'}
+                      placeholder={'e.x. bowl, wing'}
+                      validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                      validationError={validationErrors.normalWords}
+                      maxLength={50}
+                      style={styles.field}
+                    />
+                  </Layout>
+                  <Layout>
+                    <TextInput
+                      name={'measureCommonAmount'}
+                      label={'Common amount'}
+                      placeholder={'Number'}
+                      validations={{ isNumeric: true }}
+                      validationError={validationErrors.number}
+                      maxLength={8}
+                      style={styles.field}
+                    />
+                  </Layout>
+                </Tab>
+              </Tabs>
+            </Layout>
           </Layout>
         </Layout>
         <Layout center topSmall >

@@ -8,6 +8,7 @@ import { Dialog, FlatButton, RaisedButton, Tabs, Tab } from 'shared/components/M
 import { SearchIcon } from 'shared/components/Icons';
 import { Form, TextInput } from 'shared/components/Form';
 import validations, { validationErrors } from 'tools/validations';
+import { green500 } from 'tools/colors';
 import SelectionInvestigations from 'journal/components/SelectionInvestigations';
 import UpdateFoodSelectionMutation from 'food-selection/mutations/UpdateFoodSelectionMutation';
 import DeleteFoodSelectionMutation from 'food-selection/mutations/DeleteFoodSelectionMutation';
@@ -162,11 +163,15 @@ class EditFoodSelectionContainer extends React.Component {
     const journalDate = location.pathname.split('/')[2];
     const datetime = moment(foodSelection.occurredOn, 'YYYY-MM-DD HH:mm:ss Z')
       .format('YYYY-MM-DD HH:mm:ss Z');
+    let selectedMeasureIndex;
+    if (foodSelection.measureCommonUnit) selectedMeasureIndex = 2;
+    if (foodSelection.measureVolumeUnit) selectedMeasureIndex = 1;
+    if (foodSelection.measureWeightUnit) selectedMeasureIndex = 0;
 
     return <Dialog
       title={'Edit Journal Row'}
       titleStyle={{ textAlign: 'center' }}
-      modal
+      modal={false}
       open={open}
       onRequestClose={this.handleClose}
     >
@@ -176,168 +181,184 @@ class EditFoodSelectionContainer extends React.Component {
         onValidSubmit={this.handleSubmit}
         onInvalidSubmit={this.handleFormError}
       >
-        <Layout center >
-          <TextInput
-            name={'foodDescription'}
-            label={'Food description*'}
-            placeholder={'Words'}
-            value={foodSelection.foodDescription}
-            validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-            validationError={validationErrors.normalWords}
-            maxLength={50}
-            required
-            style={styles.field}
-          />
-          <Layout>
-            <Tabs>
-              <Tab label={'Weight'} >
-                <Layout>
-                  <TextInput
-                    name={'measureWeightAmount'}
-                    label={'Amount'}
-                    placeholder={'Number'}
-                    value={foodSelection.measureWeightAmount}
-                    validations={{ isNumeric: true }}
-                    validationError={validationErrors.number}
-                    maxLength={8}
-                    style={styles.field}
-                  />
-                </Layout>
-                <Layout leftSmall >
-                  <TextInput
-                    name={'measureWeightUnit'}
-                    label={'Unit'}
-                    placeholder={'Word'}
-                    value={foodSelection.measureWeightUnit}
-                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                    validationError={validationErrors.normalWords}
-                    maxLength={50}
-                    style={styles.field}
-                  />
-                </Layout>
-              </Tab>
-              <Tab label={'Volume'} >
-                <Layout>
-                  <TextInput
-                    name={'measureVolumeAmount'}
-                    label={'Amount'}
-                    placeholder={'Number'}
-                    value={foodSelection.measureVolumeAmount}
-                    validations={{ isNumeric: true }}
-                    validationError={validationErrors.number}
-                    maxLength={8}
-                    style={styles.field}
-                  />
-                </Layout>
-                <Layout leftSmall >
-                  <TextInput
-                    name={'measureVolumeUnit'}
-                    label={'Unit'}
-                    placeholder={'Word'}
-                    value={foodSelection.measureVolumeUnit}
-                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                    validationError={validationErrors.normalWords}
-                    maxLength={50}
-                    style={styles.field}
-                  />
-                </Layout>
-              </Tab>
-              <Tab label={'Common'} >
-                <Layout>
-                  <TextInput
-                    name={'measureCommonAmount'}
-                    label={'Amount'}
-                    placeholder={'Number'}
-                    value={foodSelection.measureCommonAmount}
-                    validations={{ isNumeric: true }}
-                    validationError={validationErrors.number}
-                    maxLength={8}
-                    style={styles.field}
-                  />
-                </Layout>
-                <Layout leftSmall >
-                  <TextInput
-                    name={'measureCommonUnit'}
-                    label={'Unit'}
-                    placeholder={'Word'}
-                    value={foodSelection.measureCommonUnit}
-                    validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-                    validationError={validationErrors.normalWords}
-                    maxLength={50}
-                    style={styles.field}
-                  />
-                </Layout>
-              </Tab>
-            </Tabs>
-          </Layout>
-          <Layout
-            className={cx({
-              attentionFields: !(foodSelection.foodByFoodId && foodSelection.mass),
-            })}
-          >
-            <TextInput
-              name={'foodId'}
-              label={'Food ID'}
-              placeholder={'Unique number'}
-              value={foodSelection.foodId}
-              validations={{ isNumeric: true }}
-              validationError={validationErrors.number}
-              maxLength={8}
-              style={styles.field}
-            />
-            <TextInput
-              name={'mass'}
-              label={'Mass (grams)'}
-              placeholder={'Number'}
-              value={foodSelection.mass}
-              validations={{ isNumeric: true }}
-              validationError={validationErrors.number}
-              maxLength={8}
-              style={styles.field}
-            />
-          </Layout>
-        </Layout>
-        {foodSelection.foodId && foodLink}
-        {!(foodSelection.foodId && foodSelection.mass)
-          && <SelectionInvestigations
-            foodSelection={foodSelection}
-            possibleFoods={possibleFoods}
-            handleChangeFoodId={this.handleChangeFoodId}
-            handleChangeMass={this.handleChangeMass}
-          />
-        }
-        {!foodSelection.foodId && <Layout center >
-          <P>
-            <Link
-              to={{
-                pathname: '/foods',
-                query: {
-                  description: foodSelection.foodDescription,
-                },
-                state: {
-                  foodSelectionId: foodSelection.rowId,
-                  journalDate,
-                },
-              }}
-            >
-              <FlatButton
-                icon={<SearchIcon />}
-                label={'Food search'}
+        <Layout flexCenter flexWrap className={classNames.form} >
+          <Layout >
+            <Layout>
+              <TextInput
+                name={'foodDescription'}
+                label={'Food description*'}
+                placeholder={'Words'}
+                value={foodSelection.foodDescription}
+                validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                validationError={validationErrors.normalWords}
+                maxLength={50}
+                required
+                style={styles.field}
               />
-            </Link>
-          </P>
-        </Layout>}
-        <Layout center >
-          <TextInput
-            name={'occurredOn'}
-            label={'Occurred on'}
-            placeholder={'YYYY-MM-DD HH:mm:ss Z'}
-            value={datetime}
-            validations={{ isDatetime: validations.isDatetime }}
-            validationError={validationErrors.datetime}
-            required
-            style={styles.field}
-          />
+            </Layout>
+            <Layout
+              className={cx({
+                attentionFields: !(foodSelection.foodByFoodId && foodSelection.mass),
+              })}
+            >
+              <TextInput
+                name={'foodId'}
+                label={'Food ID'}
+                placeholder={'Unique number'}
+                value={foodSelection.foodId}
+                validations={{ isNumeric: true }}
+                validationError={validationErrors.number}
+                maxLength={8}
+                style={styles.field}
+              />
+            </Layout>
+            <Layout
+              className={cx({
+                attentionFields: !(foodSelection.foodByFoodId && foodSelection.mass),
+              })}
+            >
+              <TextInput
+                name={'mass'}
+                label={'Mass (grams)'}
+                placeholder={'Number'}
+                value={foodSelection.mass}
+                validations={{ isNumeric: true }}
+                validationError={validationErrors.number}
+                maxLength={8}
+                style={styles.field}
+              />
+            </Layout>
+            {foodSelection.foodId && foodLink}
+            {!(foodSelection.foodId && foodSelection.mass)
+              && <SelectionInvestigations
+                foodSelection={foodSelection}
+                possibleFoods={possibleFoods}
+                handleChangeFoodId={this.handleChangeFoodId}
+                handleChangeMass={this.handleChangeMass}
+              />
+            }
+            {!foodSelection.foodId && <Layout center >
+              <P>
+                <Link
+                  to={{
+                    pathname: '/foods',
+                    query: {
+                      description: foodSelection.foodDescription,
+                    },
+                    state: {
+                      foodSelectionId: foodSelection.rowId,
+                      journalDate,
+                    },
+                  }}
+                >
+                  <FlatButton
+                    icon={<SearchIcon />}
+                    label={'Food search'}
+                  />
+                </Link>
+              </P>
+            </Layout>}
+          </Layout>
+          <Layout leftMedium >
+            <Layout>
+              <TextInput
+                name={'occurredOn'}
+                label={'Occurred on'}
+                placeholder={'YYYY-MM-DD HH:mm:ss Z'}
+                value={datetime}
+                validations={{ isDatetime: validations.isDatetime }}
+                validationError={validationErrors.datetime}
+                required
+                style={styles.field}
+              />
+            </Layout>
+            <Layout >
+              <Tabs
+                initialSelectedIndex={selectedMeasureIndex}
+                inkBarStyle={{ backgroundColor: green500 }}
+                className={classNames.tabs}
+              >
+                <Tab label={'Weight'} >
+                  <Layout>
+                    <TextInput
+                      name={'measureWeightUnit'}
+                      label={'Weight unit'}
+                      placeholder={'e.x. lb, g'}
+                      value={foodSelection.measureWeightUnit}
+                      validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                      validationError={validationErrors.normalWords}
+                      maxLength={50}
+                      style={styles.field}
+                    />
+                  </Layout>
+                  <Layout>
+                    <TextInput
+                      name={'measureWeightAmount'}
+                      label={'Weight amount'}
+                      placeholder={'Number'}
+                      value={foodSelection.measureWeightAmount}
+                      validations={{ isNumeric: true }}
+                      validationError={validationErrors.number}
+                      maxLength={8}
+                      style={styles.field}
+                    />
+                  </Layout>
+                </Tab>
+                <Tab label={'Volume'} >
+                  <Layout>
+                    <TextInput
+                      name={'measureVolumeUnit'}
+                      label={'Volume unit'}
+                      placeholder={'e.x. liter, cup'}
+                      value={foodSelection.measureVolumeUnit}
+                      validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                      validationError={validationErrors.normalWords}
+                      maxLength={50}
+                      style={styles.field}
+                    />
+                  </Layout>
+                  <Layout>
+                    <TextInput
+                      name={'measureVolumeAmount'}
+                      label={'Volume amount'}
+                      placeholder={'Number'}
+                      value={foodSelection.measureVolumeAmount}
+                      validations={{ isNumeric: true }}
+                      validationError={validationErrors.number}
+                      maxLength={8}
+                      style={styles.field}
+                    />
+                  </Layout>
+                </Tab>
+                <Tab label={'Common'} >
+                  <Layout>
+                    <TextInput
+                      name={'measureCommonUnit'}
+                      label={'Common unit'}
+                      placeholder={'e.x. bowl, wing'}
+                      value={foodSelection.measureCommonUnit}
+                      validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
+                      validationError={validationErrors.normalWords}
+                      maxLength={50}
+                      style={styles.field}
+                    />
+                  </Layout>
+                  <Layout>
+                    <TextInput
+                      name={'measureCommonAmount'}
+                      label={'Common amount'}
+                      placeholder={'Number'}
+                      value={foodSelection.measureCommonAmount}
+                      validations={{ isNumeric: true }}
+                      validationError={validationErrors.number}
+                      maxLength={8}
+                      style={styles.field}
+                    />
+                  </Layout>
+                </Tab>
+              </Tabs>
+            </Layout>
+          </Layout>
         </Layout>
         <Layout center topSmall >
           {/*

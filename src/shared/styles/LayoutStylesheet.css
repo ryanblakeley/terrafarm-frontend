@@ -6,6 +6,7 @@
 .bottomSmall { margin-bottom: 15px; }
 .bottomMedium { margin-bottom: 25px; }
 .leftSmall { margin-left: 8px; }
+.leftMedium { margin-left: 15px; }
 .inline { display: inline-block; }
 .flexCenter { display: flex; align-items: center; justify-content: center; }
 .flexWrap { flex-wrap: wrap; }

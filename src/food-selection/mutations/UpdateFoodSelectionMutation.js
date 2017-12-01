@@ -45,8 +45,6 @@ function sharedUpdater (store, query, foodSelection) { // eslint-disable-line no
   connectionKeys.forEach(c => {
     const connection = ConnectionHandler.getConnection(queryProxy, c);
 
-    console.log('Connection:', connection);
-
     if (connection) {
       const payload = store.getRootField('updateFoodSelection');
       const updatedFoodSelection = payload.getLinkedRecord('foodSelection');

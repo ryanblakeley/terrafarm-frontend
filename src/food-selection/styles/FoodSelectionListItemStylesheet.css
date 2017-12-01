@@ -8,10 +8,13 @@
   transition: background-color 180ms ease-out;
 }
 .this:nth-of-type(2n) { background-color: rgba(197, 202, 233, 0.3); }
-.this.incomplete { border-bottom: dashed 2px rgba(92,107,192,0.3); }
+.this.incomplete {
+  /* border-bottom: dashed 2px rgba(92,107,192,0.3);
+  box-shadow: inset 0 0px 8px 1px #ef5350; */
+}
 .this.editing { border-radius: 2px; background-color: rgba(232,234,246 ,0.92); }
 .this.wide { margin: 0; }
-.this.button:hover { background-color: rgba(159, 168, 218, 0.82); }
+.this.button:hover { background-color: rgba(159, 168, 218, 0.71); }
 
 .column { box-sizing: border-box; width: 15%; padding-right: 2.5%; text-align: right; }
 .column:first-of-type { width: 40%; text-align: left; }
