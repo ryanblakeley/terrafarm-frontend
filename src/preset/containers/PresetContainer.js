@@ -1,26 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from 'shared/components/Layout';
-import { Form, TextInput, Toggle } from 'shared/components/Form';
-import { Dialog, FlatButton, RaisedButton } from 'shared/components/Material';
-import validations, { validationErrors } from 'tools/validations';
+import { RaisedButton } from 'shared/components/Material';
 import FoodSelectionListHeader from 'food-selection/components/FoodSelectionListHeader';
 import FoodSelectionListItem from 'food-selection/components/FoodSelectionListItem';
-import UpdatePresetMutation from 'preset/mutations/UpdatePresetMutation';
 // import classNames from 'preset/styles/PresetContainerStylesheet.css';
-
-const styles = {
-  field: {
-    width: 198,
-    textAlign: 'left',
-  },
-};
 
 const propTypes = {
   // currentPerson: PropTypes.object.isRequired,
   preset: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
-  relay: PropTypes.object.isRequired,
 };
 
 class PresetContainer extends React.Component {
@@ -33,8 +22,6 @@ class PresetContainer extends React.Component {
       fat: null,
       carbs: null,
       completeCount: null,
-      open: false,
-      canSubmit: false,
     };
   }
   componentWillMount () {
@@ -114,46 +101,8 @@ class PresetContainer extends React.Component {
     });
   }
   handleOpen = () => {
-    this.setState({ open: true });
-  }
-  handleClose = () => {
-    this.setState({ open: false });
-  }
-  handleValid = () => {
-    this.setState({ canSubmit: true });
-  }
-  handleInvalid = () => {
-    this.setState({ canSubmit: false });
-  }
-  handleFormError = data => {
-    // the submit button being disabled prevents this trigger from being used
-    console.error('Form error:', data);
-  }
-  handleSubmit = data => {
-    const { canSubmit } = this.state;
-    this.setState({ formData: data });
-    if (!canSubmit) {
-      console.warn('Form is not ready');
-    } else {
-      this.updatePreset(data);
-    }
-  }
-  handleSuccess = response => { // eslint-disable-line no-unused-vars
-    this.handleClose();
-  }
-  handleFailure = error => {
-    this.setState({ error: !!error, errorMessage: 'Internal server failure.' });
-  }
-  updatePreset (patch) {
-    const { /* currentPerson: user, */ preset, relay } = this.props;
-
-    UpdatePresetMutation.commit(
-      relay.environment,
-      preset,
-      patch,
-      this.handleSuccess,
-      this.handleFailure,
-    );
+    const { preset, router } = this.props;
+    router.push(`/presets/edit/${preset.rowId}`);
   }
   render () {
     const { preset, router } = this.props;
@@ -164,8 +113,6 @@ class PresetContainer extends React.Component {
       carbs,
       completeCount,
       recordsCount,
-      open,
-      canSubmit,
     } = this.state;
     const presetSelections = preset && preset.presetSelectionsByPresetId;
     const foodSelections = presetSelections
@@ -219,54 +166,6 @@ class PresetContainer extends React.Component {
         completeCount={completeCount}
         recordsCount={recordsCount}
       />
-      <Dialog
-        title={'Edit Preset'}
-        titleStyle={{ textAlign: 'center' }}
-        modal
-        open={open}
-        onRequestClose={this.handleClose}
-      >
-        <Form
-          onValid={this.handleValid}
-          onInvalid={this.handleInvalid}
-          onValidSubmit={this.handleSubmit}
-          onInvalidSubmit={this.handleFormError}
-        >
-          <Layout center >
-            <TextInput
-              name={'name'}
-              label={'Preset name'}
-              placeholder={'e.x. breakfast1, fish and chips'}
-              value={preset.name}
-              validations={{ matchRegexp: validations.matchNormalWords, maxLength: 50 }}
-              validationError={validationErrors.normalWords}
-              maxLength={50}
-              required
-              style={styles.field}
-            />
-            <Layout topSmall >
-              <Toggle
-                name={'active'}
-                label={'Active'}
-                value={preset.active}
-                style={styles.field}
-              />
-            </Layout>
-            <Layout topSmall >
-              <RaisedButton
-                label={'Save'}
-                primary
-                type={'submit'}
-                disabled={!canSubmit}
-              />
-              <FlatButton
-                label={'Close'}
-                onTouchTap={this.handleClose}
-              />
-            </Layout>
-          </Layout>
-        </Form>
-      </Dialog>
       <Layout bottomMedium >
         {foodSelectionsList}
       </Layout>

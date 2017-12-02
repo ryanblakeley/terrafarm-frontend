@@ -3,9 +3,9 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Layout from 'shared/components/Layout';
+import { FlatButton } from 'shared/components/Material';
 import { WarningMessage } from 'shared/components/Typography';
 import Menu from 'shared/components/Menu';
-import ActionPanel from 'shared/components/ActionPanel';
 import { BookmarkIcon } from 'shared/components/Icons';
 import ColumnLabels from 'shared/components/ColumnLabels';
 import PresetContainer from './PresetContainer';
@@ -24,6 +24,10 @@ const defaultProps = {
 };
 
 class PresetsContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  handleClickNew = () => {
+    const { router, location } = this.props;
+    router.replace(`${location.pathname}/new`);
+  }
   render () {
     const {
       currentPerson: user,
@@ -49,17 +53,12 @@ class PresetsContainer extends React.Component { // eslint-disable-line react/pr
         />
       </Layout>
       <Layout topSmall className={classNames.this} >
-        <Layout className={classNames.journalDatesWrapper} >
+        <Layout className={classNames.presetsWrapper} >
+          <FlatButton label={'New preset'} onTouchTap={this.handleClickNew} fullWidth />
           <ColumnLabels />
           {presetContainers.length > 0 ? presetContainers : emptyPresetsWarning}
         </Layout>
-        {children && <Layout className={classNames.actionPanelWrapper} >
-          <ActionPanel
-            notifyClose={() => router.replace('/presets')}
-          >
-            {children}
-          </ActionPanel>
-        </Layout>}
+        {children}
       </Layout>
     </TransitionWrapper>;
   }
@@ -77,14 +76,17 @@ export default createFragmentContainer(
       presetsByUserId(
         first: 2147483647,
         orderBy: CREATED_ON_DESC
-      ) {
+      ) @connection(key: "PresetsContainer_presetsByUserId", filters: []) {
         edges {
           node {
             id
+            rowId
             name
             userId
             active
-            presetSelectionsByPresetId(first: 2147483647) {
+            presetSelectionsByPresetId(
+              first: 2147483647
+            ) {
               edges {
                 node {
                   foodSelectionBySelectionId {

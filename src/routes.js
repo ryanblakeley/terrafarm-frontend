@@ -27,6 +27,10 @@ import JournalDateContainerQuery from 'journal/queries/JournalDateContainerQuery
 // preset
 import PresetsContainer from 'preset/containers/PresetsContainer';
 import PresetsContainerQuery from 'preset/queries/PresetsContainerQuery';
+import EditPresetContainer from 'preset/containers/EditPresetContainer';
+import EditPresetContainerQuery from 'preset/queries/EditPresetContainerQuery';
+import CreatePresetContainer from 'preset/containers/CreatePresetContainer';
+import CreatePresetContainerQuery from 'preset/queries/CreatePresetContainerQuery';
 
 // food
 import FoodDetailContainer from 'food/containers/FoodDetailContainer';
@@ -190,7 +194,20 @@ export default makeRouteConfig(
       query={PresetsContainerQuery}
       prepareVariables={prepareAuthToken}
       render={render}
-    />
+    >
+      <Route
+        path={'edit/:presetId'}
+        Component={EditPresetContainer}
+        query={EditPresetContainerQuery}
+        render={({ Component, props }) => (Component && props && <Component {...props} />) || null} // eslint-disable-line max-len
+      />
+      <Route
+        path={'new'}
+        Component={CreatePresetContainer}
+        query={CreatePresetContainerQuery}
+        render={({ Component, props }) => (Component && props && <Component {...props} />) || null} // eslint-disable-line max-len
+      />
+    </Route>
     <Route path={'foods'} >
       <Route
         Component={FoodSearchContainer}
