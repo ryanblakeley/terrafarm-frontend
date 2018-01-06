@@ -18,6 +18,9 @@ type AuthenticateUserPayload {
   query: Query
 }
 
+# A floating point number that requires more precision than IEEE 754 binary 64
+scalar BigFloat
+
 # A brand that has or sells food.
 type Brand implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -72,7 +75,7 @@ type Brand implements Node {
     after: Cursor
 
     # The method to use when ordering `Food`.
-    orderBy: FoodsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodCondition
@@ -233,7 +236,7 @@ type Conversation implements Node {
   createdOn: Datetime
 
   # Reads a single `User` that is related to this `Conversation`.
-  userByUserId: User!
+  userByUserId: User
 
   # Reads and enables pagination through a set of `Message`.
   messagesByConversationId(
@@ -254,7 +257,7 @@ type Conversation implements Node {
     after: Cursor
 
     # The method to use when ordering `Message`.
-    orderBy: MessagesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: MessageCondition
@@ -533,7 +536,7 @@ type CreateFoodSelectionPayload {
   messageByMessageId: Message
 
   # Reads a single `Preset` that is related to this `FoodSelection`.
-  presetByInheritsFromId: Preset
+  presetByPresetId: Preset
 
   # Reads a single `Food` that is related to this `FoodSelection`.
   foodByFoodId: Food
@@ -975,7 +978,7 @@ input DeleteFoodByRowIdInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  rowId: Float!
+  rowId: BigFloat!
 }
 
 # All input for the `deleteFoodGroupByRowId` mutation.
@@ -983,7 +986,7 @@ input DeleteFoodGroupByRowIdInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  rowId: Float!
+  rowId: BigFloat!
 }
 
 # All input for the `deleteFoodGroup` mutation.
@@ -1031,8 +1034,8 @@ input DeleteFoodNutrientByFoodIdAndNutrientIdInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  foodId: Float!
-  nutrientId: Float!
+  foodId: BigFloat!
+  nutrientId: BigFloat!
 }
 
 # All input for the `deleteFoodNutrient` mutation.
@@ -1111,6 +1114,15 @@ input DeleteFoodSelectionByRowIdInput {
   rowId: UUID!
 }
 
+# All input for the `deleteFoodSelectionByShortIdAndUserId` mutation.
+input DeleteFoodSelectionByShortIdAndUserIdInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  shortId: String!
+  userId: UUID!
+}
+
 # All input for the `deleteFoodSelection` mutation.
 input DeleteFoodSelectionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -1141,7 +1153,7 @@ type DeleteFoodSelectionPayload {
   messageByMessageId: Message
 
   # Reads a single `Preset` that is related to this `FoodSelection`.
-  presetByInheritsFromId: Preset
+  presetByPresetId: Preset
 
   # Reads a single `Food` that is related to this `FoodSelection`.
   foodByFoodId: Food
@@ -1211,7 +1223,7 @@ input DeleteMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInp
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  foodId: Float!
+  foodId: BigFloat!
   unitOfMeasureId: Int!
   physicalModDescription: String!
 }
@@ -1309,7 +1321,7 @@ input DeleteNutrientByRowIdInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  rowId: Float!
+  rowId: BigFloat!
 }
 
 # All input for the `deleteNutrient` mutation.
@@ -1609,10 +1621,10 @@ type Food implements Node {
   id: ID!
 
   # 5-digit or 8-digit Nutrient Databank number that uniquely identifies a food item.
-  rowId: Float!
+  rowId: BigFloat!
 
   # 4-digit code indicating food group to which a food item belongs.
-  foodGroupId: Float
+  foodGroupId: BigFloat
 
   # Indicates the company that manufactured the product, when appropriate.
   brandName: String
@@ -1624,158 +1636,158 @@ type Food implements Node {
   refuseDescription: String
 
   # Percentage of refuse.
-  refuse: Float
+  refuse: BigFloat
 
   # Factor for calculating calories from protein.
-  proteinFactor: Float
+  proteinFactor: BigFloat
 
   # Factor for calculating calories from fat.
-  fatFactor: Float
+  fatFactor: BigFloat
 
   # Factor for calculating calories from carbohydrate.
-  carbFactor: Float
+  carbFactor: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the food.
   userId: UUID
 
   # Water (g/100g)
-  water: Float
+  water: BigFloat
 
   # Food energy (kcal/100g)
-  calories: Float
+  calories: BigFloat
 
   # Protein (g/100g)
-  protein: Float
+  protein: BigFloat
 
   # Total lipid (fat) (g/100g)
-  fat: Float
+  fat: BigFloat
 
   # Ash (g/100g)
-  ash: Float
+  ash: BigFloat
 
   # Carbohydrate, by difference (g/100g)
-  carbs: Float
+  carbs: BigFloat
 
   # Total dietary fiber (g/100g)
-  fiber: Float
+  fiber: BigFloat
 
   # Total sugars (g/100g)
-  sugar: Float
+  sugar: BigFloat
 
   # Calcium (mg/100g)
-  calcium: Float
+  calcium: BigFloat
 
   # Iron (mg/100g)
-  iron: Float
+  iron: BigFloat
 
   # Magnesium (mg/100g)
-  magnesium: Float
+  magnesium: BigFloat
 
   # Phosphorus (mg/100g)
-  phosphorus: Float
+  phosphorus: BigFloat
 
   # Potassium (mg/100g)
-  potassium: Float
+  potassium: BigFloat
 
   # Sodium (mg/100g)
-  sodium: Float
+  sodium: BigFloat
 
   # Zinc (mg/100g)
-  zinc: Float
+  zinc: BigFloat
 
   # Copper (mg/100g)
-  copper: Float
+  copper: BigFloat
 
   # Manganese (mg/100g)
-  manganese: Float
+  manganese: BigFloat
 
   # Selenium (μg/100g)
-  selenium: Float
+  selenium: BigFloat
 
   # Vitamin C (mg/100g)
-  vitaminC: Float
+  vitaminC: BigFloat
 
   # Thiamin (mg/100g)
-  thiamin: Float
+  thiamin: BigFloat
 
   # Riboflavin (mg/100g)
-  riboflavin: Float
+  riboflavin: BigFloat
 
   # Niacin (mg/100g)
-  niacin: Float
+  niacin: BigFloat
 
   # Pantothenic acid (mg/100g)
-  pantoAcid: Float
+  pantoAcid: BigFloat
 
   # Vitamin B6 (mg/100g)
-  vitaminB6: Float
+  vitaminB6: BigFloat
 
   # Folate, total (μg/100g)
-  folate: Float
+  folate: BigFloat
 
   # Folic acid (μg/100g)
-  folicAcid: Float
+  folicAcid: BigFloat
 
   # Food folate (μg/100g)
-  foodFolate: Float
+  foodFolate: BigFloat
 
   # Folate (μg dietary folate equivalents/100g)
-  folateDfe: Float
+  folateDfe: BigFloat
 
   # Choline, total (mg/100g)
-  choline: Float
+  choline: BigFloat
 
   # Vitamin B12 (μg/100g)
-  vitaminB12: Float
+  vitaminB12: BigFloat
 
   # Vitamin A (IU/100g)
-  vitaminAIu: Float
+  vitaminAIu: BigFloat
 
   # Vitamin A (μg retinol activity equivalents/100g)
-  vitaminARae: Float
+  vitaminARae: BigFloat
 
   # Retinol (μg/100g)
-  retinol: Float
+  retinol: BigFloat
 
   # Alpha-carotene (μg/100g)
-  alphaCarot: Float
+  alphaCarot: BigFloat
 
   # Beta-carotene (μg/100g)
-  betaCarot: Float
+  betaCarot: BigFloat
 
   # Beta-cryptoxanthin (μg/100g)
-  betaCrypt: Float
+  betaCrypt: BigFloat
 
   # Lycopene (μg/100g)
-  lycopene: Float
+  lycopene: BigFloat
 
   # Lutein+zeazanthin (μg/100g)
-  lutZea: Float
+  lutZea: BigFloat
 
   # Vitamin E (alpha-tocopherol) (mg/100g)
-  vitaminE: Float
+  vitaminE: BigFloat
 
   # Vitamin D (μg/100g)
-  vitaminDMcg: Float
+  vitaminDMcg: BigFloat
 
   # Vitamin D (IU/100g)
-  vitaminDIu: Float
+  vitaminDIu: BigFloat
 
   # Vitamin K (phylloquinone) (μg/100g)
-  vitaminK: Float
+  vitaminK: BigFloat
 
   # Saturated fatty acid (g/100g)
-  fatSat: Float
+  fatSat: BigFloat
 
   # Monounsaturated fatty acids (g/100g)
-  fatMono: Float
+  fatMono: BigFloat
 
   # Polyunsaturated fatty acids (g/100g)
-  fatPoly: Float
+  fatPoly: BigFloat
 
   # Cholesterol (mg/100g)
-  cholesterol: Float
+  cholesterol: BigFloat
 
   # The time this object was created.
   createdOn: Datetime
@@ -1811,7 +1823,7 @@ type Food implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
@@ -1836,7 +1848,7 @@ type Food implements Node {
     after: Cursor
 
     # The method to use when ordering `MassConversion`.
-    orderBy: MassConversionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [MassConversionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: MassConversionCondition
@@ -1861,7 +1873,7 @@ type Food implements Node {
     after: Cursor
 
     # The method to use when ordering `Investigation`.
-    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [InvestigationsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: InvestigationCondition
@@ -1886,7 +1898,7 @@ type Food implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodNutrient`.
-    orderBy: FoodNutrientsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodNutrientsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodNutrientCondition
@@ -1896,10 +1908,10 @@ type Food implements Node {
 # A condition to be used against `Food` object types. All fields are tested for equality and combined with a logical ‘and.’
 input FoodCondition {
   # Checks for equality with the object’s `rowId` field.
-  rowId: Float
+  rowId: BigFloat
 
   # Checks for equality with the object’s `foodGroupId` field.
-  foodGroupId: Float
+  foodGroupId: BigFloat
 
   # Checks for equality with the object’s `brandName` field.
   brandName: String
@@ -1911,16 +1923,16 @@ input FoodCondition {
   refuseDescription: String
 
   # Checks for equality with the object’s `refuse` field.
-  refuse: Float
+  refuse: BigFloat
 
   # Checks for equality with the object’s `proteinFactor` field.
-  proteinFactor: Float
+  proteinFactor: BigFloat
 
   # Checks for equality with the object’s `fatFactor` field.
-  fatFactor: Float
+  fatFactor: BigFloat
 
   # Checks for equality with the object’s `carbFactor` field.
-  carbFactor: Float
+  carbFactor: BigFloat
 
   # Checks for equality with the object’s `source` field.
   source: InputSource
@@ -1929,142 +1941,142 @@ input FoodCondition {
   userId: UUID
 
   # Checks for equality with the object’s `water` field.
-  water: Float
+  water: BigFloat
 
   # Checks for equality with the object’s `calories` field.
-  calories: Float
+  calories: BigFloat
 
   # Checks for equality with the object’s `protein` field.
-  protein: Float
+  protein: BigFloat
 
   # Checks for equality with the object’s `fat` field.
-  fat: Float
+  fat: BigFloat
 
   # Checks for equality with the object’s `ash` field.
-  ash: Float
+  ash: BigFloat
 
   # Checks for equality with the object’s `carbs` field.
-  carbs: Float
+  carbs: BigFloat
 
   # Checks for equality with the object’s `fiber` field.
-  fiber: Float
+  fiber: BigFloat
 
   # Checks for equality with the object’s `sugar` field.
-  sugar: Float
+  sugar: BigFloat
 
   # Checks for equality with the object’s `calcium` field.
-  calcium: Float
+  calcium: BigFloat
 
   # Checks for equality with the object’s `iron` field.
-  iron: Float
+  iron: BigFloat
 
   # Checks for equality with the object’s `magnesium` field.
-  magnesium: Float
+  magnesium: BigFloat
 
   # Checks for equality with the object’s `phosphorus` field.
-  phosphorus: Float
+  phosphorus: BigFloat
 
   # Checks for equality with the object’s `potassium` field.
-  potassium: Float
+  potassium: BigFloat
 
   # Checks for equality with the object’s `sodium` field.
-  sodium: Float
+  sodium: BigFloat
 
   # Checks for equality with the object’s `zinc` field.
-  zinc: Float
+  zinc: BigFloat
 
   # Checks for equality with the object’s `copper` field.
-  copper: Float
+  copper: BigFloat
 
   # Checks for equality with the object’s `manganese` field.
-  manganese: Float
+  manganese: BigFloat
 
   # Checks for equality with the object’s `selenium` field.
-  selenium: Float
+  selenium: BigFloat
 
   # Checks for equality with the object’s `vitaminC` field.
-  vitaminC: Float
+  vitaminC: BigFloat
 
   # Checks for equality with the object’s `thiamin` field.
-  thiamin: Float
+  thiamin: BigFloat
 
   # Checks for equality with the object’s `riboflavin` field.
-  riboflavin: Float
+  riboflavin: BigFloat
 
   # Checks for equality with the object’s `niacin` field.
-  niacin: Float
+  niacin: BigFloat
 
   # Checks for equality with the object’s `pantoAcid` field.
-  pantoAcid: Float
+  pantoAcid: BigFloat
 
   # Checks for equality with the object’s `vitaminB6` field.
-  vitaminB6: Float
+  vitaminB6: BigFloat
 
   # Checks for equality with the object’s `folate` field.
-  folate: Float
+  folate: BigFloat
 
   # Checks for equality with the object’s `folicAcid` field.
-  folicAcid: Float
+  folicAcid: BigFloat
 
   # Checks for equality with the object’s `foodFolate` field.
-  foodFolate: Float
+  foodFolate: BigFloat
 
   # Checks for equality with the object’s `folateDfe` field.
-  folateDfe: Float
+  folateDfe: BigFloat
 
   # Checks for equality with the object’s `choline` field.
-  choline: Float
+  choline: BigFloat
 
   # Checks for equality with the object’s `vitaminB12` field.
-  vitaminB12: Float
+  vitaminB12: BigFloat
 
   # Checks for equality with the object’s `vitaminAIu` field.
-  vitaminAIu: Float
+  vitaminAIu: BigFloat
 
   # Checks for equality with the object’s `vitaminARae` field.
-  vitaminARae: Float
+  vitaminARae: BigFloat
 
   # Checks for equality with the object’s `retinol` field.
-  retinol: Float
+  retinol: BigFloat
 
   # Checks for equality with the object’s `alphaCarot` field.
-  alphaCarot: Float
+  alphaCarot: BigFloat
 
   # Checks for equality with the object’s `betaCarot` field.
-  betaCarot: Float
+  betaCarot: BigFloat
 
   # Checks for equality with the object’s `betaCrypt` field.
-  betaCrypt: Float
+  betaCrypt: BigFloat
 
   # Checks for equality with the object’s `lycopene` field.
-  lycopene: Float
+  lycopene: BigFloat
 
   # Checks for equality with the object’s `lutZea` field.
-  lutZea: Float
+  lutZea: BigFloat
 
   # Checks for equality with the object’s `vitaminE` field.
-  vitaminE: Float
+  vitaminE: BigFloat
 
   # Checks for equality with the object’s `vitaminDMcg` field.
-  vitaminDMcg: Float
+  vitaminDMcg: BigFloat
 
   # Checks for equality with the object’s `vitaminDIu` field.
-  vitaminDIu: Float
+  vitaminDIu: BigFloat
 
   # Checks for equality with the object’s `vitaminK` field.
-  vitaminK: Float
+  vitaminK: BigFloat
 
   # Checks for equality with the object’s `fatSat` field.
-  fatSat: Float
+  fatSat: BigFloat
 
   # Checks for equality with the object’s `fatMono` field.
-  fatMono: Float
+  fatMono: BigFloat
 
   # Checks for equality with the object’s `fatPoly` field.
-  fatPoly: Float
+  fatPoly: BigFloat
 
   # Checks for equality with the object’s `cholesterol` field.
-  cholesterol: Float
+  cholesterol: BigFloat
 
   # Checks for equality with the object’s `createdOn` field.
   createdOn: Datetime
@@ -2079,7 +2091,7 @@ type FoodGroup implements Node {
   id: ID!
 
   # 4-digit code identifying a food group. Only the first 2 digits are currently assigned.
-  rowId: Float!
+  rowId: BigFloat!
 
   # The name of the food group.
   name: String!
@@ -2103,7 +2115,7 @@ type FoodGroup implements Node {
     after: Cursor
 
     # The method to use when ordering `Food`.
-    orderBy: FoodsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodCondition
@@ -2114,7 +2126,7 @@ type FoodGroup implements Node {
 # for equality and combined with a logical ‘and.’
 input FoodGroupCondition {
   # Checks for equality with the object’s `rowId` field.
-  rowId: Float
+  rowId: BigFloat
 
   # Checks for equality with the object’s `name` field.
   name: String
@@ -2123,7 +2135,7 @@ input FoodGroupCondition {
 # An input for mutations affecting `FoodGroup`
 input FoodGroupInput {
   # 4-digit code identifying a food group. Only the first 2 digits are currently assigned.
-  rowId: Float!
+  rowId: BigFloat!
 
   # The name of the food group.
   name: String!
@@ -2132,7 +2144,7 @@ input FoodGroupInput {
 # Represents an update to a `FoodGroup`. Fields that are set will be updated.
 input FoodGroupPatch {
   # 4-digit code identifying a food group. Only the first 2 digits are currently assigned.
-  rowId: Float
+  rowId: BigFloat
 
   # The name of the food group.
   name: String
@@ -2176,10 +2188,10 @@ enum FoodGroupsOrderBy {
 # An input for mutations affecting `Food`
 input FoodInput {
   # 5-digit or 8-digit Nutrient Databank number that uniquely identifies a food item.
-  rowId: Float!
+  rowId: BigFloat!
 
   # 4-digit code indicating food group to which a food item belongs.
-  foodGroupId: Float
+  foodGroupId: BigFloat
 
   # Indicates the company that manufactured the product, when appropriate.
   brandName: String
@@ -2191,158 +2203,158 @@ input FoodInput {
   refuseDescription: String
 
   # Percentage of refuse.
-  refuse: Float
+  refuse: BigFloat
 
   # Factor for calculating calories from protein.
-  proteinFactor: Float
+  proteinFactor: BigFloat
 
   # Factor for calculating calories from fat.
-  fatFactor: Float
+  fatFactor: BigFloat
 
   # Factor for calculating calories from carbohydrate.
-  carbFactor: Float
+  carbFactor: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the food.
   userId: UUID
 
   # Water (g/100g)
-  water: Float
+  water: BigFloat
 
   # Food energy (kcal/100g)
-  calories: Float
+  calories: BigFloat
 
   # Protein (g/100g)
-  protein: Float
+  protein: BigFloat
 
   # Total lipid (fat) (g/100g)
-  fat: Float
+  fat: BigFloat
 
   # Ash (g/100g)
-  ash: Float
+  ash: BigFloat
 
   # Carbohydrate, by difference (g/100g)
-  carbs: Float
+  carbs: BigFloat
 
   # Total dietary fiber (g/100g)
-  fiber: Float
+  fiber: BigFloat
 
   # Total sugars (g/100g)
-  sugar: Float
+  sugar: BigFloat
 
   # Calcium (mg/100g)
-  calcium: Float
+  calcium: BigFloat
 
   # Iron (mg/100g)
-  iron: Float
+  iron: BigFloat
 
   # Magnesium (mg/100g)
-  magnesium: Float
+  magnesium: BigFloat
 
   # Phosphorus (mg/100g)
-  phosphorus: Float
+  phosphorus: BigFloat
 
   # Potassium (mg/100g)
-  potassium: Float
+  potassium: BigFloat
 
   # Sodium (mg/100g)
-  sodium: Float
+  sodium: BigFloat
 
   # Zinc (mg/100g)
-  zinc: Float
+  zinc: BigFloat
 
   # Copper (mg/100g)
-  copper: Float
+  copper: BigFloat
 
   # Manganese (mg/100g)
-  manganese: Float
+  manganese: BigFloat
 
   # Selenium (μg/100g)
-  selenium: Float
+  selenium: BigFloat
 
   # Vitamin C (mg/100g)
-  vitaminC: Float
+  vitaminC: BigFloat
 
   # Thiamin (mg/100g)
-  thiamin: Float
+  thiamin: BigFloat
 
   # Riboflavin (mg/100g)
-  riboflavin: Float
+  riboflavin: BigFloat
 
   # Niacin (mg/100g)
-  niacin: Float
+  niacin: BigFloat
 
   # Pantothenic acid (mg/100g)
-  pantoAcid: Float
+  pantoAcid: BigFloat
 
   # Vitamin B6 (mg/100g)
-  vitaminB6: Float
+  vitaminB6: BigFloat
 
   # Folate, total (μg/100g)
-  folate: Float
+  folate: BigFloat
 
   # Folic acid (μg/100g)
-  folicAcid: Float
+  folicAcid: BigFloat
 
   # Food folate (μg/100g)
-  foodFolate: Float
+  foodFolate: BigFloat
 
   # Folate (μg dietary folate equivalents/100g)
-  folateDfe: Float
+  folateDfe: BigFloat
 
   # Choline, total (mg/100g)
-  choline: Float
+  choline: BigFloat
 
   # Vitamin B12 (μg/100g)
-  vitaminB12: Float
+  vitaminB12: BigFloat
 
   # Vitamin A (IU/100g)
-  vitaminAIu: Float
+  vitaminAIu: BigFloat
 
   # Vitamin A (μg retinol activity equivalents/100g)
-  vitaminARae: Float
+  vitaminARae: BigFloat
 
   # Retinol (μg/100g)
-  retinol: Float
+  retinol: BigFloat
 
   # Alpha-carotene (μg/100g)
-  alphaCarot: Float
+  alphaCarot: BigFloat
 
   # Beta-carotene (μg/100g)
-  betaCarot: Float
+  betaCarot: BigFloat
 
   # Beta-cryptoxanthin (μg/100g)
-  betaCrypt: Float
+  betaCrypt: BigFloat
 
   # Lycopene (μg/100g)
-  lycopene: Float
+  lycopene: BigFloat
 
   # Lutein+zeazanthin (μg/100g)
-  lutZea: Float
+  lutZea: BigFloat
 
   # Vitamin E (alpha-tocopherol) (mg/100g)
-  vitaminE: Float
+  vitaminE: BigFloat
 
   # Vitamin D (μg/100g)
-  vitaminDMcg: Float
+  vitaminDMcg: BigFloat
 
   # Vitamin D (IU/100g)
-  vitaminDIu: Float
+  vitaminDIu: BigFloat
 
   # Vitamin K (phylloquinone) (μg/100g)
-  vitaminK: Float
+  vitaminK: BigFloat
 
   # Saturated fatty acid (g/100g)
-  fatSat: Float
+  fatSat: BigFloat
 
   # Monounsaturated fatty acids (g/100g)
-  fatMono: Float
+  fatMono: BigFloat
 
   # Polyunsaturated fatty acids (g/100g)
-  fatPoly: Float
+  fatPoly: BigFloat
 
   # Cholesterol (mg/100g)
-  cholesterol: Float
+  cholesterol: BigFloat
 
   # The time this object was created.
   createdOn: Datetime
@@ -2357,39 +2369,39 @@ type FoodNutrient implements Node {
   id: ID!
 
   # 5-digit or 8-digit Nutrient Databank number that uniquely identifies a food item.
-  foodId: Float!
+  foodId: BigFloat!
 
   # Unique 3-digit identifier code for a nutrient.
-  nutrientId: Float!
+  nutrientId: BigFloat!
 
   # Amount in 100 grams, edible portion.
-  nutrientValue: Float!
+  nutrientValue: BigFloat!
 
   # Standard error of the mean. Null if cannot be calculated. The standard error
   # is also not given if the number of data points is less than three.
-  standardError: Float
+  standardError: BigFloat
 
   # Minimum value.
-  min: Float
+  min: BigFloat
 
   # Maximum value.
-  max: Float
+  max: BigFloat
 
   # Lower 95% error bound.
-  lowerErrorBound: Float
+  lowerErrorBound: BigFloat
 
   # Upper 95% error bound.
-  upperErrorBound: Float
+  upperErrorBound: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the food nutrient values.
   userId: UUID
 
   # Reads a single `Food` that is related to this `FoodNutrient`.
-  foodByFoodId: Food!
+  foodByFoodId: Food
 
   # Reads a single `Nutrient` that is related to this `FoodNutrient`.
-  nutrientByNutrientId: Nutrient!
+  nutrientByNutrientId: Nutrient
 
   # Reads a single `User` that is related to this `FoodNutrient`.
   userByUserId: User
@@ -2399,28 +2411,28 @@ type FoodNutrient implements Node {
 # tested for equality and combined with a logical ‘and.’
 input FoodNutrientCondition {
   # Checks for equality with the object’s `foodId` field.
-  foodId: Float
+  foodId: BigFloat
 
   # Checks for equality with the object’s `nutrientId` field.
-  nutrientId: Float
+  nutrientId: BigFloat
 
   # Checks for equality with the object’s `nutrientValue` field.
-  nutrientValue: Float
+  nutrientValue: BigFloat
 
   # Checks for equality with the object’s `standardError` field.
-  standardError: Float
+  standardError: BigFloat
 
   # Checks for equality with the object’s `min` field.
-  min: Float
+  min: BigFloat
 
   # Checks for equality with the object’s `max` field.
-  max: Float
+  max: BigFloat
 
   # Checks for equality with the object’s `lowerErrorBound` field.
-  lowerErrorBound: Float
+  lowerErrorBound: BigFloat
 
   # Checks for equality with the object’s `upperErrorBound` field.
-  upperErrorBound: Float
+  upperErrorBound: BigFloat
 
   # Checks for equality with the object’s `source` field.
   source: InputSource
@@ -2432,29 +2444,29 @@ input FoodNutrientCondition {
 # An input for mutations affecting `FoodNutrient`
 input FoodNutrientInput {
   # 5-digit or 8-digit Nutrient Databank number that uniquely identifies a food item.
-  foodId: Float!
+  foodId: BigFloat!
 
   # Unique 3-digit identifier code for a nutrient.
-  nutrientId: Float!
+  nutrientId: BigFloat!
 
   # Amount in 100 grams, edible portion.
-  nutrientValue: Float!
+  nutrientValue: BigFloat!
 
   # Standard error of the mean. Null if cannot be calculated. The standard error
   # is also not given if the number of data points is less than three.
-  standardError: Float
+  standardError: BigFloat
 
   # Minimum value.
-  min: Float
+  min: BigFloat
 
   # Maximum value.
-  max: Float
+  max: BigFloat
 
   # Lower 95% error bound.
-  lowerErrorBound: Float
+  lowerErrorBound: BigFloat
 
   # Upper 95% error bound.
-  upperErrorBound: Float
+  upperErrorBound: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the food nutrient values.
@@ -2464,29 +2476,29 @@ input FoodNutrientInput {
 # Represents an update to a `FoodNutrient`. Fields that are set will be updated.
 input FoodNutrientPatch {
   # 5-digit or 8-digit Nutrient Databank number that uniquely identifies a food item.
-  foodId: Float
+  foodId: BigFloat
 
   # Unique 3-digit identifier code for a nutrient.
-  nutrientId: Float
+  nutrientId: BigFloat
 
   # Amount in 100 grams, edible portion.
-  nutrientValue: Float
+  nutrientValue: BigFloat
 
   # Standard error of the mean. Null if cannot be calculated. The standard error
   # is also not given if the number of data points is less than three.
-  standardError: Float
+  standardError: BigFloat
 
   # Minimum value.
-  min: Float
+  min: BigFloat
 
   # Maximum value.
-  max: Float
+  max: BigFloat
 
   # Lower 95% error bound.
-  lowerErrorBound: Float
+  lowerErrorBound: BigFloat
 
   # Upper 95% error bound.
-  upperErrorBound: Float
+  upperErrorBound: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the food nutrient values.
@@ -2547,10 +2559,10 @@ enum FoodNutrientsOrderBy {
 # Represents an update to a `Food`. Fields that are set will be updated.
 input FoodPatch {
   # 5-digit or 8-digit Nutrient Databank number that uniquely identifies a food item.
-  rowId: Float
+  rowId: BigFloat
 
   # 4-digit code indicating food group to which a food item belongs.
-  foodGroupId: Float
+  foodGroupId: BigFloat
 
   # Indicates the company that manufactured the product, when appropriate.
   brandName: String
@@ -2562,158 +2574,158 @@ input FoodPatch {
   refuseDescription: String
 
   # Percentage of refuse.
-  refuse: Float
+  refuse: BigFloat
 
   # Factor for calculating calories from protein.
-  proteinFactor: Float
+  proteinFactor: BigFloat
 
   # Factor for calculating calories from fat.
-  fatFactor: Float
+  fatFactor: BigFloat
 
   # Factor for calculating calories from carbohydrate.
-  carbFactor: Float
+  carbFactor: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the food.
   userId: UUID
 
   # Water (g/100g)
-  water: Float
+  water: BigFloat
 
   # Food energy (kcal/100g)
-  calories: Float
+  calories: BigFloat
 
   # Protein (g/100g)
-  protein: Float
+  protein: BigFloat
 
   # Total lipid (fat) (g/100g)
-  fat: Float
+  fat: BigFloat
 
   # Ash (g/100g)
-  ash: Float
+  ash: BigFloat
 
   # Carbohydrate, by difference (g/100g)
-  carbs: Float
+  carbs: BigFloat
 
   # Total dietary fiber (g/100g)
-  fiber: Float
+  fiber: BigFloat
 
   # Total sugars (g/100g)
-  sugar: Float
+  sugar: BigFloat
 
   # Calcium (mg/100g)
-  calcium: Float
+  calcium: BigFloat
 
   # Iron (mg/100g)
-  iron: Float
+  iron: BigFloat
 
   # Magnesium (mg/100g)
-  magnesium: Float
+  magnesium: BigFloat
 
   # Phosphorus (mg/100g)
-  phosphorus: Float
+  phosphorus: BigFloat
 
   # Potassium (mg/100g)
-  potassium: Float
+  potassium: BigFloat
 
   # Sodium (mg/100g)
-  sodium: Float
+  sodium: BigFloat
 
   # Zinc (mg/100g)
-  zinc: Float
+  zinc: BigFloat
 
   # Copper (mg/100g)
-  copper: Float
+  copper: BigFloat
 
   # Manganese (mg/100g)
-  manganese: Float
+  manganese: BigFloat
 
   # Selenium (μg/100g)
-  selenium: Float
+  selenium: BigFloat
 
   # Vitamin C (mg/100g)
-  vitaminC: Float
+  vitaminC: BigFloat
 
   # Thiamin (mg/100g)
-  thiamin: Float
+  thiamin: BigFloat
 
   # Riboflavin (mg/100g)
-  riboflavin: Float
+  riboflavin: BigFloat
 
   # Niacin (mg/100g)
-  niacin: Float
+  niacin: BigFloat
 
   # Pantothenic acid (mg/100g)
-  pantoAcid: Float
+  pantoAcid: BigFloat
 
   # Vitamin B6 (mg/100g)
-  vitaminB6: Float
+  vitaminB6: BigFloat
 
   # Folate, total (μg/100g)
-  folate: Float
+  folate: BigFloat
 
   # Folic acid (μg/100g)
-  folicAcid: Float
+  folicAcid: BigFloat
 
   # Food folate (μg/100g)
-  foodFolate: Float
+  foodFolate: BigFloat
 
   # Folate (μg dietary folate equivalents/100g)
-  folateDfe: Float
+  folateDfe: BigFloat
 
   # Choline, total (mg/100g)
-  choline: Float
+  choline: BigFloat
 
   # Vitamin B12 (μg/100g)
-  vitaminB12: Float
+  vitaminB12: BigFloat
 
   # Vitamin A (IU/100g)
-  vitaminAIu: Float
+  vitaminAIu: BigFloat
 
   # Vitamin A (μg retinol activity equivalents/100g)
-  vitaminARae: Float
+  vitaminARae: BigFloat
 
   # Retinol (μg/100g)
-  retinol: Float
+  retinol: BigFloat
 
   # Alpha-carotene (μg/100g)
-  alphaCarot: Float
+  alphaCarot: BigFloat
 
   # Beta-carotene (μg/100g)
-  betaCarot: Float
+  betaCarot: BigFloat
 
   # Beta-cryptoxanthin (μg/100g)
-  betaCrypt: Float
+  betaCrypt: BigFloat
 
   # Lycopene (μg/100g)
-  lycopene: Float
+  lycopene: BigFloat
 
   # Lutein+zeazanthin (μg/100g)
-  lutZea: Float
+  lutZea: BigFloat
 
   # Vitamin E (alpha-tocopherol) (mg/100g)
-  vitaminE: Float
+  vitaminE: BigFloat
 
   # Vitamin D (μg/100g)
-  vitaminDMcg: Float
+  vitaminDMcg: BigFloat
 
   # Vitamin D (IU/100g)
-  vitaminDIu: Float
+  vitaminDIu: BigFloat
 
   # Vitamin K (phylloquinone) (μg/100g)
-  vitaminK: Float
+  vitaminK: BigFloat
 
   # Saturated fatty acid (g/100g)
-  fatSat: Float
+  fatSat: BigFloat
 
   # Monounsaturated fatty acids (g/100g)
-  fatMono: Float
+  fatMono: BigFloat
 
   # Polyunsaturated fatty acids (g/100g)
-  fatPoly: Float
+  fatPoly: BigFloat
 
   # Cholesterol (mg/100g)
-  cholesterol: Float
+  cholesterol: BigFloat
 
   # The time this object was created.
   createdOn: Datetime
@@ -2761,14 +2773,14 @@ type FoodSelection implements Node {
   messageId: UUID
 
   # The unique identifier for the preset that this selection was copied from.
-  inheritsFromId: UUID
+  presetId: UUID
   category: FoodSelectionCategory
 
   # The unique identifier for the food.
-  foodId: Float
+  foodId: BigFloat
 
   # The total mass of the food in grams.
-  mass: Float
+  mass: BigFloat
 
   # The description of the food.
   foodDescription: String!
@@ -2779,35 +2791,41 @@ type FoodSelection implements Node {
   # The description of the brand.
   brandDescription: String
 
+  # A url for a photo, product page, recipe, etc. to help identify the food.
+  mediaUrl: String
+
   # The timestamp for when the food selection occurred, local to the person.
   occurredOn: Datetime
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the weight unit of measure.
   measureWeightUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the weight unit of measure.
   measureWeightUnit: String
 
-  # The numeric component of the measurement.
-  measureWeightAmount: Float
+  # The numeric component of the weight measurement.
+  measureWeightAmount: BigFloat
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the volume unit of measure.
   measureVolumeUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the volume unit of measure.
   measureVolumeUnit: String
 
-  # The numeric component of the measurement.
-  measureVolumeAmount: Float
+  # The numeric component of the volume measurement.
+  measureVolumeAmount: BigFloat
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the common unit of measure.
   measureCommonUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the common unit of measure.
   measureCommonUnit: String
 
-  # The numeric component of the measurement.
-  measureCommonAmount: Float
+  # The numeric component of the common measurement.
+  measureCommonAmount: BigFloat
+
+  # The numeric component of the percentage measurement.
+  measureProportion: BigFloat
 
   # The time this object was created.
   createdOn: Datetime
@@ -2815,14 +2833,20 @@ type FoodSelection implements Node {
   # The time this object was last updated.
   updatedOn: Datetime
 
+  # The short identifier that a person uses to copy a food selection, unique per person.
+  shortId: String
+
+  # The short identifier of the clone source for the food selection.
+  parentShortId: String
+
   # Reads a single `User` that is related to this `FoodSelection`.
-  userByUserId: User!
+  userByUserId: User
 
   # Reads a single `Message` that is related to this `FoodSelection`.
   messageByMessageId: Message
 
   # Reads a single `Preset` that is related to this `FoodSelection`.
-  presetByInheritsFromId: Preset
+  presetByPresetId: Preset
 
   # Reads a single `Food` that is related to this `FoodSelection`.
   foodByFoodId: Food
@@ -2855,7 +2879,7 @@ type FoodSelection implements Node {
     after: Cursor
 
     # The method to use when ordering `PresetSelection`.
-    orderBy: PresetSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [PresetSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: PresetSelectionCondition
@@ -2880,7 +2904,7 @@ type FoodSelection implements Node {
     after: Cursor
 
     # The method to use when ordering `Investigation`.
-    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [InvestigationsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: InvestigationCondition
@@ -2909,17 +2933,17 @@ input FoodSelectionCondition {
   # Checks for equality with the object’s `messageId` field.
   messageId: UUID
 
-  # Checks for equality with the object’s `inheritsFromId` field.
-  inheritsFromId: UUID
+  # Checks for equality with the object’s `presetId` field.
+  presetId: UUID
 
   # Checks for equality with the object’s `category` field.
   category: FoodSelectionCategory
 
   # Checks for equality with the object’s `foodId` field.
-  foodId: Float
+  foodId: BigFloat
 
   # Checks for equality with the object’s `mass` field.
-  mass: Float
+  mass: BigFloat
 
   # Checks for equality with the object’s `foodDescription` field.
   foodDescription: String
@@ -2929,6 +2953,9 @@ input FoodSelectionCondition {
 
   # Checks for equality with the object’s `brandDescription` field.
   brandDescription: String
+
+  # Checks for equality with the object’s `mediaUrl` field.
+  mediaUrl: String
 
   # Checks for equality with the object’s `occurredOn` field.
   occurredOn: Datetime
@@ -2940,7 +2967,7 @@ input FoodSelectionCondition {
   measureWeightUnit: String
 
   # Checks for equality with the object’s `measureWeightAmount` field.
-  measureWeightAmount: Float
+  measureWeightAmount: BigFloat
 
   # Checks for equality with the object’s `measureVolumeUnitId` field.
   measureVolumeUnitId: Int
@@ -2949,7 +2976,7 @@ input FoodSelectionCondition {
   measureVolumeUnit: String
 
   # Checks for equality with the object’s `measureVolumeAmount` field.
-  measureVolumeAmount: Float
+  measureVolumeAmount: BigFloat
 
   # Checks for equality with the object’s `measureCommonUnitId` field.
   measureCommonUnitId: Int
@@ -2958,13 +2985,22 @@ input FoodSelectionCondition {
   measureCommonUnit: String
 
   # Checks for equality with the object’s `measureCommonAmount` field.
-  measureCommonAmount: Float
+  measureCommonAmount: BigFloat
+
+  # Checks for equality with the object’s `measureProportion` field.
+  measureProportion: BigFloat
 
   # Checks for equality with the object’s `createdOn` field.
   createdOn: Datetime
 
   # Checks for equality with the object’s `updatedOn` field.
   updatedOn: Datetime
+
+  # Checks for equality with the object’s `shortId` field.
+  shortId: String
+
+  # Checks for equality with the object’s `parentShortId` field.
+  parentShortId: String
 }
 
 # An input for mutations affecting `FoodSelection`
@@ -2979,14 +3015,14 @@ input FoodSelectionInput {
   messageId: UUID
 
   # The unique identifier for the preset that this selection was copied from.
-  inheritsFromId: UUID
+  presetId: UUID
   category: FoodSelectionCategory
 
   # The unique identifier for the food.
-  foodId: Float
+  foodId: BigFloat
 
   # The total mass of the food in grams.
-  mass: Float
+  mass: BigFloat
 
   # The description of the food.
   foodDescription: String!
@@ -2997,41 +3033,53 @@ input FoodSelectionInput {
   # The description of the brand.
   brandDescription: String
 
+  # A url for a photo, product page, recipe, etc. to help identify the food.
+  mediaUrl: String
+
   # The timestamp for when the food selection occurred, local to the person.
   occurredOn: Datetime
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the weight unit of measure.
   measureWeightUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the weight unit of measure.
   measureWeightUnit: String
 
-  # The numeric component of the measurement.
-  measureWeightAmount: Float
+  # The numeric component of the weight measurement.
+  measureWeightAmount: BigFloat
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the volume unit of measure.
   measureVolumeUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the volume unit of measure.
   measureVolumeUnit: String
 
-  # The numeric component of the measurement.
-  measureVolumeAmount: Float
+  # The numeric component of the volume measurement.
+  measureVolumeAmount: BigFloat
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the common unit of measure.
   measureCommonUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the common unit of measure.
   measureCommonUnit: String
 
-  # The numeric component of the measurement.
-  measureCommonAmount: Float
+  # The numeric component of the common measurement.
+  measureCommonAmount: BigFloat
+
+  # The numeric component of the percentage measurement.
+  measureProportion: BigFloat
 
   # The time this object was created.
   createdOn: Datetime
 
   # The time this object was last updated.
   updatedOn: Datetime
+
+  # The short identifier that a person uses to copy a food selection, unique per person.
+  shortId: String
+
+  # The short identifier of the clone source for the food selection.
+  parentShortId: String
 }
 
 # Represents an update to a `FoodSelection`. Fields that are set will be updated.
@@ -3046,14 +3094,14 @@ input FoodSelectionPatch {
   messageId: UUID
 
   # The unique identifier for the preset that this selection was copied from.
-  inheritsFromId: UUID
+  presetId: UUID
   category: FoodSelectionCategory
 
   # The unique identifier for the food.
-  foodId: Float
+  foodId: BigFloat
 
   # The total mass of the food in grams.
-  mass: Float
+  mass: BigFloat
 
   # The description of the food.
   foodDescription: String
@@ -3064,41 +3112,53 @@ input FoodSelectionPatch {
   # The description of the brand.
   brandDescription: String
 
+  # A url for a photo, product page, recipe, etc. to help identify the food.
+  mediaUrl: String
+
   # The timestamp for when the food selection occurred, local to the person.
   occurredOn: Datetime
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the weight unit of measure.
   measureWeightUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the weight unit of measure.
   measureWeightUnit: String
 
-  # The numeric component of the measurement.
-  measureWeightAmount: Float
+  # The numeric component of the weight measurement.
+  measureWeightAmount: BigFloat
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the volume unit of measure.
   measureVolumeUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the volume unit of measure.
   measureVolumeUnit: String
 
-  # The numeric component of the measurement.
-  measureVolumeAmount: Float
+  # The numeric component of the volume measurement.
+  measureVolumeAmount: BigFloat
 
-  # The unique identifier for the unit of measure.
+  # The unique identifier for the common unit of measure.
   measureCommonUnitId: Int
 
-  # The name of the unit of measure.
+  # The name of the common unit of measure.
   measureCommonUnit: String
 
-  # The numeric component of the measurement.
-  measureCommonAmount: Float
+  # The numeric component of the common measurement.
+  measureCommonAmount: BigFloat
+
+  # The numeric component of the percentage measurement.
+  measureProportion: BigFloat
 
   # The time this object was created.
   createdOn: Datetime
 
   # The time this object was last updated.
   updatedOn: Datetime
+
+  # The short identifier that a person uses to copy a food selection, unique per person.
+  shortId: String
+
+  # The short identifier of the clone source for the food selection.
+  parentShortId: String
 }
 
 # A connection to a list of `FoodSelection` values.
@@ -3134,8 +3194,8 @@ enum FoodSelectionsOrderBy {
   USER_ID_DESC
   MESSAGE_ID_ASC
   MESSAGE_ID_DESC
-  INHERITS_FROM_ID_ASC
-  INHERITS_FROM_ID_DESC
+  PRESET_ID_ASC
+  PRESET_ID_DESC
   CATEGORY_ASC
   CATEGORY_DESC
   FOOD_ID_ASC
@@ -3148,6 +3208,8 @@ enum FoodSelectionsOrderBy {
   PHYSICAL_MOD_DESCRIPTION_DESC
   BRAND_DESCRIPTION_ASC
   BRAND_DESCRIPTION_DESC
+  MEDIA_URL_ASC
+  MEDIA_URL_DESC
   OCCURRED_ON_ASC
   OCCURRED_ON_DESC
   MEASURE_WEIGHT_UNIT_ID_ASC
@@ -3168,10 +3230,16 @@ enum FoodSelectionsOrderBy {
   MEASURE_COMMON_UNIT_DESC
   MEASURE_COMMON_AMOUNT_ASC
   MEASURE_COMMON_AMOUNT_DESC
+  MEASURE_PROPORTION_ASC
+  MEASURE_PROPORTION_DESC
   CREATED_ON_ASC
   CREATED_ON_DESC
   UPDATED_ON_ASC
   UPDATED_ON_DESC
+  SHORT_ID_ASC
+  SHORT_ID_DESC
+  PARENT_SHORT_ID_ASC
+  PARENT_SHORT_ID_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -3333,10 +3401,10 @@ type Investigation implements Node {
   foodSelectionId: UUID!
 
   # The unique identifier for the food.
-  foodId: Float!
+  foodId: BigFloat!
 
   # The total mass of the food in grams.
-  mass: Float
+  mass: BigFloat
 
   # Notes about the possible match, may inlude a URL to info about the food or mass conversion.
   description: String
@@ -3346,10 +3414,10 @@ type Investigation implements Node {
   source: InputSource
 
   # Reads a single `FoodSelection` that is related to this `Investigation`.
-  foodSelectionByFoodSelectionId: FoodSelection!
+  foodSelectionByFoodSelectionId: FoodSelection
 
   # Reads a single `Food` that is related to this `Investigation`.
-  foodByFoodId: Food!
+  foodByFoodId: Food
 }
 
 # A condition to be used against `Investigation` object types. All fields are
@@ -3362,10 +3430,10 @@ input InvestigationCondition {
   foodSelectionId: UUID
 
   # Checks for equality with the object’s `foodId` field.
-  foodId: Float
+  foodId: BigFloat
 
   # Checks for equality with the object’s `mass` field.
-  mass: Float
+  mass: BigFloat
 
   # Checks for equality with the object’s `description` field.
   description: String
@@ -3385,10 +3453,10 @@ input InvestigationInput {
   foodSelectionId: UUID!
 
   # The unique identifier for the food.
-  foodId: Float!
+  foodId: BigFloat!
 
   # The total mass of the food in grams.
-  mass: Float
+  mass: BigFloat
 
   # Notes about the possible match, may inlude a URL to info about the food or mass conversion.
   description: String
@@ -3406,10 +3474,10 @@ input InvestigationPatch {
   foodSelectionId: UUID
 
   # The unique identifier for the food.
-  foodId: Float
+  foodId: BigFloat
 
   # The total mass of the food in grams.
-  mass: Float
+  mass: BigFloat
 
   # Notes about the possible match, may inlude a URL to info about the food or mass conversion.
   description: String
@@ -3475,7 +3543,7 @@ type MassConversion implements Node {
   rowId: Int!
 
   # The unique identifier for the food item.
-  foodId: Float!
+  foodId: BigFloat!
 
   # The unique identifier for the initial unit of measure which is a volume or count unit, e.x. liter, drumstick, piece, box.
   unitOfMeasureId: Int!
@@ -3485,17 +3553,17 @@ type MassConversion implements Node {
   physicalModDescription: String
 
   # The mass equivalent in grams.
-  mass: Float
+  mass: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the mass conversion record.
   userId: UUID
 
   # Reads a single `Food` that is related to this `MassConversion`.
-  foodByFoodId: Food!
+  foodByFoodId: Food
 
   # Reads a single `UnitOfMeasure` that is related to this `MassConversion`.
-  unitOfMeasureByUnitOfMeasureId: UnitOfMeasure!
+  unitOfMeasureByUnitOfMeasureId: UnitOfMeasure
 
   # Reads a single `User` that is related to this `MassConversion`.
   userByUserId: User
@@ -3508,7 +3576,7 @@ input MassConversionCondition {
   rowId: Int
 
   # Checks for equality with the object’s `foodId` field.
-  foodId: Float
+  foodId: BigFloat
 
   # Checks for equality with the object’s `unitOfMeasureId` field.
   unitOfMeasureId: Int
@@ -3517,7 +3585,7 @@ input MassConversionCondition {
   physicalModDescription: String
 
   # Checks for equality with the object’s `mass` field.
-  mass: Float
+  mass: BigFloat
 
   # Checks for equality with the object’s `source` field.
   source: InputSource
@@ -3531,7 +3599,7 @@ input MassConversionInput {
   rowId: Int
 
   # The unique identifier for the food item.
-  foodId: Float!
+  foodId: BigFloat!
 
   # The unique identifier for the initial unit of measure which is a volume or count unit, e.x. liter, drumstick, piece, box.
   unitOfMeasureId: Int!
@@ -3541,7 +3609,7 @@ input MassConversionInput {
   physicalModDescription: String
 
   # The mass equivalent in grams.
-  mass: Float
+  mass: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the mass conversion record.
@@ -3553,7 +3621,7 @@ input MassConversionPatch {
   rowId: Int
 
   # The unique identifier for the food item.
-  foodId: Float
+  foodId: BigFloat
 
   # The unique identifier for the initial unit of measure which is a volume or count unit, e.x. liter, drumstick, piece, box.
   unitOfMeasureId: Int
@@ -3563,7 +3631,7 @@ input MassConversionPatch {
   physicalModDescription: String
 
   # The mass equivalent in grams.
-  mass: Float
+  mass: BigFloat
   source: InputSource
 
   # The unique identifier for the user who created the mass conversion record.
@@ -3630,7 +3698,7 @@ type Message implements Node {
   lang: String
 
   # HTTP status code of the agent request.
-  statusCode: Float
+  statusCode: BigFloat
   originalText: String
 
   # Matching score for the intent.
@@ -3647,7 +3715,7 @@ type Message implements Node {
   createdOn: Datetime
 
   # Reads a single `Conversation` that is related to this `Message`.
-  conversationByConversationId: Conversation!
+  conversationByConversationId: Conversation
 
   # Reads and enables pagination through a set of `Preset`.
   presetsByMessageId(
@@ -3668,7 +3736,7 @@ type Message implements Node {
     after: Cursor
 
     # The method to use when ordering `Preset`.
-    orderBy: PresetsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [PresetsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: PresetCondition
@@ -3693,7 +3761,7 @@ type Message implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
@@ -3712,7 +3780,7 @@ input MessageCondition {
   lang: String
 
   # Checks for equality with the object’s `statusCode` field.
-  statusCode: Float
+  statusCode: BigFloat
 
   # Checks for equality with the object’s `originalText` field.
   originalText: String
@@ -3745,7 +3813,7 @@ input MessageInput {
   lang: String
 
   # HTTP status code of the agent request.
-  statusCode: Float
+  statusCode: BigFloat
   originalText: String
 
   # Matching score for the intent.
@@ -3774,7 +3842,7 @@ input MessagePatch {
   lang: String
 
   # HTTP status code of the agent request.
-  statusCode: Float
+  statusCode: BigFloat
   originalText: String
 
   # Matching score for the intent.
@@ -4024,6 +4092,12 @@ type Mutation {
     input: UpdateFoodSelectionByRowIdInput!
   ): UpdateFoodSelectionPayload
 
+  # Updates a single `FoodSelection` using a unique key and a patch.
+  updateFoodSelectionByShortIdAndUserId(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: UpdateFoodSelectionByShortIdAndUserIdInput!
+  ): UpdateFoodSelectionPayload
+
   # Updates a single `Investigation` using its globally unique id and a patch.
   updateInvestigation(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -4264,6 +4338,12 @@ type Mutation {
     input: DeleteFoodSelectionByRowIdInput!
   ): DeleteFoodSelectionPayload
 
+  # Deletes a single `FoodSelection` using a unique key.
+  deleteFoodSelectionByShortIdAndUserId(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: DeleteFoodSelectionByShortIdAndUserIdInput!
+  ): DeleteFoodSelectionPayload
+
   # Deletes a single `Investigation` using its globally unique id.
   deleteInvestigation(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -4418,13 +4498,13 @@ type Mutation {
   authenticateUser(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: AuthenticateUserInput!
-  ): AuthenticateUserPayload!
+  ): AuthenticateUserPayload
 
   # Registers a single user and creates an account.
   registerUser(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: RegisterUserInput!
-  ): RegisterUserPayload!
+  ): RegisterUserPayload
 }
 
 # An object with a globally unique `ID`.
@@ -4440,7 +4520,7 @@ type Nutrient implements Node {
   id: ID!
 
   # Unique 3-digit identifier code for a nutrient.
-  rowId: Float!
+  rowId: BigFloat!
 
   # The USDA key for the unit of measure.
   unitOfMeasureUsdaKey: String!
@@ -4454,7 +4534,7 @@ type Nutrient implements Node {
   fullName: String!
 
   # Reads a single `UnitOfMeasure` that is related to this `Nutrient`.
-  unitOfMeasureByUnitOfMeasureUsdaKey: UnitOfMeasure!
+  unitOfMeasureByUnitOfMeasureUsdaKey: UnitOfMeasure
 
   # Reads and enables pagination through a set of `FoodNutrient`.
   foodNutrientsByNutrientId(
@@ -4475,7 +4555,7 @@ type Nutrient implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodNutrient`.
-    orderBy: FoodNutrientsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodNutrientsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodNutrientCondition
@@ -4486,7 +4566,7 @@ type Nutrient implements Node {
 # for equality and combined with a logical ‘and.’
 input NutrientCondition {
   # Checks for equality with the object’s `rowId` field.
-  rowId: Float
+  rowId: BigFloat
 
   # Checks for equality with the object’s `unitOfMeasureUsdaKey` field.
   unitOfMeasureUsdaKey: String
@@ -4501,7 +4581,7 @@ input NutrientCondition {
 # An input for mutations affecting `Nutrient`
 input NutrientInput {
   # Unique 3-digit identifier code for a nutrient.
-  rowId: Float!
+  rowId: BigFloat!
 
   # The USDA key for the unit of measure.
   unitOfMeasureUsdaKey: String!
@@ -4518,7 +4598,7 @@ input NutrientInput {
 # Represents an update to a `Nutrient`. Fields that are set will be updated.
 input NutrientPatch {
   # Unique 3-digit identifier code for a nutrient.
-  rowId: Float
+  rowId: BigFloat
 
   # The USDA key for the unit of measure.
   unitOfMeasureUsdaKey: String
@@ -4911,13 +4991,13 @@ type Preset implements Node {
   createdOn: Datetime
 
   # Reads a single `User` that is related to this `Preset`.
-  userByUserId: User!
+  userByUserId: User
 
   # Reads a single `Message` that is related to this `Preset`.
   messageByMessageId: Message
 
   # Reads and enables pagination through a set of `FoodSelection`.
-  foodSelectionsByInheritsFromId(
+  foodSelectionsByPresetId(
     # Only read the first `n` values of the set.
     first: Int
 
@@ -4935,7 +5015,7 @@ type Preset implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
@@ -4960,7 +5040,7 @@ type Preset implements Node {
     after: Cursor
 
     # The method to use when ordering `PresetSelection`.
-    orderBy: PresetSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [PresetSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: PresetSelectionCondition
@@ -5069,10 +5149,10 @@ type PresetSelection implements Node {
   createdOn: Datetime
 
   # Reads a single `Preset` that is related to this `PresetSelection`.
-  presetByPresetId: Preset!
+  presetByPresetId: Preset
 
   # Reads a single `FoodSelection` that is related to this `PresetSelection`.
-  foodSelectionBySelectionId: FoodSelection!
+  foodSelectionBySelectionId: FoodSelection
 }
 
 # A condition to be used against `PresetSelection` object types. All fields are
@@ -5202,7 +5282,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Brand`.
-    orderBy: BrandsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [BrandsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: BrandCondition
@@ -5227,7 +5307,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Conversation`.
-    orderBy: ConversationsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [ConversationsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: ConversationCondition
@@ -5252,7 +5332,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Food`.
-    orderBy: FoodsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodCondition
@@ -5277,7 +5357,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodGroup`.
-    orderBy: FoodGroupsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodGroupsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodGroupCondition
@@ -5302,7 +5382,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodNutrient`.
-    orderBy: FoodNutrientsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodNutrientsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodNutrientCondition
@@ -5327,7 +5407,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
@@ -5352,7 +5432,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Investigation`.
-    orderBy: InvestigationsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [InvestigationsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: InvestigationCondition
@@ -5377,7 +5457,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `MassConversion`.
-    orderBy: MassConversionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [MassConversionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: MassConversionCondition
@@ -5402,7 +5482,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Message`.
-    orderBy: MessagesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: MessageCondition
@@ -5427,7 +5507,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Nutrient`.
-    orderBy: NutrientsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [NutrientsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: NutrientCondition
@@ -5452,7 +5532,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Place`.
-    orderBy: PlacesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [PlacesOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: PlaceCondition
@@ -5477,7 +5557,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `Preset`.
-    orderBy: PresetsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [PresetsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: PresetCondition
@@ -5502,7 +5582,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `PresetSelection`.
-    orderBy: PresetSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [PresetSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: PresetSelectionCondition
@@ -5527,7 +5607,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `UnitOfMeasure`.
-    orderBy: UnitOfMeasuresOrderBy = PRIMARY_KEY_ASC
+    orderBy: [UnitOfMeasuresOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: UnitOfMeasureCondition
@@ -5552,7 +5632,7 @@ type Query implements Node {
     after: Cursor
 
     # The method to use when ordering `User`.
-    orderBy: UsersOrderBy = PRIMARY_KEY_ASC
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: UserCondition
@@ -5562,15 +5642,16 @@ type Query implements Node {
   brandByEmail(email: String!): Brand
   brandByPhone(phone: String!): Brand
   conversationByRowId(rowId: UUID!): Conversation
-  foodByRowId(rowId: Float!): Food
-  foodGroupByRowId(rowId: Float!): FoodGroup
-  foodNutrientByFoodIdAndNutrientId(foodId: Float!, nutrientId: Float!): FoodNutrient
+  foodByRowId(rowId: BigFloat!): Food
+  foodGroupByRowId(rowId: BigFloat!): FoodGroup
+  foodNutrientByFoodIdAndNutrientId(foodId: BigFloat!, nutrientId: BigFloat!): FoodNutrient
   foodSelectionByRowId(rowId: UUID!): FoodSelection
+  foodSelectionByShortIdAndUserId(shortId: String!, userId: UUID!): FoodSelection
   investigationByRowId(rowId: Int!): Investigation
   massConversionByRowId(rowId: Int!): MassConversion
-  massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription(foodId: Float!, unitOfMeasureId: Int!, physicalModDescription: String!): MassConversion
+  massConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescription(foodId: BigFloat!, unitOfMeasureId: Int!, physicalModDescription: String!): MassConversion
   messageByRowId(rowId: UUID!): Message
-  nutrientByRowId(rowId: Float!): Nutrient
+  nutrientByRowId(rowId: BigFloat!): Nutrient
   placeByRowId(rowId: UUID!): Place
   placeByName(name: String!): Place
   presetByRowId(rowId: UUID!): Preset
@@ -5634,7 +5715,7 @@ type Query implements Node {
 
   # Returns a set of foods based on text search.
   searchFoods(
-    foodId: Float
+    foodId: BigFloat
     foodDescription: String
 
     # Only read the first `n` values of the set.
@@ -5792,7 +5873,7 @@ type UnitOfMeasure implements Node {
   # Units base equivalent. Converts mass to grams, volume to liters, energy to
   # gram calories, length to meters, and temperature to celsius. Does not apply to
   # convenience, count, or time units.
-  siFactor: Float
+  siFactor: BigFloat
 
   # Reads a single `UnitOfMeasure` that is related to this `UnitOfMeasure`.
   unitOfMeasureByShortNameRef: UnitOfMeasure
@@ -5816,7 +5897,7 @@ type UnitOfMeasure implements Node {
     after: Cursor
 
     # The method to use when ordering `UnitOfMeasure`.
-    orderBy: UnitOfMeasuresOrderBy = PRIMARY_KEY_ASC
+    orderBy: [UnitOfMeasuresOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: UnitOfMeasureCondition
@@ -5841,7 +5922,7 @@ type UnitOfMeasure implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
@@ -5866,7 +5947,7 @@ type UnitOfMeasure implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
@@ -5891,7 +5972,7 @@ type UnitOfMeasure implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
@@ -5916,7 +5997,7 @@ type UnitOfMeasure implements Node {
     after: Cursor
 
     # The method to use when ordering `MassConversion`.
-    orderBy: MassConversionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [MassConversionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: MassConversionCondition
@@ -5941,7 +6022,7 @@ type UnitOfMeasure implements Node {
     after: Cursor
 
     # The method to use when ordering `Nutrient`.
-    orderBy: NutrientsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [NutrientsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: NutrientCondition
@@ -5984,7 +6065,7 @@ input UnitOfMeasureCondition {
   category: UnitOfMeasureCategory
 
   # Checks for equality with the object’s `siFactor` field.
-  siFactor: Float
+  siFactor: BigFloat
 }
 
 # An input for mutations affecting `UnitOfMeasure`
@@ -6012,7 +6093,7 @@ input UnitOfMeasureInput {
   # Units base equivalent. Converts mass to grams, volume to liters, energy to
   # gram calories, length to meters, and temperature to celsius. Does not apply to
   # convenience, count, or time units.
-  siFactor: Float
+  siFactor: BigFloat
 }
 
 # Represents an update to a `UnitOfMeasure`. Fields that are set will be updated.
@@ -6040,7 +6121,7 @@ input UnitOfMeasurePatch {
   # Units base equivalent. Converts mass to grams, volume to liters, energy to
   # gram calories, length to meters, and temperature to celsius. Does not apply to
   # convenience, count, or time units.
-  siFactor: Float
+  siFactor: BigFloat
 }
 
 # A connection to a list of `UnitOfMeasure` values.
@@ -6221,7 +6302,7 @@ input UpdateFoodByRowIdInput {
 
   # An object where the defined keys will be set on the `Food` being updated.
   foodPatch: FoodPatch!
-  rowId: Float!
+  rowId: BigFloat!
 }
 
 # All input for the `updateFoodGroupByRowId` mutation.
@@ -6232,7 +6313,7 @@ input UpdateFoodGroupByRowIdInput {
 
   # An object where the defined keys will be set on the `FoodGroup` being updated.
   foodGroupPatch: FoodGroupPatch!
-  rowId: Float!
+  rowId: BigFloat!
 }
 
 # All input for the `updateFoodGroup` mutation.
@@ -6288,8 +6369,8 @@ input UpdateFoodNutrientByFoodIdAndNutrientIdInput {
 
   # An object where the defined keys will be set on the `FoodNutrient` being updated.
   foodNutrientPatch: FoodNutrientPatch!
-  foodId: Float!
-  nutrientId: Float!
+  foodId: BigFloat!
+  nutrientId: BigFloat!
 }
 
 # All input for the `updateFoodNutrient` mutation.
@@ -6372,6 +6453,18 @@ input UpdateFoodSelectionByRowIdInput {
   rowId: UUID!
 }
 
+# All input for the `updateFoodSelectionByShortIdAndUserId` mutation.
+input UpdateFoodSelectionByShortIdAndUserIdInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+
+  # An object where the defined keys will be set on the `FoodSelection` being updated.
+  foodSelectionPatch: FoodSelectionPatch!
+  shortId: String!
+  userId: UUID!
+}
+
 # All input for the `updateFoodSelection` mutation.
 input UpdateFoodSelectionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -6404,7 +6497,7 @@ type UpdateFoodSelectionPayload {
   messageByMessageId: Message
 
   # Reads a single `Preset` that is related to this `FoodSelection`.
-  presetByInheritsFromId: Preset
+  presetByPresetId: Preset
 
   # Reads a single `Food` that is related to this `FoodSelection`.
   foodByFoodId: Food
@@ -6482,7 +6575,7 @@ input UpdateMassConversionByFoodIdAndUnitOfMeasureIdAndPhysicalModDescriptionInp
 
   # An object where the defined keys will be set on the `MassConversion` being updated.
   massConversionPatch: MassConversionPatch!
-  foodId: Float!
+  foodId: BigFloat!
   unitOfMeasureId: Int!
   physicalModDescription: String!
 }
@@ -6593,7 +6686,7 @@ input UpdateNutrientByRowIdInput {
 
   # An object where the defined keys will be set on the `Nutrient` being updated.
   nutrientPatch: NutrientPatch!
-  rowId: Float!
+  rowId: BigFloat!
 }
 
 # All input for the `updateNutrient` mutation.
@@ -7004,7 +7097,7 @@ type User implements Node {
     after: Cursor
 
     # The method to use when ordering `Conversation`.
-    orderBy: ConversationsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [ConversationsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: ConversationCondition
@@ -7029,7 +7122,7 @@ type User implements Node {
     after: Cursor
 
     # The method to use when ordering `Place`.
-    orderBy: PlacesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [PlacesOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: PlaceCondition
@@ -7054,7 +7147,7 @@ type User implements Node {
     after: Cursor
 
     # The method to use when ordering `Brand`.
-    orderBy: BrandsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [BrandsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: BrandCondition
@@ -7079,7 +7172,7 @@ type User implements Node {
     after: Cursor
 
     # The method to use when ordering `Food`.
-    orderBy: FoodsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodCondition
@@ -7104,7 +7197,7 @@ type User implements Node {
     after: Cursor
 
     # The method to use when ordering `Preset`.
-    orderBy: PresetsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [PresetsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: PresetCondition
@@ -7129,7 +7222,7 @@ type User implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodSelection`.
-    orderBy: FoodSelectionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodSelectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodSelectionCondition
@@ -7154,7 +7247,7 @@ type User implements Node {
     after: Cursor
 
     # The method to use when ordering `MassConversion`.
-    orderBy: MassConversionsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [MassConversionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: MassConversionCondition
@@ -7179,7 +7272,7 @@ type User implements Node {
     after: Cursor
 
     # The method to use when ordering `FoodNutrient`.
-    orderBy: FoodNutrientsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [FoodNutrientsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: FoodNutrientCondition

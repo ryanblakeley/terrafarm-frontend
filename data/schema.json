@@ -131,11 +131,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Brand`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "BrandsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "BrandsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -214,11 +222,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Conversation`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "ConversationsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "ConversationsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -297,11 +313,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Food`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -380,11 +404,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodGroup`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodGroupsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodGroupsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -463,11 +495,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodNutrient`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodNutrientsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodNutrientsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -546,11 +586,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -629,11 +677,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Investigation`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "InvestigationsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "InvestigationsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -712,11 +768,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `MassConversion`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "MassConversionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "MassConversionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -795,11 +859,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Message`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "MessagesOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "MessagesOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -878,11 +950,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Nutrient`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "NutrientsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "NutrientsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -961,11 +1041,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Place`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "PlacesOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PlacesOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -1044,11 +1132,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Preset`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "PresetsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PresetsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -1127,11 +1223,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `PresetSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "PresetSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PresetSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -1210,11 +1314,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `UnitOfMeasure`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "UnitOfMeasuresOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "UnitOfMeasuresOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -1293,11 +1405,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `User`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "UsersOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "UsersOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -1465,7 +1585,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "Float",
+                      "name": "BigFloat",
                       "ofType": null
                     }
                   },
@@ -1492,7 +1612,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "Float",
+                      "name": "BigFloat",
                       "ofType": null
                     }
                   },
@@ -1519,7 +1639,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "Float",
+                      "name": "BigFloat",
                       "ofType": null
                     }
                   },
@@ -1533,7 +1653,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "Float",
+                      "name": "BigFloat",
                       "ofType": null
                     }
                   },
@@ -1554,6 +1674,47 @@
               "args": [
                 {
                   "name": "rowId",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "UUID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "FoodSelection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "foodSelectionByShortIdAndUserId",
+              "description": null,
+              "args": [
+                {
+                  "name": "shortId",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "userId",
                   "description": null,
                   "type": {
                     "kind": "NON_NULL",
@@ -1641,7 +1802,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "Float",
+                      "name": "BigFloat",
                       "ofType": null
                     }
                   },
@@ -1723,7 +1884,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "Float",
+                      "name": "BigFloat",
                       "ofType": null
                     }
                   },
@@ -2283,7 +2444,7 @@
                   "description": null,
                   "type": {
                     "kind": "SCALAR",
-                    "name": "Float",
+                    "name": "BigFloat",
                     "ofType": null
                   },
                   "defaultValue": null
@@ -3474,11 +3635,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Food`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -3794,11 +3963,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Conversation`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "ConversationsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "ConversationsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -3881,11 +4058,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Place`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "PlacesOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PlacesOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -3968,11 +4153,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Brand`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "BrandsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "BrandsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -4055,11 +4248,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Food`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -4142,11 +4343,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Preset`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "PresetsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PresetsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -4229,11 +4438,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -4316,11 +4533,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `MassConversion`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "MassConversionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "MassConversionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -4403,11 +4628,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodNutrient`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodNutrientsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodNutrientsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -4713,13 +4946,9 @@
               "description": "Reads a single `User` that is related to this `Conversation`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "User",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -4782,11 +5011,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Message`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "MessagesOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "MessagesOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -5013,7 +5250,7 @@
               "description": "Checks for equality with the object’s `statusCode` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -5079,6 +5316,16 @@
               "defaultValue": null
             }
           ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "BigFloat",
+          "description": "A floating point number that requires more precision than IEEE 754 binary 64",
+          "fields": null,
+          "inputFields": null,
           "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
@@ -5272,7 +5519,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -5355,13 +5602,9 @@
               "description": "Reads a single `Conversation` that is related to this `Message`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Conversation",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Conversation",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -5424,11 +5667,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Preset`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "PresetsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PresetsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -5511,11 +5762,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -5927,13 +6186,9 @@
               "description": "Reads a single `User` that is related to this `Preset`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "User",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -5951,7 +6206,7 @@
               "deprecationReason": null
             },
             {
-              "name": "foodSelectionsByInheritsFromId",
+              "name": "foodSelectionsByPresetId",
               "description": "Reads and enables pagination through a set of `FoodSelection`.",
               "args": [
                 {
@@ -6008,11 +6263,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -6095,11 +6358,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `PresetSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "PresetSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PresetSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -6187,13 +6458,13 @@
               "deprecationReason": null
             },
             {
-              "name": "INHERITS_FROM_ID_ASC",
+              "name": "PRESET_ID_ASC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "INHERITS_FROM_ID_DESC",
+              "name": "PRESET_ID_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6266,6 +6537,18 @@
             },
             {
               "name": "BRAND_DESCRIPTION_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEDIA_URL_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEDIA_URL_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6391,6 +6674,18 @@
               "deprecationReason": null
             },
             {
+              "name": "MEASURE_PROPORTION_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MEASURE_PROPORTION_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "CREATED_ON_ASC",
               "description": null,
               "isDeprecated": false,
@@ -6410,6 +6705,30 @@
             },
             {
               "name": "UPDATED_ON_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SHORT_ID_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SHORT_ID_DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PARENT_SHORT_ID_ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PARENT_SHORT_ID_DESC",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6466,8 +6785,8 @@
               "defaultValue": null
             },
             {
-              "name": "inheritsFromId",
-              "description": "Checks for equality with the object’s `inheritsFromId` field.",
+              "name": "presetId",
+              "description": "Checks for equality with the object’s `presetId` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "UUID",
@@ -6490,7 +6809,7 @@
               "description": "Checks for equality with the object’s `foodId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -6500,7 +6819,7 @@
               "description": "Checks for equality with the object’s `mass` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -6528,6 +6847,16 @@
             {
               "name": "brandDescription",
               "description": "Checks for equality with the object’s `brandDescription` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "mediaUrl",
+              "description": "Checks for equality with the object’s `mediaUrl` field.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -6570,7 +6899,7 @@
               "description": "Checks for equality with the object’s `measureWeightAmount` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -6600,7 +6929,7 @@
               "description": "Checks for equality with the object’s `measureVolumeAmount` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -6630,7 +6959,17 @@
               "description": "Checks for equality with the object’s `measureCommonAmount` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureProportion",
+              "description": "Checks for equality with the object’s `measureProportion` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -6651,6 +6990,26 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "shortId",
+              "description": "Checks for equality with the object’s `shortId` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "parentShortId",
+              "description": "Checks for equality with the object’s `parentShortId` field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -6844,7 +7203,7 @@
               "deprecationReason": null
             },
             {
-              "name": "inheritsFromId",
+              "name": "presetId",
               "description": "The unique identifier for the preset that this selection was copied from.",
               "args": [],
               "type": {
@@ -6873,7 +7232,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6885,7 +7244,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6932,6 +7291,18 @@
               "deprecationReason": null
             },
             {
+              "name": "mediaUrl",
+              "description": "A url for a photo, product page, recipe, etc. to help identify the food.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "occurredOn",
               "description": "The timestamp for when the food selection occurred, local to the person.",
               "args": [],
@@ -6945,7 +7316,7 @@
             },
             {
               "name": "measureWeightUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the weight unit of measure.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -6957,7 +7328,7 @@
             },
             {
               "name": "measureWeightUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the weight unit of measure.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -6969,11 +7340,11 @@
             },
             {
               "name": "measureWeightAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the weight measurement.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6981,7 +7352,7 @@
             },
             {
               "name": "measureVolumeUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the volume unit of measure.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -6993,7 +7364,7 @@
             },
             {
               "name": "measureVolumeUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the volume unit of measure.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -7005,11 +7376,11 @@
             },
             {
               "name": "measureVolumeAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the volume measurement.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7017,7 +7388,7 @@
             },
             {
               "name": "measureCommonUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the common unit of measure.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -7029,7 +7400,7 @@
             },
             {
               "name": "measureCommonUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the common unit of measure.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -7041,11 +7412,23 @@
             },
             {
               "name": "measureCommonAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the common measurement.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "measureProportion",
+              "description": "The numeric component of the percentage measurement.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7076,17 +7459,37 @@
               "deprecationReason": null
             },
             {
+              "name": "shortId",
+              "description": "The short identifier that a person uses to copy a food selection, unique per person.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "parentShortId",
+              "description": "The short identifier of the clone source for the food selection.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userByUserId",
               "description": "Reads a single `User` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "User",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -7104,7 +7507,7 @@
               "deprecationReason": null
             },
             {
-              "name": "presetByInheritsFromId",
+              "name": "presetByPresetId",
               "description": "Reads a single `Preset` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
@@ -7221,11 +7624,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `PresetSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "PresetSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PresetSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -7308,11 +7719,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Investigation`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "InvestigationsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "InvestigationsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -7379,7 +7798,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -7392,7 +7811,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7444,7 +7863,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7456,7 +7875,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7468,7 +7887,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7480,7 +7899,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7516,7 +7935,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7528,7 +7947,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7540,7 +7959,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7552,7 +7971,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7564,7 +7983,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7576,7 +7995,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7588,7 +8007,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7600,7 +8019,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7612,7 +8031,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7624,7 +8043,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7636,7 +8055,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7648,7 +8067,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7660,7 +8079,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7672,7 +8091,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7684,7 +8103,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7696,7 +8115,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7708,7 +8127,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7720,7 +8139,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7732,7 +8151,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7744,7 +8163,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7756,7 +8175,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7768,7 +8187,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7780,7 +8199,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7792,7 +8211,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7804,7 +8223,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7816,7 +8235,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7828,7 +8247,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7840,7 +8259,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7852,7 +8271,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7864,7 +8283,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7876,7 +8295,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7888,7 +8307,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7900,7 +8319,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7912,7 +8331,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7924,7 +8343,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7936,7 +8355,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7948,7 +8367,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7960,7 +8379,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7972,7 +8391,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7984,7 +8403,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -7996,7 +8415,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -8008,7 +8427,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -8020,7 +8439,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -8032,7 +8451,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -8044,7 +8463,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -8056,7 +8475,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -8180,11 +8599,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -8267,11 +8694,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `MassConversion`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "MassConversionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "MassConversionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -8354,11 +8789,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Investigation`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "InvestigationsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "InvestigationsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -8441,11 +8884,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodNutrient`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodNutrientsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodNutrientsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -8512,7 +8963,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -8593,11 +9044,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Food`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -9382,7 +9841,7 @@
               "description": "Checks for equality with the object’s `rowId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9392,7 +9851,7 @@
               "description": "Checks for equality with the object’s `foodGroupId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9432,7 +9891,7 @@
               "description": "Checks for equality with the object’s `refuse` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9442,7 +9901,7 @@
               "description": "Checks for equality with the object’s `proteinFactor` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9452,7 +9911,7 @@
               "description": "Checks for equality with the object’s `fatFactor` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9462,7 +9921,7 @@
               "description": "Checks for equality with the object’s `carbFactor` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9492,7 +9951,7 @@
               "description": "Checks for equality with the object’s `water` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9502,7 +9961,7 @@
               "description": "Checks for equality with the object’s `calories` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9512,7 +9971,7 @@
               "description": "Checks for equality with the object’s `protein` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9522,7 +9981,7 @@
               "description": "Checks for equality with the object’s `fat` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9532,7 +9991,7 @@
               "description": "Checks for equality with the object’s `ash` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9542,7 +10001,7 @@
               "description": "Checks for equality with the object’s `carbs` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9552,7 +10011,7 @@
               "description": "Checks for equality with the object’s `fiber` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9562,7 +10021,7 @@
               "description": "Checks for equality with the object’s `sugar` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9572,7 +10031,7 @@
               "description": "Checks for equality with the object’s `calcium` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9582,7 +10041,7 @@
               "description": "Checks for equality with the object’s `iron` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9592,7 +10051,7 @@
               "description": "Checks for equality with the object’s `magnesium` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9602,7 +10061,7 @@
               "description": "Checks for equality with the object’s `phosphorus` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9612,7 +10071,7 @@
               "description": "Checks for equality with the object’s `potassium` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9622,7 +10081,7 @@
               "description": "Checks for equality with the object’s `sodium` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9632,7 +10091,7 @@
               "description": "Checks for equality with the object’s `zinc` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9642,7 +10101,7 @@
               "description": "Checks for equality with the object’s `copper` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9652,7 +10111,7 @@
               "description": "Checks for equality with the object’s `manganese` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9662,7 +10121,7 @@
               "description": "Checks for equality with the object’s `selenium` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9672,7 +10131,7 @@
               "description": "Checks for equality with the object’s `vitaminC` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9682,7 +10141,7 @@
               "description": "Checks for equality with the object’s `thiamin` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9692,7 +10151,7 @@
               "description": "Checks for equality with the object’s `riboflavin` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9702,7 +10161,7 @@
               "description": "Checks for equality with the object’s `niacin` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9712,7 +10171,7 @@
               "description": "Checks for equality with the object’s `pantoAcid` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9722,7 +10181,7 @@
               "description": "Checks for equality with the object’s `vitaminB6` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9732,7 +10191,7 @@
               "description": "Checks for equality with the object’s `folate` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9742,7 +10201,7 @@
               "description": "Checks for equality with the object’s `folicAcid` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9752,7 +10211,7 @@
               "description": "Checks for equality with the object’s `foodFolate` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9762,7 +10221,7 @@
               "description": "Checks for equality with the object’s `folateDfe` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9772,7 +10231,7 @@
               "description": "Checks for equality with the object’s `choline` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9782,7 +10241,7 @@
               "description": "Checks for equality with the object’s `vitaminB12` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9792,7 +10251,7 @@
               "description": "Checks for equality with the object’s `vitaminAIu` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9802,7 +10261,7 @@
               "description": "Checks for equality with the object’s `vitaminARae` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9812,7 +10271,7 @@
               "description": "Checks for equality with the object’s `retinol` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9822,7 +10281,7 @@
               "description": "Checks for equality with the object’s `alphaCarot` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9832,7 +10291,7 @@
               "description": "Checks for equality with the object’s `betaCarot` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9842,7 +10301,7 @@
               "description": "Checks for equality with the object’s `betaCrypt` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9852,7 +10311,7 @@
               "description": "Checks for equality with the object’s `lycopene` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9862,7 +10321,7 @@
               "description": "Checks for equality with the object’s `lutZea` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9872,7 +10331,7 @@
               "description": "Checks for equality with the object’s `vitaminE` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9882,7 +10341,7 @@
               "description": "Checks for equality with the object’s `vitaminDMcg` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9892,7 +10351,7 @@
               "description": "Checks for equality with the object’s `vitaminDIu` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9902,7 +10361,7 @@
               "description": "Checks for equality with the object’s `vitaminK` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9912,7 +10371,7 @@
               "description": "Checks for equality with the object’s `fatSat` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9922,7 +10381,7 @@
               "description": "Checks for equality with the object’s `fatMono` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9932,7 +10391,7 @@
               "description": "Checks for equality with the object’s `fatPoly` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -9942,7 +10401,7 @@
               "description": "Checks for equality with the object’s `cholesterol` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -10295,7 +10754,7 @@
               "description": "Checks for equality with the object’s `foodId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -10325,7 +10784,7 @@
               "description": "Checks for equality with the object’s `mass` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -10484,7 +10943,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -10525,7 +10984,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -10560,13 +11019,9 @@
               "description": "Reads a single `Food` that is related to this `MassConversion`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Food",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Food",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -10576,13 +11031,9 @@
               "description": "Reads a single `UnitOfMeasure` that is related to this `MassConversion`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "UnitOfMeasure",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -10714,7 +11165,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -10790,11 +11241,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `UnitOfMeasure`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "UnitOfMeasuresOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "UnitOfMeasuresOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -10877,11 +11336,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -10964,11 +11431,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -11051,11 +11526,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodSelection`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodSelectionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodSelectionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -11138,11 +11621,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `MassConversion`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "MassConversionsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "MassConversionsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -11225,11 +11716,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `Nutrient`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "NutrientsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "NutrientsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -11509,7 +12008,7 @@
               "description": "Checks for equality with the object’s `siFactor` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -11729,7 +12228,7 @@
               "description": "Checks for equality with the object’s `rowId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -11882,7 +12381,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -11938,13 +12437,9 @@
               "description": "Reads a single `UnitOfMeasure` that is related to this `Nutrient`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "UnitOfMeasure",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "UnitOfMeasure",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -12007,11 +12502,19 @@
                   "name": "orderBy",
                   "description": "The method to use when ordering `FoodNutrient`.",
                   "type": {
-                    "kind": "ENUM",
-                    "name": "FoodNutrientsOrderBy",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "FoodNutrientsOrderBy",
+                        "ofType": null
+                      }
+                    }
                   },
-                  "defaultValue": "PRIMARY_KEY_ASC"
+                  "defaultValue": "[PRIMARY_KEY_ASC]"
                 },
                 {
                   "name": "condition",
@@ -12208,7 +12711,7 @@
               "description": "Checks for equality with the object’s `foodId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12218,7 +12721,7 @@
               "description": "Checks for equality with the object’s `nutrientId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12228,7 +12731,7 @@
               "description": "Checks for equality with the object’s `nutrientValue` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12238,7 +12741,7 @@
               "description": "Checks for equality with the object’s `standardError` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12248,7 +12751,7 @@
               "description": "Checks for equality with the object’s `min` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12258,7 +12761,7 @@
               "description": "Checks for equality with the object’s `max` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12268,7 +12771,7 @@
               "description": "Checks for equality with the object’s `lowerErrorBound` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12278,7 +12781,7 @@
               "description": "Checks for equality with the object’s `upperErrorBound` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12421,7 +12924,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -12437,7 +12940,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -12453,7 +12956,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -12466,7 +12969,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -12478,7 +12981,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -12490,7 +12993,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -12502,7 +13005,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -12514,7 +13017,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -12549,13 +13052,9 @@
               "description": "Reads a single `Food` that is related to this `FoodNutrient`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Food",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Food",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -12565,13 +13064,9 @@
               "description": "Reads a single `Nutrient` that is related to this `FoodNutrient`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Nutrient",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Nutrient",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -12861,7 +13356,7 @@
               "description": "Checks for equality with the object’s `foodId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -12871,7 +13366,7 @@
               "description": "Checks for equality with the object’s `mass` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -13056,7 +13551,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -13069,7 +13564,7 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -13116,13 +13611,9 @@
               "description": "Reads a single `FoodSelection` that is related to this `Investigation`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "FoodSelection",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "FoodSelection",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -13132,13 +13623,9 @@
               "description": "Reads a single `Food` that is related to this `Investigation`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Food",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Food",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -13453,13 +13940,9 @@
               "description": "Reads a single `Preset` that is related to this `PresetSelection`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Preset",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Preset",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -13469,13 +13952,9 @@
               "description": "Reads a single `FoodSelection` that is related to this `PresetSelection`.",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "FoodSelection",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "FoodSelection",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -14617,7 +15096,7 @@
               "description": "Checks for equality with the object’s `rowId` field.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -16218,6 +16697,33 @@
               "deprecationReason": null
             },
             {
+              "name": "updateFoodSelectionByShortIdAndUserId",
+              "description": "Updates a single `FoodSelection` using a unique key and a patch.",
+              "args": [
+                {
+                  "name": "input",
+                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "UpdateFoodSelectionByShortIdAndUserIdInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UpdateFoodSelectionPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "updateInvestigation",
               "description": "Updates a single `Investigation` using its globally unique id and a patch.",
               "args": [
@@ -17298,6 +17804,33 @@
               "deprecationReason": null
             },
             {
+              "name": "deleteFoodSelectionByShortIdAndUserId",
+              "description": "Deletes a single `FoodSelection` using a unique key.",
+              "args": [
+                {
+                  "name": "input",
+                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "DeleteFoodSelectionByShortIdAndUserIdInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "DeleteFoodSelectionPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "deleteInvestigation",
               "description": "Deletes a single `Investigation` using its globally unique id.",
               "args": [
@@ -17992,13 +18525,9 @@
                 }
               ],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "AuthenticateUserPayload",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "AuthenticateUserPayload",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -18023,13 +18552,9 @@
                 }
               ],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "RegisterUserPayload",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "RegisterUserPayload",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -18477,7 +19002,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -18488,7 +19013,7 @@
               "description": "4-digit code indicating food group to which a food item belongs.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18532,7 +19057,7 @@
               "description": "Percentage of refuse.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18542,7 +19067,7 @@
               "description": "Factor for calculating calories from protein.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18552,7 +19077,7 @@
               "description": "Factor for calculating calories from fat.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18562,7 +19087,7 @@
               "description": "Factor for calculating calories from carbohydrate.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18592,7 +19117,7 @@
               "description": "Water (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18602,7 +19127,7 @@
               "description": "Food energy (kcal/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18612,7 +19137,7 @@
               "description": "Protein (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18622,7 +19147,7 @@
               "description": "Total lipid (fat) (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18632,7 +19157,7 @@
               "description": "Ash (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18642,7 +19167,7 @@
               "description": "Carbohydrate, by difference (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18652,7 +19177,7 @@
               "description": "Total dietary fiber (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18662,7 +19187,7 @@
               "description": "Total sugars (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18672,7 +19197,7 @@
               "description": "Calcium (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18682,7 +19207,7 @@
               "description": "Iron (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18692,7 +19217,7 @@
               "description": "Magnesium (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18702,7 +19227,7 @@
               "description": "Phosphorus (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18712,7 +19237,7 @@
               "description": "Potassium (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18722,7 +19247,7 @@
               "description": "Sodium (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18732,7 +19257,7 @@
               "description": "Zinc (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18742,7 +19267,7 @@
               "description": "Copper (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18752,7 +19277,7 @@
               "description": "Manganese (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18762,7 +19287,7 @@
               "description": "Selenium (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18772,7 +19297,7 @@
               "description": "Vitamin C (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18782,7 +19307,7 @@
               "description": "Thiamin (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18792,7 +19317,7 @@
               "description": "Riboflavin (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18802,7 +19327,7 @@
               "description": "Niacin (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18812,7 +19337,7 @@
               "description": "Pantothenic acid (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18822,7 +19347,7 @@
               "description": "Vitamin B6 (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18832,7 +19357,7 @@
               "description": "Folate, total (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18842,7 +19367,7 @@
               "description": "Folic acid (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18852,7 +19377,7 @@
               "description": "Food folate (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18862,7 +19387,7 @@
               "description": "Folate (μg dietary folate equivalents/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18872,7 +19397,7 @@
               "description": "Choline, total (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18882,7 +19407,7 @@
               "description": "Vitamin B12 (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18892,7 +19417,7 @@
               "description": "Vitamin A (IU/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18902,7 +19427,7 @@
               "description": "Vitamin A (μg retinol activity equivalents/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18912,7 +19437,7 @@
               "description": "Retinol (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18922,7 +19447,7 @@
               "description": "Alpha-carotene (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18932,7 +19457,7 @@
               "description": "Beta-carotene (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18942,7 +19467,7 @@
               "description": "Beta-cryptoxanthin (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18952,7 +19477,7 @@
               "description": "Lycopene (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18962,7 +19487,7 @@
               "description": "Lutein+zeazanthin (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18972,7 +19497,7 @@
               "description": "Vitamin E (alpha-tocopherol) (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18982,7 +19507,7 @@
               "description": "Vitamin D (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -18992,7 +19517,7 @@
               "description": "Vitamin D (IU/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19002,7 +19527,7 @@
               "description": "Vitamin K (phylloquinone) (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19012,7 +19537,7 @@
               "description": "Saturated fatty acid (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19022,7 +19547,7 @@
               "description": "Monounsaturated fatty acids (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19032,7 +19557,7 @@
               "description": "Polyunsaturated fatty acids (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19042,7 +19567,7 @@
               "description": "Cholesterol (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19227,7 +19752,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -19371,7 +19896,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -19385,7 +19910,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -19399,7 +19924,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -19410,7 +19935,7 @@
               "description": "Standard error of the mean. Null if cannot be calculated. The standard error is also not given if the number of data points is less than three.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19420,7 +19945,7 @@
               "description": "Minimum value.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19430,7 +19955,7 @@
               "description": "Maximum value.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19440,7 +19965,7 @@
               "description": "Lower 95% error bound.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19450,7 +19975,7 @@
               "description": "Upper 95% error bound.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19662,7 +20187,7 @@
               "defaultValue": null
             },
             {
-              "name": "inheritsFromId",
+              "name": "presetId",
               "description": "The unique identifier for the preset that this selection was copied from.",
               "type": {
                 "kind": "SCALAR",
@@ -19686,7 +20211,7 @@
               "description": "The unique identifier for the food.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19696,7 +20221,7 @@
               "description": "The total mass of the food in grams.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19736,6 +20261,16 @@
               "defaultValue": null
             },
             {
+              "name": "mediaUrl",
+              "description": "A url for a photo, product page, recipe, etc. to help identify the food.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
               "name": "occurredOn",
               "description": "The timestamp for when the food selection occurred, local to the person.",
               "type": {
@@ -19747,7 +20282,7 @@
             },
             {
               "name": "measureWeightUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the weight unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -19757,7 +20292,7 @@
             },
             {
               "name": "measureWeightUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the weight unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -19767,17 +20302,17 @@
             },
             {
               "name": "measureWeightAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the weight measurement.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
               "name": "measureVolumeUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the volume unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -19787,7 +20322,7 @@
             },
             {
               "name": "measureVolumeUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the volume unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -19797,17 +20332,17 @@
             },
             {
               "name": "measureVolumeAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the volume measurement.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
               "name": "measureCommonUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the common unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -19817,7 +20352,7 @@
             },
             {
               "name": "measureCommonUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the common unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -19827,10 +20362,20 @@
             },
             {
               "name": "measureCommonAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the common measurement.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureProportion",
+              "description": "The numeric component of the percentage measurement.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -19851,6 +20396,26 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "shortId",
+              "description": "The short identifier that a person uses to copy a food selection, unique per person.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "parentShortId",
+              "description": "The short identifier of the clone source for the food selection.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -19926,7 +20491,7 @@
               "deprecationReason": null
             },
             {
-              "name": "presetByInheritsFromId",
+              "name": "presetByPresetId",
               "description": "Reads a single `Preset` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
@@ -20087,7 +20652,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -20098,7 +20663,7 @@
               "description": "The total mass of the food in grams.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -20291,7 +20856,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -20326,7 +20891,7 @@
               "description": "The mass equivalent in grams.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -20542,7 +21107,7 @@
               "description": "HTTP status code of the agent request.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -20743,7 +21308,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -21674,7 +22239,7 @@
               "description": "The number to multiply by to convert the unit into an International System of Units base equivalent. Converts mass to grams, volume to liters, energy to gram calories, length to meters, and temperature to celsius. Does not apply to convenience, count, or time units.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22755,7 +23320,7 @@
               "description": "5-digit or 8-digit Nutrient Databank number that uniquely identifies a food item.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22765,7 +23330,7 @@
               "description": "4-digit code indicating food group to which a food item belongs.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22805,7 +23370,7 @@
               "description": "Percentage of refuse.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22815,7 +23380,7 @@
               "description": "Factor for calculating calories from protein.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22825,7 +23390,7 @@
               "description": "Factor for calculating calories from fat.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22835,7 +23400,7 @@
               "description": "Factor for calculating calories from carbohydrate.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22865,7 +23430,7 @@
               "description": "Water (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22875,7 +23440,7 @@
               "description": "Food energy (kcal/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22885,7 +23450,7 @@
               "description": "Protein (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22895,7 +23460,7 @@
               "description": "Total lipid (fat) (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22905,7 +23470,7 @@
               "description": "Ash (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22915,7 +23480,7 @@
               "description": "Carbohydrate, by difference (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22925,7 +23490,7 @@
               "description": "Total dietary fiber (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22935,7 +23500,7 @@
               "description": "Total sugars (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22945,7 +23510,7 @@
               "description": "Calcium (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22955,7 +23520,7 @@
               "description": "Iron (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22965,7 +23530,7 @@
               "description": "Magnesium (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22975,7 +23540,7 @@
               "description": "Phosphorus (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22985,7 +23550,7 @@
               "description": "Potassium (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -22995,7 +23560,7 @@
               "description": "Sodium (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23005,7 +23570,7 @@
               "description": "Zinc (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23015,7 +23580,7 @@
               "description": "Copper (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23025,7 +23590,7 @@
               "description": "Manganese (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23035,7 +23600,7 @@
               "description": "Selenium (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23045,7 +23610,7 @@
               "description": "Vitamin C (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23055,7 +23620,7 @@
               "description": "Thiamin (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23065,7 +23630,7 @@
               "description": "Riboflavin (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23075,7 +23640,7 @@
               "description": "Niacin (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23085,7 +23650,7 @@
               "description": "Pantothenic acid (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23095,7 +23660,7 @@
               "description": "Vitamin B6 (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23105,7 +23670,7 @@
               "description": "Folate, total (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23115,7 +23680,7 @@
               "description": "Folic acid (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23125,7 +23690,7 @@
               "description": "Food folate (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23135,7 +23700,7 @@
               "description": "Folate (μg dietary folate equivalents/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23145,7 +23710,7 @@
               "description": "Choline, total (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23155,7 +23720,7 @@
               "description": "Vitamin B12 (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23165,7 +23730,7 @@
               "description": "Vitamin A (IU/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23175,7 +23740,7 @@
               "description": "Vitamin A (μg retinol activity equivalents/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23185,7 +23750,7 @@
               "description": "Retinol (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23195,7 +23760,7 @@
               "description": "Alpha-carotene (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23205,7 +23770,7 @@
               "description": "Beta-carotene (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23215,7 +23780,7 @@
               "description": "Beta-cryptoxanthin (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23225,7 +23790,7 @@
               "description": "Lycopene (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23235,7 +23800,7 @@
               "description": "Lutein+zeazanthin (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23245,7 +23810,7 @@
               "description": "Vitamin E (alpha-tocopherol) (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23255,7 +23820,7 @@
               "description": "Vitamin D (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23265,7 +23830,7 @@
               "description": "Vitamin D (IU/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23275,7 +23840,7 @@
               "description": "Vitamin K (phylloquinone) (μg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23285,7 +23850,7 @@
               "description": "Saturated fatty acid (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23295,7 +23860,7 @@
               "description": "Monounsaturated fatty acids (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23305,7 +23870,7 @@
               "description": "Polyunsaturated fatty acids (g/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23315,7 +23880,7 @@
               "description": "Cholesterol (mg/100g)",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23489,7 +24054,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -23560,7 +24125,7 @@
               "description": "4-digit code identifying a food group. Only the first 2 digits are currently assigned.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23688,7 +24253,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -23759,7 +24324,7 @@
               "description": "5-digit or 8-digit Nutrient Databank number that uniquely identifies a food item.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23769,7 +24334,7 @@
               "description": "Unique 3-digit identifier code for a nutrient.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23779,7 +24344,7 @@
               "description": "Amount in 100 grams, edible portion.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23789,7 +24354,7 @@
               "description": "Standard error of the mean. Null if cannot be calculated. The standard error is also not given if the number of data points is less than three.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23799,7 +24364,7 @@
               "description": "Minimum value.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23809,7 +24374,7 @@
               "description": "Maximum value.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23819,7 +24384,7 @@
               "description": "Lower 95% error bound.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -23829,7 +24394,7 @@
               "description": "Upper 95% error bound.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -24003,7 +24568,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -24017,7 +24582,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -24114,7 +24679,7 @@
               "defaultValue": null
             },
             {
-              "name": "inheritsFromId",
+              "name": "presetId",
               "description": "The unique identifier for the preset that this selection was copied from.",
               "type": {
                 "kind": "SCALAR",
@@ -24138,7 +24703,7 @@
               "description": "The unique identifier for the food.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -24148,7 +24713,7 @@
               "description": "The total mass of the food in grams.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -24184,6 +24749,16 @@
               "defaultValue": null
             },
             {
+              "name": "mediaUrl",
+              "description": "A url for a photo, product page, recipe, etc. to help identify the food.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
               "name": "occurredOn",
               "description": "The timestamp for when the food selection occurred, local to the person.",
               "type": {
@@ -24195,7 +24770,7 @@
             },
             {
               "name": "measureWeightUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the weight unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -24205,7 +24780,7 @@
             },
             {
               "name": "measureWeightUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the weight unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -24215,17 +24790,17 @@
             },
             {
               "name": "measureWeightAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the weight measurement.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
               "name": "measureVolumeUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the volume unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -24235,7 +24810,7 @@
             },
             {
               "name": "measureVolumeUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the volume unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -24245,17 +24820,17 @@
             },
             {
               "name": "measureVolumeAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the volume measurement.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
               "name": "measureCommonUnitId",
-              "description": "The unique identifier for the unit of measure.",
+              "description": "The unique identifier for the common unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -24265,7 +24840,7 @@
             },
             {
               "name": "measureCommonUnit",
-              "description": "The name of the unit of measure.",
+              "description": "The name of the common unit of measure.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -24275,10 +24850,20 @@
             },
             {
               "name": "measureCommonAmount",
-              "description": "The numeric component of the measurement.",
+              "description": "The numeric component of the common measurement.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "measureProportion",
+              "description": "The numeric component of the percentage measurement.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -24299,6 +24884,26 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "shortId",
+              "description": "The short identifier that a person uses to copy a food selection, unique per person.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "parentShortId",
+              "description": "The short identifier of the clone source for the food selection.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -24374,7 +24979,7 @@
               "deprecationReason": null
             },
             {
-              "name": "presetByInheritsFromId",
+              "name": "presetByPresetId",
               "description": "Reads a single `Preset` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
@@ -24513,6 +25118,69 @@
         },
         {
           "kind": "INPUT_OBJECT",
+          "name": "UpdateFoodSelectionByShortIdAndUserIdInput",
+          "description": "All input for the `updateFoodSelectionByShortIdAndUserId` mutation.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "foodSelectionPatch",
+              "description": "An object where the defined keys will be set on the `FoodSelection` being updated.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "FoodSelectionPatch",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "shortId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "UUID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
           "name": "UpdateInvestigationInput",
           "description": "All input for the `updateInvestigation` mutation.",
           "fields": null,
@@ -24591,7 +25259,7 @@
               "description": "The unique identifier for the food.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -24601,7 +25269,7 @@
               "description": "The total mass of the food in grams.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -24854,7 +25522,7 @@
               "description": "The unique identifier for the food item.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -24884,7 +25552,7 @@
               "description": "The mass equivalent in grams.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -25107,7 +25775,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -25236,7 +25904,7 @@
               "description": "HTTP status code of the agent request.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -25497,7 +26165,7 @@
               "description": "Unique 3-digit identifier code for a nutrient.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -25657,7 +26325,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -26781,7 +27449,7 @@
               "description": "The number to multiply by to convert the unit into an International System of Units base equivalent. Converts mass to grams, volume to liters, energy to gram calories, length to meters, and temperature to celsius. Does not apply to convenience, count, or time units.",
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "BigFloat",
                 "ofType": null
               },
               "defaultValue": null
@@ -28067,7 +28735,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -28219,7 +28887,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -28407,7 +29075,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -28421,7 +29089,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -28545,7 +29213,7 @@
               "deprecationReason": null
             },
             {
-              "name": "presetByInheritsFromId",
+              "name": "presetByPresetId",
               "description": "Reads a single `Preset` that is related to this `FoodSelection`.",
               "args": [],
               "type": {
@@ -28651,6 +29319,55 @@
             },
             {
               "name": "rowId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "UUID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "DeleteFoodSelectionByShortIdAndUserIdInput",
+          "description": "All input for the `deleteFoodSelectionByShortIdAndUserId` mutation.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "shortId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
@@ -29056,7 +29773,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
@@ -29412,7 +30129,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "BigFloat",
                   "ofType": null
                 }
               },
