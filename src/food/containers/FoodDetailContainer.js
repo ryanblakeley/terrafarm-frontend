@@ -1,18 +1,20 @@
+/*
+Food Detail Container
+
+Food ID Element
+Food Group Element
+Macronutrient Calories Per Gram Element
+Link To USDA Source Element
+*/
 import PropTypes from 'prop-types';
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { FoodIcon } from 'shared/components/Icons';
 import Layout from 'shared/components/Layout';
-import { H3, P, WarningMessage } from 'shared/components/Typography';
+import { H3, P, Span, WarningMessage } from 'shared/components/Typography';
 import TransitionWrapper from 'shared/components/TransitionWrapper';
 import Menu from 'shared/components/Menu';
 import classNames from '../styles/FoodDetailContainerStylesheet.css';
-
-/*
-TODO
-
-use <dl> and <dd> instead of <P>label <strong>value</strong></P>
-*/
 
 const propTypes = {
   foodByRowId: PropTypes.object.isRequired,
@@ -30,6 +32,33 @@ const defaultProps = {
   },
 };
 
+const MacronutrientCaloriesPerGramElement = props => {
+  const { protein, fat, carb } = props;
+
+  const displayProtein = protein
+    && <Span> Protein <strong>{Math.round(protein * 10) / 10}</strong></Span>;
+  const displayFat = fat
+    && <Span> &#8226; Fat <strong>{Math.round(fat * 10) / 10}</strong></Span>;
+  const displayCarb = carb
+    && <Span> &#8226; Carb <strong>{Math.round(carb * 10) / 10}</strong></Span>;
+
+  return <Layout>
+    <P>Calories per gram: {displayProtein}{displayFat}{displayCarb}</P>
+  </Layout>;
+};
+
+MacronutrientCaloriesPerGramElement.propTypes = {
+  fat: PropTypes.string,
+  protein: PropTypes.string,
+  carb: PropTypes.string,
+};
+
+MacronutrientCaloriesPerGramElement.defaultProps = {
+  fat: null,
+  protein: null,
+  carb: null,
+};
+
 const FoodDetailContainer = props => {
   const { foodByRowId } = props;
   const {
@@ -42,15 +71,6 @@ const FoodDetailContainer = props => {
     carbFactor,
   } = foodByRowId;
 
-  const proteinFactorLabel = <P className={classNames.macroFactor}>
-    Protein Factor: <strong>{proteinFactor}</strong>
-  </P>;
-  const fatFactorLabel = <P className={classNames.macroFactor}>
-    Fat Factor: <strong>{fatFactor}</strong>
-  </P>;
-  const carbFactorLabel = <P className={classNames.macroFactor}>
-    Carb Factor: <strong>{carbFactor}</strong>
-  </P>;
   const brandLabel = <P className={classNames.brand}>Brand: <strong>{brandName}</strong></P>;
 
   return <TransitionWrapper>
@@ -61,13 +81,15 @@ const FoodDetailContainer = props => {
         disabled
       />
       <H3 className={classNames.description}>{description}</H3>
-      <P>Food ID: <strong>{rowId}</strong></P>
+      <P>Food #: <strong>{rowId}</strong></P>
       {foodGroup && <P className={classNames.foodGroup}>
-        Food Group: <strong>{foodGroup.name}</strong>
+        Food group: <strong>{foodGroup.name}</strong>
       </P>}
-      {proteinFactor && proteinFactorLabel}
-      {fatFactor && fatFactorLabel}
-      {carbFactor && carbFactorLabel}
+      <MacronutrientCaloriesPerGramElement
+        protein={proteinFactor}
+        fat={fatFactor}
+        carb={carbFactor}
+      />
       {brandName && brandLabel}
       <P><WarningMessage>More details coming soon</WarningMessage></P>
     </Layout>
