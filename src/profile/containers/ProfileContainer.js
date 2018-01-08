@@ -36,7 +36,7 @@ const ProfileContainer = props => {
         location={location}
       />
       <P style={{ marginBottom: 150 }} >
-        User ID: <strong>{user.rowId}</strong>
+        User ID: <strong>{user.rowId.substring(0, 8)}</strong>
       </P>
       {children}
     </Layout>
