@@ -2915,10 +2915,11 @@ type FoodSelection implements Node {
 # (cooking, preserving, or prepping), consumption (eating), observation (general
 # fallback for making a note about food).
 enum FoodSelectionCategory {
-  OBSERVATION
-  COLLECTION
-  PREPARATION
-  CONSUMPTION
+  OBSERVE
+  SEEK
+  COLLECT
+  PREPARE
+  CONSUME
 }
 
 # A condition to be used against `FoodSelection` object types. All fields are

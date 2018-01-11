@@ -7028,25 +7028,31 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "OBSERVATION",
+              "name": "OBSERVE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "COLLECTION",
+              "name": "SEEK",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PREPARATION",
+              "name": "COLLECT",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CONSUMPTION",
+              "name": "PREPARE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CONSUME",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
