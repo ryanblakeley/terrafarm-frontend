@@ -155,7 +155,7 @@ class PresetContainer extends React.Component {
     return <Layout center >
       <FoodSelectionListHeader
         listTitle={<RaisedButton
-          label={preset.name}
+          label={preset.name || '(no name)'}
           onTouchTap={this.handleOpen}
           secondary={!preset.active}
         />}

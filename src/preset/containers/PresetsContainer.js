@@ -75,7 +75,7 @@ export default createFragmentContainer(
       rowId,
       presetsByUserId(
         first: 2147483647,
-        orderBy: CREATED_ON_DESC
+        orderBy: [CREATED_ON_DESC]
       ) @connection(key: "PresetsContainer_presetsByUserId", filters: []) {
         edges {
           node {

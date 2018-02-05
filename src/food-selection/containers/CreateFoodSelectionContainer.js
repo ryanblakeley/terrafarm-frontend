@@ -88,6 +88,7 @@ class CreateFoodSelectionContainer extends React.Component {
       foodId: data.foodId || null,
       mass: data.mass || null,
       userId: currentPerson.rowId,
+      source: 'APP_USER',
     });
 
     CreateFoodSelectionMutation.commit(
